@@ -17,11 +17,11 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider {
 
         //$this->loadTranslationsFrom(__DIR__.'/lang', 'vcms5');
 
-        $this->loadViewsFrom(__DIR__.'/views', 'vcms5');
+        $this->loadViewsFrom(__DIR__.'/views', 'laravel-filemanager');
 
-//        $this->publishes([
-//            __DIR__ . '/config/vcms5.php' => config_path('vcms5.php', 'config'),
-//        ], 'v_config');
+        $this->publishes([
+            __DIR__ . '/config/laravel-filemanager.php' => config_path('laravel-filemanager.php', 'config'),
+        ], 'lfm_config');
 //
 //        $this->publishes([
 //            __DIR__.'/../public' => public_path('vendor/vcms5'),

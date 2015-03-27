@@ -2,5 +2,5 @@
 
 
 Route::get('/laravel-filemanager', function(){
-   return "Hello";
+   return View::make('laravel-filemanager::index');
 });
