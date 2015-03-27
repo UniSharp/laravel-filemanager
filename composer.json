@@ -1,0 +1,23 @@
+{
+  "name": "Tsawler/Vcms5",
+  "authors": [
+    {
+      "name": "Trevor Sawler",
+      "email": "trevor.sawler@me.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "illuminate/support": "5.0.*",
+    "intervention/image": "2.*",
+    "francodacosta/phmagick": "0.4.*@dev"
+  },
+  "autoload": {
+    "classmap": [
+
+    ],
+    "psr-4": {
+      "Tsawler\\Laravelfilemanager\\": "src/"
+    }
+  }
+}
