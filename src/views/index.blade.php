@@ -18,19 +18,6 @@
     </style>
 </head>
 <body>
-@if ($errors->any())
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="alert alert-danger" role="alert">
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-    </div>
-@endif
 <div class="container lfm-override">
     <div class="row">
         <div class="panel panel-primary">
@@ -41,7 +28,7 @@
                 <div class="row fill">
                     <div class="wrapper">
                         <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 left-nav" id="lfm-leftcol">
-                            <div id="tree1">
+                            <div id="tree1" data-url="/laravel-filemanager/data">
                             </div>
                         </div>
                         <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10 right-nav">
@@ -72,6 +59,19 @@
                                     </div>
                                 </div>
                             </nav>
+                            @if ($errors->any())
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-danger" role="alert">
+                                            <ul>
+                                                @foreach($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             <div id="content">
 
                             </div>
@@ -116,28 +116,15 @@
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="/vendor/laravel-filemanager/tree-jquery/tree.jquery.js"></script>
+<script src="/vendor/laravel-filemanager/jquery-cookie/jquery.cookie.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.js"></script>
 <script>
     $(document).ready(function () {
-        var data = [
-            {
-                label: 'node1',
-                children: [
-                    { label: 'child1' },
-                    { label: 'child2' }
-                ]
-            },
-            {
-                label: 'node2',
-                children: [
-                    { label: 'child3' }
-                ]
-            }
-        ];
+
 
         $('#tree1').tree({
-            data: data
+            saveState: 'my-tree'
         });
 
     });
