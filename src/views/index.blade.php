@@ -124,7 +124,9 @@
 
 
         $('#tree1').tree({
-            saveState: 'my-tree'
+            saveState: 'my-tree',
+            closedIcon: $('<i class="fa fa-folder"></i>'),
+            openedIcon: $('<i class="fa fa-folder-open"></i>')
         });
 
     });
