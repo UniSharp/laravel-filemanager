@@ -133,6 +133,15 @@
             closedIcon: $('<i class="fa fa-folder"></i>'),
             openedIcon: $('<i class="fa fa-folder-open"></i>')
         });
+
+        $('#tree1').bind(
+                'tree.click',
+                function(event) {
+                    // The clicked node is 'event.node'
+                    var node = event.node;
+                    //alert(node.name);
+                }
+        );
     });
 
     $("#upload-btn").click(function(){
