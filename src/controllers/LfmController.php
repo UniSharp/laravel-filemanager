@@ -24,12 +24,14 @@ class LfmController extends Controller {
     {
         if (Input::has('base'))
         {
+            $working_dir = Input::get('base');
             $base = "/vendor/laravel-filemanager/files/" . Input::get('base') . "/";
             $files = File::files(base_path('public/vendor/laravel-filemanager/files/'.Input::get('base')));
             $directories = File::directories(base_path('public/vendor/laravel-filemanager/files/'.Input::get('base')));
         }
         else
         {
+            $working_dir = "/";
             $base = "/vendor/laravel-filemanager/files/";
             $files = File::files(base_path('public/vendor/laravel-filemanager/files'));
             $directories = File::directories(base_path('public/vendor/laravel-filemanager/files'));
@@ -38,7 +40,8 @@ class LfmController extends Controller {
         return View::make('laravel-filemanager::index')
             ->with('files', $files)
             ->with('directories', $directories)
-            ->with('base', $base);
+            ->with('base', $base)
+            ->with('working_dir', $working_dir);
     }
 
 
@@ -49,8 +52,14 @@ class LfmController extends Controller {
     public function upload(UploadRequest $request)
     {
         $file = Input::file('file_to_upload');
+        $working_dir = Input::get('working_dir');
 
         $destinationPath = base_path() . '/public/vendor/laravel-filemanager/files/';
+
+        if (strlen($working_dir) > 0){
+            $destinationPath .= $working_dir . "/";
+        }
+
         $filename = $file->getClientOriginalName();
         $upload_success = Input::file('file_to_upload')->move($destinationPath, $filename);
 
@@ -66,7 +75,10 @@ class LfmController extends Controller {
 
         unset($thumb_img);
 
-        return Redirect::to('/laravel-filemanager');
+        if ($working_dir != "/")
+            return Redirect::to('/laravel-filemanager?base='.$working_dir);
+        else
+            return Redirect::to('/laravel-filemanager');
     }
 
 
@@ -110,6 +122,14 @@ class LfmController extends Controller {
         }
 
         return response()->json($dir_array);
+    }
+
+    public function getDelete()
+    {
+        $json = Input::get('items');
+        echo Input::get('base');
+        echo "<hr>";
+        echo $json;
     }
 
 }

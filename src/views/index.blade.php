@@ -14,6 +14,9 @@
             border-right: 1px solid silver;
             min-height: 500px;
         }
+        .highlight {
+            background: red;
+        }
     </style>
 </head>
 <body>
@@ -49,10 +52,16 @@
                                             <li class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Edit <span class="caret"></span></a>
                                                 <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#"><i class="fa fa-crop"></i> Crop</a></li>
-                                                    <li><a href="#"><i class="fa fa-arrows-v"></i> Scale</a></li>
-                                                    <li><a href="#"><i class="fa fa-rotate-right"></i> Rotate</a></li>
+                                                    <li><a href="#!"><i class="fa fa-crop"></i> Crop</a></li>
+                                                    <li><a href="#!"><i class="fa fa-arrows-v"></i> Scale</a></li>
+                                                    <li><a href="#!"><i class="fa fa-rotate-right"></i> Rotate</a></li>
+                                                    <li><a href="#!" onclick="trash()"><i class="fa fa-trash"></i> Delete</a></li>
                                                 </ul>
+                                            </li>
+                                            <li>
+                                                <a href="#!" onclick="trash()">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -74,7 +83,7 @@
                             <div id="content" class="row" style="overflow: auto">
                                 @foreach($files as $file)
                                     <div class="col-sm-6 col-md-2">
-                                        <a href="#" class="thumbnail">
+                                        <a href="#" class="thumbnail" data-id="{{ basename($file) }}">
                                             <img src="{{ $base }}thumbs/{{ basename($file) }}">
                                         </a>
                                     </div>
@@ -108,7 +117,7 @@
                         </div>
                     </div>
                 </div>
-                {!! Form::hidden('working_dir', '/', ['id' => 'working_dir']) !!}
+                {!! Form::hidden('working_dir', $working_dir, ['id' => 'working_dir']) !!}
                 {!! Form::close() !!}
             </div>
             <div class="modal-footer">
@@ -157,8 +166,6 @@
                 'tree.open',
                 function(e) {
                     $("#working_dir").val(e.node.name);
-                    console.log(e.node);
-                    console.log(e.node.name);
                 }
         );
     });
@@ -166,6 +173,39 @@
     $("#upload-btn").click(function(){
        $("#uploadForm").submit();
     });
+
+    $(".thumbnail").click(function(){
+        if ($(this).hasClass('highlight'))
+        {
+            $(this).removeClass('highlight');
+        }
+        else
+        {
+            $(this).addClass('highlight');
+        }
+    })
+
+    function trash(){
+        if ($(".highlight").length > 0){
+            bootbox.confirm("Are you sure you want to delete the "
+                    + $(".highlight").length
+                    + " selected image(s)?", function(result) {
+                if (result==true)
+                {
+                    var toDelete = [];
+                    $(".highlight").each(function(){
+                        console.log($(this).data('id'));
+                        toDelete.push($(this).data('id'));
+                    })
+                    window.location.href = '/laravel-filemanager/delete?'
+                            + 'base='
+                            + '{{ $working_dir }}'
+                            + '&items='
+                            + JSON.stringify(toDelete);
+                }
+            });
+        }
+    }
 
 
 </script>
