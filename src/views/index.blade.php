@@ -4,61 +4,15 @@
     <meta charset="UTF-8">
     <title>File Manager</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/vendor/laravel-filemanager/tree/themes/default/style.min.css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/laravel-filemanager/tree-jquery/jqtree.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        html, body, .lfm-override.container, .lfm-override .col-md-2, .lfm-override .col-md-10 {
-            height: 100%;
-        }
-
-        .lfm-override *:before, .lfm-override *:after {
-            display: none;
-        }
-
-        .lfm-override.container:before {
-            content: '';
-            display: block;
-            float: left;
-            height: 100%;
-        }
-
-        .lfm-override .fill {
-            position: relative;
-        }
-
-        .lfm-override .fill:after {
-            content: '';
-            display: block;
-            clear: left;
-        }
-
-        .lfm-override .wrapper {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
-        .lfm-override .col-md-10 {
-
-        }
-
-        .lfm-override .col-md-2 {
-            float: left;
-            position: static;
-        }
-
-        .lfm-override .col-md-10 {
-            position: static;
-            overflow: auto;
-        }
-        
+       .wrapper {
+           min-height: 500px;
+       }
         #lfm-leftcol {
             border-right: 1px solid silver;
+            min-height: 500px;
         }
     </style>
 </head>
@@ -91,6 +45,7 @@
                                     <!-- Collect the nav links, forms, and other content for toggling -->
                                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                         <ul class="nav navbar-nav">
+                                            <li><a href="#!"><i class="fa fa-upload"></i> Upload</a></li>
                                             <li class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Edit <span class="caret"></span></a>
                                                 <ul class="dropdown-menu" role="menu">
@@ -100,10 +55,12 @@
                                                 </ul>
                                             </li>
                                         </ul>
-
                                     </div><!-- /.navbar-collapse -->
                                 </div><!-- /.container-fluid -->
                             </nav>
+                            <div id="content">
+
+                            </div>
                         </div>
                     </div>
                 </div>
