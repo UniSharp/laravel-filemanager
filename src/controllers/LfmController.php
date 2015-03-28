@@ -58,8 +58,6 @@ class LfmController extends Controller {
             $dir_array[] = ['label' => basename($c), 'id' => Str::slug(basename($c))];
         }
 
-        //dd($dir_array);
-
         return response()->json($dir_array);
     }
 

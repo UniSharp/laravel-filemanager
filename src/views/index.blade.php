@@ -121,14 +121,11 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.js"></script>
 <script>
     $(document).ready(function () {
-
-
         $('#tree1').tree({
             saveState: 'my-tree',
             closedIcon: $('<i class="fa fa-folder"></i>'),
             openedIcon: $('<i class="fa fa-folder-open"></i>')
         });
-
     });
 
     $("#upload-btn").click(function(){
