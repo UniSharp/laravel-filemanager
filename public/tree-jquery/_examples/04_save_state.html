@@ -1,0 +1,52 @@
+---
+title: Save the state in javascript tree
+layout: page
+js: examples/save_state.js
+css: example.css
+---
+
+<p id="nav">
+    <a href="03_drag_and_drop.html">&laquo; Example 3</a>
+    <a href="05_load_on_demand.html" class="next">Example 5 &raquo;</a>    
+</p>
+
+<h1>Example 4 - Save the state</h1>
+
+<div id="tree1" data-url="/example_data/"></div>
+
+<p>
+   If you set the option <strong>saveState</strong> to true, then jqtree remembers the tree state after a page reload.
+</p>
+<ul>
+    <li>
+        JqTree save the state into localStorage.
+        If the browser does not support localStorage, then jqTree saves the state in a cookie.
+    </li>
+    <li>
+        You must include the <a href="https://github.com/carhartl/jquery-cookie">jquery-cookie</a> plugin for cookie support.
+    </li>
+</ul>
+
+<h3>html</h3>
+
+{% highlight html %}
+<div id="tree1" data-url="/example_data/"></div>
+{% endhighlight %}
+
+<h3>javascript</h3>
+
+{% highlight js %}
+$('#tree1').tree({
+    saveState: true
+});
+{% endhighlight %}
+
+<p>
+    Giving the <strong>saveState</strong> a string value sets the storage key. The default key is 'tree'.
+</p>
+
+{% highlight js %}
+$('#tree1').tree({
+    saveState: 'my-tree'
+});    
+{% endhighlight %}

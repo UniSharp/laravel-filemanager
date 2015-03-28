@@ -1,0 +1,23 @@
+{
+    "name": "jqtree",
+    "version": "1.0.0",
+    "title": "jqTree",
+    "description": "JqTree is a jQuery widget for displaying a tree structure in html. It supports json data, loading via ajax and drag-and-drop",
+    "keywords": [
+        "tree"
+    ],
+    "author": {
+        "name": "Marco Braak"
+    },
+    "homepage": "http://mbraak.github.io/jqTree/",
+    "download": "https://github.com/mbraak/jqTree/tarball/master",
+    "licenses": [
+        {
+            "type": "Apache-2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0"
+        }
+    ],
+    "dependencies": {
+        "jquery": ">=1.5"
+    }
+}

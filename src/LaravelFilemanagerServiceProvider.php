@@ -22,10 +22,10 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider {
         $this->publishes([
             __DIR__ . '/config/laravel-filemanager.php' => config_path('laravel-filemanager.php', 'config'),
         ], 'lfm_config');
-//
-//        $this->publishes([
-//            __DIR__.'/../public' => public_path('vendor/vcms5'),
-//        ], 'v_public');
+
+        $this->publishes([
+            __DIR__.'/../public' => public_path('vendor/laravel-filemanager'),
+        ], 'lfm_public');
 //
 //        $this->publishes([
 //            __DIR__.'/migrations' => base_path('/database/migrations'),

@@ -1,0 +1,70 @@
+---
+title: Load nodes on demand from the server in javascript tree
+layout: page
+js: examples/load_on_demand.js
+css: example.css
+---
+
+<p id="nav">
+    <a href="04_save_state.html">&laquo; Example 4</a>
+    <a href="06_autoescape.html" class="next">Example 6 &raquo;</a>    
+</p>
+
+<h1>Example 5 - Load nodes on demand from the server</h1>
+
+        
+<div id="tree1" data-url="/nodes/"></div>
+
+<p>
+    In this example, the data is loaded on demand from the server.
+    <br>
+    To use load on demand, you must do the following:
+</p>
+
+<ul>
+    <li>
+        You must specify a <strong>data url</strong>. In this example this is done using the <strong>data-url</strong> 
+        html data attribute.
+    </li>
+    <li>
+        Folders that must be loaded on demand must have the <strong>load_on_demand</strong> property. You can specify this in the data.
+    </li>
+    <li>
+        In this example, the url <strong>/nodes/</strong> returns the first level of data (Saurischia and Ornithischians).
+    </li>
+    <li>
+        The url for the load on demand data is <strong>&lt;data-url&gt;?node=&lt;node-id&gt;</strong>. So, for node 23  this would be
+        <strong>/nodes/?node=23</strong>.
+    </li>
+</ul>
+
+<h3>first level of data</h3>
+
+{% highlight js %}
+[
+    {
+        "label": "Saurischia",
+        "id": 1,
+        "load_on_demand": true
+    },
+    {
+        "label": "Ornithischians",
+        "id": 23,
+        "load_on_demand": true
+    }
+]
+{% endhighlight %}
+
+<h3>html</h3>
+
+{% highlight html %}
+<div id="tree1" data-url="/nodes/"></div>
+{% endhighlight %}
+
+<h3>javascript</h3>
+
+{% highlight js %}
+$('#tree1').tree({
+    dragAndDrop: true
+});
+{% endhighlight %}

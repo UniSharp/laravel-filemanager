@@ -1,0 +1,68 @@
+---
+title: Javascript tree with custom html
+layout: page
+js: examples/custom_html.js
+css: example.css
+---
+
+<p id="nav">
+    <a href="08_multiple_select.html">&laquo; Example 8</a>
+    <a href="10_icon_buttons.html" class="next">Example 10 &raquo;</a>    
+</p>
+
+<h1>Example 9 - custom html</h1>
+
+<style>
+    .jqtree-tree .edit {
+        margin-left: 8px;
+        vertical-align: middle;
+    }
+</style>
+<p>
+    This example uses the <strong>onCreateLi</strong> option to create an edit link next to the tree node.
+</p>
+<div id="tree1"></div>
+
+<h3>html</h3>
+
+{% highlight html %}
+<div id="tree1"></div>
+{% endhighlight %}
+
+<h3>javascript</h3>
+
+{% highlight js %}
+$(function() {
+    var $tree = $('#tree1');
+
+    $tree.tree({
+        data: ExampleData.example_data,
+        autoOpen: 1,
+        onCreateLi: function(node, $li) {
+            // Append a link to the jqtree-element div.
+            // The link has an url '#node-[id]' and a data property 'node-id'.
+            $li.find('.jqtree-element').append(
+                '&lt;a href="#node-'+ node.id +'" class="edit" data-node-id="'+
+                node.id +'"&gt;edit&lt;/a&gt;'
+            );
+        }
+    });
+
+    // Handle a click on the edit link
+    $tree.on(
+        'click', '.edit',
+        function(e) {
+            // Get the id from the 'node-id' data property
+            var node_id = $(e.target).data('node-id');
+
+            // Get the node from the tree
+            var node = $tree.tree('getNodeById', node_id);
+
+            if (node) {
+                // Display the node name
+                alert(node.name);
+            }
+        }
+    );
+});
+{% endhighlight %}

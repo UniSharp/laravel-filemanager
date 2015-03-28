@@ -1,0 +1,31 @@
+---
+title: Load json data from the server in javascript tree
+layout: page
+js: examples/load_json_data_from_server.js
+css: example.css
+---
+
+<p id="nav">
+    <a href="01_load_json_data.html">&laquo; Example 1</a>
+    <a href="03_drag_and_drop.html" class="next">Example 3 &raquo;</a>
+</p>
+
+<h1>Example 2 - load json data from the server</h1>
+
+<div id="tree1" data-url="/example_data/"></div>
+
+<p>
+    In this example we load the data from the server using the <strong>data-url</strong> property on the dom element.
+</p>
+
+<h3>html</h3>
+
+{% highlight html %}
+<div id="tree1" data-url="/example_data/"></div>
+{% endhighlight %}
+
+<h3>javascript</h3>
+
+{% highlight js %}
+$('#tree1').tree();
+{% endhighlight %}

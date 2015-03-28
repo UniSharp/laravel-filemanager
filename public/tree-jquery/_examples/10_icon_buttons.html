@@ -1,0 +1,27 @@
+---
+title: Use icon toggle buttons
+layout: page
+js: examples/icon_buttons.js
+css: example.css
+---
+
+<p id="nav">
+    <a href="custom_html.html">&laquo; Example 9</a>
+</p>
+
+<h1>Example 10 - use icon toggle buttons</h1>
+
+<p>
+    You can use the <strong>openedIcon</strong> and <strong>closedIcon</strong> options to use html for
+    the toggle buttons. You can for example use <a href="http://fortawesome.github.io/Font-Awesome/">Fontawesome icons</a>.
+</p>
+<div id="tree1" data-url="/example_data/"></div>
+
+<h3>javascript</h3>
+
+{% highlight js %}
+$('#tree1').tree({
+    closedIcon: $('&lt;i class="fa fa-arrow-circle-right"&gt;&lt;/i&gt;'),
+    openedIcon: $('&lt;i class="fa fa-arrow-circle-down"&gt;&lt;/i&gt;')
+});
+{% endhighlight %}

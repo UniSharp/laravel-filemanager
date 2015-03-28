@@ -1,0 +1,45 @@
+---
+title: Javascript tree with drag and drop
+layout: page
+js: examples/drag_and_drop.js
+css: example.css
+---
+
+<p id="nav">
+    <a href="02_load_json_data_from_server.html">&laquo; Example 2</a>
+    <a href="04_save_state.html" class="next">Example 4 &raquo;</a>    
+</p>
+
+<h1>Example 3 - Drag and drop</h1>
+
+<div id="tree1" data-url="/example_data/"></div>
+
+<p>
+   Let's add drag-and-drop support by setting the option <strong>dragAndDrop</strong> to true.
+   You can now drag tree nodes to another position.
+</p>
+
+<p>
+    Other options:
+</p>
+
+<ul>
+    <li>The option <strong>autoOpen</strong> is set to 0 to open the first level of nodes.</li>
+</ul>
+
+<h3>html</h3>
+
+{% highlight html %}
+<div id="tree1" data-url="/example_data/"></div>
+{% endhighlight %}
+
+<h3>javascript</h3>
+
+{% highlight js %}
+var $tree = $('#tree1');
+$tree.tree({
+  dragAndDrop: true,
+  autoOpen: 0
+});
+{% endhighlight %}
+

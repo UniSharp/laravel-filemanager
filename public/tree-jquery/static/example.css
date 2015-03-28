@@ -1,0 +1,53 @@
+h1 {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 16px 0 8px 0;
+}
+
+p {
+    margin-bottom: 8px;
+}
+
+ul {
+    margin-bottom: 8px;
+}
+
+#tree1 {
+    background-color: #ccc;
+    padding: 8px 16px;
+    margin-bottom: 16px;
+}
+
+#nav {
+    margin: 16px 0;
+}
+
+#nav .next {
+    float: right;
+}
+
+.jqtree-tree .jqtree-loading > div .jqtree-title:after {
+    content: url(spinner.gif);
+    margin-left: 8px;
+}
+
+#tree1.jqtree-loading:after {
+    content: url(spinner.gif);
+}
+
+pre {
+    background-color: #333;
+}
+
+#scroll-container {
+    height: 200px;
+    overflow-y: scroll;
+    position: relative;  /* ie7 fix */
+    -ms-user-select: none;
+    user-select: none;
+}

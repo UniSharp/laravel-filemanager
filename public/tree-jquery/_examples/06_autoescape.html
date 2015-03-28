@@ -1,0 +1,47 @@
+---
+title: Javascript tree with autoescape
+layout: page
+js: examples/autoescape.js
+css: example.css
+---
+
+<p id="nav">
+    <a href="05_load_on_demand.html">&laquo; Example 5</a>    
+    <a href="07_autoscroll.html" class="next">Example 7 &raquo;</a>
+</p>
+
+<h1>Example 6 - autoEscape</h1>
+
+<p>
+    You can put html in the node titles setting the <a href="../index.html#tree-options-autoescape">autoEscape</a> option to <strong>false</strong>.
+</p>
+
+<div id="tree1"></div>
+
+<h3>html</h3>
+
+{% highlight html %}
+<div id="tree1"></div>
+{% endhighlight %}
+
+<h3>javascript</h3>
+
+{% highlight js %}
+var data = [
+  {
+    label: 'examples',
+      children: [
+        { label: '<a href="example1.html">Example 1</a>' },
+        { label: '<a href="example2.html">Example 2</a>' },
+        '<a href="example3.html">Example </a>'
+      ]
+  }
+];
+
+// set autoEscape to false
+$('#tree1').tree({
+  data: data,
+  autoEscape: false,
+  autoOpen: true
+});
+{% endhighlight %}

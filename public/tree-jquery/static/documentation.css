@@ -1,0 +1,165 @@
+/* general */
+body {
+  margin-bottom: 32px;
+}
+
+h4 {
+  margin-top: 32px;
+}
+
+/* jumbotron */
+
+#jqtree {
+  background: #001F3F;
+  padding-top: 24px;
+  text-align: center;
+}
+
+#jqtree h1 {
+  margin-bottom: 32px;
+  color: #0074D9;
+}
+
+#jqtree p {
+  color: #fff;
+}
+
+#jqtree .btn-primary {
+  background-color: #FFDC00;
+  background-image: none;
+  border: solid 1px #FFDC00;
+  color: #001F3F;
+}
+
+#jqtree .btn-primary:hover {
+  background-color: #FFDC00;
+}
+
+#jqtree strong {
+  color: #F012BE;
+}
+
+#jqtree strong.title {
+  color: #0074D9;
+}
+
+#jqtree h1 .second {
+  font-weight: bold;
+}
+
+/* sidebar */
+#menu.affix-top h2 {
+  display: none;
+}
+
+#menu h2 {
+  background: #001F3F;
+  margin: 0 0 10px 0;
+  color: #fff;
+  font-size: 18px;
+  padding: 8px 10px;
+}
+
+#menu a:hover {
+  text-decoration: none;
+}
+
+/*
+ * Side navigation
+ *
+ * Scrollspy and affixed enhanced navigation to highlight sections and secondary
+ * sections of docs content.
+ */
+
+/* By default it's not affixed in mobile views, so undo that */
+.bs-sidebar.affix {
+  position: static;
+}
+
+/* First level of nav */
+.bs-sidenav {
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+/* All levels of nav */
+.bs-sidebar .nav > li > a {
+  display: block;
+  color: #000;
+  padding: 5px 10px;
+}
+.bs-sidebar .nav > li > a:hover,
+.bs-sidebar .nav > li > a:focus {
+  text-decoration: none;
+  background: #fff;
+}
+.bs-sidebar .nav > .active > a,
+.bs-sidebar .nav > .active:hover > a,
+.bs-sidebar .nav > .active:focus > a {
+  font-weight: bold;
+  color: #000;
+  background-color: transparent;
+}
+.bs-sidebar .nav > li > a:first-child {
+  padding-top: 0;
+}
+
+/* Nav: second level (shown on .active) */
+.bs-sidebar .nav .nav {
+  display: none; /* Hide by default, but at >768px, show it */
+  margin-bottom: 8px;
+}
+.bs-sidebar .nav .nav > li > a {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 20px;
+  font-size: 90%;
+}
+
+/* Show and affix the side nav when space allows it */
+@media screen and (min-width: 992px) {
+  .bs-sidebar .nav > .active > ul {
+    display: block;
+  }
+  /* Widen the fixed sidebar */
+  .bs-sidebar.affix,
+  .bs-sidebar.affix-bottom {
+    width: 213px;
+  }
+  .bs-sidebar.affix {
+    position: fixed; /* Undo the static from mobile first approach */
+    top: 0;
+  }
+  .bs-sidebar.affix-bottom {
+    position: absolute; /* Undo the static from mobile first approach */
+  }
+  .bs-sidebar.affix-bottom .bs-sidenav,
+  .bs-sidebar.affix .bs-sidenav {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+@media screen and (min-width: 1200px) {
+  /* Widen the fixed sidebar again */
+  .bs-sidebar.affix-bottom,
+  .bs-sidebar.affix {
+    width: 263px;
+  }
+}
+
+/* code */
+pre {
+  background: #000;
+}
+
+/* demo tree */
+
+#tree1 {
+  background-color: #DDDDDD;
+  padding: 8px 16px;
+}
+
+/* introduction */
+#introduction {
+  margin-top: 0;
+}

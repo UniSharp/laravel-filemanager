@@ -1,0 +1,72 @@
+---
+title: Javascript tree with multiple select
+layout: page
+js: examples/multiple_select.js
+css: example.css
+---
+
+<p id="nav">
+    <a href="07_autoscroll.html">&laquo; Example 7</a>
+    <a href="09_custom_html.html" class="next">Example 9 &raquo;</a>    
+</p>
+
+<h1>Example 8 - multiple select</h1>
+
+
+<p>
+    This example implements multiple select using the following functions and events:
+</p>
+<ul>
+    <li>
+        <strong>addToSelection</strong>: add node to selections
+    </li>
+    <li>
+        <strong>isNodeSelected</strong>: is this node selected?
+    </li>
+    <li>
+        <strong>removeFromSelection</strong>: unselect this node
+    </li>
+    <li>
+        <strong>tree.click event</strong>: this event is fired when a user clicks on a node
+    </li>
+</ul>
+
+<div id="tree1"></div>
+
+<h3>html</h3>
+
+{% highlight html %}
+<div id="tree1" data-url="/nodes/"></div>
+{% endhighlight %}
+
+<h3>javascript</h3>
+
+{% highlight js %}
+$(function() {
+    var $tree = $('#tree1');
+    $tree.tree({
+        data: ExampleData.example_data,
+        autoOpen: true,
+    });
+    $tree.bind(
+        'tree.click',
+        function(e) {
+            // Disable single selection
+            e.preventDefault();
+
+            var selected_node = e.node;
+
+            if (selected_node.id == undefined) {
+                console.log('The multiple selection functions require that nodes have an id');
+            }
+
+            if ($tree.tree('isNodeSelected', selected_node)) {
+                $tree.tree('removeFromSelection', selected_node);
+            }
+            else {
+                $tree.tree('addToSelection', selected_node);
+            }
+        }
+    );
+});
+{% endhighlight %}
