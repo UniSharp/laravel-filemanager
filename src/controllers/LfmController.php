@@ -22,13 +22,18 @@ class LfmController extends Controller {
      */
     public function show()
     {
-        $files = File::files(base_path('public/vendor/laravel-filemanager/files'));
-        $directories = File::directories(base_path('public/vendor/laravel-filemanager/files'));
-
         if (Input::has('base'))
-            $base = Input::get('base');
+        {
+            $base = "/vendor/laravel-filemanager/files/" . Input::get('base') . "/";
+            $files = File::files(base_path('public/vendor/laravel-filemanager/files/'.Input::get('base')));
+            $directories = File::directories(base_path('public/vendor/laravel-filemanager/files/'.Input::get('base')));
+        }
         else
+        {
             $base = "/vendor/laravel-filemanager/files/";
+            $files = File::files(base_path('public/vendor/laravel-filemanager/files'));
+            $directories = File::directories(base_path('public/vendor/laravel-filemanager/files'));
+        }
 
         return View::make('laravel-filemanager::index')
             ->with('files', $files)
@@ -79,21 +84,23 @@ class LfmController extends Controller {
         foreach ($directories as $dir)
         {
 
-            $dir_contents = File::files($dir);
-            $children = [];
-
-            foreach ($dir_contents as $c)
+            if (basename($dir) != "thumbs")
             {
-                $children[] = ['label' => basename($c), 'id' => Str::slug($dir) . "-" . Str::slug(basename($c))];
+                $dir_contents = File::files($dir);
+                $children = [];
+
+                foreach ($dir_contents as $c)
+                {
+                    $children[] = ['label' => basename($c), 'id' => Str::slug($dir) . "-" . Str::slug(basename($c))];
+                }
+
+                if (sizeof($children) == 0)
+                {
+                    $children[] = ['label' => '(empty)', 'id' => Str::slug(basename($dir) . '-empty')];
+                }
+
+                $dir_array[] = ['label' => basename($dir), 'id' => Str::slug(basename($dir)), 'children' => $children];
             }
-
-            if (sizeof($children) == 0)
-            {
-                $children[] = ['label' => '(empty)', 'id' => Str::slug(basename($dir) . '-empty')];
-            }
-
-            $dir_array[] = ['label' => basename($dir), 'id' => Str::slug(basename($dir)), 'children' => $children];
-
 
         }
 

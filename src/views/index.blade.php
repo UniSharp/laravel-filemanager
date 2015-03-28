@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/laravel-filemanager/tree-jquery/jqtree.css" />
-
     <style>
        .wrapper {
            min-height: 500px;
@@ -138,8 +137,28 @@
                 'tree.click',
                 function(event) {
                     // The clicked node is 'event.node'
-                    var node = event.node;
-                    //alert(node.name);
+                    var thisNode = event.node;
+                    var parent_node = thisNode.parent;
+                    if (thisNode.getLevel() == 1) {
+                        if (thisNode.children.length > 0) {
+                            location.href = '/laravel-filemanager?base=' + thisNode.name;
+                        } else {
+                            if (window.location.href.toString().split(window.location.host)[1] != '/laravel-filemanager') {
+                                location.href = '/laravel-filemanager';
+                            }
+                        }
+                    } else {
+                        location.href = '/laravel-filemanager?base=' + parent_node.name;
+                    }
+                }
+        );
+
+        $('#tree1').bind(
+                'tree.open',
+                function(e) {
+                    $("#working_dir").val(e.node.name);
+                    console.log(e.node);
+                    console.log(e.node.name);
                 }
         );
     });
@@ -147,6 +166,8 @@
     $("#upload-btn").click(function(){
        $("#uploadForm").submit();
     });
+
+
 </script>
 </body>
 </html>
