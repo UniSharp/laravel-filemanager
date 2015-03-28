@@ -24,7 +24,7 @@ class UploadRequest extends Request {
     public function rules()
     {
         return [
-            'file_to_upload' => 'required|in:jgp,gif,png',
+            'file_to_upload' => 'required|image',
         ];
     }
 

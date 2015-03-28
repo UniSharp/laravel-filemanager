@@ -1,11 +1,14 @@
 <?php namespace Tsawler\Laravelfilemanager\controllers;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 use Tsawler\Laravelfilemanager\requests\UploadRequest;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Input;
+use Intervention\Image\Facades\Image;
 
 
 /**
@@ -14,16 +17,57 @@ use Illuminate\Support\Str;
  */
 class LfmController extends Controller {
 
+    /**
+     * @return mixed
+     */
     public function show()
     {
-        return View::make('laravel-filemanager::index');
+        $files = File::files(base_path('public/vendor/laravel-filemanager/files'));
+        $directories = File::directories(base_path('public/vendor/laravel-filemanager/files'));
+
+        if (Input::has('base'))
+            $base = Input::get('base');
+        else
+            $base = "/vendor/laravel-filemanager/files/";
+
+        return View::make('laravel-filemanager::index')
+            ->with('files', $files)
+            ->with('directories', $directories)
+            ->with('base', $base);
     }
 
+
+    /**
+     * @param UploadRequest $request
+     * @return string
+     */
     public function upload(UploadRequest $request)
     {
-        return "foobar";
+        $file = Input::file('file_to_upload');
+
+        $destinationPath = base_path() . '/public/vendor/laravel-filemanager/files/';
+        $filename = $file->getClientOriginalName();
+        $upload_success = Input::file('file_to_upload')->move($destinationPath, $filename);
+
+        if ( ! File::exists($destinationPath . "thumbs"))
+        {
+            File::makeDirectory($destinationPath . "thumbs");
+        }
+
+        $thumb_img = Image::make($destinationPath . $filename);
+
+        $thumb_img->fit(200,200)
+            ->save($destinationPath . "thumbs/" . $filename);
+
+        unset($thumb_img);
+
+        return Redirect::to('/laravel-filemanager');
     }
 
+
+    /**
+     * @return mixed
+     */
     public function getData()
     {
         $contents = File::files(base_path('public/vendor/laravel-filemanager/files'));
@@ -40,7 +84,7 @@ class LfmController extends Controller {
 
             foreach ($dir_contents as $c)
             {
-                $children[] = ['label' => basename($c), 'id' => Str::slug(basename($c))];
+                $children[] = ['label' => basename($c), 'id' => Str::slug($dir) . "-" . Str::slug(basename($c))];
             }
 
             if (sizeof($children) == 0)

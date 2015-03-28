@@ -72,8 +72,14 @@
                                     </div>
                                 </div>
                             @endif
-                            <div id="content">
-
+                            <div id="content" class="row" style="overflow: auto">
+                                @foreach($files as $file)
+                                    <div class="col-sm-6 col-md-2">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ $base }}thumbs/{{ basename($file) }}">
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -103,6 +109,7 @@
                         </div>
                     </div>
                 </div>
+                {!! Form::hidden('working_dir', '/', ['id' => 'working_dir']) !!}
                 {!! Form::close() !!}
             </div>
             <div class="modal-footer">
