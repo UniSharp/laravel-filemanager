@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
 
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class LfmController
@@ -55,9 +56,11 @@ class LfmController extends Controller {
         $file = Input::file('file_to_upload');
         $working_dir = Input::get('working_dir');
 
-        $destinationPath = base_path() . Config::get('lfm.images_dir');
+        $destinationPath = base_path() . "/" .Config::get('lfm.images_dir');
 
-        if (strlen($working_dir) > 0){
+
+        if (strlen($working_dir) > 1)
+        {
             $destinationPath .= $working_dir . "/";
         }
 
@@ -125,15 +128,35 @@ class LfmController extends Controller {
         return response()->json($dir_array);
     }
 
+
     /**
      * Delete images from filesystem
      */
     public function getDelete()
     {
         $json = Input::get('items');
-        echo Input::get('base');
-        echo "<hr>";
-        echo $json;
+        $to_delete = json_decode($json);
+        $base = Input::get("base");
+
+        foreach($to_delete as $item)
+        {
+            if ($base != "/")
+            {
+                File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base  . "/" . $item);
+                File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/".  "thumbs/" . $item);
+                //echo base_path() . "/". Config::get('lfm.images_dir') . $item . "<br>";
+            } else
+            {
+                //Log::info('trying to delete ' . base_path() . "/" . Config::get('lfm.images_dir')  . $item);
+                File::delete(base_path() . "/" . Config::get('lfm.images_dir')  . $item);
+                File::delete(base_path() . "/" . Config::get('lfm.images_dir') . "thumbs/" . $item);
+                //echo base_path() . "/" . Config::get('lfm.images_dir') . $item . "<br>";
+            }
+        }
+        if (Input::get('base') != "/")
+            return Redirect::to('/laravel-filemanager?base='.Input::get('base'));
+        else
+            return Redirect::to('/laravel-filemanager');
     }
 
 }
