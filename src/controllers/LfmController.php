@@ -1,17 +1,14 @@
 <?php namespace Tsawler\Laravelfilemanager\controllers;
 
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\View;
-use Tsawler\Laravelfilemanager\requests\UploadRequest;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Input;
-use Intervention\Image\Facades\Image;
-
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use Tsawler\Laravelfilemanager\requests\UploadRequest;
 
 /**
  * Class LfmController
@@ -20,6 +17,8 @@ use Illuminate\Support\Facades\Log;
 class LfmController extends Controller {
 
     /**
+     * Show the filemanager
+     * 
      * @return mixed
      */
     public function show()
@@ -48,6 +47,8 @@ class LfmController extends Controller {
 
 
     /**
+     * Upload an image and create thumbnail
+     *
      * @param UploadRequest $request
      * @return string
      */
@@ -55,9 +56,7 @@ class LfmController extends Controller {
     {
         $file = Input::file('file_to_upload');
         $working_dir = Input::get('working_dir');
-
         $destinationPath = base_path() . "/" .Config::get('lfm.images_dir');
-
 
         if (strlen($working_dir) > 1)
         {
@@ -65,7 +64,7 @@ class LfmController extends Controller {
         }
 
         $filename = $file->getClientOriginalName();
-        $upload_success = Input::file('file_to_upload')->move($destinationPath, $filename);
+        Input::file('file_to_upload')->move($destinationPath, $filename);
 
         if ( ! File::exists($destinationPath . "thumbs"))
         {
@@ -73,10 +72,8 @@ class LfmController extends Controller {
         }
 
         $thumb_img = Image::make($destinationPath . $filename);
-
         $thumb_img->fit(200,200)
             ->save($destinationPath . "thumbs/" . $filename);
-
         unset($thumb_img);
 
         if ($working_dir != "/")
@@ -87,6 +84,8 @@ class LfmController extends Controller {
 
 
     /**
+     * Get data as json to populate treeview
+     *
      * @return mixed
      */
     public function getData()
@@ -99,7 +98,6 @@ class LfmController extends Controller {
         // go through all directories
         foreach ($directories as $dir)
         {
-
             if (basename($dir) != "thumbs")
             {
                 $dir_contents = File::files($dir);
@@ -130,7 +128,9 @@ class LfmController extends Controller {
 
 
     /**
-     * Delete images from filesystem
+     * Delete image and associated thumbnail
+     *
+     * @return mixed
      */
     public function getDelete()
     {
@@ -144,13 +144,10 @@ class LfmController extends Controller {
             {
                 File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base  . "/" . $item);
                 File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/".  "thumbs/" . $item);
-                //echo base_path() . "/". Config::get('lfm.images_dir') . $item . "<br>";
             } else
             {
-                //Log::info('trying to delete ' . base_path() . "/" . Config::get('lfm.images_dir')  . $item);
                 File::delete(base_path() . "/" . Config::get('lfm.images_dir')  . $item);
                 File::delete(base_path() . "/" . Config::get('lfm.images_dir') . "thumbs/" . $item);
-                //echo base_path() . "/" . Config::get('lfm.images_dir') . $item . "<br>";
             }
         }
         if (Input::get('base') != "/")
