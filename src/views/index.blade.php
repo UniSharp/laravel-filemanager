@@ -5,17 +5,23 @@
     <title>File Manager</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/vendor/laravel-filemanager/tree-jquery/jqtree.css" />
+    <link rel="stylesheet" href="/vendor/laravel-filemanager/tree-jquery/jqtree.css"/>
     <style>
-       .wrapper {
-           min-height: 500px;
-       }
+        .wrapper {
+            min-height: 500px;
+        }
+
         #lfm-leftcol {
             border-right: 1px solid silver;
             min-height: 500px;
         }
+
         .highlight {
             background: red;
+        }
+
+        #tree1 {
+            margin-left: 5px;
         }
     </style>
 </head>
@@ -37,7 +43,8 @@
                             <nav class="navbar navbar-default">
                                 <div class="container-fluid">
                                     <div class="navbar-header">
-                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                                data-target="#bs-example-navbar-collapse-1">
                                             <span class="sr-only">Toggle navigation</span>
                                             <span class="icon-bar"></span>
                                             <span class="icon-bar"></span>
@@ -45,17 +52,20 @@
                                         </button>
                                     </div>
                                     <a class="navbar-brand" href="#">LFM</a>
-                                    <!-- Collect the nav links, forms, and other content for toggling -->
+
                                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                         <ul class="nav navbar-nav">
-                                            <li><a href="#!" id="upload" data-toggle="modal" data-target="#uploadModal"><i class="fa fa-upload"></i> Upload</a></li>
+                                            <li><a href="#!" id="upload" data-toggle="modal" data-target="#uploadModal"><i
+                                                            class="fa fa-upload"></i> Upload</a></li>
                                             <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Edit <span class="caret"></span></a>
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                                   aria-expanded="false">Edit <span class="caret"></span></a>
                                                 <ul class="dropdown-menu" role="menu">
                                                     <li><a href="#!"><i class="fa fa-crop"></i> Crop</a></li>
                                                     <li><a href="#!"><i class="fa fa-arrows-v"></i> Scale</a></li>
                                                     <li><a href="#!"><i class="fa fa-rotate-right"></i> Rotate</a></li>
-                                                    <li><a href="#!" onclick="trash()"><i class="fa fa-trash"></i> Delete</a></li>
+                                                    <li><a href="#!" onclick="trash()"><i class="fa fa-trash"></i>
+                                                            Delete</a></li>
                                                 </ul>
                                             </li>
                                             <li>
@@ -81,13 +91,7 @@
                                 </div>
                             @endif
                             <div id="content" class="row" style="overflow: auto">
-                                @foreach($files as $file)
-                                    <div class="col-sm-6 col-md-2">
-                                        <a href="#" class="thumbnail" data-id="{{ basename($file) }}">
-                                            <img src="{{ $base }}thumbs/{{ basename($file) }}">
-                                        </a>
-                                    </div>
-                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -101,11 +105,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Upload File</h4>
             </div>
             <div class="modal-body">
-                {!! Form::open(array('url' => '/laravel-filemanager/upload', 'role' => 'form', 'name' => 'uploadForm', 'id' => 'uploadForm', 'method' => 'post', 'enctype' => 'multipart/form-data')) !!}
+                {!! Form::open(array('url' => '/laravel-filemanager/upload', 'role' => 'form', 'name' => 'uploadForm',
+                'id' => 'uploadForm', 'method' => 'post', 'enctype' => 'multipart/form-data')) !!}
                 <div class="form-group" id="attachment">
                     {!! Form::label('file_to_upload', 'Choose File', array('class' => 'control-label')); !!}
                     <div class="controls">
@@ -141,67 +147,83 @@
 
         $('#tree1').bind(
                 'tree.click',
-                function(event) {
-                    // The clicked node is 'event.node'
+                function (event) {
                     var thisNode = event.node;
-                    var parent_node = thisNode.parent;
-                    if (thisNode.getLevel() == 1) {
-                        if (thisNode.children.length > 0) {
-                            location.href = '/laravel-filemanager?base=' + thisNode.name;
-                        } else {
-                            if (window.location.href.toString().split(window.location.host)[1] != '/laravel-filemanager') {
-                                location.href = '/laravel-filemanager';
-                            }
-                        }
-                    } else {
-                        location.href = '/laravel-filemanager?base=' + parent_node.name;
+                    var dataLoad = '';
+                    console.log('level: ' + thisNode.getLevel());
+                    if (thisNode.getLevel() == 2) {
+                        dataLoad = thisNode.name;
+                    } else if (thisNode.getLevel() == 3){
+                        dataLoad = thisNode.parent.name;
+                    }
+                    if (thisNode.getLevel() < 4) {
+                        $.ajax({
+                            type: "GET",
+                            dataType: "text",
+                            url: "/laravel-filemanager/picsjson",
+                            data: "base=" + dataLoad,
+                            cache: false
+                        }).done(function (data) {
+                            $("#content").html(data);
+                            $("#working_dir").val(dataLoad);
+                            console.log('set working dir to ' + dataLoad);
+                            rebind();
+                        });
                     }
                 }
-        );
-
-        $('#tree1').bind(
+        ).bind(
                 'tree.open',
-                function(e) {
+                function (e) {
                     $("#working_dir").val(e.node.name);
                 }
         );
+
+        $.ajax({
+            type: "GET",
+            dataType: "text",
+            url: "/laravel-filemanager/picsjson",
+            data: "base={{ $working_dir }}",
+            cache: false
+        }).done(function (data) {
+            $("#content").html(data);
+            rebind();
+        });
     });
 
-    $("#upload-btn").click(function(){
-       $("#uploadForm").submit();
+    $("#upload-btn").click(function () {
+        $("#uploadForm").submit();
     });
 
-    $(".thumbnail").click(function(){
-        if ($(this).hasClass('highlight'))
-        {
-            $(this).removeClass('highlight');
-        }
-        else
-        {
-            $(this).addClass('highlight');
-        }
-    })
-
-    function trash(){
-        if ($(".highlight").length > 0){
+    function trash() {
+        if ($(".highlight").length > 0) {
             bootbox.confirm("Are you sure you want to delete the "
-                    + $(".highlight").length
-                    + " selected image(s)?", function(result) {
-                if (result==true)
-                {
+            + $(".highlight").length
+            + " selected image(s)?", function (result) {
+                if (result == true) {
                     var toDelete = [];
-                    $(".highlight").each(function(){
+                    $(".highlight").each(function () {
                         console.log($(this).data('id'));
                         toDelete.push($(this).data('id'));
                     })
                     window.location.href = '/laravel-filemanager/delete?'
-                            + 'base='
-                            + '{{ $working_dir }}'
-                            + '&items='
-                            + JSON.stringify(toDelete);
+                    + 'base='
+                    + $("#working_dir").val()
+                    + '&items='
+                    + JSON.stringify(toDelete);
                 }
             });
         }
+    }
+
+    function rebind() {
+        $(".thumbnail").click(function () {
+            if ($(this).hasClass('highlight')) {
+                $(this).removeClass('highlight');
+            }
+            else {
+                $(this).addClass('highlight');
+            }
+        })
     }
 </script>
 </body>

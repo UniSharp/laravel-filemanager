@@ -8,3 +8,5 @@ Route::post('/laravel-filemanager/upload', 'Tsawler\Laravelfilemanager\controlle
 Route::get('/laravel-filemanager/data', 'Tsawler\Laravelfilemanager\controllers\LfmController@getData');
 
 Route::get('/laravel-filemanager/delete', 'Tsawler\Laravelfilemanager\controllers\LfmController@getDelete');
+
+Route::get('/laravel-filemanager/picsjson', 'Tsawler\Laravelfilemanager\controllers\LfmController@getImages');

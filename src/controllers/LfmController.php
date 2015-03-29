@@ -27,19 +27,13 @@ class LfmController extends Controller {
         {
             $working_dir = Input::get('base');
             $base = "/vendor/laravel-filemanager/files/" . Input::get('base') . "/";
-            $files = File::files(base_path(Config::get('lfm.images_dir') . Input::get('base')));
-            $directories = File::directories(base_path(Config::get('lfm.images_dir') . Input::get('base')));
         } else
         {
             $working_dir = "/";
             $base = "/vendor/laravel-filemanager/files/";
-            $files = File::files(base_path(Config::get('lfm.images_dir')));
-            $directories = File::directories(base_path(Config::get('lfm.images_dir')));
         }
 
         return View::make('laravel-filemanager::index')
-            ->with('files', $files)
-            ->with('directories', $directories)
             ->with('base', $base)
             ->with('working_dir', $working_dir);
     }
@@ -94,6 +88,7 @@ class LfmController extends Controller {
 
         $dir_array = [];
 
+
         // go through all directories
         foreach ($directories as $dir)
         {
@@ -104,7 +99,7 @@ class LfmController extends Controller {
 
                 foreach ($dir_contents as $c)
                 {
-                    $children[] = ['label' => basename($c), 'id' => Str::slug($dir) . "-" . Str::slug(basename($c))];
+                    $children[] = ['label' => basename($c), 'id' => Str::slug(basename($dir)) . "-" . Str::slug(basename($c))];
                 }
 
                 if (sizeof($children) == 0)
@@ -116,13 +111,16 @@ class LfmController extends Controller {
             }
 
         }
+        $final_array = [];
+
+        $final_array[] = ['label' => 'Files', 'id' => 'rootofdir', 'children' => $dir_array];
 
         foreach ($contents as $c)
         {
             $dir_array[] = ['label' => basename($c), 'id' => Str::slug(basename($c))];
         }
 
-        return response()->json($dir_array);
+        return response()->json($final_array);
     }
 
 
@@ -159,6 +157,26 @@ class LfmController extends Controller {
             return Redirect::to('/laravel-filemanager?base=' . Input::get('base'));
         else
             return Redirect::to('/laravel-filemanager');
+    }
+
+
+    public function getImages()
+    {
+
+        if (Input::has('base'))
+        {
+            $files = File::files(base_path(Config::get('lfm.images_dir') . Input::get('base')));
+            $directories = File::directories(base_path(Config::get('lfm.images_dir') . Input::get('base')));
+        } else
+        {
+            $files = File::files(base_path(Config::get('lfm.images_dir')));
+            $directories = File::directories(base_path(Config::get('lfm.images_dir')));
+        }
+
+        return View::make('laravel-filemanager::images')
+            ->with('files', $files)
+            ->with('directories', $directories)
+            ->with('base', Input::get('base'));
     }
 
 }
