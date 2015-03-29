@@ -18,7 +18,7 @@ class LfmController extends Controller {
 
     /**
      * Show the filemanager
-     * 
+     *
      * @return mixed
      */
     public function show()
