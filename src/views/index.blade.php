@@ -61,9 +61,9 @@
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                                    aria-expanded="false">Edit <span class="caret"></span></a>
                                                 <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#!"><i class="fa fa-crop"></i> Crop</a></li>
-                                                    <li><a href="#!"><i class="fa fa-arrows-v"></i> Scale</a></li>
-                                                    <li><a href="#!"><i class="fa fa-rotate-right"></i> Rotate</a></li>
+                                                    <li><a href="#!" onclick="crop()"><i class="fa fa-crop"></i> Crop</a></li>
+                                                    <li><a href="#!" onclick="scale()"><i class="fa fa-arrows-v"></i> Scale</a></li>
+                                                    <li><a href="#!" onclick="rotate()"><i class="fa fa-rotate-right"></i> Rotate</a></li>
                                                 </ul>
                                             </li>
                                             <li>
@@ -139,6 +139,7 @@
     $(document).ready(function () {
         $('#tree1').tree({
             saveState: 'my-tree',
+            dragAndDrop: false,
             closedIcon: $('<i class="fa fa-folder"></i>'),
             openedIcon: $('<i class="fa fa-folder-open"></i>')
         });
@@ -215,6 +216,7 @@
 
     function rebind() {
         $(".thumbnail").click(function () {
+            $('.thumbnail').not(this).removeClass('highlight');
             if ($(this).hasClass('highlight')) {
                 $(this).removeClass('highlight');
             }
@@ -222,6 +224,27 @@
                 $(this).addClass('highlight');
             }
         })
+    }
+
+    function crop(){
+        var theImageId = $('.highlight img').map(function(){
+            return this.id;
+        }).get();
+        alert(theImageId);
+    }
+
+    function scale(){
+        var theImageId = $('.highlight img').map(function(){
+            return this.id;
+        }).get();
+        alert(theImageId);
+    }
+
+    function rotate(){
+        var theImageId = $('.highlight img').map(function(){
+            return this.id;
+        }).get();
+        alert(theImageId);
     }
 </script>
 </body>

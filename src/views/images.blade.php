@@ -1,7 +1,19 @@
 @foreach($files as $file)
+
     <div class="col-sm-6 col-md-2">
-        <a href="#" class="thumbnail" data-id="{{ basename($file) }}">
-            <img src="/vendor/laravel-filemanager/files/{{ $base }}/thumbs/{{ basename($file) }}">
-        </a>
+        <div class="thumbnail">
+            <img id="{!! $file !!}"
+                 src="/vendor/laravel-filemanager/files/{{ $base }}/thumbs/{{ basename($file) }}"
+                 alt="">
+        </div>
+        <div class="caption text-center">
+            <h5>{{ basename($file) }}</h5>
+            <p class="text-center">
+                <a href="#" class="btn btn-primary btn-xs" role="button">
+                    Use this image
+                </a>
+            </p>
+        </div>
     </div>
+
 @endforeach

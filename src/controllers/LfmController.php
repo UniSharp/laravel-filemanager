@@ -160,6 +160,11 @@ class LfmController extends Controller {
     }
 
 
+    /**
+     * Get the images to load for a selected folder
+     *
+     * @return mixed
+     */
     public function getImages()
     {
 
