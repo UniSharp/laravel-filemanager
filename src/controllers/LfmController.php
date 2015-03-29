@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
 
+use Illuminate\Support\Facades\Config;
 
 /**
  * Class LfmController
@@ -26,15 +27,15 @@ class LfmController extends Controller {
         {
             $working_dir = Input::get('base');
             $base = "/vendor/laravel-filemanager/files/" . Input::get('base') . "/";
-            $files = File::files(base_path('public/vendor/laravel-filemanager/files/'.Input::get('base')));
-            $directories = File::directories(base_path('public/vendor/laravel-filemanager/files/'.Input::get('base')));
+            $files = File::files(base_path(Config::get('lfm.images_dir').Input::get('base')));
+            $directories = File::directories(base_path(Config::get('lfm.images_dir').Input::get('base')));
         }
         else
         {
             $working_dir = "/";
             $base = "/vendor/laravel-filemanager/files/";
-            $files = File::files(base_path('public/vendor/laravel-filemanager/files'));
-            $directories = File::directories(base_path('public/vendor/laravel-filemanager/files'));
+            $files = File::files(base_path(Config::get('lfm.images_dir')));
+            $directories = File::directories(base_path(Config::get('lfm.images_dir')));
         }
 
         return View::make('laravel-filemanager::index')
@@ -54,7 +55,7 @@ class LfmController extends Controller {
         $file = Input::file('file_to_upload');
         $working_dir = Input::get('working_dir');
 
-        $destinationPath = base_path() . '/public/vendor/laravel-filemanager/files/';
+        $destinationPath = base_path() . Config::get('lfm.images_dir');
 
         if (strlen($working_dir) > 0){
             $destinationPath .= $working_dir . "/";
@@ -87,8 +88,8 @@ class LfmController extends Controller {
      */
     public function getData()
     {
-        $contents = File::files(base_path('public/vendor/laravel-filemanager/files'));
-        $directories = File::directories(base_path('public/vendor/laravel-filemanager/files'));
+        $contents = File::files(base_path(Config::get('lfm.images_dir')));
+        $directories = File::directories(base_path(Config::get('lfm.images_dir')));
 
         $dir_array = [];
 
