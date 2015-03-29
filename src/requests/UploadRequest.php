@@ -2,6 +2,10 @@
 
 use App\Http\Requests\Request;
 
+/**
+ * Class UploadRequest
+ * @package Tsawler\Laravelfilemanager\requests
+ */
 class UploadRequest extends Request {
 
     /**

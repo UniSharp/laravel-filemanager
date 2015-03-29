@@ -124,6 +124,9 @@ class LfmController extends Controller {
         return response()->json($dir_array);
     }
 
+    /**
+     * Delete images from filesystem
+     */
     public function getDelete()
     {
         $json = Input::get('items');

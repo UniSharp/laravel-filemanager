@@ -4,6 +4,10 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 
 
+/**
+ * Class LaravelFilemanagerServiceProvider
+ * @package Tsawler\Laravelfilemanager
+ */
 class LaravelFilemanagerServiceProvider extends ServiceProvider {
 
     /**
@@ -15,7 +19,7 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider {
     {
         include __DIR__ . '/routes.php';
 
-        //$this->loadTranslationsFrom(__DIR__.'/lang', 'vcms5');
+        $this->loadTranslationsFrom(__DIR__.'/lang', 'laravel-filemanager');
 
         $this->loadViewsFrom(__DIR__.'/views', 'laravel-filemanager');
 
@@ -28,7 +32,7 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider {
         ], 'lfm_public');
 
         $this->publishes([
-            __DIR__.'/views' => base_path('resources/views/vendor/vcms5'),
+            __DIR__.'/views' => base_path('resources/views/vendor/laravel-filemanager'),
         ], 'lfm_views');
 
     }
