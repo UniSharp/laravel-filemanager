@@ -27,10 +27,9 @@ class LfmController extends Controller {
         {
             $working_dir = Input::get('base');
             $base = "/vendor/laravel-filemanager/files/" . Input::get('base') . "/";
-            $files = File::files(base_path(Config::get('lfm.images_dir').Input::get('base')));
-            $directories = File::directories(base_path(Config::get('lfm.images_dir').Input::get('base')));
-        }
-        else
+            $files = File::files(base_path(Config::get('lfm.images_dir') . Input::get('base')));
+            $directories = File::directories(base_path(Config::get('lfm.images_dir') . Input::get('base')));
+        } else
         {
             $working_dir = "/";
             $base = "/vendor/laravel-filemanager/files/";
@@ -56,7 +55,7 @@ class LfmController extends Controller {
     {
         $file = Input::file('file_to_upload');
         $working_dir = Input::get('working_dir');
-        $destinationPath = base_path() . "/" .Config::get('lfm.images_dir');
+        $destinationPath = base_path() . "/" . Config::get('lfm.images_dir');
 
         if (strlen($working_dir) > 1)
         {
@@ -66,18 +65,18 @@ class LfmController extends Controller {
         $filename = $file->getClientOriginalName();
         Input::file('file_to_upload')->move($destinationPath, $filename);
 
-        if ( ! File::exists($destinationPath . "thumbs"))
+        if (!File::exists($destinationPath . "thumbs"))
         {
             File::makeDirectory($destinationPath . "thumbs");
         }
 
         $thumb_img = Image::make($destinationPath . $filename);
-        $thumb_img->fit(200,200)
+        $thumb_img->fit(200, 200)
             ->save($destinationPath . "thumbs/" . $filename);
         unset($thumb_img);
 
         if ($working_dir != "/")
-            return Redirect::to('/laravel-filemanager?base='.$working_dir);
+            return Redirect::to('/laravel-filemanager?base=' . $working_dir);
         else
             return Redirect::to('/laravel-filemanager');
     }
@@ -138,20 +137,26 @@ class LfmController extends Controller {
         $to_delete = json_decode($json);
         $base = Input::get("base");
 
-        foreach($to_delete as $item)
+        foreach ($to_delete as $item)
         {
             if ($base != "/")
             {
-                File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base  . "/" . $item);
-                File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/".  "thumbs/" . $item);
+                if (File::exists(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . $item))
+                {
+                    File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . $item);
+                    File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . "thumbs/" . $item);
+                }
             } else
             {
-                File::delete(base_path() . "/" . Config::get('lfm.images_dir')  . $item);
-                File::delete(base_path() . "/" . Config::get('lfm.images_dir') . "thumbs/" . $item);
+                if (File::exists(base_path() . "/" . Config::get('lfm.images_dir') . $item))
+                {
+                    File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $item);
+                    File::delete(base_path() . "/" . Config::get('lfm.images_dir') . "thumbs/" . $item);
+                }
             }
         }
         if (Input::get('base') != "/")
-            return Redirect::to('/laravel-filemanager?base='.Input::get('base'));
+            return Redirect::to('/laravel-filemanager?base=' . Input::get('base'));
         else
             return Redirect::to('/laravel-filemanager');
     }
