@@ -64,8 +64,6 @@
                                                     <li><a href="#!"><i class="fa fa-crop"></i> Crop</a></li>
                                                     <li><a href="#!"><i class="fa fa-arrows-v"></i> Scale</a></li>
                                                     <li><a href="#!"><i class="fa fa-rotate-right"></i> Rotate</a></li>
-                                                    <li><a href="#!" onclick="trash()"><i class="fa fa-trash"></i>
-                                                            Delete</a></li>
                                                 </ul>
                                             </li>
                                             <li>
