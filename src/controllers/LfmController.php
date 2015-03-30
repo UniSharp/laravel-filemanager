@@ -170,6 +170,8 @@ class LfmController extends Controller {
 
 
     /**
+     * Add a new folder
+     * 
      * @return mixed
      */
     public function getAddfolder()
@@ -186,6 +188,8 @@ class LfmController extends Controller {
 
 
     /**
+     * Delete a folder and all of it's contents
+     *
      * @return mixed
      */
     public function getDeletefolder()
