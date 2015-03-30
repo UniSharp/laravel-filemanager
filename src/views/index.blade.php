@@ -26,6 +26,17 @@
         #tree1 {
             margin-left: 5px;
         }
+
+        .pointer {
+            cursor: pointer;
+        }
+
+        #folder-options {
+            position: absolute;
+            bottom: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
 </head>
 <body>
@@ -40,6 +51,10 @@
                     <div class="wrapper">
                         <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 left-nav" id="lfm-leftcol">
                             <div id="tree1" data-url="/laravel-filemanager/data">
+                            </div>
+                            <div id="folder-options">
+                                <a class="btn btn-primary btn-xs pointer add-folder" id="add-folder"><i class="fa fa-plus"></i> New</a>
+                                <a id="delete-folder" class="btn btn-primary btn-xs pointer delete-folder"><i class="fa fa-remove"></i> Delete</a>
                             </div>
                         </div>
                         <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10 right-nav">
@@ -136,46 +151,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.js"></script>
 <script>
     $(document).ready(function () {
-        /*
-        $('#tree1').tree({
-            saveState: 'my-tree',
-            dragAndDrop: false,
-            closedIcon: $('<i class="fa fa-folder"></i>'),
-            openedIcon: $('<i class="fa fa-folder-open"></i>')
-        });
-
-        $('#tree1').bind(
-                'tree.click',
-                function (event) {
-                    var thisNode = event.node;
-                    var dataLoad = '';
-                    if (thisNode.getLevel() == 2) {
-                        dataLoad = thisNode.name;
-                    } else if (thisNode.getLevel() == 3){
-                        dataLoad = thisNode.parent.name;
-                    }
-                    if (thisNode.getLevel() < 4) {
-                        $.ajax({
-                            type: "GET",
-                            dataType: "text",
-                            url: "/laravel-filemanager/picsjson",
-                            data: "base=" + dataLoad,
-                            cache: false
-                        }).done(function (data) {
-                            $("#content").html(data);
-                            $("#working_dir").val(dataLoad);
-                            rebind();
-                        });
-                    }
-                }
-        ).bind(
-                'tree.open',
-                function (e) {
-                    $("#working_dir").val(e.node.name);
-                }
-        );
-        */
-
         // load folders
         $.ajax({
             type: "GET",
@@ -190,6 +165,16 @@
         });
 
         loadImages();
+
+        $(".thumbnail-img").click(function () {
+            $('.thumbnail-img').not(this).removeClass('highlight');
+            if ($(this).hasClass('highlight')) {
+                $(this).removeClass('highlight');
+            }
+            else {
+                $(this).addClass('highlight');
+            }
+        });
     });
 
     $("#upload-btn").click(function () {
@@ -197,8 +182,8 @@
     });
 
     function rebind() {
-        $(".thumbnail").click(function () {
-            $('.thumbnail').not(this).removeClass('highlight');
+        $(".thumbnail-img").click(function () {
+            $('.thumbnail-img').not(this).removeClass('highlight');
             if ($(this).hasClass('highlight')) {
                 $(this).removeClass('highlight');
             }
@@ -221,6 +206,7 @@
                 $('i', this).addClass('fa-folder');
             }
             loadImages();
+            rebind();
         });
     }
 
@@ -234,7 +220,6 @@
         }).done(function (data) {
             $("#content").html(data);
             rebind();
-            //rebindFolders();
         });
     }
 
@@ -278,6 +263,32 @@
         }).get();
         alert(theImageId);
     }
+
+    $("#add-folder").click(function(){
+        bootbox.prompt("Folder name:", function(result) {
+            if (result === null) {
+            } else {
+                location.href='/laravel-filemanager/newfolder?name=' + result;
+            }
+        });
+    });
+
+    $("#delete-folder").click(function(){
+        if ($(".fa-folder-open").length > 0) {
+            bootbox.confirm("Are you sure you want to delete the folder "
+            + $(".fa-folder-open").data('id')
+            + " and all of its contents?", function (result) {
+                if (result == true) {
+                    window.location.href = '/laravel-filemanager/deletefolder?'
+                    + 'name='
+                    + $(".fa-folder-open").data('id');
+                    //alert($(".fa-folder-open").data('id'));
+                }
+            });
+        }
+    });
+
+
 </script>
 </body>
 </html>

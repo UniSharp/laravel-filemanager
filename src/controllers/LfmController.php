@@ -83,44 +83,6 @@ class LfmController extends Controller {
      */
     public function getData()
     {
-        /*
-        $contents = File::files(base_path(Config::get('lfm.images_dir')));
-        $directories = File::directories(base_path(Config::get('lfm.images_dir')));
-
-        $dir_array = [];
-
-
-        // go through all directories
-        foreach ($directories as $dir)
-        {
-            if (basename($dir) != "thumbs")
-            {
-                $dir_contents = File::files($dir);
-                $children = [];
-
-                foreach ($dir_contents as $c)
-                {
-                    $children[] = ['label' => basename($c), 'id' => Str::slug(basename($dir)) . "-" . Str::slug(basename($c))];
-                }
-
-                if (sizeof($children) == 0)
-                {
-                    $children[] = ['label' => '(empty)', 'id' => Str::slug(basename($dir) . '-empty')];
-                }
-
-                $dir_array[] = ['label' => basename($dir), 'id' => Str::slug(basename($dir)), 'children' => $children];
-            }
-
-        }
-        $final_array = [];
-
-        $final_array[] = ['label' => 'Files', 'id' => 'rootofdir', 'children' => $dir_array];
-
-        foreach ($contents as $c)
-        {
-            $dir_array[] = ['label' => basename($c), 'id' => Str::slug(basename($c))];
-        }
-        */
         $directories = File::directories(base_path(Config::get('lfm.images_dir')));
         $final_array = [];
         foreach ($directories as $directory)
@@ -183,17 +145,56 @@ class LfmController extends Controller {
         if (Input::has('base'))
         {
             $files = File::files(base_path(Config::get('lfm.images_dir') . Input::get('base')));
-            $directories = File::directories(base_path(Config::get('lfm.images_dir') . Input::get('base')));
+            $all_directories = File::directories(base_path(Config::get('lfm.images_dir') . Input::get('base')));
         } else
         {
             $files = File::files(base_path(Config::get('lfm.images_dir')));
-            $directories = File::directories(base_path(Config::get('lfm.images_dir')));
+            $all_directories = File::directories(base_path(Config::get('lfm.images_dir')));
+        }
+
+        $directories = [];
+
+        foreach ($all_directories as $directory)
+        {
+            if (basename($directory) != "thumbs")
+            {
+                $directories[] = basename($directory);
+            }
         }
 
         return View::make('laravel-filemanager::images')
             ->with('files', $files)
             ->with('directories', $directories)
             ->with('base', Input::get('base'));
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getAddfolder()
+    {
+        $folder_name = Input::get('name');
+        $path = base_path(Config::get('lfm.images_dir'));
+
+        if( ! File::exists($path . $folder_name)) {
+            File::makeDirectory($path . $folder_name, $mode = 0777, true, true);
+        }
+
+        return Redirect::to('/laravel-filemanager');
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getDeletefolder()
+    {
+        $folder_name = Input::get('name');
+        $path = base_path(Config::get('lfm.images_dir'));
+        File::deleteDirectory($path . $folder_name, $preserve = false);
+
+        return Redirect::to('/laravel-filemanager');
     }
 
 }

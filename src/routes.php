@@ -10,3 +10,7 @@ Route::get('/laravel-filemanager/data', 'Tsawler\Laravelfilemanager\controllers\
 Route::get('/laravel-filemanager/delete', 'Tsawler\Laravelfilemanager\controllers\LfmController@getDelete');
 
 Route::get('/laravel-filemanager/picsjson', 'Tsawler\Laravelfilemanager\controllers\LfmController@getImages');
+
+Route::get('/laravel-filemanager/newfolder', 'Tsawler\Laravelfilemanager\controllers\LfmController@getAddfolder');
+
+Route::get('/laravel-filemanager/deletefolder', 'Tsawler\Laravelfilemanager\controllers\LfmController@getDeletefolder');
