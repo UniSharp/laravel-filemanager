@@ -20,6 +20,10 @@
             background: red;
         }
 
+        #content {
+            overflow: auto;
+        }
+
         #tree1 {
             margin-left: 5px;
         }
@@ -51,9 +55,7 @@
                                             <span class="icon-bar"></span>
                                         </button>
                                     </div>
-                                    <a class="navbar-brand" href="#">LFM</a>
-
-                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <div class="collapse navbar-collapse">
                                         <ul class="nav navbar-nav">
                                             <li><a href="#!" id="upload" data-toggle="modal" data-target="#uploadModal"><i
                                                             class="fa fa-upload"></i> Upload</a></li>
@@ -88,7 +90,7 @@
                                     </div>
                                 </div>
                             @endif
-                            <div id="content" class="row" style="overflow: auto">
+                            <div id="content" class="row">
 
                             </div>
                         </div>
@@ -193,6 +195,18 @@
         $("#uploadForm").submit();
     });
 
+    function rebind() {
+        $(".thumbnail").click(function () {
+            $('.thumbnail').not(this).removeClass('highlight');
+            if ($(this).hasClass('highlight')) {
+                $(this).removeClass('highlight');
+            }
+            else {
+                $(this).addClass('highlight');
+            }
+        })
+    }
+    
     function trash() {
         if ($(".highlight").length > 0) {
             bootbox.confirm("Are you sure you want to delete the "
@@ -212,18 +226,6 @@
                 }
             });
         }
-    }
-
-    function rebind() {
-        $(".thumbnail").click(function () {
-            $('.thumbnail').not(this).removeClass('highlight');
-            if ($(this).hasClass('highlight')) {
-                $(this).removeClass('highlight');
-            }
-            else {
-                $(this).addClass('highlight');
-            }
-        })
     }
 
     function crop(){
