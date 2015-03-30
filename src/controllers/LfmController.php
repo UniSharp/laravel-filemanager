@@ -171,7 +171,7 @@ class LfmController extends Controller {
 
     /**
      * Add a new folder
-     * 
+     *
      * @return mixed
      */
     public function getAddfolder()
