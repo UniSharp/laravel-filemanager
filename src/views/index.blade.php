@@ -151,7 +151,6 @@
                 function (event) {
                     var thisNode = event.node;
                     var dataLoad = '';
-                    console.log('level: ' + thisNode.getLevel());
                     if (thisNode.getLevel() == 2) {
                         dataLoad = thisNode.name;
                     } else if (thisNode.getLevel() == 3){
@@ -167,7 +166,6 @@
                         }).done(function (data) {
                             $("#content").html(data);
                             $("#working_dir").val(dataLoad);
-                            console.log('set working dir to ' + dataLoad);
                             rebind();
                         });
                     }
@@ -206,7 +204,7 @@
             }
         })
     }
-    
+
     function trash() {
         if ($(".highlight").length > 0) {
             bootbox.confirm("Are you sure you want to delete the "
@@ -215,7 +213,6 @@
                 if (result == true) {
                     var toDelete = [];
                     $(".highlight").each(function () {
-                        console.log($(this).data('id'));
                         toDelete.push($(this).data('id'));
                     })
                     window.location.href = '/laravel-filemanager/delete?'
