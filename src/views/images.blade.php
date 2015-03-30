@@ -1,9 +1,9 @@
 @if((sizeof($files) > 0) || (sizeof($directories) > 0))
 
-    @foreach($files as $file)
+    @foreach($files as $key => $file)
 
         <div class="col-sm-6 col-md-2">
-            <div class="thumbnail thumbnail-img" data-id="{{ basename($file) }}">
+            <div class="thumbnail thumbnail-img" data-id="{{ basename($file) }}" id="img_thumbnail_{{ $key }}" onclick="highlight('img_thumbnail_{{ $key }}')">
                 <img id="{!! $file !!}"
                      src="/vendor/laravel-filemanager/files/{{ $base }}/thumbs/{{ basename($file) }}"
                      alt="">
@@ -22,8 +22,10 @@
 
     @foreach($directories as $directory)
         <div class="col-sm-6 col-md-2">
-            <div class="thumbnail text-center" data-id="{{ basename($directory) }}" style="vertical-align: middle; ">
-                <img src="/vendor/laravel-filemanager/img/folder.jpg">
+            <div class="thumbnail text-center" data-id="{{ basename($directory) }}">
+                <a href="" class="folder-icon" data-id="{{ basename($directory) }}">
+                    <img src="/vendor/laravel-filemanager/img/folder.jpg">
+                </a>
             </div>
             <div class="caption text-center">
                 <h5>{{ basename($directory) }}</h5>

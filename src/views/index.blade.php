@@ -160,54 +160,35 @@
             cache: false
         }).done(function (data) {
             $("#tree1").html(data);
-            rebind();
-            rebindFolders();
         });
-
         loadImages();
-
-        $(".thumbnail-img").click(function () {
-            $('.thumbnail-img').not(this).removeClass('highlight');
-            if ($(this).hasClass('highlight')) {
-                $(this).removeClass('highlight');
-            }
-            else {
-                $(this).addClass('highlight');
-            }
-        });
     });
+
+    function highlight(x){
+        $(".thumbnail-img").not('#' + x).removeClass('highlight');
+        if ($("#" + x).hasClass('highlight')){
+            $("#" + x).removeClass('highlight');
+        } else {
+            $("#" + x).addClass('highlight');
+        }
+    }
 
     $("#upload-btn").click(function () {
         $("#uploadForm").submit();
     });
 
-    function rebind() {
-        $(".thumbnail-img").click(function () {
-            $('.thumbnail-img').not(this).removeClass('highlight');
-            if ($(this).hasClass('highlight')) {
-                $(this).removeClass('highlight');
-            }
-            else {
-                $(this).addClass('highlight');
-            }
-        });
-    }
-
-    function rebindFolders(){
-        $(".folder-item").click(function(){
-            $('.folder-item > i').addClass('fa-folder');
-            $('.folder-item > i').removeClass('fa-folder-open');
-            if ($('i', this).hasClass('fa-folder')) {
-                $('i', this).removeClass('fa-folder');
-                $('i', this).addClass('fa-folder-open');
-                $("#working_dir").val($(this).data('id'));
-            } else {
-                $('i', this).removeClass('fa-folder-open');
-                $('i', this).addClass('fa-folder');
-            }
-            loadImages();
-            rebind();
-        });
+    function clickFolder(x){
+        $('.folder-item').addClass('fa-folder');
+        $('.folder-item').removeClass('fa-folder-open');
+        if ($('#' + x + ' > i').hasClass('fa-folder')) {
+            $('#' + x + ' > i').removeClass('fa-folder');
+            $('#' + x + ' > i').addClass('fa-folder-open');
+            $("#working_dir").val($('#' + x).data('id'));
+        } else {
+            $('#' + x + ' > i').removeClass('fa-folder-open');
+            $('#' + x + ' > i').addClass('fa-folder');
+        }
+        loadImages();
     }
 
     function loadImages(){
@@ -219,15 +200,14 @@
             cache: false
         }).done(function (data) {
             $("#content").html(data);
-            rebind();
         });
     }
 
     function trash() {
         if ($(".highlight").length > 0) {
             bootbox.confirm("Are you sure you want to delete the "
-            + $(".highlight").length
-            + " selected image(s)?", function (result) {
+                        + $(".highlight").length
+                        + " selected image(s)?", function (result) {
                 if (result == true) {
                     var toDelete = [];
                     $(".highlight").each(function () {
@@ -282,7 +262,6 @@
                     window.location.href = '/laravel-filemanager/deletefolder?'
                     + 'name='
                     + $(".fa-folder-open").data('id');
-                    //alert($(".fa-folder-open").data('id'));
                 }
             });
         }
