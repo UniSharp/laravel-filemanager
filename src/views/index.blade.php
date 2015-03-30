@@ -5,7 +5,9 @@
     <title>File Manager</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!--
     <link rel="stylesheet" href="/vendor/laravel-filemanager/tree-jquery/jqtree.css"/>
+    -->
     <style>
         .wrapper {
             min-height: 500px;
@@ -133,12 +135,15 @@
 
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<!--
 <script src="/vendor/laravel-filemanager/tree-jquery/tree.jquery.js"></script>
 <script src="/vendor/laravel-filemanager/jquery-cookie/jquery.cookie.js"></script>
+-->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.js"></script>
 <script>
     $(document).ready(function () {
+        /*
         $('#tree1').tree({
             saveState: 'my-tree',
             dragAndDrop: false,
@@ -176,17 +181,22 @@
                     $("#working_dir").val(e.node.name);
                 }
         );
+        */
 
+        // load folders
         $.ajax({
             type: "GET",
             dataType: "text",
-            url: "/laravel-filemanager/picsjson",
+            url: "/laravel-filemanager/data",
             data: "base={{ $working_dir }}",
             cache: false
         }).done(function (data) {
-            $("#content").html(data);
+            $("#tree1").html(data);
             rebind();
+            rebindFolders();
         });
+
+        loadImages();
     });
 
     $("#upload-btn").click(function () {
@@ -202,7 +212,37 @@
             else {
                 $(this).addClass('highlight');
             }
-        })
+        });
+    }
+
+    function rebindFolders(){
+        $(".folder-item").click(function(){
+            $('.folder-item > i').addClass('fa-folder');
+            $('.folder-item > i').removeClass('fa-folder-open');
+            if ($('i', this).hasClass('fa-folder')) {
+                $('i', this).removeClass('fa-folder');
+                $('i', this).addClass('fa-folder-open');
+                $("#working_dir").val($(this).data('id'));
+            } else {
+                $('i', this).removeClass('fa-folder-open');
+                $('i', this).addClass('fa-folder');
+            }
+            loadImages();
+        });
+    }
+
+    function loadImages(){
+        $.ajax({
+            type: "GET",
+            dataType: "text",
+            url: "/laravel-filemanager/picsjson",
+            data: "base=" + $("#working_dir").val(),
+            cache: false
+        }).done(function (data) {
+            $("#content").html(data);
+            rebind();
+            //rebindFolders();
+        });
     }
 
     function trash() {

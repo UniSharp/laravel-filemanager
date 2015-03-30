@@ -83,6 +83,7 @@ class LfmController extends Controller {
      */
     public function getData()
     {
+        /*
         $contents = File::files(base_path(Config::get('lfm.images_dir')));
         $directories = File::directories(base_path(Config::get('lfm.images_dir')));
 
@@ -119,8 +120,19 @@ class LfmController extends Controller {
         {
             $dir_array[] = ['label' => basename($c), 'id' => Str::slug(basename($c))];
         }
+        */
+        $directories = File::directories(base_path(Config::get('lfm.images_dir')));
+        $final_array = [];
+        foreach ($directories as $directory)
+        {
+            if (basename($directory) != "thumbs")
+            {
+                $final_array[] = basename($directory);
+            }
+        }
 
-        return response()->json($final_array);
+        return View::make("laravel-filemanager::tree")
+            ->with('dirs', $final_array);
     }
 
 
