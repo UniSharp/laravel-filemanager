@@ -201,4 +201,14 @@ class LfmController extends Controller {
         return Redirect::to('/laravel-filemanager?'.Config::get('lfm.params'));
     }
 
+
+    public function getCrop()
+    {
+        $dir = Input::get('dir');
+        $image = Input::get('img');
+
+        return View::make('laravel-filemanager::crop')
+            ->with('img', Config::get('lfm.images_url') . $dir . "/" . $image);
+    }
+
 }

@@ -5,6 +5,7 @@
     <title>File Manager</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/laravel-filemanager/css/cropper.min.css">
     <style>
         html,body{
             height:100%;
@@ -49,6 +50,14 @@
 
         .pointer {
             cursor: pointer;
+        }
+
+        .img-preview {
+            background-color: #f7f7f7;
+            overflow: hidden;
+            width: 100%;
+            text-align: center;
+            height: 200px;
         }
     </style>
 </head>
@@ -162,6 +171,7 @@
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.js"></script>
+<script src="/vendor/laravel-filemanager/js/cropper.min.js"></script>
 <script>
     $(document).ready(function () {
         // load folders
@@ -244,10 +254,20 @@
     }
 
     function crop(){
-        var theImageId = $('.highlight img').map(function(){
-            return this.id;
+        var theImageId = $('.highlight').map(function(){
+            return $(this).data('id');
         }).get();
-        alert(theImageId);
+        $.ajax({
+            type: "GET",
+            dataType: "text",
+            url: "/laravel-filemanager/crop",
+            data: "img="
+                +  theImageId
+                + "&dir=" + $("#working_dir").val(),
+            cache: false
+        }).done(function (data) {
+            $("#content").html(data);
+        });
     }
 
     function scale(){
