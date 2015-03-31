@@ -59,6 +59,11 @@
             text-align: center;
             height: 200px;
         }
+
+        .menu-disabled {
+            font-style: italic;;
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -99,9 +104,9 @@
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                                    aria-expanded="false">Edit <span class="caret"></span></a>
                                                 <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#!" onclick="crop()"><i class="fa fa-crop"></i> Crop</a></li>
-                                                    <li><a href="#!" onclick="scale()"><i class="fa fa-arrows-v"></i> Scale</a></li>
-                                                    <li><a href="#!" onclick="rotate()"><i class="fa fa-rotate-right"></i> Rotate</a></li>
+                                                    <li><a href="#!" onclick="crop()"><i class="fa fa-crop"></i> <span id="scale" class="menu-disabled">Crop</span></a></li>
+                                                    <li><a href="#!" onclick="scale()"><i class="fa fa-arrows-v"></i> <span id="scale" class="menu-disabled">Scale</span></a></li>
+                                                    <li><a href="#!" onclick="rotate()" class="menu-disabled"><i class="fa fa-rotate-right"></i> Rotate</a></li>
                                                 </ul>
                                             </li>
                                             <li>
