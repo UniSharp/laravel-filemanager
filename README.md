@@ -96,8 +96,8 @@ simply wrap the routes in a group, perhaps like this:
         });
     ```
     
-    This approach ensures that only authenticated users have access to the Laravel-Filemanager. If you are
-    using Middleware or some other approach to enforce security, modify as needed.
+This approach ensures that only authenticated users have access to the Laravel-Filemanager. If you are
+using Middleware or some other approach to enforce security, modify as needed.
     
 ## License
 
