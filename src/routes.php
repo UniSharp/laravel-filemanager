@@ -1,6 +1,6 @@
 <?php
 
-Route::get('editor', function(){
+Route::get('sample-ckeditor-integration', function(){
     return \Illuminate\Support\Facades\View::make('editor');
 });
 
