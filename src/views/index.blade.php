@@ -289,7 +289,6 @@
 
     function useFile(file){
         var path = $('#working_dir').val();
-        //console.log(path);
         function getUrlParam( paramName ) {
             var reParam = new RegExp( '(?:[\?&]|&)' + paramName + '=([^&]+)', 'i' ) ;
             var match = window.location.search.match(reParam) ;
@@ -300,15 +299,12 @@
         window.opener.CKEDITOR.tools.callFunction( funcNum, path + "/" + file );
 
         if (path != '/') {
-            //alert('{{ \Config::get('lfm.images_url') }}' + path + "/" + file);
             window.opener.CKEDITOR.tools.callFunction(funcNum, '{{ \Config::get('lfm.images_url') }}' + path + "/" + file );
         } else {
-            //alert('{{ \Config::get('lfm.images_url') }}' + file);
             window.opener.CKEDITOR.tools.callFunction( funcNum, '{{ \Config::get('lfm.images_url') }}' + file );
         }
         window.close();
     }
-
 </script>
 </body>
 </html>
