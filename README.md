@@ -24,19 +24,25 @@ following command:
 
     `composer require tsawler/laravel-filemanager`
 
-1. Next run `composer update` to install the package from packagist.
+1. Next run composer update to install the package from packagist:
+
+    `composer update`
 
 1. Add the ServiceProvider to the providers array in config/app.php:
 
     `'Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider',`
 
-1. Publish the config file:
+1. Publish the package's config file:
 
     `php artisan vendor:publish --tag=lfm_config`
 
-1. Publish the public folder assets:
+1. Publish the package's public folder assets:
 
-    `php artisan vendor:publish --tag=lfm_public'`
+    `php artisan vendor:publish --tag=lfm_public`
+    
+1. If you want to customize the views, then pubish those:
+
+    `php artisan vendor:publish --tag=lfm_views`
     
 1. By default, the package will use its own routes. If you don't want to use those routes (and you probably don't,
 since they do not enforce any kind of security), change this entry in config/lfm.php to false:
