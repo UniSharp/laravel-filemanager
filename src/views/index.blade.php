@@ -189,7 +189,6 @@
             if ($('#' + x + ' > i').hasClass('fa-folder')) {
                 $('#' + x + ' > i').not("#folder_top > i").removeClass('fa-folder');
                 $('#' + x + ' > i').not("#folder_top > i").addClass('fa-folder-open');
-                $("#working_dir").val($('#' + x).data('id'));
             } else {
                 $('#' + x + ' > i').removeClass('fa-folder-open');
                 $('#' + x + ' > i').addClass('fa-folder');
