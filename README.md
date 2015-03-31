@@ -24,11 +24,13 @@ following command:
 
     `composer require tsawler/laravel-filemanager`
 
-1. Then run `composer update` and add the ServiceProvider to the providers array in config/app.php:
+1. Next run `composer update` to install the package from packageist.
+
+1. Add the ServiceProvider to the providers array in config/app.php:
 
     `'Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider',`
 
-1. Next publish the config file:
+1. Publish the config file:
 
     `php artisan vendor:publish --tag=lfm_config`
 
@@ -37,4 +39,11 @@ since they do not enforce any kind of security), change this entry in config/lfm
 
     ```php
         'use_package_routes' => true,
+    ```
+    
+1. If you don't want to use the default image directory or url, update the appropriate lines in config/lfm.php:
+
+    ```php
+        'images_dir'         => 'public/vendor/laravel-filemanager/files/',
+        'images_url'         => '/vendor/laravel-filemanager/files/',
     ```
