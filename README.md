@@ -34,6 +34,10 @@ following command:
 
     `php artisan vendor:publish --tag=lfm_config`
 
+1. Publish the public folder assets:
+
+    `php artisan vendor:publish --tag=lfm_public'`
+    
 1. By default, the package will use its own routes. If you don't want to use those routes (and you probably don't,
 since they do not enforce any kind of security), change this entry in config/lfm.php to false:
 
