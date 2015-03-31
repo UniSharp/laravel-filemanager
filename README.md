@@ -22,19 +22,19 @@ This package is written specifically for Laravel 5, and will integrate seamlessl
 1. Installation is done through composer and packagist. From within your project root directory, execute the 
 following command:
 
-`composer require tsawler/laravel-filemanager`
+    `composer require tsawler/laravel-filemanager`
 
 1. Then run `composer update` and add the ServiceProvider to the providers array in config/app.php:
 
-`'Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider',`
+    `'Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider',`
 
 1. Next publish the config file:
 
-`php artisan vendor:publish --tag=lfm_config`
+    `php artisan vendor:publish --tag=lfm_config`
 
 1. By default, the package will use its own routes. If you don't want to use those routes (and you probably don't,
 since they do not enforce any kind of security), change this entry in config/lfm.php to false:
 
-```php
-    'use_package_routes' => true,
-`
+    ```php
+        'use_package_routes' => true,
+    ```
