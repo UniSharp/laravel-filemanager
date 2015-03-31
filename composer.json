@@ -15,9 +15,6 @@
     "francodacosta/phmagick": "0.4.*@dev"
   },
   "autoload": {
-    "classmap": [
-
-    ],
     "psr-4": {
       "Tsawler\\Laravelfilemanager\\": "src/"
     }
