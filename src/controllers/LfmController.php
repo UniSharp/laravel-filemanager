@@ -202,13 +202,43 @@ class LfmController extends Controller {
     }
 
 
+    /**
+     * Show crop page
+     *
+     * @return mixed
+     */
     public function getCrop()
     {
         $dir = Input::get('dir');
         $image = Input::get('img');
 
         return View::make('laravel-filemanager::crop')
-            ->with('img', Config::get('lfm.images_url') . $dir . "/" . $image);
+            ->with('img', Config::get('lfm.images_url') . $dir . "/" . $image)
+            ->with('dir', $dir)
+            ->with('image', $image);
+    }
+
+
+    /**
+     * Crop the image
+     */
+    public function postCrop()
+    {
+        $dir = Input::get('dir');
+        $img = Input::get('img');
+        $dataX = Input::get('dataX');
+        $dataY = Input::get('dataY');
+        $dataHeight = Input::get('dataHeight');
+        $dataWidth = Input::get('dataWidth');
+
+        var_dump(base_path() . "/" . Config::get('lfm.images_dir') . $dir);
+        var_dump(public_path() . $img);
+        var_dump($dataX);
+        var_dump($dataY);
+        var_dump($dataHeight);
+        var_dump($dataWidth);
+        exit;
+
     }
 
 }
