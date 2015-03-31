@@ -21,7 +21,7 @@ This package is written specifically for Laravel 5, and will integrate seamlessl
 
 Installation is done through composer and packagist:
 
-`composer require tsawler\laravel-filemanager`
+`composer require tsawler/laravel-filemanager`
 
 After updating composer, add the ServiceProvider to the providers array in config/app.php:
 
