@@ -82,7 +82,7 @@ unauthorized uploads to your server__. Fortunately, Laravel makes this very easy
 If you only want to ensure that logged in users have the ability to access the Laravel-Filemanager, 
 simply wrap the routes in a group, perhaps like this:
 
-    ```php
+    ```
         Route::group(array('before' => 'auth.quotes'), function ()
         {
             Route::get('/laravel-filemanager', 'Tsawler\Laravelfilemanager\controllers\LfmController@show');
