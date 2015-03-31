@@ -55,6 +55,10 @@ CKEditor instance as follows:
         <script>
             CKEDITOR.replace( 'editor', {
                 filebrowserBrowseUrl: '/laravel-filemanager?type=Images'
-            } )
+            });
         </script>
     ```
+    
+    Here, "editor" is the id of the textarea you are transforming to a CKEditor instance. Note that if
+    you are using a custom route you will have to change `/laravel-filemanager?type=Images` to correspond
+    to whatever route you have chosen.
