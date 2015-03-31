@@ -12,4 +12,4 @@ Route::get('/laravel-filemanager/picsjson', 'Tsawler\Laravelfilemanager\controll
 Route::get('/laravel-filemanager/newfolder', 'Tsawler\Laravelfilemanager\controllers\LfmController@getAddfolder');
 Route::get('/laravel-filemanager/deletefolder', 'Tsawler\Laravelfilemanager\controllers\LfmController@getDeletefolder');
 Route::get('/laravel-filemanager/crop', 'Tsawler\Laravelfilemanager\controllers\LfmController@getCrop');
-Route::post('/laravel-filemanager/crop', 'Tsawler\Laravelfilemanager\controllers\LfmController@postCrop');
+Route::get('/laravel-filemanager/cropimage', 'Tsawler\Laravelfilemanager\controllers\LfmController@postCrop');

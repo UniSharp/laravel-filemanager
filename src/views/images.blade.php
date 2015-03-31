@@ -19,7 +19,7 @@
         <div class="col-sm-6 col-md-2">
             <div class="thumbnail thumbnail-img" data-id="{{ basename($file) }}" id="img_thumbnail_{{ $key }}" onclick="highlight('img_thumbnail_{{ $key }}')">
                 <img id="{!! $file !!}"
-                     src="/vendor/laravel-filemanager/files/{{ $base }}/thumbs/{{ basename($file) }}"
+                     src="/vendor/laravel-filemanager/files/{{ $base }}/thumbs/{{ basename($file) }}?r={{ str_random(40) }}"
                      alt="">
             </div>
             <div class="caption text-center">

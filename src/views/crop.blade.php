@@ -1,7 +1,7 @@
 <div class="row fill">
     <div class="col-md-8 fill">
         <div class="crop-container">
-            <img src="{!! $img !!}" class="img-responsive">
+            <img src="{!! $img !!}?r={{ str_random(40) }}" class="img-responsive">
         </div>
     </div>
     <div class="col-md-4 fill">
@@ -42,31 +42,28 @@
                 $dataWidth.val(Math.round(data.width));
             }
         });
-        
+
     });
 
     function performCrop() {
-        /*$.ajax({
-            type: "POST",
+
+        $.ajax({
+            type: "GET",
             dataType: "text",
-            url: "/laravel-filemanager/crop",
-            data: "img="
-                + $("#image").val()
-                + "dir="
-                + $("#dir").val()
-                + "dataX="
-                + $("#dataX").val()
-                + "dataY="
-                + $("#dataY").val()
-                + "dataHeight="
-                + $("#dataHeight").val()
-                + "dataWidth="
-                + $("#dataWidth").val(),
+            url: "/laravel-filemanager/cropimage",
+            data: {
+                img: $("#img").val(),
+                dir: $("#dir").val(),
+                dataX: $("#dataX").val(),
+                dataY: $("#dataY").val(),
+                dataHeight: $("#dataHeight").val(),
+                dataWidth: $("#dataWidth").val()
+            },
             cache: false
         }).done(function (data) {
+            loadImages();
+        });
 
-        });*/
-
-        $("#cropForm").submit();
+        //$("#cropForm").submit();
     }
 </script>

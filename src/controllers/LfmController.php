@@ -4,6 +4,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
@@ -220,10 +221,11 @@ class LfmController extends Controller {
 
 
     /**
-     * Crop the image
+     * Crop the image (called via ajax)
      */
     public function postCrop()
     {
+        Log::info('cropping!');
         $dir = Input::get('dir');
         $img = Input::get('img');
         $dataX = Input::get('dataX');
@@ -231,14 +233,15 @@ class LfmController extends Controller {
         $dataHeight = Input::get('dataHeight');
         $dataWidth = Input::get('dataWidth');
 
-        var_dump(base_path() . "/" . Config::get('lfm.images_dir') . $dir);
-        var_dump(public_path() . $img);
-        var_dump($dataX);
-        var_dump($dataY);
-        var_dump($dataHeight);
-        var_dump($dataWidth);
-        exit;
+        // crop image
+        $image = Image::make(public_path() . $img);
+        $image->crop($dataWidth, $dataHeight, $dataX, $dataY)
+            ->save(public_path() . $img);
 
+        // make new thumbnail
+        $thumb_img = Image::make(public_path() . $img);
+        $thumb_img->fit(200, 200)
+            ->save(base_path() . "/" . Config::get('lfm.images_dir') . $dir . "/thumbs/" . basename($img));
     }
 
 }
