@@ -72,3 +72,33 @@ CKEditor instance as follows:
     Here, "editor" is the id of the textarea you are transforming to a CKEditor instance. Note that if
     you are using a custom route you will have to change `/laravel-filemanager?type=Images` to correspond
     to whatever route you have chosen. Be sure to include the `?type=Images` parameter.
+    
+    
+## Security
+
+It is important to note that __you must protect your routes to Laravel-Filemanager in order to prevent
+unauthorized uploads to your server__. Fortunately, Laravel makes this very easy.
+
+If you only want to ensure that logged in users have the ability to access the Laravel-Filemanager, 
+simply wrap the routes in a group, perhaps like this:
+
+    ```php
+        Route::group(array('before' => 'auth.quotes'), function ()
+        {
+            Route::get('/laravel-filemanager', 'Tsawler\Laravelfilemanager\controllers\LfmController@show');
+            Route::post('/laravel-filemanager/upload', 'Tsawler\Laravelfilemanager\controllers\LfmController@upload');
+            Route::get('/laravel-filemanager/data', 'Tsawler\Laravelfilemanager\controllers\LfmController@getData');
+            Route::get('/laravel-filemanager/delete', 'Tsawler\Laravelfilemanager\controllers\LfmController@getDelete');
+            Route::get('/laravel-filemanager/picsjson', 'Tsawler\Laravelfilemanager\controllers\LfmController@getImages');
+            Route::get('/laravel-filemanager/newfolder', 'Tsawler\Laravelfilemanager\controllers\LfmController@getAddfolder');
+            Route::get('/laravel-filemanager/deletefolder', 'Tsawler\Laravelfilemanager\controllers\LfmController@getDeletefolder');
+
+        });
+    ```
+    
+    This approach ensures that only authenticated users have access to the Laravel-Filemanager. If you are
+    using Middleware or some other approach to enforce security, modify as needed.
+    
+## License
+
+This package is released under the terms of the [MIT License](http://en.wikipedia.org/wiki/MIT_License).
