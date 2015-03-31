@@ -24,7 +24,7 @@ following command:
 
     `composer require tsawler/laravel-filemanager`
 
-1. Next run `composer update` to install the package from packageist.
+1. Next run `composer update` to install the package from packagist.
 
 1. Add the ServiceProvider to the providers array in config/app.php:
 
@@ -46,4 +46,15 @@ since they do not enforce any kind of security), change this entry in config/lfm
     ```php
         'images_dir'         => 'public/vendor/laravel-filemanager/files/',
         'images_url'         => '/vendor/laravel-filemanager/files/',
+    ```
+    
+1. In the view where you are using a CKEditor instance, use the file uploader by initializing the
+CKEditor instance as follows:
+
+    ```javascript
+        <script>
+            CKEDITOR.replace( 'editor', {
+                filebrowserBrowseUrl: '/laravel-filemanager?type=Images'
+            } )
+        </script>
     ```
