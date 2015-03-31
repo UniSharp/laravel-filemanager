@@ -5,18 +5,21 @@
         </div>
     </div>
     <div class="col-md-4 fill">
-        <div class="img-preview"></div>
+        <div class="text-center">
 
-        <button class="btn btn-primary" onclick="crop()">Crop</button>
-        {!! Form::open(array('url' => '/laravel-filemanager/crop', 'role' => 'form', 'name' => 'cropForm',
-            'id' => 'cropForm', 'method' => 'post')) !!}
-            <input type="hidden" id="img" name="img" value="{!! $img !!}">
-            <input type="hidden" id="dir" name="dir" value="{!! $dir !!}">
-            <input type="hidden" id="dataX" name="dataX">
-            <input type="hidden" id="dataY" name="dataY">
-            <input type="hidden" id="dataWidth" name="dataWidth">
-            <input type="hidden" id="dataHeight" name="dataHeight">
-        {!! Form::close() !!}
+            <div class="img-preview center-block"></div>
+            <br>
+            <button class="btn btn-primary" onclick="performCrop()">Crop</button>
+            {!! Form::open(array('url' => '/laravel-filemanager/crop', 'role' => 'form', 'name' => 'cropForm',
+                'id' => 'cropForm', 'method' => 'post')) !!}
+                <input type="hidden" id="img" name="img" value="{!! $img !!}">
+                <input type="hidden" id="dir" name="dir" value="{!! $dir !!}">
+                <input type="hidden" id="dataX" name="dataX">
+                <input type="hidden" id="dataY" name="dataY">
+                <input type="hidden" id="dataWidth" name="dataWidth">
+                <input type="hidden" id="dataHeight" name="dataHeight">
+            {!! Form::close() !!}
+        </div>
     </div>
 
 </div>
@@ -39,9 +42,10 @@
                 $dataWidth.val(Math.round(data.width));
             }
         });
+        
     });
 
-    function crop() {
+    function performCrop() {
         /*$.ajax({
             type: "POST",
             dataType: "text",
@@ -62,6 +66,7 @@
         }).done(function (data) {
 
         });*/
+
         $("#cropForm").submit();
     }
 </script>
