@@ -1,7 +1,7 @@
 <div class="row fill">
     <div class="col-md-8 fill">
         <div class="crop-container">
-            <img src="{!! $img !!}?r={{ str_random(40) }}" class="img-responsive">
+            <img src="{!! $img !!}?r={{ str_random(40) }}" class="img img-responsive">
         </div>
     </div>
     <div class="col-md-4 fill">

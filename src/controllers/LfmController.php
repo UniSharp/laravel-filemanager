@@ -58,16 +58,20 @@ class LfmController extends Controller {
         }
 
         $filename = $file->getClientOriginalName();
-        Input::file('file_to_upload')->move($destinationPath, $filename);
+        $extension = $file->getClientOriginalExtension();
+
+        $new_filename = Str::slug(str_replace($extension, '', $filename)) . "." . $extension;
+
+        Input::file('file_to_upload')->move($destinationPath, $new_filename);
 
         if (!File::exists($destinationPath . "thumbs"))
         {
             File::makeDirectory($destinationPath . "thumbs");
         }
 
-        $thumb_img = Image::make($destinationPath . $filename);
+        $thumb_img = Image::make($destinationPath . $new_filename);
         $thumb_img->fit(200, 200)
-            ->save($destinationPath . "thumbs/" . $filename);
+            ->save($destinationPath . "thumbs/" . $new_filename);
         unset($thumb_img);
 
         if ($working_dir != "/")
