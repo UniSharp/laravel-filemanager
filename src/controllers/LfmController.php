@@ -106,28 +106,25 @@ class LfmController extends Controller {
      */
     public function getDelete()
     {
-        $json = Input::get('items');
-        $to_delete = json_decode($json);
+        $to_delete = Input::get('items');
         $base = Input::get("base");
 
-        foreach ($to_delete as $item)
+        if ($base != "/")
         {
-            if ($base != "/")
+            if (File::exists(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . $to_delete))
             {
-                if (File::exists(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . $item))
-                {
-                    File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . $item);
-                    File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . "thumbs/" . $item);
-                }
-            } else
+                File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . $to_delete);
+                File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . "thumbs/" . $to_delete);
+            }
+        } else
+        {
+            if (File::exists(base_path() . "/" . Config::get('lfm.images_dir') . $to_delete))
             {
-                if (File::exists(base_path() . "/" . Config::get('lfm.images_dir') . $item))
-                {
-                    File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $item);
-                    File::delete(base_path() . "/" . Config::get('lfm.images_dir') . "thumbs/" . $item);
-                }
+                File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $to_delete);
+                File::delete(base_path() . "/" . Config::get('lfm.images_dir') . "thumbs/" . $to_delete);
             }
         }
+
         if (Input::get('base') != "/")
             return Redirect::to('/laravel-filemanager?'.Config::get('lfm.params').'&base=' . Input::get('base'));
         else

@@ -10,6 +10,9 @@
         html,body{
             height:100%;
         }
+        .img-row {
+            overflow: visible;
+        }
         .container {
             height:100%;
             margin-left: 5px;
@@ -100,24 +103,12 @@
                                         <ul class="nav navbar-nav">
                                             <li><a href="#!" id="upload" data-toggle="modal" data-target="#uploadModal"><i
                                                             class="fa fa-upload"></i> Upload</a></li>
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                                   aria-expanded="false">Edit <span class="caret"></span></a>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#!" onclick="crop()"><i class="fa fa-crop"></i> <span id="scale" class="menu-disabled">Crop</span></a></li>
-                                                    <li><a href="#!" onclick="scale()"><i class="fa fa-arrows-v"></i> <span id="scale" class="menu-disabled">Scale</span></a></li>
-                                                    <li><a href="#!" onclick="rotate()" class="menu-disabled"><i class="fa fa-rotate-right"></i> Rotate</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="#!" onclick="trash()">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
-                                            </li>
+
                                         </ul>
                                     </div>
                                 </div>
                             </nav>
+
                             @if ($errors->any())
                                 <div class="row">
                                     <div class="col-md-12">
@@ -131,7 +122,8 @@
                                     </div>
                                 </div>
                             @endif
-                            <div id="content" class="row">
+
+                            <div id="content" class="row fill">
 
                             </div>
                         </div>
@@ -229,46 +221,41 @@
     function loadImages(){
         $.ajax({
             type: "GET",
-            dataType: "text",
+            dataType: "html",
             url: "/laravel-filemanager/picsjson",
             data: "base=" + $("#working_dir").val(),
             cache: false
         }).done(function (data) {
             $("#content").html(data);
+            $(".dropdown-toggle").dropdown();
         });
     }
 
-    function trash() {
-        if ($(".highlight").length > 0) {
-            bootbox.confirm("Are you sure you want to delete the "
-                        + $(".highlight").length
-                        + " selected image(s)?", function (result) {
-                if (result == true) {
-                    var toDelete = [];
-                    $(".highlight").each(function () {
-                        toDelete.push($(this).data('id'));
-                    })
-                    window.location.href = '/laravel-filemanager/delete?'
-                    + 'base='
-                    + $("#working_dir").val()
-                    + '&items='
-                    + JSON.stringify(toDelete);
-                }
-            });
-        }
+    function initDD(){
+        alert('1');
+        $('.btn-dropdown-toggle').dropdown();
     }
 
-    function crop(){
-        var theImageId = $('.highlight').map(function(){
-            return $(this).data('id');
-        }).get();
+    function trash(x) {
+        bootbox.confirm("Are you sure you want to delete this image?", function (result) {
+            if (result == true) {
+                window.location.href = '/laravel-filemanager/delete?'
+                + 'base='
+                + $("#working_dir").val()
+                + '&items='
+                + x;
+            }
+        });
+    }
+
+    function cropImage(x){
         $.ajax({
             type: "GET",
             dataType: "text",
             url: "/laravel-filemanager/crop",
             data: "img="
-                +  theImageId
-                + "&dir=" + $("#working_dir").val(),
+            +  x
+            + "&dir=" + $("#working_dir").val(),
             cache: false
         }).done(function (data) {
             $("#content").html(data);

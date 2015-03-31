@@ -10,6 +10,7 @@
             <div class="img-preview center-block"></div>
             <br>
             <button class="btn btn-primary" onclick="performCrop()">Crop</button>
+            <button class="btn btn-info" onclick="loadImages()">Cancel</button>
             {!! Form::open(array('url' => '/laravel-filemanager/crop', 'role' => 'form', 'name' => 'cropForm',
                 'id' => 'cropForm', 'method' => 'post')) !!}
                 <input type="hidden" id="img" name="img" value="{!! $img !!}">

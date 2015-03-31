@@ -16,22 +16,38 @@
 
     @foreach($files as $key => $file)
 
-        <div class="col-sm-6 col-md-2">
-            <div class="thumbnail thumbnail-img" data-id="{{ basename($file) }}" id="img_thumbnail_{{ $key }}" onclick="highlight('img_thumbnail_{{ $key }}')">
+        <div class="col-sm-6 col-md-2 img-row" style="">
+
+            <div class="thumbnail thumbnail-img" data-id="{{ basename($file) }}" id="img_thumbnail_{{ $key }}">
                 <img id="{!! $file !!}"
                      src="/vendor/laravel-filemanager/files/{{ $base }}/thumbs/{{ basename($file) }}?r={{ str_random(40) }}"
                      alt="">
             </div>
             <div class="caption text-center">
+
+                <div class="btn-group ">
+                    <button type="button" onclick="useFile('{!! basename($file) !!}')" class="btn btn-default">Use</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+
+
+                        <li><a href="javascript:cropImage('{!! basename($file) !!}')">Rename</a></li>
+                        <li><a href="javascript:cropImage('{!! basename($file) !!}')">View</a></li>
+                        <li><a href="javascript:cropImage('{!! basename($file) !!}')">Download</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:cropImage('{!! basename($file) !!}')">Rotate</a></li>
+                        <li><a href="javascript:cropImage('{!! basename($file) !!}')">Scale</a></li>
+                        <li><a href="javascript:cropImage('{!! basename($file) !!}')">Crop</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:trash('{!! basename($file) !!}')">Delete</a></li>
+                    </ul>
+                </div>
+
                 <h5>{{ basename($file) }}</h5>
-                <p class="text-center">
-                    <a onclick="useFile('{!! basename($file) !!}')" class="btn btn-primary btn-xs pointer" role="button">
-                        Use
-                    </a>
-                    <a href="#" class="btn btn-info btn-xs" role="button">
-                        View
-                    </a>
-                </p>
+
             </div>
         </div>
 
@@ -42,4 +58,3 @@
         <p>Folder is empty.</p>
     </div>
 @endif
-
