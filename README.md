@@ -13,7 +13,7 @@ This package is written specifically for Laravel 5, and will integrate seamlessl
 ## Requirements
 
 1. This package only supports Laravel 5.x
-1. Requires `"intervention/image": "2.*",`
+1. Requires `"intervention/image": "2.*"`
 1. Requires `"francodacosta/phmagick": "0.4.*@dev"`
 1. Requires PHP 5.5 or later
 
