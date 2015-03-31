@@ -40,7 +40,7 @@ following command:
 
     `php artisan vendor:publish --tag=lfm_public`
     
-1. If you want to customize the views, then pubish those:
+1. If you want to customize the views, then publish the package's views:
 
     `php artisan vendor:publish --tag=lfm_views`
     
