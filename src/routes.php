@@ -1,5 +1,8 @@
 <?php
 
+Route::get('editor', function(){
+    return \Illuminate\Support\Facades\View::make('editor');
+});
 
 Route::get('/laravel-filemanager', 'Tsawler\Laravelfilemanager\controllers\LfmController@show');
 

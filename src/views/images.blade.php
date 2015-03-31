@@ -25,8 +25,11 @@
             <div class="caption text-center">
                 <h5>{{ basename($file) }}</h5>
                 <p class="text-center">
-                    <a href="#" class="btn btn-primary btn-xs" role="button">
-                        Use this image
+                    <a onclick="useFile('{!! basename($file) !!}')" class="btn btn-primary btn-xs pointer" role="button">
+                        Use
+                    </a>
+                    <a href="#" class="btn btn-info btn-xs" role="button">
+                        View
                     </a>
                 </p>
             </div>
