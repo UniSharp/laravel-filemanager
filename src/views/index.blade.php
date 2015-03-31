@@ -162,6 +162,10 @@
             $("#tree1").html(data);
         });
         loadImages();
+
+        @if (Input::has('base'))
+
+        @endif
     });
 
     function highlight(x){
@@ -174,20 +178,24 @@
     }
 
     $("#upload-btn").click(function () {
+        $("#upload-btn").html('<i class="fa fa-refresh fa-spin"></i> Uploading...');
         $("#uploadForm").submit();
     });
 
-    function clickFolder(x){
+    function clickFolder(x,y){
         $('.folder-item').addClass('fa-folder');
-        $('.folder-item').removeClass('fa-folder-open');
-        if ($('#' + x + ' > i').hasClass('fa-folder')) {
-            $('#' + x + ' > i').removeClass('fa-folder');
-            $('#' + x + ' > i').addClass('fa-folder-open');
-            $("#working_dir").val($('#' + x).data('id'));
-        } else {
-            $('#' + x + ' > i').removeClass('fa-folder-open');
-            $('#' + x + ' > i').addClass('fa-folder');
+        $('.folder-item').not("#folder_top > i").removeClass('fa-folder-open');
+        if (y == 0) {
+            if ($('#' + x + ' > i').hasClass('fa-folder')) {
+                $('#' + x + ' > i').not("#folder_top > i").removeClass('fa-folder');
+                $('#' + x + ' > i').not("#folder_top > i").addClass('fa-folder-open');
+                $("#working_dir").val($('#' + x).data('id'));
+            } else {
+                $('#' + x + ' > i').removeClass('fa-folder-open');
+                $('#' + x + ' > i').addClass('fa-folder');
+            }
         }
+        $("#working_dir").val($('#' + x).data('id'));
         loadImages();
     }
 
@@ -266,7 +274,6 @@
             });
         }
     });
-
 
 </script>
 </body>

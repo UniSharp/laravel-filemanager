@@ -1,5 +1,19 @@
 @if((sizeof($files) > 0) || (sizeof($directories) > 0))
 
+    @foreach($directories as $key => $dir)
+        <div class="col-sm-6 col-md-2">
+            <div class="thumbnail text-center" data-id="{{ basename($dir) }}">
+                <a id="large_folder_{{ $key }}" data-id="{{ $dir }}" onclick="clickFolder('large_folder_{{ $key }}',1)" class="folder-icon pointer">
+                    <img src="/vendor/laravel-filemanager/img/folder.jpg">
+                </a>
+            </div>
+            <div class="caption text-center">
+                <h5>{{ basename($dir) }}</h5>
+
+            </div>
+        </div>
+    @endforeach
+
     @foreach($files as $key => $file)
 
         <div class="col-sm-6 col-md-2">
@@ -18,20 +32,6 @@
             </div>
         </div>
 
-    @endforeach
-
-    @foreach($directories as $directory)
-        <div class="col-sm-6 col-md-2">
-            <div class="thumbnail text-center" data-id="{{ basename($directory) }}">
-                <a href="" class="folder-icon" data-id="{{ basename($directory) }}">
-                    <img src="/vendor/laravel-filemanager/img/folder.jpg">
-                </a>
-            </div>
-            <div class="caption text-center">
-                <h5>{{ basename($directory) }}</h5>
-
-            </div>
-        </div>
     @endforeach
 
 @else
