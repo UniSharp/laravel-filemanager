@@ -274,14 +274,14 @@
     });
 
     $("#delete-folder").click(function(){
-        if ($(".fa-folder-open").length > 0) {
+        if ($(".fa-folder-open").not("#folder_top > i").length > 0) {
             bootbox.confirm("Are you sure you want to delete the folder "
-            + $(".fa-folder-open").data('id')
+            + $(".fa-folder-open").not("#folder_top > i").data('id')
             + " and all of its contents?", function (result) {
                 if (result == true) {
                     window.location.href = '/laravel-filemanager/deletefolder?'
                     + 'name='
-                    + $(".fa-folder-open").data('id');
+                    + $(".fa-folder-open").not("#folder_top > i").data('id');
                 }
             });
         }
