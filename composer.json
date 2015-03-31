@@ -1,9 +1,11 @@
 {
   "name": "Tsawler/Laravel-filemanager",
+  "description": "A file upload/editor intended for use with Laravel 5 and CKEditor",
+  "license": "MIT",
   "authors": [
     {
       "name": "Trevor Sawler",
-      "email": "trevor.sawler@me.com"
+      "email": "trevor.sawler@gmail.com"
     }
   ],
   "require": {
