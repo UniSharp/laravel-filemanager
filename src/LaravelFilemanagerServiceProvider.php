@@ -17,7 +17,8 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        include __DIR__ . '/routes.php';
+        if (Config::get('lfm.use_package_routes'))
+            include __DIR__ . '/routes.php';
 
         $this->loadTranslationsFrom(__DIR__.'/lang', 'laravel-filemanager');
 
