@@ -6,13 +6,33 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <style>
+        html,body{
+            height:100%;
+        }
+        .container {
+            height:100%;
+            margin-left: 5px;
+            margin-right: 5px;
+            width: 99%;
+        }
+
+        .fill{
+            height:100%;
+            min-height:100%;
+        }
+
         .wrapper {
-            min-height: 500px;
+            height: 100%;
         }
 
         #lfm-leftcol {
-            border-right: 1px solid silver;
-            min-height: 500px;
+            min-height: 80%;
+        }
+
+        #right-nav {
+            border-left: 1px solid silver;
+            height: 90%;
+            min-height: 90%;
         }
 
         .highlight {
@@ -30,26 +50,19 @@
         .pointer {
             cursor: pointer;
         }
-
-        #folder-options {
-            position: absolute;
-            bottom: 0;
-            margin-left: auto;
-            margin-right: auto;
-        }
     </style>
 </head>
 <body>
-<div class="container lfm-override">
-    <div class="row">
-        <div class="panel panel-primary">
+<div class="container">
+    <div class="row fill">
+        <div class="panel panel-primary fill">
             <div class="panel-heading">
                 <h3 class="panel-title">Laravel FileManager</h3>
             </div>
-            <div class="panel-body">
+            <div class="panel-body fill">
                 <div class="row fill">
-                    <div class="wrapper">
-                        <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 left-nav" id="lfm-leftcol">
+                    <div class="wrapper fill">
+                        <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 left-nav fill" id="lfm-leftcol">
                             <div id="tree1" data-url="/laravel-filemanager/data">
                             </div>
                             <div id="folder-options">
@@ -57,7 +70,7 @@
                                 <a id="delete-folder" class="btn btn-primary btn-xs pointer delete-folder"><i class="fa fa-remove"></i> Delete</a>
                             </div>
                         </div>
-                        <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10 right-nav">
+                        <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10 right-nav" id="right-nav">
                             <nav class="navbar navbar-default">
                                 <div class="container-fluid">
                                     <div class="navbar-header">

@@ -70,9 +70,9 @@ class LfmController extends Controller {
         unset($thumb_img);
 
         if ($working_dir != "/")
-            return Redirect::to('/laravel-filemanager?base=' . $working_dir);
+            return Redirect::to('/laravel-filemanager?'.Config::get('lfm.params') . '&base=' . $working_dir);
         else
-            return Redirect::to('/laravel-filemanager');
+            return Redirect::to('/laravel-filemanager?'.Config::get('lfm.params'));
     }
 
 
@@ -128,9 +128,9 @@ class LfmController extends Controller {
             }
         }
         if (Input::get('base') != "/")
-            return Redirect::to('/laravel-filemanager?base=' . Input::get('base'));
+            return Redirect::to('/laravel-filemanager?'.Config::get('lfm.params').'&base=' . Input::get('base'));
         else
-            return Redirect::to('/laravel-filemanager');
+            return Redirect::to('/laravel-filemanager?'.Config::get('lfm.params'));
     }
 
 
@@ -183,7 +183,7 @@ class LfmController extends Controller {
             File::makeDirectory($path . $folder_name, $mode = 0777, true, true);
         }
 
-        return Redirect::to('/laravel-filemanager');
+        return Redirect::to('/laravel-filemanager?'.Config::get('lfm.params'));
     }
 
 
@@ -198,7 +198,7 @@ class LfmController extends Controller {
         $path = base_path(Config::get('lfm.images_dir'));
         File::deleteDirectory($path . $folder_name, $preserve = false);
 
-        return Redirect::to('/laravel-filemanager');
+        return Redirect::to('/laravel-filemanager?'.Config::get('lfm.params'));
     }
 
 }
