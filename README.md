@@ -65,4 +65,4 @@ CKEditor instance as follows:
     
     Here, "editor" is the id of the textarea you are transforming to a CKEditor instance. Note that if
     you are using a custom route you will have to change `/laravel-filemanager?type=Images` to correspond
-    to whatever route you have chosen.
+    to whatever route you have chosen. Be sure to include the `?type=Images` parameter.
