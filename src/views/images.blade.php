@@ -8,6 +8,18 @@
                 </a>
             </div>
             <div class="caption text-center">
+
+                <div class="btn-group ">
+                    <button type="button" onclick="rename('{!! basename($dir) !!}')" class="btn btn-default">Rename</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="javascript:trash('{!! basename($dir) !!}')">Delete  {!! basename($dir) !!}</a></li>
+                    </ul>
+                </div>
+
                 <h5>{{ basename($dir) }}</h5>
 
             </div>
@@ -32,9 +44,7 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-
-
-                        <li><a href="javascript:cropImage('{!! basename($file) !!}')">Rename</a></li>
+                        <li><a href="javascript:rename('{!! basename($file) !!}')">Rename</a></li>
                         <li><a href="javascript:cropImage('{!! basename($file) !!}')">View</a></li>
                         <li><a href="javascript:cropImage('{!! basename($file) !!}')">Download</a></li>
                         <li class="divider"></li>

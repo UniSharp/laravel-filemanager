@@ -1,6 +1,6 @@
 <ul class="list-unstyled">
     <li style="margin-left: -5px;">
-        <a class="pointer" id="folder_top" data-id="/" onclick="clickFolder('folder_top', 0)">
+        <a class="pointer" id="folder_top" data-id="/" onclick="clickRoot()">
             <i class="fa fa-folder-open" data-id="/"></i> Files
         </a>
     </li>

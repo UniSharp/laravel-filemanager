@@ -80,11 +80,7 @@
                 <div class="row fill">
                     <div class="wrapper fill">
                         <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 left-nav fill" id="lfm-leftcol">
-                            <div id="tree1" data-url="/laravel-filemanager/data">
-                            </div>
-                            <div id="folder-options">
-                                <a class="btn btn-primary btn-xs pointer add-folder" id="add-folder"><i class="fa fa-plus"></i> New</a>
-                                <a id="delete-folder" class="btn btn-primary btn-xs pointer delete-folder"><i class="fa fa-remove"></i> Delete</a>
+                            <div id="tree1">
                             </div>
                         </div>
                         <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10 right-nav" id="right-nav">
@@ -101,8 +97,13 @@
                                     </div>
                                     <div class="collapse navbar-collapse">
                                         <ul class="nav navbar-nav">
-                                            <li><a href="#!" id="upload" data-toggle="modal" data-target="#uploadModal"><i
-                                                            class="fa fa-upload"></i> Upload</a></li>
+                                            <li>
+                                                <a href="#!" id="upload" data-toggle="modal" data-target="#uploadModal"><i
+                                                            class="fa fa-upload"></i> Upload</a>
+                                            </li>
+                                            <li>
+                                                <a href="#!" class="add-folder" id="add-folder"><i class="fa fa-plus"></i> New Folder</a>
+                                            </li>
 
                                         </ul>
                                     </div>
@@ -202,6 +203,12 @@
         $("#uploadForm").submit();
     });
 
+    function clickRoot(){
+        $('.folder-item').removeClass('fa-folder-open').addClass('fa-folder');
+        $("#working_dir").val('/');
+        loadImages();
+    }
+
     function clickFolder(x,y){
         $('.folder-item').addClass('fa-folder');
         $('.folder-item').not("#folder_top > i").removeClass('fa-folder-open');
@@ -237,13 +244,24 @@
     }
 
     function trash(x) {
-        bootbox.confirm("Are you sure you want to delete this image?", function (result) {
+        bootbox.confirm("Are you sure you want to delete this item?", function (result) {
             if (result == true) {
-                window.location.href = '/laravel-filemanager/delete?'
-                + 'base='
-                + $("#working_dir").val()
-                + '&items='
-                + x;
+                $.ajax({
+                    type: "GET",
+                    dataType: "text",
+                    url: "/laravel-filemanager/delete",
+                    data: {
+                        base: $("#working_dir").val(),
+                        items: x
+                    },
+                    cache: false
+                }).done(function (data) {
+                    if (data != "OK") {
+                        notify(data);
+                    } else {
+                        loadImages();
+                    }
+                });
             }
         });
     }
@@ -276,7 +294,7 @@
         alert(theImageId);
     }
 
-    $("#add-folder").click(function(){
+    $(".add-folder").click(function(){
         bootbox.prompt("Folder name:", function(result) {
             if (result === null) {
             } else {
@@ -315,6 +333,43 @@
             window.opener.CKEDITOR.tools.callFunction( funcNum, '{{ \Config::get('lfm.images_url') }}' + file );
         }
         window.close();
+    }
+
+    function rename(x){
+        bootbox.prompt({
+            title: "Rename to:",
+            value: x,
+            callback: function(result) {
+                if (result === null) {
+                } else {
+                    $.ajax({
+                        type: "GET",
+                        dataType: "text",
+                        url: "/laravel-filemanager/rename",
+                        data: {
+                            file: x,
+                            dir: $("#working_dir").val(),
+                            new_name: result
+                        },
+                        cache: false
+                    }).done(function (data) {
+                        if (data == "OK"){
+                            loadImages();
+                        } else {
+                            notify(data);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    function notify(x){
+        bootbox.alert(x);
+    }
+
+    function deleteItem(x){
+
     }
 </script>
 </body>

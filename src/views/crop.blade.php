@@ -35,6 +35,7 @@
         $('.crop-container > img').cropper({
             //aspectRatio: 16 / 9,
             preview: ".img-preview",
+            strict: false,
             crop: function (data) {
                 // Output the result data for cropping image.
                 $dataX.val(Math.round(data.x));

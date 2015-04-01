@@ -112,27 +112,48 @@ class LfmController extends Controller {
     {
         $to_delete = Input::get('items');
         $base = Input::get("base");
+        Log::info('base is ' . $base);
 
         if ($base != "/")
         {
-            if (File::exists(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . $to_delete))
+            if (File::isDirectory(base_path() . "/" . Config::get('lfm.images_dir') . $to_delete))
             {
                 File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . $to_delete);
-                File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . "thumbs/" . $to_delete);
+                return "OK";
+            } else
+            {
+                if (File::exists(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . $to_delete))
+                {
+                    File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . $to_delete);
+                    File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . "thumbs/" . $to_delete);
+                    return "OK";
+                }
             }
         } else
         {
-            if (File::exists(base_path() . "/" . Config::get('lfm.images_dir') . $to_delete))
+            $file_name = base_path() . "/" . Config::get('lfm.images_dir') . $to_delete;
+            if (File::isDirectory($file_name))
             {
-                File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $to_delete);
-                File::delete(base_path() . "/" . Config::get('lfm.images_dir') . "thumbs/" . $to_delete);
+                // make sure the directory is empty
+                if (sizeof(File::files($file_name)) == 0)
+                {
+                    File::deleteDirectory($file_name);
+                    return "OK";
+                }
+                else
+                {
+                    return "You cannot delete this folder because it is not empty!";
+                }
+            } else
+            {
+                if (File::exists($file_name))
+                {
+                    File::delete($file_name);
+                    File::delete(base_path() . "/" . Config::get('lfm.images_dir') . "thumbs/" . $to_delete);
+                    return "OK";
+                }
             }
         }
-
-        if (Input::get('base') != "/")
-            return Redirect::to('/laravel-filemanager?'.Config::get('lfm.params').'&base=' . Input::get('base'));
-        else
-            return Redirect::to('/laravel-filemanager?'.Config::get('lfm.params'));
     }
 
 
@@ -178,7 +199,7 @@ class LfmController extends Controller {
      */
     public function getAddfolder()
     {
-        $folder_name = Input::get('name');
+        $folder_name = Str::slug(Input::get('name'));
         $path = base_path(Config::get('lfm.images_dir'));
 
         if( ! File::exists($path . $folder_name)) {
@@ -224,9 +245,8 @@ class LfmController extends Controller {
     /**
      * Crop the image (called via ajax)
      */
-    public function postCrop()
+    public function getCropimage()
     {
-        Log::info('cropping!');
         $dir = Input::get('dir');
         $img = Input::get('img');
         $dataX = Input::get('dataX');
@@ -243,6 +263,65 @@ class LfmController extends Controller {
         $thumb_img = Image::make(public_path() . $img);
         $thumb_img->fit(200, 200)
             ->save(base_path() . "/" . Config::get('lfm.images_dir') . $dir . "/thumbs/" . basename($img));
+    }
+
+
+    function getRename(){
+
+        $file_to_rename = Input::get('file');
+        $dir = Input::get('dir');
+        $new_name = Str::slug(Input::get('new_name'));
+
+        if ($dir == "/")
+        {
+            if (File::exists(base_path() . "/". Config::get('lfm.images_dir') . $new_name))
+            {
+                return "File name already in use!";
+            } else
+            {
+                if (File::isDirectory(base_path() . "/" . Config::get('lfm.images_dir') . $file_to_rename))
+                {
+                    File::move(base_path() . "/" . Config::get('lfm.images_dir') . $file_to_rename,
+                        base_path() . "/" . Config::get('lfm.images_dir') . $new_name);
+
+                    return "OK";
+                } else
+                {
+                    File::move(base_path() . "/" . Config::get('lfm.images_dir') . $file_to_rename,
+                        base_path() . "/" . Config::get('lfm.images_dir') . $new_name);
+                    // rename thumbnail
+                    File::move(base_path() . "/" . Config::get('lfm.images_dir') . "thumbs/" . $file_to_rename,
+                        base_path() . "/" . Config::get('lfm.images_dir') . "thumbs/" . $new_name);
+
+                    return "OK";
+                }
+            }
+        } else
+        {
+            if (File::exists(base_path() . "/" . Config::get('lfm.images_dir') . $dir . "/" . $new_name))
+            {
+                return "File name already in use!";
+            } else
+            {
+                //return base_path() . "/" . Config::get('lfm.images_dir') . $dir . "/" . $file_to_rename;
+
+                if (File::isDirectory(base_path() . "/" . Config::get('lfm.images_dir') . $dir . "/" . $file_to_rename))
+                {
+                    File::move(base_path() . "/" . Config::get('lfm.images_dir') . $dir . "/" . $file_to_rename,
+                        base_path() . "/" . Config::get('lfm.images_dir') . $dir . "/" . $new_name);
+                } else
+                {
+                    File::move(base_path() . "/" . Config::get('lfm.images_dir') . $dir . "/" . $file_to_rename,
+                        base_path() . "/" . Config::get('lfm.images_dir') . $dir . "/" . $new_name);
+                    // rename thumbnail
+                    File::move(base_path() . "/" . Config::get('lfm.images_dir') . $dir . "/thumbs/" . $file_to_rename,
+                        base_path() . "/" . Config::get('lfm.images_dir') . $dir . "/thumbs/" . $new_name);
+
+                    return "OK";
+                }
+            }
+        }
+
     }
 
 }
