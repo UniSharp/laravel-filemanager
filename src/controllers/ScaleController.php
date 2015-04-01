@@ -19,9 +19,15 @@ class ScaleController extends Controller {
         $image = Input::get('img');
         $dir = Input::get('dir');
 
+        /*
+         * TODO: Look up image height/width
+         */
+
         return View::make('laravel-filemanager::scale')
             ->with('img', Config::get('lfm.images_url') . $dir . "/" . $image)
             ->with('dir', $dir)
-            ->with('image', $image);
+            ->with('image', $image)
+            ->with('height', "100")
+            ->with('width', "200");
     }
 }

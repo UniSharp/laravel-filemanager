@@ -11,6 +11,9 @@
         html,body{
             height:100%;
         }
+        #resize {
+
+        }
         .img-row {
             overflow: visible;
         }

@@ -1,16 +1,16 @@
+<div class="container">
 <div class="row fill">
     <div class="col-md-8 fill">
-        <img src="{!! $img !!}?r={{ str_random(40) }}" class="img img-responsive">
+        <img id="resize" src="{!! $img !!}?r={{ str_random(40) }}" height="{!! $height !!}" width="{!! $width !!}">
     </div>
     <div class="col-md-4 fill">
         <button class="btn btn-info" onclick="loadImages()">Cancel</button>
     </div>
 </div>
-
+</div>
 <script>
     $(document).ready(function () {
-
-
+        $( "#resize" ).resizable({ aspectRatio: true });
     });
 
     function performScale() {
