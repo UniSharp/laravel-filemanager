@@ -59,6 +59,10 @@
             text-align: center;
             height: 200px;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -88,7 +92,7 @@
                                         </button>
                                     </div>
                                     <div class="collapse navbar-collapse">
-                                        <ul class="nav navbar-nav">
+                                        <ul class="nav navbar-nav" id="nav-buttons">
                                             <li>
                                                 <a href="#!" id="upload" data-toggle="modal" data-target="#uploadModal"><i
                                                             class="fa fa-upload"></i> Upload</a>
@@ -226,6 +230,7 @@
             cache: false
         }).done(function (data) {
             $("#content").html(data);
+            $("#nav-buttons").removeClass("hidden");
             $(".dropdown-toggle").dropdown();
         });
     }
@@ -268,15 +273,9 @@
             + "&dir=" + $("#working_dir").val(),
             cache: false
         }).done(function (data) {
+            $("#nav-buttons").addClass('hidden');
             $("#content").html(data);
         });
-    }
-
-    function scale(){
-        var theImageId = $('.highlight img').map(function(){
-            return this.id;
-        }).get();
-        alert(theImageId);
     }
 
     function rotate(){
@@ -370,6 +369,7 @@
             + "&dir=" + $("#working_dir").val(),
             cache: false
         }).done(function (data) {
+            $("#nav-buttons").addClass('hidden');
             $("#content").html(data);
         });
     }
