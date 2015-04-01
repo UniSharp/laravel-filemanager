@@ -2,7 +2,9 @@
     <div class="col-md-8 fill">
         <img src="{!! $img !!}?r={{ str_random(40) }}" class="img img-responsive">
     </div>
-    <div class="col-md-4 fill"></div>
+    <div class="col-md-4 fill">
+        <button class="btn btn-info" onclick="loadImages()">Cancel</button>
+    </div>
 </div>
 
 <script>
