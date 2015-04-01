@@ -1,6 +1,6 @@
 <div class="row fill">
     <div class="col-md-12 fill">
-
+        <img src="{!! $img !!}?r={{ str_random(40) }}" class="img img-responsive">
     </div>
 </div>
 

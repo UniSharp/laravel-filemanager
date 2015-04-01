@@ -2,6 +2,8 @@
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Class ScaleController
@@ -14,6 +16,12 @@ class ScaleController extends Controller {
      */
     public function getScale()
     {
-        return View::make('laravel-filemanager::scale');
+        $image = Input::get('img');
+        $dir = Input::get('dir');
+
+        return View::make('laravel-filemanager::scale')
+            ->with('img', Config::get('lfm.images_url') . $dir . "/" . $image)
+            ->with('dir', $dir)
+            ->with('image', $image);
     }
 }
