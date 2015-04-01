@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/laravel-filemanager/css/cropper.min.css">
+    {{--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-ui-bootstrap/0.5pre/assets/css/bootstrap.min.css">--}}
     <style>
         html,body{
             height:100%;
@@ -39,10 +40,6 @@
             min-height: 90%;
         }
 
-        .highlight {
-            background: red;
-        }
-
         #content {
             overflow: auto;
         }
@@ -61,11 +58,6 @@
             width: 100%;
             text-align: center;
             height: 200px;
-        }
-
-        .menu-disabled {
-            font-style: italic;;
-            color: #333;
         }
     </style>
 </head>
@@ -104,7 +96,6 @@
                                             <li>
                                                 <a href="#!" class="add-folder" id="add-folder"><i class="fa fa-plus"></i> New Folder</a>
                                             </li>
-
                                         </ul>
                                     </div>
                                 </div>
@@ -169,6 +160,7 @@
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.js"></script>
+{{--<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>--}}
 <script src="/vendor/laravel-filemanager/js/cropper.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -368,8 +360,18 @@
         bootbox.alert(x);
     }
 
-    function deleteItem(x){
-
+    function scaleImage(x){
+        $.ajax({
+            type: "GET",
+            dataType: "text",
+            url: "/laravel-filemanager/scale",
+            data: "img="
+            +  x
+            + "&dir=" + $("#working_dir").val(),
+            cache: false
+        }).done(function (data) {
+            $("#content").html(data);
+        });
     }
 </script>
 </body>

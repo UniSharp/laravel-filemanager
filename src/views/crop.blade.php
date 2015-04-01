@@ -44,7 +44,6 @@
                 $dataWidth.val(Math.round(data.width));
             }
         });
-
     });
 
     function performCrop() {

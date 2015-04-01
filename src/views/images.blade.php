@@ -49,7 +49,7 @@
                         <li><a href="javascript:cropImage('{!! basename($file) !!}')">Download</a></li>
                         <li class="divider"></li>
                         <li><a href="javascript:cropImage('{!! basename($file) !!}')">Rotate</a></li>
-                        <li><a href="javascript:cropImage('{!! basename($file) !!}')">Scale</a></li>
+                        <li><a href="javascript:scaleImage('{!! basename($file) !!}')">Scale</a></li>
                         <li><a href="javascript:cropImage('{!! basename($file) !!}')">Crop</a></li>
                         <li class="divider"></li>
                         <li><a href="javascript:trash('{!! basename($file) !!}')">Delete</a></li>
