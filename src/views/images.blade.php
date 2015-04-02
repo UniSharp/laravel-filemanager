@@ -3,21 +3,25 @@
     @foreach($directories as $key => $dir)
         <div class="col-sm-6 col-md-2">
             <div class="thumbnail text-center" data-id="{{ basename($dir) }}">
-                <a id="large_folder_{{ $key }}" data-id="{{ $dir }}" onclick="clickFolder('large_folder_{{ $key }}',1)" class="folder-icon pointer">
+                <a id="large_folder_{{ $key }}" data-id="{{ $dir }}" onclick="clickFolder('large_folder_{{ $key }}',1)"
+                   class="folder-icon pointer">
                     <img src="/vendor/laravel-filemanager/img/folder.jpg">
                 </a>
             </div>
             <div class="caption text-center">
 
                 <div class="btn-group ">
-                    <button type="button" onclick="clickFolder('large_folder_{{ $key }}',1)" class="btn btn-default">Open</button>
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button type="button" onclick="clickFolder('large_folder_{{ $key }}',1)" class="btn btn-default">
+                        Open
+                    </button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="javascript:rename('{!! basename($dir) !!}')">Rename</a></li>
-                        <li><a href="javascript:trash('{!! basename($dir) !!}')">Delete  {!! basename($dir) !!}</a></li>
+                        <li><a href="javascript:trash('{!! basename($dir) !!}')">Delete {!! basename($dir) !!}</a></li>
                     </ul>
                 </div>
 
@@ -39,8 +43,10 @@
             <div class="caption text-center">
 
                 <div class="btn-group ">
-                    <button type="button" onclick="useFile('{!! basename($file) !!}')" class="btn btn-default">Use</button>
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button type="button" onclick="useFile('{!! basename($file) !!}')" class="btn btn-default">Use
+                    </button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
