@@ -8,25 +8,28 @@
     <link rel="stylesheet" href="/vendor/laravel-filemanager/css/cropper.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.css">
     <style>
-        html,body{
-            height:100%;
+        html, body {
+            height: 100%;
         }
+
         #resize {
 
         }
+
         .img-row {
             overflow: visible;
         }
+
         .container {
-            height:100%;
+            height: 100%;
             margin-left: 5px;
             margin-right: 5px;
             width: 99%;
         }
 
-        .fill{
-            height:100%;
-            min-height:100%;
+        .fill {
+            height: 100%;
+            min-height: 100%;
         }
 
         .wrapper {
@@ -101,13 +104,16 @@
                                                             class="fa fa-upload"></i> Upload</a>
                                             </li>
                                             <li>
-                                                <a href="#!" class="add-folder" id="add-folder"><i class="fa fa-plus"></i> New Folder</a>
+                                                <a href="#!" class="add-folder" id="add-folder"><i
+                                                            class="fa fa-plus"></i> New Folder</a>
                                             </li>
                                             <li>
-                                                <a href="#!" class="thumbnail-display" id="thumbnail-display"><i class="fa fa-picture-o"></i> Thumbnails</a>
+                                                <a href="#!" class="thumbnail-display" id="thumbnail-display"><i
+                                                            class="fa fa-picture-o"></i> Thumbnails</a>
                                             </li>
                                             <li>
-                                                <a href="#!" class="list-display" id="list-display"><i class="fa fa-list"></i> List</a>
+                                                <a href="#!" class="list-display" id="list-display"><i
+                                                            class="fa fa-list"></i> List</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -159,6 +165,7 @@
                     </div>
                 </div>
                 {!! Form::hidden('working_dir', $working_dir, ['id' => 'working_dir']) !!}
+                {!! Form::hidden('show_list', 1, ['id' => 'show_list']) !!}
                 {!! Form::close() !!}
             </div>
             <div class="modal-footer">
@@ -192,11 +199,12 @@
         @if (Input::has('base'))
 
         @endif
+
     });
 
-    function highlight(x){
+    function highlight(x) {
         $(".thumbnail-img").not('#' + x).removeClass('highlight');
-        if ($("#" + x).hasClass('highlight')){
+        if ($("#" + x).hasClass('highlight')) {
             $("#" + x).removeClass('highlight');
         } else {
             $("#" + x).addClass('highlight');
@@ -208,13 +216,13 @@
         $("#uploadForm").submit();
     });
 
-    function clickRoot(){
+    function clickRoot() {
         $('.folder-item').removeClass('fa-folder-open').addClass('fa-folder');
         $("#working_dir").val('/');
         loadImages();
     }
 
-    function clickFolder(x,y){
+    function clickFolder(x, y) {
         $('.folder-item').addClass('fa-folder');
         $('.folder-item').not("#folder_top > i").removeClass('fa-folder-open');
         if (y == 0) {
@@ -230,12 +238,15 @@
         loadImages();
     }
 
-    function loadImages(){
+    function loadImages() {
         $.ajax({
             type: "GET",
             dataType: "html",
             url: "/laravel-filemanager/picsjson",
-            data: "base=" + $("#working_dir").val(),
+            data: {
+                base: $("#working_dir").val(),
+                show_list: $("#show_list").val()
+            },
             cache: false
         }).done(function (data) {
             $("#content").html(data);
@@ -244,7 +255,7 @@
         });
     }
 
-    function initDD(){
+    function initDD() {
         alert('1');
         $('.btn-dropdown-toggle').dropdown();
     }
@@ -272,13 +283,13 @@
         });
     }
 
-    function cropImage(x){
+    function cropImage(x) {
         $.ajax({
             type: "GET",
             dataType: "text",
             url: "/laravel-filemanager/crop",
             data: "img="
-            +  x
+            + x
             + "&dir=" + $("#working_dir").val(),
             cache: false
         }).done(function (data) {
@@ -287,23 +298,23 @@
         });
     }
 
-    function rotate(){
-        var theImageId = $('.highlight img').map(function(){
+    function rotate() {
+        var theImageId = $('.highlight img').map(function () {
             return this.id;
         }).get();
         alert(theImageId);
     }
 
-    $(".add-folder").click(function(){
-        bootbox.prompt("Folder name:", function(result) {
+    $(".add-folder").click(function () {
+        bootbox.prompt("Folder name:", function (result) {
             if (result === null) {
             } else {
-                location.href='/laravel-filemanager/newfolder?name=' + result;
+                location.href = '/laravel-filemanager/newfolder?name=' + result;
             }
         });
     });
 
-    $("#delete-folder").click(function(){
+    $("#delete-folder").click(function () {
         if ($(".fa-folder-open").not("#folder_top > i").length > 0) {
             bootbox.confirm("Are you sure you want to delete the folder "
             + $(".fa-folder-open").not("#folder_top > i").data('id')
@@ -317,29 +328,31 @@
         }
     });
 
-    function useFile(file){
+    function useFile(file) {
         var path = $('#working_dir').val();
-        function getUrlParam( paramName ) {
-            var reParam = new RegExp( '(?:[\?&]|&)' + paramName + '=([^&]+)', 'i' ) ;
-            var match = window.location.search.match(reParam) ;
-            return ( match && match.length > 1 ) ? match[ 1 ] : null ;
+
+        function getUrlParam(paramName) {
+            var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
+            var match = window.location.search.match(reParam);
+            return ( match && match.length > 1 ) ? match[1] : null;
         }
-        var funcNum = getUrlParam( 'CKEditorFuncNum' );
-        window.opener.CKEDITOR.tools.callFunction( funcNum, path + "/" + file );
+
+        var funcNum = getUrlParam('CKEditorFuncNum');
+        window.opener.CKEDITOR.tools.callFunction(funcNum, path + "/" + file);
 
         if (path != '/') {
-            window.opener.CKEDITOR.tools.callFunction(funcNum, '{{ \Config::get('lfm.images_url') }}' + path + "/" + file );
+            window.opener.CKEDITOR.tools.callFunction(funcNum, '{{ \Config::get('lfm.images_url') }}' + path + "/" + file);
         } else {
-            window.opener.CKEDITOR.tools.callFunction( funcNum, '{{ \Config::get('lfm.images_url') }}' + file );
+            window.opener.CKEDITOR.tools.callFunction(funcNum, '{{ \Config::get('lfm.images_url') }}' + file);
         }
         window.close();
     }
 
-    function rename(x){
+    function rename(x) {
         bootbox.prompt({
             title: "Rename to:",
             value: x,
-            callback: function(result) {
+            callback: function (result) {
                 if (result === null) {
                 } else {
                     $.ajax({
@@ -353,7 +366,7 @@
                         },
                         cache: false
                     }).done(function (data) {
-                        if (data == "OK"){
+                        if (data == "OK") {
                             loadImages();
                         } else {
                             notify(data);
@@ -364,17 +377,17 @@
         });
     }
 
-    function notify(x){
+    function notify(x) {
         bootbox.alert(x);
     }
 
-    function scaleImage(x){
+    function scaleImage(x) {
         $.ajax({
             type: "GET",
             dataType: "text",
             url: "/laravel-filemanager/scale",
             data: "img="
-            +  x
+            + x
             + "&dir=" + $("#working_dir").val(),
             cache: false
         }).done(function (data) {
@@ -382,6 +395,16 @@
             $("#content").html(data);
         });
     }
+
+    $("#thumbnail-display").click(function () {
+        $("#show_list").val(0);
+        loadImages();
+    });
+
+    $("#list-display").click(function () {
+        $("#show_list").val(1);
+        loadImages();
+    });
 </script>
 </body>
 </html>

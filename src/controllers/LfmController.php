@@ -99,7 +99,7 @@ class LfmController extends Controller {
         }
 
         return View::make("laravel-filemanager::tree")
-            ->with('dirs', $final_array);
+                ->with('dirs', $final_array);
     }
 
 
@@ -185,10 +185,21 @@ class LfmController extends Controller {
             }
         }
 
-        return View::make('laravel-filemanager::images')
-            ->with('files', $files)
-            ->with('directories', $directories)
-            ->with('base', Input::get('base'));
+        if (Input::get('show_list') == 1)
+        {
+            return View::make('laravel-filemanager::images-list')
+                ->with('files', $files)
+                ->with('directories', $directories)
+                ->with('base', Input::get('base'));
+        }
+        else
+        {
+
+            return View::make('laravel-filemanager::images')
+                ->with('files', $files)
+                ->with('directories', $directories)
+                ->with('base', Input::get('base'));
+        }
     }
 
 }

@@ -1,9 +1,9 @@
 <?php namespace Tsawler\Laravelfilemanager\controllers;
 
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -13,6 +13,8 @@ use Intervention\Image\Facades\Image;
 class ScaleController extends Controller {
 
     /**
+     * Dipsplay image for resizing
+     *
      * @return mixed
      */
     public function getScale()
