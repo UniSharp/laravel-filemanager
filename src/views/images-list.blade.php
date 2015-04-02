@@ -1,35 +1,49 @@
 <div class="container">
-    @if((sizeof($files) > 0) || (sizeof($directories) > 0))
+    @if((sizeof($file_info) > 0) || (sizeof($directories) > 0))
         <table class="table table-condensed table-striped">
             <thead>
-                <tr>
-                    <td>Item</td>
-                </tr>
+            <tr>
+                <th>Item</th>
+                <th>Size</th>
+                <th>Type</th>
+                <th>Modified</th>
+            </tr>
             </thead>
             <tbody>
-        @foreach($directories as $key => $dir)
-            <tr>
-                <td>
-                    <i class="fa fa-folder-o"></i>
-                    <a id="large_folder_{{ $key }}" href="javascript:clickFolder('large_folder_{{ $key }}',1)" data-id="{{ $dir }}">
-                        {!! basename($dir) !!}
-                    </a>
-                </td>
-            </tr>
-        @endforeach
+            @foreach($directories as $key => $dir)
+                <tr>
+                    <td>
+                        <i class="fa fa-folder-o"></i>
+                        <a id="large_folder_{{ $key }}" href="javascript:clickFolder('large_folder_{{ $key }}',1)"
+                           data-id="{{ $dir }}">
+                            {!! basename($dir) !!}
+                        </a>
+                    </td>
+                    <td></td>
+                    <td>Folder</td>
+                    <td></td>
+                </tr>
+            @endforeach
 
-        @foreach($files as $key => $file)
-
-            <tr>
-                <td>
-                <i class="fa fa-image"></i>
-                <a href="javascript:useFile('{!! basename($file) !!}')">
-                    {!! basename($file) !!}
-                </a>
-                </td>
-            </tr>
-
-        @endforeach
+            @foreach($file_info as $file)
+                <tr>
+                    <td>
+                        <i class="fa fa-image"></i>
+                        <a href="javascript:useFile('{!! basename($file['name']) !!}')">
+                            {!! basename($file['name']) !!}
+                        </a>
+                    </td>
+                    <td>
+                        {!! $file['size'] !!}
+                    </td>
+                    <td>
+                        {!! $file['type'] !!}
+                    </td>
+                    <td>
+                        {!! date("Y-m-d h:m", $file['created']) !!}
+                    </td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
 
