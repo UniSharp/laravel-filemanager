@@ -75,9 +75,9 @@ class LfmController extends Controller {
         unset($thumb_img);
 
         if ($working_dir != "/")
-            return Redirect::to('/laravel-filemanager?'.Config::get('lfm.params') . '&base=' . $working_dir);
+            return Redirect::to('/laravel-filemanager?' . Config::get('lfm.params') . '&base=' . $working_dir);
         else
-            return Redirect::to('/laravel-filemanager?'.Config::get('lfm.params'));
+            return Redirect::to('/laravel-filemanager?' . Config::get('lfm.params'));
     }
 
 
@@ -119,6 +119,7 @@ class LfmController extends Controller {
             if (File::isDirectory(base_path() . "/" . Config::get('lfm.images_dir') . $to_delete))
             {
                 File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . $to_delete);
+
                 return "OK";
             } else
             {
@@ -126,6 +127,7 @@ class LfmController extends Controller {
                 {
                     File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . $to_delete);
                     File::delete(base_path() . "/" . Config::get('lfm.images_dir') . $base . "/" . "thumbs/" . $to_delete);
+
                     return "OK";
                 }
             }
@@ -138,9 +140,9 @@ class LfmController extends Controller {
                 if (sizeof(File::files($file_name)) == 0)
                 {
                     File::deleteDirectory($file_name);
+
                     return "OK";
-                }
-                else
+                } else
                 {
                     return "You cannot delete this folder because it is not empty!";
                 }
@@ -150,6 +152,7 @@ class LfmController extends Controller {
                 {
                     File::delete($file_name);
                     File::delete(base_path() . "/" . Config::get('lfm.images_dir') . "thumbs/" . $to_delete);
+
                     return "OK";
                 }
             }
@@ -185,10 +188,42 @@ class LfmController extends Controller {
             }
         }
 
-        return View::make('laravel-filemanager::images')
-            ->with('files', $files)
-            ->with('directories', $directories)
-            ->with('base', Input::get('base'));
+        $file_info = [];
+
+        foreach ($files as $file)
+        {
+            $file_name = $file;
+            $file_size = number_format((Image::make($file)->filesize() / 1024), 2, ".", "");
+            if ($file_size > 1000)
+            {
+                $file_size = number_format((Image::make($file)->filesize() / 1024), 2, ".", "") . " Mb";
+            } else
+            {
+                $file_size = $file_size . " Kb";
+            }
+            $file_created = filemtime($file);
+            $file_type = Image::make($file)->mime();
+            $file_info[] = [
+                'name'    => $file_name,
+                'size'    => $file_size,
+                'created' => $file_created,
+                'type'    => $file_type
+            ];
+        }
+
+        if (Input::get('show_list') == 1)
+        {
+            return View::make('laravel-filemanager::images-list')
+                ->with('directories', $directories)
+                ->with('base', Input::get('base'))
+                ->with('file_info', $file_info);
+        } else
+        {
+            return View::make('laravel-filemanager::images')
+                ->with('files', $files)
+                ->with('directories', $directories)
+                ->with('base', Input::get('base'));
+        }
     }
 
 }

@@ -10,12 +10,13 @@
             <div class="caption text-center">
 
                 <div class="btn-group ">
-                    <button type="button" onclick="rename('{!! basename($dir) !!}')" class="btn btn-default">Rename</button>
+                    <button type="button" onclick="clickFolder('large_folder_{{ $key }}',1)" class="btn btn-default">Open</button>
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
+                        <li><a href="javascript:rename('{!! basename($dir) !!}')">Rename</a></li>
                         <li><a href="javascript:trash('{!! basename($dir) !!}')">Delete  {!! basename($dir) !!}</a></li>
                     </ul>
                 </div>
