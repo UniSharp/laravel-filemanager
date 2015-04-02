@@ -252,11 +252,6 @@
         });
     }
 
-    function initDD() {
-        alert('1');
-        $('.btn-dropdown-toggle').dropdown();
-    }
-
     function trash(x) {
         bootbox.confirm("Are you sure you want to delete this item?", function (result) {
             if (result == true) {
