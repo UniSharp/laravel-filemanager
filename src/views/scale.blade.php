@@ -56,7 +56,7 @@
     $(document).ready(function () {
         $("#height_display").html($("#resize").height() + "px");
         $("#width_display").html($("#resize").width() + "px");
-        
+
         $( "#resize" ).resizable({
             aspectRatio: true,
             containment: "#containment",

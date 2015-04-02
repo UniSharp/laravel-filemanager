@@ -103,6 +103,12 @@
                                             <li>
                                                 <a href="#!" class="add-folder" id="add-folder"><i class="fa fa-plus"></i> New Folder</a>
                                             </li>
+                                            <li>
+                                                <a href="#!" class="thumbnail-display" id="thumbnail-display"><i class="fa fa-picture-o"></i> Thumbnails</a>
+                                            </li>
+                                            <li>
+                                                <a href="#!" class="list-display" id="list-display"><i class="fa fa-list"></i> List</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>

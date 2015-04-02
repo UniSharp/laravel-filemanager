@@ -38,6 +38,14 @@ class ScaleController extends Controller {
             $width = $original_width;
         }
 
+        if ($height > 400)
+        {
+            $ratio = 400 / $original_height;
+            $width = $original_width * $ratio;
+            $height = $original_height * $ratio;
+            $scaled = true;
+        }
+
         return View::make('laravel-filemanager::scale')
             ->with('img', Config::get('lfm.images_url') . $dir . "/" . $image)
             ->with('dir', $dir)
