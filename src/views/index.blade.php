@@ -291,11 +291,8 @@
         });
     }
 
-    function rotate() {
-        var theImageId = $('.highlight img').map(function () {
-            return this.id;
-        }).get();
-        alert(theImageId);
+    function notImp() {
+        bootbox.alert('Not yet implemented!');;
     }
 
     $(".add-folder").click(function () {
