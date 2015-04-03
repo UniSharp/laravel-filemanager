@@ -1,15 +1,15 @@
 <?php namespace Tsawler\Laravelfilemanager\controllers;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use Tsawler\Laravelfilemanager\requests\UploadRequest;
 
 /**
  * Class LfmController
@@ -46,8 +46,12 @@ class LfmController extends Controller {
      * @param UploadRequest $request
      * @return string
      */
-    public function upload(UploadRequest $request)
+    public function upload(Request $request)
     {
+        $this->validate($request, [
+            'file_to_upload' => 'required|image',
+        ]);
+
         $file = Input::file('file_to_upload');
         $working_dir = Input::get('working_dir');
         $destinationPath = base_path() . "/" . Config::get('lfm.images_dir');

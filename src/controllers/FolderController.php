@@ -1,6 +1,6 @@
 <?php namespace Tsawler\Laravelfilemanager\controllers;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
@@ -23,11 +23,12 @@ class FolderController extends Controller {
         $folder_name = Str::slug(Input::get('name'));
         $path = base_path(Config::get('lfm.images_dir'));
 
-        if( ! File::exists($path . $folder_name)) {
+        if (!File::exists($path . $folder_name))
+        {
             File::makeDirectory($path . $folder_name, $mode = 0777, true, true);
         }
 
-        return Redirect::to('/laravel-filemanager?'.Config::get('lfm.params'));
+        return Redirect::to('/laravel-filemanager?' . Config::get('lfm.params'));
     }
 
 
@@ -42,6 +43,6 @@ class FolderController extends Controller {
         $path = base_path(Config::get('lfm.images_dir'));
         File::deleteDirectory($path . $folder_name, $preserve = false);
 
-        return Redirect::to('/laravel-filemanager?'.Config::get('lfm.params'));
+        return Redirect::to('/laravel-filemanager?' . Config::get('lfm.params'));
     }
 }

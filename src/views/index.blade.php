@@ -6,14 +6,10 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/laravel-filemanager/css/cropper.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
     <style>
         html, body {
             height: 100%;
-        }
-
-        #resize {
-
         }
 
         .img-row {
@@ -165,7 +161,7 @@
                     </div>
                 </div>
                 {!! Form::hidden('working_dir', $working_dir, ['id' => 'working_dir']) !!}
-                {!! Form::hidden('show_list', 1, ['id' => 'show_list']) !!}
+                {!! Form::hidden('show_list', 0, ['id' => 'show_list']) !!}
                 {!! Form::close() !!}
             </div>
             <div class="modal-footer">
@@ -199,6 +195,7 @@
         @if (Input::has('base'))
 
         @endif
+
 
     });
 
@@ -253,11 +250,6 @@
             $("#nav-buttons").removeClass("hidden");
             $(".dropdown-toggle").dropdown();
         });
-    }
-
-    function initDD() {
-        alert('1');
-        $('.btn-dropdown-toggle').dropdown();
     }
 
     function trash(x) {

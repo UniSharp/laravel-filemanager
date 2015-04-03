@@ -47,7 +47,6 @@
     });
 
     function performCrop() {
-
         $.ajax({
             type: "GET",
             dataType: "text",
@@ -64,7 +63,5 @@
         }).done(function (data) {
             loadImages();
         });
-
-        //$("#cropForm").submit();
     }
 </script>
