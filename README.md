@@ -1,5 +1,7 @@
 # laravel-filemanager
 
+## This package is under active development, and is not yet ready for prime time!
+
 A file upload/editor intended for use with [Laravel 5](http://www.laravel.com/ "Title") and [CKEditor](http://ckeditor.com/).
 
 ## Rationale
