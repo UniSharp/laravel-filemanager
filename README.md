@@ -79,7 +79,7 @@ CKEditor instance as follows:
 It is important to note that __you must protect your routes to Laravel-Filemanager in order to prevent
 unauthorized uploads to your server__. Fortunately, Laravel makes this very easy.
 
-If you only want to ensure that logged in users have the ability to access the Laravel-Filemanager, 
+If, for example you want to ensure that only logged in users have the ability to access the Laravel-Filemanager, 
 simply wrap the routes in a group, perhaps like this:
 
     Route::group(array('before' => 'auth'), function ()
