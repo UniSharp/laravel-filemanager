@@ -56,10 +56,10 @@
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="javascript:rename('{!! basename($file) !!}')">Rename</a></li>
-                                <li><a href="javascript:cropImage('{!! basename($file) !!}')">View</a></li>
-                                <li><a href="javascript:cropImage('{!! basename($file) !!}')">Download</a></li>
+                                <li><a href="javascript:notImp()">View</a></li>
+                                <li><a href="javascript:notImp()">Download</a></li>
                                 <li class="divider"></li>
-                                <li><a href="javascript:cropImage('{!! basename($file) !!}')">Rotate</a></li>
+                                <li><a href="javascript:notImp()">Rotate</a></li>
                                 <li><a href="javascript:scaleImage('{!! basename($file) !!}')">Scale</a></li>
                                 <li><a href="javascript:cropImage('{!! basename($file) !!}')">Crop</a></li>
                                 <li class="divider"></li>
