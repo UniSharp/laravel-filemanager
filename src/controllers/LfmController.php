@@ -4,12 +4,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class LfmController
@@ -18,20 +17,50 @@ use Intervention\Image\Facades\Image;
 class LfmController extends Controller {
 
     /**
+     * @var
+     */
+    protected $file_location;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        if ((Session::has('lfm_type')) && (Session::get('lfm_type') == 'Files'))
+        {
+            $this->file_location = Config::get('lfm.files_dir');
+        } else
+        {
+            $this->file_location = Config::get('lfm.images_dir');
+        }
+    }
+
+
+    /**
      * Show the filemanager
      *
      * @return mixed
      */
     public function show()
     {
+        if (Input::get('type') == "Images")
+        {
+            Session::put('lfm_type', 'Images');
+            $this->file_location = Config::get('lfm.images_dir');
+        } else
+        {
+            Session::put('lfm_type', 'Files');
+            $this->file_location = Config::get('lfm.files_dir');
+        }
+
         if (Input::has('base'))
         {
             $working_dir = Input::get('base');
-            $base = "/vendor/laravel-filemanager/files/" . Input::get('base') . "/";
+            $base = $this->file_location . Input::get('base') . "/";
         } else
         {
             $working_dir = "/";
-            $base = "/vendor/laravel-filemanager/files/";
+            $base = $this->file_location;
         }
 
         return View::make('laravel-filemanager::index')
@@ -46,42 +75,58 @@ class LfmController extends Controller {
      * @param UploadRequest $request
      * @return string
      */
-    public function upload(Request $request)
+    public function upload()
     {
-        $this->validate($request, [
-            'file_to_upload' => 'required|image',
-        ]);
-
-        $file = Input::file('file_to_upload');
-        $working_dir = Input::get('working_dir');
-        $destinationPath = base_path() . "/" . Config::get('lfm.images_dir');
-
-        if (strlen($working_dir) > 1)
+        if (Session::get('type') == "Image")
         {
-            $destinationPath .= $working_dir . "/";
+            $file = Input::file('file_to_upload');
+            $working_dir = Input::get('working_dir');
+            $destinationPath = base_path() . "/" . $this->file_location;
+
+            if (strlen($working_dir) > 1)
+            {
+                $destinationPath .= $working_dir . "/";
+            }
+
+            $filename = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+
+            $new_filename = Str::slug(str_replace($extension, '', $filename)) . "." . $extension;
+
+            Input::file('file_to_upload')->move($destinationPath, $new_filename);
+
+            if (!File::exists($destinationPath . "thumbs"))
+            {
+                File::makeDirectory($destinationPath . "thumbs");
+            }
+
+            $thumb_img = Image::make($destinationPath . $new_filename);
+            $thumb_img->fit(200, 200)
+                ->save($destinationPath . "thumbs/" . $new_filename);
+            unset($thumb_img);
+
+            return "OK";
+        } else
+        {
+            $file = Input::file('file_to_upload');
+            $working_dir = Input::get('working_dir');
+            $destinationPath = base_path() . "/" . $this->file_location;
+
+            if (strlen($working_dir) > 1)
+            {
+                $destinationPath .= $working_dir . "/";
+            }
+
+            $filename = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+
+            $new_filename = Str::slug(str_replace($extension, '', $filename)) . "." . $extension;
+
+            Input::file('file_to_upload')->move($destinationPath, $new_filename);
+
+            return "OK";
         }
 
-        $filename = $file->getClientOriginalName();
-        $extension = $file->getClientOriginalExtension();
-
-        $new_filename = Str::slug(str_replace($extension, '', $filename)) . "." . $extension;
-
-        Input::file('file_to_upload')->move($destinationPath, $new_filename);
-
-        if (!File::exists($destinationPath . "thumbs"))
-        {
-            File::makeDirectory($destinationPath . "thumbs");
-        }
-
-        $thumb_img = Image::make($destinationPath . $new_filename);
-        $thumb_img->fit(200, 200)
-            ->save($destinationPath . "thumbs/" . $new_filename);
-        unset($thumb_img);
-
-        if ($working_dir != "/")
-            return Redirect::to('/laravel-filemanager?' . Config::get('lfm.params') . '&base=' . $working_dir);
-        else
-            return Redirect::to('/laravel-filemanager?' . Config::get('lfm.params'));
     }
 
 
@@ -92,7 +137,10 @@ class LfmController extends Controller {
      */
     public function getData()
     {
-        $directories = File::directories(base_path(Config::get('lfm.images_dir')));
+        if (Session::get('lfm_type') == 'Images')
+            $directories = File::directories(base_path(Config::get('lfm.images_dir')));
+        else
+            $directories = File::directories(base_path(Config::get('lfm.files_dir')));
         $final_array = [];
         foreach ($directories as $directory)
         {
@@ -116,7 +164,6 @@ class LfmController extends Controller {
     {
         $to_delete = Input::get('items');
         $base = Input::get("base");
-        Log::info('base is ' . $base);
 
         if ($base != "/")
         {
@@ -164,6 +211,12 @@ class LfmController extends Controller {
     }
 
 
+
+    public function getFiles()
+    {
+        return "List of files";
+    }
+
     /**
      * Get the images to load for a selected folder
      *
@@ -171,15 +224,14 @@ class LfmController extends Controller {
      */
     public function getImages()
     {
-
         if (Input::has('base'))
         {
-            $files = File::files(base_path(Config::get('lfm.images_dir') . Input::get('base')));
-            $all_directories = File::directories(base_path(Config::get('lfm.images_dir') . Input::get('base')));
+            $files = File::files(base_path($this->file_location . Input::get('base')));
+            $all_directories = File::directories(base_path($this->file_location . Input::get('base')));
         } else
         {
-            $files = File::files(base_path(Config::get('lfm.images_dir')));
-            $all_directories = File::directories(base_path(Config::get('lfm.images_dir')));
+            $files = File::files(base_path($this->file_location));
+            $all_directories = File::directories(base_path($this->file_location));
         }
 
         $directories = [];
@@ -215,19 +267,27 @@ class LfmController extends Controller {
             ];
         }
 
+        if ((Session::has('lfm_type')) && (Session::get('lfm_type') == "Images"))
+            $dir_location = Config::get('lfm.images_url');
+        else
+            $dir_location = Config::get('lfm.files_url');
+
         if (Input::get('show_list') == 1)
         {
             return View::make('laravel-filemanager::images-list')
                 ->with('directories', $directories)
                 ->with('base', Input::get('base'))
-                ->with('file_info', $file_info);
+                ->with('file_info', $file_info)
+                ->with('dir_location', $dir_location);
         } else
         {
             return View::make('laravel-filemanager::images')
                 ->with('files', $files)
                 ->with('directories', $directories)
-                ->with('base', Input::get('base'));
+                ->with('base', Input::get('base'))
+                ->with('dir_location', $dir_location);
         }
+
     }
 
 }
