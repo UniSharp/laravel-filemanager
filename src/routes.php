@@ -12,7 +12,7 @@ Route::get('/laravel-filemanager/delete', 'Tsawler\Laravelfilemanager\controller
 Route::get('/laravel-filemanager/data', 'Tsawler\Laravelfilemanager\controllers\LfmController@getData');
 
 // upload
-Route::post('/laravel-filemanager/upload', 'Tsawler\Laravelfilemanager\controllers\UploadController@upload');
+Route::any('/laravel-filemanager/upload', 'Tsawler\Laravelfilemanager\controllers\UploadController@upload');
 
 // list images & files
 Route::get('/laravel-filemanager/jsonimages', 'Tsawler\Laravelfilemanager\controllers\LfmController@getImages');

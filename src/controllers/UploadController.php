@@ -1,6 +1,7 @@
 <?php namespace Tsawler\Laravelfilemanager\controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
@@ -39,7 +40,16 @@ class UploadController extends Controller {
      */
     public function upload()
     {
-        if (Session::get('type') == "Image")
+        // sanity check
+        if ( ! Input::hasFile('file_to_upload'))
+        {
+            // there ws no uploded file
+            return "You must choose a file!";
+            exit;
+        }
+
+
+        if (Session::get('lfm_type') == "Images")
         {
             $file = Input::file('file_to_upload');
             $working_dir = Input::get('working_dir');

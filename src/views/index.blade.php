@@ -137,15 +137,6 @@
         loadImages();
     });
 
-    function highlight(x) {
-        $(".thumbnail-img").not('#' + x).removeClass('highlight');
-        if ($("#" + x).hasClass('highlight')) {
-            $("#" + x).removeClass('highlight');
-        } else {
-            $("#" + x).addClass('highlight');
-        }
-    }
-
     $("#upload-btn").click(function () {
         var options = {
             beforeSubmit:  showRequest,
@@ -159,6 +150,10 @@
 
         function showResponse(responseText, statusText, xhr, $form)  {
             $("#uploadModal").modal('hide');
+            $("#upload-btn").html('Upload File...');
+            if (responseText != "OK"){
+                notify(responseText);
+            }
             loadImages();
         }
 
