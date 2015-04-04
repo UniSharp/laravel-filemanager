@@ -28,7 +28,6 @@
                                 <li><a href="javascript:trash('{!! basename($dir) !!}')">Delete</a></li>
                             </ul>
                         </div>
-{{--                        <p>{{ basename($dir) }}</p>--}}
 
                     </div>
                 </div>
@@ -40,7 +39,7 @@
 
                     <div class="thumbnail thumbnail-img" data-id="{{ basename($file) }}" id="img_thumbnail_{{ $key }}">
                         <img id="{!! $file !!}"
-                             src="/vendor/laravel-filemanager/files/{{ $base }}/thumbs/{{ basename($file) }}?r={{ str_random(40) }}"
+                             src="{{ $dir_location }}{{ $base }}/thumbs/{{ basename($file) }}?r={{ str_random(40) }}"
                              alt="">
                     </div>
                     <div class="caption text-center">

@@ -179,6 +179,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="/vendor/laravel-filemanager/js/cropper.min.js"></script>
+<script src="/vendor/laravel-filemanager/js/jquery.form.min.js"></script>
 <script>
     $(document).ready(function () {
         // load folders
@@ -211,7 +212,25 @@
 
     $("#upload-btn").click(function () {
         $("#upload-btn").html('<i class="fa fa-refresh fa-spin"></i> Uploading...');
-        $("#uploadForm").submit();
+        //$("#uploadForm").submit();
+
+        var options = {
+            beforeSubmit:  showRequest,  // pre-submit callback
+            success:       showResponse  // post-submit callback
+        };
+
+        function showRequest(formData, jqForm, options) {
+            return true;
+        }
+
+        // post-submit callback
+        function showResponse(responseText, statusText, xhr, $form)  {
+            $("#uploadModal").modal('hide');
+            loadImages();
+        }
+
+        $("#uploadForm").ajaxSubmit(options);
+        return false;
     });
 
     function clickRoot() {
@@ -236,11 +255,29 @@
         loadImages();
     }
 
-    function loadImages() {
+    @if ((Session::has('lfm_type')) && (Session::get('lfm_type') == "Images"))
+        function loadImages() {
+            $.ajax({
+                type: "GET",
+                dataType: "html",
+                url: "/laravel-filemanager/jsonimages",
+                data: {
+                    base: $("#working_dir").val(),
+                    show_list: $("#show_list").val()
+                },
+                cache: false
+            }).done(function (data) {
+                $("#content").html(data);
+                $("#nav-buttons").removeClass("hidden");
+                $(".dropdown-toggle").dropdown();
+            });
+        }
+    @else
+        function loadImages() {
         $.ajax({
             type: "GET",
             dataType: "html",
-            url: "/laravel-filemanager/picsjson",
+            url: "/laravel-filemanager/jsonfiles",
             data: {
                 base: $("#working_dir").val(),
                 show_list: $("#show_list").val()
@@ -252,6 +289,7 @@
             $(".dropdown-toggle").dropdown();
         });
     }
+    @endif
 
     function trash(x) {
         bootbox.confirm("Are you sure you want to delete this item?", function (result) {
@@ -299,24 +337,25 @@
         bootbox.prompt("Folder name:", function (result) {
             if (result === null) {
             } else {
-                location.href = '/laravel-filemanager/newfolder?name=' + result;
+                $.ajax({
+                    type: "GET",
+                    dataType: "text",
+                    url: "/laravel-filemanager/newfolder",
+                    data: {
+                        name: result
+                    },
+                    cache: false
+                }).done(function (data) {
+                    if (data == "OK") {
+                        loadImages();
+                    } else {
+                        notify(data);
+                    }
+                });
             }
         });
     });
 
-    $("#delete-folder").click(function () {
-        if ($(".fa-folder-open").not("#folder_top > i").length > 0) {
-            bootbox.confirm("Are you sure you want to delete the folder "
-            + $(".fa-folder-open").not("#folder_top > i").data('id')
-            + " and all of its contents?", function (result) {
-                if (result == true) {
-                    window.location.href = '/laravel-filemanager/deletefolder?'
-                    + 'name='
-                    + $(".fa-folder-open").not("#folder_top > i").data('id');
-                }
-            });
-        }
-    });
 
     function useFile(file) {
         var path = $('#working_dir').val();
