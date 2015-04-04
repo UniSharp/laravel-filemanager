@@ -360,6 +360,7 @@
                     }).done(function (data) {
                         if (data == "OK") {
                             loadImages();
+                            loadFiles();
                         } else {
                             notify(data);
                         }
