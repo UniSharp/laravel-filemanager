@@ -55,7 +55,7 @@
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="javascript:rename('{!! basename($file) !!}')">Rename</a></li>
-                                <li><a href="javascript:notImp()">View</a></li>
+                                <li><a href="javascript:fileView('{!! basename($file) !!}')">View</a></li>
                                 <li><a href="javascript:download('{!! basename($file) !!}')">Download</a></li>
                                 <li class="divider"></li>
                                 <li><a href="javascript:notImp()">Rotate</a></li>

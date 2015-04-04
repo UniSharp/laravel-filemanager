@@ -115,6 +115,24 @@
     </div>
 </div>
 
+<div class="modal fade" id="fileViewModal" tabindex="-1" role="dialog" aria-labelledby="fileLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="fileLabel">View Fiile</h4>
+            </div>
+            <div class="modal-body" id="fileview_body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -252,7 +270,6 @@
     }
 
 
-
     function loadFiles() {
         $.ajax({
             type: "GET",
@@ -267,8 +284,6 @@
             $("#tree1").html(data);
         });
     }
-
-
 
     function cropImage(x) {
         $.ajax({
@@ -399,6 +414,13 @@
         $("#show_list").val(1);
         loadImages();
     });
+
+    function fileView(x){
+        $('#fileview_body').html(
+                "<img class='img img-responsive' src='{!! Config::get('lfm.images_url') !!}" + $("#working_dir").val() + "/" + x + "'>"
+        );
+        $('#fileViewModal').modal();
+    }
 </script>
 </body>
 </html>
