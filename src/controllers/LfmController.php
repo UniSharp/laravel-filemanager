@@ -43,14 +43,14 @@ class LfmController extends Controller {
      */
     public function show()
     {
-        if (Input::get('type') == "Images")
-        {
-            Session::put('lfm_type', 'Images');
-            $this->file_location = Config::get('lfm.images_dir');
-        } else
+        if ((Input::has('type')) && (Input::get('type') == "Files"))
         {
             Session::put('lfm_type', 'Files');
             $this->file_location = Config::get('lfm.files_dir');
+        } else
+        {
+            Session::put('lfm_type', 'Images');
+            $this->file_location = Config::get('lfm.images_dir');
         }
 
         if (Input::has('base'))
@@ -127,29 +127,6 @@ class LfmController extends Controller {
             return "OK";
         }
 
-    }
-
-
-    /**
-     * Get data as json to populate treeview
-     *
-     * @return mixed
-     */
-    public function getData()
-    {
-        $directories = File::directories(base_path($this->file_location));
-        $final_array = [];
-
-        foreach ($directories as $directory)
-        {
-            if (basename($directory) != "thumbs")
-            {
-                $final_array[] = basename($directory);
-            }
-        }
-
-        return View::make("laravel-filemanager::tree")
-            ->with('dirs', $final_array);
     }
 
 

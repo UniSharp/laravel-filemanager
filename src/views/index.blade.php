@@ -128,7 +128,7 @@
         $.ajax({
             type: "GET",
             dataType: "text",
-            url: "/laravel-filemanager/data",
+            url: "/laravel-filemanager/folders",
             data: "base={{ $working_dir }}",
             cache: false
         }).done(function (data) {
