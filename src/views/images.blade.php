@@ -64,7 +64,6 @@
                                 <li class="divider"></li>
                                 <li><a href="javascript:trash('{!! basename($file) !!}')">Delete</a></li>
                             </ul>
-                            <p>&nbsp;</p>
                         </div>
 
                     </div>
