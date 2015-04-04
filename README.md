@@ -66,7 +66,8 @@ CKEditor instance as follows:
     ```javascript
         <script>
             CKEDITOR.replace( 'editor', {
-                filebrowserBrowseUrl: '/laravel-filemanager?type=Images'
+                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+                filebrowserBrowseUrl: '/laravel-filemanager?type=Files'
             });
         </script>
     ```
