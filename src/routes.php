@@ -31,3 +31,6 @@ Route::get('/laravel-filemanager/rename', 'Tsawler\Laravelfilemanager\controller
 
 // scale/resize
 Route::get('/laravel-filemanager/scale', 'Tsawler\Laravelfilemanager\controllers\ScaleController@getScale');
+
+// download
+Route::get('/laravel-filemanager/download', 'Tsawler\Laravelfilemanager\controllers\DownloadController@getDownload');

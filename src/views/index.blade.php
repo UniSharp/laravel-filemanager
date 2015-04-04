@@ -183,6 +183,26 @@
         loadImages();
     }
 
+    function download(x) {
+//        $.ajax({
+//            type: "GET",
+//            dataType: "html",
+//            url: "/laravel-filemanager/download",
+//            data: {
+//                dir: $("#working_dir").val(),
+//                file: x
+//            },
+//            cache: false
+//        }).done(function (data) {
+//
+//        });
+        location.href = "/laravel-filemanager/download?"
+            + "dir="
+            + $("#working_dir").val()
+            + "&file="
+            + x;
+    }
+
     @if ((Session::has('lfm_type')) && (Session::get('lfm_type') == "Images"))
         function loadImages() {
             $.ajax({
