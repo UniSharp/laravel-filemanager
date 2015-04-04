@@ -58,8 +58,8 @@ since they do not enforce any kind of security), change this entry in config/lfm
     ```php
         'images_dir'         => 'public/vendor/laravel-filemanager/images/',
         'images_url'         => '/vendor/laravel-filemanager/images/',
-        'files_dir'         => 'public/vendor/laravel-filemanager/files/',
-        'files_url'         => '/vendor/laravel-filemanager/files/',
+        'files_dir'          => 'public/vendor/laravel-filemanager/files/',
+        'files_url'          => '/vendor/laravel-filemanager/files/',
     ```
     
 1. Ensure that the files & images directories are writable by your web serber
