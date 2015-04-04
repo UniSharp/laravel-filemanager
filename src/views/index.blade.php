@@ -6,66 +6,8 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/laravel-filemanager/css/cropper.min.css">
+    <link rel="stylesheet" href="/vendor/laravel-filemanager/css/lfm.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
-    <style>
-        html, body {
-            height: 100%;
-        }
-
-        .img-row {
-            overflow: visible;
-        }
-
-        .container {
-            height: 100%;
-            margin-left: 5px;
-            margin-right: 5px;
-            width: 99%;
-        }
-
-        .fill {
-            height: 100%;
-            min-height: 100%;
-        }
-
-        .wrapper {
-            height: 100%;
-        }
-
-        #lfm-leftcol {
-            min-height: 80%;
-        }
-
-        #right-nav {
-            border-left: 1px solid silver;
-            height: 90%;
-            min-height: 90%;
-        }
-
-        #content {
-            overflow: auto;
-        }
-
-        #tree1 {
-            margin-left: 5px;
-        }
-
-        .pointer {
-            cursor: pointer;
-        }
-
-        .img-preview {
-            background-color: #f7f7f7;
-            overflow: hidden;
-            width: 100%;
-            text-align: center;
-            height: 200px;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
 </head>
 <body>
 <div class="container">
