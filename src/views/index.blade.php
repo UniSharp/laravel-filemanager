@@ -99,7 +99,7 @@
                     {!! Form::label('file_to_upload', 'Choose File', array('class' => 'control-label')); !!}
                     <div class="controls">
                         <div class="input-group" style="width: 100%">
-                            <input type="file" name="file_to_upload">
+                            <input type="file" id="file_to_upload" name="file_to_upload">
                         </div>
                     </div>
                 </div>
@@ -110,6 +110,24 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="upload-btn">Upload File</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="fileViewModal" tabindex="-1" role="dialog" aria-labelledby="fileLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="fileLabel">View Fiile</h4>
+            </div>
+            <div class="modal-body" id="fileview_body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -154,6 +172,7 @@
             if (responseText != "OK"){
                 notify(responseText);
             }
+            $("#file_to_upload").val('');
             loadImages();
         }
 
@@ -243,13 +262,13 @@
                     if (data != "OK") {
                         notify(data);
                     } else {
+                        loadFiles();
                         loadImages();
                     }
                 });
             }
         });
     }
-
 
 
     function loadFiles() {
@@ -266,8 +285,6 @@
             $("#tree1").html(data);
         });
     }
-
-
 
     function cropImage(x) {
         $.ajax({
@@ -374,11 +391,11 @@
         bootbox.alert(x);
     }
 
-    function scaleImage(x) {
+    function resizeImage(x) {
         $.ajax({
             type: "GET",
             dataType: "text",
-            url: "/laravel-filemanager/scale",
+            url: "/laravel-filemanager/resize",
             data: "img="
             + x
             + "&dir=" + $("#working_dir").val(),
@@ -398,6 +415,13 @@
         $("#show_list").val(1);
         loadImages();
     });
+
+    function fileView(x){
+        $('#fileview_body').html(
+                "<img class='img img-responsive' src='{!! Config::get('lfm.images_url') !!}" + $("#working_dir").val() + "/" + x + "'>"
+        );
+        $('#fileViewModal').modal();
+    }
 </script>
 </body>
 </html>

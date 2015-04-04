@@ -10,14 +10,14 @@ use Intervention\Image\Facades\Image;
  * Class ScaleController
  * @package Tsawler\Laravelfilemanager\controllers
  */
-class ScaleController extends Controller {
+class ResizeController extends Controller {
 
     /**
      * Dipsplay image for resizing
      *
      * @return mixed
      */
-    public function getScale()
+    public function getResize()
     {
         $ratio = 1.0;
         $image = Input::get('img');
@@ -48,7 +48,7 @@ class ScaleController extends Controller {
             $scaled = true;
         }
 
-        return View::make('laravel-filemanager::scale')
+        return View::make('laravel-filemanager::resize')
             ->with('img', Config::get('lfm.images_url') . $dir . "/" . $image)
             ->with('dir', $dir)
             ->with('image', $image)
@@ -59,4 +59,27 @@ class ScaleController extends Controller {
             ->with('scaled', $scaled)
             ->with('ratio', $ratio);
     }
+
+
+    public function performResize()
+    {
+        $img = Input::get('img');
+        $dir = Input::get('dir');
+        $dataX = Input::get('dataX');
+        $dataY= Input::get('dataY');
+        $height = Input::get('dataHeight');
+        $width = Input::get('dataWidth');
+
+        try
+        {
+            Image::make(public_path() . $img)->resize($width, $height)->save();
+            return "OK";
+        } catch (Exception $e)
+        {
+            return "width : " . $width . " height: " . $height;
+            return $e;
+        }
+
+    }
+
 }
