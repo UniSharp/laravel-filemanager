@@ -99,7 +99,7 @@
                     {!! Form::label('file_to_upload', 'Choose File', array('class' => 'control-label')); !!}
                     <div class="controls">
                         <div class="input-group" style="width: 100%">
-                            <input type="file" name="file_to_upload">
+                            <input type="file" id="file_to_upload" name="file_to_upload">
                         </div>
                     </div>
                 </div>
@@ -172,6 +172,7 @@
             if (responseText != "OK"){
                 notify(responseText);
             }
+            $("#file_to_upload").val('');
             loadImages();
         }
 
@@ -390,11 +391,11 @@
         bootbox.alert(x);
     }
 
-    function scaleImage(x) {
+    function resizeImage(x) {
         $.ajax({
             type: "GET",
             dataType: "text",
-            url: "/laravel-filemanager/scale",
+            url: "/laravel-filemanager/resize",
             data: "img="
             + x
             + "&dir=" + $("#working_dir").val(),

@@ -51,4 +51,5 @@ class CropController extends Controller {
         $thumb_img->fit(200, 200)
             ->save(base_path() . "/" . Config::get('lfm.images_dir') . $dir . "/thumbs/" . basename($img));
     }
+
 }

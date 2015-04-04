@@ -28,7 +28,8 @@ Route::get('/laravel-filemanager/cropimage', 'Tsawler\Laravelfilemanager\control
 Route::get('/laravel-filemanager/rename', 'Tsawler\Laravelfilemanager\controllers\RenameController@getRename');
 
 // scale/resize
-Route::get('/laravel-filemanager/scale', 'Tsawler\Laravelfilemanager\controllers\ScaleController@getScale');
+Route::get('/laravel-filemanager/resize', 'Tsawler\Laravelfilemanager\controllers\ResizeController@getResize');
+Route::get('/laravel-filemanager/doresize', 'Tsawler\Laravelfilemanager\controllers\ResizeController@performResize');
 
 // download
 Route::get('/laravel-filemanager/download', 'Tsawler\Laravelfilemanager\controllers\DownloadController@getDownload');

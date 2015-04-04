@@ -39,7 +39,7 @@
                 </tbody>
             </table>
 
-            <button class="btn btn-primary" onclick="doScale()">Scale</button>
+            <button class="btn btn-primary" onclick="doResize()">Resize</button>
             <button class="btn btn-info" onclick="loadImages()">Cancel</button>
 
             <input type="hidden" name="ratio" value="{!! $ratio !!}"><br>
@@ -70,25 +70,27 @@
         });
     });
 
-    function performScale() {
+    function doResize() {
 
         $.ajax({
             type: "GET",
             dataType: "text",
-            url: "/laravel-filemanager/cropimage",
+            url: "/laravel-filemanager/doresize",
             data: {
-                img: $("#img").val(),
+                img: '{!! $img !!}',
                 dir: $("#dir").val(),
                 dataX: $("#dataX").val(),
                 dataY: $("#dataY").val(),
-                dataHeight: $("#dataHeight").val(),
-                dataWidth: $("#dataWidth").val()
+                dataHeight: $("#height").val(),
+                dataWidth: $("#width").val()
             },
             cache: false
         }).done(function (data) {
-            loadImages();
+            if (data == "OK") {
+                loadImages();
+            } else {
+                notify(data);
+            }
         });
-
-        //$("#cropForm").submit();
     }
 </script>
