@@ -4,6 +4,7 @@ html, body {
 
 .img-row {
     overflow: visible;
+    margin-bottom: 10px;
 }
 
 .container {

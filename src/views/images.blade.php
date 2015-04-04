@@ -35,7 +35,7 @@
 
             @foreach($files as $key => $file)
 
-                <div class="col-sm-6 col-md-2 img-row" style="">
+                <div class="col-sm-6 col-md-2 img-row">
 
                     <div class="thumbnail thumbnail-img" data-id="{{ basename($file) }}" id="img_thumbnail_{{ $key }}">
                         <img id="{!! $file !!}"
