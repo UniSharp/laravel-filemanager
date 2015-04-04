@@ -33,7 +33,7 @@ class UploadController extends Controller {
 
 
     /**
-     * Upload an image and create thumbnail
+     * Upload an image/file and (for images) create thumbnail
      *
      * @param UploadRequest $request
      * @return string

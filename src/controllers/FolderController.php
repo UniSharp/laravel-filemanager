@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class FolderController
@@ -22,6 +23,29 @@ class FolderController extends Controller {
             $this->file_location = Config::get('lfm.images_dir');
         else
             $this->file_location = Config::get('lfm.files_dir');
+    }
+
+
+    /**
+     * Get list of folders as json to populate treeview
+     *
+     * @return mixed
+     */
+    public function getFolders()
+    {
+        $directories = File::directories(base_path($this->file_location));
+        $final_array = [];
+
+        foreach ($directories as $directory)
+        {
+            if (basename($directory) != "thumbs")
+            {
+                $final_array[] = basename($directory);
+            }
+        }
+
+        return View::make("laravel-filemanager::tree")
+            ->with('dirs', $final_array);
     }
 
 
@@ -61,4 +85,5 @@ class FolderController extends Controller {
 
         return Redirect::to('/laravel-filemanager?' . Config::get('lfm.params'));
     }
+
 }

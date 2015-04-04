@@ -4,12 +4,9 @@ Route::get('sample-ckeditor-integration', function(){
     return \Illuminate\Support\Facades\View::make('editor');
 });
 
-// general routes
+// Show LFM
 Route::get('/laravel-filemanager', 'Tsawler\Laravelfilemanager\controllers\LfmController@show');
-Route::get('/laravel-filemanager/delete', 'Tsawler\Laravelfilemanager\controllers\LfmController@getDelete');
 
-// folder list
-Route::get('/laravel-filemanager/data', 'Tsawler\Laravelfilemanager\controllers\LfmController@getData');
 
 // upload
 Route::any('/laravel-filemanager/upload', 'Tsawler\Laravelfilemanager\controllers\UploadController@upload');
@@ -21,6 +18,7 @@ Route::get('/laravel-filemanager/jsonfiles', 'Tsawler\Laravelfilemanager\control
 // folders
 Route::get('/laravel-filemanager/newfolder', 'Tsawler\Laravelfilemanager\controllers\FolderController@getAddfolder');
 Route::get('/laravel-filemanager/deletefolder', 'Tsawler\Laravelfilemanager\controllers\FolderController@getDeletefolder');
+Route::get('/laravel-filemanager/folders', 'Tsawler\Laravelfilemanager\controllers\FolderController@getFolders');
 
 // crop
 Route::get('/laravel-filemanager/crop', 'Tsawler\Laravelfilemanager\controllers\CropController@getCrop');
@@ -31,3 +29,9 @@ Route::get('/laravel-filemanager/rename', 'Tsawler\Laravelfilemanager\controller
 
 // scale/resize
 Route::get('/laravel-filemanager/scale', 'Tsawler\Laravelfilemanager\controllers\ScaleController@getScale');
+
+// download
+Route::get('/laravel-filemanager/download', 'Tsawler\Laravelfilemanager\controllers\DownloadController@getDownload');
+
+// delete
+Route::get('/laravel-filemanager/delete', 'Tsawler\Laravelfilemanager\controllers\DeleteController@getDelete');

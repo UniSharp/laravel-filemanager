@@ -35,15 +35,15 @@
 
             @foreach($files as $key => $file)
 
-                <div class="col-sm-6 col-md-2 img-row" style="">
+                <div class="col-sm-6 col-md-2 img-row">
 
                     <div class="thumbnail thumbnail-img" data-id="{{ basename($file) }}" id="img_thumbnail_{{ $key }}">
                         <img id="{!! $file !!}"
                              src="{{ $dir_location }}{{ $base }}/thumbs/{{ basename($file) }}?r={{ str_random(40) }}"
                              alt="">
                     </div>
-                    <div class="caption text-center">
 
+                    <div class="caption text-center">
                         <div class="btn-group ">
                             <button type="button" onclick="useFile('{!! basename($file) !!}')" class="btn btn-default btn-xs">
                                 {!! str_limit(basename($file), $limit = 10, $end = '...') !!}
@@ -56,7 +56,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="javascript:rename('{!! basename($file) !!}')">Rename</a></li>
                                 <li><a href="javascript:notImp()">View</a></li>
-                                <li><a href="javascript:notImp()">Download</a></li>
+                                <li><a href="javascript:download('{!! basename($file) !!}')">Download</a></li>
                                 <li class="divider"></li>
                                 <li><a href="javascript:notImp()">Rotate</a></li>
                                 <li><a href="javascript:scaleImage('{!! basename($file) !!}')">Scale</a></li>
@@ -64,9 +64,7 @@
                                 <li class="divider"></li>
                                 <li><a href="javascript:trash('{!! basename($file) !!}')">Delete</a></li>
                             </ul>
-                            <p>&nbsp;</p>
                         </div>
-
                     </div>
                 </div>
 
