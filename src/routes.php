@@ -4,9 +4,9 @@ Route::get('sample-ckeditor-integration', function(){
     return \Illuminate\Support\Facades\View::make('editor');
 });
 
-// general routes
+// Show LFM
 Route::get('/laravel-filemanager', 'Tsawler\Laravelfilemanager\controllers\LfmController@show');
-Route::get('/laravel-filemanager/delete', 'Tsawler\Laravelfilemanager\controllers\LfmController@getDelete');
+
 
 // upload
 Route::any('/laravel-filemanager/upload', 'Tsawler\Laravelfilemanager\controllers\UploadController@upload');
@@ -32,3 +32,6 @@ Route::get('/laravel-filemanager/scale', 'Tsawler\Laravelfilemanager\controllers
 
 // download
 Route::get('/laravel-filemanager/download', 'Tsawler\Laravelfilemanager\controllers\DownloadController@getDownload');
+
+// delete
+Route::get('/laravel-filemanager/delete', 'Tsawler\Laravelfilemanager\controllers\DeleteController@getDelete');
