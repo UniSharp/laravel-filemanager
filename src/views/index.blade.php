@@ -135,12 +135,6 @@
             $("#tree1").html(data);
         });
         loadImages();
-
-        @if (Input::has('base'))
-
-        @endif
-
-
     });
 
     function highlight(x) {
@@ -153,19 +147,16 @@
     }
 
     $("#upload-btn").click(function () {
-        $("#upload-btn").html('<i class="fa fa-refresh fa-spin"></i> Uploading...');
-        //$("#uploadForm").submit();
-
         var options = {
-            beforeSubmit:  showRequest,  // pre-submit callback
-            success:       showResponse  // post-submit callback
+            beforeSubmit:  showRequest,
+            success:       showResponse
         };
 
         function showRequest(formData, jqForm, options) {
+            $("#upload-btn").html('<i class="fa fa-refresh fa-spin"></i> Uploading...');
             return true;
         }
 
-        // post-submit callback
         function showResponse(responseText, statusText, xhr, $form)  {
             $("#uploadModal").modal('hide');
             loadImages();
@@ -298,7 +289,6 @@
         });
     });
 
-
     function useFile(file) {
         var path = $('#working_dir').val();
 
@@ -311,11 +301,19 @@
         var funcNum = getUrlParam('CKEditorFuncNum');
         window.opener.CKEDITOR.tools.callFunction(funcNum, path + "/" + file);
 
-        if (path != '/') {
-            window.opener.CKEDITOR.tools.callFunction(funcNum, '{{ \Config::get('lfm.images_url') }}' + path + "/" + file);
+        @if ((Session::has('lfm_type')) && (Session::get('lfm_type') == "Images"))
+            if (path != '/') {
+                window.opener.CKEDITOR.tools.callFunction(funcNum, '{{ \Config::get('lfm.images_url') }}' + path + "/" + file);
+            } else {
+                window.opener.CKEDITOR.tools.callFunction(funcNum, '{{ \Config::get('lfm.images_url') }}' + file);
+            }
+        @else
+            if (path != '/') {
+            window.opener.CKEDITOR.tools.callFunction(funcNum, '{{ \Config::get('lfm.files_url') }}' + path + "/" + file);
         } else {
-            window.opener.CKEDITOR.tools.callFunction(funcNum, '{{ \Config::get('lfm.images_url') }}' + file);
+            window.opener.CKEDITOR.tools.callFunction(funcNum, '{{ \Config::get('lfm.files_url') }}' + file);
         }
+        @endif
         window.close();
     }
 
