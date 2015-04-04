@@ -243,6 +243,7 @@
                     if (data != "OK") {
                         notify(data);
                     } else {
+                        loadFiles();
                         loadImages();
                     }
                 });
