@@ -53,20 +53,25 @@ since they do not enforce any kind of security), change this entry in config/lfm
         'use_package_routes' => true,
     ```
     
-1. If you don't want to use the default image directory or url, update the appropriate lines in config/lfm.php:
+1. If you don't want to use the default image/file directory or url, update the appropriate lines in config/lfm.php:
 
     ```php
-        'images_dir'         => 'public/vendor/laravel-filemanager/files/',
-        'images_url'         => '/vendor/laravel-filemanager/files/',
+        'images_dir'         => 'public/vendor/laravel-filemanager/images/',
+        'images_url'         => '/vendor/laravel-filemanager/images/',
+        'files_dir'          => 'public/vendor/laravel-filemanager/files/',
+        'files_url'          => '/vendor/laravel-filemanager/files/',
     ```
     
+1. Ensure that the files & images directories are writable by your web serber
+
 1. In the view where you are using a CKEditor instance, use the file uploader by initializing the
 CKEditor instance as follows:
 
     ```javascript
         <script>
             CKEDITOR.replace( 'editor', {
-                filebrowserBrowseUrl: '/laravel-filemanager?type=Images'
+                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+                filebrowserBrowseUrl: '/laravel-filemanager?type=Files'
             });
         </script>
     ```
