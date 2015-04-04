@@ -6,10 +6,15 @@ Route::get('sample-ckeditor-integration', function(){
 
 // general routes
 Route::get('/laravel-filemanager', 'Tsawler\Laravelfilemanager\controllers\LfmController@show');
-Route::post('/laravel-filemanager/upload', 'Tsawler\Laravelfilemanager\controllers\LfmController@upload');
-Route::get('/laravel-filemanager/data', 'Tsawler\Laravelfilemanager\controllers\LfmController@getData');
 Route::get('/laravel-filemanager/delete', 'Tsawler\Laravelfilemanager\controllers\LfmController@getDelete');
 
+// folder list
+Route::get('/laravel-filemanager/data', 'Tsawler\Laravelfilemanager\controllers\LfmController@getData');
+
+// upload
+Route::post('/laravel-filemanager/upload', 'Tsawler\Laravelfilemanager\controllers\UploadController@upload');
+
+// list images & files
 Route::get('/laravel-filemanager/jsonimages', 'Tsawler\Laravelfilemanager\controllers\LfmController@getImages');
 Route::get('/laravel-filemanager/jsonfiles', 'Tsawler\Laravelfilemanager\controllers\LfmController@getFiles');
 
