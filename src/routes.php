@@ -21,6 +21,7 @@ Route::get('/laravel-filemanager/jsonfiles', 'Tsawler\Laravelfilemanager\control
 // folders
 Route::get('/laravel-filemanager/newfolder', 'Tsawler\Laravelfilemanager\controllers\FolderController@getAddfolder');
 Route::get('/laravel-filemanager/deletefolder', 'Tsawler\Laravelfilemanager\controllers\FolderController@getDeletefolder');
+Route::get('/laravel-filemanager/folders', 'Tsawler\Laravelfilemanager\controllers\LfmController@getData');
 
 // crop
 Route::get('/laravel-filemanager/crop', 'Tsawler\Laravelfilemanager\controllers\CropController@getCrop');

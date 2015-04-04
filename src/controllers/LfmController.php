@@ -137,11 +137,9 @@ class LfmController extends Controller {
      */
     public function getData()
     {
-        if (Session::get('lfm_type') == 'Images')
-            $directories = File::directories(base_path(Config::get('lfm.images_dir')));
-        else
-            $directories = File::directories(base_path(Config::get('lfm.files_dir')));
+        $directories = File::directories(base_path($this->file_location));
         $final_array = [];
+
         foreach ($directories as $directory)
         {
             if (basename($directory) != "thumbs")

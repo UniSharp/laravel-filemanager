@@ -184,18 +184,6 @@
     }
 
     function download(x) {
-//        $.ajax({
-//            type: "GET",
-//            dataType: "html",
-//            url: "/laravel-filemanager/download",
-//            data: {
-//                dir: $("#working_dir").val(),
-//                file: x
-//            },
-//            cache: false
-//        }).done(function (data) {
-//
-//        });
         location.href = "/laravel-filemanager/download?"
             + "dir="
             + $("#working_dir").val()
@@ -222,21 +210,21 @@
         }
     @else
         function loadImages() {
-        $.ajax({
-            type: "GET",
-            dataType: "html",
-            url: "/laravel-filemanager/jsonfiles",
-            data: {
-                base: $("#working_dir").val(),
-                show_list: $("#show_list").val()
-            },
-            cache: false
-        }).done(function (data) {
-            $("#content").html(data);
-            $("#nav-buttons").removeClass("hidden");
-            $(".dropdown-toggle").dropdown();
-        });
-    }
+            $.ajax({
+                type: "GET",
+                dataType: "html",
+                url: "/laravel-filemanager/jsonfiles",
+                data: {
+                    base: $("#working_dir").val(),
+                    show_list: $("#show_list").val()
+                },
+                cache: false
+            }).done(function (data) {
+                $("#content").html(data);
+                $("#nav-buttons").removeClass("hidden");
+                $(".dropdown-toggle").dropdown();
+            });
+        }
     @endif
 
     function trash(x) {
@@ -261,6 +249,25 @@
             }
         });
     }
+
+
+
+    function loadFiles() {
+        $.ajax({
+            type: "GET",
+            dataType: "html",
+            url: "/laravel-filemanager/folders",
+            data: {
+                base: $("#working_dir").val(),
+                show_list: $("#show_list").val()
+            },
+            cache: false
+        }).done(function (data) {
+            $("#tree1").html(data);
+        });
+    }
+
+
 
     function cropImage(x) {
         $.ajax({
@@ -295,6 +302,7 @@
                     cache: false
                 }).done(function (data) {
                     if (data == "OK") {
+                        loadFiles();
                         loadImages();
                     } else {
                         notify(data);
