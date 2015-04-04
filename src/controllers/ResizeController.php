@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 
 /**
- * Class ScaleController
+ * Class ResizeController
  * @package Tsawler\Laravelfilemanager\controllers
  */
 class ResizeController extends Controller {

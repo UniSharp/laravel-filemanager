@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 
 /**
- * Class LfmController
+ * Class DownloadController
  * @package Tsawler\Laravelfilemanager\controllers
  */
 class DownloadController extends Controller {

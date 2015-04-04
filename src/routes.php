@@ -12,8 +12,8 @@ Route::get('/laravel-filemanager', 'Tsawler\Laravelfilemanager\controllers\LfmCo
 Route::any('/laravel-filemanager/upload', 'Tsawler\Laravelfilemanager\controllers\UploadController@upload');
 
 // list images & files
-Route::get('/laravel-filemanager/jsonimages', 'Tsawler\Laravelfilemanager\controllers\LfmController@getImages');
-Route::get('/laravel-filemanager/jsonfiles', 'Tsawler\Laravelfilemanager\controllers\LfmController@getFiles');
+Route::get('/laravel-filemanager/jsonimages', 'Tsawler\Laravelfilemanager\controllers\ItemsController@getImages');
+Route::get('/laravel-filemanager/jsonfiles', 'Tsawler\Laravelfilemanager\controllers\ItemsController@getFiles');
 
 // folders
 Route::get('/laravel-filemanager/newfolder', 'Tsawler\Laravelfilemanager\controllers\FolderController@getAddfolder');

@@ -116,7 +116,7 @@
 </div>
 
 <div class="modal fade" id="fileViewModal" tabindex="-1" role="dialog" aria-labelledby="fileLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -418,7 +418,7 @@
 
     function fileView(x){
         $('#fileview_body').html(
-                "<img class='img img-responsive' src='{!! Config::get('lfm.images_url') !!}" + $("#working_dir").val() + "/" + x + "'>"
+                "<img class='img img-responsive center-block' src='{!! Config::get('lfm.images_url') !!}" + $("#working_dir").val() + "/" + x + "'>"
         );
         $('#fileViewModal').modal();
     }
