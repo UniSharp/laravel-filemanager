@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
 /**
- * Class LfmController
+ * Class UploadController
  * @package Tsawler\Laravelfilemanager\controllers
  */
 class UploadController extends Controller {

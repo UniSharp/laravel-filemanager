@@ -7,6 +7,7 @@
                 <th>Size</th>
                 <th>Type</th>
                 <th>Modified</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -22,6 +23,7 @@
                     <td></td>
                     <td>Folder</td>
                     <td></td>
+                    <td></td>
                 </tr>
             @endforeach
 
@@ -29,8 +31,12 @@
                 <tr>
                     <td>
                         <i class="fa fa-image"></i>
-                        <a href="javascript:useFile('{!! basename($file['name']) !!}')">
+                        <a href="javascript:useFile('<?= basename($file['name']) ?>')">
                             {!! basename($file['name']) !!}
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="javascript:rename('<?= basename($file['name']) ?>')">
+                            <i class="fa fa-edit"></i>
                         </a>
                     </td>
                     <td>
@@ -41,6 +47,20 @@
                     </td>
                     <td>
                         {!! date("Y-m-d h:m", $file['created']) !!}
+                    </td>
+                    <td>
+                        <a href="javascript:trash('<?= basename($file['name']) ?>')">
+                            <i class="fa fa-trash fa-fw"></i>
+                        </a>
+                        <a href="javascript:cropImage('<?= basename($file['name']) ?>')">
+                            <i class="fa fa-crop fa-fw"></i>
+                        </a>
+                        <a href="javascript:resizeImage('<?= basename($file['name']) ?>')">
+                            <i class="fa fa-arrows fa-fw"></i>
+                        </a>
+                        <a href="javascript:notImp()">
+                            <i class="fa fa-rotate-left fa-fw"></i>
+                        </a>
                     </td>
                 </tr>
             @endforeach

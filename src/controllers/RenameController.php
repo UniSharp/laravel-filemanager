@@ -23,6 +23,7 @@ class RenameController extends Controller {
             $this->file_location = Config::get('lfm.files_dir');
     }
 
+
     /**
      * @return string
      */
@@ -47,6 +48,9 @@ class RenameController extends Controller {
                     return "OK";
                 } else
                 {
+                    $extension = File::extension(base_path() . "/" . $this->file_location . $file_to_rename);
+                    $new_name = Str::slug(str_replace($extension, '', $new_name)) . "." . $extension;
+
                     File::move(base_path() . "/" . $this->file_location . $file_to_rename,
                         base_path() . "/" . $this->file_location . $new_name);
 
@@ -73,6 +77,9 @@ class RenameController extends Controller {
                         base_path() . "/" . $this->file_location . $dir . "/" . $new_name);
                 } else
                 {
+                    $extension = File::extension(base_path() . "/" . $this->file_location . $dir . "/" . $file_to_rename);
+                    $new_name = Str::slug(str_replace($extension, '', $new_name)) . "." . $extension;
+
                     File::move(base_path() . "/" . $this->file_location . $dir . "/" . $file_to_rename,
                         base_path() . "/" . $this->file_location . $dir . "/" . $new_name);
 
