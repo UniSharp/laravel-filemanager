@@ -42,8 +42,8 @@
                              src="{{ $dir_location }}{{ $base }}/thumbs/{{ basename($file) }}?r={{ str_random(40) }}"
                              alt="">
                     </div>
-                    <div class="caption text-center">
 
+                    <div class="caption text-center">
                         <div class="btn-group ">
                             <button type="button" onclick="useFile('{!! basename($file) !!}')" class="btn btn-default btn-xs">
                                 {!! str_limit(basename($file), $limit = 10, $end = '...') !!}
@@ -65,7 +65,6 @@
                                 <li><a href="javascript:trash('{!! basename($file) !!}')">Delete</a></li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
 
