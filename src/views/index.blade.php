@@ -418,7 +418,7 @@
 
     function fileView(x){
         $('#fileview_body').html(
-                "<img class='img img-responsive' src='{!! Config::get('lfm.images_url') !!}" + $("#working_dir").val() + "/" + x + "'>"
+                "<img class='img img-responsive center-block' src='{!! Config::get('lfm.images_url') !!}" + $("#working_dir").val() + "/" + x + "'>"
         );
         $('#fileViewModal').modal();
     }
