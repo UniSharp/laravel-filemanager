@@ -37,7 +37,58 @@ class ItemsController extends Controller {
 
     public function getFiles()
     {
-        return "List of files";
+        if (Input::has('base'))
+        {
+            $files = File::files(base_path($this->file_location . Input::get('base')));
+            $all_directories = File::directories(base_path($this->file_location . Input::get('base')));
+        } else
+        {
+            $files = File::files(base_path($this->file_location));
+            $all_directories = File::directories(base_path($this->file_location));
+        }
+
+        $directories = [];
+
+        foreach ($all_directories as $directory)
+        {
+            $directories[] = basename($directory);
+        }
+
+        $file_info = [];
+
+        foreach ($files as $file)
+        {
+            $file_name = $file;
+            $file_size = 1;
+
+            $file_created = filemtime($file);
+            $file_type = '';
+            $file_info[] = [
+                'name'    => $file_name,
+                'size'    => $file_size,
+                'created' => $file_created,
+                'type'    => $file_type,
+                'icon'    => 'fa-file-archive-o'
+            ];
+        }
+
+
+        if (Input::get('show_list') == 1)
+        {
+            return View::make('laravel-filemanager::files-list')
+                ->with('directories', $directories)
+                ->with('base', Input::get('base'))
+                ->with('file_info', $file_info)
+                ->with('dir_location', $this->file_location);
+        } else
+        {
+            return View::make('laravel-filemanager::files')
+                ->with('files', $files)
+                ->with('directories', $directories)
+                ->with('base', Input::get('base'))
+                ->with('file_info', $file_info)
+                ->with('dir_location', $this->file_location);
+        }
     }
 
 
