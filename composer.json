@@ -11,8 +11,7 @@
   "require": {
     "php": ">=5.5.0",
     "illuminate/support": "5.0.*",
-    "intervention/image": "2.*",
-    "francodacosta/phmagick": "0.4.*@dev"
+    "intervention/image": "2.*"
   },
   "autoload": {
     "psr-4": {
