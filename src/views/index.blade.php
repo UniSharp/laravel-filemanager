@@ -22,6 +22,7 @@
                         <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 left-nav fill" id="lfm-leftcol">
                             <div id="tree1">
                             </div>
+                            <a href="#!" id="add-folder" class="add-folder btn btn-default btn-xs"><i class="fa fa-plus"></i> New Folder</a>
                         </div>
                         <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10 right-nav" id="right-nav">
                             <nav class="navbar navbar-default">
@@ -40,10 +41,6 @@
                                             <li>
                                                 <a href="#!" id="upload" data-toggle="modal" data-target="#uploadModal"><i
                                                             class="fa fa-upload"></i> Upload</a>
-                                            </li>
-                                            <li>
-                                                <a href="#!" class="add-folder" id="add-folder"><i
-                                                            class="fa fa-plus"></i> New Folder</a>
                                             </li>
                                             <li>
                                                 <a href="#!" class="thumbnail-display" id="thumbnail-display"><i
@@ -153,6 +150,7 @@
             $("#tree1").html(data);
         });
         loadImages();
+        refreshFolders();
     });
 
     $("#upload-btn").click(function () {
@@ -225,6 +223,7 @@
                 $("#content").html(data);
                 $("#nav-buttons").removeClass("hidden");
                 $(".dropdown-toggle").dropdown();
+                refreshFolders();
             });
         }
     @else
@@ -242,6 +241,7 @@
                 $("#content").html(data);
                 $("#nav-buttons").removeClass("hidden");
                 $(".dropdown-toggle").dropdown();
+                refreshFolders();
             });
         }
     @endif
@@ -270,7 +270,6 @@
         });
     }
 
-
     function loadFiles() {
         $.ajax({
             type: "GET",
@@ -284,6 +283,14 @@
         }).done(function (data) {
             $("#tree1").html(data);
         });
+    }
+
+    function refreshFolders(){
+        var wd = $("#working_dir").val();
+        if (wd != "/") {
+            $('#' + wd + '-folder').removeClass('fa-folder');
+            $('#' + wd + '-folder').addClass('fa-folder-open');
+        }
     }
 
     function cropImage(x) {
@@ -305,7 +312,7 @@
         bootbox.alert('Not yet implemented!');;
     }
 
-    $(".add-folder").click(function () {
+    $("#add-folder").click(function () {
         bootbox.prompt("Folder name:", function (result) {
             if (result === null) {
             } else {
@@ -314,13 +321,15 @@
                     dataType: "text",
                     url: "/laravel-filemanager/newfolder",
                     data: {
-                        name: result
+                        name: result,
+                        dir: $("#working_dir").val()
                     },
                     cache: false
                 }).done(function (data) {
                     if (data == "OK") {
                         loadFiles();
                         loadImages();
+                        refreshFolders();
                     } else {
                         notify(data);
                     }
