@@ -94,6 +94,12 @@ class UploadController extends Controller {
 
             $new_filename = Str::slug(str_replace($extension, '', $filename)) . "." . $extension;
 
+            if (File::exists($destinationPath . $new_filename))
+            {
+                return "A file with this name already exists!";
+                exit;
+            }
+
             Input::file('file_to_upload')->move($destinationPath, $new_filename);
 
             return "OK";
