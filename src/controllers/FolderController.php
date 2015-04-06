@@ -4,11 +4,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 /**
  * Class FolderController
@@ -58,9 +56,8 @@ class FolderController extends Controller {
     public function getAddfolder()
     {
         $folder_name = Str::slug(Input::get('name'));
-        $working_dir = Input::get('dir');
 
-        $path = base_path($this->file_location . $working_dir);
+        $path = base_path($this->file_location);
 
         if (!File::exists($path . "/" . $folder_name))
         {
