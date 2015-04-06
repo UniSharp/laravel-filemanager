@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class FolderController
@@ -57,12 +58,13 @@ class FolderController extends Controller {
     public function getAddfolder()
     {
         $folder_name = Str::slug(Input::get('name'));
+        $working_dir = Input::get('dir');
 
-        $path = base_path($this->file_location);
+        $path = base_path($this->file_location . $working_dir);
 
-        if (!File::exists($path . $folder_name))
+        if (!File::exists($path . "/" . $folder_name))
         {
-            File::makeDirectory($path . $folder_name, $mode = 0777, true, true);
+            File::makeDirectory($path . "/" . $folder_name, $mode = 0777, true, true);
             return "OK";
         } else
         {

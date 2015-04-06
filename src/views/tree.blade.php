@@ -7,7 +7,7 @@
     @foreach($dirs as $key => $dir)
         <li>
             <a class="pointer" id="folder_{{ $key }}" data-id="{{ $dir }}" onclick="clickFolder('folder_{{ $key }}', 0)">
-                <i class="fa fa-folder folder-item" data-id="{{ $dir }}"></i> {!! $dir !!}
+                <i class="fa fa-folder folder-item" data-id="{{ $dir }}" id="{{ $dir }}-folder"></i> {!! $dir !!}
             </a>
         </li>
     @endforeach
