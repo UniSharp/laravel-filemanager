@@ -58,9 +58,8 @@ class FolderController extends Controller {
     public function getAddfolder()
     {
         $folder_name = Str::slug(Input::get('name'));
-        $working_dir = Input::get('dir');
 
-        $path = base_path($this->file_location . $working_dir);
+        $path = base_path($this->file_location);
 
         if (!File::exists($path . "/" . $folder_name))
         {
