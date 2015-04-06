@@ -56,19 +56,44 @@ class ItemsController extends Controller {
 
         $file_info = [];
 
+        $icon_array = [
+            "pdf"  => "fa-file-pdf-o",
+            "docx" => "fa-file-word-o",
+            "docx" => "fa-file-word-o",
+            "xls"  => "fa-file-excel-o",
+            "xls"  => "fa-file-excel-o",
+            "zip"  => 'fa-file-archive-o',
+            "gif"  => 'fa-file-image-o',
+            "jpg"  => 'fa-file-image-o',
+            "jpeg" => 'fa-file-image-o',
+            "png"  => 'fa-file-image-o',
+            "ppt"  => 'fa-file-powerpoint-o',
+            "pptx" => 'fa-file-powerpoint-o',
+        ];
+
         foreach ($files as $file)
         {
             $file_name = $file;
             $file_size = 1;
+            $extension = strtolower(File::extension($file_name));
+
+            if (array_key_exists($extension, $icon_array))
+            {
+                $icon = $icon_array[$extension];
+            } else
+            {
+                $icon = "fa-file";
+            }
 
             $file_created = filemtime($file);
             $file_type = '';
             $file_info[] = [
-                'name'    => $file_name,
-                'size'    => $file_size,
-                'created' => $file_created,
-                'type'    => $file_type,
-                'icon'    => 'fa-file-archive-o'
+                'name'      => $file_name,
+                'size'      => $file_size,
+                'created'   => $file_created,
+                'type'      => $file_type,
+                'extension' => $extension,
+                'icon'      => $icon,
             ];
         }
 

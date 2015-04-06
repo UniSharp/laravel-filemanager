@@ -37,8 +37,8 @@
 
                 <div class="col-sm-6 col-md-2 img-row">
 
-                    <div class="thumbnail thumbnail-img text-center" data-id="{{ basename($file['name']) }}" id="img_thumbnail_{{ $key }}">
-                        <i class="fa <?= $file['icon'] ?> fa-5x"></i>
+                    <div class="thumbnail thumbnail-img text-center" style="border: none;" data-id="{{ basename($file['name']) }}" id="img_thumbnail_{{ $key }}">
+                        <i class="fa <?= $file['icon']; ?> fa-5x"></i>
                     </div>
 
                     <div class="caption text-center">
