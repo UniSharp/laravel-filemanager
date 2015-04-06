@@ -22,7 +22,7 @@
                         <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 left-nav fill" id="lfm-leftcol">
                             <div id="tree1">
                             </div>
-                            <a href="#!" id="add-folder" class="add-folder btn btn-default btn-xs"><i class="fa fa-plus"></i> New Folder</a>
+                            <a href="#!" id="add-folder" class="add-folder btn btn-default btn-xs"><i class="fa fa-plus"></i> {!! Lang::get('laravel-filemanager::lfm.new_folder') !!}</a>
                         </div>
                         <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10 right-nav" id="right-nav">
                             <nav class="navbar navbar-default">
@@ -40,15 +40,15 @@
                                         <ul class="nav navbar-nav" id="nav-buttons">
                                             <li>
                                                 <a href="#!" id="upload" data-toggle="modal" data-target="#uploadModal"><i
-                                                            class="fa fa-upload"></i> Upload</a>
+                                                            class="fa fa-upload"></i> {!! Lang::get('laravel-filemanager::lfm.upload') !!}</a>
                                             </li>
                                             <li>
                                                 <a href="#!" class="thumbnail-display" id="thumbnail-display"><i
-                                                            class="fa fa-picture-o"></i> Thumbnails</a>
+                                                            class="fa fa-picture-o"></i> {!! Lang::get('laravel-filemanager::lfm.thumbnails') !!}</a>
                                             </li>
                                             <li>
                                                 <a href="#!" class="list-display" id="list-display"><i
-                                                            class="fa fa-list"></i> List</a>
+                                                            class="fa fa-list"></i> {!! Lang::get('laravel-filemanager::lfm.list') !!}</a>
                                             </li>
                                         </ul>
                                     </div>
