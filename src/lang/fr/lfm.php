@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'upload'       => 'Télécharger',
+    'upload'       => 'Charger',
     'thumbnails'   => 'Vignettes',
     'list'         => 'Liste',
     'new_folder'   => 'Nouveau dossier',
