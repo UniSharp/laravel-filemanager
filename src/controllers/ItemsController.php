@@ -60,8 +60,8 @@ class ItemsController extends Controller {
         }
 
         $file_info = [];
-        $icon_array = Config::get('lfm.icon_array');
-        $type_array = Config::get('lfm.type_array');
+        $icon_array = Config::get('lfm.file_icon_array');
+        $type_array = Config::get('lfm.file_type_array');
 
         foreach ($files as $file)
         {

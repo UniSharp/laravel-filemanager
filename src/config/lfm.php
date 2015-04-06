@@ -9,7 +9,7 @@ return [
     'files_dir'          => 'public/vendor/laravel-filemanager/files/',
     'files_url'          => '/vendor/laravel-filemanager/files/',
 
-    'type_array'         => [
+    'file_type_array'         => [
         "pdf"  => "Adobe Acrobat",
         "docx" => "Microsoft Word",
         "docx" => "Microsoft Word",
@@ -24,7 +24,7 @@ return [
         "pptx" => 'Microsoft PowerPoint',
     ],
 
-    'icon_array'         => [
+    'file_icon_array'         => [
         "pdf"  => "fa-file-pdf-o",
         "docx" => "fa-file-word-o",
         "docx" => "fa-file-word-o",
