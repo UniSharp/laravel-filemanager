@@ -71,19 +71,4 @@ class FolderController extends Controller {
 
     }
 
-
-    /**
-     * Delete a folder and all of it's contents
-     *
-     * @return mixed
-     */
-    public function getDeletefolder()
-    {
-        $folder_name = Input::get('name');
-        $path = base_path($this->file_location);
-        File::deleteDirectory($path . $folder_name, $preserve = false);
-
-        return Redirect::to('/laravel-filemanager?' . Config::get('lfm.params'));
-    }
-
 }

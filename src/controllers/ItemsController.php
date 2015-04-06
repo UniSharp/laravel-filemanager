@@ -35,6 +35,11 @@ class ItemsController extends Controller {
     }
 
 
+    /**
+     * Return json list of files
+     *
+     * @return mixed
+     */
     public function getFiles()
     {
         if (Input::has('base'))
@@ -55,20 +60,35 @@ class ItemsController extends Controller {
         }
 
         $file_info = [];
+        $icon_array = Config::get('lfm.file_icon_array');
+        $type_array = Config::get('lfm.file_type_array');
 
         foreach ($files as $file)
         {
             $file_name = $file;
             $file_size = 1;
+            $extension = strtolower(File::extension($file_name));
+
+            if (array_key_exists($extension, $icon_array))
+            {
+                $icon = $icon_array[$extension];
+                $type = $type_array[$extension];
+            } else
+            {
+                $icon = "fa-file";
+                $type= "File";
+            }
 
             $file_created = filemtime($file);
             $file_type = '';
             $file_info[] = [
-                'name'    => $file_name,
-                'size'    => $file_size,
-                'created' => $file_created,
-                'type'    => $file_type,
-                'icon'    => 'fa-file-archive-o'
+                'name'      => $file_name,
+                'size'      => $file_size,
+                'created'   => $file_created,
+                'type'      => $file_type,
+                'extension' => $extension,
+                'icon'      => $icon,
+                'type'      => $type,
             ];
         }
 
