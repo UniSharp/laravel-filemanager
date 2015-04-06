@@ -1,6 +1,6 @@
 # laravel-filemanager
 
-### This package is useable, but is under active development.
+### This package is functional, but is under active development.
 
 A file upload/editor intended for use with [Laravel 5](http://www.laravel.com/ "Title") and [CKEditor](http://ckeditor.com/).
 
@@ -85,7 +85,7 @@ CKEditor instance as follows:
 It is important to note that __you must protect your routes to Laravel-Filemanager in order to prevent
 unauthorized uploads to your server__. Fortunately, Laravel makes this very easy.
 
-If, for example you want to ensure that only logged in users have the ability to access the Laravel-Filemanager, 
+If, for example, you want to ensure that only logged in users have the ability to access the Laravel-Filemanager, 
 simply wrap the routes in a group, perhaps like this:
 
     Route::group(array('before' => 'auth'), function ()
