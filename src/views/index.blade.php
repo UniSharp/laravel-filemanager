@@ -118,7 +118,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="fileLabel">View Fiile</h4>
+                <h4 class="modal-title" id="fileLabel">View File</h4>
             </div>
             <div class="modal-body" id="fileview_body">
 
@@ -426,10 +426,21 @@
     });
 
     function fileView(x){
+        var rnd = makeRandom();
         $('#fileview_body').html(
-                "<img class='img img-responsive center-block' src='{!! Config::get('lfm.images_url') !!}" + $("#working_dir").val() + "/" + x + "'>"
+                "<img class='img img-responsive center-block' src='{!! Config::get('lfm.images_url') !!}" + $("#working_dir").val() + "/" + x + "?id=" + rnd + "'>"
         );
         $('#fileViewModal').modal();
+    }
+
+    function makeRandom()
+    {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for( var i=0; i < 20; i++ )
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text;
     }
 </script>
 </body>
