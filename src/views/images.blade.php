@@ -5,10 +5,11 @@
 
             @foreach($directories as $key => $dir)
                 <div class="col-sm-6 col-md-2">
-                    <div class="thumbnail text-center" data-id="{{ basename($dir) }}">
+                    <div class="thumbnail text-center";" data-id="{{ basename($dir) }}">
                         <a id="large_folder_{{ $key }}" data-id="{{ $dir }}"
                            onclick="clickFolder('large_folder_{{ $key }}',1)"
                            class="folder-icon pointer">
+                            {{--<i class="fa fa-folder-o fa-5x"></i>--}}
                             <img src="/vendor/laravel-filemanager/img/folder.jpg">
                         </a>
                     </div>
