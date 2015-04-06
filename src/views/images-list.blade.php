@@ -3,11 +3,11 @@
         <table class="table table-condensed table-striped">
             <thead>
             <tr>
-                <th>Item</th>
-                <th>Size</th>
-                <th>Type</th>
-                <th>Modified</th>
-                <th>Action</th>
+                <th>{!! Lang::get('laravel-filemanager::lfm.item') !!}</th>
+                <th>{!! Lang::get('laravel-filemanager::lfm.size') !!}</th>
+                <th>{!! Lang::get('laravel-filemanager::lfm.type') !!}</th>
+                <th>{!! Lang::get('laravel-filemanager::lfm.modified') !!}</th>
+                <th>{!! Lang::get('laravel-filemanager::lfm.action') !!}</th>
             </tr>
             </thead>
             <tbody>
@@ -21,7 +21,7 @@
                         </a>
                     </td>
                     <td></td>
-                    <td>Folder</td>
+                    <td>{!! Lang::get('laravel-filemanager::lfm.folder') !!}</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -58,9 +58,9 @@
                         <a href="javascript:resizeImage('<?= basename($file['name']) ?>')">
                             <i class="fa fa-arrows fa-fw"></i>
                         </a>
-                        <a href="javascript:notImp()">
-                            <i class="fa fa-rotate-left fa-fw"></i>
-                        </a>
+                        {{--<a href="javascript:notImp()">--}}
+                            {{--<i class="fa fa-rotate-left fa-fw"></i>--}}
+                        {{--</a>--}}
                     </td>
                 </tr>
             @endforeach
@@ -69,7 +69,7 @@
 
     @else
         <div class="col-md-12">
-            <p>Folder is empty.</p>
+            <p>{!! Lang::get('laravel-filemanager::lfm.empty_folder') !!}</p>
         </div>
     @endif
 
