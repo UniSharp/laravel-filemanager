@@ -35,6 +35,11 @@ class ItemsController extends Controller {
     }
 
 
+    /**
+     * Return json list of files
+     *
+     * @return mixed
+     */
     public function getFiles()
     {
         if (Input::has('base'))
@@ -55,21 +60,8 @@ class ItemsController extends Controller {
         }
 
         $file_info = [];
-
-        $icon_array = [
-            "pdf"  => "fa-file-pdf-o",
-            "docx" => "fa-file-word-o",
-            "docx" => "fa-file-word-o",
-            "xls"  => "fa-file-excel-o",
-            "xls"  => "fa-file-excel-o",
-            "zip"  => 'fa-file-archive-o',
-            "gif"  => 'fa-file-image-o',
-            "jpg"  => 'fa-file-image-o',
-            "jpeg" => 'fa-file-image-o',
-            "png"  => 'fa-file-image-o',
-            "ppt"  => 'fa-file-powerpoint-o',
-            "pptx" => 'fa-file-powerpoint-o',
-        ];
+        $icon_array = Config::get('lfm.icon_array');
+        $type_array = Config::get('lfm.type_array');
 
         foreach ($files as $file)
         {
@@ -80,9 +72,11 @@ class ItemsController extends Controller {
             if (array_key_exists($extension, $icon_array))
             {
                 $icon = $icon_array[$extension];
+                $type = $type_array[$extension];
             } else
             {
                 $icon = "fa-file";
+                $type= "File";
             }
 
             $file_created = filemtime($file);
@@ -94,6 +88,7 @@ class ItemsController extends Controller {
                 'type'      => $file_type,
                 'extension' => $extension,
                 'icon'      => $icon,
+                'type'      => $type,
             ];
         }
 
