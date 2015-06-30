@@ -82,9 +82,8 @@ class DeleteController extends Controller {
                 if (File::exists($file_name))
                 {
                     File::delete($file_name);
-                    if (Session::get('lfm_type') == "Images'")
+                    if (Session::get('lfm_type') == "Images")
                         File::delete(base_path() . "/" . $this->file_location . "thumbs/" . $to_delete);
-
                     return "OK";
                 }
             }
