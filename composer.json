@@ -15,7 +15,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Unisharp\\Laravelfilemanager\\": "src/"
+      "Tsawler\\Laravelfilemanager\\": "src/"
     }
   }
 }
