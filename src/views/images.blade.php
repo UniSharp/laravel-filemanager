@@ -5,7 +5,7 @@
 
             @foreach($directories as $key => $dir)
                 <div class="col-sm-6 col-md-2">
-                    <div class="thumbnail text-center";" data-id="{{ basename($dir) }}">
+                    <div class="thumbnail text-center" data-id="{{ basename($dir) }}">
                         <a id="large_folder_{{ $key }}" data-id="{{ $dir }}"
                            onclick="clickFolder('large_folder_{{ $key }}',1)"
                            class="folder-icon pointer">
@@ -73,7 +73,7 @@
 
         @else
             <div class="col-md-12">
-                <p>Folder is empty.</p>
+                <p>{!! Lang::get('laravel-filemanager::lfm.empty_folder') !!}</p>
             </div>
         @endif
 
