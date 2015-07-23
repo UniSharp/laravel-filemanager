@@ -45,12 +45,13 @@ following command:
 
     `php artisan vendor:publish --tag=lfm_views`
     
-1. By default, the package will use its own routes. If you don't want to use those routes (and you probably don't,
-since they do not enforce any kind of security), change this entry in config/lfm.php to false:
+1. By default, the package will use its own routes. If you don't want to use those routes, change this entry in config/lfm.php to false:
 
     ```php
         'use_package_routes' => true,
     ```
+    
+    You will, of course, have to set up your own routes.
     
 1. If you don't want to use the default image/file directory or url, update the appropriate lines in config/lfm.php:
 
@@ -82,7 +83,7 @@ CKEditor instance as follows:
     
 ## Security
 
-It is important to note that __you must protect your routes to Laravel-Filemanager in order to prevent
+It is important to note that if you use your own routes __you must protect your routes to Laravel-Filemanager in order to prevent
 unauthorized uploads to your server__. Fortunately, Laravel makes this very easy.
 
 If, for example, you want to ensure that only logged in users have the ability to access the Laravel-Filemanager, 
