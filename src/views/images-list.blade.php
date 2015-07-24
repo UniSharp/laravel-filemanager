@@ -35,9 +35,9 @@
                             {!! basename($file['name']) !!}
                         </a>
                         &nbsp;&nbsp;
-                        <a href="javascript:rename('<?= basename($file['name']) ?>')">
+                        <!-- <a href="javascript:rename('<?= basename($file['name']) ?>')">
                             <i class="fa fa-edit"></i>
-                        </a>
+                        </a> -->
                     </td>
                     <td>
                         {!! $file['size'] !!}

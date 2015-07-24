@@ -1,7 +1,7 @@
 <ul class="list-unstyled">
     <li style="margin-left: -5px;">
         <a class="pointer" id="folder_top" data-id="/" onclick="clickRoot()">
-            <i class="fa fa-folder-open" data-id="/"></i> Files
+            <i class="glyphicon glyphicon-home" data-id="/"></i> Files
         </a>
     </li>
     @foreach($dirs as $key => $dir)

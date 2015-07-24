@@ -100,7 +100,8 @@
                         </div>
                     </div>
                 </div>
-                {!! Form::hidden('working_dir', $working_dir, ['id' => 'working_dir']) !!}
+                <input type="text" name="working_dir" value="{{ $working_dir }}" id="working_dir"> 
+                
                 {!! Form::hidden('show_list', 0, ['id' => 'show_list']) !!}
                 {!! Form::close() !!}
             </div>
@@ -180,8 +181,9 @@
 
     function clickRoot() {
         $('.folder-item').removeClass('fa-folder-open').addClass('fa-folder');
-        $("#working_dir").val('/');
+        $("#working_dir").val('{{Auth::user()->name}}');
         loadImages();
+        loadFiles();
     }
 
     function clickFolder(x, y) {
@@ -196,8 +198,9 @@
                 $('#' + x + ' > i').addClass('fa-folder');
             }
         }
-        $("#working_dir").val($('#' + x).data('id'));
+        $("#working_dir").val('{{Auth::user()->name}}' + '/' + $('#' + x).data('id'));
         loadImages();
+        refreshFolders();
     }
 
     function download(x) {
@@ -262,7 +265,7 @@
                     if (data != "OK") {
                         notify(data);
                     } else {
-                        loadFiles();
+                        // loadFiles();
                         loadImages();
                     }
                 });
@@ -327,9 +330,10 @@
                     cache: false
                 }).done(function (data) {
                     if (data == "OK") {
-                        loadFiles();
-                        loadImages();
-                        refreshFolders();
+                        // loadFiles();
+                        // loadImages();
+                        // refreshFolders();
+                        clickRoot();
                     } else {
                         notify(data);
                     }
@@ -384,6 +388,7 @@
                         },
                         cache: false
                     }).done(function (data) {
+                        console.log(data);
                         if (data == "OK") {
                             loadImages();
                             loadFiles();
