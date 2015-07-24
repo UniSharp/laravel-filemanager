@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'use_package_routes' => true,
+    'use_package_routes' => false,
 
-    'images_dir'         => 'public/vendor/laravel-filemanager/images/',
-    'images_url'         => '/vendor/laravel-filemanager/images/',
+    'images_dir'         => 'public/lfm/users/',
+    'images_url'         => '/lfm/users/',
 
     'files_dir'          => 'public/vendor/laravel-filemanager/files/',
     'files_url'          => '/vendor/laravel-filemanager/files/',
