@@ -65,7 +65,7 @@ class UploadController extends Controller {
 
             $new_filename = Str::slug(str_replace($extension, '', $filename)) . "." . $extension;
             // new_filename is null, replace it with uuid
-            $new_filename = uniqid();
+            $new_filename = uniqid() . "." . $extension;
 
             Input::file('file_to_upload')->move($destinationPath, $new_filename);
 
