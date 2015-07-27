@@ -100,8 +100,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="text" name="working_dir" value="{{ $working_dir }}" id="working_dir"> 
-                
+                {!! Form::hidden('working_dir', $working_dir, ['id' => 'working_dir']) !!}
                 {!! Form::hidden('show_list', 0, ['id' => 'show_list']) !!}
                 {!! Form::close() !!}
             </div>
