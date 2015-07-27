@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>File Manager</title>
+    <title>檔案管理</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/laravel-filemanager/css/cropper.min.css">
@@ -14,7 +14,7 @@
     <div class="row fill">
         <div class="panel panel-primary fill">
             <div class="panel-heading">
-                <h3 class="panel-title">Laravel FileManager</h3>
+                <h3 class="panel-title">請選擇一個檔案</h3>
             </div>
             <div class="panel-body fill">
                 <div class="row fill">
@@ -87,13 +87,13 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Upload File</h4>
+                <h4 class="modal-title" id="myModalLabel">檔案上傳</h4>
             </div>
             <div class="modal-body">
                 {!! Form::open(array('url' => '/laravel-filemanager/upload', 'role' => 'form', 'name' => 'uploadForm',
                 'id' => 'uploadForm', 'method' => 'post', 'enctype' => 'multipart/form-data')) !!}
                 <div class="form-group" id="attachment">
-                    {!! Form::label('file_to_upload', 'Choose File', array('class' => 'control-label')); !!}
+                    {!! Form::label('file_to_upload', '選擇檔案', array('class' => 'control-label')); !!}
                     <div class="controls">
                         <div class="input-group" style="width: 100%">
                             <input type="file" id="file_to_upload" name="file_to_upload">
@@ -105,8 +105,8 @@
                 {!! Form::close() !!}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="upload-btn">Upload File</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-primary" id="upload-btn">上傳</button>
             </div>
         </div>
     </div>
@@ -118,13 +118,13 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="fileLabel">View File</h4>
+                <h4 class="modal-title" id="fileLabel">圖片瀏覽</h4>
             </div>
             <div class="modal-body" id="fileview_body">
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
             </div>
         </div>
     </div>
