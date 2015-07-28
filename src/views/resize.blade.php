@@ -39,8 +39,8 @@
                 </tbody>
             </table>
 
-            <button class="btn btn-primary" onclick="doResize()">Resize</button>
-            <button class="btn btn-info" onclick="loadImages()">Cancel</button>
+            <button class="btn btn-primary" onclick="doResize()">{!! Lang::get('laravel-filemanager::lfm.resize') !!}</button>
+            <button class="btn btn-info" onclick="loadImages()">{!! Lang::get('laravel-filemanager::lfm.cancel') !!}</button>
 
             <input type="hidden" name="ratio" value="{!! $ratio !!}"><br>
             <input type="hidden" name="scaled" value="{!! $scaled !!}"><br>

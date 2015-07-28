@@ -18,5 +18,15 @@ return [
     'action'       => '操作',
     'folder'       => '資料夾',
     'empty_folder' => '空的資料夾',
+    'choose'       => '選擇檔案',
+    'title'        => '檔案管理',
+    'modal-title'  => '檔案上傳',
+    'close'        => '關閉',
+    'browse-image' => '圖片預覽',
+    'uploading'    => '上傳中...',
+    'cancel'       => '取消',
+    'folder-name'  => '資料夾名稱：',
+    'message-delete' => '確定要刪除嗎？',
+    'message-rename' => '重新命名為：',
 
 ];

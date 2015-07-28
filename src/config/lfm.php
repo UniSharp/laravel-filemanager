@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'use_package_routes' => false,
+    'use_package_routes' => true,
 
     'images_dir'         => 'public/files/users/',
     'images_url'         => '/files/users/',

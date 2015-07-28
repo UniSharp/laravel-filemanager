@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>檔案管理</title>
+    <title>{!! Lang::get('laravel-filemanager::lfm.title') !!}</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/laravel-filemanager/css/cropper.min.css">
@@ -14,7 +14,7 @@
     <div class="row fill">
         <div class="panel panel-primary fill">
             <div class="panel-heading">
-                <h3 class="panel-title">請選擇一個檔案</h3>
+                <h3 class="panel-title">{!! Lang::get('laravel-filemanager::lfm.choose') !!}</h3>
             </div>
             <div class="panel-body fill">
                 <div class="row fill">
@@ -87,12 +87,12 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">檔案上傳</h4>
+                <h4 class="modal-title" id="myModalLabel">{!! Lang::get('laravel-filemanager::lfm.modal-title') !!}</h4>
             </div>
             <div class="modal-body">
                 <form action="{{url('/laravel-filemanager/upload')}}" role="form" name="uploadForm" id="uploadForm" method="post" enctype="multipart/form-data">
                     <div class="form-group" id="attachment">
-                        <label for="file_to_upload" class="control-label">選擇檔案</label>
+                        <label for="file_to_upload" class="control-label">{!! Lang::get('laravel-filemanager::lfm.choose') !!}</label>
                         <div class="controls">
                             <div class="input-group" style="width: 100%">
                                 <input type="file" id="file_to_upload" name="file_to_upload">
@@ -105,8 +105,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
-                <button type="button" class="btn btn-primary" id="upload-btn">上傳</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{!! Lang::get('laravel-filemanager::lfm.cancel') !!}</button>
+                <button type="button" class="btn btn-primary" id="upload-btn">{!! Lang::get('laravel-filemanager::lfm.upload') !!}</button>
             </div>
         </div>
     </div>
@@ -118,13 +118,13 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="fileLabel">圖片瀏覽</h4>
+                <h4 class="modal-title" id="fileLabel">{!! Lang::get('laravel-filemanager::lfm.browse-image') !!}</h4>
             </div>
             <div class="modal-body" id="fileview_body">
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{!! Lang::get('laravel-filemanager::lfm.close') !!}</button>
             </div>
         </div>
     </div>
@@ -160,13 +160,13 @@
         };
 
         function showRequest(formData, jqForm, options) {
-            $("#upload-btn").html('<i class="fa fa-refresh fa-spin"></i> Uploading...');
+            $("#upload-btn").html("<i class='fa fa-refresh fa-spin'></i> {!! Lang::get('laravel-filemanager::lfm.uploading') !!}");
             return true;
         }
 
         function showResponse(responseText, statusText, xhr, $form)  {
             $("#uploadModal").modal('hide');
-            $("#upload-btn").html('Upload File...');
+            $("#upload-btn").html("{!! Lang::get('laravel-filemanager::lfm.upload') !!}");
             if (responseText != "OK"){
                 notify(responseText);
             }
@@ -249,7 +249,7 @@
     @endif
 
     function trash(x) {
-        bootbox.confirm("Are you sure you want to delete this item?", function (result) {
+        bootbox.confirm("{!! Lang::get('laravel-filemanager::lfm.message-delete') !!}", function (result) {
             if (result == true) {
                 $.ajax({
                     type: "GET",
@@ -315,7 +315,7 @@
     }
 
     $("#add-folder").click(function () {
-        bootbox.prompt("Folder name:", function (result) {
+        bootbox.prompt("{!! Lang::get('laravel-filemanager::lfm.folder-name') !!}", function (result) {
             if (result === null) {
             } else {
                 $.ajax({
@@ -371,7 +371,7 @@
 
     function rename(x) {
         bootbox.prompt({
-            title: "Rename to:",
+            title: "{!! Lang::get('laravel-filemanager::lfm.message-rename') !!}",
             value: x,
             callback: function (result) {
                 if (result === null) {
