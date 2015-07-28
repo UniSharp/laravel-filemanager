@@ -42,23 +42,31 @@ class DeleteController extends Controller {
 
         if ($base != "/")
         {
-            if (File::isDirectory(base_path() . "/" . $this->file_location . $to_delete))
+            $file_name = base_path() . "/" . $this->file_location . $base . "/" . $to_delete;
+            if (File::isDirectory($file_name))
             {
-                File::delete(base_path() . "/" . $this->file_location . $base . "/" . $to_delete);
+                // make sure the directory is empty
+                if (sizeof(File::files($file_name)) == 0)
+                {
+                    File::deleteDirectory($file_name);
 
-                return "OK";
+                    return "OK";
+                } else
+                {
+                    return "You cannot delete this folder because it is not empty!";
+                }
             } else
             {
-                if (File::exists(base_path() . "/" . $this->file_location . $base . "/" . $to_delete))
+                if (File::exists($file_name))
                 {
-                    File::delete(base_path() . "/" . $this->file_location . $base . "/" . $to_delete);
+                    File::delete($file_name);
 
-                    if (Session::get('lfm_type') == "Images'")
+                    if (Session::get('lfm_type') == "Images")
                         File::delete(base_path() . "/" . $this->file_location . $base . "/" . "thumbs/" . $to_delete);
 
                     return "OK";
                 } else {
-                    return base_path() . "/" . $this->file_location . $base . "/" . $to_delete
+                    return $file_name
                         . " not found!";
                 }
             }
