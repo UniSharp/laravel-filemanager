@@ -265,7 +265,7 @@
                         notify(data);
                     } else {
                         if ($("#working_dir").val() == "{{Auth::user()->name}}") {
-                            loadFiles();
+                            clickRoot();
                         }
                         loadImages();
                     }
