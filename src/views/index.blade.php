@@ -264,7 +264,9 @@
                     if (data != "OK") {
                         notify(data);
                     } else {
-                        // loadFiles();
+                        if ($("#working_dir").val() == "{{Auth::user()->name}}") {
+                            loadFiles();
+                        }
                         loadImages();
                     }
                 });
