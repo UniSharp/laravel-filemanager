@@ -11,15 +11,15 @@
             <br>
             <button class="btn btn-primary" onclick="performCrop()">Crop</button>
             <button class="btn btn-info" onclick="loadImages()">Cancel</button>
-            {!! Form::open(array('url' => '/laravel-filemanager/crop', 'role' => 'form', 'name' => 'cropForm',
-                'id' => 'cropForm', 'method' => 'post')) !!}
+            <form action="{{url('/laravel-filemanager/crop')}}" role="form" name="cropForm" id="cropForm" method="post">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" id="img" name="img" value="{!! $img !!}">
                 <input type="hidden" id="dir" name="dir" value="{!! $dir !!}">
                 <input type="hidden" id="dataX" name="dataX">
                 <input type="hidden" id="dataY" name="dataY">
                 <input type="hidden" id="dataWidth" name="dataWidth">
                 <input type="hidden" id="dataHeight" name="dataHeight">
-            {!! Form::close() !!}
+            </form>
         </div>
     </div>
 

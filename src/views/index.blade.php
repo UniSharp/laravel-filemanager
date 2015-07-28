@@ -90,19 +90,19 @@
                 <h4 class="modal-title" id="myModalLabel">檔案上傳</h4>
             </div>
             <div class="modal-body">
-                {!! Form::open(array('url' => '/laravel-filemanager/upload', 'role' => 'form', 'name' => 'uploadForm',
-                'id' => 'uploadForm', 'method' => 'post', 'enctype' => 'multipart/form-data')) !!}
-                <div class="form-group" id="attachment">
-                    {!! Form::label('file_to_upload', '選擇檔案', array('class' => 'control-label')); !!}
-                    <div class="controls">
-                        <div class="input-group" style="width: 100%">
-                            <input type="file" id="file_to_upload" name="file_to_upload">
+                <form action="{{url('/laravel-filemanager/upload')}}" role="form" name="uploadForm" id="uploadForm" method="post" enctype="multipart/form-data">
+                    <div class="form-group" id="attachment">
+                        <label for="file_to_upload" class="control-label">選擇檔案</label>
+                        <div class="controls">
+                            <div class="input-group" style="width: 100%">
+                                <input type="file" id="file_to_upload" name="file_to_upload">
+                            </div>
                         </div>
                     </div>
-                </div>
-                {!! Form::hidden('working_dir', $working_dir, ['id' => 'working_dir']) !!}
-                {!! Form::hidden('show_list', 0, ['id' => 'show_list']) !!}
-                {!! Form::close() !!}
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="working_dir" value="{{ $working_dir }}" id="working_dir">
+                    <input type="hidden" name="show_list" value="0" id="show_list">
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
