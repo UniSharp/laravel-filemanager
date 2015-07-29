@@ -1,5 +1,4 @@
 <?php
-
 Route::group(array('middleware' => ['auth', 'myfolder'], 'prefix' => 'laravel-filemanager'), function () {
     // Show LFM
     Route::get('/', '\Tsawler\Laravelfilemanager\controllers\LfmController@show');
