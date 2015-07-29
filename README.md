@@ -32,14 +32,14 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
 
 Add this in service providers
 
-    Laravel 5.0 :
+Laravel 5.0
 
     ```php
         'Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider',
         'Intervention\Image\ImageServiceProvider',
     ```
 
-    Laravel 5.1 :
+Laravel 5.1
 
     ```php
         Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
@@ -48,23 +48,23 @@ Add this in service providers
 
 And add this in class aliases
 
-    Laravel 5.0 :
+Laravel 5.0
 
     `'Image' => 'Intervention\Image\Facades\Image',`
 
-    Laravel 5.1 :
+Laravel 5.1
 
     `'Image' => Intervention\Image\Facades\Image::class,`
 
-4.Edit `Kernel.php` :
+4.Edit `Kernel.php`
 
 Add this line in routeMiddleware
 
-    Laravel 5.0 :
+Laravel 5.0
 
     `'myfolder' => '\Tsawler\Laravelfilemanager\middleware\OnlySeeMyFolder',`
 
-    Laravel 5.1 :
+Laravel 5.1
 
     `'myfolder' => \Tsawler\Laravelfilemanager\middleware\OnlySeeMyFolder::class,`
 
