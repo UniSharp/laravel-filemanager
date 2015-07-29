@@ -21,7 +21,7 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
         "repositories": [
             {
                 "type": "git",
-                "url": "git@bitbucket.org:unisharp/laravel-filemanager.git"
+                "url": "git@github.com:UniSharp/laravel-filemanager.git"
             }
         ],
     ```
