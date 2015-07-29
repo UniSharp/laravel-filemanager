@@ -1,4 +1,4 @@
-#laravel-filemanager
+# laravel-filemanager
 
 ## Overview
 
@@ -104,13 +104,13 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
 
 ## Customization
     
-1. If you want to use your own route, edit config/lfm.php :
+1. To use your own route, edit config/lfm.php :
 
     ```php
         'use_package_routes' => false,
     ```
     
-2. If you want to specify upload directory, edit config/lfm.php :
+2. To specify upload directory, edit config/lfm.php :
 
     ```php
         'images_dir'         => 'public/vendor/laravel-filemanager/images/',
