@@ -1,4 +1,9 @@
-laravel-filemanager
+#laravel-filemanager
+
+## Overview
+
+Fork from [tsawler/laravel-filemanager](http://packalyst.com/packages/package/tsawler/laravel-filemanager), add restriction that users can see only their own folders.
+The original functions support image and file upload, this package only modifies the image functions.
 
 ## Requirements
 
@@ -8,60 +13,112 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
 
 1. Edit `composer.json` file:
 
-```json
-    "require": {
-        "unisharp/laravel-filemanager": "dev-master",
-        "intervention/image": "^2.3@dev"
-    },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "git@bitbucket.org:unisharp/laravel-filemanager.git"
-        }
-    ],
-```
+    ```json
+        "require": {
+            "unisharp/laravel-filemanager": "dev-master",
+            "intervention/image": "^2.3@dev"
+        },
+        "repositories": [
+            {
+                "type": "git",
+                "url": "git@bitbucket.org:unisharp/laravel-filemanager.git"
+            }
+        ],
+    ```
 
 2. Run `composer update`
 
-3. Edit `config/app.php`:
+3. Edit `config/app.php` :
 
-    `'Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider',`
+Add this in service providers :
 
-4. Publish the package's config, assets, and views :
+    Laravel 5.0 :
+
+    ```php
+        'Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider',
+        'Intervention\Image\ImageServiceProvider',
+    ```
+
+    Laravel 5.1 :
+
+    ```php
+        Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+    ```
+
+And add this in class aliases :
+
+    Laravel 5.0 :
+
+    `'Image' => 'Intervention\Image\Facades\Image',`
+
+    Laravel 5.1 :
+
+    `'Image' => Intervention\Image\Facades\Image::class,`
+
+4.Edit `Kernel.php` :
+
+Add this line in routeMiddleware :
+
+    Laravel 5.0 :
+
+    `'myfolder' => '\Tsawler\Laravelfilemanager\middleware\OnlySeeMyFolder',`
+
+    Laravel 5.1 :
+
+    `'myfolder' => \Tsawler\Laravelfilemanager\middleware\OnlySeeMyFolder::class,`
+
+5. Publish the package's config and assets:
 
     `php artisan vendor:publish`
-    
-1. By default, the package will use its own routes. If you don't want to use those routes (and you probably don't,
-since they do not enforce any kind of security), change this entry in config/lfm.php to false:
 
-    ```php
-        'use_package_routes' => true,
-    ```
-    
-1. If you don't want to use the default image/file directory or url, update the appropriate lines in config/lfm.php:
-
-    ```php
-        'images_dir'         => 'public/vendor/laravel-filemanager/images/',
-        'images_url'         => '/vendor/laravel-filemanager/images/',
-        'files_dir'          => 'public/vendor/laravel-filemanager/files/',
-        'files_url'          => '/vendor/laravel-filemanager/files/',
-    ```
-    
-1. Ensure that the files & images directories are writable by your web serber
-
-1. In the view where you are using a CKEditor instance, use the file uploader by initializing the
-CKEditor instance as follows:
+6. View initiation :
 
     ```javascript
         <script>
             CKEDITOR.replace( 'editor', {
-                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-                filebrowserBrowseUrl: '/laravel-filemanager?type=Files'
+                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images'
+            });
+        </script>
+    ```
+
+Or initiate using ckeditor jquery adapter
+
+    ```javascript
+        <script>
+            $('textarea').ckeditor({
+              filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images'
+            });
+        </script>
+    ```
+
+7. Ensure that the files & images directories are writable by your web serber
+
+## Customization
+    
+1. If you want to use your own route, edit config/lfm.php :
+
+    ```php
+        'use_package_routes' => false,
+    ```
+    
+2. If you want to specify upload directory, edit config/lfm.php :
+
+    ```php
+        'images_dir'         => 'public/vendor/laravel-filemanager/images/',
+        'images_url'         => '/vendor/laravel-filemanager/images/',
+    ```
+    
+
+3. If you customize the route, make sure `filebrowserImageBrowseUrl` is correspond to your route :
+
+    ```javascript
+        <script>
+            CKEDITOR.replace( 'editor', {
+                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images'
             });
         </script>
     ```
     
-    Here, "editor" is the id of the textarea you are transforming to a CKEditor instance. Note that if
-    you are using a custom route you will have to change `/laravel-filemanager?type=Images` to correspond
-    to whatever route you have chosen. Be sure to include the `?type=Images` parameter.
+    And be sure to include the `?type=Images` parameter.
     
