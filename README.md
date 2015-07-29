@@ -32,14 +32,14 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
 
 Add this in service providers :
 
-    Laravel 5.0 :
+Laravel 5.0 :
 
     ```php
         'Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider',
         'Intervention\Image\ImageServiceProvider',
     ```
 
-    Laravel 5.1 :
+Laravel 5.1 :
 
     ```php
         Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
@@ -48,11 +48,11 @@ Add this in service providers :
 
 And add this in class aliases :
 
-    Laravel 5.0 :
+Laravel 5.0 :
 
     `'Image' => 'Intervention\Image\Facades\Image',`
 
-    Laravel 5.1 :
+Laravel 5.1 :
 
     `'Image' => Intervention\Image\Facades\Image::class,`
 
@@ -60,11 +60,11 @@ And add this in class aliases :
 
 Add this line in routeMiddleware :
 
-    Laravel 5.0 :
+Laravel 5.0 :
 
     `'myfolder' => '\Tsawler\Laravelfilemanager\middleware\OnlySeeMyFolder',`
 
-    Laravel 5.1 :
+Laravel 5.1 :
 
     `'myfolder' => \Tsawler\Laravelfilemanager\middleware\OnlySeeMyFolder::class,`
 
@@ -82,7 +82,7 @@ Add this line in routeMiddleware :
         </script>
     ```
 
-Or initiate using ckeditor jquery adapter
+Or initiate using ckeditor jquery adapter :
 
     ```javascript
         <script>
@@ -108,9 +108,8 @@ Or initiate using ckeditor jquery adapter
         'images_dir'         => 'public/vendor/laravel-filemanager/images/',
         'images_url'         => '/vendor/laravel-filemanager/images/',
     ```
-    
 
-3. If you customize the route, make sure `filebrowserImageBrowseUrl` is correspond to your route :
+3. If the route is changed, make sure `filebrowserImageBrowseUrl` is correspond to your route :
 
     ```javascript
         <script>
