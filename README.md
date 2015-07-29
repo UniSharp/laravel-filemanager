@@ -100,7 +100,7 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
         </script>
     ```
 
-7. Ensure that the files & images directories are writable by your web serber
+7. Ensure that the files & images directories are writable by your web server
 
 ## Customization
     
