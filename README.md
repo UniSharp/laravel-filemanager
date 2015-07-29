@@ -60,7 +60,7 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
         'Image' => Intervention\Image\Facades\Image::class,
     ```
 
-4.Edit `Kernel.php` :
+4. Edit `Kernel.php` :
 
     Add this line in routeMiddleware
 
