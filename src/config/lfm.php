@@ -3,8 +3,8 @@
 return [
     'use_package_routes' => true,
 
-    'images_dir'         => 'public/vendor/laravel-filemanager/images/',
-    'images_url'         => '/vendor/laravel-filemanager/images/',
+    'images_dir'         => 'public/files/users/',
+    'images_url'         => '/files/users/',
 
     'files_dir'          => 'public/vendor/laravel-filemanager/files/',
     'files_url'          => '/vendor/laravel-filemanager/files/',
