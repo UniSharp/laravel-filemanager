@@ -32,14 +32,14 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
 
     Add this in service providers
 
-    Laravel 5.0
+    - Laravel 5.0
 
     ```php
         'Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider',
         'Intervention\Image\ImageServiceProvider',
     ```
 
-    Laravel 5.1
+    - Laravel 5.1
 
     ```php
         Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
@@ -48,11 +48,13 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
 
     And add this in class aliases
 
-    Laravel 5.0
+    - Laravel 5.0
 
-    `'Image' => 'Intervention\Image\Facades\Image',`
+    ```php
+        'Image' => 'Intervention\Image\Facades\Image',
+    ```
 
-    Laravel 5.1
+    - Laravel 5.1
 
     ```php
         'Image' => Intervention\Image\Facades\Image::class,
@@ -62,15 +64,17 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
 
     Add this line in routeMiddleware
 
-    Laravel 5.0
+    - Laravel 5.0
 
     ```php
         'myfolder' => '\Tsawler\Laravelfilemanager\middleware\OnlySeeMyFolder',
     ```
 
-    Laravel 5.1
+    - Laravel 5.1
 
-    `'myfolder' => \Tsawler\Laravelfilemanager\middleware\OnlySeeMyFolder::class,`
+    ```php
+        'myfolder' => \Tsawler\Laravelfilemanager\middleware\OnlySeeMyFolder::class,
+    ```
 
 5. Publish the package's config and assets:
 
@@ -86,7 +90,7 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
         </script>
     ```
 
-Or initiate using ckeditor jquery adapter
+    Or initiate using ckeditor jquery adapter
 
     ```javascript
         <script>
