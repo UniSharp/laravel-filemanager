@@ -11,7 +11,7 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
 
 ## Installation
 
-1. Edit `composer.json` file:
+1. Edit `composer.json` file :
 
     ```json
         "require": {
@@ -60,7 +60,7 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
         'Image' => Intervention\Image\Facades\Image::class,
     ```
 
-4.Edit `Kernel.php`
+4.Edit `Kernel.php` :
 
     Add this line in routeMiddleware
 
@@ -76,7 +76,7 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
         'myfolder' => \Tsawler\Laravelfilemanager\middleware\OnlySeeMyFolder::class,
     ```
 
-5. Publish the package's config and assets:
+5. Publish the package's config and assets :
 
     `php artisan vendor:publish`
 
