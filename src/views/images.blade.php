@@ -41,7 +41,7 @@
                     <div class="thumbnail thumbnail-img" data-id="{{ basename($file) }}" id="img_thumbnail_{{ $key }}">
                         <img id="{!! $file !!}"
                              src="{{ $dir_location }}{{ $base }}/thumbs/{{ basename($file) }}?r={{ str_random(40) }}"
-                             alt="">
+                             alt="" style="cursor:pointer;" onclick="useFile('{!! basename($file) !!}')">
                     </div>
 
                     <div class="caption text-center">

@@ -38,7 +38,7 @@
                 <div class="col-sm-6 col-md-2 img-row">
 
                     <div class="thumbnail thumbnail-img text-center" style="border: none;" data-id="{{ basename($file['name']) }}" id="img_thumbnail_{{ $key }}">
-                        <i class="fa <?= $file['icon']; ?> fa-5x"></i>
+                        <i class="fa <?= $file['icon']; ?> fa-5x" style="cursor:pointer;" onclick="useFile('{!! basename($file) !!}')"></i>
                     </div>
 
                     <div class="caption text-center">
