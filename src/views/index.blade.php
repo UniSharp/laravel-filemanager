@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>File Manager</title>
+    <title>{!! Lang::get('laravel-filemanager::lfm.title-page') !!}</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/laravel-filemanager/css/cropper.min.css">
@@ -14,7 +14,7 @@
     <div class="row fill">
         <div class="panel panel-primary fill">
             <div class="panel-heading">
-                <h3 class="panel-title">Laravel FileManager</h3>
+                <h3 class="panel-title">{!! Lang::get('laravel-filemanager::lfm.title-panel') !!}</h3>
             </div>
             <div class="panel-body fill">
                 <div class="row fill">
@@ -22,7 +22,7 @@
                         <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 left-nav fill" id="lfm-leftcol">
                             <div id="tree1">
                             </div>
-                            <a href="#!" id="add-folder" class="add-folder btn btn-default btn-xs"><i class="fa fa-plus"></i> {!! Lang::get('laravel-filemanager::lfm.new_folder') !!}</a>
+                            <a href="#!" id="add-folder" class="add-folder btn btn-default btn-xs"><i class="fa fa-plus"></i> {!! Lang::get('laravel-filemanager::lfm.menu-new') !!}</a>
                         </div>
                         <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10 right-nav" id="right-nav">
                             <nav class="navbar navbar-default">
@@ -40,15 +40,15 @@
                                         <ul class="nav navbar-nav" id="nav-buttons">
                                             <li>
                                                 <a href="#!" id="upload" data-toggle="modal" data-target="#uploadModal"><i
-                                                            class="fa fa-upload"></i> {!! Lang::get('laravel-filemanager::lfm.upload') !!}</a>
+                                                            class="fa fa-upload"></i> {!! Lang::get('laravel-filemanager::lfm.nav-upload') !!}</a>
                                             </li>
                                             <li>
                                                 <a href="#!" class="thumbnail-display" id="thumbnail-display"><i
-                                                            class="fa fa-picture-o"></i> {!! Lang::get('laravel-filemanager::lfm.thumbnails') !!}</a>
+                                                            class="fa fa-picture-o"></i> {!! Lang::get('laravel-filemanager::lfm.nav-thumbnails') !!}</a>
                                             </li>
                                             <li>
                                                 <a href="#!" class="list-display" id="list-display"><i
-                                                            class="fa fa-list"></i> {!! Lang::get('laravel-filemanager::lfm.list') !!}</a>
+                                                            class="fa fa-list"></i> {!! Lang::get('laravel-filemanager::lfm.nav-list') !!}</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -87,13 +87,13 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Upload File</h4>
+                <h4 class="modal-title" id="myModalLabel">{!! Lang::get('laravel-filemanager::lfm.title-upload') !!}</h4>
             </div>
             <div class="modal-body">
                 {!! Form::open(array('url' => '/laravel-filemanager/upload', 'role' => 'form', 'name' => 'uploadForm',
                 'id' => 'uploadForm', 'method' => 'post', 'enctype' => 'multipart/form-data')) !!}
                 <div class="form-group" id="attachment">
-                    {!! Form::label('file_to_upload', 'Choose File', array('class' => 'control-label')); !!}
+                    {!! Form::label('file_to_upload', Lang::get('laravel-filemanager::lfm.message-choose'), array('class' => 'control-label')); !!}
                     <div class="controls">
                         <div class="input-group" style="width: 100%">
                             <input type="file" id="file_to_upload" name="file_to_upload">
@@ -105,8 +105,8 @@
                 {!! Form::close() !!}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="upload-btn">Upload File</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{!! Lang::get('laravel-filemanager::lfm.btn-close') !!}</button>
+                <button type="button" class="btn btn-primary" id="upload-btn">{!! Lang::get('laravel-filemanager::lfm.btn-upload') !!}</button>
             </div>
         </div>
     </div>
@@ -118,13 +118,13 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="fileLabel">View File</h4>
+                <h4 class="modal-title" id="fileLabel">{!! Lang::get('laravel-filemanager::lfm.title-view') !!}</h4>
             </div>
             <div class="modal-body" id="fileview_body">
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{!! Lang::get('laravel-filemanager::lfm.btn-close') !!}</button>
             </div>
         </div>
     </div>
@@ -139,6 +139,7 @@
 <script src="/vendor/laravel-filemanager/js/jquery.form.min.js"></script>
 <script>
     $(document).ready(function () {
+        bootbox.setDefaults({locale:"{!! Lang::get('laravel-filemanager::lfm.locale-bootbox') !!}"});
         // load folders
         $.ajax({
             type: "GET",
@@ -160,13 +161,13 @@
         };
 
         function showRequest(formData, jqForm, options) {
-            $("#upload-btn").html('<i class="fa fa-refresh fa-spin"></i> Uploading...');
+            $("#upload-btn").html('<i class="fa fa-refresh fa-spin"></i> {!! Lang::get("laravel-filemanager::lfm.btn-uploading") !!}');
             return true;
         }
 
         function showResponse(responseText, statusText, xhr, $form)  {
             $("#uploadModal").modal('hide');
-            $("#upload-btn").html('Upload File...');
+            $("#upload-btn").html('{!! Lang::get("laravel-filemanager::lfm.btn-upload") !!}');
             if (responseText != "OK"){
                 notify(responseText);
             }
@@ -247,7 +248,7 @@
     @endif
 
     function trash(x) {
-        bootbox.confirm("Are you sure you want to delete this item?", function (result) {
+        bootbox.confirm("{!! Lang::get('laravel-filemanager::lfm.message-delete') !!}", function (result) {
             if (result == true) {
                 $.ajax({
                     type: "GET",
@@ -313,7 +314,7 @@
     }
 
     $("#add-folder").click(function () {
-        bootbox.prompt("Folder name:", function (result) {
+        bootbox.prompt("{!! Lang::get('laravel-filemanager::lfm.message-name') !!}", function (result) {
             if (result === null) {
             } else {
                 $.ajax({
@@ -368,7 +369,7 @@
 
     function rename(x) {
         bootbox.prompt({
-            title: "Rename to:",
+            title: "{!! Lang::get('laravel-filemanager::lfm.message-rename') !!}",
             value: x,
             callback: function (result) {
                 if (result === null) {

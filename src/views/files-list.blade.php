@@ -3,11 +3,11 @@
         <table class="table table-condensed table-striped">
             <thead>
             <tr>
-                <th>{!! Lang::get('laravel-filemanager::lfm.item') !!}</th>
-                <th>{!! Lang::get('laravel-filemanager::lfm.size') !!}</th>
-                <th>{!! Lang::get('laravel-filemanager::lfm.type') !!}</th>
-                <th>{!! Lang::get('laravel-filemanager::lfm.modified') !!}</th>
-                <th>{!! Lang::get('laravel-filemanager::lfm.action') !!}</th>
+                <th>{!! Lang::get('laravel-filemanager::lfm.title-item') !!}</th>
+                <th>{!! Lang::get('laravel-filemanager::lfm.title-size') !!}</th>
+                <th>{!! Lang::get('laravel-filemanager::lfm.title-type') !!}</th>
+                <th>{!! Lang::get('laravel-filemanager::lfm.title-modified') !!}</th>
+                <th>{!! Lang::get('laravel-filemanager::lfm.title-action') !!}</th>
             </tr>
             </thead>
             <tbody>
@@ -21,7 +21,7 @@
                         </a>
                     </td>
                     <td></td>
-                    <td>{!! Lang::get('laravel-filemanager::lfm.folder') !!}</td>
+                    <td>{!! Lang::get('laravel-filemanager::lfm.type-folder') !!}</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -60,7 +60,7 @@
 
     @else
         <div class="col-md-12">
-            <p>{!! Lang::get('laravel-filemanager::lfm.folder') !!}</p>
+            <p>{!! Lang::get('laravel-filemanager::lfm.message-empty') !!}</p>
         </div>
     @endif
 
