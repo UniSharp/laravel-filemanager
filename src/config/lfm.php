@@ -9,6 +9,8 @@ return [
     'files_dir'          => 'public/vendor/laravel-filemanager/files/',
     'files_url'          => '/vendor/laravel-filemanager/files/',
 
+    'middlewares'        => ['auth', '\Tsawler\Laravelfilemanager\middleware\OnlySeeMyFolder'],
+
     'file_type_array'         => [
         "pdf"  => "Adobe Acrobat",
         "docx" => "Microsoft Word",

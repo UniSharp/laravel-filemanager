@@ -6,8 +6,8 @@
             @foreach($directories as $key => $dir)
                 <div class="col-sm-6 col-md-2">
                     <div class="thumbnail text-center" data-id="{{ basename($dir) }}">
-                        <a id="large_folder_{{ $key }}" data-id="{{ $dir }}"
-                           onclick="clickFolder('large_folder_{{ $key }}',1)"
+                        <a id="folder_{{ $key }}" data-id="{{ $dir }}"
+                           onclick="clickFolder('folder_{{ $key }}',0)"
                            class="folder-icon pointer">
                             {{--<i class="fa fa-folder-o fa-5x"></i>--}}
                             <img src="/vendor/laravel-filemanager/img/folder.jpg">
@@ -15,7 +15,7 @@
                     </div>
                     <div class="caption text-center">
                         <div class="btn-group">
-                            <button type="button" onclick="clickFolder('large_folder_{{ $key }}',1)"
+                            <button type="button" onclick="clickFolder('folder_{{ $key }}',0)"
                                     class="btn btn-default btn-xs">
                                 {!! str_limit(basename($dir), $limit = 10, $end = '...') !!}
                             </button>

@@ -180,7 +180,7 @@
 
     function clickRoot() {
         $('.folder-item').removeClass('fa-folder-open').addClass('fa-folder');
-        $("#working_dir").val('/');
+        $("#working_dir").val('{{Auth::user()->name}}');
         loadImages();
     }
 
@@ -196,7 +196,7 @@
                 $('#' + x + ' > i').addClass('fa-folder');
             }
         }
-        $("#working_dir").val($('#' + x).data('id'));
+        $("#working_dir").val('{{Auth::user()->name}}' + '\\/' + $('#' + x).data('id'));
         loadImages();
     }
 
@@ -262,7 +262,9 @@
                     if (data != "OK") {
                         notify(data);
                     } else {
-                        loadFiles();
+                        if ($("#working_dir").val() == "{{Auth::user()->name}}") {
+                            loadFiles();
+                        }
                         loadImages();
                     }
                 });
