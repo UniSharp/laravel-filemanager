@@ -8,7 +8,7 @@ class MultiUser
 {
     public function handle($request, Closure $next)
     {
-    	if (\Config::get('allow_multi_user') === true) {
+    	if (\Config::get('lfm.allow_multi_user') === true) {
 	        if ($request->input('base') == null) {
 	            $request->merge(['base' => \Auth::user()->name]);
 	        } elseif (strpos($request->input('base'), \Auth::user()->name) === false) {
