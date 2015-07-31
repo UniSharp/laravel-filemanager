@@ -61,25 +61,12 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
         'Image' => Intervention\Image\Facades\Image::class,
     ```
 
-1. Edit `Kernel.php` :
-
-    Add this line in routeMiddleware
-
-    - Laravel 5.0
-
-    ```php
-        'myfolder' => '\Tsawler\Laravelfilemanager\middleware\OnlySeeMyFolder',
-    ```
-
-    - Laravel 5.1
-
-    ```php
-        'myfolder' => \Tsawler\Laravelfilemanager\middleware\OnlySeeMyFolder::class,
-    ```
-
 1. Publish the package's config and assets :
 
-    `php artisan vendor:publish`
+    ```
+        php artisan vendor:publish --tag=lfm_config
+        php artisan vendor:publish --tag=lfm_public
+    ```
 
 1. View initiation
 
@@ -130,3 +117,4 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
     
     And be sure to include the `?type=Images` parameter.
     
+1. To customize the views, run `php artisan vendor:publish --tag=lfm_views`
