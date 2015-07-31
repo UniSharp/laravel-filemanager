@@ -24,8 +24,8 @@
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="javascript:rename('{!! basename($dir) !!}')">{!! Lang::get('laravel-filemanager::lfm.rename') !!}</a></li>
-                                <li><a href="javascript:trash('{!! basename($dir) !!}')">{!! Lang::get('laravel-filemanager::lfm.delete') !!}</a></li>
+                                <li><a href="javascript:rename('{!! basename($dir) !!}')">{!! Lang::get('laravel-filemanager::lfm.menu-rename') !!}</a></li>
+                                <li><a href="javascript:trash('{!! basename($dir) !!}')">{!! Lang::get('laravel-filemanager::lfm.menu-delete') !!}</a></li>
                             </ul>
                         </div>
 
@@ -52,15 +52,15 @@
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="javascript:rename('<?= basename($file['name']) ?>')">{!! Lang::get('laravel-filemanager::lfm.rename') !!}</a></li>
-                                <li><a href="javascript:fileView('<?= basename($file['name']) ?>')">{!! Lang::get('laravel-filemanager::lfm.view') !!}</a></li>
-                                <li><a href="javascript:download('<?= basename($file['name']) ?>')">{!! Lang::get('laravel-filemanager::lfm.download') !!}</a></li>
+                                <li><a href="javascript:rename('<?= basename($file['name']) ?>')">{!! Lang::get('laravel-filemanager::lfm.menu-rename') !!}</a></li>
+                                <li><a href="javascript:fileView('<?= basename($file['name']) ?>')">{!! Lang::get('laravel-filemanager::lfm.menu-view') !!}</a></li>
+                                <li><a href="javascript:download('<?= basename($file['name']) ?>')">{!! Lang::get('laravel-filemanager::lfm.menu-download') !!}</a></li>
                                 <li class="divider"></li>
                                 {{--<li><a href="javascript:notImp()">Rotate</a></li>--}}
-                                <li><a href="javascript:resizeImage('<?= basename($file['name']) ?>')">{!! Lang::get('laravel-filemanager::lfm.resize') !!}</a></li>
-                                <li><a href="javascript:cropImage('<?= basename($file['name']) ?>')">{!! Lang::get('laravel-filemanager::lfm.crop') !!}</a></li>
+                                <li><a href="javascript:resizeImage('<?= basename($file['name']) ?>')">{!! Lang::get('laravel-filemanager::lfm.menu-resize') !!}</a></li>
+                                <li><a href="javascript:cropImage('<?= basename($file['name']) ?>')">{!! Lang::get('laravel-filemanager::lfm.menu-crop') !!}</a></li>
                                 <li class="divider"></li>
-                                <li><a href="javascript:trash('<?= basename($file['name']) ?>')">{!! Lang::get('laravel-filemanager::lfm.delete') !!}</a></li>
+                                <li><a href="javascript:trash('<?= basename($file['name']) ?>')">{!! Lang::get('laravel-filemanager::lfm.menu-delete') !!}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
 
         @else
             <div class="col-md-12">
-                <p>{!! Lang::get('laravel-filemanager::lfm.empty_folder') !!}</p>
+                <p>{!! Lang::get('laravel-filemanager::lfm.message-empty') !!}</p>
             </div>
         @endif
 
