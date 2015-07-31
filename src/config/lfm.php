@@ -9,7 +9,9 @@ return [
     'files_dir'          => 'public/vendor/laravel-filemanager/files/',
     'files_url'          => '/vendor/laravel-filemanager/files/',
 
-    'middlewares'        => ['auth', '\Tsawler\Laravelfilemanager\middleware\OnlySeeMyFolder'],
+    'allow_multi_user'   => true,
+
+    'middlewares'        => ['auth', '\Tsawler\Laravelfilemanager\middleware\MultiUser'],
 
     'file_type_array'         => [
         "pdf"  => "Adobe Acrobat",

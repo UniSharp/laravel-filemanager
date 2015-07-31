@@ -24,7 +24,9 @@ class FolderController extends Controller {
             $this->file_location = Config::get('lfm.files_dir');
 
         $this->file_location .= Input::get('base');
-        self::checkMyFolder();
+        
+        if (\Config::get('allow_multi_user') === true)
+            self::checkMyFolder();
     }
 
     public function checkMyFolder()
