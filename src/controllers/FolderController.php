@@ -22,6 +22,20 @@ class FolderController extends Controller {
             $this->file_location = Config::get('lfm.images_dir');
         else
             $this->file_location = Config::get('lfm.files_dir');
+
+        $this->file_location .= Input::get('base');
+        
+        if (\Config::get('allow_multi_user') === true)
+            self::checkMyFolder();
+    }
+
+    public function checkMyFolder()
+    {
+        $path = base_path($this->file_location);
+        if (!File::exists($path))
+        {
+            File::makeDirectory($path, $mode = 0777, true, true);
+        }
     }
 
 
