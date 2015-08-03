@@ -181,7 +181,7 @@
 
     function clickRoot() {
         $('.folder-item').removeClass('fa-folder-open').addClass('fa-folder');
-        $("#working_dir").val('{{Auth::user()->name}}');
+        $("#working_dir").val("{{config('lfm.user_field')}}");
         loadImages();
     }
 
@@ -197,7 +197,7 @@
                 $('#' + x + ' > i').addClass('fa-folder');
             }
         }
-        $("#working_dir").val('{{Auth::user()->name}}' + '\\/' + $('#' + x).data('id'));
+        $("#working_dir").val("{{config('lfm.user_field')}}" + '\\/' + $('#' + x).data('id'));
         loadImages();
     }
 
@@ -263,7 +263,7 @@
                     if (data != "OK") {
                         notify(data);
                     } else {
-                        if ($("#working_dir").val() == "{{Auth::user()->name}}") {
+                        if ($("#working_dir").val() == "{{config('lfm.user_field')}}") {
                             loadFiles();
                         }
                         loadImages();
