@@ -17,7 +17,7 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
 
     ```json
         "require": {
-            "unisharp/laravel-filemanager": "dev-master"
+            "unisharp/laravel-filemanager": "dev-demo"
         },
         "repositories": [
             {
@@ -97,6 +97,12 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
     ```php
         'use_package_routes' => false,
     ```
+
+1. To disable multi-user mechanism, dit config/lfm.php :
+
+    ```php
+        'allow_multi_user' => false,
+    ```
     
 1. To specify upload directory, edit config/lfm.php :
 
@@ -110,7 +116,7 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
     ```javascript
         <script>
             CKEDITOR.replace( 'editor', {
-                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images'
+                filebrowserImageBrowseUrl: '/your-custom-route?type=Images'
             });
         </script>
     ```
