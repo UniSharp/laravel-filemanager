@@ -11,6 +11,8 @@ return [
 
     'allow_multi_user'   => true,
 
+    'user_field'         => "\Auth::user()->name",
+
     'middlewares'        => ['auth', '\Tsawler\Laravelfilemanager\middleware\MultiUser'],
 
     'file_type_array'         => [
