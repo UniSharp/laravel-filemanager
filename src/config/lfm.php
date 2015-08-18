@@ -13,7 +13,7 @@ return [
 
     'user_field'         => "\Auth::user()->name",
 
-    'middlewares'        => ['auth', '\Tsawler\Laravelfilemanager\middleware\MultiUser'],
+    'middlewares'        => ['auth', '\Unisharp\Laravelfilemanager\middleware\MultiUser'],
 
     'file_type_array'         => [
         "pdf"  => "Adobe Acrobat",

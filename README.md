@@ -2,7 +2,7 @@
 
 ## Overview
 
-Fork from [tsawler/laravel-filemanager](http://packalyst.com/packages/package/tsawler/laravel-filemanager), add restriction that users can see only their own folders.
+Fork from [tsawler/laravel-filemanager](http://packalyst.com/packages/package/tsawler/laravel-filemanager), add mechanism to restrict users to see only their own folders.
 The original functions support image and file upload, this package only modifies the image functions.
 
 ## Requirements
@@ -13,49 +13,18 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
 
 1. Run `composer require intervention/image`
 
-1. Edit `composer.json` file :
-
-    ```json
-        "require": {
-            "unisharp/laravel-filemanager": "dev-demo"
-        },
-        "repositories": [
-            {
-                "type": "git",
-                "url": "git@github.com:UniSharp/laravel-filemanager.git"
-            }
-        ],
-    ```
-
-1. Run `composer update`
+1. Run `composer require unisharp/laravel-filemanager`
 
 1. Edit `config/app.php` :
 
     Add this in service providers
 
-    - Laravel 5.0
-
     ```php
-        'Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider',
-        'Intervention\Image\ImageServiceProvider',
-    ```
-
-    - Laravel 5.1
-
-    ```php
-        Tsawler\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
+        Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
     ```
 
     And add this in class aliases
-
-    - Laravel 5.0
-
-    ```php
-        'Image' => 'Intervention\Image\Facades\Image',
-    ```
-
-    - Laravel 5.1
 
     ```php
         'Image' => Intervention\Image\Facades\Image::class,

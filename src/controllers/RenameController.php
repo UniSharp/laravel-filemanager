@@ -1,4 +1,4 @@
-<?php namespace Tsawler\Laravelfilemanager\controllers;
+<?php namespace Unisharp\Laravelfilemanager\controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 /**
  * Class RenameController
- * @package Tsawler\Laravelfilemanager\controllers
+ * @package Unisharp\Laravelfilemanager\controllers
  */
 class RenameController extends Controller {
 
