@@ -1,4 +1,4 @@
-<?php namespace Tsawler\Laravelfilemanager\controllers;
+<?php namespace Unisharp\Laravelfilemanager\controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Session;
 
 /**
  * Class DownloadController
- * @package Tsawler\Laravelfilemanager\controllers
+ * @package Unisharp\Laravelfilemanager\controllers
  */
 class DownloadController extends Controller {
 

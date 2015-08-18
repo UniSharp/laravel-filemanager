@@ -1,4 +1,4 @@
-<?php namespace Tsawler\Laravelfilemanager\controllers;
+<?php namespace Unisharp\Laravelfilemanager\controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
@@ -10,7 +10,7 @@ use Intervention\Image\Facades\Image;
 
 /**
  * Class UploadController
- * @package Tsawler\Laravelfilemanager\controllers
+ * @package Unisharp\Laravelfilemanager\controllers
  */
 class UploadController extends Controller {
 

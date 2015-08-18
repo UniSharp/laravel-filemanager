@@ -1,4 +1,4 @@
-<?php namespace Tsawler\Laravelfilemanager;
+<?php namespace Unisharp\Laravelfilemanager;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Config;
 
 /**
  * Class LaravelFilemanagerServiceProvider
- * @package Tsawler\Laravelfilemanager
+ * @package Unisharp\Laravelfilemanager
  */
 class LaravelFilemanagerServiceProvider extends ServiceProvider {
 
