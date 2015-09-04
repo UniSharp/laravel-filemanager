@@ -36,6 +36,12 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
         php artisan vendor:publish --tag=lfm_config
         php artisan vendor:publish --tag=lfm_public
     ```
+    
+1. Fill user_field with your user slug in config/lfm.php :
+ 
+    ```
+        'user_field' => "\Auth::user()->name",
+    ```
 
 1. View initiation
 
@@ -52,7 +58,7 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
     ```javascript
         <script>
             $('textarea').ckeditor({
-              filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images'
+                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images'
             });
         </script>
     ```
