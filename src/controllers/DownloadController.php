@@ -10,25 +10,7 @@ use Illuminate\Support\Facades\Session;
  * Class DownloadController
  * @package Unisharp\Laravelfilemanager\controllers
  */
-class DownloadController extends Controller {
-
-    /**
-     * @var
-     */
-    protected $file_location;
-
-
-    /**
-     * constructor
-     */
-    function __construct()
-    {
-        if (Session::get('lfm_type') == "Images")
-            $this->file_location = Config::get('lfm.images_dir');
-        else
-            $this->file_location = Config::get('lfm.files_dir');
-    }
-
+class DownloadController extends LfmController {
 
     /**
      * Download a file

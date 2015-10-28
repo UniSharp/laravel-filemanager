@@ -14,26 +14,7 @@ use Intervention\Image\Facades\Image;
  * Class ItemsController
  * @package Unisharp\Laravelfilemanager\controllers
  */
-class ItemsController extends Controller {
-
-
-    /**
-     * @var
-     */
-    protected $file_location;
-
-
-    /**
-     * constructor
-     */
-    function __construct()
-    {
-        if (Session::get('lfm_type') == "Images")
-            $this->file_location = Config::get('lfm.images_dir');
-        else
-            $this->file_location = Config::get('lfm.files_dir');
-    }
-
+class ItemsController extends LfmController {
 
     /**
      * Return json list of files
@@ -42,73 +23,30 @@ class ItemsController extends Controller {
      */
     public function getFiles()
     {
-        if (Input::has('base'))
-        {
-            $files = File::files(base_path($this->file_location . Input::get('base')));
-            $all_directories = File::directories(base_path($this->file_location . Input::get('base')));
-        } else
-        {
-            $files = File::files(base_path($this->file_location));
-            $all_directories = File::directories(base_path($this->file_location));
+        $path = $this->file_location;
+
+        if (Input::has('base')) {
+            $path .= Input::get('base');
         }
 
-        $directories = [];
+        $files = File::files(base_path($path));
 
-        foreach ($all_directories as $directory)
-        {
-            $directories[] = basename($directory);
+        $file_info = $this->getFileInfos($files, 'Files');
+
+        $directories = $this->getDirectories($path, 'Files');
+
+        if (Input::get('show_list') == 1) {
+            $view = 'laravel-filemanager::files-list';
+        } else {
+            $view = 'laravel-filemanager::files';
         }
 
-        $file_info = [];
-        $icon_array = Config::get('lfm.file_icon_array');
-        $type_array = Config::get('lfm.file_type_array');
-
-        foreach ($files as $file)
-        {
-            $file_name = $file;
-            $file_size = 1;
-            $extension = strtolower(File::extension($file_name));
-
-            if (array_key_exists($extension, $icon_array))
-            {
-                $icon = $icon_array[$extension];
-                $type = $type_array[$extension];
-            } else
-            {
-                $icon = "fa-file";
-                $type= "File";
-            }
-
-            $file_created = filemtime($file);
-            $file_type = '';
-            $file_info[] = [
-                'name'      => $file_name,
-                'size'      => $file_size,
-                'created'   => $file_created,
-                'type'      => $file_type,
-                'extension' => $extension,
-                'icon'      => $icon,
-                'type'      => $type,
-            ];
-        }
-
-
-        if (Input::get('show_list') == 1)
-        {
-            return View::make('laravel-filemanager::files-list')
-                ->with('directories', $directories)
-                ->with('base', Input::get('base'))
-                ->with('file_info', $file_info)
-                ->with('dir_location', $this->file_location);
-        } else
-        {
-            return View::make('laravel-filemanager::files')
-                ->with('files', $files)
-                ->with('directories', $directories)
-                ->with('base', Input::get('base'))
-                ->with('file_info', $file_info)
-                ->with('dir_location', $this->file_location);
-        }
+        return View::make($view)
+            ->with('files', $files)
+            ->with('file_info', $file_info)
+            ->with('directories', $directories)
+            ->with('base', Input::get('base'))
+            ->with('dir_location', $this->file_location);
     }
 
 
@@ -119,70 +57,97 @@ class ItemsController extends Controller {
      */
     public function getImages()
     {
-        if (Input::has('base'))
-        {
-            $files = File::files(base_path($this->file_location . Input::get('base')));
-            $all_directories = File::directories(base_path($this->file_location . Input::get('base')));
-        } else
-        {
-            $files = File::files(base_path($this->file_location));
-            $all_directories = File::directories(base_path($this->file_location));
+        $path = $this->file_location;
+
+        if (Input::has('base')) {
+            $path .= Input::get('base');
         }
+
+        $files = File::files(base_path($path));
+
+        $file_info = $this->getFileInfos($files, 'Images');
+
+        $directories = $this->getDirectories($path, 'Images');
+
+        // dd(Input::get('show_list'));
+        // dd(\Request::all());
+
+        if (Input::get('show_list') == 1) {
+            $view = 'laravel-filemanager::images-list';
+        } else {
+            $view = 'laravel-filemanager::images';
+        }
+
+        return View::make($view)
+            ->with('files', $files)
+            ->with('file_info', $file_info)
+            ->with('directories', $directories)
+            ->with('base', Input::get('base'))
+            ->with('dir_location', $this->dir_location);
+    }
+
+
+    private function getDirectories($path, $type = 'Images')
+    {
+        $all_directories = File::directories(base_path($path));
 
         $directories = [];
 
-        foreach ($all_directories as $directory)
-        {
-            if (basename($directory) != "thumbs")
-            {
+        foreach ($all_directories as $directory) {
+            if ($type !== 'Files' && basename($directory) !== 'thumbs') {
                 $directories[] = basename($directory);
             }
         }
 
+        return $directories;
+    }
+    
+
+    private function getFileInfos($files, $type = 'Images')
+    {
         $file_info = [];
 
-        foreach ($files as $file)
-        {
+        foreach ($files as $file) {
             $file_name = $file;
-            $file_size = number_format((Image::make($file)->filesize() / 1024), 2, ".", "");
-            if ($file_size > 1000)
-            {
-                $file_size = number_format((Image::make($file)->filesize() / 1024), 2, ".", "") . " Mb";
-            } else
-            {
-                $file_size = $file_size . " Kb";
-            }
             $file_created = filemtime($file);
-            $file_type = Image::make($file)->mime();
+
+            if ($type === 'Images') {
+                $file_size = number_format((Image::make($file)->filesize() / 1024), 2, ".", "");
+                if ($file_size > 1000) {
+                    $file_size = number_format((Image::make($file)->filesize() / 1024), 2, ".", "") . " Mb";
+                } else {
+                    $file_size = $file_size . " Kb";
+                }
+                $file_type = Image::make($file)->mime();
+                $extension = '';
+                $icon = '';
+            } else {
+                $file_size = 1;
+                $extension = strtolower(File::extension($file_name));
+
+                $icon_array = Config::get('lfm.file_icon_array');
+                $type_array = Config::get('lfm.file_type_array');
+
+                if (array_key_exists($extension, $icon_array)) {
+                    $icon = $icon_array[$extension];
+                    $file_type = $type_array[$extension];
+                } else {
+                    $icon = "fa-file";
+                    $file_type = "File";
+                }
+            }
+
             $file_info[] = [
-                'name'    => $file_name,
-                'size'    => $file_size,
-                'created' => $file_created,
-                'type'    => $file_type
+                'name'      => $file_name,
+                'size'      => $file_size,
+                'created'   => $file_created,
+                'type'      => $file_type,
+                'extension' => $extension,
+                'icon'      => $icon,
             ];
         }
 
-        if ((Session::has('lfm_type')) && (Session::get('lfm_type') == "Images"))
-            $dir_location = Config::get('lfm.images_url');
-        else
-            $dir_location = Config::get('lfm.files_url');
-
-        if (Input::get('show_list') == 1)
-        {
-            return View::make('laravel-filemanager::images-list')
-                ->with('directories', $directories)
-                ->with('base', Input::get('base'))
-                ->with('file_info', $file_info)
-                ->with('dir_location', $dir_location);
-        } else
-        {
-            return View::make('laravel-filemanager::images')
-                ->with('files', $files)
-                ->with('directories', $directories)
-                ->with('base', Input::get('base'))
-                ->with('dir_location', $dir_location);
-        }
-
+        return $file_info;
     }
 
 }

@@ -12,30 +12,13 @@ use Illuminate\Support\Str;
  * Class FolderController
  * @package Unisharp\Laravelfilemanager\controllers
  */
-class FolderController extends Controller {
-
-    protected $file_location;
+class FolderController extends LfmController {
 
     function __construct()
     {
-        if (Session::get('lfm_type') == "Images")
-            $this->file_location = Config::get('lfm.images_dir');
-        else
-            $this->file_location = Config::get('lfm.files_dir');
+        parent::__construct();
 
         $this->file_location .= Input::get('base');
-        
-        if (\Config::get('lfm.allow_multi_user') === true)
-            self::checkMyFolder();
-    }
-
-    public function checkMyFolder()
-    {
-        $path = base_path($this->file_location);
-        if (!File::exists($path))
-        {
-            File::makeDirectory($path, $mode = 0777, true, true);
-        }
     }
 
 
@@ -49,10 +32,8 @@ class FolderController extends Controller {
         $directories = File::directories(base_path($this->file_location));
         $final_array = [];
 
-        foreach ($directories as $directory)
-        {
-            if (basename($directory) != "thumbs")
-            {
+        foreach ($directories as $directory) {
+            if (basename($directory) != "thumbs") {
                 $final_array[] = basename($directory);
             }
         }
@@ -69,16 +50,16 @@ class FolderController extends Controller {
      */
     public function getAddfolder()
     {
-        $folder_name = Str::slug(Input::get('name'));
+        $folder_name = Input::get('name');
 
-        $path = base_path($this->file_location);
+        $path = base_path($this->file_location) . "/" . $folder_name;
 
-        if (!File::exists($path . "/" . $folder_name))
-        {
-            File::makeDirectory($path . "/" . $folder_name, $mode = 0777, true, true);
+        if (!File::exists($path)) {
+            File::makeDirectory($path, $mode = 0777, true, true);
             return "OK";
-        } else
-        {
+        } else if (empty($folder_name)) {
+            return 'Folder name cannot be empty!';
+        } else {
             return "A folder with this name already exists!";
         }
 

@@ -17,19 +17,51 @@ class LfmController extends Controller {
     /**
      * @var
      */
-    protected $file_location;
+    public $file_location;
+    public $dir_location;
+    
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        if ((Session::has('lfm_type')) && (Session::get('lfm_type') == 'Files'))
-        {
+        $this->setFile();
+
+        $this->setDir();
+        
+        $this->checkMyFolderExists();
+    }
+
+
+    private function setFile()
+    {
+        if ((Session::has('lfm_type')) && (Session::get('lfm_type') == 'Files')) {
             $this->file_location = Config::get('lfm.files_dir');
-        } else
-        {
+        } else {
             $this->file_location = Config::get('lfm.images_dir');
+        }
+    }
+
+
+    private function setDir()
+    {
+        if ((Session::has('lfm_type')) && (Session::get('lfm_type') == "Images")) {
+            $this->dir_location = Config::get('lfm.images_url');
+        } else {
+            $this->dir_location = Config::get('lfm.files_url');
+        }
+    }
+
+
+    private function checkMyFolderExists()
+    {
+        if (\Config::get('lfm.allow_multi_user') === true) {
+            $path = base_path($this->file_location . Input::get('base'));
+
+            if (!File::exists($path)) {
+                File::makeDirectory($path, $mode = 0777, true, true);
+            }
         }
     }
 
@@ -41,22 +73,16 @@ class LfmController extends Controller {
      */
     public function show()
     {
-        if ((Input::has('type')) && (Input::get('type') == "Files"))
-        {
+        if ((Input::has('type')) && (Input::get('type') == "Files")) {
             Session::put('lfm_type', 'Files');
-            $this->file_location = Config::get('lfm.files_dir');
-        } else
-        {
+        } else {
             Session::put('lfm_type', 'Images');
-            $this->file_location = Config::get('lfm.images_dir');
         }
 
-        if (Input::has('base'))
-        {
+        if (Input::has('base')) {
             $working_dir = Input::get('base');
             $base = $this->file_location . Input::get('base') . "/";
-        } else
-        {
+        } else {
             $working_dir = "/";
             $base = $this->file_location;
         }

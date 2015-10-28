@@ -10,7 +10,7 @@ use Intervention\Image\Facades\Image;
  * Class CropController
  * @package Unisharp\Laravelfilemanager\controllers
  */
-class CropController extends Controller {
+class CropController extends LfmController {
 
     /**
      * Show crop page

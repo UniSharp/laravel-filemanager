@@ -10,25 +10,7 @@ use Illuminate\Support\Facades\Session;
  * Class CropController
  * @package Unisharp\Laravelfilemanager\controllers
  */
-class DeleteController extends Controller {
-
-    /**
-     * @var
-     */
-    protected $file_location;
-
-
-    /**
-     * constructor
-     */
-    function __construct()
-    {
-        if (Session::get('lfm_type') == "Images")
-            $this->file_location = Config::get('lfm.images_dir');
-        else
-            $this->file_location = Config::get('lfm.files_dir');
-    }
-
+class DeleteController extends LfmController {
 
     /**
      * Delete image and associated thumbnail
@@ -37,66 +19,39 @@ class DeleteController extends Controller {
      */
     public function getDelete()
     {
-        $to_delete = Input::get('items');
-        $base = Input::get("base");
+        $name_to_delete = Input::get('items');
+        $base = Input::get('base');
 
-        if ($base != "/")
-        {
-            if (File::isDirectory(base_path() . "/" . $this->file_location . $base . "/" . $to_delete))
-            {
-                // make sure the directory is empty
-                if (sizeof(File::files(base_path() . "/" . $this->file_location . $base . "/" . $to_delete)) == 0)
-                {
-                    File::deleteDirectory(base_path() . "/" . $this->file_location . $base . "/" . $to_delete);
+        $file_path = base_path() . '/' . $this->file_location;
 
-                    return "OK";
-                } else
-                {
-                    return "You cannot delete this folder because it is not empty!";
-                }
-            } else
-            {
-                if (File::exists(base_path() . "/" . $this->file_location . $base . "/" . $to_delete))
-                {
-                    File::delete(base_path() . "/" . $this->file_location . $base . "/" . $to_delete);
-
-                    if (Session::get('lfm_type') == "Images")
-                        File::delete(base_path() . "/" . $this->file_location . $base . "/" . "thumbs/" . $to_delete);
-
-                    return "OK";
-                } else {
-                    return base_path() . "/" . $this->file_location . $base . "/" . $to_delete
-                        . " not found!";
-                }
-            }
-        } else
-        {
-            $file_name = base_path() . "/" . $this->file_location . $to_delete;
-            if (File::isDirectory($file_name))
-            {
-                // make sure the directory is empty
-                if (sizeof(File::files($file_name)) == 0)
-                {
-                    File::deleteDirectory($file_name);
-
-                    return "OK";
-                } else
-                {
-                    return "You cannot delete this folder because it is not empty!";
-                }
-            } else
-            {
-                if (File::exists($file_name))
-                {
-                    File::delete($file_name);
-                    if (Session::get('lfm_type') == "Images")
-                        File::delete(base_path() . "/" . $this->file_location . "thumbs/" . $to_delete);
-                    return "OK";
-                } else {
-                    return $file_name . " not found!";
-                }
-            }
+        if ($base !== '/') {
+            $file_path = $file_path . $base . '/';
         }
+
+        $file_to_delete = $file_path . $name_to_delete;
+        $thumb_to_delete = $file_path . 'thumbs/' . $name_to_delete;
+
+        if (!File::exists($file_to_delete)) {
+            return $file_to_delete . ' not found!';
+        }
+
+        if (File::isDirectory($file_to_delete)) {
+            if (sizeof(File::files($file_to_delete)) != 0) {
+                return 'You cannot delete this folder because it is not empty!';
+            }
+
+            File::deleteDirectory($file_to_delete);
+
+            return 'OK';
+        }
+
+        File::delete($file_to_delete);
+
+        if (Session::get('lfm_type') == 'Images') {
+            File::delete($thumb_to_delete);
+        }
+
+        return 'OK';
     }
     
 }
