@@ -31,6 +31,8 @@ class LfmController extends Controller {
         $this->setDir();
         
         $this->checkMyFolderExists();
+        
+        $this->checkSharedFolderExists();
     }
 
 
@@ -62,6 +64,16 @@ class LfmController extends Controller {
             if (!File::exists($path)) {
                 File::makeDirectory($path, $mode = 0777, true, true);
             }
+        }
+    }
+
+
+    private function checkSharedFolderExists()
+    {
+        $path = base_path($this->file_location . Config::get('lfm.shared_folder_name'));
+
+        if (!File::exists($path)) {
+            File::makeDirectory($path, $mode = 0777, true, true);
         }
     }
 

@@ -69,9 +69,6 @@ class ItemsController extends LfmController {
 
         $directories = $this->getDirectories($path, 'Images');
 
-        // dd(Input::get('show_list'));
-        // dd(\Request::all());
-
         if (Input::get('show_list') == 1) {
             $view = 'laravel-filemanager::images-list';
         } else {

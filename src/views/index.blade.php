@@ -181,25 +181,67 @@
 
     function clickRoot() {
         $('.folder-item').removeClass('fa-folder-open').addClass('fa-folder');
-        $("#working_dir").val("{{ (config('lfm.allow_multi_user')) ? Auth::user()->user_field : '/'}}");
+        $('#folder_shared > i').removeClass('fa-folder-open').addClass('fa-folder');
+        $('#folder_root > i').addClass('fa-folder-open').removeClass('fa-folder');
+        $("#working_dir").val("{{ (Config::get('lfm.allow_multi_user')) ? Auth::user()->user_field : '/'}}");
+        loadImages();
+    }
+
+    function clickShared() {
+        $('.folder-item').removeClass('fa-folder-open').addClass('fa-folder');
+        $('#folder_root > i').removeClass('fa-folder-open').addClass('fa-folder');
+        $('#folder_shared > i').addClass('fa-folder-open').removeClass('fa-folder');
+        $("#working_dir").val("{{ Config::get('lfm.shared_folder_name') }}");
         loadImages();
     }
 
     function clickFolder(x, y) {
         $('.folder-item').addClass('fa-folder');
-        $('.folder-item').not("#folder_top > i").removeClass('fa-folder-open');
+        $('#folder_shared > i').removeClass('fa-folder-open').addClass('fa-folder');
+        $('#folder_root > i').addClass('fa-folder-open').removeClass('fa-folder');
+        $('.folder-item').not("#folder_root > i").removeClass('fa-folder-open');
         if (y == 0) {
             if ($('#' + x + ' > i').hasClass('fa-folder')) {
-                $('#' + x + ' > i').not("#folder_top > i").removeClass('fa-folder');
-                $('#' + x + ' > i').not("#folder_top > i").addClass('fa-folder-open');
+                $('#' + x + ' > i').not("#folder_root > i").removeClass('fa-folder');
+                $('#' + x + ' > i').not("#folder_root > i").addClass('fa-folder-open');
             } else {
                 $('#' + x + ' > i').removeClass('fa-folder-open');
                 $('#' + x + ' > i').addClass('fa-folder');
             }
         }
-        $("#working_dir").val("{{ (config('lfm.allow_multi_user')) ? Auth::user()->user_field.'/' : '' }}" + $('#' + x).data('id'));
+        $("#working_dir").val("{{ (Config::get('lfm.allow_multi_user')) ? Auth::user()->user_field.'/' : '' }}" + $('#' + x).data('id'));
         loadImages();
     }
+
+    function clickSharedFolder(x, y) {
+        $('.folder-item').addClass('fa-folder');
+        $('#folder_root > i').removeClass('fa-folder-open').addClass('fa-folder');
+        $('#folder_shared > i').addClass('fa-folder-open').removeClass('fa-folder');
+        $('.folder-item').not("#folder_shared > i").removeClass('fa-folder-open');
+        if (y == 0) {
+            if ($('#' + x + ' > i').hasClass('fa-folder')) {
+                $('#' + x + ' > i').not("#folder_shared > i").removeClass('fa-folder');
+                $('#' + x + ' > i').not("#folder_shared > i").addClass('fa-folder-open');
+            } else {
+                $('#' + x + ' > i').removeClass('fa-folder-open');
+                $('#' + x + ' > i').addClass('fa-folder');
+            }
+        }
+        $("#working_dir").val("{{ Config::get('lfm.shared_folder_name').'/' }}" + 'foldera');
+        // $("#working_dir").val("{{ Config::get('lfm.shared_folder_name').'/' }}" + $('#' + x).data('id'));
+        loadImages();
+    }
+
+    $('.folder-main').click(function () {
+        var base = $('#working_dir').val();
+        var share_folder = "{{ Config::get('shared_folder_name') }}";
+        
+        if (base.indexOf(share_folder) > -1) {
+            clickFolder('folder_{{ $key }}',0)
+        } else {
+            clickSharedFolder('shared_{{ $key }}', 0)
+        }
+    });
 
     function download(x) {
         location.href = "/laravel-filemanager/download?"

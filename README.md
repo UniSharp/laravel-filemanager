@@ -2,18 +2,22 @@
 
 ## Overview
 
-Fork from [tsawler/laravel-filemanager](http://packalyst.com/packages/package/tsawler/laravel-filemanager), add mechanism to restrict users to see only their own folders.
-The original functions support image and file upload, this package only modifies the image functions.
+ * Fork from [tsawler/laravel-filemanager](http://packalyst.com/packages/package/tsawler/laravel-filemanager)
+ * support public and private folders for multi users
+ * customizable views and routes
+ * supported locales : en, fr(not completed yet), zh-TW, zh-CN
 
 ## Requirements
 
-This package requires `"intervention/image": "2.*"`, in order to make thumbs, crop and resize images.
+This package requires [intervention/image](https://github.com/Intervention/image), in order to make thumbs, crop and resize images.
 
 ## Installation
 
-1. Run `composer require intervention/image`
+1. Install package 
 
-1. Run `composer require unisharp/laravel-filemanager`
+    ```
+        composer require unisharp/laravel-filemanager
+    ```
 
 1. Edit `config/app.php` :
 
@@ -34,13 +38,12 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
 
     ```
         php artisan vendor:publish --tag=lfm_config
-        php artisan vendor:publish --tag=lfm_public
     ```
     
-1. Fill user_field with your user slug in config/lfm.php :
+1. Fill user_field with a column name in users table as user's slug in `config/lfm.php` :
  
     ```
-        'user_field' => "\Auth::user()->name",
+        'user_field' => 'name',
     ```
 
 1. View initiation
@@ -49,6 +52,7 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
         <script>
             CKEDITOR.replace( 'editor', {
                 filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images'
+                filebrowserBrowseUrl: '/laravel-filemanager?type=Files'
             });
         </script>
     ```
@@ -59,6 +63,7 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
         <script>
             $('textarea').ckeditor({
                 filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images'
+                filebrowserBrowseUrl: '/laravel-filemanager?type=Files'
             });
         </script>
     ```
@@ -82,8 +87,11 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
 1. To specify upload directory, edit config/lfm.php :
 
     ```php
-        'images_dir'         => 'public/vendor/laravel-filemanager/images/',
-        'images_url'         => '/vendor/laravel-filemanager/images/',
+        'images_dir' => 'public/photos/',
+        'images_url' => '/photos/',
+
+        'files_dir'  => 'public/files/',
+        'files_url'  => '/files/',
     ```
 
 1. If the route is changed, make sure `filebrowserImageBrowseUrl` is correspond to your route :
@@ -91,11 +99,12 @@ This package requires `"intervention/image": "2.*"`, in order to make thumbs, cr
     ```javascript
         <script>
             CKEDITOR.replace( 'editor', {
-                filebrowserImageBrowseUrl: '/your-custom-route?type=Images'
+                filebrowserImageBrowseUrl: '/your-custom-route?type=Images',
+                filebrowserBrowseUrl: '/your-custom-route?type=Files',
             });
         </script>
     ```
     
-    And be sure to include the `?type=Images` parameter.
+    And be sure to include the `?type=Images` or `?type=Files` parameter.
     
-1. To customize the views, run `php artisan vendor:publish --tag=lfm_views`
+1. To customize the views, copy file from `vendor/unisharp/laravel-filemanager/src/views` to `resources/views/vendor/laravel-filemanager`.

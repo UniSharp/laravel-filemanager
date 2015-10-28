@@ -18,6 +18,7 @@ return [
     'title-upload'      => '上傳檔案',
     'title-view'        => '預覽檔案',
     'title-root'        => '我的檔案',
+    'title-shares'      => '共享的檔案',
     'title-item'        => '項目名稱',
     'title-size'        => '檔案大小',
     'title-type'        => '檔案類型',

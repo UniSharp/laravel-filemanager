@@ -14,14 +14,6 @@ use Illuminate\Support\Str;
  */
 class FolderController extends LfmController {
 
-    function __construct()
-    {
-        parent::__construct();
-
-        $this->file_location .= Input::get('base');
-    }
-
-
     /**
      * Get list of folders as json to populate treeview
      *
@@ -29,17 +21,27 @@ class FolderController extends LfmController {
      */
     public function getFolders()
     {
-        $directories = File::directories(base_path($this->file_location));
-        $final_array = [];
+        $all_directories = File::directories(base_path($this->file_location . Input::get('base')));
+        $directories = [];
 
-        foreach ($directories as $directory) {
+        foreach ($all_directories as $directory) {
             if (basename($directory) != "thumbs") {
-                $final_array[] = basename($directory);
+                $directories[] = basename($directory);
+            }
+        }
+
+        $all_shares = File::directories(base_path($this->file_location . Config::get('lfm.shared_folder_name')));
+        $shared_folders = [];
+
+        foreach ($all_shares as $directory) {
+            if (basename($directory) != "thumbs") {
+                $shared_folders[] = basename($directory);
             }
         }
 
         return View::make("laravel-filemanager::tree")
-            ->with('dirs', $final_array);
+            ->with('dirs', $directories)
+            ->with('shares', $shared_folders);
     }
 
 
@@ -52,7 +54,7 @@ class FolderController extends LfmController {
     {
         $folder_name = Input::get('name');
 
-        $path = base_path($this->file_location) . "/" . $folder_name;
+        $path = base_path($this->file_location . Input::get('base')) . "/" . $folder_name;
 
         if (!File::exists($path)) {
             File::makeDirectory($path, $mode = 0777, true, true);
@@ -62,7 +64,6 @@ class FolderController extends LfmController {
         } else {
             return "A folder with this name already exists!";
         }
-
     }
 
 }

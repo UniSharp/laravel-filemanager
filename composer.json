@@ -2,6 +2,15 @@
   "name": "unisharp/laravel-filemanager",
   "description": "A file upload/editor intended for use with Laravel 5 and CKEditor",
   "license": "MIT",
+  "keywords": [
+    "filemanager",
+    "laravel",
+    "ckeditor",
+    "parent",
+    "upload",
+    "file",
+    "manager"
+  ],
   "authors": [
     {
       "name": "Trevor Sawler",

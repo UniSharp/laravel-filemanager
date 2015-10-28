@@ -9,6 +9,8 @@ return [
 
     'user_field'         => "name",
 
+    'shared_folder_name' => 'shares',
+
     'middlewares'        => ['auth'],
 
     'images_dir'         => 'public/photos/',

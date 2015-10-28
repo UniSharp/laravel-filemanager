@@ -18,6 +18,7 @@ return [
     'title-upload'      => '',
     'title-view'        => '',
     'title-root'        => '',
+    'title-shares'      => 'Shared Files',
     'title-item'        => 'Article',
     'title-size'        => 'Taille du fichier',
     'title-type'        => 'Type de fichier',

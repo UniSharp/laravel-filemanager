@@ -18,6 +18,7 @@ return [
     'title-upload'      => 'Upload File',
     'title-view'        => 'View File',
     'title-root'        => 'Files',
+    'title-shares'      => 'Shared Files',
     'title-item'        => 'Item',
     'title-size'        => 'Size',
     'title-type'        => 'Type',
