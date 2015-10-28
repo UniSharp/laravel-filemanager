@@ -39,16 +39,13 @@
                                     <div class="collapse navbar-collapse">
                                         <ul class="nav navbar-nav" id="nav-buttons">
                                             <li>
-                                                <a href="#!" id="upload" data-toggle="modal" data-target="#uploadModal"><i
-                                                            class="fa fa-upload"></i> {!! Lang::get('laravel-filemanager::lfm.nav-upload') !!}</a>
+                                                <a href="#!" id="upload" data-toggle="modal" data-target="#uploadModal"><i class="fa fa-upload"></i> {!! Lang::get('laravel-filemanager::lfm.nav-upload') !!}</a>
                                             </li>
                                             <li>
-                                                <a href="#!" class="thumbnail-display" id="thumbnail-display"><i
-                                                            class="fa fa-picture-o"></i> {!! Lang::get('laravel-filemanager::lfm.nav-thumbnails') !!}</a>
+                                                <a href="#!" class="thumbnail-display" id="thumbnail-display"><i class="fa fa-picture-o"></i> {!! Lang::get('laravel-filemanager::lfm.nav-thumbnails') !!}</a>
                                             </li>
                                             <li>
-                                                <a href="#!" class="list-display" id="list-display"><i
-                                                            class="fa fa-list"></i> {!! Lang::get('laravel-filemanager::lfm.nav-list') !!}</a>
+                                                <a href="#!" class="list-display" id="list-display"><i class="fa fa-list"></i> {!! Lang::get('laravel-filemanager::lfm.nav-list') !!}</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -90,19 +87,19 @@
                 <h4 class="modal-title" id="myModalLabel">{!! Lang::get('laravel-filemanager::lfm.title-upload') !!}</h4>
             </div>
             <div class="modal-body">
-                {!! Form::open(array('url' => '/laravel-filemanager/upload', 'role' => 'form', 'name' => 'uploadForm',
-                'id' => 'uploadForm', 'method' => 'post', 'enctype' => 'multipart/form-data')) !!}
-                <div class="form-group" id="attachment">
-                    {!! Form::label('file_to_upload', Lang::get('laravel-filemanager::lfm.message-choose'), array('class' => 'control-label')); !!}
-                    <div class="controls">
-                        <div class="input-group" style="width: 100%">
-                            <input type="file" id="file_to_upload" name="file_to_upload">
+                <form action="{{url('/laravel-filemanager/upload')}}" role='form' id='uploadForm' method='post' enctype='multipart/form-data'>
+                    <div class="form-group" id="attachment">
+                        <label for='file_to_upload' class='control-label'>{{ Lang::get('laravel-filemanager::lfm.message-choose') }}</label>
+                        <div class="controls">
+                            <div class="input-group" style="width: 100%">
+                                <input type="file" id="file_to_upload" name="file_to_upload">
+                            </div>
                         </div>
                     </div>
-                </div>
-                {!! Form::hidden('working_dir', $working_dir, ['id' => 'working_dir']) !!}
-                {!! Form::hidden('show_list', 0, ['id' => 'show_list']) !!}
-                {!! Form::close() !!}
+                    <input type='hidden' name='working_dir' id='working_dir' value='{{$working_dir}}'>
+                    <input type='hidden' name='show_list' id='show_list' value='0'>
+                    <input type='hidden' name='_token' value='{{csrf_token()}}'>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">{!! Lang::get('laravel-filemanager::lfm.btn-close') !!}</button>
@@ -231,17 +228,6 @@
         // $("#working_dir").val("{{ Config::get('lfm.shared_folder_name').'/' }}" + $('#' + x).data('id'));
         loadImages();
     }
-
-    $('.folder-main').click(function () {
-        var base = $('#working_dir').val();
-        var share_folder = "{{ Config::get('shared_folder_name') }}";
-        
-        if (base.indexOf(share_folder) > -1) {
-            clickFolder('folder_{{ $key }}',0)
-        } else {
-            clickSharedFolder('shared_{{ $key }}', 0)
-        }
-    });
 
     function download(x) {
         location.href = "/laravel-filemanager/download?"
