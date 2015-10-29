@@ -41,7 +41,7 @@
                     <div class="caption text-center">
                         <div class="btn-group ">
                             <button type="button" onclick="useFile('{!! basename($file) !!}')" class="btn btn-default btn-xs">
-                                {!! str_limit($file_info[$key]['name'], $limit = 10, $end = '...') !!}
+                                {!! str_limit(basename($file), $limit = 10, $end = '...') !!}
                             </button>
                             <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-expanded="false">
                                 <span class="caret"></span>

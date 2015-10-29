@@ -109,18 +109,18 @@ class ItemsController extends LfmController {
             $file_name = end($path_parts);
             $file_created = filemtime($file);
 
+            $file_size = number_format((File::size($file) / 1024), 2, ".", "");
+            if ($file_size > 1024) {
+                $file_size = number_format(($file_size / 1024), 2, ".", "") . " Mb";
+            } else {
+                $file_size = $file_size . " Kb";
+            }
+
             if ($type === 'Images') {
-                $file_size = number_format((Image::make($file)->filesize() / 1024), 2, ".", "");
-                if ($file_size > 1000) {
-                    $file_size = number_format((Image::make($file)->filesize() / 1024), 2, ".", "") . " Mb";
-                } else {
-                    $file_size = $file_size . " Kb";
-                }
-                $file_type = Image::make($file)->mime();
+                $file_type = File::mimeType($file);
                 $extension = '';
                 $icon = '';
             } else {
-                $file_size = 1;
                 $extension = strtolower(File::extension($file_name));
 
                 $icon_array = Config::get('lfm.file_icon_array');

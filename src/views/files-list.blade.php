@@ -2,20 +2,18 @@
     @if((sizeof($file_info) > 0) || (sizeof($directories) > 0))
         <table class="table table-condensed table-striped">
             <thead>
-            <tr>
-                <th>{!! Lang::get('laravel-filemanager::lfm.title-item') !!}</th>
+                <th style='width:50%;'>{!! Lang::get('laravel-filemanager::lfm.title-item') !!}</th>
                 <th>{!! Lang::get('laravel-filemanager::lfm.title-size') !!}</th>
                 <th>{!! Lang::get('laravel-filemanager::lfm.title-type') !!}</th>
                 <th>{!! Lang::get('laravel-filemanager::lfm.title-modified') !!}</th>
                 <th>{!! Lang::get('laravel-filemanager::lfm.title-action') !!}</th>
-            </tr>
             </thead>
             <tbody>
             @foreach($directories as $key => $dir)
                 <tr>
                     <td>
                         <i class="fa fa-folder-o"></i>
-                        <a id="large_folder_{{ $key }}" href="javascript:clickFolder('large_folder_{{ $key }}',1)" data-id="{{ $dir }}">
+                        <a id="large_folder_{{ $key }}" data-id="{{ $dir }}" href="javascript:clickFolder('large_folder_{{ $key }}',1)">
                             {!! basename($dir) !!}
                         </a>
                     </td>
