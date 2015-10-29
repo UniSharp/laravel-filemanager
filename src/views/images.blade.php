@@ -3,10 +3,10 @@
 
         @if((sizeof($files) > 0) || (sizeof($directories) > 0))
 
-            @foreach($directories as $key => $dir)
+            @foreach($directories as $key => $dir_name)
                 <div class="col-sm-6 col-md-2">
-                    <div class="thumbnail text-center" data-id="{{ basename($dir) }}">
-                        <a id="folder_{{ $key }}" data-id="{{ $dir }}" onclick="clickFolder('folder_{{ $key }}',0)" class="folder-icon pointer">
+                    <div class="thumbnail text-center" data-id="{{ $dir_name }}">
+                        <a id="folder_{{ $key }}" data-id="{{ $dir_name }}" onclick="clickFolder('folder_{{ $key }}',0)" class="folder-icon pointer">
                             {{--<i class="fa fa-folder-o fa-5x"></i>--}}
                             <img src="/vendor/laravel-filemanager/img/folder.jpg">
                         </a>
@@ -14,15 +14,15 @@
                     <div class="caption text-center">
                         <div class="btn-group">
                             <button type="button" onclick="clickFolder('folder_{{ $key }}',0)" class="btn btn-default btn-xs">
-                                {{ str_limit(basename($dir), $limit = 10, $end = '...') }}
+                                {{ str_limit($dir_name, $limit = 10, $end = '...') }}
                             </button>
                             <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-expanded="false">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="javascript:rename('{{ basename($dir) }}')">{{ Lang::get('laravel-filemanager::lfm.menu-rename') }}</a></li>
-                                <li><a href="javascript:trash('{{ basename($dir) }}')">{{ Lang::get('laravel-filemanager::lfm.menu-delete') }}</a></li>
+                                <li><a href="javascript:rename('{{ $dir_name }}')">{{ Lang::get('laravel-filemanager::lfm.menu-rename') }}</a></li>
+                                <li><a href="javascript:trash('{{ $dir_name }}')">{{ Lang::get('laravel-filemanager::lfm.menu-delete') }}</a></li>
                             </ul>
                         </div>
 
@@ -32,31 +32,33 @@
 
             @foreach($files as $key => $file)
 
+                <?php $file_name = $file_info[$key]['name'];?>
+
                 <div class="col-sm-6 col-md-2 img-row">
 
-                    <div class="thumbnail thumbnail-img" data-id="{{ $file_info[$key]['name'] }}" id="img_thumbnail_{{ $key }}">
-                        <img id="{{ $file }}" src="{{ $dir_location }}{{ $base }}/thumbs/{{ $file_info[$key]['name'] }}?r={{ str_random(40) }}" alt="" style="cursor:pointer;" onclick="useFile('{{ $file_info[$key]['name'] }}')">
+                    <div class="thumbnail thumbnail-img" data-id="{{ $file_name }}" id="img_thumbnail_{{ $key }}">
+                        <img id="{{ $file }}" src="{{ $dir_location }}{{ $base }}/thumbs/{{ $file_name }}?r={{ str_random(40) }}" alt="" style="cursor:pointer;" onclick="useFile('{{ $file_name }}')">
                     </div>
 
                     <div class="caption text-center">
                         <div class="btn-group ">
-                            <button type="button" onclick="useFile('{{ $file_info[$key]['name'] }}')" class="btn btn-default btn-xs">
-                                {{ str_limit($file_info[$key]['name'], $limit = 10, $end = '...') }}
+                            <button type="button" onclick="useFile('{{ $file_name }}')" class="btn btn-default btn-xs">
+                                {{ str_limit($file_name, $limit = 10, $end = '...') }}
                             </button>
                             <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-expanded="false">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="javascript:rename('{{ $file_info[$key]['name'] }}')">{{ Lang::get('laravel-filemanager::lfm.menu-rename') }}</a></li>
-                                <li><a href="javascript:fileView('{{ $file_info[$key]['name'] }}')">{{ Lang::get('laravel-filemanager::lfm.menu-view') }}</a></li>
-                                <li><a href="javascript:download('{{ $file_info[$key]['name'] }}')">{{ Lang::get('laravel-filemanager::lfm.menu-download') }}</a></li>
+                                <li><a href="javascript:rename('{{ $file_name }}')">{{ Lang::get('laravel-filemanager::lfm.menu-rename') }}</a></li>
+                                <li><a href="javascript:fileView('{{ $file_name }}')">{{ Lang::get('laravel-filemanager::lfm.menu-view') }}</a></li>
+                                <li><a href="javascript:download('{{ $file_name }}')">{{ Lang::get('laravel-filemanager::lfm.menu-download') }}</a></li>
                                 <li class="divider"></li>
                                 {{--<li><a href="javascript:notImp()">Rotate</a></li>--}}
-                                <li><a href="javascript:resizeImage('{{ $file_info[$key]['name'] }}')">{{ Lang::get('laravel-filemanager::lfm.menu-resize') }}</a></li>
-                                <li><a href="javascript:cropImage('{{ $file_info[$key]['name'] }}')">{{ Lang::get('laravel-filemanager::lfm.menu-crop') }}</a></li>
+                                <li><a href="javascript:resizeImage('{{ $file_name }}')">{{ Lang::get('laravel-filemanager::lfm.menu-resize') }}</a></li>
+                                <li><a href="javascript:cropImage('{{ $file_name }}')">{{ Lang::get('laravel-filemanager::lfm.menu-crop') }}</a></li>
                                 <li class="divider"></li>
-                                <li><a href="javascript:trash('{{ $file_info[$key]['name'] }}')">{{ Lang::get('laravel-filemanager::lfm.menu-delete') }}</a></li>
+                                <li><a href="javascript:trash('{{ $file_name }}')">{{ Lang::get('laravel-filemanager::lfm.menu-delete') }}</a></li>
                             </ul>
                         </div>
                     </div>

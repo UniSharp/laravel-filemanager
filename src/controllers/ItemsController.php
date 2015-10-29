@@ -91,8 +91,11 @@ class ItemsController extends LfmController {
         $directories = [];
 
         foreach ($all_directories as $directory) {
-            if ($type !== 'Files' && basename($directory) !== 'thumbs') {
-                $directories[] = basename($directory);
+            $path_parts = explode('/', $directory);
+            $dir_name = end($path_parts);
+
+            if ($type !== 'Files' && $dir_name !== 'thumbs') {
+                $directories[] = $dir_name;
             }
         }
 
@@ -118,7 +121,6 @@ class ItemsController extends LfmController {
 
             if ($type === 'Images') {
                 $file_type = File::mimeType($file);
-                $extension = '';
                 $icon = '';
             } else {
                 $extension = strtolower(File::extension($file_name));
@@ -140,7 +142,6 @@ class ItemsController extends LfmController {
                 'size'      => $file_size,
                 'created'   => $file_created,
                 'type'      => $file_type,
-                'extension' => $extension,
                 'icon'      => $icon,
             ];
         }

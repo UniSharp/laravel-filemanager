@@ -1,4 +1,5 @@
 <div class="container">
+
     @if((sizeof($file_info) > 0) || (sizeof($directories) > 0))
         <table class="table table-condensed table-striped">
             <thead>
@@ -9,12 +10,12 @@
                 <th>{{ Lang::get('laravel-filemanager::lfm.title-action') }}</th>
             </thead>
             <tbody>
-            @foreach($directories as $key => $dir)
+            @foreach($directories as $key => $dir_name)
                 <tr>
                     <td>
                         <i class="fa fa-folder-o"></i>
-                        <a id="large_folder_{{ $key }}" data-id="{{ $dir }}" href="javascript:clickFolder('large_folder_{{ $key }}',1)">
-                            {{ basename($dir) }}
+                        <a id="large_folder_{{ $key }}" data-id="{{ $dir_name }}" href="javascript:clickFolder('large_folder_{{ $key }}',1)">
+                            {{ $dir_name }}
                         </a>
                     </td>
                     <td></td>
@@ -57,9 +58,11 @@
         </table>
 
     @else
+    <div class="row">
         <div class="col-md-12">
             <p>{{ Lang::get('laravel-filemanager::lfm.message-empty') }}</p>
         </div>
+    </div>
     @endif
 
 </div>
