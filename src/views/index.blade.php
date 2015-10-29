@@ -28,8 +28,7 @@
                             <nav class="navbar navbar-default">
                                 <div class="container-fluid">
                                     <div class="navbar-header">
-                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                                data-target="#bs-example-navbar-collapse-1">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                                             <span class="sr-only">Toggle navigation</span>
                                             <span class="icon-bar"></span>
                                             <span class="icon-bar"></span>
@@ -82,12 +81,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aia-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">{!! Lang::get('laravel-filemanager::lfm.title-upload') !!}</h4>
             </div>
             <div class="modal-body">
-                <form action="{{url('/laravel-filemanager/upload')}}" role='form' id='uploadForm' method='post' enctype='multipart/form-data'>
+                <form action="{{url('/laravel-filemanager/upload')}}" role='form' id='uploadForm' name='uploadForm' method='post' enctype='multipart/form-data'>
                     <div class="form-group" id="attachment">
                         <label for='file_to_upload' class='control-label'>{{ Lang::get('laravel-filemanager::lfm.message-choose') }}</label>
                         <div class="controls">
@@ -113,8 +111,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="fileLabel">{!! Lang::get('laravel-filemanager::lfm.title-view') !!}</h4>
             </div>
             <div class="modal-body" id="fileview_body">
@@ -237,11 +234,13 @@
     }
 
     function loadImages() {
-        @if ((Session::has('lfm_type')) && (Session::get('lfm_type') == "Images"))
-            var load_url = "/laravel-filemanager/jsonimages";
-        @else
-            var load_url = "/laravel-filemanager/jsonfiles";
+        var load_url = "/laravel-filemanager/jsonimages";
+
+        @if ((Session::has('lfm_type')) && (Session::get('lfm_type') == "Files"))
+            load_url = "/laravel-filemanager/jsonfiles";
         @endif
+
+        console.log('base : ' + $("#working_dir").val() + ', show_list : '+$("#show_list").val());
 
         $.ajax({
             type: "GET",
@@ -304,8 +303,10 @@
     function refreshFolders(){
         var wd = $("#working_dir").val();
         if (wd != "/") {
-            $('#' + wd + '-folder').removeClass('fa-folder');
-            $('#' + wd + '-folder').addClass('fa-folder-open');
+            try {
+                $('#' + wd + '-folder').removeClass('fa-folder');
+                $('#' + wd + '-folder').addClass('fa-folder-open');
+            } catch (e) {}
         }
     }
 

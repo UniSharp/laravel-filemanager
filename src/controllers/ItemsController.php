@@ -104,8 +104,9 @@ class ItemsController extends LfmController {
     {
         $file_info = [];
 
-        foreach ($files as $file) {
-            $file_name = end(explode('/', $file));
+        foreach ($files as $key => $file) {
+            $path_parts = explode('/', $file);
+            $file_name = end($path_parts);
             $file_created = filemtime($file);
 
             if ($type === 'Images') {
@@ -134,7 +135,7 @@ class ItemsController extends LfmController {
                 }
             }
 
-            $file_info[] = [
+            $file_info[$key] = [
                 'name'      => $file_name,
                 'size'      => $file_size,
                 'created'   => $file_created,

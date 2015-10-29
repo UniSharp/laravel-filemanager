@@ -6,16 +6,13 @@
             @foreach($directories as $key => $dir)
                 <div class="col-sm-6 col-md-2">
                     <div class="thumbnail text-center" data-id="{{ basename($dir) }}">
-                        <a id="folder_{{ $key }}" data-id="{{ $dir }}"
-                           onclick="clickFolder('folder_{{ $key }}',0)"
-                           class="folder-icon pointer">
+                        <a id="folder_{{ $key }}" data-id="{{ $dir }}" onclick="clickFolder('folder_{{ $key }}',0)" class="folder-icon pointer">
                             <img src="/vendor/laravel-filemanager/img/folder.jpg">
                         </a>
                     </div>
                     <div class="caption text-center">
                         <div class="btn-group">
-                            <button type="button" onclick="clickFolder('folder_{{ $key }}',0)"
-                                    class="btn btn-default btn-xs">
+                            <button type="button" onclick="clickFolder('folder_{{ $key }}',0)" class="btn btn-default btn-xs">
                                 {!! str_limit(basename($dir), $limit = 10, $end = '...') !!}
                             </button>
                             <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-expanded="false">
@@ -43,10 +40,9 @@
                     <div class="caption text-center">
                         <div class="btn-group ">
                             <button type="button" onclick="useFile('<?= basename($file['name']) ?>')" class="btn btn-default btn-xs">
-                                {!! str_limit(basename($file['name']), $limit = 10, $end = '...') !!}
+                                {!! str_limit($file_info[$key]['name'], $limit = 10, $end = '...') !!}
                             </button>
-                            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown"
-                                    aria-expanded="false">
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-expanded="false">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>

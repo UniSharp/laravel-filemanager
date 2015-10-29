@@ -15,8 +15,7 @@
                 <tr>
                     <td>
                         <i class="fa fa-folder-o"></i>
-                        <a id="large_folder_{{ $key }}" href="javascript:clickFolder('large_folder_{{ $key }}',1)"
-                           data-id="{{ $dir }}">
+                        <a id="large_folder_{{ $key }}" href="javascript:clickFolder('large_folder_{{ $key }}',1)" data-id="{{ $dir }}">
                             {!! basename($dir) !!}
                         </a>
                     </td>

@@ -16,7 +16,7 @@ class MultiUser
 	            $request->merge(['base' => \Auth::user()->user_field]);
 	        } elseif (strpos($request->input('base'), \Config::get('lfm.shared_folder_name')) !== false) {
 	            // $request->replace(['base' => \Config::get('lfm.shared_folder_name')]);
-	        } elseif (strpos($request->input('base'), \Auth::user()->user_field) === false) {
+	        } elseif (strpos($request->input('base'), (string)\Auth::user()->user_field) === false) {
 	            $request->replace(['base' => \Auth::user()->user_field]);
 	        }
 	    }
