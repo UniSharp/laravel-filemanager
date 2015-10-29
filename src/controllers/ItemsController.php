@@ -105,7 +105,7 @@ class ItemsController extends LfmController {
         $file_info = [];
 
         foreach ($files as $file) {
-            $file_name = $file;
+            $file_name = end(explode('/', $file));
             $file_created = filemtime($file);
 
             if ($type === 'Images') {
