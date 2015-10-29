@@ -17,7 +17,7 @@
                         <div class="btn-group">
                             <button type="button" onclick="clickFolder('folder_{{ $key }}',0)"
                                     class="btn btn-default btn-xs">
-                                {!! str_limit(basename($dir), $limit = 10, $end = '...') !!}
+                                {!! str_limit(sbasename($dir), $limit = 10, $end = '...') !!}
                             </button>
                             <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-expanded="false">
                                 <span class="caret"></span>
