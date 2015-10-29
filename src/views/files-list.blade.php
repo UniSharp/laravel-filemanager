@@ -28,11 +28,11 @@
                 <tr>
                     <td>
                         <i class="fa <?= $file['icon']; ?>"></i>
-                        <a href="javascript:useFile('<?= basename($file['name']) ?>')">
-                            {!! basename($file['name']) !!}
+                        <a href="javascript:useFile('{{ $file_info[$key]['name'] }}')">
+                            {!! $file_info[$key]['name'] !!}
                         </a>
                         &nbsp;&nbsp;
-                        <a href="javascript:rename('<?= basename($file['name']) ?>')">
+                        <a href="javascript:rename('{{ $file_info[$key]['name'] }}')">
                             <i class="fa fa-edit"></i>
                         </a>
                     </td>
@@ -46,7 +46,7 @@
                         {!! date("Y-m-d h:m", $file['created']) !!}
                     </td>
                     <td>
-                        <a href="javascript:trash('<?= basename($file['name']) ?>')">
+                        <a href="javascript:trash('{{ $file_info[$key]['name'] }}')">
                             <i class="fa fa-trash fa-fw"></i>
                         </a>
                     </td>
