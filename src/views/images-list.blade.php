@@ -28,7 +28,7 @@
                 <tr>
                     <td>
                         <i class="fa fa-image"></i>
-                        <?php $file_name = $file_info['name'];?>
+                        <?php $file_name = $file['name'];?>
                         <a href="javascript:useFile('{{ $file_name }}')">
                             {{ $file_name }}
                         </a>
