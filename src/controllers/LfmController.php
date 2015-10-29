@@ -78,6 +78,25 @@ class LfmController extends Controller {
     }
 
 
+    public function getDirectories($path)
+    {
+        $all_directories = File::directories(base_path($path));
+
+        $arr_dir = [];
+
+        foreach ($all_directories as $directory) {
+            $path_parts = explode('/', $directory);
+            $dir_name = end($path_parts);
+
+            if ($dir_name !== 'thumbs') {
+                $arr_dir[] = $dir_name;
+            }
+        }
+
+        return $arr_dir;
+    }
+
+
     /**
      * Show the filemanager
      *

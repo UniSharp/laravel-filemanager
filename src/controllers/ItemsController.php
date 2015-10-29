@@ -33,7 +33,7 @@ class ItemsController extends LfmController {
 
         $file_info = $this->getFileInfos($files, 'Files');
 
-        $directories = $this->getDirectories($path, 'Files');
+        $directories = parent::getDirectories($path);
 
         if (Input::get('show_list') == 1) {
             $view = 'laravel-filemanager::files-list';
@@ -67,7 +67,7 @@ class ItemsController extends LfmController {
 
         $file_info = $this->getFileInfos($files, 'Images');
 
-        $directories = $this->getDirectories($path, 'Images');
+        $directories = parent::getDirectories($path);
 
         if (Input::get('show_list') == 1) {
             $view = 'laravel-filemanager::images-list';
@@ -81,25 +81,6 @@ class ItemsController extends LfmController {
             ->with('directories', $directories)
             ->with('base', Input::get('base'))
             ->with('dir_location', $this->dir_location);
-    }
-
-
-    private function getDirectories($path, $type = 'Images')
-    {
-        $all_directories = File::directories(base_path($path));
-
-        $directories = [];
-
-        foreach ($all_directories as $directory) {
-            $path_parts = explode('/', $directory);
-            $dir_name = end($path_parts);
-
-            if ($type !== 'Files' && $dir_name !== 'thumbs') {
-                $directories[] = $dir_name;
-            }
-        }
-
-        return $directories;
     }
     
 

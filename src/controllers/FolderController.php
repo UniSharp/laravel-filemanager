@@ -21,23 +21,11 @@ class FolderController extends LfmController {
      */
     public function getFolders()
     {
-        $all_directories = File::directories(base_path($this->file_location . \Auth::user()->user_field));
-        $directories = [];
+        $dir_path = $this->file_location . \Auth::user()->user_field;
+        $directories = parent::getDirectories($dir_path);
 
-        foreach ($all_directories as $directory) {
-            if (basename($directory) != "thumbs") {
-                $directories[] = basename($directory);
-            }
-        }
-
-        $all_shares = File::directories(base_path($this->file_location . Config::get('lfm.shared_folder_name')));
-        $shared_folders = [];
-
-        foreach ($all_shares as $directory) {
-            if (basename($directory) != "thumbs") {
-                $shared_folders[] = basename($directory);
-            }
-        }
+        $share_path = $this->file_location . Config::get('lfm.shared_folder_name');
+        $shared_folders = parent::getDirectories($share_path);
 
         return View::make("laravel-filemanager::tree")
             ->with('dirs', $directories)
