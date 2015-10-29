@@ -240,8 +240,6 @@
             load_url = "/laravel-filemanager/jsonfiles";
         @endif
 
-        console.log('base : ' + $("#working_dir").val() + ', show_list : '+$("#show_list").val());
-
         $.ajax({
             type: "GET",
             dataType: "html",
@@ -339,7 +337,7 @@
                     url: "/laravel-filemanager/newfolder",
                     data: {
                         name: result,
-                        dir: $("#working_dir").val()
+                        base: $("#working_dir").val()
                     },
                     cache: false
                 }).done(function (data) {
