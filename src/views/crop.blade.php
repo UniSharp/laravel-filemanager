@@ -1,7 +1,7 @@
 <div class="row fill">
     <div class="col-md-8 fill">
         <div class="crop-container">
-            <img src="{!! $img !!}?r={{ str_random(40) }}" class="img img-responsive">
+            <img src="{{ $img }}?r={{ str_random(40) }}" class="img img-responsive">
         </div>
     </div>
     <div class="col-md-4 fill">
@@ -9,11 +9,11 @@
 
             <div class="img-preview center-block"></div>
             <br>
-            <button class="btn btn-primary" onclick="performCrop()">{!! Lang::get('laravel-filemanager::lfm.btn-crop') !!}</button>
-            <button class="btn btn-info" onclick="loadImages()">{!! Lang::get('laravel-filemanager::lfm.btn-cancel') !!}</button>
+            <button class="btn btn-primary" onclick="performCrop()">{{ Lang::get('laravel-filemanager::lfm.btn-crop') }}</button>
+            <button class="btn btn-info" onclick="loadImages()">{{ Lang::get('laravel-filemanager::lfm.btn-cancel') }}</button>
             <form action="{{url('/laravel-filemanager/crop')}}" role='form' name='cropForm' id='cropForm' mathod='post'>
-                <input type="hidden" id="img" name="img" value="{!! $img !!}">
-                <input type="hidden" id="dir" name="dir" value="{!! $dir !!}">
+                <input type="hidden" id="img" name="img" value="{{ $img }}">
+                <input type="hidden" id="dir" name="dir" value="{{ $dir }}">
                 <input type="hidden" id="dataX" name="dataX">
                 <input type="hidden" id="dataY" name="dataY">
                 <input type="hidden" id="dataWidth" name="dataWidth">
