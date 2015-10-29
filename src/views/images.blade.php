@@ -34,29 +34,29 @@
 
                 <div class="col-sm-6 col-md-2 img-row">
 
-                    <div class="thumbnail thumbnail-img" data-id="{{ basename($file) }}" id="img_thumbnail_{{ $key }}">
-                        <img id="{!! $file !!}" src="{{ $dir_location }}{{ $base }}/thumbs/{{ basename($file) }}?r={{ str_random(40) }}" alt="" style="cursor:pointer;" onclick="useFile('{!! basename($file) !!}')">
+                    <div class="thumbnail thumbnail-img" data-id="{{ $file_info[$key]['name'] }}" id="img_thumbnail_{{ $key }}">
+                        <img id="{!! $file !!}" src="{{ $dir_location }}{{ $base }}/thumbs/{{ $file_info[$key]['name'] }}?r={{ str_random(40) }}" alt="" style="cursor:pointer;" onclick="useFile('{!! $file_info[$key]['name'] !!}')">
                     </div>
 
                     <div class="caption text-center">
                         <div class="btn-group ">
-                            <button type="button" onclick="useFile('{!! basename($file) !!}')" class="btn btn-default btn-xs">
-                                {!! str_limit(basename($file), $limit = 10, $end = '...') !!}
+                            <button type="button" onclick="useFile('{!! $file_info[$key]['name'] !!}')" class="btn btn-default btn-xs">
+                                {!! str_limit($file_info[$key]['name'], $limit = 10, $end = '...') !!}
                             </button>
                             <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-expanded="false">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="javascript:rename('{!! basename($file) !!}')">{!! Lang::get('laravel-filemanager::lfm.menu-rename') !!}</a></li>
-                                <li><a href="javascript:fileView('{!! basename($file) !!}')">{!! Lang::get('laravel-filemanager::lfm.menu-view') !!}</a></li>
-                                <li><a href="javascript:download('{!! basename($file) !!}')">{!! Lang::get('laravel-filemanager::lfm.menu-download') !!}</a></li>
+                                <li><a href="javascript:rename('{!! $file_info[$key]['name'] !!}')">{!! Lang::get('laravel-filemanager::lfm.menu-rename') !!}</a></li>
+                                <li><a href="javascript:fileView('{!! $file_info[$key]['name'] !!}')">{!! Lang::get('laravel-filemanager::lfm.menu-view') !!}</a></li>
+                                <li><a href="javascript:download('{!! $file_info[$key]['name'] !!}')">{!! Lang::get('laravel-filemanager::lfm.menu-download') !!}</a></li>
                                 <li class="divider"></li>
                                 {{--<li><a href="javascript:notImp()">Rotate</a></li>--}}
-                                <li><a href="javascript:resizeImage('{!! basename($file) !!}')">{!! Lang::get('laravel-filemanager::lfm.menu-resize') !!}</a></li>
-                                <li><a href="javascript:cropImage('{!! basename($file) !!}')">{!! Lang::get('laravel-filemanager::lfm.menu-crop') !!}</a></li>
+                                <li><a href="javascript:resizeImage('{!! $file_info[$key]['name'] !!}')">{!! Lang::get('laravel-filemanager::lfm.menu-resize') !!}</a></li>
+                                <li><a href="javascript:cropImage('{!! $file_info[$key]['name'] !!}')">{!! Lang::get('laravel-filemanager::lfm.menu-crop') !!}</a></li>
                                 <li class="divider"></li>
-                                <li><a href="javascript:trash('{!! basename($file) !!}')">{!! Lang::get('laravel-filemanager::lfm.menu-delete') !!}</a></li>
+                                <li><a href="javascript:trash('{!! $file_info[$key]['name'] !!}')">{!! Lang::get('laravel-filemanager::lfm.menu-delete') !!}</a></li>
                             </ul>
                         </div>
                     </div>
