@@ -26,9 +26,9 @@ class LfmController extends Controller {
      */
     public function __construct()
     {
-        $this->setFile();
+        $this->setFilePath();
 
-        $this->setDir();
+        $this->setDirPath();
         
         $this->checkMyFolderExists();
         
@@ -36,7 +36,7 @@ class LfmController extends Controller {
     }
 
 
-    private function setFile()
+    private function setFilePath()
     {
         if ((Session::has('lfm_type')) && (Session::get('lfm_type') == 'Files')) {
             $this->file_location = Config::get('lfm.files_dir');
@@ -46,7 +46,7 @@ class LfmController extends Controller {
     }
 
 
-    private function setDir()
+    private function setDirPath()
     {
         if ((Session::has('lfm_type')) && (Session::get('lfm_type') == "Images")) {
             $this->dir_location = Config::get('lfm.images_url');

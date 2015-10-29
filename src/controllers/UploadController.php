@@ -33,7 +33,7 @@ class UploadController extends LfmController {
         $working_dir = Input::get('working_dir');
         $destinationPath = base_path() . "/" . $this->file_location;
 
-        if (strlen($working_dir) > 1) {
+        if (strlen($working_dir) !== '/') {
             $destinationPath .= $working_dir . "/";
         }
 

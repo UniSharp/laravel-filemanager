@@ -224,8 +224,7 @@
                 $('#' + x + ' > i').addClass('fa-folder');
             }
         }
-        $("#working_dir").val("{{ Config::get('lfm.shared_folder_name').'/' }}" + 'foldera');
-        // $("#working_dir").val("{{ Config::get('lfm.shared_folder_name').'/' }}" + $('#' + x).data('id'));
+        $("#working_dir").val("{{ Config::get('lfm.shared_folder_name').'/' }}" + $('#' + x).data('id'));
         loadImages();
     }
 
@@ -237,43 +236,29 @@
             + x;
     }
 
-    @if ((Session::has('lfm_type')) && (Session::get('lfm_type') == "Images"))
-        function loadImages() {
-            $.ajax({
-                type: "GET",
-                dataType: "html",
-                url: "/laravel-filemanager/jsonimages",
-                data: {
-                    base: $("#working_dir").val(),
-                    show_list: $("#show_list").val()
-                },
-                cache: false
-            }).done(function (data) {
-                $("#content").html(data);
-                $("#nav-buttons").removeClass("hidden");
-                $(".dropdown-toggle").dropdown();
-                refreshFolders();
-            });
-        }
-    @else
-        function loadImages() {
-            $.ajax({
-                type: "GET",
-                dataType: "html",
-                url: "/laravel-filemanager/jsonfiles",
-                data: {
-                    base: $("#working_dir").val(),
-                    show_list: $("#show_list").val()
-                },
-                cache: false
-            }).done(function (data) {
-                $("#content").html(data);
-                $("#nav-buttons").removeClass("hidden");
-                $(".dropdown-toggle").dropdown();
-                refreshFolders();
-            });
-        }
-    @endif
+    function loadImages() {
+        @if ((Session::has('lfm_type')) && (Session::get('lfm_type') == "Images"))
+            var load_url = "/laravel-filemanager/jsonimages";
+        @else
+            var load_url = "/laravel-filemanager/jsonfiles";
+        @endif
+
+        $.ajax({
+            type: "GET",
+            dataType: "html",
+            url: load_url,
+            data: {
+                base: $("#working_dir").val(),
+                show_list: $("#show_list").val()
+            },
+            cache: false
+        }).done(function (data) {
+            $("#content").html(data);
+            $("#nav-buttons").removeClass("hidden");
+            $(".dropdown-toggle").dropdown();
+            refreshFolders();
+        });
+    }
 
     function trash(x) {
         bootbox.confirm("{!! Lang::get('laravel-filemanager::lfm.message-delete') !!}", function (result) {
@@ -292,7 +277,7 @@
                         notify(data);
                     } else {
                         if ($("#working_dir").val() == "{{Auth::user()->user_field}}") {
-                            loadFiles();
+                            loadFolders();
                         }
                         loadImages();
                     }
@@ -301,7 +286,7 @@
         });
     }
 
-    function loadFiles() {
+    function loadFolders() {
         $.ajax({
             type: "GET",
             dataType: "html",
@@ -358,7 +343,7 @@
                     cache: false
                 }).done(function (data) {
                     if (data == "OK") {
-                        loadFiles();
+                        loadFolders();
                         loadImages();
                         refreshFolders();
                     } else {
@@ -417,7 +402,7 @@
                     }).done(function (data) {
                         if (data == "OK") {
                             loadImages();
-                            loadFiles();
+                            loadFolders();
                         } else {
                             notify(data);
                         }

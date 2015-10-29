@@ -21,7 +21,7 @@ class FolderController extends LfmController {
      */
     public function getFolders()
     {
-        $all_directories = File::directories(base_path($this->file_location . Input::get('base')));
+        $all_directories = File::directories(base_path($this->file_location . \Auth::user()->user_field));
         $directories = [];
 
         foreach ($all_directories as $directory) {
