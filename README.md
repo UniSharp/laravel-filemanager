@@ -17,7 +17,7 @@
 
 1. Install package 
 
-    ```
+    ```bash
         composer require unisharp/laravel-filemanager
     ```
 
@@ -38,14 +38,14 @@
 
 1. Publish the package's config and assets :
 
-    ```
+    ```bash
         php artisan vendor:publish --tag=lfm_config
         php artisan vendor:publish --tag=lfm_public
     ```
     
 1. Set user's folder name (with a column name in users table) in `config/lfm.php` :
  
-    ```
+    ```php
         'user_field' => 'name',
     ```
 
@@ -75,7 +75,7 @@
 
 ## Setting config
     
-In `config/lfm.php` :
+    In `config/lfm.php` :
 
     ```php
         'rename_file'        => true,
@@ -127,6 +127,6 @@ In `config/lfm.php` :
     
 1. To customize the views :
 
-    ```
-        cp vendor/unisharp/laravel-filemanager/src/views/* resources/views/vendor/laravel-filemanager/
+    ```bash
+    cp -rf vendor/unisharp/laravel-filemanager/src/views/* resources/views/vendor/laravel-filemanager/
     ```
