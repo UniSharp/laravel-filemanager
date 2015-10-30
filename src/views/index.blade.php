@@ -22,7 +22,6 @@
                         <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 left-nav fill" id="lfm-leftcol">
                             <div id="tree1">
                             </div>
-                            <a href="#!" id="add-folder" class="add-folder btn btn-default btn-xs"><i class="fa fa-plus"></i> {{ Lang::get('laravel-filemanager::lfm.menu-new') }}</a>
                         </div>
                         <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10 right-nav" id="right-nav">
                             <nav class="navbar navbar-default">
@@ -328,7 +327,7 @@
         bootbox.alert('Not yet implemented!');;
     }
 
-    $("#add-folder").click(function () {
+    $("body").on('click', '#add-folder', function () {
         bootbox.prompt("{{ Lang::get('laravel-filemanager::lfm.message-name') }}", function (result) {
             if (result === null) {
             } else {
@@ -364,21 +363,20 @@
         }
 
         var funcNum = getUrlParam('CKEditorFuncNum');
-        window.opener.CKEDITOR.tools.callFunction(funcNum, path + "/" + file);
+        window.opener.CKEDITOR.tools.callFunction(funcNum, path + '/' + file);
 
-        @if ((Session::has('lfm_type')) && (Session::get('lfm_type') == "Images"))
-            if (path != '/') {
-                window.opener.CKEDITOR.tools.callFunction(funcNum, '{{ \Config::get('lfm.images_url') }}' + path + "/" + file);
-            } else {
-                window.opener.CKEDITOR.tools.callFunction(funcNum, '{{ \Config::get('lfm.images_url') }}' + file);
-            }
-        @else
-            if (path != '/') {
-            window.opener.CKEDITOR.tools.callFunction(funcNum, '{{ \Config::get('lfm.files_url') }}' + path + "/" + file);
-        } else {
-            window.opener.CKEDITOR.tools.callFunction(funcNum, '{{ \Config::get('lfm.files_url') }}' + file);
-        }
+        var item_url = "{{ Config::get('lfm.images_url') }}";
+
+        @if ((Session::has('lfm_type')) && (Session::get('lfm_type') != "Images"))
+            item_url = "{{ Config::get('lfm.files_url') }}";
         @endif
+
+        if (path != '/') {
+            item_url = item_url + path + '/';
+        }
+
+        window.opener.CKEDITOR.tools.callFunction(funcNum, item_url + file);
+
         window.close();
     }
 
@@ -387,8 +385,7 @@
             title: "{{ Lang::get('laravel-filemanager::lfm.message-rename') }}",
             value: x,
             callback: function (result) {
-                if (result === null) {
-                } else {
+                if (result !== null) {
                     $.ajax({
                         type: "GET",
                         dataType: "text",

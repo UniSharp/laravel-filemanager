@@ -12,6 +12,9 @@
             </a>
         </li>
     @endforeach
+    <a id="add-folder" class="add-folder btn btn-default btn-xs" style='margin-top:15px;'>
+        <i class="fa fa-plus"></i> {{ Lang::get('laravel-filemanager::lfm.menu-new') }}
+    </a>
     <hr>
     @endif
     <li style="margin-left: -10px;">
