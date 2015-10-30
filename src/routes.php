@@ -12,8 +12,7 @@ Route::group(array('middleware' => $middlewares, 'prefix' => 'laravel-filemanage
     Route::any('/upload', 'Unisharp\Laravelfilemanager\controllers\UploadController@upload');
 
     // list images & files
-    Route::get('/jsonimages', 'Unisharp\Laravelfilemanager\controllers\ItemsController@getImages');
-    Route::get('/jsonfiles', 'Unisharp\Laravelfilemanager\controllers\ItemsController@getFiles');
+    Route::get('/jsonitems', 'Unisharp\Laravelfilemanager\controllers\ItemsController@getItems');
 
     // folders
     Route::get('/newfolder', 'Unisharp\Laravelfilemanager\controllers\FolderController@getAddfolder');

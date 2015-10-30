@@ -33,11 +33,12 @@
             @foreach($files as $key => $file)
 
                 <?php $file_name = $file_info[$key]['name'];?>
+                <?php $thumb_src = $dir_location . $base . '/' . Config::get('lfm.thumb_folder_name') . '/' . $file_name . '?r=' . str_random(40);?>
 
                 <div class="col-sm-6 col-md-2 img-row">
 
                     <div class="thumbnail thumbnail-img" data-id="{{ $file_name }}" id="img_thumbnail_{{ $key }}">
-                        <img id="{{ $file }}" src="{{ $dir_location }}{{ $base }}/thumbs/{{ $file_name }}?r={{ str_random(40) }}" alt="" style="cursor:pointer;" onclick="useFile('{{ $file_name }}')">
+                        <img id="{{ $file }}" src="{{ $thumb_src }}" alt="" style="cursor:pointer;" onclick="useFile('{{ $file_name }}')">
                     </div>
 
                     <div class="caption text-center">

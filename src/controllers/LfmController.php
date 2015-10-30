@@ -80,6 +80,7 @@ class LfmController extends Controller {
 
     public function getDirectories($path)
     {
+        $thumb_folder_name = Config::get('lfm.thumb_folder_name');
         $all_directories = File::directories(base_path($path));
 
         $arr_dir = [];
@@ -88,7 +89,7 @@ class LfmController extends Controller {
             $path_parts = explode('/', $directory);
             $dir_name = end($path_parts);
 
-            if ($dir_name !== 'thumbs') {
+            if ($dir_name !== $thumb_folder_name) {
                 $arr_dir[] = $dir_name;
             }
         }

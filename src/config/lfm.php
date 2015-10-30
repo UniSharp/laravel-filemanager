@@ -7,9 +7,10 @@ return [
 
     'rename_file'        => true,
 
-    'user_field'         => "name",
+    'user_field'         => 'name',
 
     'shared_folder_name' => 'shares',
+    'thumb_folder_name'  => 'thumbs',
 
     'middlewares'        => ['auth'],
 

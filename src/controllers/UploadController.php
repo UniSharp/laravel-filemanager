@@ -61,13 +61,15 @@ class UploadController extends LfmController {
 
     private function makeThumb($destinationPath, $new_filename)
     {
-        if (!File::exists($destinationPath . "thumbs")) {
-            File::makeDirectory($destinationPath . "thumbs");
+        $thumb_folder_name = Config::get('lfm.thumb_folder_name');
+
+        if (!File::exists($destinationPath . $thumb_folder_name)) {
+            File::makeDirectory($destinationPath . $thumb_folder_name);
         }
 
         $thumb_img = Image::make($destinationPath . $new_filename);
         $thumb_img->fit(200, 200)
-            ->save($destinationPath . "thumbs/" . $new_filename);
+            ->save($destinationPath . $thumb_folder_name . '/' . $new_filename);
         unset($thumb_img);
     }
 

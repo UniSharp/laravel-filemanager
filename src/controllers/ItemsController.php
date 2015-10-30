@@ -16,71 +16,40 @@ use Intervention\Image\Facades\Image;
  */
 class ItemsController extends LfmController {
 
-    /**
-     * Return json list of files
-     *
-     * @return mixed
-     */
-    public function getFiles()
-    {
-        $path = $this->file_location;
-
-        if (Input::has('base')) {
-            $path .= Input::get('base');
-        }
-
-        $files = File::files(base_path($path));
-
-        $file_info = $this->getFileInfos($files, 'Files');
-
-        $directories = parent::getDirectories($path);
-
-        if (Input::get('show_list') == 1) {
-            $view = 'laravel-filemanager::files-list';
-        } else {
-            $view = 'laravel-filemanager::files';
-        }
-
-        return View::make($view)
-            ->with('files', $files)
-            ->with('file_info', $file_info)
-            ->with('directories', $directories)
-            ->with('base', Input::get('base'))
-            ->with('dir_location', $this->file_location);
-    }
-
 
     /**
      * Get the images to load for a selected folder
      *
      * @return mixed
      */
-    public function getImages()
+    public function getItems()
     {
         $path = $this->file_location;
 
-        if (Input::has('base')) {
-            $path .= Input::get('base');
-        }
+        $base = Input::get('base');
+
+        $path .= Input::get('base');
+
+        $type = Input::get('type');
 
         $files = File::files(base_path($path));
-
-        $file_info = $this->getFileInfos($files, 'Images');
-
+        $file_info = $this->getFileInfos($files, $type);
         $directories = parent::getDirectories($path);
 
+        $dir_location = $this->dir_location;
+        $view = 'laravel-filemanager::images';
+
+        if ($type !== 'Images') {
+            $dir_location = $this->file_location;
+            $view = 'laravel-filemanager::files';
+        }
+
         if (Input::get('show_list') == 1) {
-            $view = 'laravel-filemanager::images-list';
-        } else {
-            $view = 'laravel-filemanager::images';
+            $view .= '-list';
         }
 
         return View::make($view)
-            ->with('files', $files)
-            ->with('file_info', $file_info)
-            ->with('directories', $directories)
-            ->with('base', Input::get('base'))
-            ->with('dir_location', $this->dir_location);
+            ->with(compact('files', 'file_info', 'directories', 'base', 'dir_location'));
     }
     
 

@@ -36,7 +36,7 @@ class RenameController extends LfmController {
             $new_name = str_replace($extension, '', $new_name) . '.' . $extension;
         }
 
-        $thumb_path = $user_path . 'thumbs/';
+        $thumb_path = $user_path . Config::get('lfm.thumb_folder_name') . '/';
 
         $new_file = $user_path . $new_name;
         $new_thumb = $thumb_path . $new_name;

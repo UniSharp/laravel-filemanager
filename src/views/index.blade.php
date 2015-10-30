@@ -144,7 +144,7 @@
         }).done(function (data) {
             $("#tree1").html(data);
         });
-        loadImages();
+        loadItems();
         refreshFolders();
     });
 
@@ -166,7 +166,7 @@
                 notify(responseText);
             }
             $("#file_to_upload").val('');
-            loadImages();
+            loadItems();
         }
 
         $("#uploadForm").ajaxSubmit(options);
@@ -178,7 +178,7 @@
         $('#folder_shared > i').removeClass('fa-folder-open').addClass('fa-folder');
         $('#folder_root > i').addClass('fa-folder-open').removeClass('fa-folder');
         $("#working_dir").val("{{ (Config::get('lfm.allow_multi_user')) ? Auth::user()->user_field : '/'}}");
-        loadImages();
+        loadItems();
     }
 
     function clickShared() {
@@ -186,7 +186,7 @@
         $('#folder_root > i').removeClass('fa-folder-open').addClass('fa-folder');
         $('#folder_shared > i').addClass('fa-folder-open').removeClass('fa-folder');
         $("#working_dir").val("{{ Config::get('lfm.shared_folder_name') }}");
-        loadImages();
+        loadItems();
     }
 
     function clickFolder(x, y) {
@@ -204,7 +204,7 @@
             }
         }
         $("#working_dir").val("{{ (Config::get('lfm.allow_multi_user')) ? Auth::user()->user_field.'/' : '' }}" + $('#' + x).data('id'));
-        loadImages();
+        loadItems();
     }
 
     function clickSharedFolder(x, y) {
@@ -222,7 +222,7 @@
             }
         }
         $("#working_dir").val("{{ Config::get('lfm.shared_folder_name').'/' }}" + $('#' + x).data('id'));
-        loadImages();
+        loadItems();
     }
 
     function download(x) {
@@ -233,20 +233,21 @@
             + x;
     }
 
-    function loadImages() {
-        var load_url = "/laravel-filemanager/jsonimages";
+    function loadItems() {
+        var type = 'Images';
 
         @if ((Session::has('lfm_type')) && (Session::get('lfm_type') == "Files"))
-            load_url = "/laravel-filemanager/jsonfiles";
+            type = 'Files';
         @endif
 
         $.ajax({
             type: "GET",
             dataType: "html",
-            url: load_url,
+            url: '/laravel-filemanager/jsonitems',
             data: {
                 base: $("#working_dir").val(),
-                show_list: $("#show_list").val()
+                show_list: $("#show_list").val(),
+                type: type
             },
             cache: false
         }).done(function (data) {
@@ -276,7 +277,7 @@
                         if ($("#working_dir").val() == "{{Auth::user()->user_field}}") {
                             loadFolders();
                         }
-                        loadImages();
+                        loadItems();
                     }
                 });
             }
@@ -298,7 +299,7 @@
         });
     }
 
-    function refreshFolders(){
+    function refreshFolders() {
         var wd = $("#working_dir").val();
         if (wd != "/") {
             try {
@@ -343,7 +344,7 @@
                 }).done(function (data) {
                     if (data == "OK") {
                         loadFolders();
-                        loadImages();
+                        loadItems();
                         refreshFolders();
                     } else {
                         notify(data);
@@ -400,7 +401,7 @@
                         cache: false
                     }).done(function (data) {
                         if (data == "OK") {
-                            loadImages();
+                            loadItems();
                             loadFolders();
                         } else {
                             notify(data);
@@ -432,24 +433,23 @@
 
     $("#thumbnail-display").click(function () {
         $("#show_list").val(0);
-        loadImages();
+        loadItems();
     });
 
     $("#list-display").click(function () {
         $("#show_list").val(1);
-        loadImages();
+        loadItems();
     });
 
-    function fileView(x){
+    function fileView(x) {
         var rnd = makeRandom();
-        $('#fileview_body').html(
-                "<img class='img img-responsive center-block' src='{{ Config::get('lfm.images_url') }}" + $("#working_dir").val() + "/" + x + "?id=" + rnd + "'>"
-        );
+        var img_src = "{{ Config::get('lfm.images_url') }}" + $("#working_dir").val() + "/" + x + "?id=" + rnd;
+        var img = "<img class='img img-responsive center-block' src='" + img_src + "'>";
+        $('#fileview_body').html(img);
         $('#fileViewModal').modal();
     }
 
-    function makeRandom()
-    {
+    function makeRandom() {
         var text = "";
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
