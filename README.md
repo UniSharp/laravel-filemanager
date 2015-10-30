@@ -75,40 +75,40 @@
 
 ## Setting config
     
-    In `config/lfm.php` :
+In `config/lfm.php` :
 
-    ```php
-        'rename_file'        => true,
-        // true : files will be renamed as uniqid
-        // false : files will remain original names
+```php
+    'rename_file'        => true,
+    // true : files will be renamed as uniqid
+    // false : files will remain original names
 
-        'use_package_routes' => true,
-        // set this to false to customize route for file manager
+    'use_package_routes' => true,
+    // set this to false to customize route for file manager
 
-        'middlewares'        => ['auth'],
-        // determine middlewares that apply to all file manager routes
+    'middlewares'        => ['auth'],
+    // determine middlewares that apply to all file manager routes
 
-        'allow_multi_user'   => true,
-        // true : user can upload files to shared folder and their own folder
-        // false : all files are put together in shared folder
+    'allow_multi_user'   => true,
+    // true : user can upload files to shared folder and their own folder
+    // false : all files are put together in shared folder
 
-        'user_field'         => 'name',
-        // determine which column of users table will be used as user's folder name
+    'user_field'         => 'name',
+    // determine which column of users table will be used as user's folder name
 
-        'shared_folder_name' => 'shares',
-        // the name of shared folder
+    'shared_folder_name' => 'shares',
+    // the name of shared folder
 
-        'thumb_folder_name'  => 'thumbs',
-        // the name of thumb folder
+    'thumb_folder_name'  => 'thumbs',
+    // the name of thumb folder
 
-        'images_dir'         => 'public/photos/',
-        'images_url'         => '/photos/',
-        // path and url of images
+    'images_dir'         => 'public/photos/',
+    'images_url'         => '/photos/',
+    // path and url of images
 
-        'files_dir'          => 'public/files/',
-        'files_url'          => '/files/',
-        // path and url of files
-    ```
+    'files_dir'          => 'public/files/',
+    'files_url'          => '/files/',
+    // path and url of files
+```
 
 ## Customization
 
