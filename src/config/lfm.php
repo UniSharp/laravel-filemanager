@@ -9,7 +9,7 @@ return [
 
     'allow_multi_user'   => true,
 
-    'user_field'         => 'name',
+    'user_field'         => 'id',
 
     'shared_folder_name' => 'shares',
     'thumb_folder_name'  => 'thumbs',

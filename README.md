@@ -23,14 +23,14 @@
 
 1. Edit `config/app.php` :
 
-    Add this in service providers
+    Add service providers
 
     ```php
         Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
     ```
 
-    And add this in class aliases
+    And add class aliases
 
     ```php
         'Image' => Intervention\Image\Facades\Image::class,
@@ -42,14 +42,8 @@
         php artisan vendor:publish --tag=lfm_config
         php artisan vendor:publish --tag=lfm_public
     ```
-    
-1. Set user's folder name (with a column name in users table) in `config/lfm.php` :
- 
-    ```php
-        'user_field' => 'name',
-    ```
 
-1. View initiation
+1. Initiate ckeditor with options :
 
     ```javascript
         <script>
@@ -60,20 +54,9 @@
         </script>
     ```
 
-    Or initiate using ckeditor jquery adapter
+1. Ensure that the files & images directories(in `config/lfm.php`) are writable by your web server
 
-    ```javascript
-        <script>
-            $('textarea').ckeditor({
-                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images'
-                filebrowserBrowseUrl: '/laravel-filemanager?type=Files'
-            });
-        </script>
-    ```
-
-1. Ensure that the files & images directories are writable by your web server
-
-## Setting config
+## Config
     
 In `config/lfm.php` :
 
@@ -92,7 +75,7 @@ In `config/lfm.php` :
     // true : user can upload files to shared folder and their own folder
     // false : all files are put together in shared folder
 
-    'user_field'         => 'name',
+    'user_field'         => 'id',
     // determine which column of users table will be used as user's folder name
 
     'shared_folder_name' => 'shares',
@@ -127,6 +110,14 @@ In `config/lfm.php` :
     
 1. To customize the views :
 
+    on Linux :
+
     ```bash
     cp -rf vendor/unisharp/laravel-filemanager/src/views/* resources/views/vendor/laravel-filemanager/
+    ```
+
+    on MAC :
+
+    ```bash
+    cp -rf vendor/unisharp/laravel-filemanager/src/views/ resources/views/vendor/laravel-filemanager/
     ```
