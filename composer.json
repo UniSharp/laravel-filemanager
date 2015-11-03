@@ -19,7 +19,7 @@
   ],
   "require": {
     "php": ">=5.5.0",
-    "illuminate/support": ">=5.0.0",
+    "illuminate/support": ">=4.2.0",
     "intervention/image": "2.*"
   },
   "autoload": {
