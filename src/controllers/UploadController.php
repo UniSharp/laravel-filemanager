@@ -23,13 +23,13 @@ class UploadController extends LfmController {
     public function upload()
     {
         // sanity check
-        if ( ! Input::hasFile('file_to_upload')) {
+        if ( ! Input::hasFile('upload')) {
             // there ws no uploded file
             return "You must choose a file!";
             exit;
         }
 
-        $file = Input::file('file_to_upload');
+        $file = Input::file('upload');
         $working_dir = Input::get('working_dir');
         $destinationPath = base_path() . "/" . $this->file_location;
 
@@ -50,7 +50,7 @@ class UploadController extends LfmController {
             exit;
         }
 
-        Input::file('file_to_upload')->move($destinationPath, $new_filename);
+        Input::file('upload')->move($destinationPath, $new_filename);
 
         if (Session::get('lfm_type') == "Images") {
             $this->makeThumb($destinationPath, $new_filename);
