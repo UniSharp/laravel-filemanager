@@ -89,7 +89,7 @@
                         <label for='file_to_upload' class='control-label'>{{ Lang::get('laravel-filemanager::lfm.message-choose') }}</label>
                         <div class="controls">
                             <div class="input-group" style="width: 100%">
-                                <input type="file" id="file_to_upload" name="file_to_upload">
+                                <input type="file" id="file_to_upload" name="upload">
                             </div>
                         </div>
                     </div>

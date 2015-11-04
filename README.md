@@ -5,7 +5,7 @@
  * Fork from [tsawler/laravel-filemanager](http://packalyst.com/packages/package/tsawler/laravel-filemanager)
  * support public and private folders for multi users
  * customizable views, routes and middlewares
- * supported locales : en, fr(not completed yet), zh-TW, zh-CN
+ * supported locales : en, fr, zh-TW, zh-CN
 
 ## Requirements
 
