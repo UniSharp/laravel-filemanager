@@ -86,10 +86,10 @@
             <div class="modal-body">
                 <form action="{{url('/laravel-filemanager/upload')}}" role='form' id='uploadForm' name='uploadForm' method='post' enctype='multipart/form-data'>
                     <div class="form-group" id="attachment">
-                        <label for='file_to_upload' class='control-label'>{{ Lang::get('laravel-filemanager::lfm.message-choose') }}</label>
+                        <label for='upload' class='control-label'>{{ Lang::get('laravel-filemanager::lfm.message-choose') }}</label>
                         <div class="controls">
                             <div class="input-group" style="width: 100%">
-                                <input type="file" id="file_to_upload" name="upload">
+                                <input type="file" id="upload" name="upload">
                             </div>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
             if (responseText != "OK"){
                 notify(responseText);
             }
-            $("#file_to_upload").val('');
+            $("#upload").val('');
             loadItems();
         }
 
