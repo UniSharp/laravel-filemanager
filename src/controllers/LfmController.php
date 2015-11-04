@@ -36,6 +36,11 @@ class LfmController extends Controller {
     }
 
 
+    /*****************************
+     ***   Private Functions   ***
+     *****************************/
+
+
     private function setFilePath()
     {
         if ((Session::has('lfm_type')) && (Session::get('lfm_type') == 'Files')) {
@@ -75,6 +80,24 @@ class LfmController extends Controller {
         if (!File::exists($path)) {
             File::makeDirectory($path, $mode = 0777, true, true);
         }
+    }
+
+
+    /****************************
+     ***   Shared Functions   ***
+     ****************************/
+
+
+    public function getPath()
+    {
+        $working_dir = Input::get('working_dir');
+        $path = base_path() . '/' . $this->file_location;
+
+        if (strlen($working_dir) !== '/') {
+            $path .= $working_dir . '/';
+        }
+
+        return $path;
     }
 
 

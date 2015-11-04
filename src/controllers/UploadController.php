@@ -25,38 +25,41 @@ class UploadController extends LfmController {
         // sanity check
         if ( ! Input::hasFile('upload')) {
             // there ws no uploded file
-            return "You must choose a file!";
-            exit;
+            return 'You must choose a file!';
         }
 
         $file = Input::file('upload');
-        $working_dir = Input::get('working_dir');
-        $destinationPath = base_path() . "/" . $this->file_location;
 
-        if (strlen($working_dir) !== '/') {
-            $destinationPath .= $working_dir . "/";
-        }
+        $new_filename = $this->getNewName($file);
 
-        $filename = $file->getClientOriginalName();
-        $extension = $file->getClientOriginalExtension();
-        $new_filename = $filename;
-
-        if (Config::get('lfm.rename_file') === true) {
-            $new_filename = uniqid() . "." . $extension;
-        }
+        $destinationPath = parent::getPath();
 
         if (File::exists($destinationPath . $new_filename)) {
-            return "A file with this name already exists!";
-            exit;
+            return 'A file with this name already exists!';
         }
 
-        Input::file('upload')->move($destinationPath, $new_filename);
+        $file->move($destinationPath, $new_filename);
 
-        if (Session::get('lfm_type') == "Images") {
+        if (Session::get('lfm_type') == 'Images') {
             $this->makeThumb($destinationPath, $new_filename);
         }
 
-        return "OK";
+        if (Input::get('uploadMode') === 'express') {
+            # code...
+        }
+
+        return 'OK';
+    }
+
+    private function getNewName($file)
+    {
+        $new_filename = $file->getClientOriginalName();
+
+        if (Config::get('lfm.rename_file') === true) {
+            $new_filename = uniqid() . '.' . $file->getClientOriginalExtension();
+        }
+
+        return $new_filename;
     }
 
     private function makeThumb($destinationPath, $new_filename)
