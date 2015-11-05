@@ -33,12 +33,12 @@ return [
     'message-name'      => 'Nom du dossier:',
     'message-rename'    => 'Renommer le dossier:',
 
-    'error-rename'      => 'File name already in use!',
-    'error-file-empty'  => 'You must choose a file!',
-    'error-file-exist'  => 'A file with this name already exists!',
-    'error-delete'      => 'You cannot delete this folder because it is not empty!',
-    'error-folder-name' => 'Folder name cannot be empty!',
-    'error-folder-exist'=> 'A folder with this name already exists!',
+    'error-rename'      => 'Ce nom est déjà pris !',
+    'error-file-empty'  => 'Veuillez choisir un fichier',
+    'error-file-exist'  => 'Un fichier avec ce nom existe déjà !',
+    'error-delete'      => 'Vous ne pouvez pas supprimer ce dossier car il n'est pas vide,
+    'error-folder-name' => 'Le nom du dossier ne peut pas être vide',
+    'error-folder-exist'=> 'Un dossier avec ce nom existe déjà !',
 
     'btn-upload'        => 'Envoyer le fichier',
     'btn-close'         => 'Fermer',
