@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row fill">
         <div class="col-md-8 fill" id="containment">
-            <img id="resize" src="{{ $img }}?r={{ str_random(40) }}" height="{{ $height }}" width="{{ $width }}">
+            <img id="resize" src="{{ $img }}" height="{{ $height }}" width="{{ $width }}">
         </div>
         <div class="col-md-4 fill">
 
@@ -78,7 +78,7 @@
             url: "/laravel-filemanager/doresize",
             data: {
                 img: '{{ $img }}',
-                dir: $("#dir").val(),
+                working_dir: $("#working_dir").val(),
                 dataX: $("#dataX").val(),
                 dataY: $("#dataY").val(),
                 dataHeight: $("#height").val(),

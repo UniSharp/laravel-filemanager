@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Lang;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -22,30 +23,24 @@ class UploadController extends LfmController {
      */
     public function upload()
     {
-        // sanity check
-        if ( ! Input::hasFile('upload')) {
-            // there ws no uploded file
-            return 'You must choose a file!';
+        if (!Input::hasFile('upload')) {
+            return Lang::get('laravel-filemanager::lfm.error-file-empty');
         }
 
         $file = Input::file('upload');
 
         $new_filename = $this->getNewName($file);
 
-        $destinationPath = parent::getPath();
+        $dest_path = parent::getPath();
 
-        if (File::exists($destinationPath . $new_filename)) {
-            return 'A file with this name already exists!';
+        if (File::exists($dest_path . $new_filename)) {
+            return Lang::get('laravel-filemanager::lfm.error-file-exist');
         }
 
-        $file->move($destinationPath, $new_filename);
+        $file->move($dest_path, $new_filename);
 
         if (Session::get('lfm_type') == 'Images') {
-            $this->makeThumb($destinationPath, $new_filename);
-        }
-
-        if (Input::get('uploadMode') === 'express') {
-            # code...
+            $this->makeThumb($dest_path, $new_filename);
         }
 
         return 'OK';
@@ -62,17 +57,17 @@ class UploadController extends LfmController {
         return $new_filename;
     }
 
-    private function makeThumb($destinationPath, $new_filename)
+    private function makeThumb($dest_path, $new_filename)
     {
         $thumb_folder_name = Config::get('lfm.thumb_folder_name');
 
-        if (!File::exists($destinationPath . $thumb_folder_name)) {
-            File::makeDirectory($destinationPath . $thumb_folder_name);
+        if (!File::exists($dest_path . $thumb_folder_name)) {
+            File::makeDirectory($dest_path . $thumb_folder_name);
         }
 
-        $thumb_img = Image::make($destinationPath . $new_filename);
+        $thumb_img = Image::make($dest_path . $new_filename);
         $thumb_img->fit(200, 200)
-            ->save($destinationPath . $thumb_folder_name . '/' . $new_filename);
+            ->save($dest_path . $thumb_folder_name . '/' . $new_filename);
         unset($thumb_img);
     }
 

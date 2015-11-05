@@ -33,7 +33,7 @@
             @foreach($files as $key => $file)
 
                 <?php $file_name = $file_info[$key]['name'];?>
-                <?php $thumb_src = $dir_location . $base . '/' . Config::get('lfm.thumb_folder_name') . '/' . $file_name . '?r=' . str_random(40);?>
+                <?php $thumb_src = $thumb_url . $file_name;?>
 
                 <div class="col-sm-6 col-md-2 img-row">
 

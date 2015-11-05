@@ -64,7 +64,7 @@ class LfmController extends Controller {
     private function checkMyFolderExists()
     {
         if (\Config::get('lfm.allow_multi_user') === true) {
-            $path = base_path($this->file_location . Input::get('base'));
+            $path = base_path($this->file_location . Input::get('working_dir'));
 
             if (!File::exists($path)) {
                 File::makeDirectory($path, $mode = 0777, true, true);
@@ -83,21 +83,44 @@ class LfmController extends Controller {
     }
 
 
+    private function formatLocation($location, $type = null)
+    {
+        $working_dir = Input::get('working_dir');
+
+        if ($working_dir !== '/') {
+            $location .= $working_dir . '/';
+        }
+
+        if ($type === 'thumb') {
+            $location = $location . Config::get('lfm.thumb_folder_name') . '/';
+        }
+
+        return $location;
+    }
+
+
     /****************************
      ***   Shared Functions   ***
      ****************************/
 
 
-    public function getPath()
+    public function getPath($type = null)
     {
-        $working_dir = Input::get('working_dir');
         $path = base_path() . '/' . $this->file_location;
 
-        if (strlen($working_dir) !== '/') {
-            $path .= $working_dir . '/';
-        }
+        $path = $this->formatLocation($path, $type);
 
         return $path;
+    }
+
+
+    public function getUrl($type = null)
+    {
+        $url = $this->dir_location;
+
+        $url = $this->formatLocation($url, $type);
+
+        return $url;
     }
 
 
@@ -121,6 +144,16 @@ class LfmController extends Controller {
     }
 
 
+    public function getFileName($file)
+    {
+        $path_parts = explode('/', $file);
+
+        $filename = end($path_parts);
+
+        return $filename;
+    }
+
+
     /**
      * Show the filemanager
      *
@@ -134,16 +167,13 @@ class LfmController extends Controller {
             Session::put('lfm_type', 'Images');
         }
 
-        if (Input::has('base')) {
-            $working_dir = Input::get('base');
-            $base = $this->file_location . Input::get('base') . "/";
+        if (Input::has('working_dir')) {
+            $working_dir = Input::get('working_dir');
         } else {
-            $working_dir = "/";
-            $base = $this->file_location;
+            $working_dir = '/';
         }
 
         return View::make('laravel-filemanager::index')
-            ->with('base', $base)
             ->with('working_dir', $working_dir);
     }
 

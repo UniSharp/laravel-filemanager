@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use Lang;
 
 /**
  * Class CropController
@@ -20,16 +21,11 @@ class DeleteController extends LfmController {
     public function getDelete()
     {
         $name_to_delete = Input::get('items');
-        $base = Input::get('base');
 
-        $file_path = base_path() . '/' . $this->file_location;
-
-        if ($base !== '/') {
-            $file_path = $file_path . $base . '/';
-        }
+        $file_path = parent::getPath();
 
         $file_to_delete = $file_path . $name_to_delete;
-        $thumb_to_delete = $file_path . 'thumbs/' . $name_to_delete;
+        $thumb_to_delete = parent::getPath('thumb') . $name_to_delete;
 
         if (!File::exists($file_to_delete)) {
             return $file_to_delete . ' not found!';
@@ -37,7 +33,7 @@ class DeleteController extends LfmController {
 
         if (File::isDirectory($file_to_delete)) {
             if (sizeof(File::files($file_to_delete)) != 0) {
-                return 'You cannot delete this folder because it is not empty!';
+                return Lang::get('laravel-filemanager::lfm.error-delete');
             }
 
             File::deleteDirectory($file_to_delete);
