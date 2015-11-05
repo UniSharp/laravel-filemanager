@@ -1,11 +1,13 @@
 # laravel-filemanager
 
+PR is welcome.
+
 ## Overview
 
- * Fork from [tsawler/laravel-filemanager](http://packalyst.com/packages/package/tsawler/laravel-filemanager)
- * support public and private folders for multi users
- * customizable views, routes and middlewares
- * supported locales : en, fr, zh-TW, zh-CN
+ * The project was forked from [tsawler/laravel-filemanager](http://packalyst.com/packages/package/tsawler/laravel-filemanager)
+ * Support public and private folders for multi users
+ * Customizable views, routes and middlewares
+ * Supported locales : en, fr, zh-TW, zh-CN
 
 ## Requirements
 
@@ -123,3 +125,11 @@ In `config/lfm.php` :
     ```bash
     cp -rf vendor/unisharp/laravel-filemanager/src/views/ resources/views/vendor/laravel-filemanager/
     ```
+
+## Credits
+ * All contibutors from GitHub. (issues / PR)
+ * Special thanks to
+   * [@taswler](https://github.com/tsawler) the author.
+   * [@welcoMattic](https://github.com/welcoMattic) providing fr locale and lots of bugfixes.
+   * [@olivervogel](https://github.com/olivervogel) for the awesome [image library](https://github.com/Intervention/image)
+   * [@UniSharp members](https://github.com/UniSharp)
