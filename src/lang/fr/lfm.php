@@ -36,7 +36,7 @@ return [
     'error-rename'      => 'Ce nom est déjà pris !',
     'error-file-empty'  => 'Veuillez choisir un fichier',
     'error-file-exist'  => 'Un fichier avec ce nom existe déjà !',
-    'error-delete'      => 'Vous ne pouvez pas supprimer ce dossier car il n'est pas vide,
+    'error-delete'      => "Vous ne pouvez pas supprimer ce dossier car il n'est pas vide",
     'error-folder-name' => 'Le nom du dossier ne peut pas être vide',
     'error-folder-exist'=> 'Un dossier avec ce nom existe déjà !',
 
