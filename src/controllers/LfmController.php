@@ -26,13 +26,29 @@ class LfmController extends Controller {
      */
     public function __construct()
     {
-        $this->setFilePath();
-
-        $this->setDirPath();
+        $this->setPathAndType();
         
         $this->checkMyFolderExists();
         
         $this->checkSharedFolderExists();
+    }
+
+
+    /**
+     * Show the filemanager
+     *
+     * @return mixed
+     */
+    public function show()
+    {
+        if (Input::has('working_dir')) {
+            $working_dir = Input::get('working_dir');
+        } else {
+            $working_dir = '/';
+        }
+
+        return View::make('laravel-filemanager::index')
+            ->with('working_dir', $working_dir);
     }
 
 
@@ -41,22 +57,16 @@ class LfmController extends Controller {
      *****************************/
 
 
-    private function setFilePath()
-    {
-        if ((Session::has('lfm_type')) && (Session::get('lfm_type') == 'Files')) {
+    private function setPathAndType()
+    {   
+        if (Input::has('type') && Input::get('type') === 'Files') {
+            Session::put('lfm_type', 'Files');
             $this->file_location = Config::get('lfm.files_dir');
-        } else {
-            $this->file_location = Config::get('lfm.images_dir');
-        }
-    }
-
-
-    private function setDirPath()
-    {
-        if ((Session::has('lfm_type')) && (Session::get('lfm_type') == "Images")) {
-            $this->dir_location = Config::get('lfm.images_url');
-        } else {
             $this->dir_location = Config::get('lfm.files_url');
+        } else {
+            Session::put('lfm_type', 'Images');
+            $this->file_location = Config::get('lfm.images_dir');
+            $this->dir_location = Config::get('lfm.images_url');
         }
     }
 
@@ -151,29 +161,4 @@ class LfmController extends Controller {
 
         return $filename;
     }
-
-
-    /**
-     * Show the filemanager
-     *
-     * @return mixed
-     */
-    public function show()
-    {
-        if ((Input::has('type')) && (Input::get('type') == "Files")) {
-            Session::put('lfm_type', 'Files');
-        } else {
-            Session::put('lfm_type', 'Images');
-        }
-
-        if (Input::has('working_dir')) {
-            $working_dir = Input::get('working_dir');
-        } else {
-            $working_dir = '/';
-        }
-
-        return View::make('laravel-filemanager::index')
-            ->with('working_dir', $working_dir);
-    }
-
 }
