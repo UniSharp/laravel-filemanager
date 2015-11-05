@@ -10,7 +10,7 @@
 ## Requirements
 
  * php >= 5.5
- * Laravel 5 (working to support Laravel 4)
+ * Laravel 5
  * requires [intervention/image](https://github.com/Intervention/image)(to make thumbs, crop and resize images).
 
 ## Installation
