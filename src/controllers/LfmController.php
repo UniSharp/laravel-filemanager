@@ -132,8 +132,7 @@ class LfmController extends Controller {
         $arr_dir = [];
 
         foreach ($all_directories as $directory) {
-            $path_parts = explode('/', $directory);
-            $dir_name = end($path_parts);
+            $dir_name = $this->getFileName($directory);
 
             if ($dir_name !== $thumb_folder_name) {
                 $arr_dir[] = $dir_name;

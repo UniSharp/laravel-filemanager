@@ -361,15 +361,6 @@
     function useFile(file) {
         var path = $('#working_dir').val();
 
-        function getUrlParam(paramName) {
-            var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
-            var match = window.location.search.match(reParam);
-            return ( match && match.length > 1 ) ? match[1] : null;
-        }
-
-        var funcNum = getUrlParam('CKEditorFuncNum');
-        window.opener.CKEDITOR.tools.callFunction(funcNum, path + '/' + file);
-
         var item_url = image_url;
 
         @if ((Session::has('lfm_type')) && (Session::get('lfm_type') != "Images"))
@@ -379,6 +370,16 @@
         if (path != '/') {
             item_url = item_url + path + '/';
         }
+
+        function getUrlParam(paramName) {
+            var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
+            var match = window.location.search.match(reParam);
+            return ( match && match.length > 1 ) ? match[1] : null;
+        }
+
+        var funcNum = getUrlParam('CKEditorFuncNum');
+        
+        window.opener.CKEDITOR.tools.callFunction(funcNum, path + '/' + file);
 
         window.opener.CKEDITOR.tools.callFunction(funcNum, item_url + file);
 

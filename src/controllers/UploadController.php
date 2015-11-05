@@ -43,6 +43,11 @@ class UploadController extends LfmController {
             $this->makeThumb($dest_path, $new_filename);
         }
 
+        // upload via ckeditor 'Upload' tab
+        if (!Input::has('show_list')) {
+            return $this->useFile($new_filename);
+        }
+
         return 'OK';
     }
 
@@ -69,6 +74,29 @@ class UploadController extends LfmController {
         $thumb_img->fit(200, 200)
             ->save($dest_path . $thumb_folder_name . '/' . $new_filename);
         unset($thumb_img);
+    }
+
+    private function useFile($new_filename)
+    {
+        $file = parent::getUrl() . $new_filename;
+
+        return "<script type='text/javascript'>
+
+        function getUrlParam(paramName) {
+            var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
+            var match = window.location.search.match(reParam);
+            return ( match && match.length > 1 ) ? match[1] : null;
+        }
+
+        var funcNum = getUrlParam('CKEditorFuncNum');
+
+        var par = window.parent,
+            op = window.opener,
+            o = (par && par.CKEDITOR) ? par : ((op && op.CKEDITOR) ? op : false);
+
+        if (op) window.close();
+        if (o !== false) o.CKEDITOR.tools.callFunction(funcNum, '$file');
+        </script>";
     }
 
 }
