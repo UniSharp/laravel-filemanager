@@ -1,7 +1,7 @@
 <div class="row fill">
     <div class="col-md-8 fill">
         <div class="crop-container">
-            <img src="{{ $img }}?r={{ str_random(40) }}" class="img img-responsive">
+            <img src="{{ $img }}" class="img img-responsive">
         </div>
     </div>
     <div class="col-md-4 fill">
@@ -13,7 +13,7 @@
             <button class="btn btn-info" onclick="loadItems()">{{ Lang::get('laravel-filemanager::lfm.btn-cancel') }}</button>
             <form action="{{url('/laravel-filemanager/crop')}}" role='form' name='cropForm' id='cropForm' mathod='post'>
                 <input type="hidden" id="img" name="img" value="{{ $img }}">
-                <input type="hidden" id="dir" name="dir" value="{{ $dir }}">
+                <input type="hidden" id="working_dir" name="working_dir" value="{{ $working_dir }}">
                 <input type="hidden" id="dataX" name="dataX">
                 <input type="hidden" id="dataY" name="dataY">
                 <input type="hidden" id="dataWidth" name="dataWidth">
@@ -28,9 +28,9 @@
 <script>
     $(document).ready(function () {
         var $dataX = $('#dataX'),
-                $dataY = $('#dataY'),
-                $dataHeight = $('#dataHeight'),
-                $dataWidth = $('#dataWidth');
+            $dataY = $('#dataY'),
+            $dataHeight = $('#dataHeight'),
+            $dataWidth = $('#dataWidth');
 
         $('.crop-container > img').cropper({
             //aspectRatio: 16 / 9,
@@ -53,7 +53,7 @@
             url: "/laravel-filemanager/cropimage",
             data: {
                 img: $("#img").val(),
-                dir: $("#dir").val(),
+                working_dir: $("#working_dir").val(),
                 dataX: $("#dataX").val(),
                 dataY: $("#dataY").val(),
                 dataHeight: $("#dataHeight").val(),

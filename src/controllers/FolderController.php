@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
+use Lang;
 
 /**
  * Class FolderController
@@ -27,7 +28,7 @@ class FolderController extends LfmController {
         $share_path = $this->file_location . Config::get('lfm.shared_folder_name');
         $shared_folders = parent::getDirectories($share_path);
 
-        return View::make("laravel-filemanager::tree")
+        return View::make('laravel-filemanager::tree')
             ->with('dirs', $directories)
             ->with('shares', $shared_folders);
     }
@@ -42,15 +43,15 @@ class FolderController extends LfmController {
     {
         $folder_name = Input::get('name');
 
-        $path = base_path($this->file_location . Input::get('base')) . "/" . $folder_name;
+        $path = parent::getPath() . $folder_name;
 
         if (!File::exists($path)) {
             File::makeDirectory($path, $mode = 0777, true, true);
-            return "OK";
+            return 'OK';
         } else if (empty($folder_name)) {
-            return 'Folder name cannot be empty!';
+            return Lang::get('laravel-filemanager::lfm.error-folder-name');
         } else {
-            return "A folder with this name already exists!";
+            return Lang::get('laravel-filemanager::lfm.error-folder-exist');
         }
     }
 

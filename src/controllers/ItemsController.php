@@ -24,32 +24,17 @@ class ItemsController extends LfmController {
      */
     public function getItems()
     {
-        $path = $this->file_location;
-
-        $base = Input::get('base');
-
-        $path .= Input::get('base');
-
         $type = Input::get('type');
+        $view = $this->getView($type);
+        $path = $this->file_location . Input::get('working_dir');
 
-        $files = File::files(base_path($path));
-        $file_info = $this->getFileInfos($files, $type);
+        $files       = File::files(base_path($path));
+        $file_info   = $this->getFileInfos($files, $type);
         $directories = parent::getDirectories($path);
-
-        $dir_location = $this->dir_location;
-        $view = 'laravel-filemanager::images';
-
-        if ($type !== 'Images') {
-            $dir_location = $this->file_location;
-            $view = 'laravel-filemanager::files';
-        }
-
-        if (Input::get('show_list') == 1) {
-            $view .= '-list';
-        }
+        $thumb_url   = parent::getUrl('thumb');
 
         return View::make($view)
-            ->with(compact('files', 'file_info', 'directories', 'base', 'dir_location'));
+            ->with(compact('files', 'file_info', 'directories', 'thumb_url'));
     }
     
 
@@ -58,8 +43,7 @@ class ItemsController extends LfmController {
         $file_info = [];
 
         foreach ($files as $key => $file) {
-            $path_parts = explode('/', $file);
-            $file_name = end($path_parts);
+            $file_name = parent::getFileName($file);
             $file_created = filemtime($file);
 
             $file_size = number_format((File::size($file) / 1024), 2, ".", "");
@@ -99,4 +83,19 @@ class ItemsController extends LfmController {
         return $file_info;
     }
 
+
+    private function getView($type = 'Images')
+    {
+        $view = 'laravel-filemanager::images';
+
+        if ($type !== 'Images') {
+            $view = 'laravel-filemanager::files';
+        }
+
+        if (Input::get('show_list') == 1) {
+            $view .= '-list';
+        }
+
+        return $view;
+    }
 }

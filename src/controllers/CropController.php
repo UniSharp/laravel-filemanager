@@ -19,13 +19,11 @@ class CropController extends LfmController {
      */
     public function getCrop()
     {
-        $dir = Input::get('dir');
-        $image = Input::get('img');
+        $working_dir = Input::get('working_dir');
+        $img = parent::getUrl() . Input::get('img');
 
         return View::make('laravel-filemanager::crop')
-            ->with('img', Config::get('lfm.images_url') . $dir . "/" . $image)
-            ->with('dir', $dir)
-            ->with('image', $image);
+            ->with(compact('working_dir', 'img'));
     }
 
 
@@ -34,22 +32,21 @@ class CropController extends LfmController {
      */
     public function getCropimage()
     {
-        $dir = Input::get('dir');
-        $img = Input::get('img');
+        $image = Input::get('img');
         $dataX = Input::get('dataX');
         $dataY = Input::get('dataY');
         $dataHeight = Input::get('dataHeight');
         $dataWidth = Input::get('dataWidth');
 
         // crop image
-        $image = Image::make(public_path() . $img);
-        $image->crop($dataWidth, $dataHeight, $dataX, $dataY)
-            ->save(public_path() . $img);
+        $tmp_img = Image::make(public_path() . $image);
+        $tmp_img->crop($dataWidth, $dataHeight, $dataX, $dataY)
+            ->save(public_path() . $image);
 
         // make new thumbnail
-        $thumb_img = Image::make(public_path() . $img);
+        $thumb_img = Image::make(public_path() . $image);
         $thumb_img->fit(200, 200)
-            ->save(base_path() . "/" . Config::get('lfm.images_dir') . $dir . "/thumbs/" . basename($img));
+            ->save(parent::getPath('thumb') . parent::getFileName($image));
     }
 
 }

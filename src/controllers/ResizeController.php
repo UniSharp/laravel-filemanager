@@ -21,36 +21,32 @@ class ResizeController extends LfmController {
     {
         $ratio = 1.0;
         $image = Input::get('img');
-        $dir = Input::get('dir');
 
-        $path_to_image = base_path() . "/" . Config::get('lfm.images_dir') . $dir . "/" . $image;
-
-        $original_width = Image::make($path_to_image)->width();
+        $path_to_image   = parent::getPath() . $image;
+        $original_width  = Image::make($path_to_image)->width();
         $original_height = Image::make($path_to_image)->height();
 
         $scaled = false;
 
         if ($original_width > 600) {
-            $ratio = 600 / $original_width;
-            $width = $original_width * $ratio;
+            $ratio  = 600 / $original_width;
+            $width  = $original_width  * $ratio;
             $height = $original_height * $ratio;
             $scaled = true;
         } else {
+            $width  = $original_width;
             $height = $original_height;
-            $width = $original_width;
         }
 
         if ($height > 400) {
-            $ratio = 400 / $original_height;
-            $width = $original_width * $ratio;
+            $ratio  = 400 / $original_height;
+            $width  = $original_width  * $ratio;
             $height = $original_height * $ratio;
             $scaled = true;
         }
 
         return View::make('laravel-filemanager::resize')
-            ->with('img', Config::get('lfm.images_url') . $dir . "/" . $image)
-            ->with('dir', $dir)
-            ->with('image', $image)
+            ->with('img', parent::getUrl() . $image)
             ->with('height', number_format($height, 0))
             ->with('width', $width)
             ->with('original_height', $original_height)
@@ -62,12 +58,11 @@ class ResizeController extends LfmController {
 
     public function performResize()
     {
-        $img = Input::get('img');
-        $dir = Input::get('dir');
-        $dataX = Input::get('dataX');
-        $dataY= Input::get('dataY');
+        $img    = Input::get('img');
+        $dataX  = Input::get('dataX');
+        $dataY  = Input::get('dataY');
         $height = Input::get('dataHeight');
-        $width = Input::get('dataWidth');
+        $width  = Input::get('dataWidth');
 
         try {
             Image::make(public_path() . $img)->resize($width, $height)->save();

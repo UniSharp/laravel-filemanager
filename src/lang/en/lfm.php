@@ -33,6 +33,13 @@ return [
     'message-name'      => 'Folder name:',
     'message-rename'    => 'Rename to:',
 
+    'error-rename'      => 'File name already in use!',
+    'error-file-empty'  => 'You must choose a file!',
+    'error-file-exist'  => 'A file with this name already exists!',
+    'error-delete'      => 'You cannot delete this folder because it is not empty!',
+    'error-folder-name' => 'Folder name cannot be empty!',
+    'error-folder-exist'=> 'A folder with this name already exists!',
+
     'btn-upload'        => 'Upload File',
     'btn-close'         => 'Close',
     'btn-uploading'     => 'Uploading...',

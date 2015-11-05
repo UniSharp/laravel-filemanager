@@ -10,7 +10,7 @@
 ## Requirements
 
  * php >= 5.5
- * Laravel 5 (working to support Laravel 4)
+ * Laravel 5
  * requires [intervention/image](https://github.com/Intervention/image)(to make thumbs, crop and resize images).
 
 ## Installation
@@ -48,8 +48,10 @@
     ```javascript
         <script>
             CKEDITOR.replace( 'editor', {
-                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images'
-                filebrowserBrowseUrl: '/laravel-filemanager?type=Files'
+                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+                filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
+                filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+                filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
             });
         </script>
     ```

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Lang;
 
 /**
  * Class RenameController
@@ -18,32 +19,23 @@ class RenameController extends LfmController {
      */
     public function getRename()
     {
-        $file_to_rename = Input::get('file');
-        $dir = Input::get('dir');
+        $old_name = Input::get('file');
         $new_name = Input::get('new_name');
 
-        $file_path = base_path() . '/' . $this->file_location;
-        $user_path = $file_path . '/';
+        $file_path  = parent::getPath();
+        $thumb_path = parent::getPath('thumb');
 
-        if ($dir !== '/') {
-            $user_path = $user_path . $dir . '/';
-        }
-
-        $old_file = $user_path . $file_to_rename;
+        $old_file = $file_path . $old_name;
 
         if (!File::isDirectory($old_file)) {
             $extension = File::extension($old_file);
-            $new_name = str_replace($extension, '', $new_name) . '.' . $extension;
+            $new_name = str_replace('.' . $extension, '', $new_name) . '.' . $extension;
         }
 
-        $thumb_path = $user_path . Config::get('lfm.thumb_folder_name') . '/';
-
-        $new_file = $user_path . $new_name;
-        $new_thumb = $thumb_path . $new_name;
-        $old_thumb = $thumb_path . $file_to_rename;
+        $new_file = $file_path . $new_name;
 
         if (File::exists($new_file)) {
-            return 'File name already in use!';
+            return Lang::get('laravel-filemanager::lfm.error-rename');
         }
 
         if (File::isDirectory($old_file)) {
@@ -54,7 +46,7 @@ class RenameController extends LfmController {
         File::move($old_file, $new_file);
 
         if (Session::get('lfm_type') == 'Images') {
-            File::move($old_thumb, $new_thumb);
+            File::move($thumb_path . $old_name, $thumb_path . $new_name);
         }
 
         return 'OK';

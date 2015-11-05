@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Lang;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -22,55 +23,80 @@ class UploadController extends LfmController {
      */
     public function upload()
     {
-        // sanity check
-        if ( ! Input::hasFile('upload')) {
-            // there ws no uploded file
-            return "You must choose a file!";
-            exit;
+        if (!Input::hasFile('upload')) {
+            return Lang::get('laravel-filemanager::lfm.error-file-empty');
         }
 
         $file = Input::file('upload');
-        $working_dir = Input::get('working_dir');
-        $destinationPath = base_path() . "/" . $this->file_location;
 
-        if (strlen($working_dir) !== '/') {
-            $destinationPath .= $working_dir . "/";
+        $new_filename = $this->getNewName($file);
+
+        $dest_path = parent::getPath();
+
+        if (File::exists($dest_path . $new_filename)) {
+            return Lang::get('laravel-filemanager::lfm.error-file-exist');
         }
 
-        $filename = $file->getClientOriginalName();
-        $extension = $file->getClientOriginalExtension();
-        $new_filename = $filename;
+        $file->move($dest_path, $new_filename);
 
-        if (Config::get('lfm.rename_file') === true) {
-            $new_filename = uniqid() . "." . $extension;
+        if (Session::get('lfm_type') == 'Images') {
+            $this->makeThumb($dest_path, $new_filename);
         }
 
-        if (File::exists($destinationPath . $new_filename)) {
-            return "A file with this name already exists!";
-            exit;
+        // upload via ckeditor 'Upload' tab
+        if (!Input::has('show_list')) {
+            return $this->useFile($new_filename);
         }
 
-        Input::file('upload')->move($destinationPath, $new_filename);
-
-        if (Session::get('lfm_type') == "Images") {
-            $this->makeThumb($destinationPath, $new_filename);
-        }
-
-        return "OK";
+        return 'OK';
     }
 
-    private function makeThumb($destinationPath, $new_filename)
+    private function getNewName($file)
+    {
+        $new_filename = $file->getClientOriginalName();
+
+        if (Config::get('lfm.rename_file') === true) {
+            $new_filename = uniqid() . '.' . $file->getClientOriginalExtension();
+        }
+
+        return $new_filename;
+    }
+
+    private function makeThumb($dest_path, $new_filename)
     {
         $thumb_folder_name = Config::get('lfm.thumb_folder_name');
 
-        if (!File::exists($destinationPath . $thumb_folder_name)) {
-            File::makeDirectory($destinationPath . $thumb_folder_name);
+        if (!File::exists($dest_path . $thumb_folder_name)) {
+            File::makeDirectory($dest_path . $thumb_folder_name);
         }
 
-        $thumb_img = Image::make($destinationPath . $new_filename);
+        $thumb_img = Image::make($dest_path . $new_filename);
         $thumb_img->fit(200, 200)
-            ->save($destinationPath . $thumb_folder_name . '/' . $new_filename);
+            ->save($dest_path . $thumb_folder_name . '/' . $new_filename);
         unset($thumb_img);
+    }
+
+    private function useFile($new_filename)
+    {
+        $file = parent::getUrl() . $new_filename;
+
+        return "<script type='text/javascript'>
+
+        function getUrlParam(paramName) {
+            var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
+            var match = window.location.search.match(reParam);
+            return ( match && match.length > 1 ) ? match[1] : null;
+        }
+
+        var funcNum = getUrlParam('CKEditorFuncNum');
+
+        var par = window.parent,
+            op = window.opener,
+            o = (par && par.CKEDITOR) ? par : ((op && op.CKEDITOR) ? op : false);
+
+        if (op) window.close();
+        if (o !== false) o.CKEDITOR.tools.callFunction(funcNum, '$file');
+        </script>";
     }
 
 }
