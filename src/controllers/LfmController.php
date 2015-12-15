@@ -58,15 +58,17 @@ class LfmController extends Controller {
 
 
     private function setPathAndType()
-    {   
+    {
+        // dd('type:'.Input::get('type'));
+        
         if (Input::has('type') && Input::get('type') === 'Files') {
             Session::put('lfm_type', 'Files');
-            $this->file_location = Config::get('lfm.files_dir');
-            $this->dir_location = Config::get('lfm.files_url');
-        } else {
+            Session::put('lfm.file_location', Config::get('lfm.files_dir'));
+            Session::put('lfm.dir_location', Config::get('lfm.files_url'));
+        } else if (Input::has('type') && Input::get('type') === 'Images') {
             Session::put('lfm_type', 'Images');
-            $this->file_location = Config::get('lfm.images_dir');
-            $this->dir_location = Config::get('lfm.images_url');
+            Session::put('lfm.file_location', Config::get('lfm.images_dir'));
+            Session::put('lfm.dir_location', Config::get('lfm.images_url'));
         }
     }
 
@@ -74,7 +76,7 @@ class LfmController extends Controller {
     private function checkMyFolderExists()
     {
         if (\Config::get('lfm.allow_multi_user') === true) {
-            $path = base_path($this->file_location . Input::get('working_dir'));
+            $path = $this->getPath();
 
             if (!File::exists($path)) {
                 File::makeDirectory($path, $mode = 0777, true, true);
@@ -85,7 +87,7 @@ class LfmController extends Controller {
 
     private function checkSharedFolderExists()
     {
-        $path = base_path($this->file_location . Config::get('lfm.shared_folder_name'));
+        $path = $this->getPath('share');
 
         if (!File::exists($path)) {
             File::makeDirectory($path, $mode = 0777, true, true);
@@ -95,6 +97,10 @@ class LfmController extends Controller {
 
     private function formatLocation($location, $type = null)
     {
+        if ($type === 'share') {
+            return $location . Config::get('lfm.shared_folder_name') . '/';
+        }
+
         $working_dir = Input::get('working_dir');
 
         if ($working_dir !== '/') {
@@ -116,7 +122,7 @@ class LfmController extends Controller {
 
     public function getPath($type = null)
     {
-        $path = base_path() . '/' . $this->file_location;
+        $path = base_path() . '/' . Session::get('lfm.file_location');
 
         $path = $this->formatLocation($path, $type);
 
@@ -126,7 +132,7 @@ class LfmController extends Controller {
 
     public function getUrl($type = null)
     {
-        $url = $this->dir_location;
+        $url = Session::get('lfm.dir_location');
 
         $url = $this->formatLocation($url, $type);
 
@@ -137,7 +143,7 @@ class LfmController extends Controller {
     public function getDirectories($path)
     {
         $thumb_folder_name = Config::get('lfm.thumb_folder_name');
-        $all_directories = File::directories(base_path($path));
+        $all_directories = File::directories($path);
 
         $arr_dir = [];
 

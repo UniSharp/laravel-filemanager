@@ -22,10 +22,10 @@ class FolderController extends LfmController {
      */
     public function getFolders()
     {
-        $dir_path = $this->file_location . \Auth::user()->user_field;
+        $dir_path = parent::getPath();
         $directories = parent::getDirectories($dir_path);
 
-        $share_path = $this->file_location . Config::get('lfm.shared_folder_name');
+        $share_path = parent::getPath('share');
         $shared_folders = parent::getDirectories($share_path);
 
         return View::make('laravel-filemanager::tree')

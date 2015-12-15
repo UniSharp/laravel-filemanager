@@ -26,9 +26,9 @@ class ItemsController extends LfmController {
     {
         $type = Input::get('type');
         $view = $this->getView($type);
-        $path = $this->file_location . Input::get('working_dir');
+        $path = parent::getPath();
 
-        $files       = File::files(base_path($path));
+        $files       = File::files($path);
         $file_info   = $this->getFileInfos($files, $type);
         $directories = parent::getDirectories($path);
         $thumb_url   = parent::getUrl('thumb');
@@ -45,8 +45,8 @@ class ItemsController extends LfmController {
         foreach ($files as $key => $file) {
             $file_name = parent::getFileName($file);
             $file_created = filemtime($file);
-
             $file_size = number_format((File::size($file) / 1024), 2, ".", "");
+            
             if ($file_size > 1024) {
                 $file_size = number_format(($file_size / 1024), 2, ".", "") . " Mb";
             } else {
