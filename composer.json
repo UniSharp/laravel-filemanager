@@ -1,12 +1,12 @@
 {
   "name": "unisharp/laravel-filemanager",
-  "description": "A file upload/editor intended for use with Laravel 5 and CKEditor",
+  "description": "A file upload/editor intended for use with Laravel 5 and CKEditor / TinyMCE",
   "license": "MIT",
   "keywords": [
     "filemanager",
     "laravel",
     "ckeditor",
-    "parent",
+    "tinymce",
     "upload",
     "file",
     "manager"
@@ -15,6 +15,10 @@
     {
       "name": "Trevor Sawler",
       "email": "trevor.sawler@gmail.com"
+    },
+    {
+      "name": "UniSharp Ltd.",
+      "email": "unisharp-service@unisharp.com"
     }
   ],
   "require": {
