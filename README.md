@@ -15,7 +15,7 @@ PR is welcome!
 
  * php >= 5.5
  * Laravel 5
- * requires [intervention/image](https://github.com/Intervention/image)(to make thumbs, crop and resize images).
+ * requires [intervention/image](https://github.com/Intervention/image) (to make thumbs, crop and resize images).
 
 ## Installation
 
@@ -52,7 +52,7 @@ PR is welcome!
 ## WYSIWYG Editor Integration:
 ### Option 1: CKEditor
 
-  1. Install (laravel-ckeditor)[https://github.com/UniSharp/laravel-ckeditor] package
+  1. Install [laravel-ckeditor](https://github.com/UniSharp/laravel-ckeditor) package
 
   1. Modify the views
       
