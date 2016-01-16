@@ -11,6 +11,7 @@ PR is welcome!
  * Customizable views, routes and middlewares
  * Supported locales : en, fr, zh-TW, zh-CN, pt-BR
 
+
 ## Requirements
 
  * php >= 5.5
@@ -207,6 +208,10 @@ In `config/lfm.php` :
     ```bash
     cp -rf vendor/unisharp/laravel-filemanager/src/views/ resources/views/vendor/laravel-filemanager/
     ```
+
+## Screenshots
+![FileManager screenshot 1](http://unisharp.com/img/filemanager1.png)
+![FileManager screenshot 2](http://unisharp.com/img/filemanager2.png)
 
 ## Credits
  * All contibutors from GitHub. (issues / PR)
