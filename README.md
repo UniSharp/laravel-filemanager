@@ -1,6 +1,8 @@
 # laravel-filemanager
 
-PR is welcome.
+A files and images management user interface with file uploading support. (Works well with CKEditor and TinyMCE)
+
+PR is welcome!
 
 ## Overview
 
@@ -44,64 +46,88 @@ PR is welcome.
         php artisan vendor:publish --tag=lfm_config
         php artisan vendor:publish --tag=lfm_public
     ```
+    
+1. Ensure that the files & images directories (in `config/lfm.php`) are writable by your web server.
 
-1. Implementation:
-    CKEditor
-    ```javascript
-        <script>
-            CKEDITOR.replace( 'editor', {
-                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-                filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
-                filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-                filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
-            });
-        </script>
+## WYSIWYG Editor Integration:
+### Option 1: CKEditor
+
+  1. Install (laravel-ckeditor)[https://github.com/UniSharp/laravel-ckeditor] package
+
+  1. Modify the views
+      
+    Sample 1 - Replace by ID:
+    ```html
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <textarea id="my-editor" name="content" class="form-control">{!! old('content', $content) !!}</textarea>
+    <script>
+      CKEDITOR.replace( 'my-editor', {
+        filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+        filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
+        filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+        filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
+      });
+    </script>
+    ```
+    
+    Sample 2 - With JQuery Selector:
+    
+    ```html
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
+    <textarea name="content" class="form-control my-editor">{!! old('content', $content) !!}</textarea>
+    <script>
+      $('textarea.my-editor').ckeditor({
+        filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+        filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
+        filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+        filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
+      });
+    </script>
     ```
 
-    TinyMCE 4
-    ```javascript
-        <script>
-            var editor_config = {
-                path_absolute : "http://path_to_filemanager/",
-                selector: "textarea",
-                plugins: [
-                    "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-                    "searchreplace wordcount visualblocks visualchars code fullscreen",
-                    "insertdatetime media nonbreaking save table contextmenu directionality",
-                    "emoticons template paste textcolor colorpicker textpattern"
-                ],
-                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
-                relative_urls: false,
-                file_browser_callback : function(field_name, url, type, win) {
-                    var w = window,
-                        d = document,
-                        e = d.documentElement,
-                        g = d.getElementsByTagName('body')[0],
-                        x = w.innerWidth || e.clientWidth || g.clientWidth,
-                        y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+### Option 2: TinyMCE4
 
-                    var cmsURL = editor_config.path_absolute + 'filemanager/show?&field_name='+field_name+'&lang='+ tinymce.settings.language;
+```html
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<textarea name="content" class="form-control my-editor">{!! old('content', $content) !!}</textarea>
+<script>
+  var editor_config = {
+    path_absolute : "/",
+    selector: "textarea",
+    plugins: [
+      "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+      "searchreplace wordcount visualblocks visualchars code fullscreen",
+      "insertdatetime media nonbreaking save table contextmenu directionality",
+      "emoticons template paste textcolor colorpicker textpattern"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+    relative_urls: false,
+    file_browser_callback : function(field_name, url, type, win) {
+      var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+      var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
 
-                    if(type == 'image') {
-                        cmsURL = cmsURL + "&type=images";
-                    }
+      var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
+      if (type == 'image') {
+        cmsURL = cmsURL + "&type=Images";
+      } else {
+        cmsURL = cmsURL + "&type=Files";
+      }
 
-                    tinyMCE.activeEditor.windowManager.open({
-                        file : cmsURL,
-                        title : 'Filemanager',
-                        width : x * 0.8,
-                        height : y * 0.8,
-                        resizable : "yes",
-                        close_previous : "no"
-                    });
-                }
-            };
+      tinyMCE.activeEditor.windowManager.open({
+        file : cmsURL,
+        title : 'Filemanager',
+        width : x * 0.8,
+        height : y * 0.8,
+        resizable : "yes",
+        close_previous : "no"
+      });
+    }
+  };
 
-            tinymce.init(editor_config);
-        </script>
-    ```
-
-1. Ensure that the files & images directories(in `config/lfm.php`) are writable by your web server
+  tinymce.init(editor_config);
+</script>
+```
 
 ## Config
     
@@ -144,6 +170,7 @@ In `config/lfm.php` :
 
 1. If the route is changed, make sure urls below is correspond to your route :
 
+  CKEditor
     ```javascript
         <script>
             CKEDITOR.replace( 'editor', {
@@ -153,12 +180,17 @@ In `config/lfm.php` :
         </script>
     ```
     
-    And be sure to include the `?type=Images` or `?type=Files` parameter.
+  And be sure to include the `?type=Images` or `?type=Files` parameter.
 
-    TinyMCE
+  TinyMCE
     ```javascript
         ...
-        var cmsURL = editor_config.path_absolute + 'your-custom-route/show?&field_name='+field_name+'&lang='+ tinymce.settings.language;
+        var cmsURL = editor_config.path_absolute + 'your-custom-route?field_name='+field_name+'&lang='+ tinymce.settings.language;
+        if (type == 'image') {
+          cmsURL = cmsURL + "&type=Images";
+        } else {
+          cmsURL = cmsURL + "&type=Files";
+        }
         ...
     ```
     
@@ -180,6 +212,7 @@ In `config/lfm.php` :
  * All contibutors from GitHub. (issues / PR)
  * Special thanks to
    * [@taswler](https://github.com/tsawler) the author.
-   * [@welcoMattic](https://github.com/welcoMattic) providing fr locale and lots of bugfixes.
+   * [@welcoMattic](https://github.com/welcoMattic) providing fr translations and lots of bugfixes.
+   * [@fraterblack](https://github.com/fraterblack) TinyMCE 4 support and pt-BR translations.
    * [@olivervogel](https://github.com/olivervogel) for the awesome [image library](https://github.com/Intervention/image)
-   * [@UniSharp members](https://github.com/UniSharp)
+   * [All @UniSharp members](https://github.com/UniSharp)
