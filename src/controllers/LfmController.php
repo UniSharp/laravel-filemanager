@@ -1,6 +1,6 @@
 <?php namespace Unisharp\Laravelfilemanager\controllers;
 
-use App\Http\Controllers\Controller;
+use Unisharp\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
@@ -19,7 +19,7 @@ class LfmController extends Controller {
      */
     public $file_location;
     public $dir_location;
-    
+
 
     /**
      * Constructor
@@ -27,9 +27,9 @@ class LfmController extends Controller {
     public function __construct()
     {
         $this->setPathAndType();
-        
+
         $this->checkMyFolderExists();
-        
+
         $this->checkSharedFolderExists();
     }
 
@@ -60,7 +60,7 @@ class LfmController extends Controller {
     private function setPathAndType()
     {
         // dd('type:'.Input::get('type'));
-        
+
         if (Input::has('type') && Input::get('type') === 'Files') {
             Session::put('lfm_type', 'Files');
             Session::put('lfm.file_location', Config::get('lfm.files_dir'));
