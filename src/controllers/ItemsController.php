@@ -1,6 +1,6 @@
 <?php namespace Unisharp\Laravelfilemanager\controllers;
 
-use App\Http\Controllers\Controller;
+use Unisharp\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
@@ -36,7 +36,7 @@ class ItemsController extends LfmController {
         return View::make($view)
             ->with(compact('files', 'file_info', 'directories', 'thumb_url'));
     }
-    
+
 
     private function getFileInfos($files, $type = 'Images')
     {
@@ -46,7 +46,7 @@ class ItemsController extends LfmController {
             $file_name = parent::getFileName($file);
             $file_created = filemtime($file);
             $file_size = number_format((File::size($file) / 1024), 2, ".", "");
-            
+
             if ($file_size > 1024) {
                 $file_size = number_format(($file_size / 1024), 2, ".", "") . " Mb";
             } else {

@@ -9,7 +9,7 @@ PR is welcome!
  * The project was forked from [tsawler/laravel-filemanager](http://packalyst.com/packages/package/tsawler/laravel-filemanager)
  * Support public and private folders for multi users
  * Customizable views, routes and middlewares
- * Supported locales : en, fr, zh-TW, zh-CN, pt-BR
+ * Supported locales : en, fr, pt-BR, tr, zh-CN, zh-TW
 
 
 ## Requirements
@@ -216,8 +216,9 @@ In `config/lfm.php` :
 ## Credits
  * All contibutors from GitHub. (issues / PR)
  * Special thanks to
-   * [@taswler](https://github.com/tsawler) the author.
+   * [@taswler](https://github.com/tsawler) the original author.
    * [@welcoMattic](https://github.com/welcoMattic) providing fr translations and lots of bugfixes.
    * [@fraterblack](https://github.com/fraterblack) TinyMCE 4 support and pt-BR translations.
+   * [@1dot44mb](https://github.com/1dot44mb) tr translations.
    * [@olivervogel](https://github.com/olivervogel) for the awesome [image library](https://github.com/Intervention/image)
    * [All @UniSharp members](https://github.com/UniSharp)
