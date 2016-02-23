@@ -5,7 +5,7 @@ return [
 
     'use_package_routes' => true,
 
-    'middlewares'        => ['auth'],
+    'middlewares'        => ['web', 'auth'],
 
     'allow_multi_user'   => true,
 
@@ -49,4 +49,6 @@ return [
         'ppt'  => 'fa-file-powerpoint-o',
         'pptx' => 'fa-file-powerpoint-o',
     ],
+    
+    'allowed_extension' => ['png', 'jpg', 'jpeg', 'gif', 'pdf', 'txt'],  // More extensions can be added from here  
 ];
