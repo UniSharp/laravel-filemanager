@@ -4,7 +4,7 @@ use Unisharp\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 
@@ -17,8 +17,9 @@ class LfmController extends Controller {
     /**
      * @var
      */
-    public $file_location;
-    public $dir_location;
+    public $file_location = null;
+    public $dir_location = null;
+    public $file_type = null;
 
 
     /**
@@ -26,7 +27,17 @@ class LfmController extends Controller {
      */
     public function __construct()
     {
-        $this->setPathAndType();
+        $this->file_type = Input::get('type', 'Images'); // default set to Images.
+
+        if ('Images' === $this->file_type) {
+            $this->dir_location = Config::get('lfm.images_url');
+            $this->file_location = Config::get('lfm.images_dir');
+        } elseif ('Files' === $this->file_type) {
+            $this->dir_location = Config::get('lfm.files_url');
+            $this->file_location = Config::get('lfm.files_dir');
+        } else {
+            throw new \Exception('unexpected type parameter');
+        }
 
         $this->checkMyFolderExists();
 
@@ -48,29 +59,14 @@ class LfmController extends Controller {
         }
 
         return View::make('laravel-filemanager::index')
-            ->with('working_dir', $working_dir);
+            ->with('working_dir', $working_dir)
+            ->with('file_type', $this->file_type);
     }
 
 
     /*****************************
      ***   Private Functions   ***
      *****************************/
-
-
-    private function setPathAndType()
-    {
-        // dd('type:'.Input::get('type'));
-
-        if (Input::has('type') && Input::get('type') === 'Files') {
-            Session::put('lfm_type', 'Files');
-            Session::put('lfm.file_location', Config::get('lfm.files_dir'));
-            Session::put('lfm.dir_location', Config::get('lfm.files_url'));
-        } else if (Input::has('type') && Input::get('type') === 'Images') {
-            Session::put('lfm_type', 'Images');
-            Session::put('lfm.file_location', Config::get('lfm.images_dir'));
-            Session::put('lfm.dir_location', Config::get('lfm.images_url'));
-        }
-    }
 
 
     private function checkMyFolderExists()
@@ -122,7 +118,7 @@ class LfmController extends Controller {
 
     public function getPath($type = null)
     {
-        $path = base_path() . '/' . Session::get('lfm.file_location');
+        $path = base_path() . '/' . $this->file_location;
 
         $path = $this->formatLocation($path, $type);
 
@@ -132,7 +128,7 @@ class LfmController extends Controller {
 
     public function getUrl($type = null)
     {
-        $url = Session::get('lfm.dir_location');
+        $url = $this->dir_location;
 
         $url = $this->formatLocation($url, $type);
 

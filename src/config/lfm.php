@@ -20,6 +20,25 @@ return [
     'files_dir'          => 'public/files/',
     'files_url'          => '/files/',
 
+    // available since v1.3.0
+    'valid_image_mimetypes' => [
+        'image/jpeg',
+        'image/pjpeg',
+        'image/png',
+        'image/gif'
+    ],
+
+    // available since v1.3.0
+    // only when '/laravel-filemanager?type=Files'
+    'valid_file_mimetypes' => [
+        'image/jpeg',
+        'image/pjpeg',
+        'image/png',
+        'image/gif',
+        'application/pdf',
+        'text/plain',
+    ],
+
     'file_type_array'         => [
         'pdf'  => 'Adobe Acrobat',
         'docx' => 'Microsoft Word',

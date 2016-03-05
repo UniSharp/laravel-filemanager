@@ -165,6 +165,26 @@ In `config/lfm.php` :
     'files_dir'          => 'public/files/',
     'files_url'          => '/files/',
     // path and url of files
+
+
+    // valid image mimetypes
+    'valid_image_mimetypes' => [
+        'image/jpeg',
+        'image/pjpeg',
+        'image/png',
+        'image/gif'
+    ],
+
+
+    // valid file mimetypes (only when '/laravel-filemanager?type=Files')
+    'valid_file_mimetypes' => [
+        'image/jpeg',
+        'image/pjpeg',
+        'image/png',
+        'image/gif',
+        'application/pdf',
+        'text/plain'
+    ],
 ```
 
 ## Customization

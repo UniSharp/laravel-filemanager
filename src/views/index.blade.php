@@ -95,6 +95,7 @@
                     </div>
                     <input type='hidden' name='working_dir' id='working_dir' value='{{$working_dir}}'>
                     <input type='hidden' name='show_list' id='show_list' value='0'>
+                    <input type='hidden' name='type' value='{{$file_type}}'>
                     <input type='hidden' name='_token' value='{{csrf_token()}}'>
                 </form>
             </div>
@@ -239,7 +240,7 @@
     function loadItems() {
         var type = 'Images';
 
-        @if ((Session::has('lfm_type')) && (Session::get('lfm_type') == 'Files'))
+        @if ('Files' === $file_type)
             type = 'Files';
         @endif
 
@@ -363,7 +364,7 @@
 
         var item_url = image_url;
 
-        @if ((Session::has('lfm_type')) && (Session::get('lfm_type') != "Images"))
+        @if ("Images" !== $file_type)
         item_url = file_url;
         @endif
 

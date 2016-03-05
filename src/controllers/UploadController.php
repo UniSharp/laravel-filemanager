@@ -4,10 +4,10 @@ use Unisharp\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Lang;
 use Intervention\Image\Facades\Image;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class UploadController
@@ -23,6 +23,15 @@ class UploadController extends LfmController {
      */
     public function upload()
     {
+        try {
+            $res = $this->uploadValidator();
+            if (true !== $res) {
+                return "Invalid upload request";
+            }
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
         if (!Input::hasFile('upload')) {
             return Lang::get('laravel-filemanager::lfm.error-file-empty');
         }
@@ -39,7 +48,7 @@ class UploadController extends LfmController {
 
         $file->move($dest_path, $new_filename);
 
-        if (Session::get('lfm_type') == 'Images') {
+        if ('Images' === $this->file_type) {
             $this->makeThumb($dest_path, $new_filename);
         }
 
@@ -49,6 +58,63 @@ class UploadController extends LfmController {
         }
 
         return 'OK';
+    }
+
+    private function uploadValidator()
+    {
+        // when uploading a file with the POST named "upload"
+
+        $file_array = Input::file();
+        $expected_file_type = $this->file_type;
+        $is_valid = false;
+
+        if (!is_array($file_array)) {
+            throw new \Exception('Incorrect file_array');
+        }
+
+        if (!array_key_exists('upload', $file_array)) {
+            throw new \Exception('name: "upload" not exists');
+        }
+
+        $file = $file_array['upload'];
+        if (!$file) {
+            throw new \Exception('Unexpected, nothing in "upload"');
+        }
+        if (!$file instanceof UploadedFile) {
+            throw new \Exception('The uploaded file should be an instance of UploadedFile');
+        }
+
+        $mimetype = $file->getMimeType();
+
+        // File MimeTypes Check
+        $valid_file_mimetypes = Config::get(
+            'lfm.valid_file_mimetypes',
+            ['application/pdf']
+        );
+        if (!is_array($valid_file_mimetypes)) {
+            throw new \Exception('valid_file_mimetypes is not set correctly');
+        }
+
+        if (in_array($mimetype, $valid_file_mimetypes) && $expected_file_type === 'Files') {
+            $is_valid = true;
+        }
+
+        // Image MimeTypes Check
+        $valid_image_mimetypes = Config::get(
+            'lfm.valid_image_mimetypes',
+            ['image/jpeg', 'image/png', 'image/gif']
+        );
+        if (!is_array($valid_image_mimetypes)) {
+            throw new \Exception('valid_image_mimetypes is not set correctly');
+        }
+        if (in_array($mimetype, $valid_image_mimetypes)) {
+            $is_valid = true;
+        }
+
+        if (false === $is_valid) {
+            throw new \Exception('Unexpected MimeType: ' . $mimetype);
+        }
+        return $is_valid;
     }
 
     private function getNewName($file)

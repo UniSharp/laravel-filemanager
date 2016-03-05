@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 

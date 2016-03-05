@@ -4,7 +4,6 @@ use Unisharp\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Lang;
 
@@ -45,7 +44,7 @@ class RenameController extends LfmController {
 
         File::move($old_file, $new_file);
 
-        if (Session::get('lfm_type') == 'Images') {
+        if ('Images' === $this->file_type) {
             File::move($thumb_path . $old_name, $thumb_path . $new_name);
         }
 
