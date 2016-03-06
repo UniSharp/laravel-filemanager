@@ -1,14 +1,21 @@
 <?php
 
 return [
+    // If true, the uploaded file will be renamed to uniqid() + file extension.
     'rename_file'        => true,
 
     'use_package_routes' => true,
 
+    // For laravel 5.2, please set to ['web', 'auth']
     'middlewares'        => ['auth'],
 
+    // Allow multi_user mode or not.
+    // If true, laravel-filemanager create private folders for each signed-in user.
     'allow_multi_user'   => true,
 
+    // The database field to identify a user.
+    // When set to 'id', the private folder will be named as the user id.
+    // NOTE: make sure to use an unique field.
     'user_field'         => 'id',
 
     'shared_folder_name' => 'shares',
@@ -39,6 +46,7 @@ return [
         'text/plain',
     ],
 
+    // file extensions array, only for showing file information, it won't affect the upload process.
     'file_type_array'         => [
         'pdf'  => 'Adobe Acrobat',
         'docx' => 'Microsoft Word',
@@ -54,6 +62,7 @@ return [
         'pptx' => 'Microsoft PowerPoint',
     ],
 
+    // file extensions array, only for showing icons, it won't affect the upload process.
     'file_icon_array'         => [
         'pdf'  => 'fa-file-pdf-o',
         'docx' => 'fa-file-word-o',
