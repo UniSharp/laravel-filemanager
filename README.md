@@ -18,6 +18,11 @@ PR is welcome!
  * Laravel 5
  * requires [intervention/image](https://github.com/Intervention/image) (to make thumbs, crop and resize images).
 
+## Notes
+
+ * For `laravel 5.2`, please set `'middlewares' => ['web', 'auth'],` in config/lfm.php
+ * With laravel-filemanager >= 1.3.0, the new configs `valid_image_mimetypes` and `valid_file_mimetypes` restrict the MIME types of the uploading files.
+
 ## Installation
 
 1. Install package 
@@ -144,6 +149,7 @@ In `config/lfm.php` :
 
     'middlewares'        => ['auth'],
     // determine middlewares that apply to all file manager routes
+    // NOTE: for laravel 5.2, please use ['web', 'auth']
 
     'allow_multi_user'   => true,
     // true : user can upload files to shared folder and their own folder
