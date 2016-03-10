@@ -410,6 +410,8 @@
       location.href = '/laravel-filemanager/download?'
       + 'working_dir='
       + $('#working_dir').val()
+      + '&type='
+      + $('#type').val()
       + '&file='
       + file_name;
     }
@@ -426,6 +428,10 @@
       @if ("Images" !== $file_type)
       item_url = file_url;
       @endif
+
+      if (path.indexOf(ds) === 0) {
+        path = path.substring(1);
+      }
 
       if (path != ds) {
         item_url = item_url + path + ds;
