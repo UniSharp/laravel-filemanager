@@ -14,8 +14,8 @@
       <tr>
         <td>
           <i class="fa fa-folder-o"></i>
-          <a id="large_folder_{{ $key }}" data-id="{{ $dir_name }}" href="javascript:clickFolder('large_folder_{{ $key }}',1)">
-            {{ $dir_name }}
+          <a class="folder-item pointer" data-id="{{ $dir_name['long'] }}">
+            {{ $dir_name['short'] }}
           </a>
         </td>
         <td></td>

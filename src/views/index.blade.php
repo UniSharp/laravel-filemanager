@@ -113,7 +113,7 @@
             </div>
             <input type='hidden' name='working_dir' id='working_dir' value='{{$working_dir}}'>
             <input type='hidden' name='show_list' id='show_list' value='0'>
-            <input type='hidden' name='type' value='{{$file_type}}'>
+            <input type='hidden' name='type' id='type' value='{{$file_type}}'>
             <input type='hidden' name='_token' value='{{csrf_token()}}'>
           </form>
         </div>
@@ -262,7 +262,8 @@
         url: '/laravel-filemanager/folders',
         data: {
           working_dir: $('#working_dir').val(),
-          show_list: $('#show_list').val()
+          show_list: $('#show_list').val(),
+          type: $('#type').val()
         },
         cache: false
       }).done(function (data) {
@@ -271,13 +272,8 @@
     }
 
     function loadItems() {
-      var type = 'Images';
       var working_dir = $('#working_dir').val();
       console.log('Current working_dir : ' + working_dir);
-
-      @if ('Files' === $file_type)
-      type = 'Files';
-      @endif
 
       $.ajax({
         type: 'GET',
@@ -286,7 +282,7 @@
         data: {
           working_dir: working_dir,
           show_list: $('#show_list').val(),
-          type: type
+          type: $('#type').val()
         },
         cache: false
       }).done(function (data) {
@@ -304,7 +300,8 @@
         url: '/laravel-filemanager/newfolder',
         data: {
           name: folder_name,
-          working_dir: $('#working_dir').val()
+          working_dir: $('#working_dir').val(),
+          type: $('#type').val()
         },
         cache: false
       }).done(function (data) {
@@ -331,7 +328,8 @@
               data: {
                 file: item_name,
                 working_dir: $('#working_dir').val(),
-                new_name: result
+                new_name: result,
+                type: $('#type').val()
               },
               cache: false
             }).done(function (data) {
@@ -356,7 +354,8 @@
             url: '/laravel-filemanager/delete',
             data: {
               working_dir: $('#working_dir').val(),
-              items: item_name
+              items: item_name,
+              type: $('#type').val()
             },
             cache: false
           }).done(function (data) {
@@ -380,7 +379,8 @@
         url: '/laravel-filemanager/crop',
         data: {
           img: image_name,
-          working_dir: $('#working_dir').val()
+          working_dir: $('#working_dir').val(),
+          type: $('#type').val()
         },
         cache: false
       }).done(function (data) {
@@ -396,7 +396,8 @@
         url: '/laravel-filemanager/resize',
         data: {
           img: image_name,
-          working_dir: $('#working_dir').val()
+          working_dir: $('#working_dir').val(),
+          type: $('#type').val()
         },
         cache: false
       }).done(function (data) {
