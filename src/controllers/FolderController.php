@@ -21,14 +21,18 @@ class FolderController extends LfmController {
      */
     public function getFolders()
     {
-        $dir_path = parent::getPath();
-        $directories = parent::getDirectories($dir_path);
+        $user_path     = parent::getPath('user');
+        $lfm_user_path = parent::getFileName($user_path);
+        $user_folders  = parent::getDirectories($user_path);
 
-        $share_path = parent::getPath('share');
+        $share_path     = parent::getPath('share');
+        $lfm_share_path = parent::getFileName($share_path);
         $shared_folders = parent::getDirectories($share_path);
 
         return View::make('laravel-filemanager::tree')
-            ->with('dirs', $directories)
+            ->with('user_dir', $lfm_user_path['long'])
+            ->with('dirs', $user_folders)
+            ->with('share_dir', $lfm_share_path['long'])
             ->with('shares', $shared_folders);
     }
 
@@ -42,7 +46,7 @@ class FolderController extends LfmController {
     {
         $folder_name = Input::get('name');
 
-        $path = parent::getPath() . $folder_name;
+        $path = parent::getPath() . DIRECTORY_SEPARATOR . $folder_name;
 
         if (!File::exists($path)) {
             File::makeDirectory($path, $mode = 0777, true, true);

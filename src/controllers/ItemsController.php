@@ -42,7 +42,7 @@ class ItemsController extends LfmController {
         $file_info = [];
 
         foreach ($files as $key => $file) {
-            $file_name = parent::getFileName($file);
+            $file_name = parent::getFileName($file)['short'];
             $file_created = filemtime($file);
             $file_size = number_format((File::size($file) / 1024), 2, ".", "");
 

@@ -12,32 +12,33 @@ class MultiUser
     		$slug = \Config::get('lfm.user_field');
 
 	        \Auth::user()->user_field = \Auth::user()->$slug;
+            $new_working_dir = DIRECTORY_SEPARATOR . \Auth::user()->user_field;
 
-	        $base = $request->input('working_dir');
+	        $previous_dir = $request->input('working_dir');
 
-	        if ($base == null) {
-	            $request->merge(['working_dir' => \Auth::user()->user_field]);
-	        } elseif ($this->wrongDir($base)) {
-	            $request->replace(['working_dir' => \Auth::user()->user_field]);
+	        if ($previous_dir == null) {
+	            $request->merge(['working_dir' => $new_working_dir]);
+	        } elseif (! $this->validDir($previous_dir)) {
+	            $request->replace(['working_dir' => $new_working_dir]);
 	        }
 	    }
 
         return $next($request);
     }
 
-    private function wrongDir($base)
+    private function validDir($previous_dir)
     {
-    	if (strpos($base, \Config::get('lfm.shared_folder_name')) !== false) {
-    		return false;
+    	if (starts_with($previous_dir, DIRECTORY_SEPARATOR . \Config::get('lfm.shared_folder_name'))) {
+    		return true;
         }
 
-        if (strpos($base, (string)\Auth::user()->user_field) !== false) {
-        	return false;
+        if (starts_with($previous_dir, DIRECTORY_SEPARATOR . (string)\Auth::user()->user_field)) {
+        	return true;
         }
 
-        if (strpos($base, (string)\Auth::user()->user_field) === false) {
-            return true;
-        }
+        // if (strpos($previous_dir, (string)\Auth::user()->user_field) === false) {
+        //     return true;
+        // }
 
         return false;
     }

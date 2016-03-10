@@ -39,9 +39,8 @@ class LfmController extends Controller {
             throw new \Exception('unexpected type parameter');
         }
 
-        $this->checkMyFolderExists();
-
-        $this->checkSharedFolderExists();
+        $this->checkDefaultFolderExists('user');
+        $this->checkDefaultFolderExists('share');
     }
 
 
@@ -52,11 +51,8 @@ class LfmController extends Controller {
      */
     public function show()
     {
-        if (Input::has('working_dir')) {
-            $working_dir = Input::get('working_dir');
-        } else {
-            $working_dir = '/';
-        }
+        $working_dir = DIRECTORY_SEPARATOR;
+        $working_dir .= (Config::get('lfm.allow_multi_user')) ? \Auth::user()->user_field : Config::get('lfm.shared_folder_name');
 
         return View::make('laravel-filemanager::index')
             ->with('working_dir', $working_dir)
@@ -69,21 +65,13 @@ class LfmController extends Controller {
      *****************************/
 
 
-    private function checkMyFolderExists()
+    private function checkDefaultFolderExists($type = 'share')
     {
-        if (\Config::get('lfm.allow_multi_user') === true) {
-            $path = $this->getPath();
-
-            if (!File::exists($path)) {
-                File::makeDirectory($path, $mode = 0777, true, true);
-            }
+        if ($type === 'user' && \Config::get('lfm.allow_multi_user') !== true) {
+            return;
         }
-    }
 
-
-    private function checkSharedFolderExists()
-    {
-        $path = $this->getPath('share');
+        $path = $this->getPath($type);
 
         if (!File::exists($path)) {
             File::makeDirectory($path, $mode = 0777, true, true);
@@ -91,20 +79,24 @@ class LfmController extends Controller {
     }
 
 
-    private function formatLocation($location, $type = null)
+    private function formatLocation($location, $type = null, $get_thumb = false)
     {
         if ($type === 'share') {
-            return $location . Config::get('lfm.shared_folder_name') . '/';
+            return $location . Config::get('lfm.shared_folder_name');
+        } elseif ($type === 'user') {
+            return $location . \Auth::user()->user_field;
         }
 
         $working_dir = Input::get('working_dir');
 
-        if ($working_dir !== '/') {
-            $location .= $working_dir . '/';
+        if (substr($working_dir, 0, 1) === DIRECTORY_SEPARATOR) {
+            $working_dir = substr($working_dir, 1);
         }
 
+        $location .= $working_dir;
+
         if ($type === 'thumb') {
-            $location = $location . Config::get('lfm.thumb_folder_name') . '/';
+            $location .= Config::get('lfm.thumb_folder_name') . DIRECTORY_SEPARATOR;
         }
 
         return $location;
@@ -116,9 +108,9 @@ class LfmController extends Controller {
      ****************************/
 
 
-    public function getPath($type = null)
+    public function getPath($type = null, $get_thumb = false)
     {
-        $path = base_path() . '/' . $this->file_location;
+        $path = base_path() . DIRECTORY_SEPARATOR . $this->file_location;
 
         $path = $this->formatLocation($path, $type);
 
@@ -157,10 +149,14 @@ class LfmController extends Controller {
 
     public function getFileName($file)
     {
-        $path_parts = explode('/', $file);
+        $lfm_dir_start = strpos($file, $this->file_location);
+        $working_dir_start = $lfm_dir_start + strlen($this->file_location);
+        $lfm_file_path = substr($file, $working_dir_start);
 
-        $filename = end($path_parts);
+        $arr_dir = explode(DIRECTORY_SEPARATOR, $lfm_file_path);
+        $arr_filename['short'] = end($arr_dir);
+        $arr_filename['long'] = DIRECTORY_SEPARATOR . $lfm_file_path;
 
-        return $filename;
+        return $arr_filename;
     }
 }
