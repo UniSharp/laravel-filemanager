@@ -1,11 +1,12 @@
 <?php
 
 return [
+    'nav-back'          => 'Back',
+    'nav-new'           => 'Yeni Klasör',
     'nav-upload'        => 'Yükle',
     'nav-thumbnails'    => 'Küçük Resim',
     'nav-list'          => 'Liste',
 
-    'menu-new'          => 'Yeni Klasör',
     'menu-rename'       => 'Ad değiştir',
     'menu-delete'       => 'Sil',
     'menu-view'         => 'Görüntüle',
@@ -41,8 +42,8 @@ return [
     'error-folder-exist'=> 'Bu adda bir klasör zaten var!',
 
     'btn-upload'        => 'Yükle',
-    'btn-close'         => 'Kapat',
     'btn-uploading'     => 'Yükleniyor...',
+    'btn-close'         => 'Kapat',
     'btn-crop'          => 'Kırp',
     'btn-cancel'        => 'İptal',
     'btn-resize'        => 'Boyutlandır',
@@ -56,5 +57,4 @@ return [
     'resize-new-width'  => 'Genişlik:',
 
     'locale-bootbox'    => 'tr',
-
 ];

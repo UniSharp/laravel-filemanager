@@ -4,16 +4,17 @@
     @if((sizeof($files) > 0) || (sizeof($directories) > 0))
 
     @foreach($directories as $key => $dir_name)
+    <?php $long_name = $dir_name['long'];?>
     <div class="col-sm-6 col-md-2">
       <div class="thumbnail text-center" data-id="{{ $dir_name['long'] }}">
-        <a id="folder_{{ $key }}" data-id="{{ $dir_name['long'] }}" onclick="clickFolder('folder_{{ $key }}',0)" class="folder-icon pointer">
+        <a data-id="{{ $dir_name['long'] }}" onclick="clickFolder('{{ $long_name }}')" class="folder-icon pointer">
           {{--<i class="fa fa-folder-o fa-5x"></i>--}}
           <img src="/vendor/laravel-filemanager/img/folder.jpg">
         </a>
       </div>
       <div class="caption text-center">
         <div class="btn-group">
-          <button type="button" onclick="clickFolder('folder_{{ $key }}',0)" class="btn btn-default btn-xs">
+          <button type="button" onclick="clickFolder('{{ $long_name }}')" class="btn btn-default btn-xs">
             {{ str_limit($dir_name['short'], $limit = 10, $end = '...') }}
           </button>
           <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-expanded="false">
@@ -21,8 +22,8 @@
             <span class="sr-only">Toggle Dropdown</span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="javascript:rename('{{ $dir_name['long'] }}')">{{ Lang::get('laravel-filemanager::lfm.menu-rename') }}</a></li>
-            <li><a href="javascript:trash('{{ $dir_name['long'] }}')">{{ Lang::get('laravel-filemanager::lfm.menu-delete') }}</a></li>
+            <li><a href="javascript:rename('{{ $dir_name['short'] }}')">{{ Lang::get('laravel-filemanager::lfm.menu-rename') }}</a></li>
+            <li><a href="javascript:trash('{{ $dir_name['short'] }}')">{{ Lang::get('laravel-filemanager::lfm.menu-delete') }}</a></li>
           </ul>
         </div>
 
@@ -38,7 +39,7 @@
     <div class="col-sm-6 col-md-2 img-row">
 
       <div class="thumbnail thumbnail-img" data-id="{{ $file_name }}" id="img_thumbnail_{{ $key }}">
-        <img id="{{ $file }}" src="{{ $thumb_src }}" alt="" style="cursor:pointer;" onclick="useFile('{{ $file_name }}')">
+        <img id="{{ $file }}" src="{{ $thumb_src }}" alt="" class="pointer" onclick="useFile('{{ $file_name }}')">
       </div>
 
       <div class="caption text-center">

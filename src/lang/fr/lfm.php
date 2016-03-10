@@ -1,11 +1,12 @@
 <?php
 
 return [
+    'nav-back'          => 'Back',
+    'nav-new'           => 'Nouveau dossier',
     'nav-upload'        => 'Charger',
     'nav-thumbnails'    => 'Vignettes',
     'nav-list'          => 'Liste',
     
-    'menu-new'          => 'Nouveau dossier',
     'menu-rename'       => 'Renommez',
     'menu-delete'       => 'Effacer',
     'menu-view'         => 'Voir le',
@@ -41,8 +42,8 @@ return [
     'error-folder-exist'=> 'Un dossier avec ce nom existe déjà !',
 
     'btn-upload'        => 'Envoyer le fichier',
-    'btn-close'         => 'Fermer',
     'btn-uploading'     => 'Envoi...',
+    'btn-close'         => 'Fermer',
     'btn-crop'          => 'Rogner',
     'btn-cancel'        => 'Annuler',
     'btn-resize'        => 'Redimensionner',
@@ -56,5 +57,4 @@ return [
     'resize-new-width'  => 'Largeur',
 
     'locale-bootbox'    => 'fr',
-
 ];

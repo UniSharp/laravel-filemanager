@@ -38,13 +38,13 @@
                       <ul class="nav navbar-nav" id="nav-buttons">
                         <li>
                           <a href="#!" id="to-previous">
-                            <i class="fa fa-arrow-left"></i> 回上一頁
+                            <i class="fa fa-arrow-left"></i> {{ Lang::get('laravel-filemanager::lfm.nav-back') }}
                           </a>
                         </li>
                         <li><a style='cursor:default;'>|</a></li>
                         <li>
                           <a href="#!" id="add-folder">
-                            <i class="fa fa-plus"></i> {{ Lang::get('laravel-filemanager::lfm.menu-new') }}
+                            <i class="fa fa-plus"></i> {{ Lang::get('laravel-filemanager::lfm.nav-new') }}
                           </a>
                         </li>
                         <li>

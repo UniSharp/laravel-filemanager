@@ -1,11 +1,12 @@
 <?php
 
 return [
+    'nav-back'          => 'Back',
+    'nav-new'           => 'Nova Pasta',
     'nav-upload'        => 'Enviar',
     'nav-thumbnails'    => 'Miniatura',
     'nav-list'          => 'Lista',
 
-    'menu-new'          => 'Nova Pasta',
     'menu-rename'       => 'Renomear',
     'menu-delete'       => 'Deletar',
     'menu-view'         => 'Ver',
@@ -41,8 +42,8 @@ return [
     'error-folder-exist'=> 'Uma pasta com este nome já existe!',
 
     'btn-upload'        => 'Enviar Arquivo',
-    'btn-close'         => 'Fechar',
     'btn-uploading'     => 'Enviando...',
+    'btn-close'         => 'Fechar',
     'btn-crop'          => 'Cortar',
     'btn-cancel'        => 'Cancelar',
     'btn-resize'        => 'Redimensionar',

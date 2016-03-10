@@ -1,11 +1,12 @@
 <?php
 
 return [
+    'nav-back'          => 'Back',
+    'nav-new'           => 'New Folder',
     'nav-upload'        => 'Upload',
     'nav-thumbnails'    => 'Thumbnails',
     'nav-list'          => 'List',
 
-    'menu-new'          => 'New Folder',
     'menu-rename'       => 'Rename',
     'menu-delete'       => 'Delete',
     'menu-view'         => 'View',
@@ -41,8 +42,8 @@ return [
     'error-folder-exist'=> 'A folder with this name already exists!',
 
     'btn-upload'        => 'Upload File',
-    'btn-close'         => 'Close',
     'btn-uploading'     => 'Uploading...',
+    'btn-close'         => 'Close',
     'btn-crop'          => 'Crop',
     'btn-cancel'        => 'Cancel',
     'btn-resize'        => 'Resize',
@@ -56,5 +57,4 @@ return [
     'resize-new-width'  => 'Width:',
 
     'locale-bootbox'    => 'en',
-
 ];

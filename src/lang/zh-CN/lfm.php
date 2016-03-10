@@ -1,11 +1,12 @@
 <?php
 
 return [
+    'nav-back'          => '回上一页',
+    'nav-new'           => '添加文件夹',
     'nav-upload'        => '上传档案',
     'nav-thumbnails'    => '缩略图显示',
     'nav-list'          => '列表显示',
 
-    'menu-new'          => '添加文件夹',
     'menu-rename'       => '重命名',
     'menu-delete'       => '删除',
     'menu-view'         => '预览',
@@ -41,8 +42,8 @@ return [
     'error-folder-exist'=> '相同名稱的資料夾已存在！',
 
     'btn-upload'        => '上传',
-    'btn-close'         => '关闭',
     'btn-uploading'     => '上传中...',
+    'btn-close'         => '关闭',
     'btn-crop'          => '裁剪',
     'btn-cancel'        => '取消',
     'btn-resize'        => '缩放',
@@ -56,5 +57,4 @@ return [
     'resize-new-width'  => '目前宽度:',
 
     'locale-bootbox'    => 'zh_CN',
-
 ];
