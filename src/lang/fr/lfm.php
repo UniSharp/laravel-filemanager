@@ -40,6 +40,9 @@ return [
     'error-delete'      => "Vous ne pouvez pas supprimer ce dossier car il n'est pas vide",
     'error-folder-name' => 'Le nom du dossier ne peut pas être vide',
     'error-folder-exist'=> 'Un dossier avec ce nom existe déjà !',
+    'error-mime'        => 'Unexpected MimeType: ',
+    'error-instance'    => 'The uploaded file should be an instance of UploadedFile',
+    'error-invalid'     => 'Invalid upload request',
 
     'btn-upload'        => 'Envoyer le fichier',
     'btn-uploading'     => 'Envoi...',

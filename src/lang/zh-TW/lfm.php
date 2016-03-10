@@ -40,6 +40,9 @@ return [
     'error-delete'      => '資料夾未清空，無法刪除！',
     'error-folder-name' => '請輸入資料夾名稱！',
     'error-folder-exist'=> '相同名稱的資料夾已存在！',
+    'error-mime'        => 'Mime 格式錯誤 : ',
+    'error-instance'    => '上傳檔案的 instance 應為 UploadedFile',
+    'error-invalid'     => '驗證失敗，上傳未成功',
 
     'btn-upload'        => '上傳',
     'btn-uploading'     => '上傳中...',

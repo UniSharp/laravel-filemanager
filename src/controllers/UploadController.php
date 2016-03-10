@@ -15,6 +15,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class UploadController extends LfmController {
 
+    private $default_file_types = ['application/pdf'];
+    private $default_image_types = ['image/jpeg', 'image/png', 'image/gif'];
+
     /**
      * Upload an image/file and (for images) create thumbnail
      *
@@ -26,21 +29,17 @@ class UploadController extends LfmController {
         try {
             $res = $this->uploadValidator();
             if (true !== $res) {
-                return "Invalid upload request";
+                return Lang::get('laravel-filemanager::lfm.error-invalid');
             }
         } catch (\Exception $e) {
             return $e->getMessage();
-        }
-
-        if (!Input::hasFile('upload')) {
-            return Lang::get('laravel-filemanager::lfm.error-file-empty');
         }
 
         $file = Input::file('upload');
 
         $new_filename = $this->getNewName($file);
 
-        $dest_path = parent::getPath();
+        $dest_path = parent::getPath('directory');
 
         if (File::exists($dest_path . $new_filename)) {
             return Lang::get('laravel-filemanager::lfm.error-file-exist');
@@ -64,55 +63,37 @@ class UploadController extends LfmController {
     {
         // when uploading a file with the POST named "upload"
 
-        $file_array = Input::file();
         $expected_file_type = $this->file_type;
         $is_valid = false;
 
-        if (!is_array($file_array)) {
-            throw new \Exception('Incorrect file_array');
-        }
-
-        if (!array_key_exists('upload', $file_array)) {
-            throw new \Exception('name: "upload" not exists');
-        }
-
-        $file = $file_array['upload'];
+        $file = Input::file('upload');
         if (!$file) {
-            throw new \Exception('Unexpected, nothing in "upload"');
+            throw new \Exception(Lang::get('laravel-filemanager::lfm.error-file-empty'));
         }
         if (!$file instanceof UploadedFile) {
-            throw new \Exception('The uploaded file should be an instance of UploadedFile');
+            throw new \Exception(Lang::get('laravel-filemanager::lfm.error-instance'));
         }
 
         $mimetype = $file->getMimeType();
 
-        // File MimeTypes Check
-        $valid_file_mimetypes = Config::get(
-            'lfm.valid_file_mimetypes',
-            ['application/pdf']
-        );
-        if (!is_array($valid_file_mimetypes)) {
-            throw new \Exception('valid_file_mimetypes is not set correctly');
+        if ($expected_file_type === 'Files') {
+            $config_name = 'lfm.valid_file_mimetypes';
+            $valid_mimetypes = Config::get($config_name, $this->default_file_types);
+        } else {
+            $config_name = 'lfm.valid_image_mimetypes';
+            $valid_mimetypes = Config::get($config_name, $this->default_image_types);
         }
 
-        if (in_array($mimetype, $valid_file_mimetypes) && $expected_file_type === 'Files') {
-            $is_valid = true;
+        if (!is_array($valid_mimetypes)) {
+            throw new \Exception('Config : ' . $config_name . ' is not set correctly');
         }
 
-        // Image MimeTypes Check
-        $valid_image_mimetypes = Config::get(
-            'lfm.valid_image_mimetypes',
-            ['image/jpeg', 'image/png', 'image/gif']
-        );
-        if (!is_array($valid_image_mimetypes)) {
-            throw new \Exception('valid_image_mimetypes is not set correctly');
-        }
-        if (in_array($mimetype, $valid_image_mimetypes)) {
+        if (in_array($mimetype, $valid_mimetypes)) {
             $is_valid = true;
         }
 
         if (false === $is_valid) {
-            throw new \Exception('Unexpected MimeType: ' . $mimetype);
+            throw new \Exception(Lang::get('laravel-filemanager::lfm.error-mime') . $mimetype);
         }
         return $is_valid;
     }
