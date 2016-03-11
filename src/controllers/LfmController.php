@@ -4,9 +4,6 @@ use Unisharp\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\View;
-use Intervention\Image\Facades\Image;
 
 /**
  * Class LfmController
@@ -54,7 +51,7 @@ class LfmController extends Controller {
         $working_dir = DIRECTORY_SEPARATOR;
         $working_dir .= (Config::get('lfm.allow_multi_user')) ? \Auth::user()->user_field : Config::get('lfm.shared_folder_name');
 
-        return View::make('laravel-filemanager::index')
+        return view('laravel-filemanager::index')
             ->with('working_dir', $working_dir)
             ->with('file_type', $this->file_type);
     }
@@ -89,11 +86,16 @@ class LfmController extends Controller {
 
         $working_dir = Input::get('working_dir');
 
+        // remove first slash
         if (substr($working_dir, 0, 1) === DIRECTORY_SEPARATOR) {
             $working_dir = substr($working_dir, 1);
         }
 
         $location .= $working_dir;
+
+        if ($type === 'directory' || $type === 'thumb') {
+            $location .= DIRECTORY_SEPARATOR;
+        }
 
         if ($type === 'thumb') {
             $location .= Config::get('lfm.thumb_folder_name') . DIRECTORY_SEPARATOR;
@@ -138,7 +140,7 @@ class LfmController extends Controller {
         foreach ($all_directories as $directory) {
             $dir_name = $this->getFileName($directory);
 
-            if ($dir_name !== $thumb_folder_name) {
+            if ($dir_name['short'] !== $thumb_folder_name) {
                 $arr_dir[] = $dir_name;
             }
         }

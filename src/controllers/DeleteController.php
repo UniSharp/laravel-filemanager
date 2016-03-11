@@ -21,7 +21,7 @@ class DeleteController extends LfmController {
     {
         $name_to_delete = Input::get('items');
 
-        $file_path = parent::getPath();
+        $file_path = parent::getPath('directory');
 
         $file_to_delete = $file_path . $name_to_delete;
         $thumb_to_delete = parent::getPath('thumb') . $name_to_delete;

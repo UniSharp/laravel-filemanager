@@ -36,10 +36,6 @@ class MultiUser
         	return true;
         }
 
-        // if (strpos($previous_dir, (string)\Auth::user()->user_field) === false) {
-        //     return true;
-        // }
-
         return false;
     }
 }

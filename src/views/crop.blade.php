@@ -52,12 +52,13 @@
       dataType: "text",
       url: "/laravel-filemanager/cropimage",
       data: {
-        img: $("#img").val(),
+        img: '{{ $img }}',
         working_dir: $("#working_dir").val(),
         dataX: $("#dataX").val(),
         dataY: $("#dataY").val(),
         dataHeight: $("#dataHeight").val(),
-        dataWidth: $("#dataWidth").val()
+        dataWidth: $("#dataWidth").val(),
+        type: $('#type').val()
       },
       cache: false
     }).done(function (data) {

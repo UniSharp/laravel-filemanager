@@ -4,10 +4,6 @@ use Unisharp\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\View;
-use Intervention\Image\Facades\Image;
 
 /**
  * Class ItemsController
@@ -32,7 +28,7 @@ class ItemsController extends LfmController {
         $directories = parent::getDirectories($path);
         $thumb_url   = parent::getUrl('thumb');
 
-        return View::make($view)
+        return view($view)
             ->with(compact('files', 'file_info', 'directories', 'thumb_url'));
     }
 

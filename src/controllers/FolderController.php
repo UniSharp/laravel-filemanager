@@ -1,11 +1,8 @@
 <?php namespace Unisharp\Laravelfilemanager\controllers;
 
 use Unisharp\Laravelfilemanager\controllers\Controller;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
 use Lang;
 
 /**
@@ -29,7 +26,7 @@ class FolderController extends LfmController {
         $lfm_share_path = parent::getFileName($share_path);
         $shared_folders = parent::getDirectories($share_path);
 
-        return View::make('laravel-filemanager::tree')
+        return view('laravel-filemanager::tree')
             ->with('user_dir', $lfm_user_path['long'])
             ->with('dirs', $user_folders)
             ->with('share_dir', $lfm_share_path['long'])
@@ -46,7 +43,7 @@ class FolderController extends LfmController {
     {
         $folder_name = Input::get('name');
 
-        $path = parent::getPath() . DIRECTORY_SEPARATOR . $folder_name;
+        $path = parent::getPath('directory') . $folder_name;
 
         if (!File::exists($path)) {
             File::makeDirectory($path, $mode = 0777, true, true);
