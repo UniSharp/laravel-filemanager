@@ -7,7 +7,7 @@
     <div class="col-sm-6 col-md-2">
       <div class="thumbnail text-center" data-id="{{ $dir_name['long'] }}">
         <a data-id="{{ $dir_name['long'] }}" class="folder-icon pointer folder-item">
-          <img src="/vendor/laravel-filemanager/img/folder.jpg">
+          <img src="/vendor/laravel-filemanager/img/folder.png">
         </a>
       </div>
       <div class="caption text-center">
