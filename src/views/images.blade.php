@@ -4,7 +4,7 @@
     @if((sizeof($files) > 0) || (sizeof($directories) > 0))
 
     @foreach($directories as $key => $dir_name)
-    <div class="col-sm-6 col-md-2">
+    <div class="col-sm-3 col-md-2">
       <div class="thumbnail text-center" data-id="{{ $dir_name['long'] }}">
         <a data-id="{{ $dir_name['long'] }}" class="folder-icon pointer folder-item">
           <img src="/vendor/laravel-filemanager/img/folder.png">
@@ -34,7 +34,7 @@
     <?php $file_name = $file_info[$key]['name'];?>
     <?php $thumb_src = $thumb_url . $file_name;?>
 
-    <div class="col-sm-6 col-md-2 img-row">
+    <div class="col-sm-3 col-md-2 img-row">
 
       <div class="thumbnail thumbnail-img" data-id="{{ $file_name }}" id="img_thumbnail_{{ $key }}">
         <img id="{{ $file }}" src="{{ $thumb_src }}" alt="" class="pointer" onclick="useFile('{{ $file_name }}')">
