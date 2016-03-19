@@ -91,14 +91,19 @@ class LfmController extends Controller {
             $working_dir = substr($working_dir, 1);
         }
 
+
         $location .= $working_dir;
 
         if ($type === 'directory' || $type === 'thumb') {
-            $location .= '/';
+            $location .= DIRECTORY_SEPARATOR;
         }
 
-        if ($type === 'thumb') {
-            $location .= Config::get('lfm.thumb_folder_name') . '/';
+        //if user is inside thumbs folder there is no need
+        // to add thumbs substring to the end of $location
+        $in_thumb_folder = preg_match('/'.Config::get('lfm.thumb_folder_name').'$/i',$working_dir);
+
+        if ($type === 'thumb' && !$in_thumb_folder) {
+            $location .= Config::get('lfm.thumb_folder_name') . DIRECTORY_SEPARATOR;
         }
 
         return $location;
@@ -125,6 +130,8 @@ class LfmController extends Controller {
         $url = $this->dir_location;
 
         $url = $this->formatLocation($url, $type);
+
+        $url = str_replace('\\','/',$url);
 
         return $url;
     }

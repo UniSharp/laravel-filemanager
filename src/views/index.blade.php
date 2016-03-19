@@ -422,7 +422,7 @@
 
     function useFile(file) {
       var path = $('#working_dir').val();
-alert(path);
+
       var item_url = image_url;
 
       @if ("Images" !== $file_type)
@@ -445,6 +445,7 @@ alert(path);
 
       var field_name = getUrlParam('field_name');
       var url = item_url + file;
+          url = url.replace(/\\/g,"/");
 
       if (window.opener || window.tinyMCEPopup || field_name || getUrlParam('CKEditorCleanUpFuncNum') || getUrlParam('CKEditor')) {
         if (window.tinyMCEPopup) {
