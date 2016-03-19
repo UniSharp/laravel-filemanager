@@ -9,7 +9,8 @@
     "tinymce",
     "upload",
     "file",
-    "manager"
+    "manager",
+    "image"
   ],
   "authors": [
     {
