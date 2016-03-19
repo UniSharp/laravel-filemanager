@@ -422,7 +422,7 @@
 
     function useFile(file) {
       var path = $('#working_dir').val();
-
+alert(path);
       var item_url = image_url;
 
       @if ("Images" !== $file_type)

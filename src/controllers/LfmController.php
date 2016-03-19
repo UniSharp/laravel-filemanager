@@ -94,11 +94,11 @@ class LfmController extends Controller {
         $location .= $working_dir;
 
         if ($type === 'directory' || $type === 'thumb') {
-            $location .= DIRECTORY_SEPARATOR;
+            $location .= '/';
         }
 
         if ($type === 'thumb') {
-            $location .= Config::get('lfm.thumb_folder_name') . DIRECTORY_SEPARATOR;
+            $location .= Config::get('lfm.thumb_folder_name') . '/';
         }
 
         return $location;
@@ -155,7 +155,7 @@ class LfmController extends Controller {
         $working_dir_start = $lfm_dir_start + strlen($this->file_location);
         $lfm_file_path = substr($file, $working_dir_start);
 
-        $arr_dir = explode(DIRECTORY_SEPARATOR, $lfm_file_path);
+        $arr_dir = explode('/', $lfm_file_path);
         $arr_filename['short'] = end($arr_dir);
         $arr_filename['long'] = DIRECTORY_SEPARATOR . $lfm_file_path;
 
