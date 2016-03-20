@@ -135,7 +135,7 @@ PR is welcome!
 </script>
 ```
 
-### Option 3: Independent use
+##Independent use
 
 If you are going to use filemanager independently,meaning set the value of an input to selected photo/file url,follow this structure:
 
