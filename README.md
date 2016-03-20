@@ -143,6 +143,7 @@ If you are going to use filemanager independently,meaning set the value of an in
 
 ```html
     <a href="/laravel-filemanager" id="feature-img-container"><img src="no_photo.jpg"></a>
+	<input name="thumbnail" type="hidden" id="thumbnail">
 ```	
 
 ```javascript
