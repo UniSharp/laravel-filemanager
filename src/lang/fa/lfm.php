@@ -23,7 +23,7 @@ return [
     'title-item'        => 'آیتم',
     'title-size'        => 'اندازه',
     'title-type'        => 'نوع',
-    'title-modified'    => 'اصلاح شد',
+    'title-modified'    => 'تاریخ آخرین ویرایش',
     'title-action'      => 'اقدام',
 
     'type-folder'       => 'پوشه',
