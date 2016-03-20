@@ -155,7 +155,7 @@ If you are going to use filemanager independently,meaning set the value of an in
    });
 ```
 
-2. define a function named `SetUrl` :
+2. define a function named `SetUrl`:
 
 ```javascript
     function SetUrl(url){
