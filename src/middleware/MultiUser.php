@@ -15,7 +15,7 @@ class MultiUser
             $new_working_dir = DIRECTORY_SEPARATOR . \Auth::user()->user_field;
 
 	        $previous_dir = $request->input('working_dir');
-
+var_dump($previous_dir);
 	        if ($previous_dir == null) {
 	            $request->merge(['working_dir' => $new_working_dir]);
 	        } elseif (! $this->validDir($previous_dir)) {
