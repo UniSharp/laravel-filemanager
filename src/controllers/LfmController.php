@@ -48,7 +48,7 @@ class LfmController extends Controller {
      */
     public function show()
     {
-        $working_dir = DIRECTORY_SEPARATOR;
+        $working_dir = '/';
         $working_dir .= (Config::get('lfm.allow_multi_user')) ? \Auth::user()->user_field : Config::get('lfm.shared_folder_name');
 
         return view('laravel-filemanager::index')
@@ -87,7 +87,7 @@ class LfmController extends Controller {
         $working_dir = Input::get('working_dir');
 
         // remove first slash
-        if (substr($working_dir, 0, 1) === DIRECTORY_SEPARATOR) {
+        if (substr($working_dir, 0, 1) === '/') {
             $working_dir = substr($working_dir, 1);
         }
 
@@ -95,7 +95,7 @@ class LfmController extends Controller {
         $location .= $working_dir;
 
         if ($type === 'directory' || $type === 'thumb') {
-            $location .= DIRECTORY_SEPARATOR;
+            $location .= '/';
         }
 
         //if user is inside thumbs folder there is no need
@@ -103,7 +103,7 @@ class LfmController extends Controller {
         $in_thumb_folder = preg_match('/'.Config::get('lfm.thumb_folder_name').'$/i',$working_dir);
 
         if ($type === 'thumb' && !$in_thumb_folder) {
-            $location .= Config::get('lfm.thumb_folder_name') . DIRECTORY_SEPARATOR;
+            $location .= Config::get('lfm.thumb_folder_name') . '/';
         }
 
         return $location;
@@ -117,7 +117,7 @@ class LfmController extends Controller {
 
     public function getPath($type = null, $get_thumb = false)
     {
-        $path = base_path() . DIRECTORY_SEPARATOR . $this->file_location;
+        $path = base_path() . '/' . $this->file_location;
 
         $path = $this->formatLocation($path, $type);
 
@@ -164,7 +164,7 @@ class LfmController extends Controller {
 
         $arr_dir = explode('/', $lfm_file_path);
         $arr_filename['short'] = end($arr_dir);
-        $arr_filename['long'] = DIRECTORY_SEPARATOR . $lfm_file_path;
+        $arr_filename['long'] = '/' . $lfm_file_path;
 
         return $arr_filename;
     }

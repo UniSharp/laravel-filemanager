@@ -1,5 +1,5 @@
 <script>
-var ds            = "{{ addslashes(DIRECTORY_SEPARATOR) }}";
+var ds            = '/';
 var home_dir      = ds + "{{ (Config::get('lfm.allow_multi_user')) ? Auth::user()->user_field : '' }}";
 var shared_folder = ds + "{{ Config::get('lfm.shared_folder_name') }}";
 var image_url     = "{{ Config::get('lfm.images_url') }}";
