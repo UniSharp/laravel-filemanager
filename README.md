@@ -135,6 +135,41 @@ PR is welcome!
 </script>
 ```
 
+##Independent use
+
+If you are going to use filemanager independently,meaning set the value of an input to selected photo/file url,follow this structure:
+
+1. create a popup window or modal(whatever you like):
+
+```html
+    <a href="/laravel-filemanager" id="feature-img-container"><img src="no_photo.jpg"></a>
+	<input name="thumbnail" type="hidden" id="thumbnail">
+```	
+
+```javascript
+    $('#feature-img-container').on('click', function(e)
+   {
+
+        window.open(this.href, 'Filemanager', 'width=900,height=600');
+
+        return false;
+   });
+```
+
+2. define a function named `SetUrl`:
+
+```javascript
+    function SetUrl(url){
+
+	  //set the value of the desired input to image url,often this is a hidden input
+      $('#thumbnail').val(url);
+	  
+	  //set or change the feature image src,recall wordpress feature image
+      $('#feature-img-container').find('img').attr('src',url);
+    }
+```
+
+
 ## Config
     
 In `config/lfm.php` :

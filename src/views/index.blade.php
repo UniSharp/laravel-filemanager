@@ -150,7 +150,7 @@
   <script src="/vendor/laravel-filemanager/js/cropper.min.js"></script>
   <script src="/vendor/laravel-filemanager/js/jquery.form.min.js"></script>
   <script>
-    var ds            = "{{ DIRECTORY_SEPARATOR }}";
+    var ds            = "{{ addslashes(DIRECTORY_SEPARATOR) }}";
     var home_dir      = ds + "{{ (Config::get('lfm.allow_multi_user')) ? Auth::user()->user_field : '' }}";
     var shared_folder = ds + "{{ Config::get('lfm.shared_folder_name') }}";
     var image_url     = "{{ Config::get('lfm.images_url') }}";
@@ -445,6 +445,7 @@
 
       var field_name = getUrlParam('field_name');
       var url = item_url + file;
+          url = url.replace(/\\/g,"/");
 
       if (window.opener || window.tinyMCEPopup || field_name || getUrlParam('CKEditorCleanUpFuncNum') || getUrlParam('CKEditor')) {
         if (window.tinyMCEPopup) {
@@ -486,9 +487,8 @@
             parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorCleanUpFuncNum'));
           }
         } else {
-
           // use FCKEditor 2.0 integration method
-          if (data['Properties']['Width'] != '') {
+          if (typeof data != 'undefined' && data['Properties']['Width'] != '') {
             var p = url;
             var w = data['Properties']['Width'];
             var h = data['Properties']['Height'];
@@ -507,6 +507,7 @@
 
       window.close();
     }
+    //end useFile
 
     function notImp() {
       bootbox.alert('Not yet implemented!');;
@@ -533,6 +534,7 @@
       }
       return text;
     }
+
   </script>
 </body>
 </html>
