@@ -23,6 +23,7 @@ PR is welcome!
   1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/customization.md)
 
 ## Screenshots
+![Independent usage example](http://unisharp.github.io/images/lfm01.png)
 ![FileManager screenshot 1](http://unisharp.com/img/filemanager1.png)
 ![FileManager screenshot 2](http://unisharp.com/img/filemanager2.png)
 
