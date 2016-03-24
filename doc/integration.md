@@ -105,6 +105,12 @@ If you are going to use filemanager independently, meaning set the value of an i
         <img id="holder" style="margin-top:15px;max-height:100px;">
     ``` 
 
+1. Import lfm.js(run `php artisan vendor:publish` if you need).
+
+    ```javascript
+        <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
+    ```
+
 1. Init filemanager with type. (requires jQuery)
 
     ```javascript
