@@ -1,6 +1,6 @@
 [![Latest Stable Version](https://poser.pugx.org/unisharp/laravel-filemanager/v/stable)](https://packagist.org/packages/unisharp/laravel-filemanager) [![Total Downloads](https://poser.pugx.org/unisharp/laravel-filemanager/downloads)](https://packagist.org/packages/unisharp/laravel-filemanager) [![Latest Unstable Version](https://poser.pugx.org/unisharp/laravel-filemanager/v/unstable)](https://packagist.org/packages/unisharp/laravel-filemanager) [![License](https://poser.pugx.org/unisharp/laravel-filemanager/license)](https://packagist.org/packages/unisharp/laravel-filemanager)
 
-# laravel-filemanager
+# Laravel Filemanager
 
 A files and images management user interface with file uploading support. (Works well with CKEditor and TinyMCE)
 
@@ -9,9 +9,11 @@ PR is welcome!
 ## Overview
 
  * The project was forked from [tsawler/laravel-filemanager](http://packalyst.com/packages/package/tsawler/laravel-filemanager)
- * Support public and private folders for multi users
- * Customizable views, routes and middlewares
+ * Customizable routes and middlewares
  * Supported locales : en, fr, pt-BR, tr, zh-CN, zh-TW
+ * Supports public and private folders for multi users
+ * Supports multi-level folders
+ * Supports using independently(see integration doc)
 
 ## Documents
 
@@ -28,8 +30,10 @@ PR is welcome!
  * All contibutors from GitHub. (issues / PR)
  * Special thanks to
    * [@taswler](https://github.com/tsawler) the original author.
+   * [@olivervogel](https://github.com/olivervogel) for the awesome [image library](https://github.com/Intervention/image)
    * [@welcoMattic](https://github.com/welcoMattic) providing fr translations and lots of bugfixes.
    * [@fraterblack](https://github.com/fraterblack) TinyMCE 4 support and pt-BR translations.
    * [@1dot44mb](https://github.com/1dot44mb) tr translations.
-   * [@olivervogel](https://github.com/olivervogel) for the awesome [image library](https://github.com/Intervention/image)
+   * [@Nikita240](https://github.com/Nikita240) fixing controller extending errors.
+   * [@amin101](https://github.com/amin101) guide for independent use and fixes for url/directory error on Windows
    * [All @UniSharp members](https://github.com/UniSharp)

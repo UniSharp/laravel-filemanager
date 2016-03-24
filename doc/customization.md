@@ -1,6 +1,19 @@
+## Documents
+
+  1. [Installation](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/installation.md)
+  1. [Intergration](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/integration.md)
+  1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/config.md)
+  1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/customization.md)
+
 ## Customization
 
-1. If the route is changed, make sure urls below is correspond to your route :
+Feel free to customize the routes and views if your need.
+
+### Routes
+
+1. Copy the routes in src/routes.php
+
+1. Make sure urls below is correspond to your route :
 
   CKEditor
     ```javascript
@@ -25,8 +38,10 @@
         }
         ...
     ```
-    
-1. To customize the views :
+
+### Views
+
+1. Copy the views form src/views/ :
 
     on Linux :
 

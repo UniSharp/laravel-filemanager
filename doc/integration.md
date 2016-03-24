@@ -1,3 +1,10 @@
+## Documents
+
+  1. [Installation](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/installation.md)
+  1. [Intergration](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/integration.md)
+  1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/config.md)
+  1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/customization.md)
+
 ## WYSIWYG Editor Integration:
 ### Option 1: CKEditor
 
@@ -80,34 +87,31 @@
 
 ##Independent use
 
-If you are going to use filemanager independently,meaning set the value of an input to selected photo/file url,follow this structure:
+If you are going to use filemanager independently, meaning set the value of an input to selected photo/file url, follow this structure:
 
-1. create a popup window or modal(whatever you like):
+1. Create a button, input, and image preview holder if you are going to choose images.
 
-```html
-    <a href="/laravel-filemanager" id="feature-img-container"><img src="no_photo.jpg"></a>
-  <input name="thumbnail" type="hidden" id="thumbnail">
-``` 
+    Specify the id to the input and image preview by `data-input` and `data-preview`.
 
-```javascript
-    $('#feature-img-container').on('click', function(e)
-   {
+    ```html
+        <div class="input-group">
+          <span class="input-group-btn">
+            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+              <i class="fa fa-picture-o"> Choose
+            </a>
+          </span>
+          <input id="thumbnail" class="form-control" type="text" name="filepath">
+        </div>
+        <img id="holder" style="margin-top:15px;max-height:100px;">
+    ``` 
 
-        window.open(this.href, 'Filemanager', 'width=900,height=600');
+1. Init filemanager with type. (required jQuery)
 
-        return false;
-   });
-```
+    ```javascript
+        $('#lfm').filemanager('image');
+    ```
+    or
 
-2. define a function named `SetUrl`:
-
-```javascript
-    function SetUrl(url){
-
-    //set the value of the desired input to image url,often this is a hidden input
-      $('#thumbnail').val(url);
-    
-    //set or change the feature image src,recall wordpress feature image
-      $('#feature-img-container').find('img').attr('src',url);
-    }
-```
+    ```javascript
+        $('#lfm').filemanager('file');
+    ```
