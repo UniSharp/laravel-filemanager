@@ -105,7 +105,7 @@ If you are going to use filemanager independently, meaning set the value of an i
         <img id="holder" style="margin-top:15px;max-height:100px;">
     ``` 
 
-1. Init filemanager with type. (required jQuery)
+1. Init filemanager with type. (requires jQuery)
 
     ```javascript
         $('#lfm').filemanager('image');

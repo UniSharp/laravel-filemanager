@@ -36,4 +36,4 @@ PR is welcome!
    * [@1dot44mb](https://github.com/1dot44mb) tr translations.
    * [@Nikita240](https://github.com/Nikita240) fixing controller extending errors.
    * [@amin101](https://github.com/amin101) guide for independent use and fixes for url/directory error on Windows
-   * [All @UniSharp members](https://github.com/UniSharp)
+   * All [@UniSharp](https://github.com/UniSharp) members
