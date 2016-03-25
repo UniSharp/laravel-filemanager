@@ -12,7 +12,7 @@ class MultiUser
     		$slug = \Config::get('lfm.user_field');
 
 	        \Auth::user()->user_field = \Auth::user()->$slug;
-            $new_working_dir = DIRECTORY_SEPARATOR . \Auth::user()->user_field;
+            $new_working_dir = '/' . \Auth::user()->user_field;
 
 	        $previous_dir = $request->input('working_dir');
 
@@ -28,11 +28,11 @@ class MultiUser
 
     private function validDir($previous_dir)
     {
-    	if (starts_with($previous_dir, DIRECTORY_SEPARATOR . \Config::get('lfm.shared_folder_name'))) {
+    	if (starts_with($previous_dir, '/' . \Config::get('lfm.shared_folder_name'))) {
     		return true;
         }
 
-        if (starts_with($previous_dir, DIRECTORY_SEPARATOR . (string)\Auth::user()->user_field)) {
+        if (starts_with($previous_dir, '/' . (string)\Auth::user()->user_field)) {
         	return true;
         }
 

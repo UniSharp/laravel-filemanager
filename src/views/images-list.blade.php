@@ -3,7 +3,7 @@
   @if((sizeof($file_info) > 0) || (sizeof($directories) > 0))
   <table class="table table-condensed table-striped">
     <thead>
-      <th style='width:50%;'>{{ Lang::get('laravel-filemanager::lfm.title-item') }}</th>
+      <th>{{ Lang::get('laravel-filemanager::lfm.title-item') }}</th>
       <th>{{ Lang::get('laravel-filemanager::lfm.title-size') }}</th>
       <th>{{ Lang::get('laravel-filemanager::lfm.title-type') }}</th>
       <th>{{ Lang::get('laravel-filemanager::lfm.title-modified') }}</th>

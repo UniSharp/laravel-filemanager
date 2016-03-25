@@ -119,7 +119,7 @@ class UploadController extends LfmController {
 
         $thumb_img = Image::make($dest_path . $new_filename);
         $thumb_img->fit(200, 200)
-            ->save($dest_path . $thumb_folder_name . DIRECTORY_SEPARATOR . $new_filename);
+            ->save($dest_path . $thumb_folder_name . '/' . $new_filename);
         unset($thumb_img);
     }
 
