@@ -67,7 +67,7 @@ class UploadController extends LfmController {
         $is_valid = false;
 
         $file = Input::file('upload');
-        if (!$file) {
+        if (empty($file)) {
             throw new \Exception(Lang::get('laravel-filemanager::lfm.error-file-empty'));
         }
         if (!$file instanceof UploadedFile) {
