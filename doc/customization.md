@@ -41,16 +41,8 @@ Feel free to customize the routes and views if your need.
 
 ### Views
 
-1. Copy the views form src/views/ :
-
-    on Linux :
+1. Copy the views from /vendor/unisharp/laravel-filemanager/src/views/ :
 
     ```bash
-    cp -rf vendor/unisharp/laravel-filemanager/src/views/* resources/views/vendor/laravel-filemanager/
-    ```
-
-    on MAC :
-
-    ```bash
-    cp -rf vendor/unisharp/laravel-filemanager/src/views/ resources/views/vendor/laravel-filemanager/
+    php artisan vendor:publish --tag=lfm_views
     ```

@@ -25,7 +25,9 @@
   "require": {
     "php": ">=5.5.0",
     "illuminate/support": ">=4.2.0",
-    "intervention/image": "2.*"
+    "intervention/image": "2.*",
+    "ext-imagick": "*",
+    "ext-gd": "*"
   },
   "suggest": {
     "ext-gd": "to use GD library based image processing.",
