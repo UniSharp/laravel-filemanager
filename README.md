@@ -1,6 +1,6 @@
-[![Latest Stable Version](https://poser.pugx.org/unisharp/laravel-filemanager/v/stable)](https://packagist.org/packages/unisharp/laravel-filemanager) [![Total Downloads](https://poser.pugx.org/unisharp/laravel-filemanager/downloads)](https://packagist.org/packages/unisharp/laravel-filemanager) [![Latest Unstable Version](https://poser.pugx.org/unisharp/laravel-filemanager/v/unstable)](https://packagist.org/packages/unisharp/laravel-filemanager) [![License](https://poser.pugx.org/unisharp/laravel-filemanager/license)](https://packagist.org/packages/unisharp/laravel-filemanager)
-
 # Laravel Filemanager
+
+[![Latest Stable Version](https://poser.pugx.org/unisharp/laravel-filemanager/v/stable)](https://packagist.org/packages/unisharp/laravel-filemanager) [![Total Downloads](https://poser.pugx.org/unisharp/laravel-filemanager/downloads)](https://packagist.org/packages/unisharp/laravel-filemanager) [![Latest Unstable Version](https://poser.pugx.org/unisharp/laravel-filemanager/v/unstable)](https://packagist.org/packages/unisharp/laravel-filemanager) [![License](https://poser.pugx.org/unisharp/laravel-filemanager/license)](https://packagist.org/packages/unisharp/laravel-filemanager)
 
 A files and images management user interface with file uploading support. (Works well with CKEditor and TinyMCE)
 
@@ -37,7 +37,7 @@ PR is welcome!
 ![FileManager screenshot 1](http://unisharp.com/img/filemanager1.png)
 
   * Grid view :
-  
+
 ![FileManager screenshot 2](http://unisharp.com/img/filemanager2.png)
 
 ## Credits
