@@ -29,10 +29,15 @@ PR is welcome!
 
 ## Screenshots
   * Independent usage example :
+
 ![Independent usage example](http://unisharp.github.io/images/lfm01.png)
+
   * List view :
+
 ![FileManager screenshot 1](http://unisharp.com/img/filemanager1.png)
+
   * Grid view :
+  
 ![FileManager screenshot 2](http://unisharp.com/img/filemanager2.png)
 
 ## Credits
