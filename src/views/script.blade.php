@@ -270,21 +270,6 @@ function download(file_name) {
 // ==================================
 
 function useFile(file) {
-  var path = $('#working_dir').val();
-
-  var item_url = image_url;
-
-  @if ("Images" !== $file_type)
-  item_url = file_url;
-  @endif
-
-  if (path.indexOf(ds) === 0) {
-    path = path.substring(1);
-  }
-
-  if (path != ds) {
-    item_url = item_url + path + ds;
-  }
 
   function getUrlParam(paramName) {
     var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
@@ -292,61 +277,93 @@ function useFile(file) {
     return ( match && match.length > 1 ) ? match[1] : null;
   }
 
+  function useTinymce3(url) {
+    var win = tinyMCEPopup.getWindowArg("window");
+    win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = url;
+    if (typeof(win.ImageDialog) != "undefined") {
+      // Update image dimensions
+      if (win.ImageDialog.getImageData) {
+        win.ImageDialog.getImageData();
+      }
+
+      // Preview if necessary
+      if (win.ImageDialog.showPreviewImage) {
+        win.ImageDialog.showPreviewImage(url);
+      }
+    }
+    tinyMCEPopup.close();
+  }
+
+  function useTinymce4AndColorbox(url, field_name) {
+    parent.document.getElementById(field_name).value = url;
+
+    if(typeof parent.tinyMCE !== "undefined") {
+      parent.tinyMCE.activeEditor.windowManager.close();
+    }
+    if(typeof parent.$.fn.colorbox !== "undefined") {
+      parent.$.fn.colorbox.close();
+    }
+  }
+
+  function useCkeditor3(url) {
+    if (window.opener) {
+      // Popup
+      window.opener.CKEDITOR.tools.callFunction(getUrlParam('CKEditorFuncNum'), url);
+    } else {
+      // Modal (in iframe)
+      parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorFuncNum'), url);
+      parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorCleanUpFuncNum'));
+    }
+  }
+
+  function useFckeditor2(url) {
+    var p = url;
+    var w = data['Properties']['Width'];
+    var h = data['Properties']['Height'];
+    window.opener.SetUrl(p,w,h);
+  }
+
+  function getFileUrl(file) {
+    var path = $('#working_dir').val();
+    var item_url = image_url;
+
+    @if ("Images" !== $file_type)
+    item_url = file_url;
+    @endif
+
+    if (path.indexOf(ds) === 0) {
+      path = path.substring(1);
+    }
+
+    if (path != ds) {
+      item_url = item_url + path + ds;
+    }
+
+    var url = item_url + file;
+    url = url.replace(/\\/g, "/");
+
+    return url;
+  }
+
+  var url = getFileUrl(file);
   var field_name = getUrlParam('field_name');
-  var url = item_url + file;
-  url = url.replace(/\\/g,"/");
 
   if (window.opener || window.tinyMCEPopup || field_name || getUrlParam('CKEditorCleanUpFuncNum') || getUrlParam('CKEditor')) {
     if (window.tinyMCEPopup) {
       // use TinyMCE > 3.0 integration method
-      var win = tinyMCEPopup.getWindowArg("window");
-      win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = url;
-      if (typeof(win.ImageDialog) != "undefined") {
-        // Update image dimensions
-        if (win.ImageDialog.getImageData) {
-          win.ImageDialog.getImageData();
-        }
-
-        // Preview if necessary
-        if (win.ImageDialog.showPreviewImage) {
-          win.ImageDialog.showPreviewImage(url);
-        }
-      }
-      tinyMCEPopup.close();
+      useTinymce3(url);
       return;
-    }
-
-    // tinymce 4 and colorbox
-    if (field_name) {
-      parent.document.getElementById(field_name).value = url;
-
-      if(typeof parent.tinyMCE !== "undefined") {
-        parent.tinyMCE.activeEditor.windowManager.close();
-      }
-      if(typeof parent.$.fn.colorbox !== "undefined") {
-        parent.$.fn.colorbox.close();
-      }
-
+    } else if (field_name) {
+      // tinymce 4 and colorbox
+      useTinymce4AndColorbox(url, field_name);
     } else if(getUrlParam('CKEditor')) {
       // use CKEditor 3.0 + integration method
-      if (window.opener) {
-        // Popup
-        window.opener.CKEDITOR.tools.callFunction(getUrlParam('CKEditorFuncNum'), url);
-      } else {
-        // Modal (in iframe)
-        parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorFuncNum'), url);
-        parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorCleanUpFuncNum'));
-      }
-    } else {
+      useCkeditor3(url);
+    } else if (typeof data != 'undefined' && data['Properties']['Width'] != '') {
       // use FCKEditor 2.0 integration method
-      if (typeof data != 'undefined' && data['Properties']['Width'] != '') {
-        var p = url;
-        var w = data['Properties']['Width'];
-        var h = data['Properties']['Height'];
-        window.opener.SetUrl(p,w,h);
-      } else {
-        window.opener.SetUrl(url);
-      }
+      useFckeditor2(url);
+    } else {
+      window.opener.SetUrl(url);
     }
 
     if (window.opener) {
