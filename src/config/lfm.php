@@ -4,6 +4,9 @@ return [
     // If true, the uploaded file will be renamed to uniqid() + file extension.
     'rename_file'        => true,
 
+    // If rename_file set to false and this set to true, then filter filename characters which are not English or numbers.
+    'check_filename'     => true,
+
     'use_package_routes' => true,
 
     // For laravel 5.2, please set to ['web', 'auth']

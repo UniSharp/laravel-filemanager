@@ -11,7 +11,7 @@ Feel free to customize the routes and views if your need.
 
 ### Routes
 
-1. Copy the routes in src/routes.php
+1. Copy the routes in /vendor/unisharp/laravel-filemanager/src/routes.php
 
 1. Make sure urls below is correspond to your route :
 

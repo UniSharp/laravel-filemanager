@@ -14,6 +14,9 @@ In `config/lfm.php` :
     // true : files will be renamed as uniqid
     // false : files will remain original names
 
+    // true : filter filename characters which are not English or numbers, and replace them with '_'
+    'check_filename'     => true,
+
     'use_package_routes' => true,
     // set this to false to customize route for file manager
 

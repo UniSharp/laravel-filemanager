@@ -104,7 +104,7 @@ class UploadController extends LfmController {
 
         if (Config::get('lfm.rename_file') === true) {
             $new_filename = uniqid();
-        } else {
+        } elseif (Config::get('lfm.check_filename') === true) {
             $new_filename = preg_replace('/[^A-Za-z0-9\-\']/', '_', $file->getClientOriginalName());
         }
 
