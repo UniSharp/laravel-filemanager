@@ -25,7 +25,7 @@ PR is welcome!
 ## Upgrade guide
   * `composer update unisharp/laravel-filemanager`
   * `php artisan vendor:publish --tag=lfm_view --force`
-  * `php artisan vendor:publish --tag=lfm_config --force`(remember to keep your previous settings in `config/lfm.php`)
+  * `php artisan vendor:publish --tag=lfm_config --force` (IMPORTANT: please backup your own `config/lfm.php` first)
 
 ## Screenshots
   * Independent usage example :
