@@ -46,3 +46,8 @@ Feel free to customize the routes and views if your need.
     ```bash
     php artisan vendor:publish --tag=lfm_views
     ```
+
+### Translations
+
+1. Copy `vendor/unisharp/laravel-filemanager/src/lang/en` to `/resources/lang/vendor/laravel-filemanager/<YOUR LANGUAGE>/lfm.php`
+2. Change the file according your preferences
