@@ -1,5 +1,6 @@
 <?php namespace Unisharp\Laravelfilemanager\controllers;
 
+use Illuminate\Support\Facades\Event;
 use Unisharp\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
@@ -8,6 +9,7 @@ use Illuminate\Support\Str;
 use Lang;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
 
 /**
  * Class UploadController
@@ -50,6 +52,8 @@ class UploadController extends LfmController {
         if ('Images' === $this->file_type) {
             $this->makeThumb($dest_path, $new_filename);
         }
+
+        Event::fire(new ImageWasUploaded(realpath($dest_path.'/'.$new_filename)));
 
         // upload via ckeditor 'Upload' tab
         if (!Input::has('show_list')) {
