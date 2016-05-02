@@ -149,6 +149,6 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
   <script src="/vendor/laravel-filemanager/js/cropper.min.js"></script>
   <script src="/vendor/laravel-filemanager/js/jquery.form.min.js"></script>
-  @include('laravel-filemanager::script');
+  @include('laravel-filemanager::script')
 </body>
 </html>
