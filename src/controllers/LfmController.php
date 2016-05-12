@@ -50,7 +50,7 @@ class LfmController extends Controller {
     public function show()
     {
         $working_dir = '/';
-        $working_dir .= (Config::get('lfm.allow_multi_user')) ? \Auth::user()->user_field : Config::get('lfm.shared_folder_name');
+        $working_dir .= (Config::get('lfm.allow_multi_user')) ? $this->getUserSlug() : Config::get('lfm.shared_folder_name');
 
         return view('laravel-filemanager::index')
             ->with('working_dir', $working_dir)
@@ -81,8 +81,10 @@ class LfmController extends Controller {
     {
         if ($type === 'share') {
             return $location . Config::get('lfm.shared_folder_name');
-        } elseif ($type === 'user' && $this->user) {
-            return $location .$this->user->field_id;
+
+        } elseif ($type === 'user') {
+            return $location . $this->getUserSlug();
+
         }
 
         $working_dir = Input::get('working_dir');
@@ -114,6 +116,12 @@ class LfmController extends Controller {
     /****************************
      ***   Shared Functions   ***
      ****************************/
+
+
+    public function getUserSlug()
+    {
+        return empty(auth()->user()) ? '' : \Auth::user()->user_field;
+    }
 
 
     public function getPath($type = null, $get_thumb = false)

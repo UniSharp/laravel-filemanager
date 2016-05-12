@@ -1,5 +1,6 @@
 <?php namespace Unisharp\Laravelfilemanager\controllers;
 
+use Illuminate\Support\Facades\Event;
 use Unisharp\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
@@ -8,6 +9,7 @@ use Illuminate\Support\Str;
 use Lang;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
 
 /**
  * Class UploadController
@@ -51,6 +53,8 @@ class UploadController extends LfmController {
             $this->makeThumb($dest_path, $new_filename);
         }
 
+        Event::fire(new ImageWasUploaded(realpath($dest_path.'/'.$new_filename)));
+
         // upload via ckeditor 'Upload' tab
         if (!Input::has('show_list')) {
             return $this->useFile($new_filename);
@@ -67,7 +71,7 @@ class UploadController extends LfmController {
         $is_valid = false;
 
         $file = Input::file('upload');
-        if (!$file) {
+        if (empty($file)) {
             throw new \Exception(Lang::get('laravel-filemanager::lfm.error-file-empty'));
         }
         if (!$file instanceof UploadedFile) {
@@ -103,8 +107,12 @@ class UploadController extends LfmController {
         $new_filename = $file->getClientOriginalName();
 
         if (Config::get('lfm.rename_file') === true) {
-            $new_filename = uniqid() . '.' . $file->getClientOriginalExtension();
+            $new_filename = uniqid();
+        } elseif (Config::get('lfm.alphanumeric_filename') === true) {
+            $new_filename = preg_replace('/[^A-Za-z0-9\-\']/', '_', $file->getClientOriginalName());
         }
+
+        $new_filename = $new_filename . '.' . $file->getClientOriginalExtension();
 
         return $new_filename;
     }

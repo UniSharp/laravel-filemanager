@@ -68,7 +68,7 @@
                   </div>
                 </nav>
 
-                @if ($errors->any())
+                @if (isset($errors) && $errors->any())
                 <div class="row">
                   <div class="col-md-12">
                     <div class="alert alert-danger" role="alert">
@@ -142,13 +142,13 @@
     </div>
   </div>
 
-  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.4.0/jquery-migrate.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
   <script src="/vendor/laravel-filemanager/js/cropper.min.js"></script>
   <script src="/vendor/laravel-filemanager/js/jquery.form.min.js"></script>
-  @include('laravel-filemanager::script');
+  @include('laravel-filemanager::script')
 </body>
 </html>
