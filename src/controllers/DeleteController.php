@@ -39,7 +39,6 @@ class DeleteController extends LfmController {
 
             File::deleteDirectory($file_to_delete);
 
-            Event::fire(new ImageWasDeleted($file_to_delete));
             return 'OK';
         }
 
