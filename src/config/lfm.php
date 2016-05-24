@@ -2,7 +2,7 @@
 
 return [
     // If true, the uploaded file will be renamed to uniqid() + file extension.
-    'rename_file'           => true,
+    'rename_file'           => false,
 
     // If rename_file set to false and this set to true, then filter filename characters which are not alphanumeric.
     'alphanumeric_filename' => true,
@@ -10,7 +10,7 @@ return [
     'use_package_routes'    => true,
 
     // For laravel 5.2, please set to ['web', 'auth']
-    'middlewares'           => ['auth'],
+    'middlewares'           => ['web','auth'],
 
     // Allow multi_user mode or not.
     // If true, laravel-filemanager create private folders for each signed-in user.
@@ -29,6 +29,9 @@ return [
 
     'files_dir'             => 'public/files/',
     'files_url'             => '/files/',
+
+    'max_image_size' => 500,
+    'max_file_size' => 1000,
 
     // available since v1.3.0
     'valid_image_mimetypes' => [

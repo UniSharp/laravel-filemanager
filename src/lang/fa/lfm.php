@@ -41,6 +41,7 @@ return [
     'error-folder-name' => 'نام پوشه نمی تواند خالی باشد!',
     'error-folder-exist'=> 'یک پوشه با این نام قبلا ایجاد شده است!',
     'error-mime'        => 'پسوند غیرمجاز: ',
+	'error-size'		=> 'سایز بیش از حد:',
     'error-instance'    => 'فایل آپلود شده باید نمونه ای از UploadedFile باشد',
     'error-invalid'     => 'درخواست آپلود غیرمعتبر',
 

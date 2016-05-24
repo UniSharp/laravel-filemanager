@@ -10,7 +10,7 @@ PR is welcome!
 
  * The project was forked from [tsawler/laravel-filemanager](http://packalyst.com/packages/package/tsawler/laravel-filemanager)
  * Customizable routes and middlewares
- * Supported locales : en, fr, pt-BR, tr, zh-CN, zh-TW
+ * Supported locales : en, fr, fa, pt-BR, tr, zh-CN, zh-TW
  * Supports public and private folders for multi users
  * Supports multi-level folders
  * Supports using independently(see integration doc)
