@@ -87,4 +87,5 @@ List of events:
    * [@Nikita240](https://github.com/Nikita240) fixing controller extending errors.
    * [@amin101](https://github.com/amin101) guide for independent use and fixes for url/directory error on Windows
    * [@nasirkhan](https://github.com/nasirkhan) bug fixes and alphanumeric filename check
+   * [@petyots](https://github.com/petyots) Bulgarian translation
    * All [@UniSharp](https://github.com/UniSharp) members
