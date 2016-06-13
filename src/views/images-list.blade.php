@@ -1,4 +1,5 @@
 <div class="container">
+
   @if((sizeof($file_info) > 0) || (sizeof($directories) > 0))
   <table class="table table-condensed table-striped">
     <thead>
