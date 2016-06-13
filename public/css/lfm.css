@@ -1,0 +1,58 @@
+html, body {
+    height: 100%;
+}
+
+.img-row {
+    overflow: visible;
+    margin-bottom: 10px;
+}
+
+.container {
+    height: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 99%;
+}
+
+.fill {
+    height: 100%;
+    min-height: 100%;
+}
+
+.wrapper {
+    height: 100%;
+}
+
+#lfm-leftcol {
+    min-height: 80%;
+}
+
+#right-nav {
+    border-left: 1px solid silver;
+    height: 90%;
+    min-height: 90%;
+}
+
+#content {
+    overflow: auto;
+}
+
+#tree1 {
+    margin-left: 5px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.img-preview {
+    background-color: #f7f7f7;
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+    height: 200px;
+}
+
+.hidden {
+    display: none;
+}

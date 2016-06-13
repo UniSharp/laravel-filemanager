@@ -1,0 +1,39 @@
+{
+  "name": "unisharp/laravel-filemanager",
+  "description": "A file upload/editor intended for use with Laravel 5 and CKEditor / TinyMCE",
+  "license": "MIT",
+  "keywords": [
+    "filemanager",
+    "laravel",
+    "ckeditor",
+    "tinymce",
+    "upload",
+    "file",
+    "manager",
+    "image"
+  ],
+  "authors": [
+    {
+      "name": "Trevor Sawler",
+      "email": "trevor.sawler@gmail.com"
+    },
+    {
+      "name": "UniSharp Ltd.",
+      "email": "unisharp-service@unisharp.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "illuminate/support": ">=4.2.0",
+    "intervention/image": "2.*"
+  },
+  "suggest": {
+    "ext-gd": "to use GD library based image processing.",
+    "ext-imagick": "to use Imagick based image processing."
+  },
+  "autoload": {
+    "psr-4": {
+      "Unisharp\\Laravelfilemanager\\": "src/"
+    }
+  }
+}
