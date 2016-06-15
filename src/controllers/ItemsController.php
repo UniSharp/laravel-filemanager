@@ -22,6 +22,7 @@ class ItemsController extends LfmController {
         $type = Input::get('type');
         $view = $this->getView($type);
         $path = parent::getPath();
+        $options = Config::get('lfm.options');
 
         $files       = File::files($path);
         $file_info   = $this->getFileInfos($files, $type);
@@ -29,7 +30,7 @@ class ItemsController extends LfmController {
         $thumb_url   = parent::getUrl('thumb');
 
         return view($view)
-            ->with(compact('files', 'file_info', 'directories', 'thumb_url'));
+            ->with(compact('files', 'file_info', 'directories', 'thumb_url', 'options'));
     }
 
 

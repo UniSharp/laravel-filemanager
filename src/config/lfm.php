@@ -16,6 +16,20 @@ return [
     // If true, laravel-filemanager create private folders for each signed-in user.
     'allow_multi_user'      => true,
 
+    // The type of view that will be used by default
+    // Options are
+    // list_view [default]
+    // thumbnails
+    'view' => 'list_view',
+
+    // The options that will be available for the user
+    'options' => [
+        'rename' => false,
+        'crop' => false,
+        'remove' => false,
+        'resize' => false
+    ],
+
     // The database field to identify a user.
     // When set to 'id', the private folder will be named as the user id.
     // NOTE: make sure to use an unique field.

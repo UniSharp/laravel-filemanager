@@ -7,7 +7,10 @@
       <th>{{ Lang::get('laravel-filemanager::lfm.title-size') }}</th>
       <th>{{ Lang::get('laravel-filemanager::lfm.title-type') }}</th>
       <th>{{ Lang::get('laravel-filemanager::lfm.title-modified') }}</th>
-      <th>{{ Lang::get('laravel-filemanager::lfm.title-action') }}</th>
+      <th>
+        @if($options['remove'])
+        {{ Lang::get('laravel-filemanager::lfm.title-action') }}</th>
+        @endif
     </thead>
     <tbody>
       @foreach($directories as $key => $dir_name)
@@ -33,10 +36,12 @@
           <a href="javascript:useFile('{{ $file_name }}')">
             {{ $file_name }}
           </a>
+          @if($options['rename'])
           &nbsp;&nbsp;
           <a href="javascript:rename('{{ $file_name }}')">
             <i class="fa fa-edit"></i>
           </a>
+          @endif
         </td>
         <td>
           {{ $file['size'] }}
@@ -48,9 +53,11 @@
           {{ date("Y-m-d h:m", $file['created']) }}
         </td>
         <td>
+          @if($options['remove'])
           <a href="javascript:trash('{{ $file_name }}')">
             <i class="fa fa-trash fa-fw"></i>
           </a>
+          @endif
         </td>
       </tr>
       @endforeach

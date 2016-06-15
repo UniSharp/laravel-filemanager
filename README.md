@@ -25,7 +25,7 @@ PR is welcome!
 ## Upgrade guide
   * `composer update unisharp/laravel-filemanager`
   * `php artisan vendor:publish --tag=lfm_view --force`
-  * `php artisan vendor:publish --tag=lfm_config --force` (IMPORTANT: please backup your own `config/lfm.php` first)
+  * `php artisan vendor:publish --tag=lfm_config --force`(remember to keep your previous settings in `config/lfm.php`)
 
 ## Screenshots
   * Independent usage example :
@@ -39,42 +39,6 @@ PR is welcome!
   * Grid view :
 
 ![FileManager screenshot 2](http://unisharp.com/img/filemanager2.png)
-
-## Events
-
-To use events you can add a listener to listen to the events
-
-Snippet for `EventServiceProvider`
-```php
-    protected $listen = [
-        ImageWasUploaded::class => [
-            UploadListener::class,
-        ],
-    ];
-```
-
-The `UploadListener` will look like:
-```php
-class UploadListener
-{
-    public function handle($event)
-    {
-        $method = 'on'.class_basename($event);
-        if (method_exists($this, $method)) {
-            call_user_func([$this, $method], $event);
-        }
-    }
-
-    public function onImageWasUploaded(ImageWasUploaded $event)
-    {
-        $path = $event->path();
-        //your code, for example resizing and cropping
-    }
-}
-```
-
-List of events:
- * Unisharp\Laravelfilemanager\Events\ImageWasUploaded
 
 ## Credits
  * All contibutors from GitHub. (issues / PR)
