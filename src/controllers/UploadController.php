@@ -133,7 +133,7 @@ class UploadController extends LfmController {
 
     private function useFile($new_filename)
     {
-        $file = parent::getUrl() . $new_filename;
+        $file = parent::getUrl('directory') . $new_filename;
 
         return "<script type='text/javascript'>
 
