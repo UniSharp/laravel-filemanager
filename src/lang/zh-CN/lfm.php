@@ -33,6 +33,7 @@ return [
     'message-delete'    => '确定要删除此项目吗？',
     'message-name'      => '文件夹名称:',
     'message-rename'    => '重命名为:',
+    'message-extension_not_found' => '请安装 gd 或 imagick 以使用缩放、裁剪、及缩图功能',
 
     'error-rename'      => '名称重复，请重新输入！',
     'error-file-empty'  => '请选择档案！',

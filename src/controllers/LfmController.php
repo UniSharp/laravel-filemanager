@@ -51,9 +51,12 @@ class LfmController extends Controller {
         $working_dir = '/';
         $working_dir .= (Config::get('lfm.allow_multi_user')) ? $this->getUserSlug() : Config::get('lfm.shared_folder_name');
 
+        $extension_not_found = ! extension_loaded('gd') && ! extension_loaded('imagick');
+
         return view('laravel-filemanager::index')
             ->with('working_dir', $working_dir)
-            ->with('file_type', $this->file_type);
+            ->with('file_type', $this->file_type)
+            ->with('extension_not_found', $extension_not_found);
     }
 
 

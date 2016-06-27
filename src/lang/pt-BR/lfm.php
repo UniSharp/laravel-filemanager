@@ -33,6 +33,7 @@ return [
     'message-delete'    => 'Você está certo que quer deletar este arquivo?',
     'message-name'      => 'Nome da pasta:',
     'message-rename'    => 'Renomear para:',
+    'message-extension_not_found' => '(translation wanted)',
 
     'error-rename'      => 'Nome de arquivo já está em uso!',
     'error-file-empty'  => 'Você deve escolher um arquivo!',
