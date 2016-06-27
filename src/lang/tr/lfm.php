@@ -33,6 +33,7 @@ return [
     'message-delete'    => 'Bu dosyayı silmek istediğinizden emin misiniz?',
     'message-name'      => 'Klasör adı:',
     'message-rename'    => 'Yeni ad:',
+    'message-extension_not_found' => '(translation wanted)',
 
     'error-rename'      => 'Dosya adı kullanımda!',
     'error-file-empty'  => 'Bir dosya seçmelisiniz!',

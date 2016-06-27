@@ -6,7 +6,7 @@ return [
     'nav-upload'        => 'Charger',
     'nav-thumbnails'    => 'Vignettes',
     'nav-list'          => 'Liste',
-    
+
     'menu-rename'       => 'Renommez',
     'menu-delete'       => 'Effacer',
     'menu-view'         => 'Voir le',
@@ -33,6 +33,7 @@ return [
     'message-delete'    => 'Êtes-vous sûr de vouloir supprimer ce fichier ?',
     'message-name'      => 'Nom du dossier:',
     'message-rename'    => 'Renommer le dossier:',
+    'message-extension_not_found' => '(translation wanted)',
 
     'error-rename'      => 'Ce nom est déjà pris !',
     'error-file-empty'  => 'Veuillez choisir un fichier',

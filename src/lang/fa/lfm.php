@@ -33,6 +33,7 @@ return [
     'message-delete'    => 'آیا برای حذف این آیتم مطمئن هستید؟',
     'message-name'      => 'نام پوشه:',
     'message-rename'    => 'تغییر نام به:',
+    'message-extension_not_found' => '(translation wanted)',
 
     'error-rename'      => 'این نام قبلا استفاده شده!',
     'error-file-empty'  => 'شما باید یک فایل را انتخاب کنید!',

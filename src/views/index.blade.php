@@ -24,6 +24,9 @@
                 </div>
               </div>
               <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10 right-nav" id="right-nav">
+                @if($extension_not_found)
+                <div class="alert alert-warning"><i class="glyphicon glyphicon-exclamation-sign"></i> {{ Lang::get('laravel-filemanager::lfm.message-extension_not_found') }}</div>
+                @endif
                 <nav class="navbar navbar-default">
                   <div class="container-fluid">
                     <div class="navbar-header">

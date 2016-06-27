@@ -7,7 +7,6 @@ return [
     'nav-thumbnails'    => 'Miniaturas',
     'nav-list'          => 'Listado',
 
-    'menu-new'          => 'Nueva Carpeta',
     'menu-rename'       => 'Cambiar Nombre',
     'menu-delete'       => 'Eliminar',
     'menu-view'         => 'Ver',
@@ -34,6 +33,7 @@ return [
     'message-delete'    => '¿Está seguro que desea eliminar este item?',
     'message-name'      => 'Nombre de Carpeta:',
     'message-rename'    => 'Renombrar a:',
+    'message-extension_not_found' => '(translation wanted)',
 
     'error-rename'      => '¡Nombre de Archivo ya existe!',
     'error-file-empty'  => '¡Debes escoger un archivo!',
