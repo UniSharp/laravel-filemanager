@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
 use Lang;
 use Unisharp\Laravelfilemanager\Events\ImageWasRenamed;
+use Unisharp\Laravelfilemanager\Events\FolderWasRenamed;
 
 /**
  * Class RenameController
@@ -39,10 +40,9 @@ class RenameController extends LfmController {
             return Lang::get('laravel-filemanager::lfm.error-rename');
         }
 
-        Event::fire(new ImageWasRenamed($old_file, $new_file));
-
         if (File::isDirectory($old_file)) {
             File::move($old_file, $new_file);
+            Event::fire(new FolderWasRenamed($old_file, $new_file));
             return 'OK';
         }
 
@@ -52,6 +52,8 @@ class RenameController extends LfmController {
             File::move($thumb_path . $old_name, $thumb_path . $new_name);
         }
 
+        Event::fire(new ImageWasRenamed($old_file, $new_file));
+        
         return 'OK';
     }
 }
