@@ -7,7 +7,6 @@ return [
     'nav-thumbnails'    => 'Miniaturas',
     'nav-list'          => 'Listado',
 
-    'menu-new'          => 'Nueva Carpeta',
     'menu-rename'       => 'Cambiar Nombre',
     'menu-delete'       => 'Eliminar',
     'menu-view'         => 'Ver',
