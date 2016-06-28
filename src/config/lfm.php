@@ -52,10 +52,10 @@ return [
     // file extensions array, only for showing file information, it won't affect the upload process.
     'file_type_array'         => [
         'pdf'  => 'Adobe Acrobat',
-        'docx' => 'Microsoft Word',
+        'doc'  => 'Microsoft Word',
         'docx' => 'Microsoft Word',
         'xls'  => 'Microsoft Excel',
-        'xls'  => 'Microsoft Excel',
+        'xlsx' => 'Microsoft Excel',
         'zip'  => 'Archive',
         'gif'  => 'GIF Image',
         'jpg'  => 'JPEG Image',
@@ -68,10 +68,10 @@ return [
     // file extensions array, only for showing icons, it won't affect the upload process.
     'file_icon_array'         => [
         'pdf'  => 'fa-file-pdf-o',
-        'docx' => 'fa-file-word-o',
+        'doc'  => 'fa-file-word-o',
         'docx' => 'fa-file-word-o',
         'xls'  => 'fa-file-excel-o',
-        'xls'  => 'fa-file-excel-o',
+        'xlsx' => 'fa-file-excel-o',
         'zip'  => 'fa-file-archive-o',
         'gif'  => 'fa-file-image-o',
         'jpg'  => 'fa-file-image-o',
