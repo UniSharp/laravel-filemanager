@@ -39,6 +39,9 @@
         'Image' => Intervention\Image\Facades\Image::class,
     ```
 
+    Code above is for Laravel 5.1.
+    In Laravel 5.0 should leave only quoted class names.
+
 1. Publish the package's config and assets :
 
     ```bash
