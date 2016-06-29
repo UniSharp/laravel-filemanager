@@ -1,7 +1,7 @@
 <div class="row fill">
   <div class="col-md-8 fill">
     <div class="crop-container">
-      <img src="{{ $img }}" class="img img-responsive">
+      <img src="{{ asset($img) }}" class="img img-responsive">
     </div>
   </div>
   <div class="col-md-4 fill">
@@ -50,7 +50,7 @@
     $.ajax({
       type: "GET",
       dataType: "text",
-      url: "/laravel-filemanager/cropimage",
+      url: "laravel-filemanager/cropimage",
       data: {
         img: '{{ $img }}',
         working_dir: $("#working_dir").val(),

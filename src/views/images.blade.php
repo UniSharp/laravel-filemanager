@@ -7,7 +7,7 @@
     <div class="col-sm-3 col-md-2">
       <div class="thumbnail text-center" data-id="{{ $dir_name['long'] }}">
         <a data-id="{{ $dir_name['long'] }}" class="folder-icon pointer folder-item">
-          <img src="/vendor/laravel-filemanager/img/folder.png">
+          <img src="{{ asset('vendor/laravel-filemanager/img/folder.png') }}">
         </a>
       </div>
       <div class="caption text-center">
@@ -37,7 +37,7 @@
     <div class="col-sm-3 col-md-2 img-row">
 
       <div class="thumbnail thumbnail-img" data-id="{{ $file_name }}" id="img_thumbnail_{{ $key }}">
-        <img id="{{ $file }}" src="{{ $thumb_src }}" alt="" class="pointer" onclick="useFile('{{ $file_name }}')">
+        <img id="{{ $file }}" src="{{ asset($thumb_src) }}" alt="" class="pointer" onclick="useFile('{{ $file_name }}')">
       </div>
 
       <div class="caption text-center">
