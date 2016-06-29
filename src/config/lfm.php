@@ -12,6 +12,9 @@ return [
     // For laravel 5.2, please set to ['web', 'auth']
     'middlewares'           => ['auth'],
 
+    // Add prefix for routes
+    'prefix'           => 'laravel-filemanager',
+
     // Allow multi_user mode or not.
     // If true, laravel-filemanager create private folders for each signed-in user.
     'allow_multi_user'      => true,

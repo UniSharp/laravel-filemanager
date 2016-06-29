@@ -24,7 +24,7 @@ return [
     'title-size'        => 'Размер',
     'title-type'        => 'Тип',
     'title-modified'    => 'Изменен',
-    'title-action'      => 'Дийствие',
+    'title-action'      => 'Действие',
 
     'type-folder'       => 'Папка',
 
