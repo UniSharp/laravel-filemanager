@@ -17,6 +17,10 @@ $(document).ready(function () {
 // ==  Navbar actions  ==
 // ======================
 
+$('#nav-buttons a').click(function (e) {
+  e.preventDefault();
+});
+
 $('#to-previous').click(function () {
   var working_dir = $('#working_dir').val();
   var last_ds = working_dir.lastIndexOf(ds);
