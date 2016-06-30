@@ -44,7 +44,7 @@ Feel free to customize the routes and views if your need.
 1. Copy the views from /vendor/unisharp/laravel-filemanager/src/views/ :
 
     ```bash
-    php artisan vendor:publish --tag=lfm_views
+    php artisan vendor:publish --tag=lfm_view
     ```
 
 ### Translations
