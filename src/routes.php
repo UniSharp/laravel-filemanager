@@ -2,7 +2,7 @@
 $middlewares = \Config::get('lfm.middlewares');
 $prefix = \Config::get('lfm.prefix', 'laravel-filemanager');
 array_push($middlewares, '\Unisharp\Laravelfilemanager\middleware\MultiUser');
-//, 'as' => 'admin.'
+
 // make sure authenticated
 Route::group(array('middleware' => $middlewares, 'prefix' => $prefix, 'as' => 'unisharp.lfm.'), function ()
 {
