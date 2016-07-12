@@ -41,7 +41,8 @@ $('#add-folder').click(function () {
 $('#upload-btn').click(function () {
   var options = {
     beforeSubmit:  showRequest,
-    success:       showResponse
+    success:       showResponse,
+    error:         showError
   };
 
   function showRequest(formData, jqForm, options) {
@@ -57,6 +58,17 @@ $('#upload-btn').click(function () {
     }
     $('#upload').val('');
     loadItems();
+  }
+
+  function showError(jqXHR, textStatus, errorThrown) {
+    $('#upload-btn').html('{{ Lang::get("laravel-filemanager::lfm.btn-upload") }}');
+    if (jqXHR.status == 413) {
+      notify('{{ Lang::get("laravel-filemanager::lfm.error-too-large") }}');
+    } else if (textStatus == 'error') {
+      notify('{{ Lang::get("laravel-filemanager::lfm.error-other") }}' + errorThrown);
+    } else {
+      notify('{{ Lang::get("laravel-filemanager::lfm.error-other") }}' + textStatus + '<br>' + errorThrown);
+    }
   }
 
   $('#uploadForm').ajaxSubmit(options);
