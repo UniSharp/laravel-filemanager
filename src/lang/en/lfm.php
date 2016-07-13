@@ -16,7 +16,7 @@ return [
 
     'title-page'        => 'File Manager',
     'title-panel'       => 'Laravel FileManager',
-    'title-upload'      => 'Upload File',
+    'title-upload'      => 'Upload File(s)',
     'title-view'        => 'View File',
     'title-root'        => 'Files',
     'title-shares'      => 'Shared Files',
@@ -29,7 +29,7 @@ return [
     'type-folder'       => 'Folder',
 
     'message-empty'     => 'Folder is empty.',
-    'message-choose'    => 'Choose File',
+    'message-choose'    => 'Choose File(s)',
     'message-delete'    => 'Are you sure you want to delete this item?',
     'message-name'      => 'Folder name:',
     'message-rename'    => 'Rename to:',
@@ -47,7 +47,7 @@ return [
     'error-other'       => 'An error has occured: ',
     'error-too-large'   => 'Request entity too large!',
 
-    'btn-upload'        => 'Upload File',
+    'btn-upload'        => 'Upload File(s)',
     'btn-uploading'     => 'Uploading...',
     'btn-close'         => 'Close',
     'btn-crop'          => 'Crop',
