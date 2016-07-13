@@ -2,8 +2,8 @@
 var ds            = '/';
 var home_dir      = ds + "{{ (Config::get('lfm.allow_multi_user')) ? Auth::user()->user_field : '' }}";
 var shared_folder = ds + "{{ Config::get('lfm.shared_folder_name') }}";
-var image_url     = "{{ Config::get('lfm.images_url') }}";
-var file_url      = "{{ Config::get('lfm.files_url') }}";
+var image_url     = "{{ asset(Config::get('lfm.images_url')) }}";
+var file_url      = "{{ asset(Config::get('lfm.files_url')) }}";
 
 $(document).ready(function () {
   bootbox.setDefaults({locale:"{{ Lang::get('laravel-filemanager::lfm.locale-bootbox') }}"});
@@ -16,6 +16,10 @@ $(document).ready(function () {
 // ======================
 // ==  Navbar actions  ==
 // ======================
+
+$('#nav-buttons a').click(function (e) {
+  e.preventDefault();
+});
 
 $('#to-previous').click(function () {
   var working_dir = $('#working_dir').val();
@@ -37,7 +41,8 @@ $('#add-folder').click(function () {
 $('#upload-btn').click(function () {
   var options = {
     beforeSubmit:  showRequest,
-    success:       showResponse
+    success:       showResponse,
+    error:         showError
   };
 
   function showRequest(formData, jqForm, options) {
@@ -53,6 +58,17 @@ $('#upload-btn').click(function () {
     }
     $('#upload').val('');
     loadItems();
+  }
+
+  function showError(jqXHR, textStatus, errorThrown) {
+    $('#upload-btn').html('{{ Lang::get("laravel-filemanager::lfm.btn-upload") }}');
+    if (jqXHR.status == 413) {
+      notify('{{ Lang::get("laravel-filemanager::lfm.error-too-large") }}');
+    } else if (textStatus == 'error') {
+      notify('{{ Lang::get("laravel-filemanager::lfm.error-other") }}' + errorThrown);
+    } else {
+      notify('{{ Lang::get("laravel-filemanager::lfm.error-other") }}' + textStatus + '<br>' + errorThrown);
+    }
   }
 
   $('#uploadForm').ajaxSubmit(options);
@@ -108,7 +124,7 @@ function loadFolders() {
   $.ajax({
     type: 'GET',
     dataType: 'html',
-    url: '/laravel-filemanager/folders',
+    url: '{{ route("unisharp.lfm.getFolders") }}',
     data: {
       working_dir: $('#working_dir').val(),
       show_list: $('#show_list').val(),
@@ -127,7 +143,7 @@ function loadItems() {
   $.ajax({
     type: 'GET',
     dataType: 'html',
-    url: '/laravel-filemanager/jsonitems',
+    url: '{{ route("unisharp.lfm.getItems") }}',
     data: {
       working_dir: working_dir,
       show_list: $('#show_list').val(),
@@ -146,7 +162,7 @@ function createFolder(folder_name) {
   $.ajax({
     type: 'GET',
     dataType: 'text',
-    url: '/laravel-filemanager/newfolder',
+    url: '{{ route("unisharp.lfm.getAddfolder") }}',
     data: {
       name: folder_name,
       working_dir: $('#working_dir').val(),
@@ -173,7 +189,7 @@ function rename(item_name) {
         $.ajax({
           type: 'GET',
           dataType: 'text',
-          url: '/laravel-filemanager/rename',
+          url: '{{ route("unisharp.lfm.getRename") }}',
           data: {
             file: item_name,
             working_dir: $('#working_dir').val(),
@@ -200,7 +216,7 @@ function trash(item_name) {
       $.ajax({
         type: 'GET',
         dataType: 'text',
-        url: '/laravel-filemanager/delete',
+        url: '{{ route("unisharp.lfm.getDelete") }}',
         data: {
           working_dir: $('#working_dir').val(),
           items: item_name,
@@ -225,7 +241,7 @@ function cropImage(image_name) {
   $.ajax({
     type: 'GET',
     dataType: 'text',
-    url: '/laravel-filemanager/crop',
+    url: '{{ route("unisharp.lfm.getCrop") }}',
     data: {
       img: image_name,
       working_dir: $('#working_dir').val(),
@@ -242,7 +258,7 @@ function resizeImage(image_name) {
   $.ajax({
     type: 'GET',
     dataType: 'text',
-    url: '/laravel-filemanager/resize',
+    url: '{{ route("unisharp.lfm.getResize") }}',
     data: {
       img: image_name,
       working_dir: $('#working_dir').val(),
@@ -256,7 +272,7 @@ function resizeImage(image_name) {
 }
 
 function download(file_name) {
-  location.href = '/laravel-filemanager/download?'
+  location.href = '{{ route("unisharp.lfm.getDownload") }}?'
   + 'working_dir='
   + $('#working_dir').val()
   + '&type='

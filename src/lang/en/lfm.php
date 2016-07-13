@@ -44,6 +44,8 @@ return [
     'error-mime'        => 'Unexpected MimeType: ',
     'error-instance'    => 'The uploaded file should be an instance of UploadedFile',
     'error-invalid'     => 'Invalid upload request',
+    'error-other'       => 'An error has occured: ',
+    'error-too-large'   => 'Request entity too large!',
 
     'btn-upload'        => 'Upload File',
     'btn-uploading'     => 'Uploading...',
