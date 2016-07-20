@@ -24,7 +24,7 @@ return [
     'title-size'        => 'الحجم',
     'title-type'        => 'النوع',
     'title-modified'    => 'اخر تعديل',
-    'title-action'      => 'Action',
+    'title-action'      => 'اجراء',
 
     'type-folder'       => 'مجلد',
 
@@ -33,6 +33,7 @@ return [
     'message-delete'    => 'هل انت متاكد من حذف هذا الملف',
     'message-name'      => 'اسم المجلد:',
     'message-rename'    => 'اعادة تسمية الى:',
+    'message-extension_not_found' => 'يجب تثبيت gd او imagick لقص او تغيير حجم الصورة.',
 
     'error-rename'      => 'اسم الملف مستخدما مسبقا!',
     'error-file-empty'  => 'يجب اختيارملف!',
@@ -42,7 +43,9 @@ return [
     'error-folder-exist'=> 'اسم المجلد مستخدما مسبقا!',
     'error-mime'        => 'نوع الملف غير معروف: ',
     'error-instance'    => 'The uploaded file should be an instance of UploadedFile',
-    'error-invalid'     => 'Invalid upload request',
+    'error-invalid'     => 'طلب رفع غير صالح',
+    'error-other'       => 'حدثت مشكلة: ',
+    'error-too-large'   => 'الملف كبير جدا',
 
     'btn-upload'        => 'رفع الملف',
     'btn-uploading'     => 'جاري الرفع...',
@@ -52,7 +55,7 @@ return [
     'btn-resize'        => 'تغيير الحجم',
 
     'resize-ratio'      => 'النسبة:',
-    'resize-scaled'     => 'Image scaled:',
+    'resize-scaled'     => 'تم تغيير حجم الصورة:',
     'resize-true'       => 'نعم',
     'resize-old-height' => 'الارتفاع الاصلي:',
     'resize-old-width'  => 'العرض الاصلي:',
