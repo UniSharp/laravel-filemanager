@@ -1,6 +1,6 @@
-<?php namespace Unisharp\Laravelfilemanager\controllers;
+<?php namespace Jayked\Laravelfilemanager\controllers;
 
-use Unisharp\Laravelfilemanager\controllers\Controller;
+use Jayked\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
@@ -8,7 +8,7 @@ use Intervention\Image\Facades\Image;
 
 /**
  * Class CropController
- * @package Unisharp\Laravelfilemanager\controllers
+ * @package Jayked\Laravelfilemanager\controllers
  */
 class CropController extends LfmController {
 

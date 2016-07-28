@@ -1,38 +1,38 @@
 <?php
 $middlewares = \Config::get('lfm.middlewares');
-array_push($middlewares, '\Unisharp\Laravelfilemanager\middleware\MultiUser');
+array_push($middlewares, '\Jayked\Laravelfilemanager\middleware\MultiUser');
 
 // make sure authenticated
 Route::group(array('middleware' => $middlewares, 'prefix' => 'laravel-filemanager'), function ()
 {
     // Show LFM
-    Route::get('/', 'Unisharp\Laravelfilemanager\controllers\LfmController@show');
+    Route::get('/', 'Jayked\Laravelfilemanager\controllers\LfmController@show');
 
     // upload
-    Route::any('/upload', 'Unisharp\Laravelfilemanager\controllers\UploadController@upload');
+    Route::any('/upload', 'Jayked\Laravelfilemanager\controllers\UploadController@upload');
 
     // list images & files
-    Route::get('/jsonitems', 'Unisharp\Laravelfilemanager\controllers\ItemsController@getItems');
+    Route::get('/jsonitems', 'Jayked\Laravelfilemanager\controllers\ItemsController@getItems');
 
     // folders
-    Route::get('/newfolder', 'Unisharp\Laravelfilemanager\controllers\FolderController@getAddfolder');
-    Route::get('/deletefolder', 'Unisharp\Laravelfilemanager\controllers\FolderController@getDeletefolder');
-    Route::get('/folders', 'Unisharp\Laravelfilemanager\controllers\FolderController@getFolders');
+    Route::get('/newfolder', 'Jayked\Laravelfilemanager\controllers\FolderController@getAddfolder');
+    Route::get('/deletefolder', 'Jayked\Laravelfilemanager\controllers\FolderController@getDeletefolder');
+    Route::get('/folders', 'Jayked\Laravelfilemanager\controllers\FolderController@getFolders');
 
     // crop
-    Route::get('/crop', 'Unisharp\Laravelfilemanager\controllers\CropController@getCrop');
-    Route::get('/cropimage', 'Unisharp\Laravelfilemanager\controllers\CropController@getCropimage');
+    Route::get('/crop', 'Jayked\Laravelfilemanager\controllers\CropController@getCrop');
+    Route::get('/cropimage', 'Jayked\Laravelfilemanager\controllers\CropController@getCropimage');
 
     // rename
-    Route::get('/rename', 'Unisharp\Laravelfilemanager\controllers\RenameController@getRename');
+    Route::get('/rename', 'Jayked\Laravelfilemanager\controllers\RenameController@getRename');
 
     // scale/resize
-    Route::get('/resize', 'Unisharp\Laravelfilemanager\controllers\ResizeController@getResize');
-    Route::get('/doresize', 'Unisharp\Laravelfilemanager\controllers\ResizeController@performResize');
+    Route::get('/resize', 'Jayked\Laravelfilemanager\controllers\ResizeController@getResize');
+    Route::get('/doresize', 'Jayked\Laravelfilemanager\controllers\ResizeController@performResize');
 
     // download
-    Route::get('/download', 'Unisharp\Laravelfilemanager\controllers\DownloadController@getDownload');
+    Route::get('/download', 'Jayked\Laravelfilemanager\controllers\DownloadController@getDownload');
 
     // delete
-    Route::get('/delete', 'Unisharp\Laravelfilemanager\controllers\DeleteController@getDelete');
+    Route::get('/delete', 'Jayked\Laravelfilemanager\controllers\DeleteController@getDelete');
 });

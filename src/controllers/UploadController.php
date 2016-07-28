@@ -1,6 +1,6 @@
-<?php namespace Unisharp\Laravelfilemanager\controllers;
+<?php namespace Jayked\Laravelfilemanager\controllers;
 
-use Unisharp\Laravelfilemanager\controllers\Controller;
+use Jayked\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class UploadController
- * @package Unisharp\Laravelfilemanager\controllers
+ * @package Jayked\Laravelfilemanager\controllers
  */
 class UploadController extends LfmController {
 
@@ -21,11 +21,11 @@ class UploadController extends LfmController {
     /**
      * Upload an image/file and (for images) create thumbnail
      *
-     * @param UploadRequest $request
      * @return string
      */
     public function upload()
     {
+        dd('test');
         try {
             $res = $this->uploadValidator();
             if (true !== $res) {
@@ -59,6 +59,12 @@ class UploadController extends LfmController {
         return 'OK';
     }
 
+    /**
+     * Validation of the uploaded file
+     *
+     * @return bool
+     * @throws \Exception
+     */
     private function uploadValidator()
     {
         // when uploading a file with the POST named "upload"
@@ -98,21 +104,48 @@ class UploadController extends LfmController {
         return $is_valid;
     }
 
+    /**
+     * Retrieve a name for the file
+     *
+     * @param $file
+     * @return mixed|string
+     */
     private function getNewName($file)
     {
-        $new_filename = $file->getClientOriginalName();
+        $dest_path = parent::getPath('directory');
 
-        if (Config::get('lfm.rename_file') === true) {
-            $new_filename = uniqid();
-        } elseif (Config::get('lfm.alphanumeric_filename') === true) {
-            $new_filename = preg_replace('/[^A-Za-z0-9\-\']/', '_', $file->getClientOriginalName());
-        }
-
-        $new_filename = $new_filename . '.' . $file->getClientOriginalExtension();
+        $new_filename = $this->existingFile( $dest_path, $file );
 
         return $new_filename;
     }
 
+    /**
+     * Check if the file already exists with uniqid()
+     *
+     * @param $path
+     * @param $file
+     * @return string
+     */
+    private function existingFile( $path, $file )
+    {
+        $name = $file->getClientOriginalName() . '_' . uniqid();
+        $name .= '.' . $file->getClientOriginalExtension();
+
+        // If a file with the name allready exists
+        if( File::exists( $path . $name ) )
+        {
+            return self::existingFile( $path, $file );
+        }
+
+        return $name;
+    }
+
+    /**
+     * Generate a small thumb for the file
+     *
+     * @param $dest_path
+     * @param $new_filename
+     */
     private function makeThumb($dest_path, $new_filename)
     {
         $thumb_folder_name = Config::get('lfm.thumb_folder_name');
@@ -127,6 +160,12 @@ class UploadController extends LfmController {
         unset($thumb_img);
     }
 
+    /**
+     * Use the file if it has been uploaded via CKEditor or TinyMCE
+     *
+     * @param $new_filename
+     * @return string
+     */
     private function useFile($new_filename)
     {
         $file = parent::getUrl() . $new_filename;

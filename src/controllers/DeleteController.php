@@ -1,16 +1,16 @@
-<?php namespace Unisharp\Laravelfilemanager\controllers;
+<?php namespace Jayked\Laravelfilemanager\controllers;
 
 use Illuminate\Support\Facades\Event;
-use Unisharp\Laravelfilemanager\controllers\Controller;
+use Jayked\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Lang;
-use Unisharp\Laravelfilemanager\Events\ImageWasDeleted;
+use Jayked\Laravelfilemanager\Events\ImageWasDeleted;
 
 /**
  * Class CropController
- * @package Unisharp\Laravelfilemanager\controllers
+ * @package Jayked\Laravelfilemanager\controllers
  */
 class DeleteController extends LfmController {
 

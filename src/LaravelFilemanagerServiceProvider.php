@@ -1,4 +1,4 @@
-<?php namespace Unisharp\Laravelfilemanager;
+<?php namespace Jayked\Laravelfilemanager;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;

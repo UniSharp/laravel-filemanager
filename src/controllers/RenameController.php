@@ -1,6 +1,6 @@
-<?php namespace Unisharp\Laravelfilemanager\controllers;
+<?php namespace Jayked\Laravelfilemanager\controllers;
 
-use Unisharp\Laravelfilemanager\controllers\Controller;
+use Jayked\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
@@ -9,7 +9,7 @@ use Lang;
 
 /**
  * Class RenameController
- * @package Unisharp\Laravelfilemanager\controllers
+ * @package Jayked\Laravelfilemanager\controllers
  */
 class RenameController extends LfmController {
 

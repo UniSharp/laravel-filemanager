@@ -1,6 +1,6 @@
 <?php 
 
-namespace Unisharp\Laravelfilemanager\middleware;
+namespace Jayked\Laravelfilemanager\middleware;
 
 use Closure;
 
