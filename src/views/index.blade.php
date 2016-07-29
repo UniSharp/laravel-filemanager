@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <title>{{ Lang::get('laravel-filemanager::lfm.title-page') }}</title>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -27,21 +28,21 @@
                 <nav class="navbar navbar-default">
                   <div class="container-fluid">
                     <div class="navbar-header">
-                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapsable">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                       </button>
                     </div>
-                    <div class="collapse navbar-collapse">
+                    <div class="collapse navbar-collapse" id="navbar-collapsable">
                       <ul class="nav navbar-nav" id="nav-buttons">
                         <li>
                           <a href="#!" id="to-previous">
                             <i class="fa fa-arrow-left"></i> {{ Lang::get('laravel-filemanager::lfm.nav-back') }}
                           </a>
                         </li>
-                        <li><a style='cursor:default;'>|</a></li>
+                        <li class="hidden-xs"><a style='cursor:default;'>|</a></li>
                         <li>
                           <a href="#!" id="add-folder">
                             <i class="fa fa-plus"></i> {{ Lang::get('laravel-filemanager::lfm.nav-new') }}
@@ -52,7 +53,7 @@
                             <i class="fa fa-upload"></i> {{ Lang::get('laravel-filemanager::lfm.nav-upload') }}
                           </a>
                         </li>
-                        <li><a style='cursor:default;'>|</a></li>
+                        <li class="hidden-xs"><a style='cursor:default;'>|</a></li>
                         <li>
                           <a href="#!" id="thumbnail-display">
                             <i class="fa fa-picture-o"></i> {{ Lang::get('laravel-filemanager::lfm.nav-thumbnails') }}
