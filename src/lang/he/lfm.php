@@ -40,6 +40,7 @@ return [
     'error-delete'      => 'לא ניתן למחוק תייקיה זו מכיוון שהיא לא ריקה!',
     'error-folder-name' => 'נא להזין שם תיקייה!',
     'error-folder-exist'=> 'תיקייה עם שם זהה כבר קיימת!',
+    'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',
     'error-mime'        => 'סוג קובץ לא תקין: ',
     'error-instance'    => 'הקובץ שהועלה צריך להיות מופע של UploadedFile',
     'error-invalid'     => 'בקשת העלה לא תיקנית.',

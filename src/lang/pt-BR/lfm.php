@@ -41,6 +41,7 @@ return [
     'error-delete'      => 'Você não pode deletar esta pasta, pois ela não está vazia!',
     'error-folder-name' => 'Nome da pasta não pode ser vazio!',
     'error-folder-exist'=> 'Uma pasta com este nome já existe!',
+    'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',
     'error-mime'        => 'Unexpected MimeType: ',
     'error-instance'    => 'The uploaded file should be an instance of UploadedFile',
     'error-invalid'     => 'Invalid upload request',

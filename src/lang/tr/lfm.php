@@ -41,6 +41,7 @@ return [
     'error-delete'      => 'Klasör boş olmadığından, klasörü silemezsiniz!',
     'error-folder-name' => 'Klasör adı yazılmalıdır!',
     'error-folder-exist'=> 'Bu adda bir klasör zaten var!',
+    'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',
     'error-mime'        => 'Unexpected MimeType: ',
     'error-instance'    => 'The uploaded file should be an instance of UploadedFile',
     'error-invalid'     => 'Invalid upload request',

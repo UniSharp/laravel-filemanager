@@ -41,6 +41,7 @@ return [
     'error-delete'      => 'به دلیل خالی نبودن پوشه امکان حذف آن وجود ندارد!',
     'error-folder-name' => 'نام پوشه نمی تواند خالی باشد!',
     'error-folder-exist'=> 'یک پوشه با این نام قبلا ایجاد شده است!',
+    'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',
     'error-mime'        => 'پسوند غیرمجاز: ',
     'error-instance'    => 'فایل آپلود شده باید نمونه ای از UploadedFile باشد',
     'error-invalid'     => 'درخواست آپلود غیرمعتبر',

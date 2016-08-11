@@ -41,6 +41,7 @@ return [
     'error-delete'      => 'Nem tudod törölni ezt a mappát, mert nem üres!',
     'error-folder-name' => 'A mappa neve nem lehet üres!',
     'error-folder-exist'=> 'Egy mappa már létezik ezzel a névvel!',
+    'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',
     'error-mime'        => 'Váratlan fájltípusok (MimeType): ',
     'error-instance'    => 'A feltöltött fájlnak egy UploadedFile kérelemnek kellene lennie',
     'error-invalid'     => 'Érvénytelen kérés a feltöltéssel kapcsolatban.',

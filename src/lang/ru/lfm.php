@@ -40,6 +40,7 @@ return [
     'error-delete'      => 'Вы не можете удалить эту папку, потому что она не пустая!',
     'error-folder-name' => 'Имя папки не может быть пустым!',
     'error-folder-exist'=> 'Папка с таким названием уже существует!',
+    'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',
     'error-mime'        => 'Неподдерживаемый MimeType: ',
     'error-instance'    => 'Загруженный файл должен быть экземпляром UploadedFile',
     'error-invalid'     => 'Неверный запрос загрузки',

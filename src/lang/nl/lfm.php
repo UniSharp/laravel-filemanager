@@ -41,6 +41,7 @@ return [
     'error-delete'      => 'U kunt deze map niet verwijderen omdat deze nog bestanden bevat!',
     'error-folder-name' => 'Mapnaam mag niet leeg zijn!',
     'error-folder-exist'=> 'Een map met deze naam bestaat al!',
+    'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',
     'error-mime'        => 'Onverwacht MimeType: ',
     'error-instance'    => 'Het geuploade bestand moet een instantie zijn van UploadedFile',
     'error-invalid'     => 'Ongeldig upload verzoek',
