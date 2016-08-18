@@ -104,7 +104,7 @@ class UploadController extends LfmController {
 
     private function getNewName($file)
     {
-        $new_filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $new_filename = trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
 
         if (Config::get('lfm.rename_file') === true) {
             $new_filename = uniqid();

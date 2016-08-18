@@ -22,7 +22,7 @@ class RenameController extends LfmController {
     public function getRename()
     {
         $old_name = Input::get('file');
-        $new_name = Input::get('new_name');
+        $new_name = trim(Input::get('new_name'));
 
         $file_path  = parent::getPath('directory');
         $thumb_path = parent::getPath('thumb');
