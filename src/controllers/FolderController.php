@@ -42,7 +42,7 @@ class FolderController extends LfmController {
      */
     public function getAddfolder()
     {
-        $folder_name = Input::get('name');
+        $folder_name = trim(Input::get('name'));
 
         $path = parent::getPath('directory') . $folder_name;
 
