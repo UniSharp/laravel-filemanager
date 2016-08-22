@@ -32,6 +32,7 @@
     
     ```html
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
     <textarea name="content" class="form-control my-editor">{!! old('content', $content) !!}</textarea>
     <script>
