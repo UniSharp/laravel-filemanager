@@ -194,6 +194,7 @@ class LfmController extends Controller
 		$arr_dir               = explode( '/', $lfm_file_path );
 		$arr_filename['short'] = end( $arr_dir );
 		$arr_filename['long']  = '/' . $lfm_file_path;
+		$arr_filename['base']  = basename( $lfm_file_path );
 
 		return $arr_filename;
 	}

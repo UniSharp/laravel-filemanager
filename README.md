@@ -10,9 +10,16 @@ PR is welcome!
 
 ## Overview
 
- * The project was forked from [tsawler/laravel-filemanager](http://packalyst.com/packages/package/tsawler/laravel-filemanager)
+ * The project was forked from [unisharp/laravel-filemanager](http://packalyst.com/packages/package/unisharp/laravel-filemanager)
  * Customizable routes and middlewares
- * Supported locales : en, fr, pt-BR, tr, zh-CN, zh-TW, nl
+ * Supported locales :
+    - en
+    - fr
+    - pt-BR
+    - tr
+    - zh-CN
+    - zh-TW
+    - nl
  * Supports public and private folders for multi users
  * Supports multi-level folders
  * Supports using independently(see integration doc)
@@ -51,4 +58,4 @@ PR is welcome!
    * [@amin101](https://github.com/amin101) guide for independent use and fixes for url/directory error on Windows
    * [@nasirkhan](https://github.com/nasirkhan) bug fixes and alphanumeric filename check
    * All [@UniSharp](https://github.com/UniSharp) members
-   * [@Jayked](https://github.com/Jayked) with small fixes and changes just to make it more compatible with his own situation :grin:
+   * [@Jayked](https://github.com/Jayked) with small fixes and new options

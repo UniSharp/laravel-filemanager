@@ -22,7 +22,7 @@
   @foreach($shares as $key => $dir_name)
   <li>
     <a class="pointer folder-item" data-id="{{ $dir_name['long'] }}">
-      <i class="fa fa-folder"></i> {{ $dir_name['short'] }}
+      <i class="fa fa-folder"></i> {{ $dir_name['base'] }}
     </a>
   </li>
   @endforeach
