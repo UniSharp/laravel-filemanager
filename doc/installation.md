@@ -1,9 +1,9 @@
 ## Documents
 
-  1. [Installation](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/installation.md)
-  1. [Intergration](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/integration.md)
-  1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/config.md)
-  1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/customization.md)
+  1. [Installation](https://github.com/Jayked/laravel-filemanager/blob/master/doc/installation.md)
+  1. [Intergration](https://github.com/Jayked/laravel-filemanager/blob/master/doc/integration.md)
+  1. [Config](https://github.com/Jayked/laravel-filemanager/blob/master/doc/config.md)
+  1. [Customization](https://github.com/Jayked/laravel-filemanager/blob/master/doc/customization.md)
 
 ## Requirements
 
@@ -13,15 +13,15 @@
 
 ## Notes
 
- * For `laravel 5.2`, please set `'middlewares' => ['web', 'auth'],` in config/lfm.php
- * With laravel-filemanager >= 1.3.0, the new configs `valid_image_mimetypes` and `valid_file_mimetypes` restrict the MIME types of the uploading files.
+ * For `laravel 5.2` and up, please set `'middlewares' => ['web', 'auth'],` in config/lfm.php
+ * With laravel-filemanager >= 1.0.0, the new configs `valid_image_mimetypes` and `valid_file_mimetypes` restrict the MIME types of the uploading files.
 
 ## Installation
 
-1. Install package 
+1. Install package
 
-    ```bash
-        composer require unisharp/laravel-filemanager
+    ```shell
+        composer require jayked/laravel-filemanager
     ```
 
 1. Edit `config/app.php` :
@@ -29,7 +29,7 @@
     Add service providers
 
     ```php
-        Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
+        Jayked\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
     ```
 

@@ -1,5 +1,9 @@
 # Laravel Filemanager
 
+[![Latest Stable Version](https://poser.pugx.org/jayked/laravel-filemanager/version?format=flat)](https://packagist.org/packages/jayked/laravel-filemanager)
+[![Total Downloads](https://poser.pugx.org/jayked/laravel-filemanager/downloads?format=flat)](https://packagist.org/packages/jayked/laravel-filemanager)
+[![License](https://poser.pugx.org/jayked/laravel-filemanager/license?format=flat)](https://packagist.org/packages/jayked/laravel-filemanager)
+
 A files and images management user interface with file uploading support. (Works well with CKEditor and TinyMCE)
 
 PR is welcome!

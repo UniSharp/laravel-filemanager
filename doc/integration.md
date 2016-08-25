@@ -1,20 +1,20 @@
 ## Documents
 
-  1. [Installation](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/installation.md)
-  1. [Intergration](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/integration.md)
-  1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/config.md)
-  1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/customization.md)
+  1. [Installation](https://github.com/Jayked/laravel-filemanager/blob/master/doc/installation.md)
+  1. [Intergration](https://github.com/Jayked/laravel-filemanager/blob/master/doc/integration.md)
+  1. [Config](https://github.com/Jayked/laravel-filemanager/blob/master/doc/config.md)
+  1. [Customization](https://github.com/Jayked/laravel-filemanager/blob/master/doc/customization.md)
 
 ## WYSIWYG Editor Integration:
 ### Option 1: CKEditor
 
-  1. Install [laravel-ckeditor](https://github.com/UniSharp/laravel-ckeditor) package
+  1. Install [laravel-ckeditor](https://github.com/Jayked/laravel-ckeditor) package
 
   1. Modify the views
-      
+
     Sample 1 - Replace by ID:
     ```html
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script src="/vendor/jayked/laravel-ckeditor/ckeditor.js"></script>
     <textarea id="my-editor" name="content" class="form-control">{!! old('content', $content) !!}</textarea>
     <script>
       CKEDITOR.replace( 'my-editor', {
@@ -25,12 +25,12 @@
       });
     </script>
     ```
-    
+
     Sample 2 - With JQuery Selector:
-    
+
     ```html
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
+    <script src="/vendor/jayked/laravel-ckeditor/ckeditor.js"></script>
+    <script src="/vendor/jayked/laravel-ckeditor/adapters/jquery.js"></script>
     <textarea name="content" class="form-control my-editor">{!! old('content', $content) !!}</textarea>
     <script>
       $('textarea.my-editor').ckeditor({

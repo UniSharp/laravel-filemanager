@@ -1,9 +1,9 @@
 ## Documents
 
-  1. [Installation](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/installation.md)
-  1. [Intergration](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/integration.md)
-  1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/config.md)
-  1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/customization.md)
+  1. [Installation](https://github.com/Jayked/laravel-filemanager/blob/master/doc/installation.md)
+  1. [Intergration](https://github.com/Jayked/laravel-filemanager/blob/master/doc/integration.md)
+  1. [Config](https://github.com/Jayked/laravel-filemanager/blob/master/doc/config.md)
+  1. [Customization](https://github.com/Jayked/laravel-filemanager/blob/master/doc/customization.md)
 
 ## Customization
 
@@ -11,7 +11,7 @@ Feel free to customize the routes and views if your need.
 
 ### Routes
 
-1. Copy the routes in /vendor/unisharp/laravel-filemanager/src/routes.php
+1. Copy the routes in /vendor/jayked/laravel-filemanager/src/routes.php
 
 1. Make sure urls below is correspond to your route :
 
@@ -24,7 +24,7 @@ Feel free to customize the routes and views if your need.
             });
         </script>
     ```
-    
+
   And be sure to include the `?type=Images` or `?type=Files` parameter.
 
   TinyMCE
@@ -41,7 +41,7 @@ Feel free to customize the routes and views if your need.
 
 ### Views
 
-1. Copy the views from /vendor/unisharp/laravel-filemanager/src/views/ :
+1. Copy the views from /vendor/jayked/laravel-filemanager/src/views/ :
 
     ```bash
     php artisan vendor:publish --tag=lfm_views
@@ -49,5 +49,5 @@ Feel free to customize the routes and views if your need.
 
 ### Translations
 
-1. Copy `vendor/unisharp/laravel-filemanager/src/lang/en` to `/resources/lang/vendor/laravel-filemanager/<YOUR LANGUAGE>/lfm.php`
+1. Copy `vendor/jayked/laravel-filemanager/src/lang/en` to `/resources/lang/vendor/laravel-filemanager/<YOUR LANGUAGE>/lfm.php`
 2. Change the file according your preferences
