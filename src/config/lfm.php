@@ -6,7 +6,7 @@ return [
 
     'use_package_routes'    => true,
 
-    // For laravel 5.2, please set to ['web', 'auth']
+    // For laravel 5.2 and up, please set to ['web', 'auth']
     'middlewares'           => ['auth'],
 
     // Allow multi_user mode or not.
@@ -41,7 +41,7 @@ return [
     'files_dir'             => 'public/files/',
     'files_url'             => '/files/',
 
-    // available since v1.3.0
+    // available since v1.0.0
     'valid_image_mimetypes' => [
         'image/jpeg',
         'image/pjpeg',
@@ -49,7 +49,7 @@ return [
         'image/gif'
     ],
 
-    // available since v1.3.0
+    // available since v1.0.0
     // only when '/laravel-filemanager?type=Files'
     'valid_file_mimetypes' => [
         'image/jpeg',
@@ -90,5 +90,5 @@ return [
         'png'  => 'fa-file-image-o',
         'ppt'  => 'fa-file-powerpoint-o',
         'pptx' => 'fa-file-powerpoint-o',
-    ],
+    ]
 ];
