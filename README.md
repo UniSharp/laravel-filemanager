@@ -40,11 +40,11 @@ PR is welcome!
 
   * List view :
 
-![FileManager screenshot 1](http://unisharp.com/img/filemanager1.png)
+![FileManager screenshot 1](http://jayked.github.io/laravel-filemanager/filemanager2.png)
 
   * Grid view :
 
-![FileManager screenshot 2](http://unisharp.com/img/filemanager2.png)
+![FileManager screenshot 2](http://jayked.github.io/laravel-filemanager/filemanager1.png)
 
 ## Credits
  * All contibutors from GitHub. (issues / PR)
