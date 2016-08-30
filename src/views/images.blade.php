@@ -13,7 +13,7 @@
       <div class="caption text-center">
         <div class="btn-group">
           <button type="button" data-id="{{ $dir_name['long'] }}" class="btn btn-default btn-xs folder-item">
-            {{ str_limit($dir_name['short'], $limit = 10, $end = '...') }}
+            {{ str_limit($dir_name['base'], $limit = 10, $end = '...') }}
           </button>
           <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-expanded="false">
             <span class="caret"></span>
@@ -21,10 +21,10 @@
           </button>
           <ul class="dropdown-menu" role="menu">
             @if($options['rename'])
-            <li><a href="javascript:rename('{{ $dir_name['short'] }}')"><i class="fa fa-edit fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-rename') }}</a></li>
+            <li><a href="javascript:rename('{{ $dir_name['base'] }}')"><i class="fa fa-edit fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-rename') }}</a></li>
             @endif
             @if($options['remove'])
-            <li><a href="javascript:trash('{{ $dir_name['short'] }}')"><i class="fa fa-trash fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-delete') }}</a></li>
+            <li><a href="javascript:trash('{{ $dir_name['base'] }}')"><i class="fa fa-trash fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-delete') }}</a></li>
             @endif
           </ul>
         </div>

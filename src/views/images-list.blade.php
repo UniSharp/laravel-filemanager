@@ -19,13 +19,20 @@
         <td>
           <i class="fa fa-folder-o"></i>
           <a class="folder-item pointer" data-id="{{ $dir_name['long'] }}">
-            {{ $dir_name['short'] }}
+            {{ $dir_name['base'] }}
+            @if($options['rename'])
+              <a href="javascript:rename('{{ $dir_name['base'] }}')"><i class="fa fa-edit fa-fw"></i></a>
+            @endif
           </a>
         </td>
         <td></td>
         <td>{{ Lang::get('laravel-filemanager::lfm.type-folder') }}</td>
         <td></td>
-        <td></td>
+        <td>
+          @if($options['remove'])
+            <a href="javascript:trash('{{ $dir_name['base'] }}')"><i class="fa fa-trash fa-fw"></i></a>
+          @endif
+        </td>
       </tr>
       @endforeach
 
