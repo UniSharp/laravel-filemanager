@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640">
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Laravel-filemanager by jayked</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/jayked/laravel-filemanager">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Laravel-filemanager</h1>
+            <h2>Laravel file manager (for CKEditor and TinyMCE) with multi-users support.</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/jayked/laravel-filemanager/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/jayked/laravel-filemanager/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>
+<a id="laravel-filemanager" class="anchor" href="#laravel-filemanager" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Laravel Filemanager</h1>
+
+<p><a href="https://packagist.org/packages/jayked/laravel-filemanager"><img src="https://poser.pugx.org/jayked/laravel-filemanager/version?format=flat" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/jayked/laravel-filemanager"><img src="https://poser.pugx.org/jayked/laravel-filemanager/downloads?format=flat" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/jayked/laravel-filemanager"><img src="https://poser.pugx.org/jayked/laravel-filemanager/license?format=flat" alt="License"></a></p>
+
+<p>A files and images management user interface with file uploading support. (Works well with CKEditor and TinyMCE)</p>
+
+<p>PR is welcome!</p>
+
+<h2>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h2>
+
+<ul>
+<li>The project was forked from <a href="http://packalyst.com/packages/package/unisharp/laravel-filemanager">unisharp/laravel-filemanager</a>
+</li>
+<li>Customizable routes and middlewares</li>
+<li>Supported locales :
+
+<ul>
+<li>en</li>
+<li>fr</li>
+<li>pt-BR</li>
+<li>tr</li>
+<li>zh-CN</li>
+<li>zh-TW</li>
+<li>nl</li>
+</ul>
+</li>
+<li>Supports public and private folders for multi users</li>
+<li>Supports multi-level folders</li>
+<li>Supports using independently(see integration doc)</li>
+</ul>
+
+<h2>
+<a id="documents" class="anchor" href="#documents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Documents</h2>
+
+<ol>
+<li><a href="https://github.com/Jayked/laravel-filemanager/blob/master/doc/installation.md">Installation</a></li>
+<li><a href="https://github.com/Jayked/laravel-filemanager/blob/master/doc/integration.md">Intergration</a></li>
+<li><a href="https://github.com/Jayked/laravel-filemanager/blob/master/doc/config.md">Config</a></li>
+<li><a href="https://github.com/Jayked/laravel-filemanager/blob/master/doc/customization.md">Customization</a></li>
+</ol>
+
+<h2>
+<a id="upgrade-guide" class="anchor" href="#upgrade-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Upgrade guide</h2>
+
+<ul>
+<li><code>composer update jayked/laravel-filemanager</code></li>
+<li><code>php artisan vendor:publish --tag=lfm_view --force</code></li>
+<li>
+<code>php artisan vendor:publish --tag=lfm_config --force</code>(remember to keep your previous settings in <code>config/lfm.php</code>)</li>
+</ul>
+
+<h2>
+<a id="screenshots" class="anchor" href="#screenshots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Screenshots</h2>
+
+<ul>
+<li>List view :</li>
+</ul>
+
+<p><img src="http://unisharp.com/img/filemanager1.png" alt="FileManager screenshot 1"></p>
+
+<ul>
+<li>Grid view :</li>
+</ul>
+
+<p><img src="http://unisharp.com/img/filemanager2.png" alt="FileManager screenshot 2"></p>
+
+<h2>
+<a id="credits" class="anchor" href="#credits" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Credits</h2>
+
+<ul>
+<li>All contibutors from GitHub. (issues / PR)</li>
+<li>Special thanks to
+
+<ul>
+<li>
+<a href="https://github.com/tsawler">@taswler</a> the original author.</li>
+<li>
+<a href="https://github.com/olivervogel">@olivervogel</a> for the awesome <a href="https://github.com/Intervention/image">image library</a>
+</li>
+<li>
+<a href="https://github.com/welcoMattic">@welcoMattic</a> providing fr translations and lots of bugfixes.</li>
+<li>
+<a href="https://github.com/fraterblack">@fraterblack</a> TinyMCE 4 support and pt-BR translations.</li>
+<li>
+<a href="https://github.com/1dot44mb">@1dot44mb</a> tr translations.</li>
+<li>
+<a href="https://github.com/Nikita240">@Nikita240</a> fixing controller extending errors.</li>
+<li>
+<a href="https://github.com/amin101">@amin101</a> guide for independent use and fixes for url/directory error on Windows</li>
+<li>
+<a href="https://github.com/nasirkhan">@nasirkhan</a> bug fixes and alphanumeric filename check</li>
+<li>All <a href="https://github.com/UniSharp">@UniSharp</a> members</li>
+<li>
+<a href="https://github.com/Jayked">@Jayked</a> with small fixes and new options</li>
+</ul>
+</li>
+</ul>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/jayked">jayked</a> can be found on <a href="https://github.com/jayked/laravel-filemanager">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
