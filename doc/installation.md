@@ -15,7 +15,7 @@
 
 ## Notes
 
- * For `laravel 5.2`, please set `'middlewares' => ['web', 'auth'],` in config/lfm.php
+ * For `laravel 5.2` and `laravel 5.3`, please set `'middlewares' => ['web', 'auth'],` in config/lfm.php
  * With laravel-filemanager >= 1.3.0, the new configs `valid_image_mimetypes` and `valid_file_mimetypes` restrict the MIME types of the uploading files.
 
 ## Installation
