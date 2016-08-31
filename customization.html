@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640">
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Laravel-filemanager by jayked</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/jayked/laravel-filemanager">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Laravel-filemanager</h1>
+            <h2>Laravel file manager (for CKEditor and TinyMCE) with multi-users support.</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/jayked/laravel-filemanager/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/jayked/laravel-filemanager/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+<h2><a id="Documents_0"></a>Documents</h2>
+<ol>
+<li><a href="http://jayked.github.io/laravel-filemanager/installation">Installation</a></li>
+<li><a href="http://jayked.github.io/laravel-filemanager/integration">Intergration</a></li>
+<li><a href="http://jayked.github.io/laravel-filemanager/config">Config</a></li>
+<li><a href="http://jayked.github.io/laravel-filemanager/customization">Customization</a></li>
+</ol>
+<h2><a id="Customization_7"></a>Customization</h2>
+<p>Feel free to customize the routes and views if you need.</p>
+<h3><a id="Routes_11"></a>Routes</h3>
+<ol>
+<li>
+<p>Copy the routes in /vendor/jayked/laravel-filemanager/src/routes.php</p>
+</li>
+<li>
+<p>Make sure urls below is correspond to your route :</p>
+</li>
+</ol>
+<p>CKEditor
+<code>javascript &lt;script&gt; CKEDITOR.replace( 'editor', { filebrowserImageBrowseUrl: '/your-custom-route?type=Images', filebrowserBrowseUrl: '/your-custom-route?type=Files', }); &lt;/script&gt;</code></p>
+<p>And be sure to include the <code>?type=Images</code> or <code>?type=Files</code> parameter.</p>
+<p>TinyMCE
+<code>javascript ... var cmsURL = editor_config.path_absolute + 'your-custom-route?field_name='+field_name+'&amp;lang='+ tinymce.settings.language; if (type == 'image') { cmsURL = cmsURL + &quot;&amp;type=Images&quot;; } else { cmsURL = cmsURL + &quot;&amp;type=Files&quot;; } ...</code></p>
+<h3><a id="Views_41"></a>Views</h3>
+<ol>
+<li>
+<p>Copy the views from /vendor/jayked/laravel-filemanager/src/views/ :</p>
+<pre><code class="language-bash">php artisan vendor:publish --tag=lfm_views
+</code></pre>
+</li>
+</ol>
+<h3><a id="Translations_49"></a>Translations</h3>
+<ol>
+<li>Copy <code>vendor/jayked/laravel-filemanager/src/lang/en</code> to <code>/resources/lang/vendor/laravel-filemanager/&lt;YOUR LANGUAGE&gt;/lfm.php</code></li>
+<li>Change the file according your preferences</li>
+</ol>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/jayked">jayked</a> can be found on <a href="https://github.com/jayked/laravel-filemanager">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+
+  </body>
+</html>

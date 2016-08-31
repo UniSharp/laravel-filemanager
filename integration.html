@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640">
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Laravel-filemanager by jayked</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/jayked/laravel-filemanager">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Laravel-filemanager</h1>
+            <h2>Laravel file manager (for CKEditor and TinyMCE) with multi-users support.</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/jayked/laravel-filemanager/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/jayked/laravel-filemanager/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+<h2><a id="Documents_0"></a>Documents</h2>
+<ol>
+<li><a href="http://jayked.github.io/laravel-filemanager/installation">Installation</a></li>
+<li><a href="http://jayked.github.io/laravel-filemanager/integration">Intergration</a></li>
+<li><a href="http://jayked.github.io/laravel-filemanager/config">Config</a></li>
+<li><a href="http://jayked.github.io/laravel-filemanager/customization">Customization</a></li>
+</ol>
+<h2><a id="WYSIWYG_Editor_Integration_7"></a>WYSIWYG Editor Integration:</h2>
+<h3><a id="Option_1_CKEditor_8"></a>Option 1: CKEditor</h3>
+<ol>
+<li>
+<p>Install <a href="https://github.com/Jayked/laravel-ckeditor">laravel-ckeditor</a> package</p>
+</li>
+<li>
+<p>Modify the views</p>
+</li>
+</ol>
+<pre><code>Sample 1 - Replace by ID:
+```html
+&lt;script src=&quot;/vendor/jayked/laravel-ckeditor/ckeditor.js&quot;&gt;&lt;/script&gt;
+&lt;textarea id=&quot;my-editor&quot; name=&quot;content&quot; class=&quot;form-control&quot;&gt;
+  {!! old('content', $content) !!}
+&lt;/textarea&gt;
+&lt;script&gt;
+  CKEDITOR.replace( 'my-editor', {
+    filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+    filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&amp;_token={{csrf_token()}}',
+    filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+    filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&amp;_token={{csrf_token()}}'
+  });
+&lt;/script&gt;
+```
+
+Sample 2 - With JQuery Selector:
+
+```html
+&lt;script src=&quot;/vendor/jayked/laravel-ckeditor/ckeditor.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/vendor/jayked/laravel-ckeditor/adapters/jquery.js&quot;&gt;&lt;/script&gt;
+&lt;textarea name=&quot;content&quot; class=&quot;form-control my-editor&quot;&gt;
+  {!! old('content', $content) !!}
+&lt;/textarea&gt;
+&lt;script&gt;
+  $('textarea.my-editor').ckeditor({
+    filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+    filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&amp;_token={{csrf_token()}}',
+    filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+    filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&amp;_token={{csrf_token()}}'
+  });
+&lt;/script&gt;
+```
+</code></pre>
+<h3><a id="Option_2_TinyMCE4_44"></a>Option 2: TinyMCE4</h3>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"//cdn.tinymce.com/4/tinymce.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">textarea</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"content"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"form-control my-editor"</span>&gt;</span>{!! old('content', $content) !!}<span class="hljs-tag">&lt;/<span class="hljs-title">textarea</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+  <span class="hljs-keyword">var</span> editor_config = {
+    path_absolute : <span class="hljs-string">"/"</span>,
+    selector: <span class="hljs-string">"textarea"</span>,
+    plugins: [
+      <span class="hljs-string">"advlist autolink lists link image charmap print preview hr anchor pagebreak"</span>,
+      <span class="hljs-string">"searchreplace wordcount visualblocks visualchars code fullscreen"</span>,
+      <span class="hljs-string">"insertdatetime media nonbreaking save table contextmenu directionality"</span>,
+      <span class="hljs-string">"emoticons template paste textcolor colorpicker textpattern"</span>
+    ],
+    toolbar: <span class="hljs-string">"insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media"</span>,
+    relative_urls: <span class="hljs-literal">false</span>,
+    file_browser_callback : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">field_name, url, type, win</span>) </span>{
+      <span class="hljs-keyword">var</span> x = <span class="hljs-built_in">window</span>.innerWidth || <span class="hljs-built_in">document</span>.documentElement.clientWidth || <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'body'</span>)[<span class="hljs-number">0</span>].clientWidth;
+      <span class="hljs-keyword">var</span> y = <span class="hljs-built_in">window</span>.innerHeight|| <span class="hljs-built_in">document</span>.documentElement.clientHeight|| <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'body'</span>)[<span class="hljs-number">0</span>].clientHeight;
+
+      <span class="hljs-keyword">var</span> cmsURL = editor_config.path_absolute + <span class="hljs-string">'laravel-filemanager?field_name='</span> + field_name;
+      <span class="hljs-keyword">if</span> (type == <span class="hljs-string">'image'</span>) {
+        cmsURL = cmsURL + <span class="hljs-string">"&amp;type=Images"</span>;
+      } <span class="hljs-keyword">else</span> {
+        cmsURL = cmsURL + <span class="hljs-string">"&amp;type=Files"</span>;
+      }
+
+      tinyMCE.activeEditor.windowManager.open({
+        file : cmsURL,
+        title : <span class="hljs-string">'Filemanager'</span>,
+        width : x * <span class="hljs-number">0.8</span>,
+        height : y * <span class="hljs-number">0.8</span>,
+        resizable : <span class="hljs-string">"yes"</span>,
+        close_previous : <span class="hljs-string">"no"</span>
+      });
+    }
+  };
+
+  tinymce.init(editor_config);
+</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</code></pre>
+<p>##Independent use</p>
+<p>If you are going to use filemanager independently, meaning set the value of an input to selected photo/file url, follow this structure:</p>
+<ol>
+<li>
+<p>Create a button, input, and image preview holder if you are going to choose images.</p>
+<p>Specify the id to the input and image preview by <code>data-input</code> and <code>data-preview</code>.</p>
+<pre><code class="language-html">    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"input-group"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"input-group-btn"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lfm"</span> <span class="hljs-attribute">data-input</span>=<span class="hljs-value">"thumbnail"</span> <span class="hljs-attribute">data-preview</span>=<span class="hljs-value">"holder"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"btn btn-primary"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">i</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"fa fa-picture-o"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">i</span>&gt;</span> Choose
+        <span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"thumbnail"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"form-control"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"filepath"</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"holder"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"margin-top:15px;max-height:100px;"</span>&gt;</span>
+</code></pre>
+</li>
+<li>
+<p>Import lfm.js(run <code>php artisan vendor:publish</code> if you need).</p>
+<pre><code class="language-javascript">    &lt;script src=<span class="hljs-string">"/vendor/laravel-filemanager/js/lfm.js"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</span></code></pre>
+</li>
+<li>
+<p>Init filemanager with type. (requires jQuery)</p>
+<pre><code class="language-javascript">    $(<span class="hljs-string">'#lfm'</span>).filemanager(<span class="hljs-string">'image'</span>);
+</code></pre>
+<p>or</p>
+<pre><code class="language-javascript">    $(<span class="hljs-string">'#lfm'</span>).filemanager(<span class="hljs-string">'file'</span>);
+</code></pre>
+</li>
+</ol>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/jayked">jayked</a> can be found on <a href="https://github.com/jayked/laravel-filemanager">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+
+  </body>
+</html>

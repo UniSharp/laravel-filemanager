@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640">
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Laravel-filemanager by jayked</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/jayked/laravel-filemanager">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Laravel-filemanager</h1>
+            <h2>Laravel file manager (for CKEditor and TinyMCE) with multi-users support.</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/jayked/laravel-filemanager/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/jayked/laravel-filemanager/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+<h2><a id="Documents_0"></a>Documents</h2>
+<ol>
+<li><a href="http://jayked.github.io/laravel-filemanager/installation">Installation</a></li>
+<li><a href="http://jayked.github.io/laravel-filemanager/integration">Intergration</a></li>
+<li><a href="http://jayked.github.io/laravel-filemanager/config">Config</a></li>
+<li><a href="http://jayked.github.io/laravel-filemanager/customization">Customization</a></li>
+</ol>
+<h2><a id="Config_7"></a>Config</h2>
+<p>In <code>config/lfm.php</code> :</p>
+<pre><code class="language-php">    <span class="hljs-comment">// If rename_file set to false and this set to true,
+    // then filter filename characters which are not alphanumeric.</span>
+    <span class="hljs-string">'alphanumeric_filename'</span> =&gt; <span class="hljs-keyword">true</span>,
+
+    <span class="hljs-string">'use_package_routes'</span>    =&gt; <span class="hljs-keyword">true</span>,
+
+    <span class="hljs-comment">// For laravel 5.3 and up, please set to ['web', 'auth']</span>
+    <span class="hljs-string">'middlewares'</span>           =&gt; [<span class="hljs-string">'auth'</span>],
+
+    <span class="hljs-comment">// Allow multi_user mode or not.</span>
+    <span class="hljs-comment">// If true, laravel-filemanager create private folders for
+    // each signed-in user.</span>
+    <span class="hljs-string">'allow_multi_user'</span>      =&gt; <span class="hljs-keyword">true</span>,
+
+    <span class="hljs-comment">// The type of view that will be used by default</span>
+    <span class="hljs-comment">// Options are</span>
+    <span class="hljs-comment">// list_view [default]</span>
+    <span class="hljs-comment">// thumbnails</span>
+    <span class="hljs-string">'view'</span> =&gt; <span class="hljs-string">'list_view'</span>,
+
+    <span class="hljs-comment">// The options that will be available for the user</span>
+    <span class="hljs-string">'options'</span> =&gt; [
+        <span class="hljs-string">'rename'</span> =&gt; <span class="hljs-keyword">false</span>,
+        <span class="hljs-string">'crop'</span> =&gt; <span class="hljs-keyword">false</span>,
+        <span class="hljs-string">'remove'</span> =&gt; <span class="hljs-keyword">false</span>,
+        <span class="hljs-string">'resize'</span> =&gt; <span class="hljs-keyword">false</span>
+    ],
+
+    <span class="hljs-comment">// The database field to identify a user.</span>
+    <span class="hljs-comment">// When set to 'id', the private folder will
+    // be named as the user id.</span>
+    <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> make sure to use an unique field.</span>
+    <span class="hljs-string">'user_field'</span>            =&gt; <span class="hljs-string">'id'</span>,
+
+    <span class="hljs-string">'shared_folder_name'</span>    =&gt; <span class="hljs-string">'shares'</span>,
+    <span class="hljs-string">'thumb_folder_name'</span>     =&gt; <span class="hljs-string">'thumbs'</span>,
+
+    <span class="hljs-string">'images_dir'</span>            =&gt; <span class="hljs-string">'public/photos/'</span>,
+    <span class="hljs-string">'images_url'</span>            =&gt; <span class="hljs-string">'/photos/'</span>,
+
+    <span class="hljs-string">'files_dir'</span>             =&gt; <span class="hljs-string">'public/files/'</span>,
+    <span class="hljs-string">'files_url'</span>             =&gt; <span class="hljs-string">'/files/'</span>,
+
+    <span class="hljs-comment">// available since v1.0.0</span>
+    <span class="hljs-string">'valid_image_mimetypes'</span> =&gt; [
+        <span class="hljs-string">'image/jpeg'</span>,
+        <span class="hljs-string">'image/pjpeg'</span>,
+        <span class="hljs-string">'image/png'</span>,
+        <span class="hljs-string">'image/gif'</span>
+    ],
+
+    <span class="hljs-comment">// available since v1.0.0</span>
+    <span class="hljs-comment">// only when '/laravel-filemanager?type=Files'</span>
+    <span class="hljs-string">'valid_file_mimetypes'</span> =&gt; [
+        <span class="hljs-string">'image/jpeg'</span>,
+        <span class="hljs-string">'image/pjpeg'</span>,
+        <span class="hljs-string">'image/png'</span>,
+        <span class="hljs-string">'image/gif'</span>,
+        <span class="hljs-string">'application/pdf'</span>,
+        <span class="hljs-string">'text/plain'</span>,
+    ],
+
+    <span class="hljs-comment">// file extensions array, only for showing file information,
+    // it won't affect the upload process.</span>
+    <span class="hljs-string">'file_type_array'</span>         =&gt; [
+        <span class="hljs-string">'pdf'</span>  =&gt; <span class="hljs-string">'Adobe Acrobat'</span>,
+        <span class="hljs-string">'docx'</span> =&gt; <span class="hljs-string">'Microsoft Word'</span>,
+        <span class="hljs-string">'docx'</span> =&gt; <span class="hljs-string">'Microsoft Word'</span>,
+        <span class="hljs-string">'xls'</span>  =&gt; <span class="hljs-string">'Microsoft Excel'</span>,
+        <span class="hljs-string">'xls'</span>  =&gt; <span class="hljs-string">'Microsoft Excel'</span>,
+        <span class="hljs-string">'zip'</span>  =&gt; <span class="hljs-string">'Archive'</span>,
+        <span class="hljs-string">'gif'</span>  =&gt; <span class="hljs-string">'GIF Image'</span>,
+        <span class="hljs-string">'jpg'</span>  =&gt; <span class="hljs-string">'JPEG Image'</span>,
+        <span class="hljs-string">'jpeg'</span> =&gt; <span class="hljs-string">'JPEG Image'</span>,
+        <span class="hljs-string">'png'</span>  =&gt; <span class="hljs-string">'PNG Image'</span>,
+        <span class="hljs-string">'ppt'</span>  =&gt; <span class="hljs-string">'Microsoft PowerPoint'</span>,
+        <span class="hljs-string">'pptx'</span> =&gt; <span class="hljs-string">'Microsoft PowerPoint'</span>,
+    ],
+
+    <span class="hljs-comment">// file extensions array, only for showing icons,
+    // it won't affect the upload process.</span>
+    <span class="hljs-string">'file_icon_array'</span>         =&gt; [
+        <span class="hljs-string">'pdf'</span>  =&gt; <span class="hljs-string">'fa-file-pdf-o'</span>,
+        <span class="hljs-string">'docx'</span> =&gt; <span class="hljs-string">'fa-file-word-o'</span>,
+        <span class="hljs-string">'docx'</span> =&gt; <span class="hljs-string">'fa-file-word-o'</span>,
+        <span class="hljs-string">'xls'</span>  =&gt; <span class="hljs-string">'fa-file-excel-o'</span>,
+        <span class="hljs-string">'xls'</span>  =&gt; <span class="hljs-string">'fa-file-excel-o'</span>,
+        <span class="hljs-string">'zip'</span>  =&gt; <span class="hljs-string">'fa-file-archive-o'</span>,
+        <span class="hljs-string">'gif'</span>  =&gt; <span class="hljs-string">'fa-file-image-o'</span>,
+        <span class="hljs-string">'jpg'</span>  =&gt; <span class="hljs-string">'fa-file-image-o'</span>,
+        <span class="hljs-string">'jpeg'</span> =&gt; <span class="hljs-string">'fa-file-image-o'</span>,
+        <span class="hljs-string">'png'</span>  =&gt; <span class="hljs-string">'fa-file-image-o'</span>,
+        <span class="hljs-string">'ppt'</span>  =&gt; <span class="hljs-string">'fa-file-powerpoint-o'</span>,
+        <span class="hljs-string">'pptx'</span> =&gt; <span class="hljs-string">'fa-file-powerpoint-o'</span>,
+    ]
+</code></pre>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/jayked">jayked</a> can be found on <a href="https://github.com/jayked/laravel-filemanager">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+
+  </body>
+</html>
