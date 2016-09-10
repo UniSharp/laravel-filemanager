@@ -88,7 +88,7 @@
 </script>
 ```
 
-##Independent usage
+##Standalone button
 
 If you are going to use filemanager independently, meaning set the value of an input to selected photo/file url, follow this structure:
 

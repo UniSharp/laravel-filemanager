@@ -375,7 +375,7 @@ function useFile(file) {
       useCkeditor3(url);
     } else if (is_fcke) { // use FCKEditor 2.0 integration method
       useFckeditor2(url);
-    } else { // independent usage or other situations
+    } else { // standalone button or other situations
       window.opener.SetUrl(url);
     }
 
