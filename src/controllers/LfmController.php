@@ -142,7 +142,7 @@ class LfmController extends Controller {
 
         $url = str_replace('\\','/',$url);
 
-        return $url;
+        return $url . '/';
     }
 
 
