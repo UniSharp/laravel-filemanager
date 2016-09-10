@@ -38,6 +38,7 @@ return [
     'error-rename'      => 'Nome de arquivo já está em uso!',
     'error-file-empty'  => 'Você deve escolher um arquivo!',
     'error-file-exist'  => 'Um arquivo com este nome já existe!',
+    'error-file-size'   => 'File size exceeds server limit! (maximum size: :max)',
     'error-delete'      => 'Você não pode deletar esta pasta, pois ela não está vazia!',
     'error-folder-name' => 'Nome da pasta não pode ser vazio!',
     'error-folder-exist'=> 'Uma pasta com este nome já existe!',

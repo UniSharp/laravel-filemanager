@@ -38,6 +38,7 @@ return [
     'error-rename'      => '名称重复，请重新输入！',
     'error-file-empty'  => '请选择档案！',
     'error-file-exist'  => '相同档名的档案已存在！',
+    'error-file-size'   => '档案过大，无法上传! (档案大小上限: :max)',
     'error-delete'      => '文件夹未清空，无法删除！',
     'error-folder-name' => '请输入文件夹名称！',
     'error-folder-exist'=> '相同名称的文件夹已存在！',

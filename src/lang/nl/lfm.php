@@ -38,6 +38,7 @@ return [
     'error-rename'      => 'Bestandsnaam is al in gebruik!',
     'error-file-empty'  => 'U dient een bestand te kiezen!',
     'error-file-exist'  => 'Een bestand met deze naam bestaat al!',
+    'error-file-size'   => 'File size exceeds server limit! (maximum size: :max)',
     'error-delete'      => 'U kunt deze map niet verwijderen omdat deze nog bestanden bevat!',
     'error-folder-name' => 'Mapnaam mag niet leeg zijn!',
     'error-folder-exist'=> 'Een map met deze naam bestaat al!',

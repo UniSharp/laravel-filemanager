@@ -38,6 +38,7 @@ return [
     'error-rename'      => 'Името е заето!',
     'error-file-empty'  => 'Трябва да изберете файл !',
     'error-file-exist'  => 'Файл с това име вече съществува!',
+    'error-file-size'   => 'File size exceeds server limit! (maximum size: :max)',
     'error-delete'      => 'Не можете да изтриете тази папка, защото не е празна!',
     'error-folder-name' => 'Моля изберете име на папката',
     'error-folder-exist'=> 'Папка с това име вече съществува!',

@@ -38,6 +38,7 @@ return [
     'error-rename'      => '名稱重複，請重新輸入！',
     'error-file-empty'  => '請選擇檔案！',
     'error-file-exist'  => '相同檔名的檔案已存在！',
+    'error-file-size'   => '檔案過大，無法上傳! (檔案大小上限: :max)',
     'error-delete'      => '資料夾未清空，無法刪除！',
     'error-folder-name' => '請輸入資料夾名稱！',
     'error-folder-exist'=> '相同名稱的資料夾已存在！',

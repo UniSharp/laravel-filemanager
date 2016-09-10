@@ -38,6 +38,7 @@ return [
     'error-rename'      => 'اسم الملف مستخدما مسبقا!',
     'error-file-empty'  => 'يجب اختيارملف!',
     'error-file-exist'  => 'يوجد ملف سابق بنفس الاسم!',
+    'error-file-size'   => 'File size exceeds server limit! (maximum size: :max)',
     'error-delete'      => 'لا يمكن حذف هذا المجلد لانه غير فارغ!',
     'error-folder-name' => 'اسم المجلد لا يمكن ان يكون فاغ!',
     'error-folder-exist'=> 'اسم المجلد مستخدما مسبقا!',

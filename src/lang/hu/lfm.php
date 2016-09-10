@@ -38,6 +38,7 @@ return [
     'error-rename'      => 'A fájl neve használatban!',
     'error-file-empty'  => 'Ki kell választanod egy fájlt!',
     'error-file-exist'  => 'Egy fájl már létezik ezzel a névvel.',
+    'error-file-size'   => 'File size exceeds server limit! (maximum size: :max)',
     'error-delete'      => 'Nem tudod törölni ezt a mappát, mert nem üres!',
     'error-folder-name' => 'A mappa neve nem lehet üres!',
     'error-folder-exist'=> 'Egy mappa már létezik ezzel a névvel!',
