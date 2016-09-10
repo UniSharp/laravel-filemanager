@@ -17,7 +17,7 @@
     Sample 1 - Replace by ID:
     ```html
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    <textarea id="my-editor" name="content" class="form-control">{!! old('content', $content) !!}</textarea>
+    <textarea id="my-editor" name="content" class="form-control">{!! old('content', 'test editor content') !!}</textarea>
     <script>
       CKEDITOR.replace( 'my-editor', {
         filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
@@ -34,7 +34,7 @@
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
-    <textarea name="content" class="form-control my-editor">{!! old('content', $content) !!}</textarea>
+    <textarea name="content" class="form-control my-editor">{!! old('content', 'test editor content') !!}</textarea>
     <script>
       $('textarea.my-editor').ckeditor({
         filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
@@ -53,7 +53,7 @@
 <script>
   var editor_config = {
     path_absolute : "/",
-    selector: "textarea",
+    selector: "textarea.my-editor",
     plugins: [
       "advlist autolink lists link image charmap print preview hr anchor pagebreak",
       "searchreplace wordcount visualblocks visualchars code fullscreen",
@@ -88,7 +88,7 @@
 </script>
 ```
 
-##Independent use
+##Independent usage
 
 If you are going to use filemanager independently, meaning set the value of an input to selected photo/file url, follow this structure:
 
