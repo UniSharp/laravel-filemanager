@@ -96,31 +96,31 @@ If you are going to use filemanager independently, meaning set the value of an i
 
     Specify the id to the input and image preview by `data-input` and `data-preview`.
 
-    ```html
-        <div class="input-group">
-          <span class="input-group-btn">
-            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-              <i class="fa fa-picture-o"></i> Choose
-            </a>
-          </span>
-          <input id="thumbnail" class="form-control" type="text" name="filepath">
-        </div>
-        <img id="holder" style="margin-top:15px;max-height:100px;">
-    ``` 
+```html
+    <div class="input-group">
+      <span class="input-group-btn">
+        <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+          <i class="fa fa-picture-o"></i> Choose
+        </a>
+      </span>
+      <input id="thumbnail" class="form-control" type="text" name="filepath">
+    </div>
+    <img id="holder" style="margin-top:15px;max-height:100px;">
+``` 
 
 1. Import lfm.js(run `php artisan vendor:publish` if you need).
 
-    ```javascript
-        <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
-    ```
+```javascript
+    <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
+```
 
 1. Init filemanager with type. (requires jQuery)
 
-    ```javascript
-        $('#lfm').filemanager('image');
-    ```
+```javascript
+    $('#lfm').filemanager('image');
+```
     or
 
-    ```javascript
-        $('#lfm').filemanager('file');
-    ```
+```javascript
+    $('#lfm').filemanager('file');
+```
