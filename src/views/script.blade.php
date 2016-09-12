@@ -347,10 +347,6 @@ function useFile(file) {
     item_url = file_url;
     @endif
 
-    if (path.indexOf(ds) === 0) {
-      path = path.substring(1);
-    }
-
     if (path != ds) {
       item_url = item_url + path + ds;
     }
@@ -383,7 +379,7 @@ function useFile(file) {
       window.close();
     }
   } else {
-    alert('Fail to get image/file url, please contact developers.');
+    alert('Editor not found, cannot apply image.');
   }
 }
 //end useFile
