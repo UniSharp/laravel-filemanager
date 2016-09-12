@@ -1,6 +1,7 @@
 (function( $ ){
 
-    $.fn.filemanager = function(type = 'image') {
+    $.fn.filemanager = function(type) {
+        type = type || 'image';
 
         if (type === 'image' || type === 'images') {
             type = 'Images';
