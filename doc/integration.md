@@ -15,35 +15,35 @@
   1. Modify the views
       
     Sample 1 - Replace by ID:
-    ```html
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    <textarea id="my-editor" name="content" class="form-control">{!! old('content', 'test editor content') !!}</textarea>
-    <script>
-      CKEDITOR.replace( 'my-editor', {
-        filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-        filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
-        filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-        filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
-      });
-    </script>
-    ```
+```html
+<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+<textarea id="my-editor" name="content" class="form-control">{!! old('content', 'test editor content') !!}</textarea>
+<script>
+  CKEDITOR.replace( 'my-editor', {
+    filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+    filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
+    filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+    filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
+  });
+</script>
+```
     
     Sample 2 - With JQuery Selector:
     
-    ```html
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
-    <textarea name="content" class="form-control my-editor">{!! old('content', 'test editor content') !!}</textarea>
-    <script>
-      $('textarea.my-editor').ckeditor({
-        filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-        filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
-        filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-        filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
-      });
-    </script>
-    ```
+```html
+<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
+<textarea name="content" class="form-control my-editor">{!! old('content', 'test editor content') !!}</textarea>
+<script>
+  $('textarea.my-editor').ckeditor({
+    filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+    filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
+    filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+    filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
+  });
+</script>
+```
 
 ### Option 2: TinyMCE4
 
