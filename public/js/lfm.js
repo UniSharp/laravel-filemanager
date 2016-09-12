@@ -8,8 +8,8 @@
             type = 'Files';
         }
 
-        let input_id = this.data('input');
-        let preview_id = this.data('preview');
+        var input_id = this.data('input');
+        var preview_id = this.data('preview');
 
         this.on('click', function(e) {
             localStorage.setItem('target_input', input_id);
@@ -24,10 +24,10 @@
 
 function SetUrl(url){
   //set the value of the desired input to image url
-  let target_input = $('#' + localStorage.getItem('target_input'));
+  var target_input = $('#' + localStorage.getItem('target_input'));
   target_input.val(url);
 
   //set or change the preview image src
-  let target_preview = $('#' + localStorage.getItem('target_preview'));
+  var target_preview = $('#' + localStorage.getItem('target_preview'));
   target_preview.attr('src',url);
 }
