@@ -50,6 +50,7 @@ return [
     'btn-crop'          => '裁剪',
     'btn-cancel'        => '取消',
     'btn-resize'        => '縮放',
+	'btn-create'		=> '創建',
 
     'resize-ratio'      => '比例:',
     'resize-scaled'     => '是否已縮放:',

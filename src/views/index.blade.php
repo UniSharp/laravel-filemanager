@@ -53,6 +53,8 @@
                             <i class="fa fa-upload"></i> {{ Lang::get('laravel-filemanager::lfm.nav-upload') }}
                           </a>
                         </li>
+
+                        @if($file_type === 'Images')
                         <li class="hidden-xs"><a style='cursor:default;'>|</a></li>
                         <li>
                           <a href="#!" id="thumbnail-display">
@@ -64,6 +66,7 @@
                             <i class="fa fa-list"></i> {{ Lang::get('laravel-filemanager::lfm.nav-list') }}
                           </a>
                         </li>
+                        @endif
                       </ul>
                     </div>
                   </div>
@@ -123,7 +126,7 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">{{ Lang::get('laravel-filemanager::lfm.btn-close') }}</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{ Lang::get('laravel-filemanager::lfm.btn-cancel') }}</button>
           <button type="button" class="btn btn-primary" id="upload-btn">{{ Lang::get('laravel-filemanager::lfm.btn-upload') }}</button>
         </div>
       </div>
