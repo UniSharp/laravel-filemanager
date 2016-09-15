@@ -50,6 +50,7 @@ return [
     'btn-crop'          => 'Cortar',
     'btn-cancel'        => 'Cancelar',
     'btn-resize'        => 'Redimensionar',
+	'btn-create'		=> 'Crio',
 
     'resize-ratio'      => 'Proporção:',
     'resize-scaled'     => 'Imagem dimensionada:',

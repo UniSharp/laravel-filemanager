@@ -85,10 +85,10 @@ class ItemsController extends LfmController {
         $view = 'laravel-filemanager::images';
 
         if ($type !== 'Images') {
-            $view = 'laravel-filemanager::files';
+            $view = 'laravel-filemanager::files-list';
         }
 
-        if (Input::get('show_list') == 1) {
+        if (Input::get('show_list') == 1 && $type === 'Images') {
             $view .= '-list';
         }
 

@@ -31,7 +31,7 @@ return [
     'message-empty'     => 'Map is leeg.',
     'message-choose'    => 'Kies een bestand',
     'message-delete'    => 'Weet u zeker dat u dit bestand wilt verwijderen?',
-    'message-name'      => 'Map name:',
+    'message-name'      => 'Map naam:',
     'message-rename'    => 'Hernoem to:',
 
     'error-rename'      => 'Bestandsnaam is al in gebruik!',
@@ -50,6 +50,7 @@ return [
     'btn-crop'          => 'Bijsnijden',
     'btn-cancel'        => 'Annuleren',
     'btn-resize'        => 'Verander grootte',
+	'btn-create'		=> 'Aanmaken',
 
     'resize-ratio'      => 'Verhouding:',
     'resize-scaled'     => 'Afbeelding geschaald:',

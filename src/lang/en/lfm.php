@@ -50,6 +50,7 @@ return [
     'btn-crop'          => 'Crop',
     'btn-cancel'        => 'Cancel',
     'btn-resize'        => 'Resize',
+	'btn-create'		=> 'Create',
 
     'resize-ratio'      => 'Ratio:',
     'resize-scaled'     => 'Image scaled:',

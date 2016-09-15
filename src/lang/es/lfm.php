@@ -48,6 +48,7 @@ return [
     'btn-crop'          => 'Recortar',
     'btn-cancel'        => 'Cancelar',
     'btn-resize'        => 'Redimensionar',
+	'btn-create'		=> 'Crear',
 
     'resize-ratio'      => 'Ratio:',
     'resize-scaled'     => 'Imagen escalada:',

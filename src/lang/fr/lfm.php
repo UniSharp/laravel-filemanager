@@ -50,6 +50,7 @@ return [
     'btn-crop'          => 'Rogner',
     'btn-cancel'        => 'Annuler',
     'btn-resize'        => 'Redimensionner',
+	'btn-create'		=> 'Créer',
 
     'resize-ratio'      => 'Ratio:',
     'resize-scaled'     => "Image à l'échelle:",

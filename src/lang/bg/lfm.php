@@ -44,6 +44,7 @@ return [
     'btn-crop'          => 'Отрежи',
     'btn-cancel'        => 'Откажи',
     'btn-resize'        => 'Оразмери',
+	'btn-create'		=> 'създавам',
     'resize-ratio'      => 'Аспект:',
     'resize-scaled'     => 'Image scaled:',
     'resize-true'       => 'Да',

@@ -50,6 +50,7 @@ return [
     'btn-crop'          => 'Kırp',
     'btn-cancel'        => 'İptal',
     'btn-resize'        => 'Boyutlandır',
+	'btn-create'		=> 'Yaratmak',
 
     'resize-ratio'      => 'Oran:',
     'resize-scaled'     => 'Boyutlandırıldı mı:',

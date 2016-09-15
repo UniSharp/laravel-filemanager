@@ -27,9 +27,19 @@ $('#to-previous').click(function () {
 });
 
 $('#add-folder').click(function () {
-  bootbox.prompt("{{ Lang::get('laravel-filemanager::lfm.message-name') }}", function (result) {
-    if (result !== null) {
-      createFolder(result);
+  bootbox.prompt({
+    title: "{{ Lang::get('laravel-filemanager::lfm.message-name') }}",
+    buttons: {
+      'confirm': {
+        label: "{{ Lang::get('laravel-filemanager::lfm.btn-create') }}"
+      }
+    },
+    callback: function(result)
+    {
+      if(result !== null)
+      {
+        createFolder(result);
+      }
     }
   });
 });
