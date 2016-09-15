@@ -40,8 +40,30 @@ class UploadController extends LfmController
 			return $e->getMessage();
 		}
 
-		$file = Input::file( 'upload' );
+		$files = Input::file( 'upload' );
 
+		if(count($files) > 1)
+		{
+			foreach( $files as $file )
+			{
+				$this->subUpload( $file );
+			}
+		} else
+		{
+			$this->subUpload( $files );
+		}
+
+		return 'OK';
+	}
+
+	/**
+	 * Upload the image(s) can be called singular or in a foreach loop
+	 *
+	 * @param $file
+	 * @return string
+	 */
+	private function subUpload( $file )
+	{
 		$new_filename = $this->getNewName( $file );
 
 		$dest_path = parent::getPath( 'directory' );
@@ -63,8 +85,6 @@ class UploadController extends LfmController
 		{
 			return $this->useFile( $new_filename );
 		}
-
-		return 'OK';
 	}
 
 	/**
@@ -80,7 +100,31 @@ class UploadController extends LfmController
 		$expected_file_type = $this->file_type;
 		$is_valid           = false;
 
-		$file = Input::file( 'upload' );
+		$files = Input::file( 'upload' );
+
+		if(count($files) > 1)
+		{
+			foreach( $files as $file )
+			{
+				$this->subUploadValidator( $file, $expected_file_type );
+			}
+		} else
+		{
+			$this->subUploadValidator( $files, $expected_file_type );
+		}
+
+		return $is_valid;
+	}
+
+	/**
+	 * Holding the action (action can be looped in foreach or called singular)
+	 *
+	 * @param $file
+	 * @param $expected_file_type
+	 * @throws \Exception
+	 */
+	private function subUploadValidator( $file, $expected_file_type )
+	{
 		if( empty( $file ) )
 		{
 			throw new \Exception( Lang::get( 'laravel-filemanager::lfm.error-file-empty' ) );
@@ -117,8 +161,6 @@ class UploadController extends LfmController
 		{
 			throw new \Exception( Lang::get( 'laravel-filemanager::lfm.error-mime' ) . $mimetype );
 		}
-
-		return $is_valid;
 	}
 
 	/**

@@ -108,7 +108,11 @@
               <label for='upload' class='control-label'>{{ Lang::get('laravel-filemanager::lfm.message-choose') }}</label>
               <div class="controls">
                 <div class="input-group" style="width: 100%">
-                  <input type="file" id="upload" name="upload">
+                  <?php $name = 'upload[]'; ?>
+                  @if( isset($show_list) && $show_list != '1' )
+                    <?php $name = 'upload'; ?>
+                  @endif
+                  <input type="file" id="upload" name="{{$name}}" multiple>
                 </div>
               </div>
             </div>
