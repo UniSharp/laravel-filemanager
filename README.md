@@ -12,16 +12,19 @@ PR is welcome!
 
 ## Overview
 
- * The project was forked from [unisharp/laravel-filemanager](http://packalyst.com/packages/package/unisharp/laravel-filemanager)
+ * The project was forked from [unisharp/laravel-filemanager](https://packagist.org/packages/unisharp/laravel-filemanager)
  * Customizable routes and middlewares
  * Supported locales :
+    - bg
     - en
+    - es
+    - fa
     - fr
+    - nl
     - pt-BR
     - tr
     - zh-CN
     - zh-TW
-    - nl
  * Supports public and private folders for multi users
  * Supports multi-level folders
  * Supports using independently(see integration doc)
