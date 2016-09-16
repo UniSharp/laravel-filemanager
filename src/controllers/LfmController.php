@@ -198,4 +198,10 @@ class LfmController extends Controller
 
 		return $arr_filename;
 	}
+
+	
+	public function getTruePath( $file )
+	{
+		return str_replace( config( 'lfm.images_url' ), config( 'lfm.images_dir' ), $file );
+	}
 }

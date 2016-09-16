@@ -64,8 +64,10 @@ class ResizeController extends LfmController {
         $height = Input::get('dataHeight');
         $width  = Input::get('dataWidth');
 
+        $img = parent::getTruePath( $img );
+
         try {
-            Image::make(public_path() . $img)->resize($width, $height)->save();
+            Image::make(base_path($img))->resize($width, $height)->save();
             return "OK";
         } catch (Exception $e) {
             return "width : " . $width . " height: " . $height;
