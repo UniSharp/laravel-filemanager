@@ -365,13 +365,13 @@ function useFile(file) {
   if (window.opener || window.tinyMCEPopup || field_name || getUrlParam('CKEditorCleanUpFuncNum') || is_ckeditor) {
     if (window.tinyMCEPopup) { // use TinyMCE > 3.0 integration method
       useTinymce3(url);
-    } else if (field_name) { // tinymce 4 and colorbox
+    } else if (field_name) {   // tinymce 4 and colorbox
       useTinymce4AndColorbox(url, field_name);
-    } else if(is_ckeditor) { // use CKEditor 3.0 + integration method
+    } else if(is_ckeditor) {   // use CKEditor 3.0 + integration method
       useCkeditor3(url);
-    } else if (is_fcke) { // use FCKEditor 2.0 integration method
+    } else if (is_fcke) {      // use FCKEditor 2.0 integration method
       useFckeditor2(url);
-    } else { // standalone button or other situations
+    } else {                   // standalone button or other situations
       window.opener.SetUrl(url);
     }
 
@@ -379,7 +379,8 @@ function useFile(file) {
       window.close();
     }
   } else {
-    alert('Editor not found, cannot apply image.');
+    // No WYSIWYG editor found, use custom method.
+    window.opener.SetUrl(url);
   }
 }
 //end useFile
