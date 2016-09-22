@@ -41,16 +41,10 @@ class UploadController extends LfmController
 		}
 
 		$files = Input::file( 'upload' );
-
-		if(count($files) > 1)
+		
+		foreach( $files as $file )
 		{
-			foreach( $files as $file )
-			{
-				$this->subUpload( $file );
-			}
-		} else
-		{
-			$this->subUpload( $files );
+			$this->subUpload( $file );
 		}
 
 		return 'OK';
@@ -102,15 +96,13 @@ class UploadController extends LfmController
 
 		$files = Input::file( 'upload' );
 
-		if(count($files) > 1)
+		foreach( $files as $file )
 		{
-			foreach( $files as $file )
+			$is_valid = $this->subUploadValidator( $file, $expected_file_type );
+			if( $is_valid === false )
 			{
-				$this->subUploadValidator( $file, $expected_file_type );
+				return $is_valid;
 			}
-		} else
-		{
-			$this->subUploadValidator( $files, $expected_file_type );
 		}
 
 		return $is_valid;
@@ -121,6 +113,7 @@ class UploadController extends LfmController
 	 *
 	 * @param $file
 	 * @param $expected_file_type
+	 * @return bool
 	 * @throws \Exception
 	 */
 	private function subUploadValidator( $file, $expected_file_type )
@@ -157,10 +150,12 @@ class UploadController extends LfmController
 			$is_valid = true;
 		}
 
-		if( false === $is_valid )
+		if( $is_valid === false )
 		{
 			throw new \Exception( Lang::get( 'laravel-filemanager::lfm.error-mime' ) . $mimetype );
 		}
+
+		return $is_valid;
 	}
 
 	/**
