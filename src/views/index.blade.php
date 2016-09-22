@@ -37,12 +37,14 @@
                     </div>
                     <div class="collapse navbar-collapse" id="navbar-collapsable">
                       <ul class="nav navbar-nav" id="nav-buttons">
-                        <li>
+                        @if( count( $working_tree ) == 1 )
+                        <li id="backButton">
                           <a href="#!" id="to-previous">
                             <i class="fa fa-arrow-left"></i> {{ Lang::get('laravel-filemanager::lfm.nav-back') }}
                           </a>
                         </li>
                         <li class="hidden-xs"><a style='cursor:default;'>|</a></li>
+                        @endif
                         <li>
                           <a href="#!" id="add-folder">
                             <i class="fa fa-plus"></i> {{ Lang::get('laravel-filemanager::lfm.nav-new') }}
