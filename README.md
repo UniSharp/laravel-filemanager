@@ -32,6 +32,15 @@ PR is welcome!
   1. [Intergration](https://github.com/Jayked/laravel-filemanager/blob/master/doc/integration.md)
   1. [Config](https://github.com/Jayked/laravel-filemanager/blob/master/doc/config.md)
   1. [Customization](https://github.com/Jayked/laravel-filemanager/blob/master/doc/customization.md)
+  
+## Compaitibility
+
+The `jayked/laravel-filemanager` is compatible with the following versions of Laravel :
+  - 4.2
+  - 5.0
+  - 5.1
+  - 5.2
+  - 5.3
 
 ## Upgrade guide
   * `composer update jayked/laravel-filemanager`
