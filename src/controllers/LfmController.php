@@ -57,6 +57,7 @@ class LfmController extends Controller
 	{
 		$working_dir = '/';
 		$working_dir .= ( Config::get( 'lfm.allow_multi_user' ) ) ? $this->getUserSlug() : Config::get( 'lfm.shared_folder_name' );
+		$working_tree = explode('/', $working_dir);
 		$show_list = 1;
 		if( Config::get( 'lfm.view' ) == 'thumbnails' )
 		{
@@ -66,7 +67,8 @@ class LfmController extends Controller
 		return view( 'laravel-filemanager::index' )
 			->with( 'working_dir', $working_dir )
 			->with( 'show_list', $show_list )
-			->with( 'file_type', $this->file_type );
+			->with( 'file_type', $this->file_type )
+			->with( 'working_tree', $working_tree );
 	}
 
 
