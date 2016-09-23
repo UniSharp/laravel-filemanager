@@ -5,7 +5,7 @@ var shared_folder = ds + "{{ Config::get('lfm.shared_folder_name') }}";
 var image_url = "{{ Config::get('lfm.images_url') }}";
 var file_url = "{{ Config::get('lfm.files_url') }}";
 var back_html = '<li id="backButton">' +
-				'<a href="#!" id="to-previous">' +
+				'<a href="#" id="to-previous">' +
 				'<i class="fa fa-arrow-left"></i> {{ Lang::get('laravel-filemanager::lfm.nav-back') }}' +
 				'</a>' +
 				'</li>' +
@@ -16,8 +16,11 @@ var back_html = '<li id="backButton">' +
 $(document).ready(function ()
 {
 	bootbox.setDefaults({locale: "{{ Lang::get('laravel-filemanager::lfm.locale-bootbox') }}"});
-	// load folders
+
+	// load buttons
 	init_buttons();
+
+	// load folders
 	loadFolders();
 	loadItems();
 	setOpenFolders();
@@ -119,6 +122,11 @@ function init_buttons()
 	{
 		$('#show_list').val(1);
 		loadItems();
+	});
+
+	$("a[href='#']").click(function ( e )
+	{
+		e.preventDefault();
 	});
 }
 

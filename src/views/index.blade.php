@@ -39,19 +39,19 @@
                       <ul class="nav navbar-nav" id="nav-buttons">
                         @if( count( $working_tree ) == 1 )
                         <li id="backButton">
-                          <a href="#!" id="to-previous">
+                          <a href="#" id="to-previous">
                             <i class="fa fa-arrow-left"></i> {{ Lang::get('laravel-filemanager::lfm.nav-back') }}
                           </a>
                         </li>
                         <li class="hidden-xs"><a style='cursor:default;'>|</a></li>
                         @endif
                         <li>
-                          <a href="#!" id="add-folder">
+                          <a href="#" id="add-folder">
                             <i class="fa fa-plus"></i> {{ Lang::get('laravel-filemanager::lfm.nav-new') }}
                           </a>
                         </li>
                         <li>
-                          <a href="#!" id="upload" data-toggle="modal" data-target="#uploadModal">
+                          <a href="#" id="upload" data-toggle="modal" data-target="#uploadModal">
                             <i class="fa fa-upload"></i> {{ Lang::get('laravel-filemanager::lfm.nav-upload') }}
                           </a>
                         </li>
@@ -59,12 +59,12 @@
                         @if($file_type === 'Images')
                         <li class="hidden-xs"><a style='cursor:default;'>|</a></li>
                         <li>
-                          <a href="#!" id="thumbnail-display">
+                          <a href="#" id="thumbnail-display">
                             <i class="fa fa-picture-o"></i> {{ Lang::get('laravel-filemanager::lfm.nav-thumbnails') }}
                           </a>
                         </li>
                         <li>
-                          <a href="#!" id="list-display">
+                          <a href="#" id="list-display">
                             <i class="fa fa-list"></i> {{ Lang::get('laravel-filemanager::lfm.nav-list') }}
                           </a>
                         </li>
