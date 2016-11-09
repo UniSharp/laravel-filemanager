@@ -9,12 +9,9 @@
             type = 'Files';
         }
 
-        var input_id = this.data('input');
-        var preview_id = this.data('preview');
-
         this.on('click', function(e) {
-            localStorage.setItem('target_input', input_id);
-            localStorage.setItem('target_preview', preview_id);
+            localStorage.setItem('target_input', $(this).data('input'));
+            localStorage.setItem('target_preview', $(this).data('preview'));
             window.open('/laravel-filemanager?type=' + type, 'FileManager', 'width=900,height=600');
             return false;
         });
