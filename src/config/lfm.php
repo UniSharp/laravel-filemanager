@@ -2,7 +2,7 @@
 
 return [
     // If true, the uploaded file will be renamed to uniqid() + file extension.
-    'rename_file'           => true,
+    'rename_file'           => false,
 
     // If rename_file set to false and this set to true, then non-alphanumeric characters in filename will be replaced.
     'alphanumeric_filename' => true,
@@ -12,7 +12,7 @@ return [
     'use_package_routes'    => true,
 
     // For laravel 5.2, please set to ['web', 'auth']
-    'middlewares'           => ['auth'],
+    'middlewares'           => ['web','auth'],
 
     // Add prefix for routes
     'prefix'           => 'laravel-filemanager',
@@ -34,6 +34,9 @@ return [
 
     'files_dir'             => 'public/files/',
     'files_url'             => '/files/',
+
+    'max_image_size' => 500,
+    'max_file_size' => 1000,
 
     // available since v1.3.0
     'valid_image_mimetypes' => [

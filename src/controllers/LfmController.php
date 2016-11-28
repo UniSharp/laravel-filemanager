@@ -17,7 +17,7 @@ class LfmController extends Controller {
     public $file_location = null;
     public $dir_location = null;
     public $file_type = null;
-
+    protected $user;
 
     /**
      * Constructor
@@ -38,6 +38,7 @@ class LfmController extends Controller {
 
         $this->checkDefaultFolderExists('user');
         $this->checkDefaultFolderExists('share');
+        $this->user  = \Auth::user();
     }
 
 
@@ -83,8 +84,10 @@ class LfmController extends Controller {
     {
         if ($type === 'share') {
             return $location . Config::get('lfm.shared_folder_name');
+
         } elseif ($type === 'user') {
             return $location . $this->getUserSlug();
+
         }
 
         $working_dir = Input::get('working_dir');

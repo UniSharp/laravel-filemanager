@@ -44,6 +44,7 @@ return [
     'error-folder-exist'=> 'A folder with this name already exists!',
     'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',
     'error-mime'        => 'Unexpected MimeType: ',
+	'error-size'		=> 'Over limit size:',
     'error-instance'    => 'The uploaded file should be an instance of UploadedFile',
     'error-invalid'     => 'Invalid upload request',
     'error-other'       => 'An error has occured: ',

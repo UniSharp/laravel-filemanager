@@ -44,6 +44,7 @@ return [
     'error-folder-exist'=> 'یک پوشه با این نام قبلا ایجاد شده است!',
     'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',
     'error-mime'        => 'پسوند غیرمجاز: ',
+	'error-size'		=> 'سایز بیش از حد:',
     'error-instance'    => 'فایل آپلود شده باید نمونه ای از UploadedFile باشد',
     'error-invalid'     => 'درخواست آپلود غیرمعتبر',
 

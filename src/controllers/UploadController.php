@@ -19,6 +19,9 @@ class UploadController extends LfmController {
 
     private $default_file_types = ['application/pdf'];
     private $default_image_types = ['image/jpeg', 'image/png', 'image/gif'];
+    // unit is assumed to be kb
+    private $default_max_file_size = 1000;
+    private $default_max_image_size = 500;
 
     /**
      * Upload an image/file and (for images) create thumbnail
@@ -73,7 +76,6 @@ class UploadController extends LfmController {
     private function uploadValidator()
     {
         // when uploading a file with the POST named "upload"
-
         $expected_file_type = $this->file_type;
         $is_valid = false;
         $force_invalid = false;
@@ -95,42 +97,42 @@ class UploadController extends LfmController {
 
             $mimetype = $file->getMimeType();
 
+            // size to kb unit is needed
+            $size = $file->getSize() / 1000;
+
             if ($expected_file_type === 'Files') {
-                $config_name = 'lfm.valid_file_mimetypes';
-                $valid_mimetypes = Config::get($config_name, $this->default_file_types);
+                $mine_config = 'lfm.valid_file_mimetypes';
+                $valid_mimetypes = Config::get($mine_config, $this->default_file_types);
+                $max_size = Config::get('lfm.max_file_size', $this->default_max_file_size);
             } else {
-                $config_name = 'lfm.valid_image_mimetypes';
-                $valid_mimetypes = Config::get($config_name, $this->default_image_types);
+                $mine_config = 'lfm.valid_image_mimetypes';
+                $valid_mimetypes = Config::get($mine_config, $this->default_image_types);
+                $max_size = Config::get('lfm.max_image_size', $this->default_max_image_size);
             }
 
             if (!is_array($valid_mimetypes)) {
-                $force_invalid = true;
-                throw new \Exception('Config : ' . $config_name . ' is not set correctly');
+                throw new \Exception('Config : ' . $mine_config . ' is not set correctly');
             }
 
-            $is_valid = false;
-
-            if (in_array($mimetype, $valid_mimetypes)) {
-                $is_valid = true;
-            }
-
-            if (false === $is_valid) {
-                $force_invalid = true;
+            if (false === in_array($mimetype, $valid_mimetypes)) {
                 throw new \Exception(Lang::get('laravel-filemanager::lfm.error-mime') . $mimetype);
             }
+
+            if ($size > $max_size) {
+                throw new \Exception(Lang::get('laravel-filemanager::lfm.error-size') . $mimetype);
+            }
         }
 
-        if($force_invalid)
-        {
-            return false;
-        }
-
-        return $is_valid;
+        return true;
     }
 
     private function getNewName($file)
     {
         $new_filename = trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+
+        // $file_full_name =  $file->getClientOriginalName();
+
+        // $new_filename = substr($file_full_name,0,strrpos($file_full_name,'.'));
 
         if (Config::get('lfm.rename_file') === true) {
             $new_filename = uniqid();
