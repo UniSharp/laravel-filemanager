@@ -1,6 +1,5 @@
 # Laravel Filemanager
 
-[![Build Status](https://travis-ci.org/UniSharp/laravel-filemanager.svg?branch=master)](https://travis-ci.org/UniSharp/laravel-filemanager)
 [![Latest Stable Version](https://poser.pugx.org/unisharp/laravel-filemanager/v/stable)](https://packagist.org/packages/unisharp/laravel-filemanager)
 [![Total Downloads](https://poser.pugx.org/unisharp/laravel-filemanager/downloads)](https://packagist.org/packages/unisharp/laravel-filemanager)
 [![License](https://poser.pugx.org/unisharp/laravel-filemanager/license)](https://packagist.org/packages/unisharp/laravel-filemanager)
