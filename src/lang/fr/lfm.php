@@ -16,7 +16,7 @@ return [
 
     'title-page'        => 'Gestionnaire de fichiers',
     'title-panel'       => 'Laravel FileManager',
-    'title-upload'      => 'Envoyer un fichier',
+    'title-upload'      => 'Envoyer un/des fichier(s)',
     'title-view'        => 'Voir le fichier',
     'title-root'        => 'Fichiers',
     'title-shares'      => 'Fichiers partagés',
@@ -28,8 +28,8 @@ return [
 
     'type-folder'       => 'Dossier',
 
-    'message-empty'     => 'Dossier vide',
-    'message-choose'    => 'Choisir un fichier',
+    'message-empty'     => 'Dossier est vide',
+    'message-choose'    => 'Choisir un/des fichier(s)',
     'message-delete'    => 'Êtes-vous sûr de vouloir supprimer ce fichier ?',
     'message-name'      => 'Nom du dossier :',
     'message-rename'    => 'Renommer le dossier :',
@@ -47,7 +47,7 @@ return [
     'error-instance'    => 'Le fichier doit être une instance de UploadedFile',
     'error-invalid'     => "Requête d'upload invalide",
 
-    'btn-upload'        => 'Envoyer le fichier',
+    'btn-upload'        => 'Envoyer le/les fichier(s)',
     'btn-uploading'     => 'Envoi...',
     'btn-close'         => 'Fermer',
     'btn-crop'          => 'Rogner',

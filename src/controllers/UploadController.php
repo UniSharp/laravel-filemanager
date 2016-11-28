@@ -37,31 +37,34 @@ class UploadController extends LfmController {
             return $e->getMessage();
         }
 
-        $file = Input::file('upload');
+        $files = Input::file('upload');
 
-        $new_filename = $this->getNewName($file);
+        foreach($files as $file)
+        {
+            $new_filename = $this->getNewName($file);
 
-        $dest_path = parent::getPath('directory');
+            $dest_path = parent::getPath('directory');
 
-        if (File::exists($dest_path . $new_filename)) {
-            return Lang::get('laravel-filemanager::lfm.error-file-exist');
-        }
+            if (File::exists($dest_path . $new_filename)) {
+                return Lang::get('laravel-filemanager::lfm.error-file-exist');
+            }
 
-        //Apply orientation from exif data
-        $img = Image::make($file->getRealPath())->orientate();
-        $upload = $img->save($dest_path . $new_filename, 90);
+            //Apply orientation from exif data
+            $img = Image::make($file->getRealPath())->orientate();
+            $upload = $img->save($dest_path . $new_filename, 90);
 
-        //$file->move($dest_path, $new_filename);
+            //$file->move($dest_path, $new_filename);
 
-        if ('Images' === $this->file_type) {
-            $this->makeThumb($dest_path, $new_filename);
-        }
+            if ('Images' === $this->file_type) {
+                $this->makeThumb($dest_path, $new_filename);
+            }
 
-        Event::fire(new ImageWasUploaded(realpath($dest_path.'/'.$new_filename)));
+            Event::fire(new ImageWasUploaded(realpath($dest_path.'/'.$new_filename)));
 
-        // upload via ckeditor 'Upload' tab
-        if (!Input::has('show_list')) {
-            return $this->useFile($new_filename);
+            // upload via ckeditor 'Upload' tab
+            if (!Input::has('show_list')) {
+                return $this->useFile($new_filename);
+            }
         }
 
         return 'OK';
@@ -73,41 +76,55 @@ class UploadController extends LfmController {
 
         $expected_file_type = $this->file_type;
         $is_valid = false;
+        $force_invalid = false;
 
-        $file = Input::file('upload');
+        $files = Input::file('upload');
 
-        if (empty($file)) {
-            throw new \Exception(Lang::get('laravel-filemanager::lfm.error-file-empty'));
-        } elseif (!$file instanceof UploadedFile) {
-            throw new \Exception(Lang::get('laravel-filemanager::lfm.error-instance'));
-        } elseif ($file->getError() == UPLOAD_ERR_INI_SIZE) {
-            $max_size = ini_get('upload_max_filesize');
-            throw new \Exception(Lang::get('laravel-filemanager::lfm.error-file-size', ['max' => $max_size]));
-        } elseif ($file->getError() != UPLOAD_ERR_OK) {
-            dd('File failed to upload. Error code: ' . $file->getError());
+        foreach($files as $file)
+        {
+            if (empty($file)) {
+                throw new \Exception(Lang::get('laravel-filemanager::lfm.error-file-empty'));
+            } elseif (!$file instanceof UploadedFile) {
+                throw new \Exception(Lang::get('laravel-filemanager::lfm.error-instance'));
+            } elseif ($file->getError() == UPLOAD_ERR_INI_SIZE) {
+                $max_size = ini_get('upload_max_filesize');
+                throw new \Exception(Lang::get('laravel-filemanager::lfm.error-file-size', ['max' => $max_size]));
+            } elseif ($file->getError() != UPLOAD_ERR_OK) {
+                dd('File failed to upload. Error code: ' . $file->getError());
+            }
+
+            $mimetype = $file->getMimeType();
+
+            if ($expected_file_type === 'Files') {
+                $config_name = 'lfm.valid_file_mimetypes';
+                $valid_mimetypes = Config::get($config_name, $this->default_file_types);
+            } else {
+                $config_name = 'lfm.valid_image_mimetypes';
+                $valid_mimetypes = Config::get($config_name, $this->default_image_types);
+            }
+
+            if (!is_array($valid_mimetypes)) {
+                $force_invalid = true;
+                throw new \Exception('Config : ' . $config_name . ' is not set correctly');
+            }
+
+            $is_valid = false;
+
+            if (in_array($mimetype, $valid_mimetypes)) {
+                $is_valid = true;
+            }
+
+            if (false === $is_valid) {
+                $force_invalid = true;
+                throw new \Exception(Lang::get('laravel-filemanager::lfm.error-mime') . $mimetype);
+            }
         }
 
-        $mimetype = $file->getMimeType();
-
-        if ($expected_file_type === 'Files') {
-            $config_name = 'lfm.valid_file_mimetypes';
-            $valid_mimetypes = Config::get($config_name, $this->default_file_types);
-        } else {
-            $config_name = 'lfm.valid_image_mimetypes';
-            $valid_mimetypes = Config::get($config_name, $this->default_image_types);
+        if($force_invalid)
+        {
+            return false;
         }
 
-        if (!is_array($valid_mimetypes)) {
-            throw new \Exception('Config : ' . $config_name . ' is not set correctly');
-        }
-
-        if (in_array($mimetype, $valid_mimetypes)) {
-            $is_valid = true;
-        }
-
-        if (false === $is_valid) {
-            throw new \Exception(Lang::get('laravel-filemanager::lfm.error-mime') . $mimetype);
-        }
         return $is_valid;
     }
 
