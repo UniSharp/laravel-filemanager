@@ -16,4 +16,4 @@ before_script:
   - travis_retry composer install --no-interaction --prefer-source
 
 script:
-  - vendor/bin/phpunit ./vendor/unisharp/laravel-filemanager/tests/TestApi.php
+  - vendor/bin/phpunit --verbose
