@@ -1,5 +1,7 @@
 <?php
 
+namespace Unisharp\Laravelfilemanager\Tests;
+
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**

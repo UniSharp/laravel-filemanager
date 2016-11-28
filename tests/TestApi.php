@@ -1,5 +1,7 @@
 <?php
 
+use Unisharp\Laravelfilemanager\Tests;
+
 class TestApi extends TestCase
 {
     public function testFolder()
