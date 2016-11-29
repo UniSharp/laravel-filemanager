@@ -25,6 +25,7 @@
   "require": {
     "php": ">=5.4.0",
     "illuminate/support": ">=4.2.0",
+    "illuminate/foundation": ">=4.2.0",
     "intervention/image": "2.*",
     "phpunit/phpunit": "~4.8"
   },
