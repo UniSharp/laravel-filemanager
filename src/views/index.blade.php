@@ -119,7 +119,7 @@
               </div>
             </div>
             <input type='hidden' name='working_dir' id='working_dir' value='{{$working_dir}}'>
-            <input type='hidden' name='show_list' id='show_list' value='0'>
+            <input type='hidden' name='show_list' id='show_list' value='{{ ($startup_view == 'list') ? 1 : 0 }}'>
             <input type='hidden' name='type' id='type' value='{{$file_type}}'>
             <input type='hidden' name='_token' value='{{csrf_token()}}'>
           </form>

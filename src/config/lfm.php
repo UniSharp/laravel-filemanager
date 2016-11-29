@@ -24,6 +24,7 @@ return [
     // The database field to identify a user.
     // When set to 'id', the private folder will be named as the user id.
     // NOTE: make sure to use an unique field.
+    // When choosing a startup view you can fill either 'grid' or 'list'.
     'user_field'            => 'id',
 
     'shared_folder_name'    => 'shares',
@@ -31,9 +32,11 @@ return [
 
     'images_dir'            => 'public/photos/',
     'images_url'            => '/photos/',
+    'images_startup_view'   => 'list',
 
     'files_dir'             => 'public/files/',
     'files_url'             => '/files/',
+    'files_startup_view'    => 'grid',
 
     'max_image_size' => 500,
     'max_file_size' => 1000,
