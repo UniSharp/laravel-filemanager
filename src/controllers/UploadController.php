@@ -40,10 +40,8 @@ class UploadController extends LfmController {
             return $e->getMessage();
         }
 
-        $files = Input::file('upload');
-
-        foreach($files as $file)
-        {
+        $file = Input::file('upload');
+       
             $new_filename = $this->getNewName($file);
 
             $dest_path = parent::getPath('directory');
@@ -68,8 +66,7 @@ class UploadController extends LfmController {
             if (!Input::has('show_list')) {
                 return $this->useFile($new_filename);
             }
-        }
-
+        
         return 'OK';
     }
 
