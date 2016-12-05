@@ -23,9 +23,13 @@
     }
   ],
   "require": {
-    "php": ">=5.5.0",
+    "php": ">=5.4.0",
     "illuminate/support": ">=4.2.0",
     "intervention/image": "2.*"
+  },
+  "require-dev": {
+    "orchestra/testbench": "~3.0",
+    "phpunit/phpunit": "~4.8"
   },
   "suggest": {
     "ext-gd": "to use GD library based image processing.",

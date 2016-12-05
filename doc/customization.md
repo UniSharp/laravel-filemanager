@@ -4,6 +4,8 @@
   1. [Intergration](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/integration.md)
   1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/config.md)
   1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/customization.md)
+  1. [Events](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/events.md)
+  1. [Upgrade](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/upgrade.md)
 
 ## Customization
 
@@ -44,7 +46,7 @@ Feel free to customize the routes and views if your need.
 1. Copy the views from /vendor/unisharp/laravel-filemanager/src/views/ :
 
     ```bash
-    php artisan vendor:publish --tag=lfm_views
+    php artisan vendor:publish --tag=lfm_view
     ```
 
 ### Translations

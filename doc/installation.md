@@ -4,6 +4,8 @@
   1. [Intergration](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/integration.md)
   1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/config.md)
   1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/customization.md)
+  1. [Events](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/events.md)
+  1. [Upgrade](https://github.com/UniSharp/laravel-filemanager/blob/master/doc/upgrade.md)
 
 ## Requirements
 
@@ -13,7 +15,7 @@
 
 ## Notes
 
- * For `laravel 5.2`, please set `'middlewares' => ['web', 'auth'],` in config/lfm.php
+ * For `laravel 5.2` and `laravel 5.3`, please set `'middlewares' => ['web', 'auth'],` in config/lfm.php
  * With laravel-filemanager >= 1.3.0, the new configs `valid_image_mimetypes` and `valid_file_mimetypes` restrict the MIME types of the uploading files.
 
 ## Installation
@@ -38,6 +40,9 @@
     ```php
         'Image' => Intervention\Image\Facades\Image::class,
     ```
+
+    Code above is for Laravel 5.1.
+    In Laravel 5.0 should leave only quoted class names.
 
 1. Publish the package's config and assets :
 

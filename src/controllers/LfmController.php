@@ -17,6 +17,7 @@ class LfmController extends Controller {
     public $file_location = null;
     public $dir_location = null;
     public $file_type = null;
+    public $startup_view = null;
     protected $user;
 
     /**
@@ -29,9 +30,11 @@ class LfmController extends Controller {
         if ('Images' === $this->file_type) {
             $this->dir_location = Config::get('lfm.images_url');
             $this->file_location = Config::get('lfm.images_dir');
+            $this->startup_view = Config::get('lfm.images_startup_view');
         } elseif ('Files' === $this->file_type) {
             $this->dir_location = Config::get('lfm.files_url');
             $this->file_location = Config::get('lfm.files_dir');
+            $this->startup_view = Config::get('lfm.files_startup_view');
         } else {
             throw new \Exception('unexpected type parameter');
         }
@@ -52,9 +55,13 @@ class LfmController extends Controller {
         $working_dir = '/';
         $working_dir .= (Config::get('lfm.allow_multi_user')) ? $this->getUserSlug() : Config::get('lfm.shared_folder_name');
 
+        $extension_not_found = ! extension_loaded('gd') && ! extension_loaded('imagick');
+
         return view('laravel-filemanager::index')
             ->with('working_dir', $working_dir)
-            ->with('file_type', $this->file_type);
+            ->with('file_type', $this->file_type)
+            ->with('startup_view', $this->startup_view)
+            ->with('extension_not_found', $extension_not_found);
     }
 
 

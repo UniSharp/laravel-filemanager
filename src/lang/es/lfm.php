@@ -7,7 +7,6 @@ return [
     'nav-thumbnails'    => 'Miniaturas',
     'nav-list'          => 'Listado',
 
-    'menu-new'          => 'Nueva Carpeta',
     'menu-rename'       => 'Cambiar Nombre',
     'menu-delete'       => 'Eliminar',
     'menu-view'         => 'Ver',
@@ -34,10 +33,13 @@ return [
     'message-delete'    => '¿Está seguro que desea eliminar este item?',
     'message-name'      => 'Nombre de Carpeta:',
     'message-rename'    => 'Renombrar a:',
+    'message-extension_not_found' => '(translation wanted)',
 
     'error-rename'      => '¡Nombre de Archivo ya existe!',
     'error-file-empty'  => '¡Debes escoger un archivo!',
     'error-file-exist'  => '¡Ya existe un archivo con este nombre!',
+    'error-file-size'   => 'File size exceeds server limit! (maximum size: :max)',
+    'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',
     'error-delete'      => '¡No puedes eliminar esta carpeta porque no está vacía!',
     'error-folder-name' => '¡Nombre de carpeta no puede ser vacío!',
     'error-folder-exist'=> '¡Ya existe una carpeta con este nombre!',

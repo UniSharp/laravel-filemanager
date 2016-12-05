@@ -3,6 +3,7 @@
 use Unisharp\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Config;
 use Lang;
 
 /**
@@ -41,17 +42,19 @@ class FolderController extends LfmController {
      */
     public function getAddfolder()
     {
-        $folder_name = Input::get('name');
+        $folder_name = trim(Input::get('name'));
 
         $path = parent::getPath('directory') . $folder_name;
 
-        if (!File::exists($path)) {
+        if (empty($folder_name)) {
+            return Lang::get('laravel-filemanager::lfm.error-folder-name');
+        } elseif (File::exists($path)) {
+            return Lang::get('laravel-filemanager::lfm.error-folder-exist');
+        } elseif (Config::get('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
+            return Lang::get('laravel-filemanager::lfm.error-folder-alnum');
+        } else {
             File::makeDirectory($path, $mode = 0777, true, true);
             return 'OK';
-        } else if (empty($folder_name)) {
-            return Lang::get('laravel-filemanager::lfm.error-folder-name');
-        } else {
-            return Lang::get('laravel-filemanager::lfm.error-folder-exist');
         }
     }
 
