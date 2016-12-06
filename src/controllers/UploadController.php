@@ -151,7 +151,7 @@ class UploadController extends LfmController {
         }
 
         $thumb_img = Image::make($dest_path . $new_filename);
-        $thumb_img->fit(200, 200)
+        $thumb_img->fit(Config::get('lfm.thumb_width',275), Config::get('lfm.thumb_height',250))
             ->save($dest_path . $thumb_folder_name . '/' . $new_filename);
         unset($thumb_img);
     }
