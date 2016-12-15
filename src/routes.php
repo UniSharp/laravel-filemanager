@@ -77,7 +77,5 @@ Route::group(compact('middleware', 'prefix', 'as', 'namespace'), function () {
         'as' => 'getDelete'
     ]);
 
-    Route::get('/demo', function () {
-        return view('laravel-filemanager::demo');
-    });
+    Route::get('/demo', 'DemoController@index');
 });
