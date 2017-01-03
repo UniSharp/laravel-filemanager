@@ -11,7 +11,7 @@ return [
 
     'use_package_routes'    => true,
 
-    // For laravel 5.2, please set to ['web', 'auth']
+    // For laravel 5.1, please set to ['auth']
     'middlewares'           => ['web','auth'],
 
     // Add prefix for routes
