@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Lang;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Unisharp\Laravelfilemanager\Events\ImageIsUploading;
 use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
 
 /**
@@ -45,8 +46,9 @@ class UploadController extends LfmController {
         foreach($files as $file)
         {
             $new_filename = $this->getNewName($file);
-
             $dest_path = parent::getPath('directory');
+
+            Event::fire(new ImageIsUploading($dest_path . $new_filename));
 
             if (File::exists($dest_path . $new_filename)) {
                 return Lang::get('laravel-filemanager::lfm.error-file-exist');

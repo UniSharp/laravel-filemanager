@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Lang;
+use Unisharp\Laravelfilemanager\Events\ImageIsDeleting;
 use Unisharp\Laravelfilemanager\Events\ImageWasDeleted;
 
 /**
@@ -28,6 +29,8 @@ class DeleteController extends LfmController {
         $file_to_delete = $file_path . $name_to_delete;
         $thumb_to_delete = parent::getPath('thumb') . $name_to_delete;
 
+        Event::fire(new ImageIsDeleting($file_to_delete));
+
         if (!File::exists($file_to_delete)) {
             return $file_to_delete . ' not found!';
         }
@@ -44,7 +47,7 @@ class DeleteController extends LfmController {
 
         File::delete($file_to_delete);
         Event::fire(new ImageWasDeleted($file_to_delete));
-        
+
         if ('Images' === $this->file_type) {
             File::delete($thumb_to_delete);
         }

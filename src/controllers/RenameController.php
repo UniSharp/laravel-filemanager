@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
 use Lang;
+use Unisharp\Laravelfilemanager\Events\ImageIsRenaming;
 use Unisharp\Laravelfilemanager\Events\ImageWasRenamed;
+use Unisharp\Laravelfilemanager\Events\FolderIsRenaming;
 use Unisharp\Laravelfilemanager\Events\FolderWasRenamed;
 
 /**
@@ -35,6 +37,12 @@ class RenameController extends LfmController {
         }
 
         $new_file = $file_path . $new_name;
+
+        if (File::isDirectory($old_file)) {
+            Event::fire(new FolderIsRenaming($old_file, $new_file));
+        } else {
+            Event::fire(new ImageIsRenaming($old_file, $new_file));
+        }
 
         if (Config::get('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $new_name)) {
             return Lang::get('laravel-filemanager::lfm.error-folder-alnum');
