@@ -8,9 +8,13 @@
   1. [Upgrade](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/upgrade.md)
 
 ## List of events
+ * Unisharp\Laravelfilemanager\Events\ImageIsUpload
  * Unisharp\Laravelfilemanager\Events\ImageWasUploaded
+ * Unisharp\Laravelfilemanager\Events\ImageIsRenaming
  * Unisharp\Laravelfilemanager\Events\ImageWasRenamed
+ * Unisharp\Laravelfilemanager\Events\ImageIsDeleting
  * Unisharp\Laravelfilemanager\Events\ImageWasDeleted
+ * Unisharp\Laravelfilemanager\Events\FolderIsRenaming
  * Unisharp\Laravelfilemanager\Events\FolderWasRenamed
 
 ## How to use

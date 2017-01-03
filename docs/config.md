@@ -19,12 +19,15 @@ In `config/lfm.php` :
     // true : filter filename characters which are not alphanumeric, and replace them with '_'
     'alphanumeric_filename' => true,
 
+    // true : filter folder name characters which are not alphanumeric, and replace them with '_'
+    'alphanumeric_directory' => false,
+
     'use_package_routes'    => true,
     // set this to false to customize route for file manager
 
-    'middlewares'           => ['auth'],
+    'middlewares'           => ['web','auth'],
     // determine middlewares that apply to all file manager routes
-    // NOTE: for laravel 5.2, please use ['web', 'auth']
+    // NOTE: for laravel 5.1, please use ['auth']
 
     'allow_multi_user'      => true,
     // true : user can upload files to shared folder and their own folder
@@ -43,10 +46,19 @@ In `config/lfm.php` :
     'images_url'            => '/photos/',
     // path and url of images
 
+    'images_startup_view'   => 'list',
+    // default view type for images
+
     'files_dir'             => 'public/files/',
     'files_url'             => '/files/',
     // path and url of files
 
+    'files_startup_view'   => 'list',
+    // default view type for files
+
+    'max_image_size' => 500,
+    'max_file_size' => 1000,
+    // max uploading size for images/files
 
     // valid image mimetypes
     'valid_image_mimetypes' => [
