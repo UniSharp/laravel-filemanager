@@ -41,6 +41,9 @@ return [
     'max_image_size' => 500,
     'max_file_size' => 1000,
 
+    'thumb_width' => 275,
+    'thumb_height' => 200,
+    
     // available since v1.3.0
     'valid_image_mimetypes' => [
         'image/jpeg',

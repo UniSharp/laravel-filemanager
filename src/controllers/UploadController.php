@@ -41,10 +41,8 @@ class UploadController extends LfmController {
             return $e->getMessage();
         }
 
-        $files = Input::file('upload');
-
-        foreach($files as $file)
-        {
+        $file = Input::file('upload');
+       
             $new_filename = $this->getNewName($file);
             $dest_path = parent::getPath('directory');
 
@@ -70,8 +68,7 @@ class UploadController extends LfmController {
             if (!Input::has('show_list')) {
                 return $this->useFile($new_filename);
             }
-        }
-
+        
         return 'OK';
     }
 
@@ -156,7 +153,7 @@ class UploadController extends LfmController {
         }
 
         $thumb_img = Image::make($dest_path . $new_filename);
-        $thumb_img->fit(200, 200)
+        $thumb_img->fit(Config::get('lfm.thumb_width',275), Config::get('lfm.thumb_height',250))
             ->save($dest_path . $thumb_folder_name . '/' . $new_filename);
         unset($thumb_img);
     }
