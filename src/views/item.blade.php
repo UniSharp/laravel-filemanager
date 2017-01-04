@@ -7,7 +7,7 @@
 
   <div class="thumbnail thumbnail-img text-center" data-id="{{ $file_name }}" id="img_thumbnail_{{ $key }}">
     @if($type == 'Images')
-    <img id="{{ $file_name }}" src="{{ asset($thumb_src) }}" alt="" class="pointer" onclick="useFile('{{ $file_name }}')">
+    <img id="{{ $file_name }}" src="{{ $thumb_src }}" alt="" class="pointer" onclick="useFile('{{ $file_name }}')">
     @else
     <i class="fa {{ $file['icon'] }} fa-5x" style="height:200px;cursor:pointer;padding-top:60px;" onclick="useFile('{{ $file_name }}')"></i>
     @endif

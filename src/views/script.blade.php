@@ -2,8 +2,8 @@
 var ds            = '/';
 var home_dir      = ds + "{{ (Config::get('lfm.allow_multi_user')) ? Auth::user()->user_field : '' }}";
 var shared_folder = ds + "{{ Config::get('lfm.shared_folder_name') }}";
-var image_url     = "{{ asset(Config::get('lfm.images_url')) }}";
-var file_url      = "{{ asset(Config::get('lfm.files_url')) }}";
+var image_url     = "{{ Config::get('lfm.images_url') }}";
+var file_url      = "{{ Config::get('lfm.files_url') }}";
 
 $(document).ready(function () {
   bootbox.setDefaults({locale:"{{ Lang::get('laravel-filemanager::lfm.locale-bootbox') }}"});
@@ -352,7 +352,7 @@ function useFile(file) {
     }
 
     var url = item_url + file;
-    url = url.replace(/\\/g, "/");
+    url = url.replace(/\\/g, "/").replace(/\/\//g, "/");
 
     return url;
   }
