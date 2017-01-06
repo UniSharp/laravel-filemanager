@@ -1,6 +1,6 @@
 (function( $ ){
 
-    $.fn.filemanager = function(type) {
+    $.fn.filemanager = function(type, options) {
         type = type || 'image';
 
         if (type === 'image' || type === 'images') {
@@ -10,9 +10,10 @@
         }
 
         this.on('click', function(e) {
+            var route_prefix = (options && options.prefix) ? options.prefix : 'laravel-filemanager';
             localStorage.setItem('target_input', $(this).data('input'));
             localStorage.setItem('target_preview', $(this).data('preview'));
-            window.open('/laravel-filemanager?type=' + type, 'FileManager', 'width=900,height=600');
+            window.open('/' + route_prefix + '?type=' + type, 'FileManager', 'width=900,height=600');
             return false;
         });
     }
