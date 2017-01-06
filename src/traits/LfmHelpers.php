@@ -10,44 +10,36 @@ trait LfmHelpers
      ***       Path / Url      ***
      *****************************/
 
-    public function getCurrentPath($file_name = null)
-    {
-        $prefix = base_path() . '/' . $this->getPathPrefix('dir');
-
-        $working_dir = $this->getFormatedWorkingDir();
-
-        $path = $prefix . $working_dir;
-
-        if (!is_null($file_name)) {
-            $path .= '/' . $file_name;
-        }
-
-        return $path;
-    }
-
     public function getThumbPath($image_name = null)
     {
-        $prefix = base_path() . '/' . $this->getPathPrefix('dir');
+        return $this->getCurrentPath($image_name, 'thumb');
+    }
 
-        $working_dir = $this->getFormatedWorkingDir();
+    public function getCurrentPath($file_name = null, $is_thumb = null)
+    {
+        $path = $this->composeSegments('dir', $is_thumb) . $file_name;
 
-        $path = $prefix . $working_dir;
+        return base_path($path);
+    }
 
-        $path .= '/';
+    public function getThumbUrl($image_name = null)
+    {
+        return $this->getImageUrl($image_name, 'thumb');
+    }
 
-        //if user is inside thumbs folder there is no need
-        // to add thumbs substring to the end of $path
-        $in_thumb_folder = preg_match('/'.config('lfm.thumb_folder_name').'$/i', $working_dir);
+    public function getImageUrl($image_name = null, $is_thumb = null)
+    {
+        $url = $this->composeSegments('url', $is_thumb) . $image_name;
 
-        if (!$in_thumb_folder) {
-            $path .= config('lfm.thumb_folder_name') . '/';
-        }
+        return str_replace('\\', '/', $url);
+    }
 
-        if (!is_null($image_name)) {
-            $path .= $image_name;
-        }
-
-        return $path;
+    private function composeSegments($type, $is_thumb)
+    {
+        return $this->getPathPrefix($type)
+            . $this->getFormatedWorkingDir()
+            . '/'
+            . $this->appendThumbFolderPath($is_thumb);
     }
 
     private function getFormatedWorkingDir()
@@ -62,42 +54,20 @@ trait LfmHelpers
         return $working_dir;
     }
 
-    public function getThumbUrl()
+    private function appendThumbFolderPath($is_thumb)
     {
-        $prefix = $this->getPathPrefix('url');
-
-        $working_dir = $this->getFormatedWorkingDir();
-
-        $url = $prefix . $working_dir;
-
-        $url .= '/';
-
-        //if user is inside thumbs folder there is no need
-        // to add thumbs substring to the end of $url
-        $in_thumb_folder = preg_match('/'.config('lfm.thumb_folder_name').'$/i', $working_dir);
-
-        if (!$in_thumb_folder) {
-            $url .= config('lfm.thumb_folder_name') . '/';
+        if (!$is_thumb) {
+            return;
         }
 
-        $url = str_replace('\\', '/', $url);
+        $thumb_folder_name = config('lfm.thumb_folder_name');
+        //if user is inside thumbs folder there is no need
+        // to add thumbs substring to the end of $url
+        $in_thumb_folder = preg_match('/'.$thumb_folder_name.'$/i', $this->getFormatedWorkingDir());
 
-        return $url;
-    }
-
-    public function getImageUrlByName($image_name)
-    {
-        $prefix = $this->getPathPrefix('url');
-
-        $working_dir = $this->getFormatedWorkingDir();
-
-        $url = $prefix . $working_dir;
-
-        $url .= '/';
-
-        $url = str_replace('\\', '/', $url);
-
-        return $url . $image_name;
+        if (!$in_thumb_folder) {
+            return $thumb_folder_name . '/';
+        }
     }
 
     public function rootFolder($type)
