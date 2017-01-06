@@ -8,22 +8,17 @@ use Illuminate\Support\Facades\Input;
 
 trait LfmHelpers
 {
-    protected $file_location = null;
+    protected $url_location = null;
     protected $dir_location = null;
 
     public function __construct()
     {
-        $this->file_type = Input::get('type', 'Images'); // default set to Images.
-
-        if ($this->isProcessingImages()) {
-            $this->dir_location = Config::get('lfm.images_url');
-            $this->file_location = Config::get('lfm.images_dir');
-        } elseif ($this->isProcessingFiles()) {
-            $this->dir_location = Config::get('lfm.files_url');
-            $this->file_location = Config::get('lfm.files_dir');
-        } else {
+        if (!$this->isProcessingImages() && !$this->isProcessingFiles()) {
             throw new \Exception('unexpected type parameter');
         }
+
+        $this->url_location = Config::get('lfm.' . $this->currentLfmType() . 's_url');
+        $this->dir_location = Config::get('lfm.' . $this->currentLfmType() . 's_dir');
     }
 
     /*****************************
@@ -33,10 +28,8 @@ trait LfmHelpers
     {
         if ($type === 'share') {
             return $location . Config::get('lfm.shared_folder_name');
-
         } elseif ($type === 'user') {
             return $location . $this->getUserSlug();
-
         }
 
         $working_dir = Input::get('working_dir');
@@ -45,7 +38,6 @@ trait LfmHelpers
         if (substr($working_dir, 0, 1) === '/') {
             $working_dir = substr($working_dir, 1);
         }
-
 
         $location .= $working_dir;
 
@@ -78,7 +70,7 @@ trait LfmHelpers
 
     public function getPath($type = null, $get_thumb = false)
     {
-        $path = base_path() . '/' . $this->file_location;
+        $path = base_path() . '/' . $this->dir_location;
 
         $path = $this->formatLocation($path, $type);
 
@@ -88,7 +80,7 @@ trait LfmHelpers
 
     public function getUrl($type = null)
     {
-        $url = $this->dir_location;
+        $url = $this->url_location;
 
         $url = $this->formatLocation($url, $type);
 
@@ -119,8 +111,8 @@ trait LfmHelpers
 
     public function getFileName($file)
     {
-        $lfm_dir_start = strpos($file, $this->file_location);
-        $working_dir_start = $lfm_dir_start + strlen($this->file_location);
+        $lfm_dir_start = strpos($file, $this->dir_location);
+        $working_dir_start = $lfm_dir_start + strlen($this->dir_location);
         $lfm_file_path = substr($file, $working_dir_start);
 
         $arr_dir = explode('/', $lfm_file_path);
@@ -132,15 +124,15 @@ trait LfmHelpers
 
     public function isProcessingImages()
     {
-        return $this->currentProcessingType() === 'image';
+        return $this->currentLfmType() === 'image';
     }
 
     public function isProcessingFiles()
     {
-        return $this->currentProcessingType() === 'file';
+        return $this->currentLfmType() === 'file';
     }
 
-    public function currentProcessingType($is_for_url = false)
+    public function currentLfmType($is_for_url = false)
     {
         $file_type = Input::get('type', 'Images');
 

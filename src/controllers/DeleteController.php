@@ -48,7 +48,7 @@ class DeleteController extends LfmController {
         File::delete($file_to_delete);
         Event::fire(new ImageWasDeleted($file_to_delete));
 
-        if ('Images' === $this->file_type) {
+        if ($this->isProcessingImages()) {
             File::delete($thumb_to_delete);
         }
 

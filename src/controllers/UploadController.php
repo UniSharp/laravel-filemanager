@@ -63,14 +63,14 @@ class UploadController extends LfmController {
         Event::fire(new ImageIsUploading($dest_path . $new_filename));
 
         try {
-            if ('Images' === $this->file_type) {
-                //Apply orientation from exif data
-                $img = Image::make($file->getRealPath())->orientate();
-                $upload = $img->save($dest_path . $new_filename, 90);
+            if ($this->isProcessingImages()) {
+                Image::make($file->getRealPath())
+                    ->orientate() //Apply orientation from exif data
+                    ->save($dest_path . $new_filename, 90);
 
                 $this->makeThumb($dest_path, $new_filename);
             } else {
-                $upload = $file->move($dest_path, $new_filename);
+                $file->move($dest_path, $new_filename);
             }
         } catch (\Exception $e) {
             return Lang::get('laravel-filemanager::lfm.error-invalid');
@@ -108,13 +108,7 @@ class UploadController extends LfmController {
 
         // size to kb unit is needed
         $file_size = $file->getSize() / 1000;
-
-        $expected_file_type = $this->file_type;
-        if ($expected_file_type === 'Files') {
-            $type_key = 'file';
-        } else {
-            $type_key = 'image';
-        }
+        $type_key = $this->currentLfmType();
 
         $mine_config = 'lfm.valid_' . $type_key . '_mimetypes';
         $valid_mimetypes = Config::get($mine_config, $this->{"default_{$type_key}_types"});
