@@ -1,10 +1,6 @@
 <?php namespace Unisharp\Laravelfilemanager\controllers;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Input;
-use Lang;
 use Unisharp\Laravelfilemanager\Events\ImageIsDeleting;
 use Unisharp\Laravelfilemanager\Events\ImageWasDeleted;
 
@@ -21,12 +17,12 @@ class DeleteController extends LfmController
      */
     public function getDelete()
     {
-        $name_to_delete = Input::get('items');
+        $name_to_delete = request('items');
 
-        $file_to_delete = parent::getPath('directory') . $name_to_delete;
-        $thumb_to_delete = parent::getPath('thumb') . $name_to_delete;
+        $file_to_delete = parent::getCurrentPath($name_to_delete);
+        $thumb_to_delete = parent::getThumbPath($name_to_delete);
 
-        Event::fire(new ImageIsDeleting($file_to_delete));
+        event(new ImageIsDeleting($file_to_delete));
 
         if (!File::exists($file_to_delete)) {
             return $this->error('folder-not-found', ['folder' => $file_to_delete]);
@@ -48,7 +44,7 @@ class DeleteController extends LfmController
             File::delete($thumb_to_delete);
         }
 
-        Event::fire(new ImageWasDeleted($file_to_delete));
+        event(new ImageWasDeleted($file_to_delete));
 
         return 'OK';
     }

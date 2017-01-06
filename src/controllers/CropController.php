@@ -1,9 +1,6 @@
 <?php namespace Unisharp\Laravelfilemanager\controllers;
 
 use Unisharp\Laravelfilemanager\controllers\Controller;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -19,8 +16,8 @@ class CropController extends LfmController
      */
     public function getCrop()
     {
-        $working_dir = Input::get('working_dir');
-        $img = parent::getUrl('directory') . Input::get('img');
+        $working_dir = request('working_dir');
+        $img = parent::getImageUrlByName(request('img'));
 
         return view('laravel-filemanager::crop')
             ->with(compact('working_dir', 'img'));
@@ -32,21 +29,21 @@ class CropController extends LfmController
      */
     public function getCropimage()
     {
-        $image = Input::get('img');
-        $dataX = Input::get('dataX');
-        $dataY = Input::get('dataY');
-        $dataHeight = Input::get('dataHeight');
-        $dataWidth = Input::get('dataWidth');
+        $image      = request('img');
+        $dataX      = request('dataX');
+        $dataY      = request('dataY');
+        $dataHeight = request('dataHeight');
+        $dataWidth  = request('dataWidth');
         $image_path = public_path() . $image;
 
         // crop image
-        $tmp_img = Image::make($image_path);
-        $tmp_img->crop($dataWidth, $dataHeight, $dataX, $dataY)
+        Image::make($image_path)
+            ->crop($dataWidth, $dataHeight, $dataX, $dataY)
             ->save($image_path);
 
         // make new thumbnail
-        $thumb_img = Image::make($image_path);
-        $thumb_img->fit(200, 200)
-            ->save(parent::getPath('thumb') . parent::getFileName($image)['short']);
+        Image::make($image_path)
+            ->fit(200, 200)
+            ->save(parent::getThumbPath(parent::getFileName($image)['short']));
     }
 }

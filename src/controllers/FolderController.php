@@ -1,8 +1,6 @@
 <?php namespace Unisharp\Laravelfilemanager\controllers;
 
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Config;
 
 /**
  * Class FolderController
@@ -17,11 +15,11 @@ class FolderController extends LfmController
      */
     public function getFolders()
     {
-        $user_path     = parent::getPath('user');
+        $user_path     = parent::getRootFolderPath('user');
         $lfm_user_path = parent::getFileName($user_path);
         $user_folders  = parent::getDirectories($user_path);
 
-        $share_path     = parent::getPath('share');
+        $share_path     = parent::getRootFolderPath('share');
         $lfm_share_path = parent::getFileName($share_path);
         $shared_folders = parent::getDirectories($share_path);
 
@@ -40,15 +38,15 @@ class FolderController extends LfmController
      */
     public function getAddfolder()
     {
-        $folder_name = trim(Input::get('name'));
+        $folder_name = trim(request('name'));
 
-        $path = parent::getPath('directory') . $folder_name;
+        $path = parent::getCurrentPath($folder_name);
 
         if (empty($folder_name)) {
             return $this->error('folder-name');
         } elseif (File::exists($path)) {
             return $this->error('folder-exist');
-        } elseif (Config::get('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
+        } elseif (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
             return $this->error('folder-alnum');
         } else {
             $this->createFolderByPath($path);

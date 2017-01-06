@@ -1,9 +1,5 @@
 <?php namespace Unisharp\Laravelfilemanager\controllers;
 
-use Unisharp\Laravelfilemanager\controllers\Controller;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -20,11 +16,11 @@ class ResizeController extends LfmController
     public function getResize()
     {
         $ratio = 1.0;
-        $image = Input::get('img');
+        $image = request('img');
 
-        $path_to_image   = parent::getPath('directory') . $image;
-        $original_width  = Image::make($path_to_image)->width();
-        $original_height = Image::make($path_to_image)->height();
+        $original_image  = Image::make(parent::getCurrentPath($image));
+        $original_width  = $original_image->width();
+        $original_height = $original_image->height();
 
         $scaled = false;
 
@@ -45,8 +41,8 @@ class ResizeController extends LfmController
             $scaled = true;
         }
 
-        return View::make('laravel-filemanager::resize')
-            ->with('img', parent::getUrl('directory') . $image)
+        return view('laravel-filemanager::resize')
+            ->with('img', parent::getImageUrlByName($image))
             ->with('height', number_format($height, 0))
             ->with('width', $width)
             ->with('original_height', $original_height)
@@ -57,11 +53,11 @@ class ResizeController extends LfmController
 
     public function performResize()
     {
-        $img    = Input::get('img');
-        $dataX  = Input::get('dataX');
-        $dataY  = Input::get('dataY');
-        $height = Input::get('dataHeight');
-        $width  = Input::get('dataWidth');
+        $img    = request('img');
+        $dataX  = request('dataX');
+        $dataY  = request('dataY');
+        $height = request('dataHeight');
+        $width  = request('dataWidth');
 
         try {
             Image::make(public_path() . $img)->resize($width, $height)->save();

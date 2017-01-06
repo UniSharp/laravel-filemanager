@@ -23,10 +23,8 @@ class CreateDefaultFolder
             return;
         }
 
-        $path = $this->getPath($type);
+        $path = $this->getRootFolderPath($type);
 
-        if (!\File::exists($path)) {
-            $this->createFolderByPath($path);
-        }
+        $this->createFolderByPath($path);
     }
 }

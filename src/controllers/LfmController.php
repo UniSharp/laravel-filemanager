@@ -10,6 +10,13 @@ class LfmController extends Controller
 {
     use LfmHelpers;
 
+    public function __construct()
+    {
+        if (!$this->isProcessingImages() && !$this->isProcessingFiles()) {
+            throw new \Exception('unexpected type parameter');
+        }
+    }
+
     /**
      * Show the filemanager
      *

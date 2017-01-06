@@ -1,9 +1,6 @@
 <?php namespace Unisharp\Laravelfilemanager\controllers;
 
-use Unisharp\Laravelfilemanager\controllers\Controller;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Input;
 
 /**
  * Class ItemsController
@@ -20,12 +17,12 @@ class ItemsController extends LfmController
     {
         $type = $this->currentLfmType(true);
         $view = $this->getView();
-        $path = parent::getPath();
+        $path = parent::getCurrentPath();
 
         $files       = File::files($path);
         $file_info   = $this->getFileInfos($files);
         $directories = parent::getDirectories($path);
-        $thumb_url   = parent::getUrl('thumb');
+        $thumb_url   = parent::getThumbUrl();
 
         return view($view)
             ->with(compact('type', 'file_info', 'directories', 'thumb_url'));
@@ -53,8 +50,8 @@ class ItemsController extends LfmController
             } else {
                 $extension = strtolower(File::extension($file_name));
 
-                $icon_array = Config::get('lfm.file_icon_array');
-                $type_array = Config::get('lfm.file_type_array');
+                $icon_array = config('lfm.file_icon_array');
+                $type_array = config('lfm.file_type_array');
 
                 if (array_key_exists($extension, $icon_array)) {
                     $icon = $icon_array[$extension];
@@ -80,7 +77,7 @@ class ItemsController extends LfmController
 
     private function getView()
     {
-        if (Input::get('show_list') == 1) {
+        if (request('show_list') == 1) {
             return 'laravel-filemanager::list-view';
         } else {
             return 'laravel-filemanager::grid-view';

@@ -2,99 +2,170 @@
 
 namespace Unisharp\Laravelfilemanager\traits;
 
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Input;
 
 trait LfmHelpers
 {
-    protected $url_location = null;
-    protected $dir_location = null;
-
-    public function __construct()
-    {
-        if (!$this->isProcessingImages() && !$this->isProcessingFiles()) {
-            throw new \Exception('unexpected type parameter');
-        }
-
-        $this->url_location = Config::get('lfm.' . $this->currentLfmType() . 's_url');
-        $this->dir_location = Config::get('lfm.' . $this->currentLfmType() . 's_dir');
-    }
-
     /*****************************
-     ***   Private Functions   ***
+     ***       Path / Url      ***
      *****************************/
-    private function formatLocation($location, $type = null, $get_thumb = false)
+
+    public function getCurrentPath($file_name = null)
     {
-        if ($type === 'share') {
-            return $location . Config::get('lfm.shared_folder_name');
-        } elseif ($type === 'user') {
-            return $location . $this->getUserSlug();
+        $prefix = base_path() . '/' . $this->getPathPrefix('dir');
+
+        $working_dir = $this->getFormatedWorkingDir();
+
+        $path = $prefix . $working_dir;
+
+        if (!is_null($file_name)) {
+            $path .= '/' . $file_name;
         }
-
-        $working_dir = Input::get('working_dir');
-
-        // remove first slash
-        if (substr($working_dir, 0, 1) === '/') {
-            $working_dir = substr($working_dir, 1);
-        }
-
-        $location .= $working_dir;
-
-        if ($type === 'directory' || $type === 'thumb') {
-            $location .= '/';
-        }
-
-        //if user is inside thumbs folder there is no need
-        // to add thumbs substring to the end of $location
-        $in_thumb_folder = preg_match('/'.Config::get('lfm.thumb_folder_name').'$/i', $working_dir);
-
-        if ($type === 'thumb' && !$in_thumb_folder) {
-            $location .= Config::get('lfm.thumb_folder_name') . '/';
-        }
-
-        return $location;
-    }
-
-
-    /****************************
-     ***   Shared Functions   ***
-     ****************************/
-
-
-    public function getUserSlug()
-    {
-        $slug_of_user = \Config::get('lfm.user_field');
-
-        return empty(auth()->user()) ? '' : auth()->user()->$slug_of_user;
-    }
-
-
-    public function getPath($type = null, $get_thumb = false)
-    {
-        $path = base_path() . '/' . $this->dir_location;
-
-        $path = $this->formatLocation($path, $type);
 
         return $path;
     }
 
-
-    public function getUrl($type = null)
+    public function getThumbPath($image_name = null)
     {
-        $url = $this->url_location;
+        $prefix = base_path() . '/' . $this->getPathPrefix('dir');
 
-        $url = $this->formatLocation($url, $type);
+        $working_dir = $this->getFormatedWorkingDir();
+
+        $path = $prefix . $working_dir;
+
+        $path .= '/';
+
+        //if user is inside thumbs folder there is no need
+        // to add thumbs substring to the end of $path
+        $in_thumb_folder = preg_match('/'.config('lfm.thumb_folder_name').'$/i', $working_dir);
+
+        if (!$in_thumb_folder) {
+            $path .= config('lfm.thumb_folder_name') . '/';
+        }
+
+        if (!is_null($image_name)) {
+            $path .= $image_name;
+        }
+
+        return $path;
+    }
+
+    private function getFormatedWorkingDir()
+    {
+        $working_dir = request('working_dir');
+
+        // remove first slash
+        if (starts_with($working_dir, '/')) {
+            $working_dir = substr($working_dir, 1);
+        }
+
+        return $working_dir;
+    }
+
+    public function getThumbUrl()
+    {
+        $prefix = $this->getPathPrefix('url');
+
+        $working_dir = $this->getFormatedWorkingDir();
+
+        $url = $prefix . $working_dir;
+
+        $url .= '/';
+
+        //if user is inside thumbs folder there is no need
+        // to add thumbs substring to the end of $url
+        $in_thumb_folder = preg_match('/'.config('lfm.thumb_folder_name').'$/i', $working_dir);
+
+        if (!$in_thumb_folder) {
+            $url .= config('lfm.thumb_folder_name') . '/';
+        }
 
         $url = str_replace('\\', '/', $url);
 
         return $url;
     }
 
+    public function getImageUrlByName($image_name)
+    {
+        $prefix = $this->getPathPrefix('url');
+
+        $working_dir = $this->getFormatedWorkingDir();
+
+        $url = $prefix . $working_dir;
+
+        $url .= '/';
+
+        $url = str_replace('\\', '/', $url);
+
+        return $url . $image_name;
+    }
+
+    public function rootFolder($type)
+    {
+        $folder_path = '/';
+
+        if ($type === 'user') {
+            $folder_path .= $this->getUserSlug();
+        } else {
+            $folder_path .= config('lfm.shared_folder_name');
+        }
+
+        return $folder_path;
+    }
+
+    public function getRootFolderPath($type)
+    {
+        return base_path($this->getPathPrefix('dir') . $this->rootFolder($type));
+    }
+
+
+    /****************************
+     ***   Config / Settings  ***
+     ****************************/
+
+    public function isProcessingImages()
+    {
+        return $this->currentLfmType() === 'image';
+    }
+
+    public function isProcessingFiles()
+    {
+        return $this->currentLfmType() === 'file';
+    }
+
+    public function currentLfmType($is_for_url = false)
+    {
+        $file_type = request('type', 'Images');
+
+        if ($is_for_url) {
+            return ucfirst($file_type);
+        } else {
+            return lcfirst(str_singular($file_type));
+        }
+    }
+
+    public function allowMultiUser()
+    {
+        return config('lfm.allow_multi_user') === true;
+    }
+
+    public function getPathPrefix($type)
+    {
+        if (in_array($type, ['url', 'dir'])) {
+            return config('lfm.' . $this->currentLfmType() . 's_' . $type);
+        } else {
+            return null;
+        }
+    }
+
+
+    /****************************
+     ***     File System      ***
+     ****************************/
 
     public function getDirectories($path)
     {
-        $thumb_folder_name = Config::get('lfm.thumb_folder_name');
+        $thumb_folder_name = config('lfm.thumb_folder_name');
         $all_directories = File::directories($path);
 
         $arr_dir = [];
@@ -110,11 +181,29 @@ trait LfmHelpers
         return $arr_dir;
     }
 
+    public function createFolderByPath($path)
+    {
+        if (!File::exists($path)) {
+            File::makeDirectory($path, $mode = 0777, true, true);
+        }
+    }
+
+
+    /****************************
+     ***    Miscellaneouses   ***
+     ****************************/
+
+    public function getUserSlug()
+    {
+        $slug_of_user = config('lfm.user_field');
+
+        return empty(auth()->user()) ? '' : auth()->user()->$slug_of_user;
+    }
 
     public function getFileName($file)
     {
-        $lfm_dir_start = strpos($file, $this->dir_location);
-        $working_dir_start = $lfm_dir_start + strlen($this->dir_location);
+        $lfm_dir_start = strpos($file, $this->getPathPrefix('dir'));
+        $working_dir_start = $lfm_dir_start + strlen($this->getPathPrefix('dir'));
         $lfm_file_path = substr($file, $working_dir_start);
 
         $arr_dir = explode('/', $lfm_file_path);
@@ -124,52 +213,8 @@ trait LfmHelpers
         return $arr_filename;
     }
 
-    public function isProcessingImages()
-    {
-        return $this->currentLfmType() === 'image';
-    }
-
-    public function isProcessingFiles()
-    {
-        return $this->currentLfmType() === 'file';
-    }
-
-    public function currentLfmType($is_for_url = false)
-    {
-        $file_type = Input::get('type', 'Images');
-
-        if ($is_for_url) {
-            return ucfirst($file_type);
-        } else {
-            return lcfirst(str_singular($file_type));
-        }
-    }
-
-    public function allowMultiUser()
-    {
-        return \Config::get('lfm.allow_multi_user') === true;
-    }
-
-    public function createFolderByPath($path)
-    {
-        File::makeDirectory($path, $mode = 0777, true, true);
-    }
-
     public function error($error_type, $variables = [])
     {
-        return \Lang::get('laravel-filemanager::lfm.error-' . $error_type, $variables);
-    }
-
-    public function rootFolder($type)
-    {
-        $folder_path = '/';
-
-        if ($type === 'user') {
-            $folder_path .= $this->getUserSlug();
-        } else {
-            $folder_path .= config('lfm.shared_folder_name');
-        }
-
-        return $folder_path;
+        return trans('laravel-filemanager::lfm.error-' . $error_type, $variables);
     }
 }

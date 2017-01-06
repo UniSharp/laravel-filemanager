@@ -1,12 +1,6 @@
 <?php namespace Unisharp\Laravelfilemanager\controllers;
 
-use Illuminate\Support\Facades\Event;
-use Unisharp\Laravelfilemanager\controllers\Controller;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Str;
-use Lang;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Unisharp\Laravelfilemanager\Events\ImageIsUploading;
@@ -32,7 +26,7 @@ class UploadController extends LfmController
      */
     public function upload()
     {
-        $files = Input::file('upload');
+        $files = request()->file('upload');
 
         if (is_array($files)) {
             foreach ($files as $file) {
@@ -57,17 +51,19 @@ class UploadController extends LfmController
         }
 
         $new_filename = $this->getNewName($file);
-        $dest_path = parent::getPath('directory');
+        $dest_path = parent::getCurrentPath();
 
-        Event::fire(new ImageIsUploading($dest_path . $new_filename));
+        $new_file_path = parent::getCurrentPath($new_filename);
+
+        event(new ImageIsUploading($new_file_path));
 
         try {
             if ($this->isProcessingImages()) {
                 Image::make($file->getRealPath())
                     ->orientate() //Apply orientation from exif data
-                    ->save($dest_path . $new_filename, 90);
+                    ->save($new_file_path, 90);
 
-                $this->makeThumb($dest_path, $new_filename);
+                $this->makeThumb($new_filename);
             } else {
                 $file->move($dest_path, $new_filename);
             }
@@ -75,7 +71,7 @@ class UploadController extends LfmController
             return $this->error('invalid');
         }
 
-        Event::fire(new ImageWasUploaded(realpath($dest_path.'/'.$new_filename)));
+        event(new ImageWasUploaded(realpath($new_file_path)));
 
         return $new_filename;
     }
@@ -97,9 +93,8 @@ class UploadController extends LfmController
         }
 
         $new_filename = $this->getNewName($file);
-        $dest_path = parent::getPath('directory');
 
-        if (File::exists($dest_path . $new_filename)) {
+        if (File::exists(parent::getCurrentPath($new_filename))) {
             return $this->error('file-exist');
         }
 
@@ -110,8 +105,8 @@ class UploadController extends LfmController
         $type_key = $this->currentLfmType();
 
         $mine_config = 'lfm.valid_' . $type_key . '_mimetypes';
-        $valid_mimetypes = Config::get($mine_config, $this->{"default_{$type_key}_types"});
-        $max_size = Config::get('lfm.max_' . $type_key . '_size', $this->{"default_max_{$type_key}_size"});
+        $valid_mimetypes = config($mine_config, $this->{"default_{$type_key}_types"});
+        $max_size = config('lfm.max_' . $type_key . '_size', $this->{"default_max_{$type_key}_size"});
 
         if (!is_array($valid_mimetypes)) {
             return 'Config : ' . $mine_config . ' is not set correctly';
@@ -132,34 +127,29 @@ class UploadController extends LfmController
     {
         $new_filename = trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
 
-        if (Config::get('lfm.rename_file') === true) {
+        if (config('lfm.rename_file') === true) {
             $new_filename = uniqid();
-        } elseif (Config::get('lfm.alphanumeric_filename') === true) {
+        } elseif (config('lfm.alphanumeric_filename') === true) {
             $new_filename = preg_replace('/[^A-Za-z0-9\-\']/', '_', $new_filename);
         }
 
-        $new_file_name_with_extension = $new_filename . '.' . $file->getClientOriginalExtension();
-
-        return $new_file_name_with_extension;
+        return $new_filename . '.' . $file->getClientOriginalExtension();
     }
 
-    private function makeThumb($dest_path, $new_filename)
+    private function makeThumb($new_filename)
     {
-        $thumb_folder_name = Config::get('lfm.thumb_folder_name');
-        $thumb_folder_path = $dest_path . $thumb_folder_name;
-        $new_file_path     = $dest_path . $new_filename;
-        $thumb_image_path  = $dest_path . $thumb_folder_name . '/' . $new_filename;
+        // create thumb folder
+        $this->createFolderByPath(parent::getThumbPath());
 
-        if (!File::exists($thumb_folder_path)) {
-            File::makeDirectory($thumb_folder_path);
-        }
-
-        Image::make($new_file_path)->fit(200, 200)->save($thumb_image_path);
+        // create thumb image
+        Image::make(parent::getCurrentPath($new_filename))
+            ->fit(200, 200)
+            ->save(parent::getThumbPath($new_filename));
     }
 
     private function useFile($new_filename)
     {
-        $file = parent::getUrl('directory') . $new_filename;
+        $file = parent::getImageUrlByName($new_filename);
 
         return "<script type='text/javascript'>
 
