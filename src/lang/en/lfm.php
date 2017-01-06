@@ -43,6 +43,7 @@ return [
     'error-folder-name' => 'Folder name cannot be empty!',
     'error-folder-exist'=> 'A folder with this name already exists!',
     'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',
+    'error-folder-not-found'=> 'Folder  not found! (:folder)',
     'error-mime'        => 'Unexpected MimeType: ',
 	'error-size'		=> 'Over limit size:',
     'error-instance'    => 'The uploaded file should be an instance of UploadedFile',

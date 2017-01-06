@@ -32,7 +32,7 @@ class DeleteController extends LfmController {
         Event::fire(new ImageIsDeleting($file_to_delete));
 
         if (!File::exists($file_to_delete)) {
-            return $file_to_delete . ' not found!';
+            return $this->error('folder-not-found', ['folder' => $file_to_delete]);
         }
 
         if (File::isDirectory($file_to_delete)) {
