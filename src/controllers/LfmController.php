@@ -38,10 +38,6 @@ class LfmController extends Controller {
         } else {
             throw new \Exception('unexpected type parameter');
         }
-
-        $this->checkDefaultFolderExists('user');
-        $this->checkDefaultFolderExists('share');
-        $this->user  = \Auth::user();
     }
 
 
