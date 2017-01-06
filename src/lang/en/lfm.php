@@ -39,7 +39,7 @@ return [
     'error-file-empty'  => 'You must choose a file!',
     'error-file-exist'  => 'A file with this name already exists!',
     'error-file-size'   => 'File size exceeds server limit! (maximum size: :max)',
-    'error-delete'      => 'You cannot delete this folder because it is not empty!',
+    'error-delete-folder'=> 'You cannot delete this folder because it is not empty!',
     'error-folder-name' => 'Folder name cannot be empty!',
     'error-folder-exist'=> 'A folder with this name already exists!',
     'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',

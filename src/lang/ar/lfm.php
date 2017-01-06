@@ -39,7 +39,7 @@ return [
     'error-file-empty'  => 'يجب اختيارملف!',
     'error-file-exist'  => 'يوجد ملف سابق بنفس الاسم!',
     'error-file-size'   => 'File size exceeds server limit! (maximum size: :max)',
-    'error-delete'      => 'لا يمكن حذف هذا المجلد لانه غير فارغ!',
+    'error-delete-folder'=> 'لا يمكن حذف هذا المجلد لانه غير فارغ!',
     'error-folder-name' => 'اسم المجلد لا يمكن ان يكون فاغ!',
     'error-folder-exist'=> 'اسم المجلد مستخدما مسبقا!',
     'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',

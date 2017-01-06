@@ -37,7 +37,7 @@ class DeleteController extends LfmController {
 
         if (File::isDirectory($file_to_delete)) {
             if (sizeof(File::files($file_to_delete)) != 0) {
-                return Lang::get('laravel-filemanager::lfm.error-delete');
+                return Lang::get('laravel-filemanager::lfm.error-delete-folder');
             }
 
             File::deleteDirectory($file_to_delete);

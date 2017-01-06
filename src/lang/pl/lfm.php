@@ -39,7 +39,7 @@ return [
     'error-file-empty'  => 'You must choose a file!',
     'error-file-exist'  => 'Niestety, istnieje już plik o takiej nazwie!',
     'error-file-size'   => 'Przekroczono maksymalny rozmiar wgrywanych plików! (maximum size: :max)',
-    'error-delete'      => 'Nie możesz usunąć tego folderu, ponieważ nie jest pusty!',
+    'error-delete-folder'=> 'Nie możesz usunąć tego folderu, ponieważ nie jest pusty!',
     'error-folder-name' => 'Nazwa folderu nie może być pusta!',
     'error-folder-exist'=> 'Folder o tej nazwie już istnieje!',
     'error-folder-alnum'=> 'Dozwolone są jedynie nazwy alfanumeryczne!',

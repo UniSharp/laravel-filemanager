@@ -39,7 +39,7 @@ return [
     'error-file-empty'  => 'شما باید یک فایل را انتخاب کنید!',
     'error-file-exist'  => 'یک فایل دیگر با این نام قبلا ایجاد شده است!',
     'error-file-size'   => 'File size exceeds server limit! (maximum size: :max)',
-    'error-delete'      => 'به دلیل خالی نبودن پوشه امکان حذف آن وجود ندارد!',
+    'error-delete-folder'=> 'به دلیل خالی نبودن پوشه امکان حذف آن وجود ندارد!',
     'error-folder-name' => 'نام پوشه نمی تواند خالی باشد!',
     'error-folder-exist'=> 'یک پوشه با این نام قبلا ایجاد شده است!',
     'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',

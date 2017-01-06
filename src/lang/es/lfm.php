@@ -40,7 +40,7 @@ return [
     'error-file-exist'  => '¡Ya existe un archivo con este nombre!',
     'error-file-size'   => 'File size exceeds server limit! (maximum size: :max)',
     'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',
-    'error-delete'      => '¡No puedes eliminar esta carpeta porque no está vacía!',
+    'error-delete-folder'=> '¡No puedes eliminar esta carpeta porque no está vacía!',
     'error-folder-name' => '¡Nombre de carpeta no puede ser vacío!',
     'error-folder-exist'=> '¡Ya existe una carpeta con este nombre!',
 

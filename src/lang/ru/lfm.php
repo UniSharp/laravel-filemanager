@@ -38,7 +38,7 @@ return [
     'error-file-empty'  => 'Вы должны выбрать файл!',
     'error-file-exist'  => 'Файл с этим именем уже существует!',
     'error-file-size'   => 'File size exceeds server limit! (maximum size: :max)',
-    'error-delete'      => 'Вы не можете удалить эту папку, потому что она не пустая!',
+    'error-delete-folder'=> 'Вы не можете удалить эту папку, потому что она не пустая!',
     'error-folder-name' => 'Имя папки не может быть пустым!',
     'error-folder-exist'=> 'Папка с таким названием уже существует!',
     'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',

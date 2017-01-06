@@ -39,7 +39,7 @@ return [
     'error-file-empty'  => 'Veuillez choisir un fichier',
     'error-file-exist'  => 'Un fichier avec ce nom existe déjà',
     'error-file-size'   => 'Le fichier dépasse la taille maximale autorisée de :max',
-    'error-delete'      => "Vous ne pouvez pas supprimer ce dossier car il n'est pas vide",
+    'error-delete-folder'=> "Vous ne pouvez pas supprimer ce dossier car il n'est pas vide",
     'error-folder-name' => 'Le nom du dossier ne peut pas être vide',
     'error-folder-exist'=> 'Un dossier avec ce nom existe déjà',
     'error-folder-alnum'=> 'Seuls les caractéres alphanumériques sont autorisés',

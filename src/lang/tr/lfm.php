@@ -39,7 +39,7 @@ return [
     'error-file-empty'  => 'Bir dosya seçmelisiniz!',
     'error-file-exist'  => 'Bu adda bir dosya zaten var!',
     'error-file-size'   => 'File size exceeds server limit! (maximum size: :max)',
-    'error-delete'      => 'Klasör boş olmadığından, klasörü silemezsiniz!',
+    'error-delete-folder'=> 'Klasör boş olmadığından, klasörü silemezsiniz!',
     'error-folder-name' => 'Klasör adı yazılmalıdır!',
     'error-folder-exist'=> 'Bu adda bir klasör zaten var!',
     'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',
