@@ -73,7 +73,7 @@ class UploadController extends LfmController {
                 $file->move($dest_path, $new_filename);
             }
         } catch (\Exception $e) {
-            return Lang::get('laravel-filemanager::lfm.error-invalid');
+            return $this->error('invalid');
         }
 
         Event::fire(new ImageWasUploaded(realpath($dest_path.'/'.$new_filename)));
@@ -87,12 +87,12 @@ class UploadController extends LfmController {
         $force_invalid = false;
 
         if (empty($file)) {
-            return Lang::get('laravel-filemanager::lfm.error-file-empty');
+            return $this->error('file-empty');
         } elseif (!$file instanceof UploadedFile) {
-            return Lang::get('laravel-filemanager::lfm.error-instance');
+            return $this->error('instance');
         } elseif ($file->getError() == UPLOAD_ERR_INI_SIZE) {
             $max_size = ini_get('upload_max_filesize');
-            return Lang::get('laravel-filemanager::lfm.error-file-size', ['max' => $max_size]);
+            return $this->error('file-size', ['max' => $max_size]);
         } elseif ($file->getError() != UPLOAD_ERR_OK) {
             return 'File failed to upload. Error code: ' . $file->getError();
         }
@@ -101,7 +101,7 @@ class UploadController extends LfmController {
         $dest_path = parent::getPath('directory');
 
         if (File::exists($dest_path . $new_filename)) {
-            return Lang::get('laravel-filemanager::lfm.error-file-exist');
+            return $this->error('file-exist');
         }
 
         $mimetype = $file->getMimeType();
@@ -119,11 +119,11 @@ class UploadController extends LfmController {
         }
 
         if (false === in_array($mimetype, $valid_mimetypes)) {
-            return Lang::get('laravel-filemanager::lfm.error-mime') . $mimetype;
+            return $this->error('mime') . $mimetype;
         }
 
         if ($file_size > $max_size) {
-            return Lang::get('laravel-filemanager::lfm.error-size') . $mimetype;
+            return $this->error('size') . $mimetype;
         }
 
         return 'pass';

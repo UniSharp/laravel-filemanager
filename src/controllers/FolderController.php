@@ -47,11 +47,11 @@ class FolderController extends LfmController {
         $path = parent::getPath('directory') . $folder_name;
 
         if (empty($folder_name)) {
-            return Lang::get('laravel-filemanager::lfm.error-folder-name');
+            return $this->error('folder-name');
         } elseif (File::exists($path)) {
-            return Lang::get('laravel-filemanager::lfm.error-folder-exist');
+            return $this->error('folder-exist');
         } elseif (Config::get('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
-            return Lang::get('laravel-filemanager::lfm.error-folder-alnum');
+            return $this->error('folder-alnum');
         } else {
             File::makeDirectory($path, $mode = 0777, true, true);
             return 'OK';

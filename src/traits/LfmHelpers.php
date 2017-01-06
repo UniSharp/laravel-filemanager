@@ -142,4 +142,10 @@ trait LfmHelpers
             return lcfirst(str_singular($file_type));
         }
     }
+
+    public function error($error_type, $variables = [])
+    {
+        return \Lang::get('laravel-filemanager::lfm.error-' . $error_type, $variables);
+    }
+
 }
