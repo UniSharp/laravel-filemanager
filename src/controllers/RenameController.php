@@ -58,7 +58,7 @@ class RenameController extends LfmController {
 
         File::move($old_file, $new_file);
 
-        if ('Images' === $this->file_type) {
+        if ($this->isProcessingImages()) {
             File::move($thumb_path . $old_name, $thumb_path . $new_name);
         }
 
