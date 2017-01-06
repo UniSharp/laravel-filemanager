@@ -29,6 +29,7 @@
   },
   "require-dev": {
     "orchestra/testbench": "~3.0",
+    "phpspec/phpspec": "~2.1",
     "phpunit/phpunit": "~4.8"
   },
   "suggest": {
