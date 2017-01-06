@@ -1,7 +1,6 @@
 <?php namespace Unisharp\Laravelfilemanager\controllers;
 
 use Illuminate\Support\Facades\Event;
-use Unisharp\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
@@ -13,8 +12,8 @@ use Unisharp\Laravelfilemanager\Events\ImageWasDeleted;
  * Class CropController
  * @package Unisharp\Laravelfilemanager\controllers
  */
-class DeleteController extends LfmController {
-
+class DeleteController extends LfmController
+{
     /**
      * Delete image and associated thumbnail
      *
@@ -24,9 +23,7 @@ class DeleteController extends LfmController {
     {
         $name_to_delete = Input::get('items');
 
-        $file_path = parent::getPath('directory');
-
-        $file_to_delete = $file_path . $name_to_delete;
+        $file_to_delete = parent::getPath('directory') . $name_to_delete;
         $thumb_to_delete = parent::getPath('thumb') . $name_to_delete;
 
         Event::fire(new ImageIsDeleting($file_to_delete));
@@ -46,13 +43,13 @@ class DeleteController extends LfmController {
         }
 
         File::delete($file_to_delete);
-        Event::fire(new ImageWasDeleted($file_to_delete));
 
         if ($this->isProcessingImages()) {
             File::delete($thumb_to_delete);
         }
 
+        Event::fire(new ImageWasDeleted($file_to_delete));
+
         return 'OK';
     }
-
 }

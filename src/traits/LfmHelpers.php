@@ -64,7 +64,9 @@ trait LfmHelpers
 
     public function getUserSlug()
     {
-        return empty(auth()->user()) ? '' : \Auth::user()->user_field;
+        $slug_of_user = \Config::get('lfm.user_field');
+
+        return empty(auth()->user()) ? '' : auth()->user()->$slug_of_user;
     }
 
 
@@ -143,9 +145,31 @@ trait LfmHelpers
         }
     }
 
+    public function allowMultiUser()
+    {
+        return \Config::get('lfm.allow_multi_user') === true;
+    }
+
+    public function createFolderByPath($path)
+    {
+        File::makeDirectory($path, $mode = 0777, true, true);
+    }
+
     public function error($error_type, $variables = [])
     {
         return \Lang::get('laravel-filemanager::lfm.error-' . $error_type, $variables);
     }
 
+    public function rootFolder($type)
+    {
+        $folder_path = '/';
+
+        if ($type === 'user') {
+            $folder_path .= $this->getUserSlug();
+        } else {
+            $folder_path .= config('lfm.shared_folder_name');
+        }
+
+        return $folder_path;
+    }
 }

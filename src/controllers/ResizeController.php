@@ -10,8 +10,8 @@ use Intervention\Image\Facades\Image;
  * Class ResizeController
  * @package Unisharp\Laravelfilemanager\controllers
  */
-class ResizeController extends LfmController {
-
+class ResizeController extends LfmController
+{
     /**
      * Dipsplay image for resizing
      *
@@ -55,7 +55,6 @@ class ResizeController extends LfmController {
             ->with('ratio', $ratio);
     }
 
-
     public function performResize()
     {
         $img    = Input::get('img');
@@ -71,7 +70,5 @@ class ResizeController extends LfmController {
             return "width : " . $width . " height: " . $height;
             return $e;
         }
-
     }
-
 }

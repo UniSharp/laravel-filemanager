@@ -2,24 +2,23 @@
 
 namespace Unisharp\Laravelfilemanager\middlewares;
 
+use Unisharp\Laravelfilemanager\traits\LfmHelpers;
 use Closure;
 
 class MultiUser
 {
+    use LfmHelpers;
+
     public function handle($request, Closure $next)
     {
-        if (\Config::get('lfm.allow_multi_user') === true) {
-            $slug = \Config::get('lfm.user_field');
-
-            \Auth::user()->user_field = \Auth::user()->$slug;
-            $new_working_dir = '/' . \Auth::user()->user_field;
-
+        if ($this->allowMultiUser()) {
             $previous_dir = $request->input('working_dir');
+            $working_dir  = $this->rootFolder('user');
 
             if ($previous_dir == null) {
-                $request->merge(['working_dir' => $new_working_dir]);
+                $request->merge(compact('working_dir'));
             } elseif (! $this->validDir($previous_dir)) {
-                $request->replace(['working_dir' => $new_working_dir]);
+                $request->replace(compact('working_dir'));
             }
         }
 
@@ -28,11 +27,11 @@ class MultiUser
 
     private function validDir($previous_dir)
     {
-        if (starts_with($previous_dir, '/' . \Config::get('lfm.shared_folder_name'))) {
+        if (starts_with($previous_dir, $this->rootFolder('share'))) {
             return true;
         }
 
-        if (starts_with($previous_dir, '/' . (string)\Auth::user()->user_field)) {
+        if (starts_with($previous_dir, $this->rootFolder('user'))) {
             return true;
         }
 

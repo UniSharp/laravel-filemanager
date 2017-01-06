@@ -16,8 +16,8 @@ use Unisharp\Laravelfilemanager\Events\FolderWasRenamed;
  * Class RenameController
  * @package Unisharp\Laravelfilemanager\controllers
  */
-class RenameController extends LfmController {
-
+class RenameController extends LfmController
+{
     /**
      * @return string
      */

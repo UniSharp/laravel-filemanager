@@ -16,8 +16,8 @@ use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
  * Class UploadController
  * @package Unisharp\Laravelfilemanager\controllers
  */
-class UploadController extends LfmController {
-
+class UploadController extends LfmController
+{
     private $default_file_types = ['application/pdf'];
     private $default_image_types = ['image/jpeg', 'image/png', 'image/gif'];
     // unit is assumed to be kb
@@ -35,8 +35,7 @@ class UploadController extends LfmController {
         $files = Input::file('upload');
 
         if (is_array($files)) {
-            foreach($files as $file)
-            {
+            foreach ($files as $file) {
                 $this->proceedSingleUpload($file);
             }
 
@@ -180,5 +179,4 @@ class UploadController extends LfmController {
         if (o !== false) o.CKEDITOR.tools.callFunction(funcNum, '$file');
         </script>";
     }
-
 }

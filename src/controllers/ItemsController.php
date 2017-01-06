@@ -9,9 +9,8 @@ use Illuminate\Support\Facades\Input;
  * Class ItemsController
  * @package Unisharp\Laravelfilemanager\controllers
  */
-class ItemsController extends LfmController {
-
-
+class ItemsController extends LfmController
+{
     /**
      * Get the images to load for a selected folder
      *
@@ -19,12 +18,12 @@ class ItemsController extends LfmController {
      */
     public function getItems()
     {
-        $type = Input::get('type');
+        $type = $this->currentLfmType(true);
         $view = $this->getView();
         $path = parent::getPath();
 
         $files       = File::files($path);
-        $file_info   = $this->getFileInfos($files, $type);
+        $file_info   = $this->getFileInfos($files);
         $directories = parent::getDirectories($path);
         $thumb_url   = parent::getUrl('thumb');
 
@@ -33,7 +32,7 @@ class ItemsController extends LfmController {
     }
 
 
-    private function getFileInfos($files, $type = 'Images')
+    private function getFileInfos($files)
     {
         $file_info = [];
 
@@ -48,7 +47,7 @@ class ItemsController extends LfmController {
                 $file_size = $file_size . " Kb";
             }
 
-            if ($type === 'Images') {
+            if ($this->isProcessingImages()) {
                 $file_type = File::mimeType($file);
                 $icon = '';
             } else {

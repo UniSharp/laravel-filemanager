@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Response;
  * Class DownloadController
  * @package Unisharp\Laravelfilemanager\controllers
  */
-class DownloadController extends LfmController {
-
+class DownloadController extends LfmController
+{
     /**
      * Download a file
      *
@@ -20,5 +20,4 @@ class DownloadController extends LfmController {
     {
         return Response::download(parent::getPath('directory') . Input::get('file'));
     }
-
 }

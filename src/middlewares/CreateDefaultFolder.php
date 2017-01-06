@@ -2,11 +2,8 @@
 
 namespace Unisharp\Laravelfilemanager\middlewares;
 
-use Closure;
 use Unisharp\Laravelfilemanager\traits\LfmHelpers;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Input;
+use Closure;
 
 class CreateDefaultFolder
 {
@@ -22,14 +19,14 @@ class CreateDefaultFolder
 
     private function checkDefaultFolderExists($type = 'share')
     {
-        if ($type === 'user' && \Config::get('lfm.allow_multi_user') !== true) {
+        if ($type === 'user' && !$this->allowMultiUser()) {
             return;
         }
 
         $path = $this->getPath($type);
 
-        if (!File::exists($path)) {
-            File::makeDirectory($path, $mode = 0777, true, true);
+        if (!\File::exists($path)) {
+            $this->createFolderByPath($path);
         }
     }
 }

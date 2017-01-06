@@ -1,17 +1,15 @@
 <?php namespace Unisharp\Laravelfilemanager\controllers;
 
-use Unisharp\Laravelfilemanager\controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Config;
-use Lang;
 
 /**
  * Class FolderController
  * @package Unisharp\Laravelfilemanager\controllers
  */
-class FolderController extends LfmController {
-
+class FolderController extends LfmController
+{
     /**
      * Get list of folders as json to populate treeview
      *
@@ -53,9 +51,8 @@ class FolderController extends LfmController {
         } elseif (Config::get('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
             return $this->error('folder-alnum');
         } else {
-            File::makeDirectory($path, $mode = 0777, true, true);
+            $this->createFolderByPath($path);
             return 'OK';
         }
     }
-
 }
