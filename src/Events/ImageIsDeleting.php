@@ -18,5 +18,4 @@ class ImageIsDeleting
     {
         return $this->path;
     }
-
 }

@@ -18,5 +18,4 @@ class ImageIsUploading
     {
         return $this->path;
     }
-
 }

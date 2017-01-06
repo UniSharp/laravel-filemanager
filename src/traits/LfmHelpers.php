@@ -47,7 +47,7 @@ trait LfmHelpers
 
         //if user is inside thumbs folder there is no need
         // to add thumbs substring to the end of $location
-        $in_thumb_folder = preg_match('/'.Config::get('lfm.thumb_folder_name').'$/i',$working_dir);
+        $in_thumb_folder = preg_match('/'.Config::get('lfm.thumb_folder_name').'$/i', $working_dir);
 
         if ($type === 'thumb' && !$in_thumb_folder) {
             $location .= Config::get('lfm.thumb_folder_name') . '/';
@@ -86,7 +86,7 @@ trait LfmHelpers
 
         $url = $this->formatLocation($url, $type);
 
-        $url = str_replace('\\','/',$url);
+        $url = str_replace('\\', '/', $url);
 
         return $url;
     }

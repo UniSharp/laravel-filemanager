@@ -4,7 +4,8 @@ namespace Unisharp\Laravelfilemanager\Events;
 
 class ImageIsRenaming
 {
-    private $path;
+    private $old_path;
+    private $new_path;
 
     public function __construct($old_path, $new_path)
     {
@@ -15,14 +16,13 @@ class ImageIsRenaming
     /**
      * @return string
      */
-    public function old_path()
+    public function oldPath()
     {
         return $this->old_path;
     }
 
-    public function new_path()
+    public function newPath()
     {
         return $this->new_path;
     }
-
 }
