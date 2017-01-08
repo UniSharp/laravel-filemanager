@@ -26,7 +26,7 @@
               <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10 right-nav" id="right-nav">
                 <div class="row">
                   <div class="col-md-12">
-                    @if($extension_not_found)
+                    @if($no_extension)
                     <div class="alert alert-warning"><i class="glyphicon glyphicon-exclamation-sign"></i> {{ Lang::get('laravel-filemanager::lfm.message-extension_not_found') }}</div>
                     @endif
                     <nav class="navbar navbar-default">

@@ -50,13 +50,10 @@ class UploadController extends LfmController
             return $validation_message;
         }
 
-        $new_filename = $this->getNewName($file);
-        $dest_path = parent::getCurrentPath();
-
+        $new_filename  = $this->getNewName($file);
         $new_file_path = parent::getCurrentPath($new_filename);
 
         event(new ImageIsUploading($new_file_path));
-
         try {
             if ($this->isProcessingImages()) {
                 Image::make($file->getRealPath())
@@ -65,12 +62,11 @@ class UploadController extends LfmController
 
                 $this->makeThumb($new_filename);
             } else {
-                $file->move($dest_path, $new_filename);
+                File::move($file->path(), $new_file_path);
             }
         } catch (\Exception $e) {
             return $this->error('invalid');
         }
-
         event(new ImageWasUploaded(realpath($new_file_path)));
 
         return $new_filename;

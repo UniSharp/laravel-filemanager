@@ -29,12 +29,11 @@ class LfmController extends Controller
             $default_folder_type = 'user';
         }
 
-        $working_dir         = $this->rootFolder($default_folder_type);
-        $file_type           = $this->currentLfmType(true);
-        $startup_view        = config('lfm.' . $this->currentLfmType() . '_startup_view');
-        $extension_not_found = ! extension_loaded('gd') && ! extension_loaded('imagick');
-
-        return view('laravel-filemanager::index')
-            ->with(compact('working_dir', 'file_type', 'startup_view', 'extension_not_found'));
+        return view('laravel-filemanager::index')->with([
+            'working_dir'  => $this->rootFolder($default_folder_type),
+            'file_type'    => $this->currentLfmType(true),
+            'startup_view' => config('lfm.' . $this->currentLfmType() . '_startup_view'),
+            'no_extension' => ! extension_loaded('gd') && ! extension_loaded('imagick')
+        ]);
     }
 }
