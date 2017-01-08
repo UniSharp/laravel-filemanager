@@ -1,16 +1,27 @@
 <?php $file_name = $file_info[$key]['name'];?>
 @if($type == 'Images')
 <?php $thumb_src = $thumb_url . $file_name;?>
+<?php $thumb_not_found = realpath(public_path($thumb_src)) === false; ?>
 @endif
 
 <div class="col-sm-4 col-md-3 col-lg-2 img-row">
 
-  <div class="thumbnail thumbnail-img text-center" data-id="{{ $file_name }}" id="img_thumbnail_{{ $key }}">
+  <div class="thumbnail thumbnail-img text-center" data-id="{{ $file_name }}" id="img_thumbnail_{{ $key }}" style="max-width: 210px;max-height: 210px;">
+    <div style="width:100%;padding-bottom:100%;position: relative;">
     @if($type == 'Images')
-    <img id="{{ $file_name }}" src="{{ $thumb_src }}" alt="" class="pointer" onclick="useFile('{{ $file_name }}')">
+      @if($thumb_not_found)
+      <div class="square icon-container">
+        <i class="fa fa-image fa-5x pointer" onclick="useFile('{{ $file_name }}')"></i>
+      </div>
+      @else
+      <img id="{{ $file_name }}" src="{{ $thumb_src }}" style="max-width: 100%" class="pointer square" onclick="useFile('{{ $file_name }}')">
+      @endif
     @else
-    <i class="fa {{ $file['icon'] }} fa-5x" style="height:200px;cursor:pointer;padding-top:60px;" onclick="useFile('{{ $file_name }}')"></i>
+    <div class="square icon-container">
+      <i class="fa {{ $file['icon'] }} fa-5x pointer" onclick="useFile('{{ $file_name }}')"></i>
+    </div>
     @endif
+    </div>
   </div>
 
   <div class="caption text-center">
