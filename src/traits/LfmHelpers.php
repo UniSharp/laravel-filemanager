@@ -19,6 +19,10 @@ trait LfmHelpers
     {
         $path = $this->composeSegments('dir', $is_thumb) . $file_name;
 
+        if ($this->isRunningOnWindows()) {
+            $path = str_replace('/', '\\', $path);
+        }
+
         return base_path($path);
     }
 
@@ -172,13 +176,16 @@ trait LfmHelpers
 
     public function getFileName($file)
     {
+        if ($this->isRunningOnWindows()) {
+            $file = str_replace('\\', '/', $file);
+        }
         $lfm_dir_start = strpos($file, $this->getPathPrefix('dir'));
         $working_dir_start = $lfm_dir_start + strlen($this->getPathPrefix('dir'));
         $lfm_file_path = substr($file, $working_dir_start);
 
         $arr_dir = explode('/', $lfm_file_path);
         $arr_filename['short'] = end($arr_dir);
-        $arr_filename['long'] = '/' . $lfm_file_path;
+        $arr_filename['long'] = str_replace('//', '/', '/' . $lfm_file_path);
 
         return $arr_filename;
     }
@@ -193,5 +200,10 @@ trait LfmHelpers
         $size = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
         $factor = floor((strlen($bytes) - 1) / 3);
         return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . ' ' . @$size[$factor];
+    }
+
+    public function isRunningOnWindows()
+    {
+        return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
     }
 }
