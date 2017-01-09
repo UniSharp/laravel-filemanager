@@ -104,10 +104,6 @@ class UploadController extends LfmController
         $valid_mimetypes = config($mine_config, $this->{"default_{$type_key}_types"});
         $max_size = config('lfm.max_' . $type_key . '_size', $this->{"default_max_{$type_key}_size"});
 
-        if (!is_array($valid_mimetypes)) {
-            return 'Config : ' . $mine_config . ' is not set correctly';
-        }
-
         if (false === in_array($mimetype, $valid_mimetypes)) {
             return $this->error('mime') . $mimetype;
         }

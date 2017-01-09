@@ -22,9 +22,6 @@
           </div>
 
           <div class="col-xs-10" id="main">
-            @if($no_extension)
-            <div class="alert alert-warning"><i class="fa fa-exclamation-circle"></i> {{ Lang::get('laravel-filemanager::lfm.message-extension_not_found') }}</div>
-            @endif
             <nav class="navbar navbar-default">
               <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -67,16 +64,25 @@
               </div>
             </nav>
 
-            @if (isset($errors) && $errors->any())
-              <div class="alert alert-danger" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <ul>
-                  @foreach($errors->all() as $error)
-                  <li>{{ $error }}</li>
-                  @endforeach
-                </ul>
-              </div>
-            @endif
+            <div id="alerts">
+              @if($no_extension)
+              <div class="alert alert-warning"><i class="fa fa-exclamation-circle"></i> {{ Lang::get('laravel-filemanager::lfm.message-extension_not_found') }}</div>
+              @endif
+              @if(!is_null($config_error))
+              <div class="alert alert-danger"><i class="fa fa-times-circle"></i> {{ $config_error }}</div>
+              @endif
+
+              @if (isset($errors) && $errors->any())
+                <div class="alert alert-danger" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <ul>
+                    @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endif
+            </div>
 
             <div id="content"></div>
           </div>

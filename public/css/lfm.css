@@ -1,23 +1,15 @@
 #wrapper {
-  height: 100vh;
+  min-height: 100vh;
   margin-bottom: 0px;
-}
-
-#tree {
-  height: calc(100vh - 70px);
 }
 
 #main {
   border-left: 1px solid silver;
-}
-
-#content {
-  height: calc(100vh - 140px);
-  overflow: scroll;
+  min-height: calc(100vh - 70px);
 }
 
 .img-row {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .clickable {
@@ -39,6 +31,7 @@
 .thumbnail {
   max-width: 210px;
   max-height: 210px;
+  margin-bottom: 10px;
 }
 
 .square {
