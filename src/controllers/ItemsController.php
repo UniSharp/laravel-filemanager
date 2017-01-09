@@ -32,13 +32,7 @@ class ItemsController extends LfmController
         foreach (File::files($path) as $key => $file) {
             $file_name = parent::getFileName($file)['short'];
             $file_created = filemtime($file);
-            $file_size = number_format((File::size($file) / 1024), 2, ".", "");
-
-            if ($file_size > 1024) {
-                $file_size = number_format(($file_size / 1024), 2, ".", "") . " Mb";
-            } else {
-                $file_size = $file_size . " Kb";
-            }
+            $file_size = $this->humanFilesize(File::size($file));
 
             if ($this->isProcessingImages()) {
                 $file_type = File::mimeType($file);
