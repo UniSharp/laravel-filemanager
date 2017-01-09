@@ -1,13 +1,17 @@
 <div class="row">
 
-  @if((sizeof($file_info) > 0) || (sizeof($directories) > 0))
+  @if((sizeof($files) > 0) || (sizeof($directories) > 0))
 
   @foreach($directories as $key => $dir_name)
-  @include('laravel-filemanager::folders')
+  <div class="col-sm-4 col-md-3 col-lg-2 img-row">
+    @include('laravel-filemanager::folders')
+  </div>
   @endforeach
 
-  @foreach($file_info as $key => $file)
-  @include('laravel-filemanager::item')
+  @foreach($files as $key => $file)
+  <div class="col-sm-4 col-md-3 col-lg-2 img-row">
+    @include('laravel-filemanager::item')
+  </div>
   @endforeach
 
   @else

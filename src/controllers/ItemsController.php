@@ -15,25 +15,21 @@ class ItemsController extends LfmController
      */
     public function getItems()
     {
-        $type = $this->currentLfmType(true);
-        $view = $this->getView();
         $path = parent::getCurrentPath();
 
-        $files       = File::files($path);
-        $file_info   = $this->getFileInfos($files);
-        $directories = parent::getDirectories($path);
-        $thumb_url   = parent::getThumbUrl();
-
-        return view($view)
-            ->with(compact('type', 'file_info', 'directories', 'thumb_url'));
+        return view($this->getView())->with([
+            'type'        => $this->currentLfmType(true),
+            'files'       => $this->getFilesWithInfo($path),
+            'directories' => parent::getDirectories($path)
+        ]);
     }
 
 
-    private function getFileInfos($files)
+    private function getFilesWithInfo($path)
     {
-        $file_info = [];
+        $arr_files = [];
 
-        foreach ($files as $key => $file) {
+        foreach (File::files($path) as $key => $file) {
             $file_name = parent::getFileName($file)['short'];
             $file_created = filemtime($file);
             $file_size = number_format((File::size($file) / 1024), 2, ".", "");
@@ -46,7 +42,7 @@ class ItemsController extends LfmController
 
             if ($this->isProcessingImages()) {
                 $file_type = File::mimeType($file);
-                $icon = '';
+                $icon = 'fa-image';
             } else {
                 $extension = strtolower(File::extension($file_name));
 
@@ -62,25 +58,35 @@ class ItemsController extends LfmController
                 }
             }
 
-            $file_info[$key] = [
+            if (realpath(parent::getThumbPath($file_name)) !== false) {
+                $thumb_url = parent::getThumbUrl($file_name);
+            } else {
+                $thumb_url = null;
+            }
+
+
+            $arr_files[$key] = [
                 'name'      => $file_name,
                 'size'      => $file_size,
                 'created'   => $file_created,
                 'type'      => $file_type,
                 'icon'      => $icon,
+                'thumb'     => $thumb_url
             ];
         }
 
-        return $file_info;
+        return $arr_files;
     }
 
 
     private function getView()
     {
         if (request('show_list') == 1) {
-            return 'laravel-filemanager::list-view';
+            $view_type = 'list';
         } else {
-            return 'laravel-filemanager::grid-view';
+            $view_type = 'grid';
         }
+
+        return 'laravel-filemanager::' . $view_type . '-view';
     }
 }

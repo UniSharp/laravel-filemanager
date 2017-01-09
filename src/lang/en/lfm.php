@@ -9,7 +9,7 @@ return [
 
     'menu-rename'       => 'Rename',
     'menu-delete'       => 'Delete',
-    'menu-view'         => 'View',
+    'menu-view'         => 'Preview',
     'menu-download'     => 'Download',
     'menu-resize'       => 'Resize',
     'menu-crop'         => 'Crop',

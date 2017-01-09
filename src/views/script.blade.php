@@ -133,7 +133,7 @@ function loadFolders() {
     },
     cache: false
   }).done(function (data) {
-    $('#tree1').html(data);
+    $('#tree').html(data);
   });
 }
 

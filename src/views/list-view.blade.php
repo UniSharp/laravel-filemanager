@@ -1,4 +1,4 @@
-@if((sizeof($file_info) > 0) || (sizeof($directories) > 0))
+@if((sizeof($files) > 0) || (sizeof($directories) > 0))
 <table class="table table-condensed table-striped">
   <thead>
     <th style='width:50%;'>{{ Lang::get('laravel-filemanager::lfm.title-item') }}</th>
@@ -12,7 +12,7 @@
     <tr>
       <td>
         <i class="fa fa-folder-o"></i>
-        <a class="folder-item pointer" data-id="{{ $dir_name['long'] }}">
+        <a class="folder-item clickable" data-id="{{ $dir_name['long'] }}">
           {{ $dir_name['short'] }}
         </a>
       </td>
@@ -23,7 +23,7 @@
     </tr>
     @endforeach
 
-    @foreach($file_info as $file)
+    @foreach($files as $file)
     <tr>
       <td>
         @if($type == 'Images')
@@ -60,9 +60,6 @@
         <a href="javascript:resizeImage('{{ $file_name }}')">
           <i class="fa fa-arrows fa-fw"></i>
         </a>
-        {{--<a href="javascript:notImp()">--}}
-        {{--<i class="fa fa-rotate-left fa-fw"></i>--}}
-        {{--</a>--}}
         @endif
       </td>
     </tr>
