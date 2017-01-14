@@ -17,7 +17,7 @@ trait LfmHelpers
 
     public function getCurrentPath($file_name = null, $is_thumb = null)
     {
-        $path = $this->composeSegments('dir', $is_thumb) . $file_name;
+        $path = $this->composeSegments('dir', $is_thumb, $file_name);
 
         if ($this->isRunningOnWindows()) {
             $path = str_replace('/', '\\', $path);
@@ -33,17 +33,26 @@ trait LfmHelpers
 
     public function getFileUrl($image_name = null, $is_thumb = null)
     {
-        $url = $this->composeSegments('url', $is_thumb) . $image_name;
+        $url = $this->composeSegments('url', $is_thumb, $image_name);
 
-        return str_replace('\\', '/', $url);
+        return $url;
     }
 
-    private function composeSegments($type, $is_thumb)
+    private function composeSegments($type, $is_thumb, $file_name)
     {
-        return $this->getPathPrefix($type)
+        $full_path = $this->getPathPrefix($type)
             . $this->getFormatedWorkingDir()
             . '/'
-            . $this->appendThumbFolderPath($is_thumb);
+            . $this->appendThumbFolderPath($is_thumb)
+            . $file_name;
+
+        $full_path = str_replace('\\', '/', $full_path);
+
+        if (ends_with($full_path, '/')) {
+            $full_path = substr($full_path, 0, -1);
+        }
+
+        return $full_path;
     }
 
     private function getFormatedWorkingDir()
