@@ -145,10 +145,13 @@ trait LfmHelpers
         $arr_dir = [];
 
         foreach ($all_directories as $directory) {
-            $dir_name = $this->getFileName($directory);
+            $directory_name = $this->getName($directory);
 
-            if ($dir_name['short'] !== $thumb_folder_name) {
-                $arr_dir[] = $dir_name;
+            if ($directory_name !== $thumb_folder_name) {
+                $arr_dir[] = (object)[
+                    'name' => $directory_name,
+                    'path' => $this->getInternalPath($directory)
+                ];
             }
         }
 
@@ -174,7 +177,17 @@ trait LfmHelpers
         return empty(auth()->user()) ? '' : auth()->user()->$slug_of_user;
     }
 
-    public function getFileName($file)
+    public function getName($file)
+    {
+        $lfm_file_path = $this->getInternalPath($file);
+
+        $arr_dir = explode('/', $lfm_file_path);
+        $file_name = end($arr_dir);
+
+        return $file_name;
+    }
+
+    public function getInternalPath($file)
     {
         if ($this->isRunningOnWindows()) {
             $file = str_replace('\\', '/', $file);
@@ -183,11 +196,7 @@ trait LfmHelpers
         $working_dir_start = $lfm_dir_start + strlen($this->getPathPrefix('dir'));
         $lfm_file_path = substr($file, $working_dir_start);
 
-        $arr_dir = explode('/', $lfm_file_path);
-        $arr_filename['short'] = end($arr_dir);
-        $arr_filename['long'] = str_replace('//', '/', '/' . $lfm_file_path);
-
-        return $arr_filename;
+        return str_replace('//', '/', '/' . $lfm_file_path);
     }
 
     public function error($error_type, $variables = [])

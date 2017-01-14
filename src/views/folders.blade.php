@@ -1,5 +1,5 @@
-<?php $folder_name = $dir_name['short']; ?>
-<?php $folder_path = $dir_name['long']; ?>
+<?php $folder_name = $directory->name; ?>
+<?php $folder_path = $directory->path; ?>
 
 <div class="thumbnail clickable">
   <div data-id="{{ $folder_path }}" class="folder-item square">

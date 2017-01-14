@@ -15,20 +15,30 @@ class FolderController extends LfmController
      */
     public function getFolders()
     {
-        $user_path     = parent::getRootFolderPath('user');
-        $lfm_user_path = parent::getFileName($user_path);
-        $user_folders  = parent::getDirectories($user_path);
+        $folder_types = [];
+        $root_folders = [];
 
-        $share_path     = parent::getRootFolderPath('share');
-        $lfm_share_path = parent::getFileName($share_path);
-        $shared_folders = parent::getDirectories($share_path);
+        if (parent::allowMultiUser()) {
+            $folder_types['user'] = 'root';
+        }
+
+        if (true) {
+            $folder_types['share'] = 'shares';
+        }
+
+        foreach ($folder_types as $folder_type => $lang_key) {
+            $root_folder_path = parent::getRootFolderPath($folder_type);
+
+            array_push($root_folders, (object)[
+                'name' => trans('laravel-filemanager::lfm.title-' . $lang_key),
+                'path' => parent::getInternalPath($root_folder_path),
+                'children' => parent::getDirectories($root_folder_path),
+                'has_next' => !($lang_key == end($folder_types))
+            ]);
+        }
 
         return view('laravel-filemanager::tree')
-            ->with('allow_multi_user', parent::allowMultiUser())
-            ->with('user_dir', $lfm_user_path['long'])
-            ->with('dirs', $user_folders)
-            ->with('share_dir', $lfm_share_path['long'])
-            ->with('shares', $shared_folders);
+            ->with(compact('root_folders'));
     }
 
 

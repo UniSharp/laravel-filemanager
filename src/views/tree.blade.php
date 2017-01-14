@@ -1,29 +1,19 @@
 <ul class="list-unstyled">
-  @if($allow_multi_user)
-  <li>
-    <a class="clickable folder-item" data-id="{{ $user_dir }}">
-      <i class="fa fa-folder-open"></i> {{ Lang::get('laravel-filemanager::lfm.title-root') }}
-    </a>
-  </li>
-  @foreach($dirs as $key => $dir_name)
-  <li style="margin-left: 10px;">
-    <a class="clickable folder-item" data-id="{{ $dir_name['long'] }}">
-      <i class="fa fa-folder"></i> {{ $dir_name['short'] }}
-    </a>
-  </li>
-  @endforeach
-  <hr>
-  @endif
-  <li>
-    <a class="clickable folder-item" data-id="{{ $share_dir }}">
-      <i class="fa fa-folder"></i> {{ Lang::get('laravel-filemanager::lfm.title-shares') }}
-    </a>
-  </li>
-  @foreach($shares as $key => $dir_name)
-  <li style="margin-left: 10px;">
-    <a class="clickable folder-item" data-id="{{ $dir_name['long'] }}">
-      <i class="fa fa-folder"></i> {{ $dir_name['short'] }}
-    </a>
-  </li>
+  @foreach($root_folders as $root_folder)
+    <li>
+      <a class="clickable folder-item" data-id="{{ $root_folder->path }}">
+        <i class="fa fa-folder"></i> {{ $root_folder->name }}
+      </a>
+    </li>
+    @foreach($root_folder->children as $directory)
+      <li style="margin-left: 10px;">
+        <a class="clickable folder-item" data-id="{{ $directory->path }}">
+          <i class="fa fa-folder"></i> {{ $directory->name }}
+        </a>
+      </li>
+    @endforeach
+    @if($root_folder->has_next)
+      <hr>
+    @endif
   @endforeach
 </ul>
