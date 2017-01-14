@@ -28,10 +28,10 @@ trait LfmHelpers
 
     public function getThumbUrl($image_name = null)
     {
-        return $this->getImageUrl($image_name, 'thumb');
+        return $this->getFileUrl($image_name, 'thumb');
     }
 
-    public function getImageUrl($image_name = null, $is_thumb = null)
+    public function getFileUrl($image_name = null, $is_thumb = null)
     {
         $url = $this->composeSegments('url', $is_thumb) . $image_name;
 

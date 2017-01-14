@@ -18,7 +18,6 @@ class ItemsController extends LfmController
         $path = parent::getCurrentPath();
 
         return view($this->getView())->with([
-            'type'        => $this->currentLfmType(true),
             'files'       => $this->getFilesWithInfo($path),
             'directories' => parent::getDirectories($path)
         ]);
@@ -30,7 +29,7 @@ class ItemsController extends LfmController
         $arr_files = [];
 
         foreach (File::files($path) as $key => $file) {
-            $file_name = parent::getFileName($file)['short'];
+            $file_name = parent::getName($file);
             $file_created = filemtime($file);
             $file_size = $this->humanFilesize(File::size($file));
 
