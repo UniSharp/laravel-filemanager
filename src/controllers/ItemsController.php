@@ -30,6 +30,7 @@ class ItemsController extends LfmController
 
         foreach (File::files($path) as $key => $file) {
             $file_name = parent::getName($file);
+            $file_url = parent::getFileUrl($file_name);
             $file_created = filemtime($file);
             $file_size = $this->humanFilesize(File::size($file));
 
@@ -60,6 +61,7 @@ class ItemsController extends LfmController
 
             $arr_files[$key] = [
                 'name'      => $file_name,
+                'url'       => $file_url,
                 'size'      => $file_size,
                 'created'   => $file_created,
                 'type'      => $file_type,

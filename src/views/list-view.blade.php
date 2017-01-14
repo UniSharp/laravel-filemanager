@@ -8,12 +8,12 @@
     <th>{{ Lang::get('laravel-filemanager::lfm.title-action') }}</th>
   </thead>
   <tbody>
-    @foreach($directories as $key => $dir_name)
+    @foreach($directories as $key => $directory)
     <tr>
       <td>
         <i class="fa fa-folder-o"></i>
-        <a class="folder-item clickable" data-id="{{ $dir_name['long'] }}">
-          {{ $dir_name['short'] }}
+        <a class="folder-item clickable" data-id="{{ $directory->path }}">
+          {{ $directory->name }}
         </a>
       </td>
       <td></td>
@@ -26,13 +26,9 @@
     @foreach($files as $file)
     <tr>
       <td>
-        @if($type == 'Images')
-        <i class="fa fa-image"></i>
-        @else
         <i class="fa {{ $file['icon'] }}"></i>
-        @endif
         <?php $file_name = $file['name'];?>
-        <a href="javascript:useFile('{{ $file_name }}')">
+        <a href="javascript:useFile('{{ $file_name }}')" id="{{ $file_name }}" data-url="{{ $file['url'] }}">
           {{ $file_name }}
         </a>
         &nbsp;&nbsp;
@@ -53,7 +49,7 @@
         <a href="javascript:trash('{{ $file_name }}')">
           <i class="fa fa-trash fa-fw"></i>
         </a>
-        @if($type == 'Images')
+        @if($file['thumb'])
         <a href="javascript:cropImage('{{ $file_name }}')">
           <i class="fa fa-crop fa-fw"></i>
         </a>

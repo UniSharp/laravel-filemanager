@@ -2,9 +2,9 @@
 <?php $thumb_src = $file['thumb'];?>
 
 <div class="thumbnail clickable" onclick="useFile('{{ $file_name }}')">
-  <div class="square">
+  <div class="square" id="{{ $file_name }}" data-url="{{ $file['url'] }}">
     @if($thumb_src)
-    <img id="{{ $file_name }}" src="{{ $thumb_src }}">
+    <img src="{{ $thumb_src }}">
     @else
     <div class="icon-container">
       <i class="fa {{ $file['icon'] }} fa-5x"></i>
@@ -26,7 +26,7 @@
       <li><a href="javascript:rename('{{ $file_name }}')"><i class="fa fa-edit fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-rename') }}</a></li>
       <li><a href="javascript:download('{{ $file_name }}')"><i class="fa fa-download fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-download') }}</a></li>
       <li class="divider"></li>
-      @if($type == 'Images')
+      @if($thumb_src)
       <li><a href="javascript:fileView('{{ $file_name }}')"><i class="fa fa-image fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-view') }}</a></li>
       <li><a href="javascript:resizeImage('{{ $file_name }}')"><i class="fa fa-arrows fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-resize') }}</a></li>
       <li><a href="javascript:cropImage('{{ $file_name }}')"><i class="fa fa-crop fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-crop') }}</a></li>
