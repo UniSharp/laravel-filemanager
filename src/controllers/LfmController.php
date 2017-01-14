@@ -38,9 +38,11 @@ class LfmController extends Controller
         }
 
         return view('laravel-filemanager::index')->with([
+            'url_prefix'   => config('lfm.' . $type_key . 's_url'),
             'working_dir'  => $this->rootFolder($default_folder_type),
             'file_type'    => $this->currentLfmType(true),
-            'startup_view' => config('lfm.' . $this->currentLfmType() . '_startup_view'),
+            'startup_view' => config('lfm.' . $type_key . '_startup_view'),
+            'lang'         => trans('laravel-filemanager::lfm'),
             'no_extension' => ! extension_loaded('gd') && ! extension_loaded('imagick'),
             'config_error' => $config_error
         ]);

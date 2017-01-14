@@ -1,16 +1,7 @@
 <script>
-var ds            = '/';
-var home_dir      = ds + "{{ (Config::get('lfm.allow_multi_user')) ? Auth::user()->user_field : '' }}";
-var shared_folder = ds + "{{ Config::get('lfm.shared_folder_name') }}";
-var image_url     = "{{ Config::get('lfm.images_url') }}";
-var file_url      = "{{ Config::get('lfm.files_url') }}";
-
 $(document).ready(function () {
-  bootbox.setDefaults({locale:"{{ Lang::get('laravel-filemanager::lfm.locale-bootbox') }}"});
-  // load folders
+  bootbox.setDefaults({locale:"{{ $lang['locale-bootbox'] }}"});
   loadFolders();
-  loadItems();
-  setOpenFolders();
 });
 
 // ======================
@@ -22,20 +13,17 @@ $('#nav-buttons a').click(function (e) {
 });
 
 $('#to-previous').click(function () {
+  var ds = '/';
   var working_dir = $('#working_dir').val();
   var last_ds = working_dir.lastIndexOf(ds);
   var previous_dir = working_dir.substring(0, last_ds);
   if (previous_dir == '') return;
-  $('#working_dir').val(previous_dir);
-  loadItems();
-  setOpenFolders();
+  goTo(previous_dir);
 });
 
 $('#add-folder').click(function () {
-  bootbox.prompt("{{ Lang::get('laravel-filemanager::lfm.message-name') }}", function (result) {
-    if (result !== null) {
-      createFolder(result);
-    }
+  bootbox.prompt("{{ $lang['message-name'] }}", function (result) {
+    createFolder(result);
   });
 });
 
@@ -47,13 +35,13 @@ $('#upload-btn').click(function () {
   };
 
   function showRequest(formData, jqForm, options) {
-    $('#upload-btn').html('<i class="fa fa-refresh fa-spin"></i> {{ Lang::get("laravel-filemanager::lfm.btn-uploading") }}');
+    $('#upload-btn').html("<i class='fa fa-refresh fa-spin'></i> {{ $lang['btn-uploading'] }}");
     return true;
   }
 
   function showResponse(responseText, statusText, xhr, $form)  {
     $('#uploadModal').modal('hide');
-    $('#upload-btn').html('{{ Lang::get("laravel-filemanager::lfm.btn-upload") }}');
+    $('#upload-btn').html("{{ $lang['btn-upload'] }}");
     if (responseText != 'OK'){
       notify(responseText);
     }
@@ -62,13 +50,13 @@ $('#upload-btn').click(function () {
   }
 
   function showError(jqXHR, textStatus, errorThrown) {
-    $('#upload-btn').html('{{ Lang::get("laravel-filemanager::lfm.btn-upload") }}');
+    $('#upload-btn').html("{{ $lang['btn-upload'] }}");
     if (jqXHR.status == 413) {
-      notify('{{ Lang::get("laravel-filemanager::lfm.error-too-large") }}');
+      notify("{{ $lang['error-too-large'] }}");
     } else if (textStatus == 'error') {
-      notify('{{ Lang::get("laravel-filemanager::lfm.error-other") }}' + errorThrown);
+      notify("{{ $lang['error-other'] }}" + errorThrown);
     } else {
-      notify('{{ Lang::get("laravel-filemanager::lfm.error-other") }}' + textStatus + '<br>' + errorThrown);
+      notify("{{ $lang['error-other'] }}" + textStatus + '<br>' + errorThrown);
     }
   }
 
@@ -91,12 +79,11 @@ $('#list-display').click(function () {
 // ======================
 
 $(document).on('click', '.folder-item', function (e) {
-  clickFolder($(this).data('id'));
+  goTo($(this).data('id'));
 });
 
-function clickFolder(new_dir) {
+function goTo(new_dir) {
   $('#working_dir').val(new_dir);
-  setOpenFolders();
   loadItems();
 }
 
@@ -122,164 +109,98 @@ function setOpenFolders() {
 // ====================
 
 function loadFolders() {
-  $.ajax({
-    type: 'GET',
-    dataType: 'html',
-    url: '{{ route("unisharp.lfm.getFolders") }}',
-    data: {
-      working_dir: $('#working_dir').val(),
-      show_list: $('#show_list').val(),
-      type: $('#type').val()
-    },
-    cache: false
-  }).done(function (data) {
-    $('#tree').html(data);
-  });
+  performLfmRequest('{{ route("unisharp.lfm.getFolders") }}', {}, 'html')
+    .done(function (data) {
+      $('#tree').html(data);
+      loadItems();
+    });
 }
 
 function loadItems() {
-  var working_dir = $('#working_dir').val();
-  console.log('Current working_dir : ' + working_dir);
+  console.log('Current working_dir : ' + $('#working_dir').val());
 
-  $.ajax({
-    type: 'GET',
-    dataType: 'html',
-    url: '{{ route("unisharp.lfm.getItems") }}',
-    data: {
-      working_dir: working_dir,
-      show_list: $('#show_list').val(),
-      type: $('#type').val()
-    },
-    cache: false
-  }).done(function (data) {
-    $('#content').html(data);
-    $('#nav-buttons').removeClass('hidden');
-    $('.dropdown-toggle').dropdown();
-    setOpenFolders();
-  });
+  performLfmRequest('{{ route("unisharp.lfm.getItems") }}', {show_list: $('#show_list').val()}, 'html')
+    .done(function (data) {
+      $('#content').html(data);
+      $('#nav-buttons').removeClass('hidden');
+      setOpenFolders();
+    });
 }
 
 function createFolder(folder_name) {
-  $.ajax({
-    type: 'GET',
-    dataType: 'text',
-    url: '{{ route("unisharp.lfm.getAddfolder") }}',
-    data: {
-      name: folder_name,
-      working_dir: $('#working_dir').val(),
-      type: $('#type').val()
-    },
-    cache: false
-  }).done(function (data) {
-    if (data == 'OK') {
-      loadFolders();
-      loadItems();
-      setOpenFolders();
-    } else {
-      notify(data);
-    }
-  });
+  performLfmRequest('{{ route("unisharp.lfm.getAddfolder") }}', {name: folder_name})
+    .done(refreshFoldersAndItems);
 }
 
 function rename(item_name) {
   bootbox.prompt({
-    title: "{{ Lang::get('laravel-filemanager::lfm.message-rename') }}",
+    title: "{{ $lang['message-rename'] }}",
     value: item_name,
     callback: function (result) {
       if (result !== null) {
-        $.ajax({
-          type: 'GET',
-          dataType: 'text',
-          url: '{{ route("unisharp.lfm.getRename") }}',
-          data: {
-            file: item_name,
-            working_dir: $('#working_dir').val(),
-            new_name: result,
-            type: $('#type').val()
-          },
-          cache: false
-        }).done(function (data) {
-          if (data == 'OK') {
-            loadItems();
-            loadFolders();
-          } else {
-            notify(data);
-          }
-        });
+        performLfmRequest('{{ route("unisharp.lfm.getRename") }}', {
+          file: item_name,
+          new_name: result
+        }).done(refreshFoldersAndItems);
       }
     }
   });
 }
 
 function trash(item_name) {
-  bootbox.confirm("{{ Lang::get('laravel-filemanager::lfm.message-delete') }}", function (result) {
+  bootbox.confirm("{{ $lang['message-delete'] }}", function (result) {
     if (result == true) {
-      $.ajax({
-        type: 'GET',
-        dataType: 'text',
-        url: '{{ route("unisharp.lfm.getDelete") }}',
-        data: {
-          working_dir: $('#working_dir').val(),
-          items: item_name,
-          type: $('#type').val()
-        },
-        cache: false
-      }).done(function (data) {
-        if (data != 'OK') {
-          notify(data);
-        } else {
-          if ($('#working_dir').val() === home_dir || $('#working_dir').val() === shared_folder) {
-            loadFolders();
-          }
-          loadItems();
-        }
-      });
+      performLfmRequest('{{ route("unisharp.lfm.getDelete") }}', {items: item_name})
+        .done(refreshFoldersAndItems);
     }
   });
 }
 
-function cropImage(image_name) {
-  $.ajax({
+function performLfmRequest(url, parameter, type) {
+  var data = defaultParameters();
+
+  if (parameter != null) {
+    $.each(parameter, function (key, value) {
+      data[key] = value;
+    });
+  }
+
+  return $.ajax({
     type: 'GET',
-    dataType: 'text',
-    url: '{{ route("unisharp.lfm.getCrop") }}',
-    data: {
-      img: image_name,
-      working_dir: $('#working_dir').val(),
-      type: $('#type').val()
-    },
+    dataType: type || 'text',
+    url: url,
+    data: data,
     cache: false
-  }).done(function (data) {
-    $('#nav-buttons').addClass('hidden');
-    $('#content').html(data);
   });
+}
+
+var refreshFoldersAndItems = function (data) {
+  if (data == 'OK') {
+    loadFolders();
+  } else {
+    notify(data);
+  }
+};
+
+var hideNavAndShowEditor = function (data) {
+  $('#nav-buttons').addClass('hidden');
+  $('#content').html(data);
+}
+
+function cropImage(image_name) {
+  performLfmRequest('{{ route("unisharp.lfm.getCrop") }}', {img: image_name})
+    .done(hideNavAndShowEditor);
 }
 
 function resizeImage(image_name) {
-  $.ajax({
-    type: 'GET',
-    dataType: 'text',
-    url: '{{ route("unisharp.lfm.getResize") }}',
-    data: {
-      img: image_name,
-      working_dir: $('#working_dir').val(),
-      type: $('#type').val()
-    },
-    cache: false
-  }).done(function (data) {
-    $('#nav-buttons').addClass('hidden');
-    $('#content').html(data);
-  });
+  performLfmRequest('{{ route("unisharp.lfm.getResize") }}', {img: image_name})
+    .done(hideNavAndShowEditor);
 }
 
 function download(file_name) {
-  location.href = '{{ route("unisharp.lfm.getDownload") }}?'
-  + 'working_dir='
-  + $('#working_dir').val()
-  + '&type='
-  + $('#type').val()
-  + '&file='
-  + file_name;
+  var data = defaultParameters();
+  data['file'] = file_name;
+  location.href = '{{ route("unisharp.lfm.getDownload") }}?' + $.param(data);
 }
 
 // ==================================
@@ -340,24 +261,6 @@ function useFile(file) {
     window.opener.SetUrl(p,w,h);
   }
 
-  function getFileUrl(file) {
-    var path = $('#working_dir').val();
-    var item_url = image_url;
-
-    @if ("Images" !== $file_type)
-    item_url = file_url;
-    @endif
-
-    if (path != ds) {
-      item_url = item_url + path + ds;
-    }
-
-    var url = item_url + file;
-    url = url.replace(/\\/g, "/").replace(/\/\//g, "/");
-
-    return url;
-  }
-
   var url = getFileUrl(file);
   var field_name = getUrlParam('field_name');
   var is_ckeditor = getUrlParam('CKEditor');
@@ -386,20 +289,36 @@ function useFile(file) {
 }
 //end useFile
 
+function defaultParameters() {
+  return {
+    working_dir: $('#working_dir').val(),
+    type: $('#type').val()
+  };
+}
+
 function notImp() {
   bootbox.alert('Not yet implemented!');;
 }
 
-function notify(x) {
-  bootbox.alert(x);
+function notify(message) {
+  bootbox.alert(message);
 }
 
-function fileView(x) {
+function getFileUrl(file) {
+  return $("[id=\"" + file + "\"]").data('url');
+}
+
+function fileView(file) {
   var rnd = makeRandom();
-  var img_src = image_url + $('#working_dir').val() + ds + x;
-  var img = "<img class='img img-responsive center-block' src='" + img_src + "'>";
-  $('#fileview_body').html(img);
-  $('#fileViewModal').modal();
+  bootbox.dialog({
+    title: "{{ $lang['title-view'] }}",
+    message: $('<img>')
+      .addClass('img img-responsive center-block')
+      .attr('src', getFileUrl(file)),
+    size: 'large',
+    onEscape: true,
+    backdrop: true
+  });
 }
 
 function makeRandom() {
