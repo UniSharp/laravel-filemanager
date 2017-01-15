@@ -10,6 +10,8 @@ class LfmController extends Controller
 {
     use LfmHelpers;
 
+    protected $success_response = 'OK';
+
     public function __construct()
     {
         if (!$this->isProcessingImages() && !$this->isProcessingFiles()) {
@@ -42,6 +44,7 @@ class LfmController extends Controller
             'working_dir'  => $this->rootFolder($default_folder_type),
             'file_type'    => $this->currentLfmType(true),
             'startup_view' => config('lfm.' . $type_key . '_startup_view'),
+            'success_response' => $this->success_response,
             'lang'         => trans('laravel-filemanager::lfm'),
             'no_extension' => ! extension_loaded('gd') && ! extension_loaded('imagick'),
             'config_error' => $config_error

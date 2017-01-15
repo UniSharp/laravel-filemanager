@@ -52,7 +52,7 @@ class RenameController extends LfmController
         if (File::isDirectory($old_file)) {
             File::move($old_file, $new_file);
             event(new FolderWasRenamed($old_file, $new_file));
-            return 'OK';
+            return $this->success_response;
         }
 
         File::move($old_file, $new_file);
@@ -63,6 +63,6 @@ class RenameController extends LfmController
 
         event(new ImageWasRenamed($old_file, $new_file));
 
-        return 'OK';
+        return $this->success_response;
     }
 }

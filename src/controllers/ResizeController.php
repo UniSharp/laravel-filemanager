@@ -61,7 +61,7 @@ class ResizeController extends LfmController
 
         try {
             Image::make(public_path() . $img)->resize($width, $height)->save();
-            return "OK";
+            return $this->success_response;
         } catch (Exception $e) {
             return "width : " . $width . " height: " . $height;
             return $e;

@@ -61,7 +61,7 @@ class FolderController extends LfmController
             return $this->error('folder-alnum');
         } else {
             $this->createFolderByPath($path);
-            return 'OK';
+            return $this->success_response;
         }
     }
 }

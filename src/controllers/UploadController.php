@@ -33,7 +33,7 @@ class UploadController extends LfmController
                 $this->proceedSingleUpload($file);
             }
 
-            $response = 'OK';
+            $response = $this->success_response;
         } else { // upload via ckeditor 'Upload' tab
             $new_filename = $this->proceedSingleUpload($files);
 

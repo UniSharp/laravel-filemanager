@@ -35,7 +35,7 @@ class DeleteController extends LfmController
 
             File::deleteDirectory($file_to_delete);
 
-            return 'OK';
+            return $this->success_response;
         }
 
         File::delete($file_to_delete);
@@ -46,6 +46,6 @@ class DeleteController extends LfmController
 
         event(new ImageWasDeleted($file_to_delete));
 
-        return 'OK';
+        return $this->success_response;
     }
 }
