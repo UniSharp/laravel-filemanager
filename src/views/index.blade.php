@@ -129,7 +129,7 @@
   <script src="{{ asset('vendor/laravel-filemanager/js/cropper.min.js') }}"></script>
   <script src="{{ asset('vendor/laravel-filemanager/js/jquery.form.min.js') }}"></script>
   <script>
-    var success_response = {{ $success_response }};
+    var success_response = "{{ $success_response }}";
   </script>
   @include('laravel-filemanager::script')
 </body>
