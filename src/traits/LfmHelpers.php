@@ -174,6 +174,11 @@ trait LfmHelpers
         }
     }
 
+    public function directoryIsEmpty($directory_path)
+    {
+        return count(File::allFiles($directory_path)) == 0;
+    }
+
 
     /****************************
      ***    Miscellaneouses   ***

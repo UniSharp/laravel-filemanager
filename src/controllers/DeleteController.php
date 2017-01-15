@@ -29,7 +29,7 @@ class DeleteController extends LfmController
         }
 
         if (File::isDirectory($file_to_delete)) {
-            if (sizeof(File::files($file_to_delete)) != 0) {
+            if (!parent::directoryIsEmpty($file_to_delete)) {
                 return $this->error('delete-folder');
             }
 
