@@ -137,12 +137,10 @@ function rename(item_name) {
     title: "{{ $lang['message-rename'] }}",
     value: item_name,
     callback: function (result) {
-      if (result !== null) {
-        performLfmRequest('{{ route("unisharp.lfm.getRename") }}', {
-          file: item_name,
-          new_name: result
-        }).done(refreshFoldersAndItems);
-      }
+      performLfmRequest('{{ route("unisharp.lfm.getRename") }}', {
+        file: item_name,
+        new_name: result
+      }).done(refreshFoldersAndItems);
     }
   });
 }

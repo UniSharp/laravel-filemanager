@@ -36,6 +36,7 @@ return [
     'message-extension_not_found' => 'Please install gd or imagick extension to crop, resize, and make thumbnails of images.',
 
     'error-rename'      => 'File name already in use!',
+    'error-file-name'   => 'File name cannot be empty!',
     'error-file-empty'  => 'You must choose a file!',
     'error-file-exist'  => 'A file with this name already exists!',
     'error-file-size'   => 'File size exceeds server limit! (maximum size: :max)',

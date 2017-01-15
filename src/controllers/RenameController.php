@@ -22,6 +22,14 @@ class RenameController extends LfmController
 
         $old_file = parent::getCurrentPath($old_name);
 
+        if (empty($new_name)) {
+            if (File::isDirectory($old_file)) {
+                return $this->error('folder-name');
+            } else {
+                return $this->error('file-name');
+            }
+        }
+
         if (!File::isDirectory($old_file)) {
             $extension = File::extension($old_file);
             $new_name = str_replace('.' . $extension, '', $new_name) . '.' . $extension;

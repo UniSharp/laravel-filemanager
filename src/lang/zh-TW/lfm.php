@@ -36,6 +36,7 @@ return [
     'message-extension_not_found' => '請安裝 gd 或 imagick 以使用縮放、裁剪、及縮圖功能',
 
     'error-rename'      => '名稱重複，請重新輸入！',
+    'error-file-name'   => '請輸入檔案名稱！',
     'error-file-empty'  => '請選擇檔案！',
     'error-file-exist'  => '相同檔名的檔案已存在！',
     'error-file-size'   => '檔案過大，無法上傳! (檔案大小上限: :max)',
