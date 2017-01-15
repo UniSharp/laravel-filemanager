@@ -28,40 +28,27 @@ $('#add-folder').click(function () {
 });
 
 $('#upload-btn').click(function () {
-  var options = {
-    beforeSubmit:  showRequest,
-    success:       showResponse,
-    error:         showError
-  };
+  $(this).html('')
+    .append($('<i>').addClass('fa fa-refresh fa-spin'))
+    .append(" {{ $lang['btn-uploading'] }}")
+    .addClass('disabled');
 
-  function showRequest(formData, jqForm, options) {
-    $('#upload-btn').html("<i class='fa fa-refresh fa-spin'></i> {{ $lang['btn-uploading'] }}");
-    return true;
-  }
-
-  function showResponse(responseText, statusText, xhr, $form)  {
+  function resetUploadForm() {
     $('#uploadModal').modal('hide');
-    $('#upload-btn').html("{{ $lang['btn-upload'] }}");
-    if (responseText != 'OK'){
-      notify(responseText);
-    }
+    $('#upload-btn').html("{{ $lang['btn-upload'] }}").removeClass('disabled');
     $('input#upload').val('');
-    loadItems();
   }
 
-  function showError(jqXHR, textStatus, errorThrown) {
-    $('#upload-btn').html("{{ $lang['btn-upload'] }}");
-    if (jqXHR.status == 413) {
-      notify("{{ $lang['error-too-large'] }}");
-    } else if (textStatus == 'error') {
-      notify("{{ $lang['error-other'] }}" + errorThrown);
-    } else {
-      notify("{{ $lang['error-other'] }}" + textStatus + '<br>' + errorThrown);
+  $('#uploadForm').ajaxSubmit({
+    success: function (data, statusText, xhr, $form) {
+      resetUploadForm();
+      refreshFoldersAndItems(data);
+    },
+    error: function () {
+      resetUploadForm();
+      notify('Action failed, due to server error.');
     }
-  }
-
-  $('#uploadForm').ajaxSubmit(options);
-  return false;
+  });
 });
 
 $('#thumbnail-display').click(function () {
@@ -108,6 +95,39 @@ function setOpenFolders() {
 // ==  Ajax actions  ==
 // ====================
 
+function performLfmRequest(url, parameter, type) {
+  var data = defaultParameters();
+
+  if (parameter != null) {
+    $.each(parameter, function (key, value) {
+      data[key] = value;
+    });
+  }
+
+  return $.ajax({
+    type: 'GET',
+    dataType: type || 'text',
+    url: url,
+    data: data,
+    cache: false
+  }).fail(function () {
+    notify('Action failed, due to server error.');
+  });
+}
+
+var refreshFoldersAndItems = function (data) {
+  if (data == success_response) {
+    loadFolders();
+  } else {
+    notify(data);
+  }
+};
+
+var hideNavAndShowEditor = function (data) {
+  $('#nav-buttons').addClass('hidden');
+  $('#content').html(data);
+}
+
 function loadFolders() {
   performLfmRequest('{{ route("unisharp.lfm.getFolders") }}', {}, 'html')
     .done(function (data) {
@@ -152,37 +172,6 @@ function trash(item_name) {
         .done(refreshFoldersAndItems);
     }
   });
-}
-
-function performLfmRequest(url, parameter, type) {
-  var data = defaultParameters();
-
-  if (parameter != null) {
-    $.each(parameter, function (key, value) {
-      data[key] = value;
-    });
-  }
-
-  return $.ajax({
-    type: 'GET',
-    dataType: type || 'text',
-    url: url,
-    data: data,
-    cache: false
-  });
-}
-
-var refreshFoldersAndItems = function (data) {
-  if (data == 'OK') {
-    loadFolders();
-  } else {
-    notify(data);
-  }
-};
-
-var hideNavAndShowEditor = function (data) {
-  $('#nav-buttons').addClass('hidden');
-  $('#content').html(data);
 }
 
 function cropImage(image_name) {
