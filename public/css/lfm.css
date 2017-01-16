@@ -1,11 +1,12 @@
 #wrapper {
-  min-height: 100vh;
-  margin-bottom: 0px;
+  min-height: calc(100vh - 20px);
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 #main {
   border-left: 1px solid silver;
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 90px);
 }
 
 .img-row {
