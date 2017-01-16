@@ -1,4 +1,3 @@
-<script>
 $(document).ready(function () {
   bootbox.setDefaults({locale:lang['locale-bootbox']});
   loadFolders();
@@ -317,5 +316,3 @@ function makeRandom() {
   }
   return text;
 }
-
-</script>

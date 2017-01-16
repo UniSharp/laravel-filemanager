@@ -133,6 +133,6 @@
     var lfm_route = "{{ $lfm_route }}";
     var lang = {!! json_encode($lang) !!};
   </script>
-  @include('laravel-filemanager::script')
+  <script src="{{ asset('vendor/laravel-filemanager/js/script.js') }}"></script>
 </body>
 </html>
