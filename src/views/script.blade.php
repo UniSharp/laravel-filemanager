@@ -107,7 +107,7 @@ function performLfmRequest(url, parameter, type) {
   return $.ajax({
     type: 'GET',
     dataType: type || 'text',
-    url: url,
+    url: lfm_route + '/' + url,
     data: data,
     cache: false
   }).fail(function () {
@@ -129,7 +129,7 @@ var hideNavAndShowEditor = function (data) {
 }
 
 function loadFolders() {
-  performLfmRequest('{{ route("unisharp.lfm.getFolders") }}', {}, 'html')
+  performLfmRequest('folders', {}, 'html')
     .done(function (data) {
       $('#tree').html(data);
       loadItems();
@@ -139,7 +139,7 @@ function loadFolders() {
 function loadItems() {
   console.log('Current working_dir : ' + $('#working_dir').val());
 
-  performLfmRequest('{{ route("unisharp.lfm.getItems") }}', {show_list: $('#show_list').val()}, 'html')
+  performLfmRequest('jsonitems', {show_list: $('#show_list').val()}, 'html')
     .done(function (data) {
       $('#content').html(data);
       $('#nav-buttons').removeClass('hidden');
@@ -148,7 +148,7 @@ function loadItems() {
 }
 
 function createFolder(folder_name) {
-  performLfmRequest('{{ route("unisharp.lfm.getAddfolder") }}', {name: folder_name})
+  performLfmRequest('newfolder', {name: folder_name})
     .done(refreshFoldersAndItems);
 }
 
@@ -157,7 +157,7 @@ function rename(item_name) {
     title: lang['message-rename'],
     value: item_name,
     callback: function (result) {
-      performLfmRequest('{{ route("unisharp.lfm.getRename") }}', {
+      performLfmRequest('rename', {
         file: item_name,
         new_name: result
       }).done(refreshFoldersAndItems);
@@ -168,26 +168,26 @@ function rename(item_name) {
 function trash(item_name) {
   bootbox.confirm(lang['message-delete'], function (result) {
     if (result == true) {
-      performLfmRequest('{{ route("unisharp.lfm.getDelete") }}', {items: item_name})
+      performLfmRequest('delete', {items: item_name})
         .done(refreshFoldersAndItems);
     }
   });
 }
 
 function cropImage(image_name) {
-  performLfmRequest('{{ route("unisharp.lfm.getCrop") }}', {img: image_name})
+  performLfmRequest('crop', {img: image_name})
     .done(hideNavAndShowEditor);
 }
 
 function resizeImage(image_name) {
-  performLfmRequest('{{ route("unisharp.lfm.getResize") }}', {img: image_name})
+  performLfmRequest('resize', {img: image_name})
     .done(hideNavAndShowEditor);
 }
 
 function download(file_name) {
   var data = defaultParameters();
   data['file'] = file_name;
-  location.href = '{{ route("unisharp.lfm.getDownload") }}?' + $.param(data);
+  location.href = lfm_route + '/download?' + $.param(data);
 }
 
 // ==================================

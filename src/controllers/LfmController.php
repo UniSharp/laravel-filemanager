@@ -45,6 +45,7 @@ class LfmController extends Controller
             'file_type'    => $this->currentLfmType(true),
             'startup_view' => config('lfm.' . $type_key . '_startup_view'),
             'success_response' => $this->success_response,
+            'lfm_route'    => url(config('lfm.prefix')),
             'lang'         => trans('laravel-filemanager::lfm'),
             'no_extension' => ! extension_loaded('gd') && ! extension_loaded('imagick'),
             'config_error' => $config_error
