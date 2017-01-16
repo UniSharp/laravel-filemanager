@@ -130,6 +130,7 @@
   <script src="{{ asset('vendor/laravel-filemanager/js/jquery.form.min.js') }}"></script>
   <script>
     var success_response = "{{ $success_response }}";
+    var lang = {!! json_encode($lang) !!};
   </script>
   @include('laravel-filemanager::script')
 </body>

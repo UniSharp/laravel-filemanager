@@ -1,6 +1,6 @@
 <script>
 $(document).ready(function () {
-  bootbox.setDefaults({locale:"{{ $lang['locale-bootbox'] }}"});
+  bootbox.setDefaults({locale:lang['locale-bootbox']});
   loadFolders();
 });
 
@@ -22,7 +22,7 @@ $('#to-previous').click(function () {
 });
 
 $('#add-folder').click(function () {
-  bootbox.prompt("{{ $lang['message-name'] }}", function (result) {
+  bootbox.prompt(lang['message-name'], function (result) {
     createFolder(result);
   });
 });
@@ -30,12 +30,12 @@ $('#add-folder').click(function () {
 $('#upload-btn').click(function () {
   $(this).html('')
     .append($('<i>').addClass('fa fa-refresh fa-spin'))
-    .append(" {{ $lang['btn-uploading'] }}")
+    .append(" " + lang['btn-uploading'])
     .addClass('disabled');
 
   function resetUploadForm() {
     $('#uploadModal').modal('hide');
-    $('#upload-btn').html("{{ $lang['btn-upload'] }}").removeClass('disabled');
+    $('#upload-btn').html(lang['btn-upload']).removeClass('disabled');
     $('input#upload').val('');
   }
 
@@ -154,7 +154,7 @@ function createFolder(folder_name) {
 
 function rename(item_name) {
   bootbox.prompt({
-    title: "{{ $lang['message-rename'] }}",
+    title: lang['message-rename'],
     value: item_name,
     callback: function (result) {
       performLfmRequest('{{ route("unisharp.lfm.getRename") }}', {
@@ -166,7 +166,7 @@ function rename(item_name) {
 }
 
 function trash(item_name) {
-  bootbox.confirm("{{ $lang['message-delete'] }}", function (result) {
+  bootbox.confirm(lang['message-delete'], function (result) {
     if (result == true) {
       performLfmRequest('{{ route("unisharp.lfm.getDelete") }}', {items: item_name})
         .done(refreshFoldersAndItems);
@@ -298,7 +298,7 @@ function getFileUrl(file) {
 function fileView(file) {
   var rnd = makeRandom();
   bootbox.dialog({
-    title: "{{ $lang['title-view'] }}",
+    title: lang['title-view'],
     message: $('<img>')
       .addClass('img img-responsive center-block')
       .attr('src', getFileUrl(file)),
