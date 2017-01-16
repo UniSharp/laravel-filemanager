@@ -10,6 +10,8 @@ trait LfmHelpers
      ***       Path / Url      ***
      *****************************/
 
+    private $ds = '/';
+
     public function getThumbPath($image_name = null)
     {
         return $this->getCurrentPath($image_name, 'thumb');
@@ -19,9 +21,7 @@ trait LfmHelpers
     {
         $path = $this->composeSegments('dir', $is_thumb, $file_name);
 
-        if ($this->isRunningOnWindows()) {
-            $path = str_replace('/', '\\', $path);
-        }
+        $path = $this->translateToOsPath($path);
 
         return base_path($path);
     }
@@ -33,38 +33,36 @@ trait LfmHelpers
 
     public function getFileUrl($image_name = null, $is_thumb = null)
     {
-        $url = $this->composeSegments('url', $is_thumb, $image_name);
-
-        return $url;
+        return $this->composeSegments('url', $is_thumb, $image_name);
     }
 
     private function composeSegments($type, $is_thumb, $file_name)
     {
-        $full_path = $this->getPathPrefix($type)
-            . $this->getFormatedWorkingDir()
-            . '/'
-            . $this->appendThumbFolderPath($is_thumb)
-            . $file_name;
+        $full_path = implode($this->ds, [
+            $this->getPathPrefix($type),
+            $this->getFormatedWorkingDir(),
+            $this->appendThumbFolderPath($is_thumb),
+            $file_name
+        ]);
 
-        $full_path = str_replace('\\', '/', $full_path);
+        $full_path = $this->removeDuplicateSlash($full_path);
+        $full_path = $this->translateToLfmPath($full_path);
 
-        if (ends_with($full_path, '/')) {
-            $full_path = substr($full_path, 0, -1);
+        return $this->removeLastSlash($full_path);
+    }
+
+    public function getPathPrefix($type)
+    {
+        if (in_array($type, ['url', 'dir'])) {
+            return config('lfm.' . $this->currentLfmType() . 's_' . $type);
+        } else {
+            return null;
         }
-
-        return $full_path;
     }
 
     private function getFormatedWorkingDir()
     {
-        $working_dir = request('working_dir');
-
-        // remove first slash
-        if (starts_with($working_dir, '/')) {
-            $working_dir = substr($working_dir, 1);
-        }
-
-        return $working_dir;
+        return $this->removeFirstSlash(request('working_dir'));
     }
 
     private function appendThumbFolderPath($is_thumb)
@@ -79,26 +77,84 @@ trait LfmHelpers
         $in_thumb_folder = preg_match('/'.$thumb_folder_name.'$/i', $this->getFormatedWorkingDir());
 
         if (!$in_thumb_folder) {
-            return $thumb_folder_name . '/';
+            return $thumb_folder_name . $this->ds;
         }
     }
 
     public function rootFolder($type)
     {
-        $folder_path = '/';
-
         if ($type === 'user') {
-            $folder_path .= $this->getUserSlug();
+            $folder_name = $this->getUserSlug();
         } else {
-            $folder_path .= config('lfm.shared_folder_name');
+            $folder_name = config('lfm.shared_folder_name');
         }
 
-        return $folder_path;
+        return $this->ds . $folder_name;
     }
 
     public function getRootFolderPath($type)
     {
         return base_path($this->getPathPrefix('dir') . $this->rootFolder($type));
+    }
+
+    public function getName($file)
+    {
+        $lfm_file_path = $this->getInternalPath($file);
+
+        $arr_dir = explode($this->ds, $lfm_file_path);
+        $file_name = end($arr_dir);
+
+        return $file_name;
+    }
+
+    public function getInternalPath($file)
+    {
+        $file = $this->translateToLfmPath($file);
+        $lfm_dir_start = strpos($file, $this->getPathPrefix('dir'));
+        $working_dir_start = $lfm_dir_start + strlen($this->getPathPrefix('dir'));
+        $lfm_file_path = $this->ds . substr($file, $working_dir_start);
+
+        return $this->removeDuplicateSlash($lfm_file_path);
+    }
+
+    private function translateToOsPath($path)
+    {
+        if ($this->isRunningOnWindows()) {
+            $path = str_replace($this->ds, '\\', $path);
+        }
+        return $path;
+    }
+
+    private function translateToLfmPath($path)
+    {
+        if ($this->isRunningOnWindows()) {
+            $path = str_replace('\\', $this->ds, $path);
+        }
+        return $path;
+    }
+
+    private function removeDuplicateSlash($path)
+    {
+        return str_replace($this->ds . $this->ds, $this->ds, $path);
+    }
+
+    private function removeFirstSlash($path)
+    {
+        if (starts_with($path, $this->ds)) {
+            $path = substr($path, 1);
+        }
+
+        return $path;
+    }
+
+    private function removeLastSlash($path)
+    {
+        // remove last slash
+        if (ends_with($path, $this->ds)) {
+            $path = substr($path, 0, -1);
+        }
+
+        return $path;
     }
 
 
@@ -130,15 +186,6 @@ trait LfmHelpers
     public function allowMultiUser()
     {
         return config('lfm.allow_multi_user') === true;
-    }
-
-    public function getPathPrefix($type)
-    {
-        if (in_array($type, ['url', 'dir'])) {
-            return config('lfm.' . $this->currentLfmType() . 's_' . $type);
-        } else {
-            return null;
-        }
     }
 
 
@@ -189,28 +236,6 @@ trait LfmHelpers
         $slug_of_user = config('lfm.user_field');
 
         return empty(auth()->user()) ? '' : auth()->user()->$slug_of_user;
-    }
-
-    public function getName($file)
-    {
-        $lfm_file_path = $this->getInternalPath($file);
-
-        $arr_dir = explode('/', $lfm_file_path);
-        $file_name = end($arr_dir);
-
-        return $file_name;
-    }
-
-    public function getInternalPath($file)
-    {
-        if ($this->isRunningOnWindows()) {
-            $file = str_replace('\\', '/', $file);
-        }
-        $lfm_dir_start = strpos($file, $this->getPathPrefix('dir'));
-        $working_dir_start = $lfm_dir_start + strlen($this->getPathPrefix('dir'));
-        $lfm_file_path = substr($file, $working_dir_start);
-
-        return str_replace('//', '/', '/' . $lfm_file_path);
     }
 
     public function error($error_type, $variables = [])
