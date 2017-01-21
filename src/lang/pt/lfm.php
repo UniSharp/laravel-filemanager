@@ -1,0 +1,66 @@
+<?php
+
+return [
+    'nav-back'          => 'Voltar',
+    'nav-new'           => 'Nova Pasta',
+    'nav-upload'        => 'Upload',
+    'nav-thumbnails'    => 'Miniatura',
+    'nav-list'          => 'Lista',
+
+    'menu-rename'       => 'Renomear',
+    'menu-delete'       => 'Apagar',
+    'menu-view'         => 'Ver',
+    'menu-download'     => 'Download',
+    'menu-resize'       => 'Redimensionar',
+    'menu-crop'         => 'Cortar',
+
+    'title-page'        => 'Gestor de Arquivos',
+    'title-panel'       => 'Gestor de Arquivos',
+    'title-upload'      => 'Envio de Arquivo',
+    'title-view'        => 'Ver Arquivo',
+    'title-root'        => 'Arquivos',
+    'title-shares'      => 'Arquivos Partilhados',
+    'title-item'        => 'Item',
+    'title-size'        => 'Tamanho',
+    'title-type'        => 'Tipo',
+    'title-modified'    => 'Modificado',
+    'title-action'      => 'Ação',
+
+    'type-folder'       => 'Pasta',
+
+    'message-empty'     => 'A pasta está vazia.',
+    'message-choose'    => 'Escolha um arquivo',
+    'message-delete'    => 'Tem a certeza que quer pagar este arquivo?',
+    'message-name'      => 'Nome da pasta:',
+    'message-rename'    => 'Renomear para:',
+    'message-extension_not_found' => '(translation wanted)',
+
+    'error-rename'      => 'Nome de arquivo já está em uso!',
+    'error-file-empty'  => 'Deve escolher um arquivo!',
+    'error-file-exist'  => 'Um arquivo com este nome já existe!',
+    'error-file-size'   => 'O tamanho do ficheiro excede o limite permitido! (tamanho máximo: :max)',
+    'error-delete'      => 'Não pode apagar esta pasta, não está vazia!',
+    'error-folder-name' => 'Nome da pasta não pode ser vazio!',
+    'error-folder-exist'=> 'Uma pasta com este nome já existe!',
+    'error-folder-alnum'=> 'Apenas valores alfanuméricos são permitidos para o nome da pasta!',
+    'error-mime'        => 'Tipo de ficheiro não suportado: ',
+    'error-instance'    => 'O ficheiro carregado deve ser uma instância de UploadedFile',
+    'error-invalid'     => 'Pedido de upload inválido',
+
+    'btn-upload'        => 'Enviar Arquivo',
+    'btn-uploading'     => 'A enviar...',
+    'btn-close'         => 'Fechar',
+    'btn-crop'          => 'Cortar',
+    'btn-cancel'        => 'Cancelar',
+    'btn-resize'        => 'Redimensionar',
+
+    'resize-ratio'      => 'Proporção:',
+    'resize-scaled'     => 'Imagem dimensionada:',
+    'resize-true'       => 'Sim',
+    'resize-old-height' => 'Altura Original:',
+    'resize-old-width'  => 'Largura Original:',
+    'resize-new-height' => 'Altura:',
+    'resize-new-width'  => 'Largura:',
+
+    'locale-bootbox'    => 'pt',
+];
