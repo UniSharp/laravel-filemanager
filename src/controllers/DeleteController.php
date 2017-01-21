@@ -24,6 +24,10 @@ class DeleteController extends LfmController
 
         event(new ImageIsDeleting($file_to_delete));
 
+        if (is_null($name_to_delete)) {
+            return $this->error('folder-name');
+        }
+
         if (!File::exists($file_to_delete)) {
             return $this->error('folder-not-found', ['folder' => $file_to_delete]);
         }
