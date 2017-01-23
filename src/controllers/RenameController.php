@@ -55,11 +55,11 @@ class RenameController extends LfmController
             return $this->success_response;
         }
 
-        File::move($old_file, $new_file);
-
-        if ($this->isProcessingImages()) {
+        if ($this->fileIsImage($old_file)) {
             File::move(parent::getThumbPath($old_name), parent::getThumbPath($new_name));
         }
+
+        File::move($old_file, $new_file);
 
         event(new ImageWasRenamed($old_file, $new_file));
 

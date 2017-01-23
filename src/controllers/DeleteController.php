@@ -42,11 +42,11 @@ class DeleteController extends LfmController
             return $this->success_response;
         }
 
-        File::delete($file_to_delete);
-
-        if ($this->isProcessingImages()) {
+        if ($this->fileIsImage($file_to_delete)) {
             File::delete($thumb_to_delete);
         }
+
+        File::delete($file_to_delete);
 
         event(new ImageWasDeleted($file_to_delete));
 

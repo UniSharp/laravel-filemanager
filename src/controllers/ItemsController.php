@@ -34,7 +34,7 @@ class ItemsController extends LfmController
             $file_created = filemtime($file);
             $file_size = $this->humanFilesize(File::size($file));
 
-            if ($this->isProcessingImages()) {
+            if ($this->fileIsImage($file)) {
                 $file_type = File::mimeType($file);
                 $icon = 'fa-image';
             } else {

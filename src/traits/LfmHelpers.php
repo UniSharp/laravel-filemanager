@@ -3,6 +3,7 @@
 namespace Unisharp\Laravelfilemanager\traits;
 
 use Illuminate\Support\Facades\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait LfmHelpers
 {
@@ -224,6 +225,17 @@ trait LfmHelpers
     public function directoryIsEmpty($directory_path)
     {
         return count(File::allFiles($directory_path)) == 0;
+    }
+
+    public function fileIsImage($file)
+    {
+        if ($file instanceof UploadedFile) {
+            $mime_type = $file->getMimeType();
+        } else {
+            $mime_type = File::mimeType($file);
+        }
+
+        return starts_with($mime_type, 'image');
     }
 
 
