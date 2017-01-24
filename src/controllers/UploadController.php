@@ -52,7 +52,7 @@ class UploadController extends LfmController
 
         $new_filename  = $this->getNewName($file);
         $new_file_path = parent::getCurrentPath($new_filename);
-
+die('==>' . $new_file_path);
         event(new ImageIsUploading($new_file_path));
         try {
             if ($this->isProcessingImages()) {
