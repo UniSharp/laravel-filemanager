@@ -124,7 +124,7 @@ trait LfmHelpers
 
         $working_dir_start = $lfm_dir_start + strlen($this->getPathPrefix('dir'));
 
-        echo "[strlen: " . strlen($this->getPathPrefix('dir') . "]";
+        echo "[strlen: " . strlen($this->getPathPrefix('dir')) . "]";
         echo PHP_EOL;
 
         echo "[working_dir_start: " . $working_dir_start . "]";
