@@ -104,6 +104,8 @@ trait LfmHelpers
         $arr_dir = explode($this->ds, $lfm_file_path);
         $file_name = end($arr_dir);
 
+        print_r($arr_dir);
+
         return $file_name;
     }
 
