@@ -2,6 +2,7 @@
 
 use Unisharp\Laravelfilemanager\controllers\Controller;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 
 /**
  * Class CropController
@@ -41,9 +42,11 @@ class CropController extends LfmController
             ->crop($dataWidth, $dataHeight, $dataX, $dataY)
             ->save($image_path);
 
+        File::delete(parent::getThumbPath(parent::getName($image)));
+
         // make new thumbnail
-        Image::make($image_path)
+        /*Image::make($image_path)
             ->fit(200, 200)
-            ->save(parent::getThumbPath(parent::getName($image)));
+            ->save(parent::getThumbPath(parent::getName($image)));*/
     }
 }
