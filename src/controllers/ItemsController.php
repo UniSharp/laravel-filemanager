@@ -53,7 +53,7 @@ class ItemsController extends LfmController
             }
 
             if (realpath(parent::getThumbPath($file_name)) !== false) {
-                $thumb_url = parent::getThumbUrl($file_name);
+                $thumb_url = parent::getThumbUrl($file_name) . '?t=' . filemtime(parent::getThumbPath($file_name));
             } else {
                 $thumb_url = null;
             }
