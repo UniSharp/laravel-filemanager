@@ -44,6 +44,6 @@ class CropController extends LfmController
         // make new thumbnail
         Image::make($image_path)
             ->fit(200, 200)
-            ->save(parent::getThumbPath(parent::getName($image)));
+            ->save(parent::getThumbPath(parent::getName($image_path)));
     }
 }
