@@ -110,15 +110,30 @@ trait LfmHelpers
     public function getInternalPath($file)
     {
         $file = $this->translateToLfmPath($file);
+
+        echo "[file: $file]";
+        echo PHP_EOL;
+
         $lfm_dir_start = strpos($file, $this->getPathPrefix('dir'));
+
+        echo "[PathPrefix: " . $this->getPathPrefix('dir') . "]";
+        echo PHP_EOL;
+
+        echo "[lfm_dir_start: " . $lfm_dir_start . "]";
+        echo PHP_EOL;
 
         $working_dir_start = $lfm_dir_start + strlen($this->getPathPrefix('dir'));
 
-        echo "[file: $file]";
+        echo "[strlen: " . strlen($this->getPathPrefix('dir') . "]";
+        echo PHP_EOL;
+
+        echo "[working_dir_start: " . $working_dir_start . "]";
+        echo PHP_EOL;
+
 
         $lfm_file_path = $this->ds . substr($file, $working_dir_start);
 
-        echo "[file_path: $lfm_file_path]";
+        echo "[lfm_file_path: $lfm_file_path]";
 
         return $this->removeDuplicateSlash($lfm_file_path);
     }
