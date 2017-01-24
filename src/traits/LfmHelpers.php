@@ -114,7 +114,11 @@ trait LfmHelpers
     {
         $file = $this->translateToLfmPath($file);
         $lfm_dir_start = strpos($file, $this->getPathPrefix('dir'));
-        $working_dir_start = $lfm_dir_start . strlen($this->getPathPrefix('dir'));
+        print_r($lfm_dir_start);
+        echo '|-|';
+        print_r(strlen($this->getPathPrefix('dir')));
+        die;
+        $working_dir_start = $lfm_dir_start + strlen($this->getPathPrefix('dir'));
         $lfm_file_path = $this->ds . substr($file, $working_dir_start);
 
         return $this->removeDuplicateSlash($lfm_file_path);
