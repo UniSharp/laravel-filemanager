@@ -42,15 +42,9 @@ class CropController extends LfmController
             ->crop($dataWidth, $dataHeight, $dataX, $dataY)
             ->save($image_path);
 
-        return [
-            'thumb' => parent::getThumbPath(parent::getName($image_path))
-        ];
-
-        File::delete(parent::getThumbPath(parent::getName($image_path)));
-
         // make new thumbnail
-        /*Image::make($image_path)
+        Image::make($image_path)
             ->fit(200, 200)
-            ->save(parent::getThumbPath(parent::getName($image)));*/
+            ->save(parent::getThumbPath(parent::getName($image_path)));
     }
 }
