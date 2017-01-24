@@ -99,8 +99,9 @@ trait LfmHelpers
 
     public function getName($file)
     {
+        echo '[file: ' . $file . ']';
         $lfm_file_path = $this->getInternalPath($file);
-
+        echo '[lfm_file_path: ' . $lfm_file_path . ']';
         $arr_dir = explode($this->ds, $lfm_file_path);
         $file_name = end($arr_dir);
 
