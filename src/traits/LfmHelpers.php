@@ -99,13 +99,10 @@ trait LfmHelpers
 
     public function getName($file)
     {
-        echo '[file: ' . $file . ']';
         $lfm_file_path = $this->getInternalPath($file);
-        echo '[lfm_file_path: ' . $lfm_file_path . ']';
+
         $arr_dir = explode($this->ds, $lfm_file_path);
         $file_name = end($arr_dir);
-
-        print_r($arr_dir);
 
         return $file_name;
     }
@@ -114,12 +111,14 @@ trait LfmHelpers
     {
         $file = $this->translateToLfmPath($file);
         $lfm_dir_start = strpos($file, $this->getPathPrefix('dir'));
-        print_r($lfm_dir_start);
-        echo '|-|';
-        print_r(strlen($this->getPathPrefix('dir')));
-        die;
+
         $working_dir_start = $lfm_dir_start + strlen($this->getPathPrefix('dir'));
+
+        echo "[file: $file]";
+
         $lfm_file_path = $this->ds . substr($file, $working_dir_start);
+
+        echo "[file_path: $lfm_file_path]";
 
         return $this->removeDuplicateSlash($lfm_file_path);
     }
