@@ -22,6 +22,7 @@ $('#to-previous').click(function () {
 
 $('#add-folder').click(function () {
   bootbox.prompt(lang['message-name'], function (result) {
+    if (result == null) return;
     createFolder(result);
   });
 });
@@ -156,6 +157,7 @@ function rename(item_name) {
     title: lang['message-rename'],
     value: item_name,
     callback: function (result) {
+      if (result == null) return;
       performLfmRequest('rename', {
         file: item_name,
         new_name: result
