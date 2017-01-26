@@ -294,13 +294,13 @@ function getFileUrl(file) {
   return $("[id=\"" + file + "\"]").data('url');
 }
 
-function fileView(file) {
+function fileView(file, timestamp) {
   var rnd = makeRandom();
   bootbox.dialog({
     title: lang['title-view'],
     message: $('<img>')
       .addClass('img img-responsive center-block')
-      .attr('src', getFileUrl(file)),
+      .attr('src', getFileUrl(file) + '?timestamp=' + timestamp),
     size: 'large',
     onEscape: true,
     backdrop: true

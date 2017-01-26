@@ -31,7 +31,7 @@ class ItemsController extends LfmController
         foreach (File::files($path) as $key => $file) {
             $file_name = parent::getName($file);
             $file_url = parent::getFileUrl($file_name);
-            $file_created = filemtime($file);
+            $file_updated = filemtime($file);
             $file_size = $this->humanFilesize(File::size($file));
 
             if ($this->fileIsImage($file)) {
@@ -53,7 +53,7 @@ class ItemsController extends LfmController
             }
 
             if (realpath(parent::getThumbPath($file_name)) !== false) {
-                $thumb_url = parent::getThumbUrl($file_name) . '?t=' . filemtime(parent::getThumbPath($file_name));
+                $thumb_url = parent::getThumbUrl($file_name) . '?timestamp=' . $file_updated;
             } else {
                 $thumb_url = null;
             }
@@ -63,7 +63,7 @@ class ItemsController extends LfmController
                 'name'      => $file_name,
                 'url'       => $file_url,
                 'size'      => $file_size,
-                'created'   => $file_created,
+                'updated'   => $file_updated,
                 'type'      => $file_type,
                 'icon'      => $icon,
                 'thumb'     => $thumb_url
