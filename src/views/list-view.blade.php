@@ -43,7 +43,7 @@
         {{ $file['type'] }}
       </td>
       <td>
-        {{ date("Y-m-d h:m", $file['created']) }}
+        {{ date("Y-m-d h:m", $file['updated']) }}
       </td>
       <td>
         <a href="javascript:trash('{{ $file_name }}')">

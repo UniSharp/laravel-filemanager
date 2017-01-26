@@ -24,6 +24,10 @@ class DeleteController extends LfmController
 
         event(new ImageIsDeleting($file_to_delete));
 
+        if (is_null($name_to_delete)) {
+            return $this->error('folder-name');
+        }
+
         if (!File::exists($file_to_delete)) {
             return $this->error('folder-not-found', ['folder' => $file_to_delete]);
         }
@@ -38,11 +42,11 @@ class DeleteController extends LfmController
             return $this->success_response;
         }
 
-        File::delete($file_to_delete);
-
-        if ($this->isProcessingImages()) {
+        if ($this->fileIsImage($file_to_delete)) {
             File::delete($thumb_to_delete);
         }
+
+        File::delete($file_to_delete);
 
         event(new ImageWasDeleted($file_to_delete));
 

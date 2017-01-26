@@ -50,15 +50,15 @@ class ApiTest extends Illuminate\Foundation\Testing\TestCase
         ]);
 
         $delete = $this->getResponseByRouteName('getDelete', [
-            'item' => 'testcase2'
+            'items' => 'testcase2'
         ]);
 
-        $this->assertEquals($create, 'OK');
-        $this->assertEquals($create_duplicate, trans('laravel-filemanager::lfm.error-folder-exist'));
-        $this->assertEquals($create_empty, trans('laravel-filemanager::lfm.error-folder-name'));
-        $this->assertEquals($create_alphanumeric, trans('laravel-filemanager::lfm.error-folder-alnum'));
-        $this->assertEquals($rename, 'OK');
-        $this->assertEquals($delete, 'OK');
+        $this->assertEquals('OK', $create);
+        $this->assertEquals(trans('laravel-filemanager::lfm.error-folder-exist'), $create_duplicate);
+        $this->assertEquals(trans('laravel-filemanager::lfm.error-folder-name'), $create_empty);
+        $this->assertEquals(trans('laravel-filemanager::lfm.error-folder-alnum'), $create_alphanumeric);
+        $this->assertEquals('OK', $rename);
+        $this->assertEquals('OK', $delete);
     }
 
     public function testUpload()

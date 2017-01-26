@@ -22,6 +22,7 @@ $('#to-previous').click(function () {
 
 $('#add-folder').click(function () {
   bootbox.prompt(lang['message-name'], function (result) {
+    if (result == null) return;
     createFolder(result);
   });
 });
@@ -156,6 +157,7 @@ function rename(item_name) {
     title: lang['message-rename'],
     value: item_name,
     callback: function (result) {
+      if (result == null) return;
       performLfmRequest('rename', {
         file: item_name,
         new_name: result
@@ -294,13 +296,13 @@ function getFileUrl(file) {
   return $("[id=\"" + file + "\"]").data('url');
 }
 
-function fileView(file) {
+function fileView(file, timestamp) {
   var rnd = makeRandom();
   bootbox.dialog({
     title: lang['title-view'],
     message: $('<img>')
       .addClass('img img-responsive center-block')
-      .attr('src', getFileUrl(file)),
+      .attr('src', getFileUrl(file) + '?timestamp=' + timestamp),
     size: 'large',
     onEscape: true,
     backdrop: true
