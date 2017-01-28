@@ -215,6 +215,44 @@ trait LfmHelpers
         return $arr_dir;
     }
 
+    public function getFilesWithInfo($path)
+    {
+        $arr_files = [];
+
+        foreach (File::files($path) as $key => $file) {
+            $file_name = $this->getName($file);
+
+            if ($this->fileIsImage($file)) {
+                $file_type = File::mimeType($file);
+                $icon = 'fa-image';
+            } else {
+                $extension = strtolower(File::extension($file_name));
+                $file_type = config('lfm.file_type_array.' . $extension) ?: 'File';
+                $icon = config('lfm.file_icon_array.' . $extension) ?: 'fa-file';
+            }
+
+            $thumb_path = $this->getThumbPath($file_name);
+            if (File::exists($thumb_path)) {
+                $thumb_url = $this->getThumbUrl($file_name) . '?timestamp=' . filemtime($thumb_path);
+            } else {
+                $thumb_url = null;
+            }
+
+
+            $arr_files[$key] = [
+                'name'      => $file_name,
+                'url'       => $this->getFileUrl($file_name),
+                'size'      => $this->humanFilesize(File::size($file)),
+                'updated'   => filemtime($file),
+                'type'      => $file_type,
+                'icon'      => $icon,
+                'thumb'     => $thumb_url
+            ];
+        }
+
+        return $arr_files;
+    }
+
     public function createFolderByPath($path)
     {
         if (!File::exists($path)) {

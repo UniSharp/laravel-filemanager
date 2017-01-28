@@ -15,62 +15,12 @@ class ItemsController extends LfmController
      */
     public function getItems()
     {
-        $path = parent::getCurrentPath();
+        $path = $this->getCurrentPath();
 
         return view($this->getView())->with([
             'files'       => $this->getFilesWithInfo($path),
-            'directories' => parent::getDirectories($path)
+            'directories' => $this->getDirectories($path)
         ]);
-    }
-
-
-    private function getFilesWithInfo($path)
-    {
-        $arr_files = [];
-
-        foreach (File::files($path) as $key => $file) {
-            $file_name = parent::getName($file);
-            $file_url = parent::getFileUrl($file_name);
-            $file_updated = filemtime($file);
-            $file_size = $this->humanFilesize(File::size($file));
-
-            if ($this->fileIsImage($file)) {
-                $file_type = File::mimeType($file);
-                $icon = 'fa-image';
-            } else {
-                $extension = strtolower(File::extension($file_name));
-
-                $icon_array = config('lfm.file_icon_array');
-                $type_array = config('lfm.file_type_array');
-
-                if (array_key_exists($extension, $icon_array)) {
-                    $icon = $icon_array[$extension];
-                    $file_type = $type_array[$extension];
-                } else {
-                    $icon = "fa-file";
-                    $file_type = "File";
-                }
-            }
-
-            if (realpath(parent::getThumbPath($file_name)) !== false) {
-                $thumb_url = parent::getThumbUrl($file_name) . '?timestamp=' . $file_updated;
-            } else {
-                $thumb_url = null;
-            }
-
-
-            $arr_files[$key] = [
-                'name'      => $file_name,
-                'url'       => $file_url,
-                'size'      => $file_size,
-                'updated'   => $file_updated,
-                'type'      => $file_type,
-                'icon'      => $icon,
-                'thumb'     => $thumb_url
-            ];
-        }
-
-        return $arr_files;
     }
 
 
