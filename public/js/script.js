@@ -137,12 +137,13 @@ function loadFolders() {
 }
 
 function loadItems() {
-  console.log('Current working_dir : ' + $('#working_dir').val());
-
   performLfmRequest('jsonitems', {show_list: $('#show_list').val()}, 'html')
     .done(function (data) {
-      $('#content').html(data);
+      var response = JSON.parse(data);
+      $('#content').html(response.html);
       $('#nav-buttons').removeClass('hidden');
+      $('#working_dir').val(response.working_dir);
+      console.log('Current working_dir : ' + $('#working_dir').val());
       setOpenFolders();
     });
 }

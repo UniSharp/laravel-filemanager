@@ -17,10 +17,13 @@ class ItemsController extends LfmController
     {
         $path = $this->getCurrentPath();
 
-        return view($this->getView())->with([
-            'files'       => $this->getFilesWithInfo($path),
-            'directories' => $this->getDirectories($path)
-        ]);
+        return [
+            'html' => (string)view($this->getView())->with([
+                'files'       => $this->getFilesWithInfo($path),
+                'directories' => $this->getDirectories($path)
+            ]),
+            'working_dir' => $this->getInternalPath($path)
+        ];
     }
 
 
