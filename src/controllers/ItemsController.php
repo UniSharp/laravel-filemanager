@@ -29,10 +29,18 @@ class ItemsController extends LfmController
 
     private function getView()
     {
-        if (request('show_list') == 1) {
+        $view_type = 'grid';
+        $show_list = request('show_list');
+
+        if ($show_list === "1") {
             $view_type = 'list';
-        } else {
-            $view_type = 'grid';
+        } elseif (is_null($show_list)) {
+            $type_key = $this->currentLfmType();
+            $startup_view = config('lfm.' . $type_key . '_startup_view');
+
+            if (in_array($startup_view, ['list', 'grid'])) {
+                $view_type = $startup_view;
+            }
         }
 
         return 'laravel-filemanager::' . $view_type . '-view';

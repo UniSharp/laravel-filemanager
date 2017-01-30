@@ -37,7 +37,6 @@ class LfmController extends Controller
         return view('laravel-filemanager::index')->with([
             'url_prefix'   => config('lfm.' . $type_key . 's_url'),
             'file_type'    => $this->currentLfmType(true),
-            'startup_view' => config('lfm.' . $type_key . '_startup_view'),
             'success_response' => $this->success_response,
             'lfm_route'    => url(config('lfm.prefix')),
             'lang'         => trans('laravel-filemanager::lfm'),
