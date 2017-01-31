@@ -3,7 +3,7 @@
 return [
     'nav-back' => 'Zurück',
     'nav-new' => 'Neuer Ordner',
-    'nav-upload' => 'Upload',
+    'nav-upload' => 'Hochladen',
     'nav-thumbnails' => 'Thumbnails',
     'nav-list' => 'List',
 
@@ -12,7 +12,7 @@ return [
     'menu-view' => 'Ansehen',
     'menu-download' => 'Download',
     'menu-resize' => 'Größe Ändern',
-    'menu-crop' => 'Ernte',
+    'menu-crop' => 'Zuschneiden',
 
     'title-page' => 'File Manager',
     'title-panel' => 'FileManager',
@@ -26,14 +26,14 @@ return [
     'title-modified' => 'Geändert',
     'title-action' => 'Aktion',
 
-    'type-folder' => 'Mappe',
+    'type-folder' => 'Ordner',
 
     'message-empty' => 'Ordner ist leer.',
     'message-choose' => 'Datei wählen',
     'message-delete' => 'Sind Sie sicher, dass Sie dieses Einzelteil löschen möchten?',
     'message-name' => 'Ordnernamen:',
     'message-rename' => 'Umbenennen in:',
-    'message-extension_not_found' => 'Installieren Sie gd oder imagick Erweiterung zu zuschneiden, Größe und machen Thumbnails von Bildern.',
+    'message-extension_not_found' => 'Installieren Sie gd oder imagick Erweiterung um Bilder zuzuschneiden, Größe ändern und Thumbnails zu erstellen.',
 
     'error-rename' => 'Dateiname wird bereits verwendet!',
     'error-file-empty' => 'Sie müssen eine Datei auswählen!',
@@ -49,17 +49,17 @@ return [
     'error-other' => 'Ein Fehler ist aufgetreten: ',
     'error-too-large' => 'Angeforderter Wert zu groß!',
     'error-cannotupload' => 'Sie sind nicht berechtigt, die Datei hochzuladen.',
-    'error-cannotdelete' => 'Sie sind nicht berechtigt, neue Ordner / Datei löschen',
-    'error-cannotnewdirectory' => 'Sie sind nicht berechtigt, neue Ordner erstellen',
-    'error-cannotrename' => 'Sie sind nicht berechtigt, Ordner / Datei Umbenennen',
-    'error-cannotresize' => 'Sie sind nicht berechtigt, die Datei Größe Ändern',
+    'error-cannotdelete' => 'Sie sind nicht berechtigt, neue Ordner / Dateien zu löschen',
+    'error-cannotnewdirectory' => 'Sie sind nicht berechtigt, neue Ordner zu erstellen',
+    'error-cannotrename' => 'Sie sind nicht berechtigt, Ordner / Dateien umzubenennen',
+    'error-cannotresize' => 'Sie sind nicht berechtigt, die Dateigröße zu ändern',
 
     'btn-upload' => 'Datei hochladen',
     'btn-uploading' => 'Hochladen...',
     'btn-close' => 'Schließen',
-    'btn-crop' => 'Ernte',
+    'btn-crop' => 'Zuschneiden',
     'btn-cancel' => 'Stornieren',
-    'btn-resize' => 'Ändern Sie die Größe',
+    'btn-resize' => 'Größe ändern',
 
     'resize-ratio' => 'Verhältnis:',
     'resize-scaled' => 'Bild skaliert:',
