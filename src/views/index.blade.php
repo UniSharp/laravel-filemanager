@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{{ Lang::get('laravel-filemanager::lfm.title-page') }}</title>
+  <title>{{ trans('laravel-filemanager::lfm.title-page') }}</title>
   <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/laravel-filemanager/img/folder.png') }}">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -14,7 +14,7 @@
   <div class="container-fluid">
     <div class="panel panel-primary" id="wrapper">
       <div class="panel-heading">
-        <h3 class="panel-title">{{ Lang::get('laravel-filemanager::lfm.title-panel') }}</h3>
+        <h3 class="panel-title">{{ trans('laravel-filemanager::lfm.title-panel') }}</h3>
       </div>
       <div class="panel-body">
         <div class="row">
@@ -36,29 +36,29 @@
                 <ul class="nav navbar-nav" id="nav-buttons">
                   <li>
                     <a href="#" id="to-previous">
-                      <i class="fa fa-arrow-left"></i> {{ Lang::get('laravel-filemanager::lfm.nav-back') }}
+                      <i class="fa fa-arrow-left"></i> {{ trans('laravel-filemanager::lfm.nav-back') }}
                     </a>
                   </li>
                   <li><a style='cursor:default;'>|</a></li>
                   <li>
                     <a href="#" id="add-folder">
-                      <i class="fa fa-plus"></i> {{ Lang::get('laravel-filemanager::lfm.nav-new') }}
+                      <i class="fa fa-plus"></i> {{ trans('laravel-filemanager::lfm.nav-new') }}
                     </a>
                   </li>
                   <li>
                     <a href="#" id="upload" data-toggle="modal" data-target="#uploadModal">
-                      <i class="fa fa-upload"></i> {{ Lang::get('laravel-filemanager::lfm.nav-upload') }}
+                      <i class="fa fa-upload"></i> {{ trans('laravel-filemanager::lfm.nav-upload') }}
                     </a>
                   </li>
                   <li><a style='cursor:default;'>|</a></li>
                   <li>
                     <a href="#" id="thumbnail-display">
-                      <i class="fa fa-picture-o"></i> {{ Lang::get('laravel-filemanager::lfm.nav-thumbnails') }}
+                      <i class="fa fa-picture-o"></i> {{ trans('laravel-filemanager::lfm.nav-thumbnails') }}
                     </a>
                   </li>
                   <li>
                     <a href="#" id="list-display">
-                      <i class="fa fa-list"></i> {{ Lang::get('laravel-filemanager::lfm.nav-list') }}
+                      <i class="fa fa-list"></i> {{ trans('laravel-filemanager::lfm.nav-list') }}
                     </a>
                   </li>
                 </ul>
@@ -79,12 +79,12 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aia-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">{{ Lang::get('laravel-filemanager::lfm.title-upload') }}</h4>
+          <h4 class="modal-title" id="myModalLabel">{{ trans('laravel-filemanager::lfm.title-upload') }}</h4>
         </div>
         <div class="modal-body">
           <form action="{{ route('unisharp.lfm.upload') }}" role='form' id='uploadForm' name='uploadForm' method='post' enctype='multipart/form-data'>
             <div class="form-group" id="attachment">
-              <label for='upload' class='control-label'>{{ Lang::get('laravel-filemanager::lfm.message-choose') }}</label>
+              <label for='upload' class='control-label'>{{ trans('laravel-filemanager::lfm.message-choose') }}</label>
               <div class="controls">
                 <div class="input-group" style="width: 100%">
                   <input type="file" id="upload" name="upload[]" multiple="multiple">
@@ -97,8 +97,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">{{ Lang::get('laravel-filemanager::lfm.btn-close') }}</button>
-          <button type="button" class="btn btn-primary" id="upload-btn">{{ Lang::get('laravel-filemanager::lfm.btn-upload') }}</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-close') }}</button>
+          <button type="button" class="btn btn-primary" id="upload-btn">{{ trans('laravel-filemanager::lfm.btn-upload') }}</button>
         </div>
       </div>
     </div>
