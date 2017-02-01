@@ -3,6 +3,17 @@ var show_list;
 $(document).ready(function () {
   bootbox.setDefaults({locale:lang['locale-bootbox']});
   loadFolders();
+  performLfmRequest('errors')
+    .done(function (data) {
+      var response = JSON.parse(data);
+      for (var i = 0; i < response.length; i++) {
+        $('#alerts').append(
+          $('<div>').addClass('alert alert-warning')
+            .append($('<i>').addClass('fa fa-exclamation-circle'))
+            .append(' ' + response[i])
+        );
+      }
+    });
 });
 
 // ======================
@@ -118,7 +129,7 @@ function performLfmRequest(url, parameter, type) {
 }
 
 var refreshFoldersAndItems = function (data) {
-  if (data == success_response) {
+  if (data == 'OK') {
     loadFolders();
   } else {
     notify(data);
