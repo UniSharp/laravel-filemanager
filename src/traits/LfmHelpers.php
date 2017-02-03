@@ -54,11 +54,13 @@ trait LfmHelpers
 
     public function getPathPrefix($type)
     {
-        if (in_array($type, ['url', 'dir'])) {
-            return config('lfm.' . $this->currentLfmType() . 's_' . $type);
-        } else {
-            return null;
+        $prefix = config('lfm.' . $this->currentLfmType() . 's_folder_name');
+
+        if ($type === 'dir') {
+            $prefix = config('lfm.base_directory') . '/' . $prefix;
         }
+
+        return $prefix;
     }
 
     private function getFormatedWorkingDir()
