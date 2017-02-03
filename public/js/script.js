@@ -278,7 +278,7 @@ function useFile(file) {
     } else if (is_fcke) {      // use FCKEditor 2.0 integration method
       useFckeditor2(url);
     } else {                   // standalone button or other situations
-      window.opener.SetUrl(url);
+      window.opener.SetUrl(url, route_prefix);
     }
 
     if (window.opener) {
@@ -286,7 +286,7 @@ function useFile(file) {
     }
   } else {
     // No WYSIWYG editor found, use custom method.
-    window.opener.SetUrl(url);
+    window.opener.SetUrl(url, route_prefix);
   }
 }
 //end useFile
