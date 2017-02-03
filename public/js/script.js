@@ -267,6 +267,7 @@ function useFile(file) {
   var field_name = getUrlParam('field_name');
   var is_ckeditor = getUrlParam('CKEditor');
   var is_fcke = typeof data != 'undefined' && data['Properties']['Width'] != '';
+  var file_path = url.replace(route_prefix, '');
 
   if (window.opener || window.tinyMCEPopup || field_name || getUrlParam('CKEditorCleanUpFuncNum') || is_ckeditor) {
     if (window.tinyMCEPopup) { // use TinyMCE > 3.0 integration method
@@ -278,7 +279,7 @@ function useFile(file) {
     } else if (is_fcke) {      // use FCKEditor 2.0 integration method
       useFckeditor2(url);
     } else {                   // standalone button or other situations
-      window.opener.SetUrl(url, route_prefix);
+      window.opener.SetUrl(url, file_path);
     }
 
     if (window.opener) {
@@ -286,7 +287,7 @@ function useFile(file) {
     }
   } else {
     // No WYSIWYG editor found, use custom method.
-    window.opener.SetUrl(url, route_prefix);
+    window.opener.SetUrl(url, file_path);
   }
 }
 //end useFile

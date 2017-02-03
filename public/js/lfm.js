@@ -21,14 +21,12 @@
 })(jQuery);
 
 
-function SetUrl(url, route_prefix){
-  route_prefix = route_prefix || '/laravel-filemanager';
-  
+function SetUrl(url, file_path){
   //set the value of the desired input to image url
   var target_input = $('#' + localStorage.getItem('target_input'));
-  target_input.val(url);
+  target_input.val(file_path);
 
   //set or change the preview image src
   var target_preview = $('#' + localStorage.getItem('target_preview'));
-  target_preview.attr('src', route_prefix + url);
+  target_preview.attr('src', url);
 }
