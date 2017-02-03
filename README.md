@@ -44,11 +44,4 @@ PR is welcome!
  * Special thanks to
    * [@taswler](https://github.com/tsawler) the original author.
    * [@olivervogel](https://github.com/olivervogel) for the awesome [image library](https://github.com/Intervention/image)
-   * [@welcoMattic](https://github.com/welcoMattic) providing fr translations and lots of bugfixes.
-   * [@fraterblack](https://github.com/fraterblack) TinyMCE 4 support and pt-BR translations.
-   * [@1dot44mb](https://github.com/1dot44mb) tr translations.
-   * [@Nikita240](https://github.com/Nikita240) fixing controller extending errors.
-   * [@amin101](https://github.com/amin101) guide for independent use and fixes for url/directory error on Windows
-   * [@nasirkhan](https://github.com/nasirkhan) bug fixes and alphanumeric filename check
-   * [@petyots](https://github.com/petyots) Bulgarian translation
    * All [@UniSharp](https://github.com/UniSharp) members
