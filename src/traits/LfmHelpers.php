@@ -124,6 +124,7 @@ trait LfmHelpers
     public function getInternalPath($full_path)
     {
         $full_path = $this->translateToLfmPath($full_path);
+        $full_path = $this->translateToUtf8($full_path);
         $lfm_dir_start = strpos($full_path, $this->getPathPrefix('dir'));
         $working_dir_start = $lfm_dir_start + strlen($this->getPathPrefix('dir'));
         $lfm_file_path = $this->ds . substr($full_path, $working_dir_start);
@@ -169,6 +170,24 @@ trait LfmHelpers
         }
 
         return $path;
+    }
+
+    public function translateFromUtf8($input)
+    {
+        if ($this->isRunningOnWindows()) {
+            $input = iconv('UTF-8', 'BIG5', $input);
+        }
+
+        return $input;
+    }
+
+    public function translateToUtf8($input)
+    {
+        if ($this->isRunningOnWindows()) {
+            $input = iconv('BIG5', 'UTF-8', $input);
+        }
+
+        return $input;
     }
 
 
