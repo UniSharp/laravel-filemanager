@@ -54,10 +54,15 @@ trait LfmHelpers
 
     public function getPathPrefix($type)
     {
-        $prefix = config('lfm.' . $this->currentLfmType() . 's_folder_name');
+        $default_folder_name = 'files';
+        if ($this->isProcessingImages()) {
+            $default_folder_name = 'photos';
+        }
+
+        $prefix = config('lfm.' . $this->currentLfmType() . 's_folder_name', $default_folder_name);
 
         if ($type === 'dir') {
-            $prefix = config('lfm.base_directory') . '/' . $prefix;
+            $prefix = config('lfm.base_directory', 'public') . '/' . $prefix;
         }
 
         return $prefix;
