@@ -21,6 +21,9 @@ return [
     // If true, laravel-filemanager create private folders for each signed-in user.
     'allow_multi_user'      => true,
 
+    // If show_list is set to true, the filemanager will open with the list view
+    'show_list'             => true,
+
     // The database field to identify a user.
     // When set to 'id', the private folder will be named as the user id.
     // NOTE: make sure to use an unique field.
