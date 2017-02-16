@@ -1,81 +1,102 @@
 ## Documents
-
   1. [Installation](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/installation.md)
   1. [Integration](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/integration.md)
   1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/config.md)
   1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/customization.md)
   1. [Events](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/events.md)
-  1. [Upgrade](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/upgrade.md)
 
 ## Config
-    
 In `config/lfm.php` :
 
 ```php
-    'rename_file'           => true,
-    // true : files will be renamed as uniqid
-    // false : files will remain original names
+// If true, the uploaded file will be renamed to uniqid() + file extension.
+'rename_file'           => false,
 
-    // true : filter filename characters which are not alphanumeric, and replace them with '_'
-    'alphanumeric_filename' => true,
+// If rename_file set to false and this set to true, then non-alphanumeric characters in filename will be replaced.
+'alphanumeric_filename' => true,
+// If true, non-alphanumeric folder name will not be allowed.
+'alphanumeric_directory' => false,
 
-    // true : filter folder name characters which are not alphanumeric, and replace them with '_'
-    'alphanumeric_directory' => false,
+'use_package_routes'    => true,
 
-    'use_package_routes'    => true,
-    // set this to false to customize route for file manager
+// For laravel 5.1, please set to ['auth']
+'middlewares'           => ['web','auth'],
 
-    'middlewares'           => ['web','auth'],
-    // determine middlewares that apply to all file manager routes
-    // NOTE: for laravel 5.1, please use ['auth']
+// Add prefix for routes
+'prefix'                => 'laravel-filemanager',
 
-    'allow_multi_user'      => true,
-    // true : user can upload files to shared folder and their own folder
-    // false : all files are put together in shared folder
+// Allow multi_user mode or not.
+// If true, laravel-filemanager create private folders for each signed-in user.
+'allow_multi_user'      => true,
 
-    'user_field'            => 'id',
-    // determine which column of users table will be used as user's folder name
+// The database field to identify a user.
+// When set to 'id', the private folder will be named as the user id.
+// NOTE: make sure to use an unique field.
+'user_field'            => 'id',
 
-    'shared_folder_name'    => 'shares',
-    // the name of shared folder
+'base_directory'        => 'public',
 
-    'thumb_folder_name'     => 'thumbs',
-    // the name of thumb folder
+'images_folder_name'    => 'photos',
+'files_folder_name'     => 'files',
 
-    'images_dir'            => 'public/photos/',
-    'images_url'            => '/photos/',
-    // path and url of images
+'shared_folder_name'    => 'shares',
+'thumb_folder_name'     => 'thumbs',
 
-    'images_startup_view'   => 'list',
-    // default view type for images
+// When choosing a startup view you can fill either 'grid' or 'list'.
+'images_startup_view'   => 'list',
+'files_startup_view'    => 'list',
 
-    'files_dir'             => 'public/files/',
-    'files_url'             => '/files/',
-    // path and url of files
+'max_image_size' => 500,
+'max_file_size' => 1000,
 
-    'files_startup_view'   => 'list',
-    // default view type for files
+// available since v1.3.0
+'valid_image_mimetypes' => [
+    'image/jpeg',
+    'image/pjpeg',
+    'image/png',
+    'image/gif'
+],
 
-    'max_image_size' => 500,
-    'max_file_size' => 1000,
-    // max uploading size for images/files
+// available since v1.3.0
+// only when '/laravel-filemanager?type=Files'
+'valid_file_mimetypes' => [
+    'image/jpeg',
+    'image/pjpeg',
+    'image/png',
+    'image/gif',
+    'application/pdf',
+    'text/plain',
+],
 
-    // valid image mimetypes
-    'valid_image_mimetypes' => [
-        'image/jpeg',
-        'image/pjpeg',
-        'image/png',
-        'image/gif'
-    ],
+// file extensions array, only for showing file information, it won't affect the upload process.
+'file_type_array'         => [
+    'pdf'  => 'Adobe Acrobat',
+    'doc'  => 'Microsoft Word',
+    'docx' => 'Microsoft Word',
+    'xls'  => 'Microsoft Excel',
+    'xlsx' => 'Microsoft Excel',
+    'zip'  => 'Archive',
+    'gif'  => 'GIF Image',
+    'jpg'  => 'JPEG Image',
+    'jpeg' => 'JPEG Image',
+    'png'  => 'PNG Image',
+    'ppt'  => 'Microsoft PowerPoint',
+    'pptx' => 'Microsoft PowerPoint',
+],
 
-
-    // valid file mimetypes (only when '/laravel-filemanager?type=Files')
-    'valid_file_mimetypes' => [
-        'image/jpeg',
-        'image/pjpeg',
-        'image/png',
-        'image/gif',
-        'application/pdf',
-        'text/plain'
-    ],
+// file extensions array, only for showing icons, it won't affect the upload process.
+'file_icon_array'         => [
+    'pdf'  => 'fa-file-pdf-o',
+    'doc'  => 'fa-file-word-o',
+    'docx' => 'fa-file-word-o',
+    'xls'  => 'fa-file-excel-o',
+    'xlsx' => 'fa-file-excel-o',
+    'zip'  => 'fa-file-archive-o',
+    'gif'  => 'fa-file-image-o',
+    'jpg'  => 'fa-file-image-o',
+    'jpeg' => 'fa-file-image-o',
+    'png'  => 'fa-file-image-o',
+    'ppt'  => 'fa-file-powerpoint-o',
+    'pptx' => 'fa-file-powerpoint-o',
+],
 ```

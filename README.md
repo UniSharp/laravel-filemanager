@@ -1,47 +1,58 @@
 # Laravel Filemanager
-
 [![Latest Stable Version](https://poser.pugx.org/unisharp/laravel-filemanager/v/stable)](https://packagist.org/packages/unisharp/laravel-filemanager)
 [![Total Downloads](https://poser.pugx.org/unisharp/laravel-filemanager/downloads)](https://packagist.org/packages/unisharp/laravel-filemanager)
 [![License](https://poser.pugx.org/unisharp/laravel-filemanager/license)](https://packagist.org/packages/unisharp/laravel-filemanager)
 
-A files and images management user interface with file uploading support. (Works well with CKEditor and TinyMCE)
-
-PR is welcome!
-
-## Overview
-
- * The project was forked from [tsawler/laravel-filemanager](http://packalyst.com/packages/package/tsawler/laravel-filemanager)
- * Customizable routes and middlewares
- * Supported locales : ar, bg, en, es, fa, fr, he, hu, nl, pt-BR, pt_PT, ro, ru, tr, zh-CN, zh-TW
- * Supports public and private folders for multi users
- * Supports multi-level folders
- * Supports using independently(see integration doc)
+To preview all features, clone [Laravel Filemanager container](https://github.com/UniSharp/laravel-filemanager-example-5.3).
 
 ## Documents
-
   1. [Installation](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/installation.md)
   1. [Integration](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/integration.md)
   1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/config.md)
   1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/customization.md)
   1. [Events](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/events.md)
-  1. [Upgrade](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/upgrade.md)
+
+## Features
+ * CKEditor and TinyMCE integration
+ * Standalone button
+ * Uploading validation
+ * Cropping and resizing of images
+ * Public and private folders for multi users
+ * Customizable routes, middlewares, views, and folder path
+ * Supports two types : files and images. Each type works in different directory.
+ * Supported locales : ar, bg, en, es, fa, fr, he, hu, nl, pt-BR, pt_PT, ro, ru, tr, zh-CN, zh-TW
+
+PR is welcome!
+
+## Upgrade guide
+ * Please backup your own `config/lfm.php` before upgrading.
+ * Run commands:
+
+  ```bash
+  composer update unisharp/laravel-filemanager
+  php artisan vendor:publish --tag=lfm_view --force
+  php artisan vendor:publish --tag=lfm_public --force
+  php artisan vendor:publish --tag=lfm_config --force
+  ```
+ * Clear browser cache if page is broken after upgrading.
 
 ## Screenshots
-  * Independent usage example :
+> Standalone button :
 
-![Independent usage example](https://raw.githubusercontent.com/UniSharp/laravel-filemanager/gh_pages/images/lfm01.png)
+![Standalone button demo](https://raw.githubusercontent.com/UniSharp/laravel-filemanager/gh_pages/images/lfm01.png)
 
-  * List view :
+> Grid view :
 
-![FileManager screenshot 1](https://raw.githubusercontent.com/UniSharp/laravel-filemanager/gh_pages/images/lfm02.png)
+![Grid view demo](https://raw.githubusercontent.com/UniSharp/laravel-filemanager/gh_pages/images/lfm02.png)
 
-  * Grid view :
+> List view :
 
-![FileManager screenshot 2](https://raw.githubusercontent.com/UniSharp/laravel-filemanager/gh_pages/images/lfm03.png)
-
+![List view demo](https://raw.githubusercontent.com/UniSharp/laravel-filemanager/gh_pages/images/lfm03.png)
+  
 ## Credits
+Special thanks to
+
  * [All contibutors](https://github.com/UniSharp/laravel-filemanager/graphs/contributors) from GitHub. (issues / PR)
- * Special thanks to
-   * [@taswler](https://github.com/tsawler) the original author.
-   * [@olivervogel](https://github.com/olivervogel) for the awesome [image library](https://github.com/Intervention/image)
-   * All [@UniSharp](https://github.com/UniSharp) members
+ * [@taswler](https://github.com/tsawler) the original author.
+ * [@olivervogel](https://github.com/olivervogel) for the awesome [image library](https://github.com/Intervention/image).
+ * All [@UniSharp](https://github.com/UniSharp) members.
