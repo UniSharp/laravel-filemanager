@@ -5,12 +5,29 @@
 
 To preview all features, clone [Laravel Filemanager container](https://github.com/UniSharp/laravel-filemanager-example-5.3).
 
+## v1.7 released
+ * All code refactored.
+ * Fix Windows compatibility.
+ * Fix file cannot be uploaded to "File Mode".
+ * Please follow the intructions to upgrade :
+  1. Please backup your own `config/lfm.php` before upgrading.
+  1. Run commands:
+
+    ```bash
+    composer update unisharp/laravel-filemanager
+    php artisan vendor:publish --tag=lfm_view --force
+    php artisan vendor:publish --tag=lfm_public --force
+    php artisan vendor:publish --tag=lfm_config --force
+    ```
+  1. Clear browser cache if page is broken after upgrading.
+
 ## Documents
   1. [Installation](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/installation.md)
   1. [Integration](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/integration.md)
   1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/config.md)
   1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/customization.md)
   1. [Events](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/events.md)
+  1. [Upgrade](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/upgrade.md)
 
 ## Features
  * CKEditor and TinyMCE integration
@@ -20,21 +37,9 @@ To preview all features, clone [Laravel Filemanager container](https://github.co
  * Public and private folders for multi users
  * Customizable routes, middlewares, views, and folder path
  * Supports two types : files and images. Each type works in different directory.
- * Supported locales : ar, bg, en, es, fa, fr, he, hu, nl, pt-BR, pt_PT, ro, ru, tr, zh-CN, zh-TW
+ * Supported locales : ar, bg, de, el, en, es, fa, fr, he, hu, nl, pl, pt-BR, pt_PT, ro, ru, tr, zh-CN, zh-TW
 
 PR is welcome!
-
-## Upgrade guide
- * Please backup your own `config/lfm.php` before upgrading.
- * Run commands:
-
-  ```bash
-  composer update unisharp/laravel-filemanager
-  php artisan vendor:publish --tag=lfm_view --force
-  php artisan vendor:publish --tag=lfm_public --force
-  php artisan vendor:publish --tag=lfm_config --force
-  ```
- * Clear browser cache if page is broken after upgrading.
 
 ## Screenshots
 > Standalone button :

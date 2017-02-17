@@ -4,6 +4,7 @@
   1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/config.md)
   1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/customization.md)
   1. [Events](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/events.md)
+  1. [Upgrade](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/upgrade.md)
 
 ## Note
 Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which already integrated all options from below.
