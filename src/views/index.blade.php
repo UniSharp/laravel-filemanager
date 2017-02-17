@@ -116,5 +116,7 @@
     var lang = {!! json_encode(trans('laravel-filemanager::lfm')) !!};
   </script>
   <script src="{{ asset('vendor/laravel-filemanager/js/script.js') }}"></script>
+  {{-- Use the line below instead of the above if you need to ignore browser cache. --}}
+  <!-- <script>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/script.js')) !!}</script> -->
 </body>
 </html>
