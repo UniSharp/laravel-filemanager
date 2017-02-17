@@ -129,5 +129,5 @@ If you are going to use filemanager independently, meaning set the value of an i
 
   ```javascript
   var domain = "{{ url() }}";
-  $('#lfm').filemanager('image', domain);
+  $('#lfm').filemanager('image', {prefix: domain});
   ```
