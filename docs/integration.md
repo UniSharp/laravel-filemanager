@@ -13,7 +13,7 @@ Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which alre
  1. Install [laravel-ckeditor](https://github.com/UniSharp/laravel-ckeditor) package
 
  1. Modify the views
-      
+
   * Sample 1 - Replace by ID:
     
     ```html
@@ -122,4 +122,11 @@ If you are going to use filemanager independently, meaning set the value of an i
 
   ```javascript
   $('#lfm').filemanager('file');
+  ```
+
+    Domain can be specified in the second parameter(optional, but will be required when developing on Windows mechines) :
+
+  ```javascript
+  var domain = "{{ url() }}";
+  $('#lfm').filemanager('image', domain);
   ```
