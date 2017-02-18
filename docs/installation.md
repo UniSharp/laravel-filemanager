@@ -43,4 +43,4 @@
     php artisan vendor:publish --tag=lfm_public
     ```
     
-1. Ensure that the files & images directories (in `config/lfm.php`) are writable by your web server.
+1. Ensure that the files & images directories (in `config/lfm.php`) are writable by your web server(run commands like `chown` or `chmod`).
