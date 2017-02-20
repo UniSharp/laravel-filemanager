@@ -61,17 +61,6 @@ class ApiTest extends Illuminate\Foundation\Testing\TestCase
         $this->assertEquals('OK', $delete);
     }
 
-    public function testUpload()
-    {
-        auth()->loginUsingId(1);
-
-        $upload = $this->getResponseByRouteName('getDelete', [
-            'upload' => base_path('vendor/unisharp/laravel-filemanager/public/images/test-folder/sleeping-dog.jpg')
-        ]);
-
-        $this->assertEquals($upload, 'OK');
-    }
-
     private function getResponseByRouteName($route_name, $input = [])
     {
         $response = $this->call('GET', route('unisharp.lfm.' . $route_name), $input);
