@@ -6,20 +6,11 @@
 To preview all features, clone [Laravel Filemanager container](https://github.com/UniSharp/laravel-filemanager-example-5.3).
 
 ## v1.7 released
- * All code refactored.
- * Fix Windows compatibility.
- * Fix file cannot be uploaded to "File Mode".
- * Please follow the intructions to upgrade :
-  1. Please backup your own `config/lfm.php` before upgrading.
-  1. Run commands:
-
-    ```bash
-    composer update unisharp/laravel-filemanager
-    php artisan vendor:publish --tag=lfm_view --force
-    php artisan vendor:publish --tag=lfm_public --force
-    php artisan vendor:publish --tag=lfm_config --force
-    ```
-  1. Clear browser cache if page is broken after upgrading.
+ * Important changes :
+  * All code refactored.
+  * Fix Windows compatibility.
+  * Fix file cannot be uploaded to "File Mode".
+ * Please follow the intructions in [this document](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/upgrade.md) to upgrade.
 
 ## Documents
   1. [Installation](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/installation.md)
