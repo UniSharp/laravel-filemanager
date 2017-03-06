@@ -11,18 +11,18 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
 </head>
 <body>
-  <div class="container-fluid">
-    <div class="panel panel-primary" id="wrapper">
-      <div class="panel-heading">
-        <h3 class="panel-title">{{ trans('laravel-filemanager::lfm.title-panel') }}</h3>
+  <div class="container-fluid" style="padding:0">
+    <div class="panel panel-primary" style="margin:0;height:100vh;border-radius:0" id="wrapper">
+      <div class="panel-heading" style="border-radius:0">
+        <h1 class="panel-title" style="padding:10px 0 10px 0">{{ trans('laravel-filemanager::lfm.title-panel') }}</h1>
       </div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-xs-2">
+          <div class="col-md-2 hidden-sm">
             <div id="tree"></div>
           </div>
 
-          <div class="col-xs-10" id="main">
+          <div class="col-md-10 col-sm-12" id="main">
             <nav class="navbar navbar-default">
               <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
