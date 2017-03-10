@@ -1,10 +1,10 @@
 ## Documents
-  1. [Installation](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/installation.md)
-  1. [Integration](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/integration.md)
-  1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/config.md)
-  1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/customization.md)
-  1. [Events](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/events.md)
-  1. [Upgrade](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/upgrade.md)
+  1. [Installation](https://unisharp.github.io/laravel-filemanager/installation)
+  1. [Integration](https://unisharp.github.io/laravel-filemanager/integration)
+  1. [Config](https://unisharp.github.io/laravel-filemanager/config)
+  1. [Customization](https://unisharp.github.io/laravel-filemanager/customization)
+  1. [Events](https://unisharp.github.io/laravel-filemanager/events)
+  1. [Upgrade](https://unisharp.github.io/laravel-filemanager/upgrade)
 
 ## Requirements
  * php >= 5.4
