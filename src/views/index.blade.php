@@ -35,7 +35,6 @@
               <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav" id="nav-buttons">
                   <li>
-                    <a href="#" id="to-previous">
                       <i class="fa fa-arrow-left"></i> {{ trans('laravel-filemanager::lfm.nav-back') }}
                     </a>
                   </li>
@@ -43,6 +42,7 @@
                   <li>
                     <a href="#" id="add-folder">
                       <i class="fa fa-plus"></i> {{ trans('laravel-filemanager::lfm.nav-new') }}
+                    <a class="pointer hide" id="to-previous">
                     </a>
                   </li>
                   <li>

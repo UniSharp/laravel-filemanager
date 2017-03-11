@@ -25,10 +25,7 @@ $('#nav-buttons a').click(function (e) {
 });
 
 $('#to-previous').click(function () {
-  var ds = '/';
-  var working_dir = $('#working_dir').val();
-  var last_ds = working_dir.lastIndexOf(ds);
-  var previous_dir = working_dir.substring(0, last_ds);
+  var previous_dir = getPreviousDir();
   if (previous_dir == '') return;
   goTo(previous_dir);
 });
@@ -38,6 +35,10 @@ $('#add-folder').click(function () {
     if (result == null) return;
     createFolder(result);
   });
+});
+
+$('#upload').click(function () {
+  $('#uploadModal').modal('show');
 });
 
 $('#upload-btn').click(function () {
@@ -85,6 +86,14 @@ $(document).on('click', '.folder-item', function (e) {
 function goTo(new_dir) {
   $('#working_dir').val(new_dir);
   loadItems();
+}
+
+function getPreviousDir() {
+  var ds = '/';
+  var working_dir = $('#working_dir').val();
+  var last_ds = working_dir.lastIndexOf(ds);
+  var previous_dir = working_dir.substring(0, last_ds);
+  return previous_dir;
 }
 
 function dir_starts_with(str) {
@@ -157,6 +166,11 @@ function loadItems() {
       $('#nav-buttons').removeClass('hidden');
       $('#working_dir').val(response.working_dir);
       console.log('Current working_dir : ' + $('#working_dir').val());
+      if (getPreviousDir() == '') {
+        $('#to-previous').addClass('hide');
+      } else {
+        $('#to-previous').removeClass('hide');
+      }
       setOpenFolders();
     });
 }
