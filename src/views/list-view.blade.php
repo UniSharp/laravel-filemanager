@@ -26,9 +26,9 @@
     @foreach($files as $file)
     <tr>
       <td>
-        <i class="fa {{ $file['icon'] }}"></i>
-        <?php $file_name = $file['name'];?>
-        <a href="javascript:useFile('{{ $file_name }}')" id="{{ $file_name }}" data-url="{{ $file['url'] }}">
+        <i class="fa {{ $file->icon }}"></i>
+        <?php $file_name = $file->name;?>
+        <a href="javascript:useFile('{{ $file_name }}')" id="{{ $file_name }}" data-url="{{ $file->url }}">
           {{ $file_name }}
         </a>
         &nbsp;&nbsp;
@@ -37,19 +37,19 @@
         </a>
       </td>
       <td>
-        {{ $file['size'] }}
+        {{ $file->size }}
       </td>
       <td>
-        {{ $file['type'] }}
+        {{ $file->type }}
       </td>
       <td>
-        {{ date("Y-m-d h:m", $file['updated']) }}
+        {{ date("Y-m-d h:m", $file->updated) }}
       </td>
       <td>
         <a href="javascript:trash('{{ $file_name }}')">
           <i class="fa fa-trash fa-fw"></i>
         </a>
-        @if($file['thumb'])
+        @if($file->thumb)
         <a href="javascript:cropImage('{{ $file_name }}')">
           <i class="fa fa-crop fa-fw"></i>
         </a>
@@ -63,65 +63,47 @@
   </tbody>
 </table>
 
-<table class="table table-condensed table-striped visible-sm">
+<table class="table visible-sm">
   <tbody>
-    @foreach($directories as $key => $directory)
-    <tr style="height:50px">
+    @foreach($items as $item)
+    <tr>
       <td>
-        <div class="row">
-          <div class="col-sm-3">
-            <?php $folder_name = $directory->name; ?>
-            <?php $folder_path = $directory->path; ?>
-
-            <div class="thumbnail clickable" style="height:45px;width:45px;">
-              <div data-id="{{ $folder_path }}" class="folder-item square">
-                <img src="{{ asset('vendor/laravel-filemanager/img/folder.png') }}" style="height:40px;width:40px;">
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <a class="folder-item clickable" data-id="{{ $directory->path }}">
-              {{ $directory->name }}
-            </a>
-          </div>
-          <div class="col-sm-3"></div>
-        </div>
-      </td>
-    </tr>
-    @endforeach
-
-    @foreach($files as $file)
-    <tr style="height:50px">
-      <td style="width:80vw">
-        <div class="row">
-          <div class="col-sm-3">
-            <?php $file_name = $file['name'];?>
-            <?php $thumb_src = $file['thumb'];?>
-            <div class="thumbnail clickable" style="height:45px;width:45px;" onclick="useFile('{{ $file_name }}')">
-              <div class="square" id="{{ $file_name }}" data-url="{{ $file['url'] }}">
-                @if($thumb_src)
-                <img src="{{ $thumb_src }}" style="height:40px;width:40px;">
+        <div class="media">
+          <div class="media-left">
+            <div class="clickable thumbnail-mobile">
+              @if(!$item->is_file)
+              <div class="square folder-item" data-id="{{ $item->path }}">
+              @else
+              <div class="square" id="{{ $item->name }}" data-url="{{ $item->url }}">
+              @endif
+                @if($item->thumb)
+                <img src="{{ $item->thumb }}">
                 @else
                 <div class="icon-container">
-                  <i class="fa {{ $file['icon'] }} fa-5x"></i>
+                  <i class="fa {{ $item->icon }} fa-5x"></i>
                 </div>
                 @endif
               </div>
             </div>
           </div>
-          <div class="col-sm-6">
-            <?php $file_name = $file['name'];?>
-            <a href="javascript:useFile('{{ $file_name }}')" id="{{ $file_name }}" data-url="{{ $file['url'] }}">
-              {{ $file_name }}
-            </a>
-            &nbsp;&nbsp;
-            <a href="javascript:rename('{{ $file_name }}')">
-              <i class="fa fa-edit"></i>
-            </a>
-            <br>
-            {{ date("Y-m-d h:m", $file['updated']) }}
+          <div class="media-body" style="padding-top: 40px;padding-bottom: 40px">
+            <div class="media-heading">
+              <p style="font-size:70px">
+                @if(!$item->is_file)
+                <a class="folder-item clickable" data-id="{{ $item->path }}">
+                @else
+                <a href="javascript:useFile('{{ $item->name }}')" id="{{ $item->name }}" data-url="{{ $item->url }}">
+                @endif
+                  {{ str_limit($item->name, $limit = 10, $end = '...') }}
+                </a>
+                &nbsp;&nbsp;
+                {{-- <a href="javascript:rename('{{ $item->name }}')">
+                  <i class="fa fa-edit"></i>
+                </a> --}}
+              </p>
+            </div>
+            <p style="font-size:50px;color: #aaa;font-weight: 400">{{ $item->time }}</p>
           </div>
-          <div class="col-sm-3"></div>
         </div>
       </td>
     </tr>
@@ -130,9 +112,5 @@
 </table>
 
 @else
-<div class="row">
-  <div class="col-md-12">
-    <p>{{ Lang::get('laravel-filemanager::lfm.message-empty') }}</p>
-  </div>
-</div>
+<p>{{ trans('laravel-filemanager::lfm.message-empty') }}</p>
 @endif
