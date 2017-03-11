@@ -1,12 +1,20 @@
 #wrapper {
-  min-height: calc(100vh - 20px);
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin: 10px;
 }
 
 #main {
   border-left: 1px solid silver;
-  min-height: calc(100vh - 90px);
+}
+
+@media screen and (max-width: 992px) {
+  #nav a {
+    font-size: 30px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  #nav a i {
+    padding-bottom: 10px;
+  }
 }
 
 .img-row {
@@ -32,7 +40,13 @@
 .thumbnail {
   max-width: 210px;
   max-height: 210px;
-  margin-bottom: 10px;
+  margin-bottom: 0 !important;
+}
+
+.thumbnail-mobile {
+  height: 210px;
+  width: 210px;
+  margin: 30px;
 }
 
 .square {

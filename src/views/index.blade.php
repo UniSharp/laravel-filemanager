@@ -18,18 +18,19 @@
 </head>
 <body>
   <div class="container-fluid" style="padding:0">
-    <div class="panel panel-primary" style="margin:0;height:100vh;border-radius:0" id="wrapper">
-      <div class="panel-heading" style="border-radius:0">
-        <h1 class="panel-title" style="padding:10px 0 10px 0">{{ trans('laravel-filemanager::lfm.title-panel') }}</h1>
+      <div class="panel panel-primary hidden-sm" style="margin:0;border-radius:0">
+        <div class="panel-heading" style="border-radius:0">
+          <h1 class="panel-title" style="padding:10px 0 10px 0">{{ trans('laravel-filemanager::lfm.title-panel') }}</h1>
+        </div>
       </div>
-      <div class="panel-body">
+      <div id="wrapper">
         <div class="row">
           <div class="col-md-2 hidden-sm">
             <div id="tree"></div>
           </div>
 
           <div class="col-md-10 col-sm-12" id="main">
-            <nav class="navbar navbar-default">
+            <nav class="navbar navbar-default" id="nav">
               <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                   <span class="sr-only">Toggle navigation</span>
@@ -41,30 +42,24 @@
               <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav" id="nav-buttons">
                   <li>
-                      <i class="fa fa-arrow-left"></i> {{ trans('laravel-filemanager::lfm.nav-back') }}
-                    </a>
-                  </li>
-                  <li><a style='cursor:default;'>|</a></li>
-                  <li>
-                    <a href="#" id="add-folder">
-                      <i class="fa fa-plus"></i> {{ trans('laravel-filemanager::lfm.nav-new') }}
                     <a class="pointer hide" id="to-previous">
+                      <i class="fa fa-arrow-left"></i>
+                      <span>{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
                     </a>
                   </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
                   <li>
-                    <a href="#" id="upload" data-toggle="modal" data-target="#uploadModal">
-                      <i class="fa fa-upload"></i> {{ trans('laravel-filemanager::lfm.nav-upload') }}
+                    <a class="pointer" id="thumbnail-display">
+                      <i class="fa fa-picture-o"></i>
+                      <span>{{ trans('laravel-filemanager::lfm.nav-thumbnails') }}</span>
                     </a>
                   </li>
                   <li><a style='cursor:default;'>|</a></li>
                   <li>
-                    <a href="#" id="thumbnail-display">
-                      <i class="fa fa-picture-o"></i> {{ trans('laravel-filemanager::lfm.nav-thumbnails') }}
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" id="list-display">
-                      <i class="fa fa-list"></i> {{ trans('laravel-filemanager::lfm.nav-list') }}
+                    <a class="pointer" id="list-display">
+                      <i class="fa fa-list"></i>
+                      <span>{{ trans('laravel-filemanager::lfm.nav-list') }}</span>
                     </a>
                   </li>
                 </ul>
@@ -77,7 +72,7 @@
           </div>
         </div>
       </div>
-    </div>
+
   </div>
 
   <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

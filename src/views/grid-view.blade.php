@@ -3,13 +3,13 @@
   @if((sizeof($files) > 0) || (sizeof($directories) > 0))
 
   @foreach($directories as $directory)
-  <div class="col-sm-4 col-md-3 col-lg-2 img-row">
+  <div class="col-sm-6 col-md-3 col-lg-2 img-row">
     @include('laravel-filemanager::folders')
   </div>
   @endforeach
 
   @foreach($files as $key => $file)
-  <div class="col-sm-4 col-md-3 col-lg-2 img-row">
+  <div class="col-sm-6 col-md-3 col-lg-2 img-row">
     @include('laravel-filemanager::item')
   </div>
   @endforeach
