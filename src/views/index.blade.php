@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/cropper.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/vendor/laravel-filemanager/css/lfm.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/mfb.css') }}">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
 </head>
 <body>
@@ -49,18 +50,22 @@
                   </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                  <li>
-                    <a class="pointer" id="thumbnail-display">
-                      <i class="fa fa-picture-o"></i>
-                      <span>{{ trans('laravel-filemanager::lfm.nav-thumbnails') }}</span>
-                    </a>
-                  </li>
-                  <li><a style='cursor:default;'>|</a></li>
-                  <li>
-                    <a class="pointer" id="list-display">
-                      <i class="fa fa-list"></i>
-                      <span>{{ trans('laravel-filemanager::lfm.nav-list') }}</span>
-                    </a>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-picture-o"></i> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a class="pointer" id="thumbnail-display">
+                          <i class="fa fa-th-large"></i>
+                          <span>{{ trans('laravel-filemanager::lfm.nav-thumbnails') }}</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a class="pointer" id="list-display">
+                          <i class="fa fa-list"></i>
+                          <span>{{ trans('laravel-filemanager::lfm.nav-list') }}</span>
+                        </a>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </div>
@@ -71,6 +76,24 @@
             <div id="content"></div>
           </div>
         </div>
+
+        <ul id="fab">
+          <li>
+            <a href="#"></a>
+            <ul class="hide">
+              <li>
+                <a href="#" id="add-folder" data-mfb-label="{{ trans('laravel-filemanager::lfm.nav-new') }}">
+                  <i class="fa fa-folder"></i>
+                </a>
+              </li>
+              <li>
+                <a href="#" id="upload" data-mfb-label="{{ trans('laravel-filemanager::lfm.nav-upload') }}">
+                  <i class="fa fa-upload"></i>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
 
   </div>
@@ -119,5 +142,35 @@
   <script src="{{ asset('vendor/laravel-filemanager/js/script.js') }}"></script>
   {{-- Use the line below instead of the above if you need to ignore browser cache. --}}
   <!-- <script>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/script.js')) !!}</script> -->
+  <script>
+    $.fn.fab = function () {
+      var menu = this;
+      menu.addClass('mfb-component--br mfb-zoomin').attr('data-mfb-toggle', 'hover');
+      var wrapper = menu.children('li');
+      wrapper.addClass('mfb-component__wrap');
+      var parent_button = wrapper.children('a');
+      parent_button.addClass('mfb-component__button--main')
+        .append($('<i>').addClass('mfb-component__main-icon--resting fa fa-plus'))
+        .append($('<i>').addClass('mfb-component__main-icon--active fa fa-times'));
+      var children_list = wrapper.children('ul');
+      children_list.find('a').addClass('mfb-component__button--child');
+      children_list.find('i').addClass('mfb-component__child-icon');
+      children_list.addClass('mfb-component__list').removeClass('hide');
+    };
+    $('#fab').fab({
+      buttons: [
+        {
+          icon: 'fa fa-folder',
+          label: "{{ trans('laravel-filemanager::lfm.nav-new') }}",
+          attrs: {id: 'add-folder'}
+        },
+        {
+          icon: 'fa fa-upload',
+          label: "{{ trans('laravel-filemanager::lfm.nav-upload') }}",
+          attrs: {id: 'upload'}
+        }
+      ]
+    });
+  </script>
 </body>
 </html>

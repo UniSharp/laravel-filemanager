@@ -6,6 +6,10 @@
   border-left: 1px solid silver;
 }
 
+#fab a:hover, #fab a:focus{
+  color: white;
+}
+
 @media screen and (max-width: 992px) {
   #nav a {
     font-size: 30px;
@@ -14,6 +18,9 @@
   }
   #nav a i {
     padding-bottom: 10px;
+  }
+  #fab {
+    zoom: 2.5;
   }
 }
 
