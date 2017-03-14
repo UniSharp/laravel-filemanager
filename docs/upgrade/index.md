@@ -17,5 +17,5 @@
     php artisan vendor:publish --tag=lfm_public --force
     php artisan vendor:publish --tag=lfm_config --force
     ```
+ 
   1. Clear browser cache if page is broken after upgrading.
-
