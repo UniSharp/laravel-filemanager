@@ -1,10 +1,10 @@
 ## Documents
-  1. [Installation](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/installation.md)
-  1. [Integration](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/integration.md)
-  1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/config.md)
-  1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/customization.md)
-  1. [Events](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/events.md)
-  1. [Upgrade](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/upgrade.md)
+  1. [Installation](installation)
+  1. [Integration](integration)
+  1. [Config](config)
+  1. [Customization](customization)
+  1. [Events](events)
+  1. [Upgrade](upgrade)
 
 ## Customization
 Feel free to customize the routes and views if your need.
@@ -13,20 +13,14 @@ Feel free to customize the routes and views if your need.
 1. Copy the routes in `/vendor/unisharp/laravel-filemanager/src/routes.php`
 
 1. Make sure urls below is correspond to your route (remember to include type parameter `?type=Images` or `?type=Files`) :
-
- * CKEditor
-
+  * CKEditor
     ```javascript
-    <script>
-      CKEDITOR.replace('editor', {
-        filebrowserImageBrowseUrl: '/your-custom-route?type=Images',
-        filebrowserBrowseUrl: '/your-custom-route?type=Files',
-      });
-    </script>
+    CKEDITOR.replace('editor', {
+      filebrowserImageBrowseUrl: '/your-custom-route?type=Images',
+      filebrowserBrowseUrl: '/your-custom-route?type=Files'
+    });
     ```  
-
- * TinyMCE
- 
+  * TinyMCE
     ```javascript
     ...
     var cmsURL = editor_config.path_absolute + 'your-custom-route?field_name='+field_name+'&lang='+ tinymce.settings.language;

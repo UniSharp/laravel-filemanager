@@ -14,12 +14,12 @@ To preview all features, clone [Laravel Filemanager container](https://github.co
  * Please follow the intructions in [this document](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/upgrade.md) to upgrade.
 
 ## Documents
-  1. [Installation](https://unisharp.github.io/laravel-filemanager/installation)
-  1. [Integration](https://unisharp.github.io/laravel-filemanager/integration)
-  1. [Config](https://unisharp.github.io/laravel-filemanager/config)
-  1. [Customization](https://unisharp.github.io/laravel-filemanager/customization)
-  1. [Events](https://unisharp.github.io/laravel-filemanager/events)
-  1. [Upgrade](https://unisharp.github.io/laravel-filemanager/upgrade)
+  1. [Installation](installation)
+  1. [Integration](integration)
+  1. [Config](config)
+  1. [Customization](customization)
+  1. [Events](events)
+  1. [Upgrade](upgrade)
 
 ## Features
  * CKEditor and TinyMCE integration
