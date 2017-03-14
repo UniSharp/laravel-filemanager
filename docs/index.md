@@ -10,8 +10,8 @@ To preview all features, clone [Laravel Filemanager container](https://github.co
   * All code refactored.
   * Fix Windows compatibility.
   * Fix file cannot be uploaded to "File Mode".
-  * Config file is also refactored, see [config document](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/config.md).
- * Please follow the intructions in [this document](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/upgrade.md) to upgrade.
+  * Config file is also refactored, see [config document](https://unisharp.github.io/laravel-filemanager/config).
+ * Please follow the intructions in [this document](https://unisharp.github.io/laravel-filemanager/upgrade) to upgrade.
 
 ## Documents
   1. [Installation](installation)
