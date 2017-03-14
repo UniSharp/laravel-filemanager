@@ -48,6 +48,7 @@ Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which alre
     ```
 
 ### Option 2: TinyMCE4
+
   ```html
   <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
   <textarea name="content" class="form-control my-editor">{!! old('content', $content) !!}</textarea>
@@ -92,42 +93,43 @@ Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which alre
 ##Standalone button
 If you are going to use filemanager independently, meaning set the value of an input to selected photo/file url, follow this structure:
 
-1. Create a button, input, and image preview holder if you are going to choose images.
+  1. Create a button, input, and image preview holder if you are going to choose images.
 
     Specify the id to the input and image preview by `data-input` and `data-preview`.
 
-  ```html
-  <div class="input-group">
-    <span class="input-group-btn">
-      <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-        <i class="fa fa-picture-o"></i> Choose
-      </a>
-    </span>
-    <input id="thumbnail" class="form-control" type="text" name="filepath">
-  </div>
-  <img id="holder" style="margin-top:15px;max-height:100px;">
-  ``` 
+    ```html
+    <div class="input-group">
+      <span class="input-group-btn">
+        <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+          <i class="fa fa-picture-o"></i> Choose
+        </a>
+      </span>
+      <input id="thumbnail" class="form-control" type="text" name="filepath">
+    </div>
+    <img id="holder" style="margin-top:15px;max-height:100px;">
+    ``` 
 
-1. Import lfm.js(run `php artisan vendor:publish` if you need).
+  1. Import lfm.js(run `php artisan vendor:publish` if you need).
 
-  ```html
-  <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
-  ```
+    ```html
+    <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
+    ```
 
-1. Init filemanager with type. (requires jQuery)
+  1. Init filemanager with type. (requires jQuery)
 
-  ```javascript
-  $('#lfm').filemanager('image');
-  ```
+    ```javascript
+    $('#lfm').filemanager('image');
+    ```
+    
     or
 
-  ```javascript
-  $('#lfm').filemanager('file');
-  ```
+    ```javascript
+    $('#lfm').filemanager('file');
+    ```
 
     Domain can be specified in the second parameter(optional, but will be required when developing on Windows mechines) :
 
-  ```javascript
-  var domain = "{{ url() }}";
-  $('#lfm').filemanager('image', {prefix: domain});
-  ```
+    ```javascript
+    var domain = "{{ url() }}";
+    $('#lfm').filemanager('image', {prefix: domain});
+    ```
