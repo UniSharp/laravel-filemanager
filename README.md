@@ -36,15 +36,15 @@ PR is welcome!
 ## Screenshots
 > Standalone button :
 
-![Standalone button demo](https://raw.githubusercontent.com/UniSharp/laravel-filemanager/gh_pages/images/lfm01.png)
+![Standalone button demo](https://unisharp.github.io/laravel-filemanager/images/lfm01.png)
 
 > Grid view :
 
-![Grid view demo](https://raw.githubusercontent.com/UniSharp/laravel-filemanager/gh_pages/images/lfm02.png)
+![Grid view demo](https://unisharp.github.io/laravel-filemanager/images/lfm02.png)
 
 > List view :
 
-![List view demo](https://raw.githubusercontent.com/UniSharp/laravel-filemanager/gh_pages/images/lfm03.png)
+![List view demo](https://unisharp.github.io/laravel-filemanager/images/lfm03.png)
   
 ## Credits
 Special thanks to
