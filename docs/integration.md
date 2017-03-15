@@ -1,49 +1,39 @@
-## Documents
-
-  1. [Installation](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/installation.md)
-  1. [Integration](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/integration.md)
-  1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/config.md)
-  1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/customization.md)
-  1. [Events](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/events.md)
-  1. [Upgrade](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/upgrade.md)
+## Note
+Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which already integrated all options from below.
 
 ## WYSIWYG Editor Integration:
 ### Option 1: CKEditor
 
-  1. Install [laravel-ckeditor](https://github.com/UniSharp/laravel-ckeditor) package
-
-  1. Modify the views
-      
-    Sample 1 - Replace by ID:
 ```html
-<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 <textarea id="my-editor" name="content" class="form-control">{!! old('content', 'test editor content') !!}</textarea>
+<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
 <script>
-  CKEDITOR.replace( 'my-editor', {
+  var options = {
     filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
     filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
     filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
     filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
-  });
+  };
 </script>
 ```
-    
-    Sample 2 - With JQuery Selector:
-    
-```html
-<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
-<textarea name="content" class="form-control my-editor">{!! old('content', 'test editor content') !!}</textarea>
-<script>
-  $('textarea.my-editor').ckeditor({
-    filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-    filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
-    filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-    filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
-  });
-</script>
-```
+
+* Sample 1 - Replace by ID:
+
+  ```html
+  <script>
+  CKEDITOR.replace('my-editor', options);
+  </script>
+  ```
+
+* Sample 2 - With JQuery Selector:
+
+  ```html
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
+  <script>
+  $('textarea.my-editor').ckeditor(options);
+  </script>
+  ```
 
 ### Option 2: TinyMCE4
 
@@ -88,15 +78,13 @@
 </script>
 ```
 
-##Standalone button
-
+## Standalone button
 If you are going to use filemanager independently, meaning set the value of an input to selected photo/file url, follow this structure:
 
 1. Create a button, input, and image preview holder if you are going to choose images.
+  Specify the id to the input and image preview by `data-input` and `data-preview`.
 
-    Specify the id to the input and image preview by `data-input` and `data-preview`.
-
-```html
+    ```html
     <div class="input-group">
       <span class="input-group-btn">
         <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
@@ -106,21 +94,26 @@ If you are going to use filemanager independently, meaning set the value of an i
       <input id="thumbnail" class="form-control" type="text" name="filepath">
     </div>
     <img id="holder" style="margin-top:15px;max-height:100px;">
-``` 
-
+    ``` 
 1. Import lfm.js(run `php artisan vendor:publish` if you need).
 
-```javascript
+    ```html
     <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
-```
+    ```
 
 1. Init filemanager with type. (requires jQuery)
 
-```javascript
+    ```javascript
     $('#lfm').filemanager('image');
-```
+    ```
     or
-
-```javascript
+    ```javascript
     $('#lfm').filemanager('file');
-```
+    ```
+
+    Domain can be specified in the second parameter(optional, but will be required when developing on Windows mechines) :
+
+    ```javascript
+    var domain = "{{ url() }}";
+    $('#lfm').filemanager('image', {prefix: domain});
+    ```

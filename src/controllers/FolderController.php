@@ -49,7 +49,7 @@ class FolderController extends LfmController
      */
     public function getAddfolder()
     {
-        $folder_name = trim(request('name'));
+        $folder_name = $this->translateFromUtf8(trim(request('name')));
 
         $path = parent::getCurrentPath($folder_name);
 

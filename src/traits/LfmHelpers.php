@@ -34,7 +34,7 @@ trait LfmHelpers
 
     public function getFileUrl($image_name = null, $is_thumb = null)
     {
-        return $this->composeSegments('url', $is_thumb, $image_name);
+        return url($this->composeSegments('url', $is_thumb, $image_name));
     }
 
     private function composeSegments($type, $is_thumb, $file_name)
@@ -54,16 +54,34 @@ trait LfmHelpers
 
     public function getPathPrefix($type)
     {
-        if (in_array($type, ['url', 'dir'])) {
-            return config('lfm.' . $this->currentLfmType() . 's_' . $type);
-        } else {
-            return null;
+        $default_folder_name = 'files';
+        if ($this->isProcessingImages()) {
+            $default_folder_name = 'photos';
         }
+
+        $prefix = config('lfm.' . $this->currentLfmType() . 's_folder_name', $default_folder_name);
+
+        if ($type === 'dir') {
+            $prefix = config('lfm.base_directory', 'public') . '/' . $prefix;
+        }
+
+        return $prefix;
     }
 
     private function getFormatedWorkingDir()
     {
-        return $this->removeFirstSlash(request('working_dir'));
+        $working_dir = request('working_dir');
+
+        if (is_null($working_dir)) {
+            $default_folder_type = 'share';
+            if ($this->allowMultiUser()) {
+                $default_folder_type = 'user';
+            }
+
+            $working_dir = $this->rootFolder($default_folder_type);
+        }
+
+        return $this->removeFirstSlash($working_dir);
     }
 
     private function appendThumbFolderPath($is_thumb)
@@ -108,12 +126,13 @@ trait LfmHelpers
         return $file_name;
     }
 
-    public function getInternalPath($file)
+    public function getInternalPath($full_path)
     {
-        $file = $this->translateToLfmPath($file);
-        $lfm_dir_start = strpos($file, $this->getPathPrefix('dir'));
+        $full_path = $this->translateToLfmPath($full_path);
+        $full_path = $this->translateToUtf8($full_path);
+        $lfm_dir_start = strpos($full_path, $this->getPathPrefix('dir'));
         $working_dir_start = $lfm_dir_start + strlen($this->getPathPrefix('dir'));
-        $lfm_file_path = $this->ds . substr($file, $working_dir_start);
+        $lfm_file_path = $this->ds . substr($full_path, $working_dir_start);
 
         return $this->removeDuplicateSlash($lfm_file_path);
     }
@@ -156,6 +175,24 @@ trait LfmHelpers
         }
 
         return $path;
+    }
+
+    public function translateFromUtf8($input)
+    {
+        if ($this->isRunningOnWindows()) {
+            $input = iconv('UTF-8', 'BIG5', $input);
+        }
+
+        return $input;
+    }
+
+    public function translateToUtf8($input)
+    {
+        if ($this->isRunningOnWindows()) {
+            $input = iconv('BIG5', 'UTF-8', $input);
+        }
+
+        return $input;
     }
 
 

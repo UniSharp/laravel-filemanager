@@ -1,42 +1,76 @@
 <?php
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Routing
+    |--------------------------------------------------------------------------
+    */
+
+    // Include to pre-defined routes from package or not. Middlewares
+    'use_package_routes' => true,
+
+    // Middlewares which should be applied to all package routes.
+    // For laravel 5.1 and before, remove 'web' from the array.
+    'middlewares' => ['web','auth'],
+
+    // The url to this package. Change it if necessary.
+    'prefix' => 'laravel-filemanager',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Multi-User Mode
+    |--------------------------------------------------------------------------
+    */
+
+    // If true, private folders will be created for each signed-in user.
+    'allow_multi_user' => true,
+
+    // The database column to identify a user. Make sure the value is unique.
+    // Ex: When set to 'id', the private folder of user will be named as the user id.
+    'user_field' => 'id',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Working Directory
+    |--------------------------------------------------------------------------
+    */
+
+    // Which folder to store files in project, fill in 'public', 'resources', 'storage' and so on.
+    // You should create routes to serve images if it is not set to public.
+    'base_directory' => 'public',
+
+    'images_folder_name' => 'photos',
+    'files_folder_name'  => 'files',
+
+    'shared_folder_name' => 'shares',
+    'thumb_folder_name'  => 'thumbs',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Startup Views
+    |--------------------------------------------------------------------------
+    */
+
+    // The default display type for items.
+    // Supported: "grid", "list"
+    'images_startup_view' => 'grid',
+    'files_startup_view' => 'list',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Upload / Validation
+    |--------------------------------------------------------------------------
+    */
+
     // If true, the uploaded file will be renamed to uniqid() + file extension.
-    'rename_file'           => false,
+    'rename_file' => false,
 
     // If rename_file set to false and this set to true, then non-alphanumeric characters in filename will be replaced.
     'alphanumeric_filename' => true,
-    // If true, non-alphanumeric folder name will not be allowed.
+
+    // If true, non-alphanumeric folder name will be rejected.
     'alphanumeric_directory' => false,
-
-    'use_package_routes'    => true,
-
-    // For laravel 5.1, please set to ['auth']
-    'middlewares'           => ['web','auth'],
-
-    // Add prefix for routes
-    'prefix'                => 'laravel-filemanager',
-
-    // Allow multi_user mode or not.
-    // If true, laravel-filemanager create private folders for each signed-in user.
-    'allow_multi_user'      => true,
-
-    // The database field to identify a user.
-    // When set to 'id', the private folder will be named as the user id.
-    // NOTE: make sure to use an unique field.
-    // When choosing a startup view you can fill either 'grid' or 'list'.
-    'user_field'            => 'id',
-
-    'shared_folder_name'    => 'shares',
-    'thumb_folder_name'     => 'thumbs',
-
-    'images_dir'            => 'public/photos/',
-    'images_url'            => '/photos/',
-    'images_startup_view'   => 'list',
-
-    'files_dir'             => 'public/files/',
-    'files_url'             => '/files/',
-    'files_startup_view'    => 'grid',
 
     'max_image_size' => 500,
     'max_file_size' => 1000,
@@ -60,8 +94,13 @@ return [
         'text/plain',
     ],
 
-    // file extensions array, only for showing file information, it won't affect the upload process.
-    'file_type_array'         => [
+    /*
+    |--------------------------------------------------------------------------
+    | File Extension Information
+    |--------------------------------------------------------------------------
+    */
+
+    'file_type_array' => [
         'pdf'  => 'Adobe Acrobat',
         'doc'  => 'Microsoft Word',
         'docx' => 'Microsoft Word',
@@ -76,8 +115,7 @@ return [
         'pptx' => 'Microsoft PowerPoint',
     ],
 
-    // file extensions array, only for showing icons, it won't affect the upload process.
-    'file_icon_array'         => [
+    'file_icon_array' => [
         'pdf'  => 'fa-file-pdf-o',
         'doc'  => 'fa-file-word-o',
         'docx' => 'fa-file-word-o',

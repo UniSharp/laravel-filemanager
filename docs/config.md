@@ -1,81 +1,132 @@
-## Documents
-
-  1. [Installation](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/installation.md)
-  1. [Integration](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/integration.md)
-  1. [Config](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/config.md)
-  1. [Customization](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/customization.md)
-  1. [Events](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/events.md)
-  1. [Upgrade](https://github.com/UniSharp/laravel-filemanager/blob/master/docs/upgrade.md)
-
-## Config
-    
 In `config/lfm.php` :
 
 ```php
-    'rename_file'           => true,
-    // true : files will be renamed as uniqid
-    // false : files will remain original names
+/*
+|--------------------------------------------------------------------------
+| Routing
+|--------------------------------------------------------------------------
+*/
 
-    // true : filter filename characters which are not alphanumeric, and replace them with '_'
-    'alphanumeric_filename' => true,
+// Include to pre-defined routes from package or not. Middlewares
+'use_package_routes' => true,
 
-    // true : filter folder name characters which are not alphanumeric, and replace them with '_'
-    'alphanumeric_directory' => false,
+// Middlewares which should be applied to all package routes.
+// For laravel 5.1 and before, remove 'web' from the array.
+'middlewares' => ['web','auth'],
 
-    'use_package_routes'    => true,
-    // set this to false to customize route for file manager
+// The url to this package. Change it if necessary.
+'prefix' => 'laravel-filemanager',
 
-    'middlewares'           => ['web','auth'],
-    // determine middlewares that apply to all file manager routes
-    // NOTE: for laravel 5.1, please use ['auth']
+/*
+|--------------------------------------------------------------------------
+| Multi-User Mode
+|--------------------------------------------------------------------------
+*/
 
-    'allow_multi_user'      => true,
-    // true : user can upload files to shared folder and their own folder
-    // false : all files are put together in shared folder
+// If true, private folders will be created for each signed-in user.
+'allow_multi_user' => true,
 
-    'user_field'            => 'id',
-    // determine which column of users table will be used as user's folder name
+// The database column to identify a user. Make sure the value is unique.
+// Ex: When set to 'id', the private folder of user will be named as the user id.
+'user_field' => 'id',
 
-    'shared_folder_name'    => 'shares',
-    // the name of shared folder
+/*
+|--------------------------------------------------------------------------
+| Working Directory
+|--------------------------------------------------------------------------
+*/
 
-    'thumb_folder_name'     => 'thumbs',
-    // the name of thumb folder
+// Which folder to store files in project, fill in 'public', 'resources', 'storage' and so on.
+// You should create routes to serve images if it is not set to public.
+'base_directory' => 'public',
 
-    'images_dir'            => 'public/photos/',
-    'images_url'            => '/photos/',
-    // path and url of images
+'images_folder_name' => 'photos',
+'files_folder_name'  => 'files',
 
-    'images_startup_view'   => 'list',
-    // default view type for images
+'shared_folder_name' => 'shares',
+'thumb_folder_name'  => 'thumbs',
 
-    'files_dir'             => 'public/files/',
-    'files_url'             => '/files/',
-    // path and url of files
+/*
+|--------------------------------------------------------------------------
+| Startup Views
+|--------------------------------------------------------------------------
+*/
 
-    'files_startup_view'   => 'list',
-    // default view type for files
+// The default display type for items.
+// Supported: "grid", "list"
+'images_startup_view' => 'grid',
+'files_startup_view' => 'list',
 
-    'max_image_size' => 500,
-    'max_file_size' => 1000,
-    // max uploading size for images/files
+/*
+|--------------------------------------------------------------------------
+| Upload / Validation
+|--------------------------------------------------------------------------
+*/
 
-    // valid image mimetypes
-    'valid_image_mimetypes' => [
-        'image/jpeg',
-        'image/pjpeg',
-        'image/png',
-        'image/gif'
-    ],
+// If true, the uploaded file will be renamed to uniqid() + file extension.
+'rename_file' => false,
 
+// If rename_file set to false and this set to true, then non-alphanumeric characters in filename will be replaced.
+'alphanumeric_filename' => true,
 
-    // valid file mimetypes (only when '/laravel-filemanager?type=Files')
-    'valid_file_mimetypes' => [
-        'image/jpeg',
-        'image/pjpeg',
-        'image/png',
-        'image/gif',
-        'application/pdf',
-        'text/plain'
-    ],
+// If true, non-alphanumeric folder name will be rejected.
+'alphanumeric_directory' => false,
+
+'max_image_size' => 500,
+'max_file_size' => 1000,
+
+// available since v1.3.0
+'valid_image_mimetypes' => [
+    'image/jpeg',
+    'image/pjpeg',
+    'image/png',
+    'image/gif'
+],
+
+// available since v1.3.0
+// only when '/laravel-filemanager?type=Files'
+'valid_file_mimetypes' => [
+    'image/jpeg',
+    'image/pjpeg',
+    'image/png',
+    'image/gif',
+    'application/pdf',
+    'text/plain',
+],
+
+/*
+|--------------------------------------------------------------------------
+| File Extension Information
+|--------------------------------------------------------------------------
+*/
+
+'file_type_array' => [
+    'pdf'  => 'Adobe Acrobat',
+    'doc'  => 'Microsoft Word',
+    'docx' => 'Microsoft Word',
+    'xls'  => 'Microsoft Excel',
+    'xlsx' => 'Microsoft Excel',
+    'zip'  => 'Archive',
+    'gif'  => 'GIF Image',
+    'jpg'  => 'JPEG Image',
+    'jpeg' => 'JPEG Image',
+    'png'  => 'PNG Image',
+    'ppt'  => 'Microsoft PowerPoint',
+    'pptx' => 'Microsoft PowerPoint',
+],
+
+'file_icon_array' => [
+    'pdf'  => 'fa-file-pdf-o',
+    'doc'  => 'fa-file-word-o',
+    'docx' => 'fa-file-word-o',
+    'xls'  => 'fa-file-excel-o',
+    'xlsx' => 'fa-file-excel-o',
+    'zip'  => 'fa-file-archive-o',
+    'gif'  => 'fa-file-image-o',
+    'jpg'  => 'fa-file-image-o',
+    'jpeg' => 'fa-file-image-o',
+    'png'  => 'fa-file-image-o',
+    'ppt'  => 'fa-file-powerpoint-o',
+    'pptx' => 'fa-file-powerpoint-o',
+],
 ```

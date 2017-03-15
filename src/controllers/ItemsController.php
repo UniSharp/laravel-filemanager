@@ -17,19 +17,30 @@ class ItemsController extends LfmController
     {
         $path = $this->getCurrentPath();
 
-        return view($this->getView())->with([
-            'files'       => $this->getFilesWithInfo($path),
-            'directories' => $this->getDirectories($path)
-        ]);
+        return [
+            'html' => (string)view($this->getView())->with([
+                'files'       => $this->getFilesWithInfo($path),
+                'directories' => $this->getDirectories($path)
+            ]),
+            'working_dir' => $this->getInternalPath($path)
+        ];
     }
 
 
     private function getView()
     {
-        if (request('show_list') == 1) {
+        $view_type = 'grid';
+        $show_list = request('show_list');
+
+        if ($show_list === "1") {
             $view_type = 'list';
-        } else {
-            $view_type = 'grid';
+        } elseif (is_null($show_list)) {
+            $type_key = $this->currentLfmType();
+            $startup_view = config('lfm.' . $type_key . 's_startup_view');
+
+            if (in_array($startup_view, ['list', 'grid'])) {
+                $view_type = $startup_view;
+            }
         }
 
         return 'laravel-filemanager::' . $view_type . '-view';

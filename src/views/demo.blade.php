@@ -39,7 +39,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script>
-   var route_prefix = "{{Config::get('lfm.prefix')}}";
+   var route_prefix = "{{ url(config('lfm.prefix')) }}";
   </script>
 
   <!-- CKEditor init -->
@@ -49,10 +49,10 @@
   <script>
     $('textarea[name=ce]').ckeditor({
       height: 100,
-      filebrowserImageBrowseUrl: '/' + route_prefix + '?type=Images',
-      filebrowserImageUploadUrl: '/' + route_prefix + '/upload?type=Images&_token={{csrf_token()}}',
-      filebrowserBrowseUrl: '/' + route_prefix + '?type=Files',
-      filebrowserUploadUrl: '/' + route_prefix + '/upload?type=Files&_token={{csrf_token()}}'
+      filebrowserImageBrowseUrl: route_prefix + '?type=Images',
+      filebrowserImageUploadUrl: route_prefix + '/upload?type=Images&_token={{csrf_token()}}',
+      filebrowserBrowseUrl: route_prefix + '?type=Files',
+      filebrowserUploadUrl: route_prefix + '/upload?type=Files&_token={{csrf_token()}}'
     });
   </script>
 
@@ -60,7 +60,7 @@
   <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
   <script>
     var editor_config = {
-      path_absolute : "/",
+      path_absolute : "",
       selector: "textarea[name=tm]",
       plugins: [
         "link image"
@@ -92,7 +92,9 @@
     tinymce.init(editor_config);
   </script>
 
-  <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
+  <script>
+    {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/lfm.js')) !!}
+  </script>
   <script>
     $('#lfm').filemanager('image', {prefix: route_prefix});
   </script>

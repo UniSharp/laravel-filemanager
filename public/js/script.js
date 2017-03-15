@@ -1,6 +1,19 @@
+var show_list;
+
 $(document).ready(function () {
   bootbox.setDefaults({locale:lang['locale-bootbox']});
   loadFolders();
+  performLfmRequest('errors')
+    .done(function (data) {
+      var response = JSON.parse(data);
+      for (var i = 0; i < response.length; i++) {
+        $('#alerts').append(
+          $('<div>').addClass('alert alert-warning')
+            .append($('<i>').addClass('fa fa-exclamation-circle'))
+            .append(' ' + response[i])
+        );
+      }
+    });
 });
 
 // ======================
@@ -52,12 +65,12 @@ $('#upload-btn').click(function () {
 });
 
 $('#thumbnail-display').click(function () {
-  $('#show_list').val(0);
+  show_list = 0;
   loadItems();
 });
 
 $('#list-display').click(function () {
-  $('#show_list').val(1);
+  show_list = 1;
   loadItems();
 });
 
@@ -116,7 +129,7 @@ function performLfmRequest(url, parameter, type) {
 }
 
 var refreshFoldersAndItems = function (data) {
-  if (data == success_response) {
+  if (data == 'OK') {
     loadFolders();
   } else {
     notify(data);
@@ -137,12 +150,13 @@ function loadFolders() {
 }
 
 function loadItems() {
-  console.log('Current working_dir : ' + $('#working_dir').val());
-
-  performLfmRequest('jsonitems', {show_list: $('#show_list').val()}, 'html')
+  performLfmRequest('jsonitems', {show_list: show_list}, 'html')
     .done(function (data) {
-      $('#content').html(data);
+      var response = JSON.parse(data);
+      $('#content').html(response.html);
       $('#nav-buttons').removeClass('hidden');
+      $('#working_dir').val(response.working_dir);
+      console.log('Current working_dir : ' + $('#working_dir').val());
       setOpenFolders();
     });
 }
@@ -253,6 +267,7 @@ function useFile(file) {
   var field_name = getUrlParam('field_name');
   var is_ckeditor = getUrlParam('CKEditor');
   var is_fcke = typeof data != 'undefined' && data['Properties']['Width'] != '';
+  var file_path = url.replace(route_prefix, '');
 
   if (window.opener || window.tinyMCEPopup || field_name || getUrlParam('CKEditorCleanUpFuncNum') || is_ckeditor) {
     if (window.tinyMCEPopup) { // use TinyMCE > 3.0 integration method
@@ -264,7 +279,7 @@ function useFile(file) {
     } else if (is_fcke) {      // use FCKEditor 2.0 integration method
       useFckeditor2(url);
     } else {                   // standalone button or other situations
-      window.opener.SetUrl(url);
+      window.opener.SetUrl(url, file_path);
     }
 
     if (window.opener) {
@@ -272,7 +287,7 @@ function useFile(file) {
     }
   } else {
     // No WYSIWYG editor found, use custom method.
-    window.opener.SetUrl(url);
+    window.opener.SetUrl(url, file_path);
   }
 }
 //end useFile

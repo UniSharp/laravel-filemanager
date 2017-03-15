@@ -1,1 +1,10 @@
-theme: jekyll-theme-slate
+theme: jekyll-theme-cayman
+
+# Setup
+title: Laravel File Manager
+description: File manager/gallery with CKEditor and TinyMCE support.
+
+# About/contact
+author:
+  name: UniSharp
+  url: https://github.com/UniSharp

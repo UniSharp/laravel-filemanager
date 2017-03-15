@@ -16,6 +16,12 @@ Route::group(compact('middleware', 'prefix', 'as', 'namespace'), function () {
         'as' => 'show'
     ]);
 
+    // Show integration error messages
+    Route::get('/errors', [
+        'uses' => 'LfmController@getErrors',
+        'as' => 'getErrors'
+    ]);
+
     // upload
     Route::any('/upload', [
         'uses' => 'UploadController@upload',
