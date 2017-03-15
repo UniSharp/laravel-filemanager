@@ -1,11 +1,3 @@
-## Documents
-  1. [Installation](installation)
-  1. [Integration](integration)
-  1. [Config](config)
-  1. [Customization](customization)
-  1. [Events](events)
-  1. [Upgrade](upgrade)
-
 ## Note
 Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which already integrated all options from below.
 

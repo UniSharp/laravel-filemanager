@@ -1,11 +1,3 @@
-## Documents
-  1. [Installation](installation)
-  1. [Integration](integration)
-  1. [Config](config)
-  1. [Customization](customization)
-  1. [Events](events)
-  1. [Upgrade](upgrade)
-
 ## Upgrade instructions
 
   1. Please backup your own `config/lfm.php` before upgrading.

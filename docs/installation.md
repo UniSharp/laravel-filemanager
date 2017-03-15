@@ -1,11 +1,3 @@
-## Documents
-  1. [Installation](installation)
-  1. [Integration](integration)
-  1. [Config](config)
-  1. [Customization](customization)
-  1. [Events](events)
-  1. [Upgrade](upgrade)
-
 ## Requirements
  * php >= 5.4
  * Laravel 5
