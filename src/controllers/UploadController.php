@@ -27,16 +27,22 @@ class UploadController extends LfmController
     public function upload()
     {
         $files = request()->file('upload');
+        $error_bag = [];
+        foreach (is_array($files) ? $files : [$files] as $file) {
+            $validation_message = $this->uploadValidator($file);
+            $new_filename = $this->proceedSingleUpload($file);
 
-        if (is_array($files)) {
-            foreach ($files as $file) {
-                $this->proceedSingleUpload($file);
+            if ($validation_message !== 'pass') {
+                array_push($error_bag, $validation_message);
+            } elseif ($new_filename == 'invalid') {
+                array_push($error_bag, $response);
             }
 
-            $response = $this->success_response;
-        } else { // upload via ckeditor 'Upload' tab
-            $new_filename = $this->proceedSingleUpload($files);
+        }
 
+        if (is_array($files)) {
+            $response = count($error_bag) > 0 ? $error_bag : $this->success_response;
+        } else { // upload via ckeditor 'Upload' tab
             $response = $this->useFile($new_filename);
         }
 

@@ -129,9 +129,9 @@ function performLfmRequest(url, parameter, type) {
 }
 
 var refreshFoldersAndItems = function (data) {
-  if (data == 'OK') {
-    loadFolders();
-  } else {
+  loadFolders();
+  if (data != 'OK') {
+    data = Array.isArray(data) ? data.join('<br/>') : data;
     notify(data);
   }
 };
