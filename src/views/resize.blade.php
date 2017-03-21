@@ -75,7 +75,7 @@
       dataType: "text",
       url: "{{ route('unisharp.lfm.performResize') }}",
       data: {
-        img: '{{ $img }}',
+        img: '{{ parse_url($img, PHP_URL_PATH) }}',
         working_dir: $("#working_dir").val(),
         dataX: $("#dataX").val(),
         dataY: $("#dataY").val(),
