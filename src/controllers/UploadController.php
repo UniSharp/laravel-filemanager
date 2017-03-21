@@ -12,12 +12,6 @@ use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
  */
 class UploadController extends LfmController
 {
-    private $default_file_types = ['application/pdf'];
-    private $default_image_types = ['image/jpeg', 'image/png', 'image/gif'];
-    // unit is assumed to be kb
-    private $default_max_file_size = 1000;
-    private $default_max_image_size = 500;
-
     /**
      * Upload an image/file and (for images) create thumbnail
      *
@@ -100,16 +94,19 @@ class UploadController extends LfmController
         $file_size = $file->getSize() / 1000;
         $type_key = $this->currentLfmType();
 
-        $mine_config = 'lfm.valid_' . $type_key . '_mimetypes';
-        $valid_mimetypes = config($mine_config, $this->{"default_{$type_key}_types"});
-        $max_size = config('lfm.max_' . $type_key . '_size', $this->{"default_max_{$type_key}_size"});
-
-        if (false === in_array($mimetype, $valid_mimetypes)) {
-            return $this->error('mime') . $mimetype;
+        if (config('lfm.should_validate_mime')) {
+            $mine_config = 'lfm.valid_' . $type_key . '_mimetypes';
+            $valid_mimetypes = config($mine_config, []);
+            if (false === in_array($mimetype, $valid_mimetypes)) {
+                return $this->error('mime') . $mimetype;
+            }
         }
 
-        if ($file_size > $max_size) {
-            return $this->error('size') . $mimetype;
+        if (config('lfm.should_validate_size')) {
+            $max_size = config('lfm.max_' . $type_key . '_size', 0);
+            if ($file_size > $max_size) {
+                return $this->error('size') . $mimetype;
+            }
         }
 
         return 'pass';
