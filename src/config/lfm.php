@@ -25,6 +25,8 @@ return [
 
     // If true, private folders will be created for each signed-in user.
     'allow_multi_user' => true,
+    // If true, share folder will be created when allow_multi_user is true.
+    'allow_share_folder' => true,
 
     // The database column to identify a user. Make sure the value is unique.
     // Ex: When set to 'id', the private folder of user will be named as the user id.
@@ -104,10 +106,9 @@ return [
     | Image / Folder Setting
     |--------------------------------------------------------------------------
     */
-    
+
     'thumb_img_width' => 200,
     'thumb_img_height' => 200,
-
 
     /*
     |--------------------------------------------------------------------------

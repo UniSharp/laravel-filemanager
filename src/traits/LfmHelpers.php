@@ -226,6 +226,11 @@ trait LfmHelpers
         return config('lfm.allow_multi_user') === true;
     }
 
+    public function enabledShareFolder()
+    {
+        return config('lfm.allow_share_folder') === true;
+    }
+
 
     /****************************
      ***     File System      ***

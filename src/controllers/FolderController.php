@@ -22,7 +22,7 @@ class FolderController extends LfmController
             $folder_types['user'] = 'root';
         }
 
-        if (true) {
+        if (parent::allowMultiUser() && parent::enabledShareFolder()) {
             $folder_types['share'] = 'shares';
         }
 
