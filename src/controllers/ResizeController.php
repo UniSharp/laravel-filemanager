@@ -2,7 +2,7 @@
 
 use Intervention\Image\Facades\Image;
 use Unisharp\Laravelfilemanager\Events\ImageIsResizing;
-use Unisharp\Laravelfilemanager\Events\ImageWasResize;
+use Unisharp\Laravelfilemanager\Events\ImageWasResized;
 
 /**
  * Class ResizeController
@@ -65,7 +65,7 @@ class ResizeController extends LfmController
         try {
             event(new ImageIsResizing($image_path));
             Image::make($image_path)->resize($width, $height)->save();
-            event(new ImageWasResize($image_path));
+            event(new ImageWasResized($image_path));
             return $this->success_response;
         } catch (Exception $e) {
             return "width : " . $width . " height: " . $height;
