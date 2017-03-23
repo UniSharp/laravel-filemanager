@@ -2,7 +2,7 @@
 
 namespace Unisharp\Laravelfilemanager\Events;
 
-class ImageWasResize
+class ImageWasResized
 {
     private $path;
 

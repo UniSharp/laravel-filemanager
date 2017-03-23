@@ -1,5 +1,5 @@
 ## List of events
- * Unisharp\Laravelfilemanager\Events\ImageIsUpload
+ * Unisharp\Laravelfilemanager\Events\ImageIsUploading
  * Unisharp\Laravelfilemanager\Events\ImageWasUploaded
  * Unisharp\Laravelfilemanager\Events\ImageIsRenaming
  * Unisharp\Laravelfilemanager\Events\ImageWasRenamed
@@ -8,7 +8,7 @@
  * Unisharp\Laravelfilemanager\Events\FolderIsRenaming
  * Unisharp\Laravelfilemanager\Events\FolderWasRenamed
  * Unisharp\Laravelfilemanager\Events\ImageIsResizing
- * Unisharp\Laravelfilemanager\Events\ImageWasResize
+ * Unisharp\Laravelfilemanager\Events\ImageWasResized
  * Unisharp\Laravelfilemanager\Events\ImageIsCropping
  * Unisharp\Laravelfilemanager\Events\ImageWasCropped
 
