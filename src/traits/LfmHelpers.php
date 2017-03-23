@@ -72,7 +72,7 @@ trait LfmHelpers
     {
         $working_dir = request('working_dir');
 
-        if (is_null($working_dir)) {
+        if (empty($working_dir)) {
             $default_folder_type = 'share';
             if ($this->allowMultiUser()) {
                 $default_folder_type = 'user';
