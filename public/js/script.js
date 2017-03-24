@@ -29,7 +29,6 @@ $('#to-previous').click(function () {
   var working_dir = $('#working_dir').val();
   var last_ds = working_dir.lastIndexOf(ds);
   var previous_dir = working_dir.substring(0, last_ds);
-  if (previous_dir == '') return;
   goTo(previous_dir);
 });
 
