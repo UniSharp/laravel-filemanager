@@ -117,3 +117,25 @@ If you are going to use filemanager independently, meaning set the value of an i
     var domain = "{{ url() }}";
     $('#lfm').filemanager('image', {prefix: domain});
     ```
+    
+## JavaScript integration
+In case you are developing javascript application and you want dynamically to trigger filemanager popup, you can create function like this. It doesn't rely on jQuery.
+
+
+```javascript
+var lfm = function(options, cb) {
+
+	var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
+
+	window.open(route_prefix + '?type=' + options.type || 'file', 'FileManager', 'width=900,height=600');
+	window.SetUrl = cb;
+}
+```
+
+And use it like this:
+
+```javascript
+lfm({type: 'image', prefix: 'prefix'}, function(url, path) {
+
+});
+```
