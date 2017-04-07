@@ -87,4 +87,7 @@ Route::group(compact('middleware', 'prefix', 'as', 'namespace'), function () {
     ]);
 
     Route::get('/demo', 'DemoController@index');
+
+    // debug page
+    Route::get('/debug', 'DebugController@index');
 });
