@@ -180,7 +180,7 @@ trait LfmHelpers
     public function translateFromUtf8($input)
     {
         if ($this->isRunningOnWindows()) {
-            $input = iconv('UTF-8', config('win_unicode','BIG5'), $input);
+            $input = iconv('UTF-8', config('win_unicode','GB2312'), $input);
         }
 
         return $input;
@@ -189,7 +189,7 @@ trait LfmHelpers
     public function translateToUtf8($input)
     {
         if ($this->isRunningOnWindows()) {
-            $input = iconv(config('win_unicode','BIG5'), 'UTF-8', $input);
+            $input = iconv(config('win_unicode','GB2312'), 'UTF-8', $input);
         }
 
         return $input;
@@ -327,7 +327,7 @@ trait LfmHelpers
     {
         $slug_of_user = config('lfm.user_field');
 
-        return empty(auth()->user()) ? '' : auth()->user()->$slug_of_user;
+        return empty(auth(config('lfm.user_guard'))->user()) ? '' : auth(config('lfm.user_guard'))->user()->$slug_of_user;
     }
 
     public function error($error_type, $variables = [])
