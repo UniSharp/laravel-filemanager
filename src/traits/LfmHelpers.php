@@ -236,7 +236,7 @@ trait LfmHelpers
      ***     File System      ***
      ****************************/
 
-    public function getDirectories($path)
+    public function getDirectories($path, $sort_type = 0)
     {
         $thumb_folder_name = config('lfm.thumb_folder_name');
         $all_directories = File::directories($path);
@@ -249,15 +249,22 @@ trait LfmHelpers
             if ($directory_name !== $thumb_folder_name) {
                 $arr_dir[] = (object)[
                     'name' => $directory_name,
+                    'updated' => filemtime($directory),
                     'path' => $this->getInternalPath($directory)
                 ];
             }
         }
 
+        if ($sort_type == 0) {
+            uasort($arr_dir, array($this, 'cmpDirAlpha'));
+        } elseif ($sort_type == 1) {
+            uasort($arr_dir, array($this, 'cmpDirTime'));
+        }
+
         return $arr_dir;
     }
 
-    public function getFilesWithInfo($path)
+    public function getFilesWithInfo($path, $sort_type = 0)
     {
         $arr_files = [];
 
@@ -292,6 +299,12 @@ trait LfmHelpers
             ];
         }
 
+        if ($sort_type == 0) {
+            uasort($arr_files, array($this, 'cmpAlpha'));
+        } elseif ($sort_type == 1) {
+            uasort($arr_files, array($this, 'cmpTime'));
+        }
+
         return $arr_files;
     }
 
@@ -316,6 +329,42 @@ trait LfmHelpers
         }
 
         return starts_with($mime_type, 'image');
+    }
+
+    private static function cmpDirAlpha($a, $b)
+    {
+        $cmp = strcmp($a->name, $b->name);
+
+        if ($cmp == 0)
+            return 0;
+
+        return ($cmp > 0) ? 1 : -1;
+    }
+
+    private static function cmpDirTime($a, $b)
+    {
+        if ($a->updated == $b->updated)
+            return 0;
+
+        return ($a->updated > $b->updated) ? 1 : -1;
+    }
+
+    private static function cmpAlpha($a, $b)
+    {
+        $cmp = strcmp($a['name'], $b['name']);
+
+        if ($cmp == 0)
+            return 0;
+
+        return ($cmp > 0) ? 1 : -1;
+    }
+
+    private static function cmpTime($a, $b)
+    {
+        if ($a['updated'] == $b['updated'])
+            return 0;
+
+        return ($a['updated'] > $b['updated']) ? 1 : -1;
     }
 
 

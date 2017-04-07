@@ -1,4 +1,5 @@
 var show_list;
+var sort_type = 0;
 
 $(document).ready(function () {
   bootbox.setDefaults({locale:lang['locale-bootbox']});
@@ -71,6 +72,16 @@ $('#thumbnail-display').click(function () {
 
 $('#list-display').click(function () {
   show_list = 1;
+  loadItems();
+});
+
+$('#list-sort-alpha').click(function() {
+  sort_type = 0;
+  loadItems();
+});
+
+$('#list-sort-time').click(function() {
+  sort_type = 1;
   loadItems();
 });
 
@@ -150,7 +161,7 @@ function loadFolders() {
 }
 
 function loadItems() {
-  performLfmRequest('jsonitems', {show_list: show_list}, 'html')
+  performLfmRequest('jsonitems', {show_list: show_list, sort_type: sort_type}, 'html')
     .done(function (data) {
       var response = JSON.parse(data);
       $('#content').html(response.html);

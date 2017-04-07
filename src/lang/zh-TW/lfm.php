@@ -6,6 +6,9 @@ return [
     'nav-upload'        => '上傳檔案',
     'nav-thumbnails'    => '縮圖顯示',
     'nav-list'          => '列表顯示',
+    'nav-sort'          => '排序',
+    'nav-sort-alpha'    => '依字母排序',
+    'nav-sort-time'     => '依時間排序',
 
     'menu-rename'       => '重新命名',
     'menu-delete'       => '刪除',
