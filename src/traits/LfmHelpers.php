@@ -180,7 +180,7 @@ trait LfmHelpers
     public function translateFromUtf8($input)
     {
         if ($this->isRunningOnWindows()) {
-            $input = iconv('UTF-8', 'BIG5', $input);
+            $input = iconv('UTF-8', config('win_unicode','BIG5'), $input);
         }
 
         return $input;
@@ -189,7 +189,7 @@ trait LfmHelpers
     public function translateToUtf8($input)
     {
         if ($this->isRunningOnWindows()) {
-            $input = iconv('BIG5', 'UTF-8', $input);
+            $input = iconv(config('win_unicode','BIG5'), 'UTF-8', $input);
         }
 
         return $input;
