@@ -1,27 +1,37 @@
-#wrapper {
-  margin: 10px;
+@media screen and (max-width: 768px) {
+  #main {
+    padding: 0px;
+  }
 }
 
-#main {
-  border-left: 1px solid silver;
+@media screen and (min-width: 768px) {
+  #main {
+    border-left: 1px solid silver;
+  }
+}
+
+#wrapper {
+  padding: 0px;
+}
+
+#wrapper > .panel {
+  border-radius: 0;
+}
+
+#wrapper > .panel > .panel-heading {
+  border-radius: 0;
+}
+
+#wrapper > .panel > .panel-heading > .panel-title {
+  padding: 10px 0;
+}
+
+#wrapper > .row {
+  margin: 0px;
 }
 
 #fab a:hover, #fab a:focus{
   color: white;
-}
-
-@media screen and (max-width: 992px) {
-  #nav a {
-    font-size: 30px;
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-  #nav a i {
-    padding-bottom: 10px;
-  }
-  #fab {
-    zoom: 2.5;
-  }
 }
 
 .img-row {
@@ -51,9 +61,8 @@
 }
 
 .thumbnail-mobile {
-  height: 210px;
-  width: 210px;
-  margin: 30px;
+  height: 60px;
+  width: 60px;
 }
 
 .square {

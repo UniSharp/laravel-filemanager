@@ -1,5 +1,5 @@
 @if((sizeof($files) > 0) || (sizeof($directories) > 0))
-<table class="table table-condensed table-striped hidden-sm">
+<table class="table table-responsive table-condensed table-striped hidden-xs">
   <thead>
     <th style='width:50%;'>{{ Lang::get('laravel-filemanager::lfm.title-item') }}</th>
     <th>{{ Lang::get('laravel-filemanager::lfm.title-size') }}</th>
@@ -29,7 +29,7 @@
         <i class="fa {{ $file->icon }}"></i>
         <?php $file_name = $file->name;?>
         <a href="javascript:useFile('{{ $file_name }}')" id="{{ $file_name }}" data-url="{{ $file->url }}">
-          {{ $file_name }}
+          {{ str_limit($file_name, $limit = 20, $end = '...') }}
         </a>
         &nbsp;&nbsp;
         <a href="javascript:rename('{{ $file_name }}')">
@@ -63,12 +63,12 @@
   </tbody>
 </table>
 
-<table class="table visible-sm">
+<table class="table visible-xs">
   <tbody>
     @foreach($items as $item)
     <tr>
       <td>
-        <div class="media">
+        <div class="media" style="height: 70px;">
           <div class="media-left">
             <div class="clickable thumbnail-mobile">
               @if(!$item->is_file)
@@ -86,9 +86,9 @@
               </div>
             </div>
           </div>
-          <div class="media-body" style="padding-top: 40px;padding-bottom: 40px">
+          <div class="media-body" style="padding-top: 10px;">
             <div class="media-heading">
-              <p style="font-size:70px">
+              <p>
                 @if(!$item->is_file)
                 <a class="folder-item clickable" data-id="{{ $item->path }}">
                 @else
@@ -102,7 +102,7 @@
                 </a> --}}
               </p>
             </div>
-            <p style="font-size:50px;color: #aaa;font-weight: 400">{{ $item->time }}</p>
+            <p style="color: #aaa;font-weight: 400">{{ $item->time }}</p>
           </div>
         </div>
       </td>

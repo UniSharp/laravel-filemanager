@@ -8,94 +8,94 @@
   <meta name="msapplication-navbutton-color" content="#75C7C3">
   <!-- iOS Safari -->
   <meta name="apple-mobile-web-app-status-bar-style" content="#75C7C3">
+  <meta name="viewport" content="width=device-width; initial-scale=1;">
   <title>{{ trans('laravel-filemanager::lfm.title-page') }}</title>
   <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/laravel-filemanager/img/folder.png') }}">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/cropper.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('/vendor/laravel-filemanager/css/lfm.css') }}">
+  <style>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/css/lfm.css')) !!}</style>
+  {{-- Use the line below instead of the above if you need to cache the css. --}}
+  {{-- <link rel="stylesheet" href="{{ asset('/vendor/laravel-filemanager/css/lfm.css') }}"> --}}
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/mfb.css') }}">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
 </head>
 <body>
-  <div class="container-fluid" style="padding:0">
-      <div class="panel panel-primary hidden-sm" style="margin:0;border-radius:0">
-        <div class="panel-heading" style="border-radius:0">
-          <h1 class="panel-title" style="padding:10px 0 10px 0">{{ trans('laravel-filemanager::lfm.title-panel') }}</h1>
-        </div>
+  <div class="container-fluid" id="wrapper">
+    <div class="panel panel-primary hidden-xs">
+      <div class="panel-heading">
+        <h1 class="panel-title">{{ trans('laravel-filemanager::lfm.title-panel') }}</h1>
       </div>
-      <div id="wrapper">
-        <div class="row">
-          <div class="col-md-2 hidden-sm">
-            <div id="tree"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2 hidden-xs">
+        <div id="tree"></div>
+      </div>
+
+      <div class="col-sm-10 col-xs-12" id="main">
+        <nav class="navbar navbar-default" id="nav">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
           </div>
-
-          <div class="col-md-10 col-sm-12" id="main">
-            <nav class="navbar navbar-default" id="nav">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-              </div>
-              <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav" id="nav-buttons">
-                  <li>
-                    <a class="pointer hide" id="to-previous">
-                      <i class="fa fa-arrow-left"></i>
-                      <span>{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
-                    </a>
-                  </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-picture-o"></i> <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <a class="pointer" id="thumbnail-display">
-                          <i class="fa fa-th-large"></i>
-                          <span>{{ trans('laravel-filemanager::lfm.nav-thumbnails') }}</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="pointer" id="list-display">
-                          <i class="fa fa-list"></i>
-                          <span>{{ trans('laravel-filemanager::lfm.nav-list') }}</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-
-            <div id="alerts"></div>
-
-            <div id="content"></div>
-          </div>
-        </div>
-
-        <ul id="fab">
-          <li>
-            <a href="#"></a>
-            <ul class="hide">
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav" id="nav-buttons">
               <li>
-                <a href="#" id="add-folder" data-mfb-label="{{ trans('laravel-filemanager::lfm.nav-new') }}">
-                  <i class="fa fa-folder"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#" id="upload" data-mfb-label="{{ trans('laravel-filemanager::lfm.nav-upload') }}">
-                  <i class="fa fa-upload"></i>
+                <a class="pointer hide" id="to-previous">
+                  <i class="fa fa-arrow-left"></i>
+                  <span>{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
                 </a>
               </li>
             </ul>
-          </li>
-        </ul>
+            <ul class="nav navbar-nav navbar-right" id="bs-example-navbar-collapse-1">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-picture-o"></i> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="pointer" id="thumbnail-display">
+                      <i class="fa fa-th-large"></i>
+                      <span>{{ trans('laravel-filemanager::lfm.nav-thumbnails') }}</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="pointer" id="list-display">
+                      <i class="fa fa-list"></i>
+                      <span>{{ trans('laravel-filemanager::lfm.nav-list') }}</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <div id="alerts"></div>
+
+        <div id="content"></div>
       </div>
 
+      <ul id="fab">
+        <li>
+          <a href="#"></a>
+          <ul class="hide">
+            <li>
+              <a href="#" id="add-folder" data-mfb-label="{{ trans('laravel-filemanager::lfm.nav-new') }}">
+                <i class="fa fa-folder"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" id="upload" data-mfb-label="{{ trans('laravel-filemanager::lfm.nav-upload') }}">
+                <i class="fa fa-upload"></i>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -139,9 +139,9 @@
     var lfm_route = "{{ url(config('lfm.prefix')) }}";
     var lang = {!! json_encode(trans('laravel-filemanager::lfm')) !!};
   </script>
-  <script src="{{ asset('vendor/laravel-filemanager/js/script.js') }}"></script>
-  {{-- Use the line below instead of the above if you need to ignore browser cache. --}}
-  <!-- <script>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/script.js')) !!}</script> -->
+  <script>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/script.js')) !!}</script>
+  {{-- Use the line below instead of the above if you need to cache the script. --}}
+  {{-- <script src="{{ asset('vendor/laravel-filemanager/js/script.js') }}"></script> --}}
   <script>
     $.fn.fab = function () {
       var menu = this;
