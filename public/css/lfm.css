@@ -5,6 +5,9 @@
   #nav {
     margin-bottom: -1px;
   }
+  #content > .row {
+    margin: 0px;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -35,6 +38,13 @@
 
 #fab a:hover, #fab a:focus{
   color: white;
+}
+
+.item_name {
+  width: 120px;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
 }
 
 .img-row {

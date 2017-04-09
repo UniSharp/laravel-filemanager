@@ -41,7 +41,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand pointer hide" id="to-previous">
+            <a class="navbar-brand clickable hide" id="to-previous">
               <i class="fa fa-arrow-left"></i>
               <span class="hidden-xs">{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
             </a>
@@ -50,13 +50,13 @@
           <div class="collapse navbar-collapse" id="nav-buttons">
             <ul class="nav navbar-nav navbar-right">
               <li>
-                <a class="pointer" id="thumbnail-display">
+                <a class="clickable" id="thumbnail-display">
                   <i class="fa fa-th-large"></i>
                   <span>{{ trans('laravel-filemanager::lfm.nav-thumbnails') }}</span>
                 </a>
               </li>
               <li>
-                <a class="pointer" id="list-display">
+                <a class="clickable" id="list-display">
                   <i class="fa fa-list"></i>
                   <span>{{ trans('laravel-filemanager::lfm.nav-list') }}</span>
                 </a>
