@@ -35,14 +35,15 @@
       <div class="col-sm-10 col-xs-12" id="main">
         <nav class="navbar navbar-default" id="nav">
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_wrapper">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
+            <a class="navbar-brand visible-xs" href="#">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
           </div>
-          <div class="collapse navbar-collapse">
+          <div class="collapse navbar-collapse" id="nav_wrapper">
             <ul class="nav navbar-nav" id="nav-buttons">
               <li>
                 <a class="pointer hide" id="to-previous">
@@ -52,22 +53,17 @@
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" id="bs-example-navbar-collapse-1">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-picture-o"></i> <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a class="pointer" id="thumbnail-display">
-                      <i class="fa fa-th-large"></i>
-                      <span>{{ trans('laravel-filemanager::lfm.nav-thumbnails') }}</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="pointer" id="list-display">
-                      <i class="fa fa-list"></i>
-                      <span>{{ trans('laravel-filemanager::lfm.nav-list') }}</span>
-                    </a>
-                  </li>
-                </ul>
+              <li>
+                <a class="pointer" id="thumbnail-display">
+                  <i class="fa fa-th-large"></i>
+                  <span>{{ trans('laravel-filemanager::lfm.nav-thumbnails') }}</span>
+                </a>
+              </li>
+              <li>
+                <a class="pointer" id="list-display">
+                  <i class="fa fa-list"></i>
+                  <span>{{ trans('laravel-filemanager::lfm.nav-list') }}</span>
+                </a>
               </li>
             </ul>
           </div>

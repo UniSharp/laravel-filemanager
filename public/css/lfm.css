@@ -2,6 +2,9 @@
   #main {
     padding: 0px;
   }
+  #nav {
+    margin-bottom: -1px;
+  }
 }
 
 @media screen and (min-width: 768px) {
