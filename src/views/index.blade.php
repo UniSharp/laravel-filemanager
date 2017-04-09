@@ -35,24 +35,20 @@
       <div class="col-sm-10 col-xs-12" id="main">
         <nav class="navbar navbar-default" id="nav">
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_wrapper">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-buttons">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
+            <a class="navbar-brand pointer hide" id="to-previous">
+              <i class="fa fa-arrow-left"></i>
+              <span class="hidden-xs">{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
+            </a>
             <a class="navbar-brand visible-xs" href="#">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
           </div>
-          <div class="collapse navbar-collapse" id="nav_wrapper">
-            <ul class="nav navbar-nav" id="nav-buttons">
-              <li>
-                <a class="pointer hide" id="to-previous">
-                  <i class="fa fa-arrow-left"></i>
-                  <span>{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
-                </a>
-              </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right" id="bs-example-navbar-collapse-1">
+          <div class="collapse navbar-collapse" id="nav-buttons">
+            <ul class="nav navbar-nav navbar-right">
               <li>
                 <a class="pointer" id="thumbnail-display">
                   <i class="fa fa-th-large"></i>
@@ -68,6 +64,7 @@
             </ul>
           </div>
         </nav>
+        <div class="visible-xs" id="current_dir" style="padding: 5px 15px;background-color: #f8f8f8;color: #5e5e5e;"></div>
 
         <div id="alerts"></div>
 

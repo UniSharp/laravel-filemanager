@@ -146,7 +146,7 @@ var refreshFoldersAndItems = function (data) {
 };
 
 var hideNavAndShowEditor = function (data) {
-  $('#nav-buttons').addClass('hidden');
+  $('#nav-buttons > ul').addClass('hidden');
   $('#content').html(data);
 }
 
@@ -163,8 +163,9 @@ function loadItems() {
     .done(function (data) {
       var response = JSON.parse(data);
       $('#content').html(response.html);
-      $('#nav-buttons').removeClass('hidden');
+      $('#nav-buttons > ul').removeClass('hidden');
       $('#working_dir').val(response.working_dir);
+      $('#current_dir').text(response.working_dir);
       console.log('Current working_dir : ' + $('#working_dir').val());
       if (getPreviousDir() == '') {
         $('#to-previous').addClass('hide');
