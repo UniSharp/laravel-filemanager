@@ -19,7 +19,7 @@
         <img src="{{ $thumb_src }}">
         @else
         <div class="icon-container">
-          <i class="fa {{ $file->icon }} fa-5x"></i>
+          <i class="fa {{ $item->icon }} fa-5x"></i>
         </div>
         @endif
       </div>
