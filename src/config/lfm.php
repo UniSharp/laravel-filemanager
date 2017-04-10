@@ -12,10 +12,10 @@ return [
 
     // Middlewares which should be applied to all package routes.
     // For laravel 5.1 and before, remove 'web' from the array.
-    'middlewares' => ['web','auth'],
+    'middlewares' => ['web','admin'],
 
     // The url to this package. Change it if necessary.
-    'prefix' => 'laravel-filemanager',
+    'prefix' => 'admin/laravel-filemanager',
 
     /*
     |--------------------------------------------------------------------------
@@ -31,6 +31,8 @@ return [
     // The database column to identify a user. Make sure the value is unique.
     // Ex: When set to 'id', the private folder of user will be named as the user id.
     'user_field' => 'id',
+    'user_guard' => 'admin',
+    'win_unicode'=> 'GB2312',
 
     /*
     |--------------------------------------------------------------------------
