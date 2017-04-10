@@ -21,7 +21,8 @@ class ItemsController extends LfmController
         return [
             'html' => (string)view($this->getView())->with([
                 'files'       => $this->getFilesWithInfo($path, $sort_type),
-                'directories' => $this->getDirectories($path, $sort_type)
+                'directories' => $this->getDirectories($path, $sort_type),
+                'items'       => array_merge($this->getDirectories($path), $this->getFilesWithInfo($path))
             ]),
             'working_dir' => $this->getInternalPath($path)
         ];

@@ -248,9 +248,14 @@ trait LfmHelpers
 
             if ($directory_name !== $thumb_folder_name) {
                 $arr_dir[] = (object)[
-                    'name' => $directory_name,
+                    'name'    => $directory_name,
                     'updated' => filemtime($directory),
-                    'path' => $this->getInternalPath($directory)
+                    'path'    => $this->getInternalPath($directory),
+                    'time'    => date("Y-m-d h:m", filemtime($directory)),
+                    'type'    => trans('laravel-filemanager::lfm.type-folder'),
+                    'icon'    => 'fa-folder-o',
+                    'thumb'   => asset('vendor/laravel-filemanager/img/folder.png'),
+                    'is_file' => false
                 ];
             }
         }
@@ -288,14 +293,16 @@ trait LfmHelpers
             }
 
 
-            $arr_files[$key] = [
+            $arr_files[$key] = (object)[
                 'name'      => $file_name,
                 'url'       => $this->getFileUrl($file_name),
                 'size'      => $this->humanFilesize(File::size($file)),
                 'updated'   => filemtime($file),
+                'time'      => date("Y-m-d h:m", filemtime($file)),
                 'type'      => $file_type,
                 'icon'      => $icon,
-                'thumb'     => $thumb_url
+                'thumb'     => $thumb_url,
+                'is_file'   => true
             ];
         }
 

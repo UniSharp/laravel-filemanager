@@ -36,6 +36,7 @@ Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which alre
   ```
 
 ### Option 2: TinyMCE4
+<<<<<<< HEAD
 
 ```html
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
