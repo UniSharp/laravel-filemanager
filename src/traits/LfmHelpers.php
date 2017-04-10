@@ -379,8 +379,8 @@ trait LfmHelpers
     public function getUserSlug()
     {
         $slug_of_user = config('lfm.user_field');
-
-        return empty(auth()->user()) ? '' : auth()->user()->$slug_of_user;
+        // add user_guard config in config file
+        return empty(auth(config('lfm.user_guard','users'))->user()) ? '' : auth(config('lfm.user_guard','users'))->user()->$slug_of_user;
     }
 
     public function error($error_type, $variables = [])
