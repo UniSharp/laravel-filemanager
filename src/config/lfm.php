@@ -100,6 +100,7 @@ return [
         'image/gif',
         'application/pdf',
         'text/plain',
+        'image/svg+xml',
     ],
 
     /*

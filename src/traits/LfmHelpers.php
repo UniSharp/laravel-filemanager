@@ -320,13 +320,32 @@ trait LfmHelpers
 
     public function fileIsImage($file)
     {
+        $mime_type = $this->getFileType($file);
+
+        return starts_with($mime_type, 'image');
+    }
+
+    public function isImageToThumb($file)
+    {
+        $mine_type = $this->getFileType($file);
+        $noThumbType = ['image/gif', 'image/svg+xml'];
+
+        if (in_array($mine_type, $noThumbType)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function getFileType($file)
+    {
         if ($file instanceof UploadedFile) {
             $mime_type = $file->getMimeType();
         } else {
             $mime_type = File::mimeType($file);
         }
 
-        return starts_with($mime_type, 'image');
+        return $mime_type;
     }
 
     public function sortFilesAndDirectories($arr_items, $sort_type)

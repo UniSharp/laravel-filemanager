@@ -54,7 +54,7 @@ class UploadController extends LfmController
 
         event(new ImageIsUploading($new_file_path));
         try {
-            if ($this->fileIsImage($file)) {
+            if ($this->fileIsImage($file) && $this->isImageToThumb($file)) {
                 Image::make($file->getRealPath())
                     ->orientate() //Apply orientation from exif data
                     ->save($new_file_path, 90);
