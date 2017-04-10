@@ -31,7 +31,6 @@ class UploadController extends LfmController
             } elseif ($new_filename == 'invalid') {
                 array_push($error_bag, $response);
             }
-
         }
 
         if (is_array($files)) {

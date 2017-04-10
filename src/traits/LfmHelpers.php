@@ -236,7 +236,7 @@ trait LfmHelpers
      ***     File System      ***
      ****************************/
 
-    public function getDirectories($path, $sort_type = 0)
+    public function getDirectories($path, $sort_type = 'alpha')
     {
         $thumb_folder_name = config('lfm.thumb_folder_name');
         $all_directories = File::directories($path);
@@ -255,16 +255,16 @@ trait LfmHelpers
             }
         }
 
-        if ($sort_type == 0) {
-            uasort($arr_dir, array($this, 'cmpDirAlpha'));
-        } elseif ($sort_type == 1) {
-            uasort($arr_dir, array($this, 'cmpDirTime'));
+        if ($sort_type == 'alpha') {
+            uasort($arr_dir, array($this, 'compareDirAlpha'));
+        } elseif ($sort_type == 'time') {
+            uasort($arr_dir, array($this, 'compareDirTime'));
         }
 
         return $arr_dir;
     }
 
-    public function getFilesWithInfo($path, $sort_type = 0)
+    public function getFilesWithInfo($path, $sort_type = 'alpha')
     {
         $arr_files = [];
 
@@ -299,10 +299,10 @@ trait LfmHelpers
             ];
         }
 
-        if ($sort_type == 0) {
-            uasort($arr_files, array($this, 'cmpAlpha'));
-        } elseif ($sort_type == 1) {
-            uasort($arr_files, array($this, 'cmpTime'));
+        if ($sort_type == 'alpha') {
+            uasort($arr_files, array($this, 'compareFileAlpha'));
+        } elseif ($sort_type == 'time') {
+            uasort($arr_files, array($this, 'compareFileTime'));
         }
 
         return $arr_files;
@@ -331,38 +331,42 @@ trait LfmHelpers
         return starts_with($mime_type, 'image');
     }
 
-    private static function cmpDirAlpha($a, $b)
+    private static function compareDirAlpha($a, $b)
     {
         $cmp = strcmp($a->name, $b->name);
 
-        if ($cmp == 0)
+        if ($cmp == 0) {
             return 0;
+        }
 
         return ($cmp > 0) ? 1 : -1;
     }
 
-    private static function cmpDirTime($a, $b)
+    private static function compareDirTime($a, $b)
     {
-        if ($a->updated == $b->updated)
+        if ($a->updated == $b->updated) {
             return 0;
+        }
 
         return ($a->updated > $b->updated) ? 1 : -1;
     }
 
-    private static function cmpAlpha($a, $b)
+    private static function compareFileAlpha($a, $b)
     {
         $cmp = strcmp($a['name'], $b['name']);
 
-        if ($cmp == 0)
+        if ($cmp == 0) {
             return 0;
+        }
 
         return ($cmp > 0) ? 1 : -1;
     }
 
-    private static function cmpTime($a, $b)
+    private static function compareFileTime($a, $b)
     {
-        if ($a['updated'] == $b['updated'])
+        if ($a['updated'] == $b['updated']) {
             return 0;
+        }
 
         return ($a['updated'] > $b['updated']) ? 1 : -1;
     }

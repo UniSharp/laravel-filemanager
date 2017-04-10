@@ -1,5 +1,5 @@
 var show_list;
-var sort_type = 0;
+var sort_type = 'alpha';
 
 $(document).ready(function () {
   bootbox.setDefaults({locale:lang['locale-bootbox']});
@@ -76,12 +76,12 @@ $('#list-display').click(function () {
 });
 
 $('#list-sort-alpha').click(function() {
-  sort_type = 0;
+  sort_type = 'alpha';
   loadItems();
 });
 
 $('#list-sort-time').click(function() {
-  sort_type = 1;
+  sort_type = 'time';
   loadItems();
 });
 
