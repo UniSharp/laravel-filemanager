@@ -280,8 +280,11 @@ trait LfmHelpers
             }
 
             $thumb_path = $this->getThumbPath($file_name);
+            $image_path = $this->getCurrentPath($file_name);
             if (File::exists($thumb_path)) {
                 $thumb_url = $this->getThumbUrl($file_name) . '?timestamp=' . filemtime($thumb_path);
+            } elseif (File::exists($image_path)) {
+                $thumb_url = $this->getFileUrl($file_name);
             } else {
                 $thumb_url = null;
             }
