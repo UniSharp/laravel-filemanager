@@ -378,9 +378,14 @@ trait LfmHelpers
 
     public function getUserSlug()
     {
-        $slug_of_user = config('lfm.user_field');
+        if (is_callable(config('lfm.user_field'))) {
+            $slug_of_user = call_user_func(config('lfm.user_field'));
+        } else {
+            $old_slug_of_user = config('lfm.user_field');
+            $slug_of_user = empty(auth()->user()) ? '' : auth()->user()->$old_slug_of_user;
+        }
 
-        return empty(auth()->user()) ? '' : auth()->user()->$slug_of_user;
+        return $slug_of_user;
     }
 
     public function error($error_type, $variables = [])

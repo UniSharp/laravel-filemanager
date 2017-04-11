@@ -28,9 +28,11 @@ return [
     // If true, share folder will be created when allow_multi_user is true.
     'allow_share_folder' => true,
 
-    // The database column to identify a user. Make sure the value is unique.
-    // Ex: When set to 'id', the private folder of user will be named as the user id.
-    'user_field' => 'id',
+    // Flexibla way to customize client folders accessibility
+    // Ex: The private folder of user will be named as the user id.
+    'user_field' => function() {
+        return empty(auth()->user()) ? '' : auth()->user()->id;
+    },
 
     /*
     |--------------------------------------------------------------------------
