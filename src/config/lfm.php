@@ -88,7 +88,8 @@ return [
         'image/jpeg',
         'image/pjpeg',
         'image/png',
-        'image/gif'
+        'image/gif',
+        'image/svg+xml',
     ],
 
     // available since v1.3.0
@@ -98,9 +99,9 @@ return [
         'image/pjpeg',
         'image/png',
         'image/gif',
+        'image/svg+xml',
         'application/pdf',
         'text/plain',
-        'image/svg+xml',
     ],
 
     /*
