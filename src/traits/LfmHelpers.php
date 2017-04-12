@@ -285,11 +285,11 @@ trait LfmHelpers
             }
 
             $thumb_path = $this->getThumbPath($file_name);
-            $image_path = $this->getCurrentPath($file_name);
+            $file_path = $this->getCurrentPath($file_name);
             if (File::exists($thumb_path)) {
                 $thumb_url = $this->getThumbUrl($file_name) . '?timestamp=' . filemtime($thumb_path);
-            } elseif (!$this->isImageToThumb($image_path)) {
-                $thumb_url = $this->getFileUrl($file_name);
+            } elseif ($this->isValidImageType($file_path)) {
+                $thumb_url = $this->getFileUrl($file_name) . '?timestamp=' . filemtime($file_path);
             } else {
                 $thumb_url = null;
             }
@@ -340,6 +340,18 @@ trait LfmHelpers
         }
 
         return true;
+    }
+
+    public function isValidImageType($file)
+    {
+        $mine_type = $this->getFileType($file);
+        $valid_image_mimetypes = config('lfm.valid_image_mimetypes');
+
+        if (in_array($mine_type, $valid_image_mimetypes)) {
+            return true;
+        }
+
+        return false;
     }
 
     public function getFileType($file)
