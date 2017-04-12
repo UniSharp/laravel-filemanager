@@ -87,4 +87,12 @@ Route::group(compact('middleware', 'prefix', 'as', 'namespace'), function () {
     ]);
 
     Route::get('/demo', 'DemoController@index');
+
+    // Get file when base_directory isn't public
+    $images_url = '/' . \Config::get('lfm.images_folder_name') . '/{base_path}/{image_name}';
+    $files_url = '/' . \Config::get('lfm.files_folder_name') . '/{base_path}/{file_name}';
+    Route::get($images_url, 'RedirectController@getImage')
+        ->where('image_name', '.*');
+    Route::get($files_url, 'RedirectController@getFIle')
+        ->where('file_name', '.*');
 });

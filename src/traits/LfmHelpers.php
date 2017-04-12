@@ -60,9 +60,14 @@ trait LfmHelpers
         }
 
         $prefix = config('lfm.' . $this->currentLfmType() . 's_folder_name', $default_folder_name);
+        $base_directory = config('lfm.base_directory', 'public');
 
         if ($type === 'dir') {
-            $prefix = config('lfm.base_directory', 'public') . '/' . $prefix;
+            $prefix = $base_directory . '/' . $prefix;
+        }
+
+        if ($type === 'url' && $base_directory !== 'public') {
+            $prefix = 'laravel-filemanager/' . $prefix;
         }
 
         return $prefix;
@@ -283,7 +288,7 @@ trait LfmHelpers
             $image_path = $this->getCurrentPath($file_name);
             if (File::exists($thumb_path)) {
                 $thumb_url = $this->getThumbUrl($file_name) . '?timestamp=' . filemtime($thumb_path);
-            } elseif (File::exists($image_path)) {
+            } elseif (!$this->isImageToThumb($image_path)) {
                 $thumb_url = $this->getFileUrl($file_name);
             } else {
                 $thumb_url = null;
