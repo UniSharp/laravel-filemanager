@@ -314,7 +314,7 @@ trait LfmHelpers
     public function createFolderByPath($path)
     {
         if (!File::exists($path)) {
-            File::makeDirectory($path, $mode = 0777, true, true);
+            File::makeDirectory($path, 0777, true, true);
         }
     }
 
