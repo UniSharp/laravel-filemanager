@@ -43,7 +43,7 @@ class RedirectController extends LfmController
         }
 
         $file = File::get($file_path);
-        $type = File::mimeType($file_path);
+        $type = parent::getFileType($file_path);
 
         $response = Response::make($file);
         $response->header("Content-Type", $type);

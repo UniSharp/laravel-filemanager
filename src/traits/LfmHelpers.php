@@ -276,7 +276,7 @@ trait LfmHelpers
             $file_name = $this->getName($file);
 
             if ($this->fileIsImage($file)) {
-                $file_type = File::mimeType($file);
+                $file_type = $this->getFileType($file);
                 $icon = 'fa-image';
             } else {
                 $extension = strtolower(File::extension($file_name));
