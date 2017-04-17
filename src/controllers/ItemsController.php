@@ -15,11 +15,11 @@ class ItemsController extends LfmController
      */
     public function getItems()
     {
-        $path = $this->getCurrentPath();
+        $path = parent::getCurrentPath();
         $sort_type = request('sort_type');
 
-        $files = $this->sortFilesAndDirectories($this->getFilesWithInfo($path), $sort_type);
-        $directories = $this->sortFilesAndDirectories($this->getDirectories($path), $sort_type);
+        $files = parent::sortFilesAndDirectories(parent::getFilesWithInfo($path), $sort_type);
+        $directories = parent::sortFilesAndDirectories(parent::getDirectories($path), $sort_type);
 
         return [
             'html' => (string)view($this->getView())->with([
@@ -27,7 +27,7 @@ class ItemsController extends LfmController
                 'directories' => $directories,
                 'items'       => array_merge($directories, $files)
             ]),
-            'working_dir' => $this->getInternalPath($path)
+            'working_dir' => parent::getInternalPath($path)
         ];
     }
 
@@ -40,7 +40,7 @@ class ItemsController extends LfmController
         if ($show_list === "1") {
             $view_type = 'list';
         } elseif (is_null($show_list)) {
-            $type_key = $this->currentLfmType();
+            $type_key = parent::currentLfmType();
             $startup_view = config('lfm.' . $type_key . 's_startup_view');
 
             if (in_array($startup_view, ['list', 'grid'])) {

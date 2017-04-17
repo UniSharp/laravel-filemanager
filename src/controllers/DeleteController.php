@@ -25,24 +25,24 @@ class DeleteController extends LfmController
         event(new ImageIsDeleting($file_to_delete));
 
         if (is_null($name_to_delete)) {
-            return $this->error('folder-name');
+            return parent::error('folder-name');
         }
 
         if (!File::exists($file_to_delete)) {
-            return $this->error('folder-not-found', ['folder' => $file_to_delete]);
+            return parent::error('folder-not-found', ['folder' => $file_to_delete]);
         }
 
         if (File::isDirectory($file_to_delete)) {
             if (!parent::directoryIsEmpty($file_to_delete)) {
-                return $this->error('delete-folder');
+                return parent::error('delete-folder');
             }
 
             File::deleteDirectory($file_to_delete);
 
-            return $this->success_response;
+            return parent::$success_response;
         }
 
-        if ($this->fileIsImage($file_to_delete)) {
+        if (parent::fileIsImage($file_to_delete)) {
             File::delete($thumb_to_delete);
         }
 
@@ -50,6 +50,6 @@ class DeleteController extends LfmController
 
         event(new ImageWasDeleted($file_to_delete));
 
-        return $this->success_response;
+        return parent::$success_response;
     }
 }

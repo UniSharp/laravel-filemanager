@@ -49,18 +49,18 @@ class FolderController extends LfmController
      */
     public function getAddfolder()
     {
-        $folder_name = $this->translateFromUtf8(trim(request('name')));
+        $folder_name = parent::translateFromUtf8(trim(request('name')));
 
         $path = parent::getCurrentPath($folder_name);
 
         if (empty($folder_name)) {
-            return $this->error('folder-name');
+            return parent::error('folder-name');
         } elseif (File::exists($path)) {
-            return $this->error('folder-exist');
+            return parent::error('folder-exist');
         } elseif (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
-            return $this->error('folder-alnum');
+            return parent::error('folder-alnum');
         } else {
-            $this->createFolderByPath($path);
+            parent::createFolderByPath($path);
             return $this->success_response;
         }
     }

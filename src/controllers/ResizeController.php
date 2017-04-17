@@ -66,7 +66,7 @@ class ResizeController extends LfmController
             event(new ImageIsResizing($image_path));
             Image::make($image_path)->resize($width, $height)->save();
             event(new ImageWasResized($image_path));
-            return $this->success_response;
+            return parent::$success_response;
         } catch (Exception $e) {
             return "width : " . $width . " height: " . $height;
             return $e;

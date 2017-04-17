@@ -36,7 +36,7 @@ class RedirectController extends LfmController
 
     private function responseImageOrFile($file_name)
     {
-        $file_path = $this->getCurrentPath($file_name);
+        $file_path = parent::getCurrentPath($file_name);
 
         if (!File::exists($file_path)) {
             abort(404);
