@@ -38,11 +38,11 @@ class CropController extends LfmController
         $dataWidth  = request('dataWidth');
         $image_path = public_path() . $image;
 
+        event(new ImageIsCropping($image_path));
         // crop image
         Image::make($image_path)
             ->crop($dataWidth, $dataHeight, $dataX, $dataY)
             ->save($image_path);
-        event(new ImageIsCropping($image_path));
 
         // make new thumbnail
         Image::make($image_path)
