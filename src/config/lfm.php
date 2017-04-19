@@ -31,7 +31,7 @@ return [
     // Flexibla way to customize client folders accessibility
     // Ex: The private folder of user will be named as the user id.
     'user_field' => function() {
-        return empty(auth()->user()) ? '' : auth()->user()->id;
+        return auth()->user()->id;
     },
 
     /*
