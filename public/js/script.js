@@ -1,5 +1,5 @@
 var show_list;
-var sort_type = 'alpha';
+var sort_type = 'alphabetic';
 
 $(document).ready(function () {
   bootbox.setDefaults({locale:lang['locale-bootbox']});
@@ -76,8 +76,8 @@ $('#list-display').click(function () {
   loadItems();
 });
 
-$('#list-sort-alpha').click(function() {
-  sort_type = 'alpha';
+$('#list-sort-alphabetic').click(function() {
+  sort_type = 'alphabetic';
   loadItems();
 });
 

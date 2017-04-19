@@ -70,8 +70,8 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a href="#" id="list-sort-alpha">
-                      <i class="fa fa-sort-alpha-asc"></i> {{ trans('laravel-filemanager::lfm.nav-sort-alpha') }}
+                    <a href="#" id="list-sort-alphabetic">
+                      <i class="fa fa-sort-alpha-asc"></i> {{ trans('laravel-filemanager::lfm.nav-sort-alphabetic') }}
                     </a>
                   </li>
                   <li>

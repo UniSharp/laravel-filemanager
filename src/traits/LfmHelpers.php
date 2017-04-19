@@ -369,7 +369,7 @@ trait LfmHelpers
     {
         if ($sort_type == 'time') {
             $key_to_sort = 'updated';
-        } elseif ($sort_type == 'alpha') {
+        } elseif ($sort_type == 'alphabetic') {
             $key_to_sort = 'name';
         } else {
             $key_to_sort = 'updated';
