@@ -100,7 +100,7 @@ class UploadController extends LfmController
         $file_size = $file->getSize() / 1000;
         $type_key = parent::currentLfmType();
 
-        if (config('lfm.should_validate_mime')) {
+        if (config('lfm.should_validate_mime', false)) {
             $mine_config = 'lfm.valid_' . $type_key . '_mimetypes';
             $valid_mimetypes = config($mine_config, []);
             if (false === in_array($mimetype, $valid_mimetypes)) {
@@ -108,7 +108,7 @@ class UploadController extends LfmController
             }
         }
 
-        if (config('lfm.should_validate_size')) {
+        if (config('lfm.should_validate_size', false)) {
             $max_size = config('lfm.max_' . $type_key . '_size', 0);
             if ($file_size > $max_size) {
                 return parent::error('size') . $mimetype;
