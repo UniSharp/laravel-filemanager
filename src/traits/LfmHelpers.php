@@ -96,9 +96,9 @@ trait LfmHelpers
         }
 
         $thumb_folder_name = config('lfm.thumb_folder_name');
-        //if user is inside thumbs folder there is no need
-        // to add thumbs substring to the end of $url
-        $in_thumb_folder = preg_match('/'.$thumb_folder_name.'$/i', $this->getFormatedWorkingDir());
+        // if user is inside thumbs folder, there is no need
+        // to add thumbs substring to the end of url
+        $in_thumb_folder = str_contains($this->getFormatedWorkingDir(), $this->ds . $thumb_folder_name);
 
         if (!$in_thumb_folder) {
             return $thumb_folder_name . $this->ds;
