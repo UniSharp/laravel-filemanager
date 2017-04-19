@@ -10,7 +10,7 @@ class LfmController extends Controller
 {
     use LfmHelpers;
 
-    protected $success_response = 'OK';
+    protected static $success_response = 'OK';
 
     public function __construct()
     {
