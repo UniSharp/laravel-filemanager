@@ -59,9 +59,9 @@ $('#upload-btn').click(function () {
       resetUploadForm();
       refreshFoldersAndItems(data);
     },
-    error: function () {
+    error: function (jqXHR, textStatus, errorThrown) {
+      displayErrorResponse(jqXHR);
       resetUploadForm();
-      notify('Action failed, due to server error.');
     }
   });
 });
@@ -143,9 +143,13 @@ function performLfmRequest(url, parameter, type) {
     url: lfm_route + '/' + url,
     data: data,
     cache: false
-  }).fail(function () {
-    notify('Action failed, due to server error.');
+  }).fail(function (jqXHR, textStatus, errorThrown) {
+    displayErrorResponse(jqXHR);
   });
+}
+
+function displayErrorResponse(jqXHR) {
+  notify('<div style="max-height:50vh;overflow: scroll;">' + jqXHR.responseText + '</div>');
 }
 
 var refreshFoldersAndItems = function (data) {
