@@ -150,4 +150,17 @@ return [
         'ppt'  => 'fa-file-powerpoint-o',
         'pptx' => 'fa-file-powerpoint-o',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | php.ini override
+    |--------------------------------------------------------------------------
+    */
+    // These values override your php.ini settings before uploading files
+    // Set these to false to ingnore and apply your php.ini settings
+    'php_ini_overrides' => [
+        'upload_max_filesize' => '30M',
+        'memory_limit'        => '256M'
+    ]
+
 ];
