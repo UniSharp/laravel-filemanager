@@ -20,8 +20,6 @@ class UploadController extends LfmController
      */
     public function upload()
     {
-        $this->applyIniOverrides();
-
         $files = request()->file('upload');
         $error_bag = [];
         foreach (is_array($files) ? $files : [$files] as $file) {
