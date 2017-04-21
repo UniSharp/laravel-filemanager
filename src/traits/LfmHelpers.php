@@ -235,11 +235,17 @@ trait LfmHelpers
     {
         return config('lfm.allow_share_folder') === true;
     }
-    
+
     public function applyIniOverrides()
     {
+        if (count(config('lfm.php_ini_overrides')) == 0) {
+            return;
+        }
+
         foreach (config('lfm.php_ini_overrides') as $key => $value) {
-            if ($value && $value != 'false') ini_set($key, $value);
+            if ($value && $value != 'false') {
+                ini_set($key, $value);
+            }
         }
     }
 
