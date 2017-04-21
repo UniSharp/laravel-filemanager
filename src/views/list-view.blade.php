@@ -20,7 +20,7 @@
           {{ str_limit($item->name, $limit = 20, $end = '...') }}
         </a>
       </td>
-      <td>{{ $item->size ?? '' }}</td>
+      <td>{{ $item->size }}</td>
       <td>{{ $item->type }}</td>
       <td>{{ $item->time }}</td>
       <td>

@@ -6,7 +6,7 @@
   <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 img-row">
     <?php $item_name = $item->name; ?>
     <?php $thumb_src = $item->thumb; ?>
-    <?php $folder_path = $item->path ?? ''; ?>
+    <?php $folder_path = $item->path; ?>
 
     @if($item->is_file)
     <div class="thumbnail clickable" onclick="useFile('{{ $item_name }}')">
