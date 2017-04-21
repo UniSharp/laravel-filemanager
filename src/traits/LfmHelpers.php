@@ -256,75 +256,61 @@ trait LfmHelpers
 
     public function getDirectories($path)
     {
-        $thumb_folder_name = config('lfm.thumb_folder_name');
-        $all_directories = File::directories($path);
-
-        $arr_dir = [];
-
-        foreach ($all_directories as $directory) {
-            $directory_name = $this->getName($directory);
-
-            if ($directory_name !== $thumb_folder_name) {
-                $arr_dir[] = (object)[
-                    'name'    => $directory_name,
-                    'url'     => '',
-                    'size'    => '',
-                    'updated' => filemtime($directory),
-                    'path'    => $this->getInternalPath($directory),
-                    'time'    => date("Y-m-d h:m", filemtime($directory)),
-                    'type'    => trans('laravel-filemanager::lfm.type-folder'),
-                    'icon'    => 'fa-folder-o',
-                    'thumb'   => asset('vendor/laravel-filemanager/img/folder.png'),
-                    'is_file' => false
-                ];
-            }
-        }
-
-        return $arr_dir;
+        return array_map(function ($directory) {
+            return $this->objectPresenter($directory);
+        }, array_filter(File::directories($path), function ($directory) {
+            return $this->getName($directory) !== config('lfm.thumb_folder_name');
+        }));
     }
 
     public function getFilesWithInfo($path)
     {
-        $arr_files = [];
+        return array_map(function ($file) {
+            return $this->objectPresenter($file);
+        }, File::files($path));
+    }
 
-        foreach (File::files($path) as $key => $file) {
-            $file_name = $this->getName($file);
+    public function objectPresenter($item)
+    {
+        $item_name = $this->getName($item);
+        $is_file = is_file($item);
 
-            if ($this->fileIsImage($file)) {
-                $file_type = $this->getFileType($file);
-                $icon = 'fa-image';
-            } else {
-                $extension = strtolower(File::extension($file_name));
-                $file_type = config('lfm.file_type_array.' . $extension) ?: 'File';
-                $icon = config('lfm.file_icon_array.' . $extension) ?: 'fa-file';
-            }
+        if (!$is_file) {
+            $file_type = trans('laravel-filemanager::lfm.type-folder');
+            $icon = 'fa-folder-o';
+            $thumb_url = asset('vendor/laravel-filemanager/img/folder.png');
+        } elseif ($this->fileIsImage($item)) {
+            $file_type = $this->getFileType($item);
+            $icon = 'fa-image';
 
-            $thumb_path = $this->getThumbPath($file_name);
-            $file_path = $this->getCurrentPath($file_name);
+            $thumb_path = $this->getThumbPath($item_name);
+            $file_path = $this->getCurrentPath($item_name);
             if (File::exists($thumb_path)) {
-                $thumb_url = $this->getThumbUrl($file_name) . '?timestamp=' . filemtime($thumb_path);
+                $thumb_url = $this->getThumbUrl($item_name) . '?timestamp=' . filemtime($thumb_path);
             } elseif ($this->isValidImageType($file_path)) {
-                $thumb_url = $this->getFileUrl($file_name) . '?timestamp=' . filemtime($file_path);
+                $thumb_url = $this->getFileUrl($item_name) . '?timestamp=' . filemtime($file_path);
             } else {
                 $thumb_url = null;
             }
-
-
-            $arr_files[$key] = (object)[
-                'name'      => $file_name,
-                'url'       => $this->getFileUrl($file_name),
-                'size'      => $this->humanFilesize(File::size($file)),
-                'updated'   => filemtime($file),
-                'path'      => '',
-                'time'      => date("Y-m-d h:m", filemtime($file)),
-                'type'      => $file_type,
-                'icon'      => $icon,
-                'thumb'     => $thumb_url,
-                'is_file'   => true
-            ];
+        } else {
+            $extension = strtolower(File::extension($item_name));
+            $file_type = config('lfm.file_type_array.' . $extension) ?: 'File';
+            $icon = config('lfm.file_icon_array.' . $extension) ?: 'fa-file';
+            $thumb_url = null;
         }
 
-        return $arr_files;
+        return (object)[
+            'name'    => $item_name,
+            'url'     => $is_file ? $this->getFileUrl($item_name) : '',
+            'size'    => $is_file ? $this->humanFilesize(File::size($item)) : '',
+            'updated' => filemtime($item),
+            'path'    => $is_file ? '' : $this->getInternalPath($item),
+            'time'    => date("Y-m-d h:m", filemtime($item)),
+            'type'    => $file_type,
+            'icon'    => $icon,
+            'thumb'   => $thumb_url,
+            'is_file' => $is_file
+        ];
     }
 
     public function createFolderByPath($path)
