@@ -44,7 +44,7 @@ class ResizeController extends LfmController
         }
 
         return view('laravel-filemanager::resize')
-            ->with('img', parent::getFileUrl($image))
+            ->with('img', parent::objectPresenter(parent::getCurrentPath($image)))
             ->with('height', number_format($height, 0))
             ->with('width', $width)
             ->with('original_height', $original_height)

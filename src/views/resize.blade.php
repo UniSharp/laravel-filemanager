@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-8" id="containment">
-    <img id="resize" src="{{ asset($img) }}" height="{{ $height }}" width="{{ $width }}">
+    <img id="resize" src="{{ $img->url . '?timestamp=' . $img->updated }}" height="{{ $height }}" width="{{ $width }}">
   </div>
   <div class="col-md-4">
 
@@ -75,7 +75,7 @@
       dataType: "text",
       url: "{{ route('unisharp.lfm.performResize') }}",
       data: {
-        img: '{{ parse_url($img, PHP_URL_PATH) }}',
+        img: '{{ parse_url($img->url, PHP_URL_PATH) }}',
         working_dir: $("#working_dir").val(),
         dataX: $("#dataX").val(),
         dataY: $("#dataY").val(),
