@@ -35,4 +35,8 @@
     php artisan vendor:publish --tag=lfm_public
     ```
     
-1. Ensure that the files & images directories (in `config/lfm.php`) are writable by your web server(run commands like `chown` or `chmod`).
+1. Ensure that the files & images directories (in `config/lfm.php`) are writable by your web server (run commands like `chown` or `chmod`).
+
+1. Check the [integration document](http://unisharp.github.io/laravel-filemanager/integration) to see how to apply this package.
+
+1. Check the [config document](http://unisharp.github.io/laravel-filemanager/config) to discover the flexibility of this package.
