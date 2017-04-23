@@ -207,23 +207,22 @@ trait LfmHelpers
 
     public function isProcessingImages()
     {
-        return $this->currentLfmType() === 'image';
+        return lcfirst(str_singular(request('type'))) === 'image';
     }
 
     public function isProcessingFiles()
     {
-        return $this->currentLfmType() === 'file';
+        return !$this->isProcessingImages();
     }
 
-    public function currentLfmType($is_for_url = false)
+    public function currentLfmType()
     {
-        $file_type = request('type', 'Images');
-
-        if ($is_for_url) {
-            return ucfirst($file_type);
-        } else {
-            return lcfirst(str_singular($file_type));
+        $file_type = 'file';
+        if ($this->isProcessingImages()) {
+            $file_type = 'image';
         }
+
+        return $file_type;
     }
 
     public function allowMultiUser()
