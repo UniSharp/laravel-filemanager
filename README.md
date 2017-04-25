@@ -13,12 +13,12 @@
  * Demo : [Laravel Filemanager container](https://github.com/UniSharp/laravel-filemanager-example-5.3)
 
 ## v1.7 released
+ * Please follow the intructions in [upgrade document](https://unisharp.github.io/laravel-filemanager/upgrade).
  * Important changes :
    * All code refactored.
    * Fix Windows compatibility.
    * Fix file cannot be uploaded to "File Mode".
    * Config file is also refactored, see [config document](https://unisharp.github.io/laravel-filemanager/config).
- * Please follow the intructions in [this document](https://unisharp.github.io/laravel-filemanager/upgrade) to upgrade.
   
 ## Credits
 Special thanks to
