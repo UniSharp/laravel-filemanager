@@ -55,21 +55,16 @@ class ResizeController extends LfmController
 
     public function performResize()
     {
-        $img    = request('img');
         $dataX  = request('dataX');
         $dataY  = request('dataY');
         $height = request('dataHeight');
         $width  = request('dataWidth');
-        $image_path = public_path() . $img;
+        $image_path = parent::getCurrentPath(request('img'));
 
-        try {
-            event(new ImageIsResizing($image_path));
-            Image::make($image_path)->resize($width, $height)->save();
-            event(new ImageWasResized($image_path));
-            return parent::$success_response;
-        } catch (Exception $e) {
-            return "width : " . $width . " height: " . $height;
-            return $e;
-        }
+        event(new ImageIsResizing($image_path));
+        Image::make($image_path)->resize($width, $height)->save();
+        event(new ImageWasResized($image_path));
+        
+        return parent::$success_response;
     }
 }
