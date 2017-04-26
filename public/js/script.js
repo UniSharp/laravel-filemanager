@@ -90,6 +90,10 @@ $('#list-sort-time').click(function() {
 // ==  Folder actions  ==
 // ======================
 
+$(document).on('click', '.file-item', function (e) {
+  useFile($(this).data('id'));
+});
+
 $(document).on('click', '.folder-item', function (e) {
   goTo($(this).data('id'));
 });
@@ -239,7 +243,7 @@ function download(file_name) {
 // ==  Ckeditor, Bootbox, preview  ==
 // ==================================
 
-function useFile(file) {
+function useFile(file_url) {
 
   function getUrlParam(paramName) {
     var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
@@ -293,7 +297,7 @@ function useFile(file) {
     window.opener.SetUrl(p,w,h);
   }
 
-  var url = getFileUrl(file);
+  var url = file_url;
   var field_name = getUrlParam('field_name');
   var is_ckeditor = getUrlParam('CKEditor');
   var is_fcke = typeof data != 'undefined' && data['Properties']['Width'] != '';
@@ -337,17 +341,13 @@ function notify(message) {
   bootbox.alert(message);
 }
 
-function getFileUrl(file) {
-  return $("[id=\"" + file + "\"]").data('url');
-}
-
-function fileView(file, timestamp) {
+function fileView(file_url, timestamp) {
   var rnd = makeRandom();
   bootbox.dialog({
     title: lang['title-view'],
     message: $('<img>')
       .addClass('img img-responsive center-block')
-      .attr('src', getFileUrl(file) + '?timestamp=' + timestamp),
+      .attr('src', file_url + '?timestamp=' + timestamp),
     size: 'large',
     onEscape: true,
     backdrop: true
