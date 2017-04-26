@@ -31,12 +31,11 @@ class CropController extends LfmController
      */
     public function getCropimage()
     {
-        $image      = request('img');
         $dataX      = request('dataX');
         $dataY      = request('dataY');
         $dataHeight = request('dataHeight');
         $dataWidth  = request('dataWidth');
-        $image_path = public_path() . $image;
+        $image_path = parent::getCurrentPath(request('img'));
 
         event(new ImageIsCropping($image_path));
         // crop image

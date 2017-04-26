@@ -32,7 +32,7 @@
 
       <button class="btn btn-primary" onclick="performCrop()">{{ trans('laravel-filemanager::lfm.btn-crop') }}</button>
       <button class="btn btn-info" onclick="loadItems()">{{ trans('laravel-filemanager::lfm.btn-cancel') }}</button>
-      <form action="{{ route('unisharp.lfm.getCrop') }}" role='form' name='cropForm' id='cropForm' mathod='post'>
+      <form id='cropForm'>
         <input type="hidden" id="img" name="img" value="{{ $img->name }}">
         <input type="hidden" id="working_dir" name="working_dir" value="{{ $working_dir }}">
         <input type="hidden" id="dataX" name="dataX">
@@ -80,22 +80,14 @@
         return false;
     }
     function performCrop() {
-        $.ajax({
-            type: "GET",
-            dataType: "text",
-            url: "{{ route('unisharp.lfm.getCropimage') }}",
-            data: {
-                img: '{{ parse_url($img->url, PHP_URL_PATH) }}',
-                working_dir: $("#working_dir").val(),
-                dataX: $("#dataX").val(),
-                dataY: $("#dataY").val(),
-                dataHeight: $("#dataHeight").val(),
-                dataWidth: $("#dataWidth").val(),
-                type: $('#type').val()
-            },
-            cache: false
-        }).done(function (data) {
-            loadItems();
-        });
+      performLfmRequest('cropimage', {
+        img: $("#img").val(),
+        working_dir: $("#working_dir").val(),
+        dataX: $("#dataX").val(),
+        dataY: $("#dataY").val(),
+        dataHeight: $("#dataHeight").val(),
+        dataWidth: $("#dataWidth").val(),
+        type: $('#type').val()
+      }).done(loadItems);
     }
 </script>
