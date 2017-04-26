@@ -10,6 +10,18 @@ use Illuminate\Http\Request;
  */
 class RedirectController extends LfmController
 {
+    private $file_path;
+
+    public function __construct()
+    {
+        $delimiter = config('lfm.prefix') . '/';
+        $url = request()->url();
+        // dd($delimiter);
+        $external_path = substr($url, strpos($url, $delimiter) + strlen($delimiter));
+
+        $this->file_path = base_path(config('lfm.base_directory', 'public') . '/' . $external_path);
+    }
+
     /**
      * Get image from custom directory by route
      *
@@ -18,7 +30,7 @@ class RedirectController extends LfmController
      */
     public function getImage($base_path, $image_name)
     {
-        return $this->responseImageOrFile($image_name);
+        return $this->responseImageOrFile();
     }
 
     /**
@@ -31,12 +43,12 @@ class RedirectController extends LfmController
     {
         $request->request->add(['type' => 'Files']);
 
-        return $this->responseImageOrFile($file_name);
+        return $this->responseImageOrFile();
     }
 
-    private function responseImageOrFile($file_name)
+    private function responseImageOrFile()
     {
-        $file_path = parent::getCurrentPath($file_name);
+        $file_path = $this->file_path;
 
         if (!File::exists($file_path)) {
             abort(404);
