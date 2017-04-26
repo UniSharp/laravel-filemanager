@@ -230,8 +230,12 @@ trait LfmHelpers
         return config('lfm.allow_multi_user') === true;
     }
 
-    public function enabledShareFolder()
+    public function allowShareFolder()
     {
+        if (!$this->allowMultiUser()) {
+            return true;
+        }
+
         return config('lfm.allow_share_folder') === true;
     }
 
