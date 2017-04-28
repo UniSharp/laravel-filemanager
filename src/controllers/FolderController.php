@@ -29,10 +29,15 @@ class FolderController extends LfmController
         foreach ($folder_types as $folder_type => $lang_key) {
             $root_folder_path = parent::getRootFolderPath($folder_type);
 
+            $children = parent::getDirectories($root_folder_path);
+            usort($children, function ($a, $b) {
+                return strcmp($a->name, $b->name);
+            });
+
             array_push($root_folders, (object)[
                 'name' => trans('laravel-filemanager::lfm.title-' . $lang_key),
                 'path' => parent::getInternalPath($root_folder_path),
-                'children' => parent::getDirectories($root_folder_path),
+                'children' => $children,
                 'has_next' => !($lang_key == end($folder_types))
             ]);
         }
