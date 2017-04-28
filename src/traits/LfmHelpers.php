@@ -288,12 +288,12 @@ trait LfmHelpers
 
             $thumb_path = $this->getThumbPath($item_name);
             $file_path = $this->getCurrentPath($item_name);
-            if (File::exists($thumb_path)) {
-                $thumb_url = $this->getThumbUrl($item_name) . '?timestamp=' . filemtime($thumb_path);
-            } elseif ($this->isValidImageType($file_path)) {
+            if ($this->imageShouldNotHaveThumb($file_path)) {
                 $thumb_url = $this->getFileUrl($item_name) . '?timestamp=' . filemtime($file_path);
+            } elseif (File::exists($thumb_path)) {
+                $thumb_url = $this->getThumbUrl($item_name) . '?timestamp=' . filemtime($thumb_path);
             } else {
-                $thumb_url = null;
+                $thumb_url = $this->getFileUrl($item_name) . '?timestamp=' . filemtime($file_path);
             }
         } else {
             $extension = strtolower(File::extension($item_name));
@@ -335,28 +335,12 @@ trait LfmHelpers
         return starts_with($mime_type, 'image');
     }
 
-    public function isImageToThumb($file)
+    public function imageShouldNotHaveThumb($file)
     {
         $mine_type = $this->getFileType($file);
         $noThumbType = ['image/gif', 'image/svg+xml'];
 
-        if (in_array($mine_type, $noThumbType)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public function isValidImageType($file)
-    {
-        $mine_type = $this->getFileType($file);
-        $valid_image_mimetypes = config('lfm.valid_image_mimetypes');
-
-        if (in_array($mine_type, $valid_image_mimetypes)) {
-            return true;
-        }
-
-        return false;
+        return in_array($mine_type, $noThumbType);
     }
 
     public function getFileType($file)
