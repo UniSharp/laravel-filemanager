@@ -29,8 +29,8 @@ If, for example, you want to ensure that only logged in users have the ability t
 ```php
 Route::group(array('before' => 'auth'), function ()
 {
-    Route::get('/laravel-filemanager', '\Tsawler\Laravelfilemanager\controllers\LfmController@show');
-    Route::post('/laravel-filemanager/upload', '\Tsawler\Laravelfilemanager\controllers\LfmController@upload');
+    Route::get('/laravel-filemanager', '\Unisharp\Laravelfilemanager\controllers\LfmController@show');
+    Route::post('/laravel-filemanager/upload', '\Unisharp\Laravelfilemanager\controllers\LfmController@upload');
     // list all lfm routes here...
 });
 ```
