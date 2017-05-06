@@ -109,8 +109,8 @@ trait LfmHelpers
             $prefix = $base_directory . '/' . $prefix;
         }
 
-        if ($type === 'url' && $base_directory !== 'public') {
-            $prefix = 'laravel-filemanager/' . $prefix;
+        if ($type === 'url' && config('lfm.urls_prefix')) {
+            $prefix = config('lfm.urls_prefix') . '/' . $prefix;
         }
 
         return $prefix;

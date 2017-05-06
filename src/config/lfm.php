@@ -17,6 +17,10 @@ return [
     // The url to this package. Change it if necessary.
     'prefix' => 'laravel-filemanager',
 
+    // The prefix of urls to non-public files, for exmaple if: base_directory !== 'public'
+    // Without slashes
+    'urls_prefix' => '',
+
     /*
     |--------------------------------------------------------------------------
     | Multi-User Mode
@@ -30,6 +34,7 @@ return [
 
     // Flexibla way to customize client folders accessibility
     // Ex: The private folder of user will be named as the user id.
+    // You cant use a closure when using the optimized config file (in Laravel 5.2 anyway)
     'user_field' => function() {
         return auth()->user()->id;
     },
