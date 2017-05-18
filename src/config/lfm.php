@@ -163,6 +163,7 @@ return [
     |
     | These values override your php.ini settings before uploading files
     | Set these to false to ingnore and apply your php.ini settings
+    |
     | Please note that the 'upload_max_filesize' & 'post_max_size' 
     | directives are not supported.
     */
