@@ -6,6 +6,9 @@ return [
     'nav-upload'        => 'Envoyer',
     'nav-thumbnails'    => 'Vignettes',
     'nav-list'          => 'Liste',
+    'nav-sort'          => 'Trier',
+    'nav-sort-alphabetic'=> 'Trier par ordre alphabétique',
+    'nav-sort-time'     => 'Trier par date',
 
     'menu-rename'       => 'Renommer',
     'menu-delete'       => 'Effacer',
