@@ -33,11 +33,9 @@ return [
     'allow_share_folder' => true,
 
     // Flexibla way to customize client folders accessibility
+    // You can extend ConfigHandler class and rewrite userField function in class
     // Ex: The private folder of user will be named as the user id.
-    // You cant use a closure when using the optimized config file (in Laravel 5.2 anyway)
-    'user_field' => function() {
-        return auth()->user()->id;
-    },
+    'user_field' => App\Handlers\ConfigHandler::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -164,7 +162,7 @@ return [
     | These values override your php.ini settings before uploading files
     | Set these to false to ingnore and apply your php.ini settings
     |
-    | Please note that the 'upload_max_filesize' & 'post_max_size' 
+    | Please note that the 'upload_max_filesize' & 'post_max_size'
     | directives are not supported.
     */
     'php_ini_overrides' => [
