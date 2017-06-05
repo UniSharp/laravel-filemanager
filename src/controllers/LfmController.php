@@ -16,9 +16,6 @@ class LfmController extends Controller
     {
         $this->applyIniOverrides();
 
-        if (!$this->isProcessingImages() && !$this->isProcessingFiles()) {
-            throw new \Exception('unexpected type parameter');
-        }
     }
 
     /**

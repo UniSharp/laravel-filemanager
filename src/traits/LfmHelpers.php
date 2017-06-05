@@ -383,7 +383,6 @@ trait LfmHelpers
 
         return config('lfm.allow_share_folder') === true;
     }
-    
 
     /**
      * Overrides settings in php.ini.
