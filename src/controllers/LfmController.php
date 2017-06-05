@@ -15,13 +15,10 @@ class LfmController extends Controller
     public function __construct()
     {
         $this->applyIniOverrides();
-<<<<<<< HEAD
-        
+
         if (!$this->isProcessingImages() && !$this->isProcessingFiles()) {
             throw new \Exception('unexpected type parameter');
         }
-=======
->>>>>>> a774800cd2710ab670b0f9aaa4a9e293a7ef164a
     }
 
     /**
