@@ -31,6 +31,7 @@
       <br>
 
       <button class="btn btn-primary" onclick="performCrop()">{{ trans('laravel-filemanager::lfm.btn-crop') }}</button>
+      <button class="btn btn-primary" onclick="performCropNew()">{{ trans('laravel-filemanager::lfm.btn-copy-crop') }}</button>
       <button class="btn btn-info" onclick="loadItems()">{{ trans('laravel-filemanager::lfm.btn-cancel') }}</button>
       <form id='cropForm'>
         <input type="hidden" id="img" name="img" value="{{ $img->name }}">
@@ -81,6 +82,18 @@
     }
     function performCrop() {
       performLfmRequest('cropimage', {
+        img: $("#img").val(),
+        working_dir: $("#working_dir").val(),
+        dataX: $("#dataX").val(),
+        dataY: $("#dataY").val(),
+        dataHeight: $("#dataHeight").val(),
+        dataWidth: $("#dataWidth").val(),
+        type: $('#type').val()
+      }).done(loadItems);
+    }
+
+    function performCropNew() {
+      performLfmRequest('cropnewimage', {
         img: $("#img").val(),
         working_dir: $("#working_dir").val(),
         dataX: $("#dataX").val(),
