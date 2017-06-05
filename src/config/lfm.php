@@ -33,9 +33,11 @@ return [
     'allow_share_folder' => true,
 
     // Flexibla way to customize client folders accessibility
-    // You can extend ConfigHandler class and rewrite userField function in class
+    // If you want to customize client folders, publish tag="lfm_handler"
+    // Then you can rewrite userField function in App\Handler\ConfigHander class
+    // And set 'user_field' to App\Handler\ConfigHander::class
     // Ex: The private folder of user will be named as the user id.
-    'user_field' => App\Handlers\ConfigHandler::class,
+    'user_field' => Unisharp\Laravelfilemanager\Handlers\ConfigHandler::class,
 
     /*
     |--------------------------------------------------------------------------

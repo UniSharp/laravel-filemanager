@@ -37,7 +37,7 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider {
         ], 'lfm_view');
 
         $this->publishes([
-            __DIR__.'/Handlers' => base_path('app/Handlers')
+            __DIR__.'/CustomHandlers' => base_path('app/Handlers')
         ], 'lfm_handler');
     }
 
