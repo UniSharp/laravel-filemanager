@@ -2,7 +2,7 @@ theme: jekyll-theme-cayman
 
 # Setup
 title: Laravel File Manager
-description: File manager/gallery with CKEditor and TinyMCE support.
+description: File manager/gallery with CKEditor, TinyMCE and Summernote support.
 
 # About/contact
 author:

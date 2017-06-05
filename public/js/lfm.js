@@ -1,13 +1,7 @@
 (function( $ ){
 
   $.fn.filemanager = function(type, options) {
-    type = type || 'image';
-
-    if (type === 'image' || type === 'images') {
-      type = 'Images';
-    } else {
-      type = 'Files';
-    }
+    type = type || 'file';
 
     this.on('click', function(e) {
       var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';

@@ -54,15 +54,15 @@ class UploadController extends LfmController
 
         event(new ImageIsUploading($new_file_path));
         try {
-            if (parent::fileIsImage($file) && parent::isImageToThumb($file)) {
+            if (parent::fileIsImage($file) && !parent::imageShouldNotHaveThumb($file)) {
                 Image::make($file->getRealPath())
                     ->orientate() //Apply orientation from exif data
                     ->save($new_file_path, 90);
 
                 $this->makeThumb($new_filename);
             } else {
-                chmod($file->path(), 0644); // TODO configurable
-                File::move($file->path(), $new_file_path);
+                chmod($file->getRealPath(), 0644); // TODO configurable
+                File::move($file->getRealPath(), $new_file_path);
             }
         } catch (\Exception $e) {
             return parent::error('invalid');

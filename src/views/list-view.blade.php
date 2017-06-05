@@ -12,15 +12,11 @@
     <tr>
       <td>
         <i class="fa {{ $item->icon }}"></i>
-        @if(!$item->is_file)
-        <a class="folder-item clickable" data-id="{{ $item->path }}">
-        @else
-        <a href="javascript:useFile('{{ $item->name }}')" id="{{ $item->name }}" data-url="{{ $item->url }}">
-        @endif
+        <a class="{{ $item->is_file ? 'file' : 'folder'}}-item clickable" data-id="{{ $item->is_file ? $item->url : $item->path }}">
           {{ str_limit($item->name, $limit = 20, $end = '...') }}
         </a>
       </td>
-      <td>{{ $item->size ?? '' }}</td>
+      <td>{{ $item->size }}</td>
       <td>{{ $item->type }}</td>
       <td>{{ $item->time }}</td>
       <td>
@@ -50,30 +46,18 @@
       <td>
         <div class="media" style="height: 70px;">
           <div class="media-left">
-            <div class="clickable thumbnail-mobile">
-              @if(!$item->is_file)
-              <div class="square folder-item" data-id="{{ $item->path }}">
+            <div class="square {{ $item->is_file ? 'file' : 'folder'}}-item clickable"  data-id="{{ $item->is_file ? $item->url : $item->path }}">
+              @if($item->thumb)
+              <img src="{{ $item->thumb }}">
               @else
-              <div class="square" id="{{ $item->name }}" data-url="{{ $item->url }}">
+              <i class="fa {{ $item->icon }} fa-5x"></i>
               @endif
-                @if($item->thumb)
-                <img src="{{ $item->thumb }}">
-                @else
-                <div class="icon-container">
-                  <i class="fa {{ $item->icon }} fa-5x"></i>
-                </div>
-                @endif
-              </div>
             </div>
           </div>
           <div class="media-body" style="padding-top: 10px;">
             <div class="media-heading">
               <p>
-                @if(!$item->is_file)
-                <a class="folder-item clickable" data-id="{{ $item->path }}">
-                @else
-                <a href="javascript:useFile('{{ $item->name }}')" id="{{ $item->name }}" data-url="{{ $item->url }}">
-                @endif
+                <a class="{{ $item->is_file ? 'file' : 'folder'}}-item clickable" data-id="{{ $item->is_file ? $item->url : $item->path }}">
                   {{ str_limit($item->name, $limit = 20, $end = '...') }}
                 </a>
                 &nbsp;&nbsp;

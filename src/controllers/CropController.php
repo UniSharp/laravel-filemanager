@@ -19,7 +19,7 @@ class CropController extends LfmController
     public function getCrop()
     {
         $working_dir = request('working_dir');
-        $img = parent::getFileUrl(request('img'));
+        $img = parent::objectPresenter(parent::getCurrentPath(request('img')));
 
         return view('laravel-filemanager::crop')
             ->with(compact('working_dir', 'img'));
@@ -31,12 +31,11 @@ class CropController extends LfmController
      */
     public function getCropimage()
     {
-        $image      = request('img');
         $dataX      = request('dataX');
         $dataY      = request('dataY');
         $dataHeight = request('dataHeight');
         $dataWidth  = request('dataWidth');
-        $image_path = public_path() . $image;
+        $image_path = parent::getCurrentPath(request('img'));
 
         event(new ImageIsCropping($image_path));
         // crop image

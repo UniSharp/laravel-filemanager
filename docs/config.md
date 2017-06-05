@@ -17,6 +17,10 @@ In `config/lfm.php` :
 // The url to this package. Change it if necessary.
 'prefix' => 'laravel-filemanager',
 
+// The prefix of urls to non-public files, for exmaple if: base_directory !== 'public'
+// Without slashes
+'urls_prefix' => '',
+
 /*
 |--------------------------------------------------------------------------
 | Multi-User Mode
@@ -25,10 +29,15 @@ In `config/lfm.php` :
 
 // If true, private folders will be created for each signed-in user.
 'allow_multi_user' => true,
+// If true, share folder will be created when allow_multi_user is true.
+'allow_share_folder' => true,
 
-// The database column to identify a user. Make sure the value is unique.
-// Ex: When set to 'id', the private folder of user will be named as the user id.
-'user_field' => 'id',
+// Flexibla way to customize client folders accessibility
+// Ex: The private folder of user will be named as the user id.
+// You cant use a closure when using the optimized config file (in Laravel 5.2 anyway)
+'user_field' => function() {
+    return auth()->user()->id;
+},
 
 /*
 |--------------------------------------------------------------------------
@@ -72,15 +81,22 @@ In `config/lfm.php` :
 // If true, non-alphanumeric folder name will be rejected.
 'alphanumeric_directory' => false,
 
-'max_image_size' => 500,
-'max_file_size' => 1000,
+// If true, the uploading file's size will be verified for over than max_image_size/max_file_size.
+'should_validate_size' => false,
+
+'max_image_size' => 50000,
+'max_file_size' => 50000,
+
+// If true, the uploading file's mime type will be valid in valid_image_mimetypes/valid_file_mimetypes.
+'should_validate_mime' => false,
 
 // available since v1.3.0
 'valid_image_mimetypes' => [
     'image/jpeg',
     'image/pjpeg',
     'image/png',
-    'image/gif'
+    'image/gif',
+    'image/svg+xml',
 ],
 
 // available since v1.3.0
@@ -90,9 +106,19 @@ In `config/lfm.php` :
     'image/pjpeg',
     'image/png',
     'image/gif',
+    'image/svg+xml',
     'application/pdf',
     'text/plain',
 ],
+
+/*
+|--------------------------------------------------------------------------
+| Image / Folder Setting
+|--------------------------------------------------------------------------
+*/
+
+'thumb_img_width' => 200,
+'thumb_img_height' => 200,
 
 /*
 |--------------------------------------------------------------------------
@@ -129,4 +155,28 @@ In `config/lfm.php` :
     'ppt'  => 'fa-file-powerpoint-o',
     'pptx' => 'fa-file-powerpoint-o',
 ],
+
+/*
+|--------------------------------------------------------------------------
+| php.ini override
+|--------------------------------------------------------------------------
+*/
+// These values override your php.ini settings before uploading files
+// Set these to false to ingnore and apply your php.ini settings
+'php_ini_overrides' => [
+    'memory_limit'        => '256M'
+],
 ```
+
+## Caveats
+### php.ini overrides
+
+The php_ini_overrides are applied on every request the filemanager does and are reset once the script has finished executing.
+This has one drawback: any ini settings that you might want to change that apply to the request itself will not work.
+
+For example, overriding these settings will not work:
+* upload_max_filesize
+* post_max_size
+
+**Why this is expected behaviour:**
+upload_max_filesize and post_max_size will get set but uploaded files are already passed to your PHP script before the settings are changed.

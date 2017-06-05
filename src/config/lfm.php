@@ -17,6 +17,10 @@ return [
     // The url to this package. Change it if necessary.
     'prefix' => 'laravel-filemanager',
 
+    // The prefix of urls to non-public files, for exmaple if: base_directory !== 'public'
+    // Without slashes
+    'urls_prefix' => '',
+
     /*
     |--------------------------------------------------------------------------
     | Multi-User Mode
@@ -29,10 +33,11 @@ return [
     'allow_share_folder' => true,
 
     // Flexibla way to customize client folders accessibility
+    // If you want to customize client folders, publish tag="lfm_handler"
+    // Then you can rewrite userField function in App\Handler\ConfigHander class
+    // And set 'user_field' to App\Handler\ConfigHander::class
     // Ex: The private folder of user will be named as the user id.
-    'user_field' => function() {
-        return auth()->user()->id;
-    },
+    'user_field' => Unisharp\Laravelfilemanager\Handlers\ConfigHandler::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -155,9 +160,14 @@ return [
     |--------------------------------------------------------------------------
     | php.ini override
     |--------------------------------------------------------------------------
+    |
+    | These values override your php.ini settings before uploading files
+    | Set these to false to ingnore and apply your php.ini settings
+    |
+    | Please note that the 'upload_max_filesize' & 'post_max_size'
+    | directives are not supported.
     */
-    // These values override your php.ini settings before uploading files
-    // Set these to false to ingnore and apply your php.ini settings
+
     'php_ini_overrides' => [
         'memory_limit'        => '256M'
     ]
