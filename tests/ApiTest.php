@@ -5,7 +5,38 @@ use Illuminate\Http\UploadedFile;
 class ApiTest extends TestCase
 {
     /**
-     * 測試資料夾 API
+     * Upload file
+     *
+     * @var UploadedFile
+     */
+    protected $file;
+
+    /**
+     * Upload file name
+     *
+     * @var String
+     */
+    protected $filename;
+
+    /**
+     * Upload thumble file name
+     *
+     * @var String
+     */
+    protected $filename_s;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $uniq = uniqid();
+        $this->filename = $uniq . '.jpg';
+        $this->filename_s = $uniq . '_S.jpg';
+        $this->file = UploadedFile::fake()->image($this->filename);
+    }
+
+    /**
+     * test directory api
      *
      * @group directory
      */
@@ -48,51 +79,95 @@ class ApiTest extends TestCase
     }
 
     /**
-     * 上傳一筆檔案
+     * upload a file
      *
      * @group image
      */
     public function testUploadImage()
     {
-        $file = UploadedFile::fake()->image('test.jpg');
-
         $response = $this->json('GET', route('unisharp.lfm.upload'), [
-            'upload' => [$file]
+            'upload' => [$this->file]
         ]);
 
         $response->assertStatus(200);
 
-        $file_path = $this->getStoragedFilePath('test.jpg');
-        $thumb_file_path = $this->getStoragedFilePath('test_S.jpg');
-        $this->assertFileExists($file_path);
-        $this->assertFileExists($thumb_file_path);
+        $files_path = $this->getStoragedFilePath($this->filename, $this->filename_s);
+        $this->assertFileExists($files_path['file']);
+        $this->assertFileExists($files_path['file_s']);
 
-        @unlink($file_path);
-        @unlink($thumb_file_path);
+        $this->unlinkFiles($files_path);
     }
 
     /**
-     * 刪除檔案
+     * delete a file
      *
      * @group image
      * @group delete
      */
     public function testDeleteImage()
     {
-        $file = UploadedFile::fake()->image('test.jpg');
-
         $this->json('GET', route('unisharp.lfm.upload'), [
-            'upload' => [$file]
+            'upload' => [$this->file]
         ]);
         $response = $this->json('GET', route('unisharp.lfm.getDelete'), [
-            'items' => 'test.jpg'
+            'items' => $this->filename
         ]);
 
         $response->assertStatus(200);
 
-        $file_path = $this->getStoragedFilePath('test.jpg');
-        $thumb_file_path = $this->getStoragedFilePath('test_S.jpg');
-        $this->assertFileNotExists($file_path);
-        $this->assertFileNotExists($thumb_file_path);
+        $files_path = $this->getStoragedFilePath($this->filename, $this->filename_s);
+        $this->assertFileNotExists($files_path['file']);
+        $this->assertFileNotExists($files_path['file_s']);
     }
+
+    /**
+     * upload file which exists already
+     *
+     * @group image
+     * @group doubleUpload
+     */
+    public function testDoubleUpload()
+    {
+        $this->json('GET', route('unisharp.lfm.upload'), [
+            'upload' => [$this->file]
+        ]);
+        $response = $this->json('GET', route('unisharp.lfm.upload'), [
+            'upload' => [$this->file]
+        ]);
+
+
+        $response->assertStatus(200);
+        $this->assertEquals($response->getContent(), '["A file with this name already exists!"]');
+
+        $files_path = $this->getStoragedFilePath($this->filename, $this->filename_s);
+        $this->unlinkFiles($files_path);
+    }
+
+    /**
+     * change file name
+     *
+     * @group image
+     * @group
+     */
+
+    /**
+     * upload file in a directory
+     *
+     * @group image
+     * @group
+     */
+
+    /**
+     * upload file with lfm.rename_file = true
+     *
+     * @group image
+     * @group
+     */
+
+    /**
+     * upload file with lfm.alphanumeric_filename = true
+     *
+     * @group image
+     * @group
+     */
 }

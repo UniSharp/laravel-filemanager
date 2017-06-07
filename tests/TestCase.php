@@ -134,9 +134,9 @@ class TestCase extends Orchestra\Testbench\TestCase
         ];
     }
 
-    public function getStoragedFilePath($filename, $working_dir = null)
+    public function getStoragedFilePath($filename, $filename_s, $working_dir = null)
     {
-        $file_path = storage_path(implode(DIRECTORY_SEPARATOR, [
+        $files_path['file'] = storage_path(implode(DIRECTORY_SEPARATOR, [
             'app',
             config('lfm.base_directory'),
             config('lfm.files_folder_name'),
@@ -145,6 +145,22 @@ class TestCase extends Orchestra\Testbench\TestCase
             $filename
         ]));
 
-        return $file_path;
+        $files_path['file_s'] = storage_path(implode(DIRECTORY_SEPARATOR, [
+            'app',
+            config('lfm.base_directory'),
+            config('lfm.files_folder_name'),
+            (new TestConfigHandler)->userField(),
+            $working_dir,
+            $filename_s
+        ]));
+
+        return $files_path;
+    }
+
+    public function unlinkFiles(array $files_path)
+    {
+        foreach ($files_path as $file_path) {
+            @unlink($file_path);
+        }
     }
 }

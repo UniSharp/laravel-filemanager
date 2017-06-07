@@ -78,6 +78,7 @@ class UploadController extends LfmController
     {
         $is_valid = false;
         $force_invalid = false;
+        $fa = new FileApi(parent::getCurrentPath());
 
         if (empty($file)) {
             return parent::error('file-empty');
@@ -92,7 +93,7 @@ class UploadController extends LfmController
 
         $new_filename = $this->getNewName($file);
 
-        if (File::exists(parent::getCurrentPath($new_filename))) {
+        if ($fa->exists($new_filename)) {
             return parent::error('file-exist');
         }
 
