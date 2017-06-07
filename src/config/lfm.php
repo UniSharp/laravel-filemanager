@@ -17,10 +17,6 @@ return [
     // The url to this package. Change it if necessary.
     'prefix' => 'laravel-filemanager',
 
-    // The prefix of urls to non-public files, for exmaple if: base_directory !== 'public'
-    // Without slashes
-    'urls_prefix' => '',
-
     /*
     |--------------------------------------------------------------------------
     | Multi-User Mode
