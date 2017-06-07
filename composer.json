@@ -41,5 +41,11 @@
       "Unisharp\\Laravelfilemanager\\": "src/"
     }
   },
+  "autoload-dev": {
+    "classmap": [
+      "tests/TestCase.php",
+      "tests/TestConfigHandler.php"
+    ]
+  },
   "bin": ["bin/debug"]
 }

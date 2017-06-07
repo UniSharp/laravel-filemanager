@@ -1,31 +1,10 @@
 <?php
 
-class ApiTest extends Illuminate\Foundation\Testing\TestCase
+class ApiTest extends TestCase
 {
-    /**
-     * The base URL to use while testing the application.
-     *
-     * @var string
-     */
-    protected $baseUrl = 'http://localhost';
-
-    /**
-     * Creates the application.
-     *
-     * @return \Illuminate\Foundation\Application
-     */
-    public function createApplication()
-    {
-        $app = require './bootstrap/app.php';
-
-        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
-
-        return $app;
-    }
-
     public function testFolder()
     {
-        auth()->loginUsingId(1);
+        // auth()->loginUsingId(1);
 
         $create = $this->getResponseByRouteName('getAddfolder', [
             'name' => 'testcase'
@@ -59,12 +38,5 @@ class ApiTest extends Illuminate\Foundation\Testing\TestCase
         $this->assertEquals(trans('laravel-filemanager::lfm.error-folder-alnum'), $create_alphanumeric);
         $this->assertEquals('OK', $rename);
         $this->assertEquals('OK', $delete);
-    }
-
-    private function getResponseByRouteName($route_name, $input = [])
-    {
-        $response = $this->call('GET', route('unisharp.lfm.' . $route_name), $input);
-        $data = json_encode($response);
-        return $response->getContent();
     }
 }
