@@ -75,26 +75,24 @@ class ApiTest extends TestCase
      * 刪除檔案
      *
      * @group image
+     * @group delete
      */
-    // public function testUploadImageWithInDirectory()
-    // {
-    //     $file = UploadedFile::fake()->image('test.jpg');
+    public function testDeleteImage()
+    {
+        $file = UploadedFile::fake()->image('test.jpg');
 
-    //     $add_file_response = $this->json('GET', route('unisharp.lfm.upload'), [
-    //         'upload' => [$file]
-    //     ]);
-    //     $filename = json_decode($add_file_response->getContent())->filenames[0];
-    //     $thumb_filename = substr_replace($filename, '_S', strrpos($filename, '.'), 0);
+        $this->json('GET', route('unisharp.lfm.upload'), [
+            'upload' => [$file]
+        ]);
+        $response = $this->json('GET', route('unisharp.lfm.getDelete'), [
+            'items' => 'test.jpg'
+        ]);
 
-    //     $response->json('GET', route('unisharp.lfm.getDelete'), [
-    //         'items' => $filename
-    //     ]);
+        $response->assertStatus(200);
 
-    //     $response->assertStatus(200);
-
-    //     $file_path = $this->getStoragedFilePath($filename, $working_dir);
-    //     $thumb_file_path = $this->getStoragedFilePath($thumb_filename, $working_dir);
-    //     $this->assertFileNotExists($file_path);
-    //     $this->assertFileNotExists($thumb_file_path);
-    // }
+        $file_path = $this->getStoragedFilePath('test.jpg');
+        $thumb_file_path = $this->getStoragedFilePath('test_S.jpg');
+        $this->assertFileNotExists($file_path);
+        $this->assertFileNotExists($thumb_file_path);
+    }
 }
