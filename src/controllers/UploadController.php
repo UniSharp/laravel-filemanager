@@ -36,15 +36,12 @@ class UploadController extends LfmController
         }
 
         if (is_array($files)) {
-            $response = count($error_bag) > 0 ? $error_bag : [
-                'created' => parent::$success_response,
-                'filenames' => $new_filenames
-            ];
+            $response = count($error_bag) > 0 ? $error_bag : parent::$success_response;
         } else { // upload via ckeditor 'Upload' tab
             $response = $this->useFile($new_filename);
         }
 
-        return response()->json($response);
+        return $response;
     }
 
     private function proceedSingleUpload($file)
@@ -55,22 +52,24 @@ class UploadController extends LfmController
         }
 
         $working_dir = parent::getCurrentPath();
+        $original_name = preg_replace('/\..+$/', '', $file->getClientOriginalName());
+        $file_to_upload = $working_dir . DIRECTORY_SEPARATOR . $original_name;
         $fa = new FileApi($working_dir);
 
-        event(new ImageIsUploading($file));
+        event(new ImageIsUploading($file_to_upload));
         try {
             if (parent::fileIsImage($file) && !parent::imageShouldNotHaveThumb($file)) {
                 $new_filename = $fa
                     ->thumbs([
                         'S' => '96x96'
-                    ])->save($file);
+                    ])->save($file, $original_name);
             } else {
-                $new_filename = $fa->save($file);
+                $new_filename = $fa->save($file, $original_name);
             }
         } catch (\Exception $e) {
             return parent::error('invalid');
         }
-        event(new ImageWasUploaded($new_filename));
+        event(new ImageWasUploaded($file_to_upload));
 
         return $new_filename;
     }

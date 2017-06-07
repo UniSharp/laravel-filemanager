@@ -61,14 +61,9 @@ class ApiTest extends TestCase
         ]);
 
         $response->assertStatus(200);
-        $response->assertJson([
-            'created' => 'OK',
-        ]);
 
-        $filename = json_decode($response->getContent())->filenames[0];
-        $thumb_filename = substr_replace($filename, '_S', strrpos($filename, '.'), 0);
-        $file_path = $this->getStoragedFilePath($filename);
-        $thumb_file_path = $this->getStoragedFilePath($thumb_filename);
+        $file_path = $this->getStoragedFilePath('test.jpg');
+        $thumb_file_path = $this->getStoragedFilePath('test_S.jpg');
         $this->assertFileExists($file_path);
         $this->assertFileExists($thumb_file_path);
 
