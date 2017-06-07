@@ -6,7 +6,10 @@ class TestCase extends Orchestra\Testbench\TestCase
 {
     public function getPackageProviders($app)
     {
-        return ['Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider'];
+        return [
+            'Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider',
+            'Unisharp\FileApi\FileApiServiceProvider'
+        ];
     }
 
     /**
@@ -33,10 +36,10 @@ class TestCase extends Orchestra\Testbench\TestCase
         $app['config']->set('lfm.base_directory', 'public');
 
         $app['config']->set('lfm.images_folder_name', 'photos');
-        $app['config']->set('lfm.files_folder_name' , 'files');
+        $app['config']->set('lfm.files_folder_name', 'files');
 
         $app['config']->set('lfm.shared_folder_name', 'shares');
-        $app['config']->set('lfm.thumb_folder_name' , 'thumbs');
+        $app['config']->set('lfm.thumb_folder_name', 'thumbs');
 
         $app['config']->set('lfm.images_startup_view', 'grid');
         $app['config']->set('lfm.files_startup_view', 'list');
@@ -108,25 +111,40 @@ class TestCase extends Orchestra\Testbench\TestCase
         $app['config']->set('lfm.php_ini_overrides', [
             'memory_limit'        => '256M'
         ]);
+
+        $app['config']->set('fileapi.path', ['/images/event/']);
+        $app['config']->set('fileapi.watermark', 'public/img/watermark.png');
+
+        $app['config']->set('fileapi.default_thumbs', ['S' => '96x96', 'M' => '256x256', 'L' => '480x480']);
+
+        $app['config']->set('fileapi.compress_quality', 90);
     }
 
     public function getResponseByRouteName($route_name, $input = [], $file = [])
     {
-        $response = $this->call('GET', route('unisharp.lfm.' . $route_name), $input, [], $file);
+        $response = $this->call('GET', route('unisharp.lfm.' . $route_name), $input, $file);
         $data = json_encode($response);
         return $response->getContent();
     }
 
-    public function getTestImage()
+    protected function getPackageAliases($app)
     {
-        $stub = __DIR__ . '/test.jpg';
-        $name = str_random(8) . '.jpg';
-        $path = sys_get_temp_dir() . '/' . $name;
+        return [
+            'Image' => 'Intervention\Image\Facades\Image'
+        ];
+    }
 
-        copy($stub, $path);
+    public function getStoragedFilePath($filename, $working_dir = null)
+    {
+        $file_path = storage_path(implode(DIRECTORY_SEPARATOR, [
+            'app',
+            config('lfm.base_directory'),
+            config('lfm.files_folder_name'),
+            (new TestConfigHandler)->userField(),
+            $working_dir,
+            $filename
+        ]));
 
-        $file = new UploadedFile($path, $name, filesize($path), 'image/jpg', null, true);
-
-        return $file;
+        return $file_path;
     }
 }

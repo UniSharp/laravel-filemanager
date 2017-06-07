@@ -25,10 +25,11 @@
   "require": {
     "php": ">=5.4.0",
     "illuminate/support": ">=4.2.0",
-    "intervention/image": "2.*"
+    "intervention/image": "2.*",
+    "unisharp/laravel-fileapi": "dev-master"
   },
   "require-dev": {
-    "orchestra/testbench": "~3.0",
+    "orchestra/testbench": "^3.4",
     "phpspec/phpspec": "~2.1",
     "phpunit/phpunit": "~4.8"
   },

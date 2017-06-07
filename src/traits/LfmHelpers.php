@@ -41,7 +41,7 @@ trait LfmHelpers
 
         $path = $this->translateToOsPath($path);
 
-        return base_path($path);
+        return $path;
     }
 
     /**
