@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class ApiTest extends TestCase
 {
@@ -33,6 +34,17 @@ class ApiTest extends TestCase
         $this->filename = $uniq . '.jpg';
         $this->filename_s = $uniq . '_S.jpg';
         $this->file = UploadedFile::fake()->image($this->filename);
+    }
+
+    public function tearDown()
+    {
+        $storage_path = implode(DIRECTORY_SEPARATOR, [
+            config('lfm.base_directory'),
+            config('lfm.files_folder_name'),
+            (new TestConfigHandler)->userField()
+        ]);
+        Storage::deleteDirectory($storage_path);
+        parent::tearDown();
     }
 
     /**
@@ -94,8 +106,6 @@ class ApiTest extends TestCase
         $files_path = $this->getStoragedFilePath($this->filename, $this->filename_s);
         $this->assertFileExists($files_path['file']);
         $this->assertFileExists($files_path['file_s']);
-
-        $this->unlinkFiles($files_path);
     }
 
     /**
@@ -138,17 +148,33 @@ class ApiTest extends TestCase
 
         $response->assertStatus(200);
         $this->assertEquals($response->getContent(), '["A file with this name already exists!"]');
-
-        $files_path = $this->getStoragedFilePath($this->filename, $this->filename_s);
-        $this->unlinkFiles($files_path);
     }
 
     /**
      * change file name
      *
      * @group image
-     * @group
+     * @group rename
      */
+    public function testRenameImage()
+    {
+        $this->json('GET', route('unisharp.lfm.upload'), [
+            'upload' => [$this->file]
+        ]);
+        $uniq = uniqid();
+        $new_name = $uniq . '.jpg';
+        $new_name_s = $uniq . '_S.jpg';
+        $response = $this->json('GET', route('unisharp.lfm.getRename'), [
+            'file' => $this->filename,
+            'new_name' => $new_name
+        ]);
+
+        $response->assertStatus(200);
+
+        $files_path = $this->getStoragedFilePath($new_name, $new_name_s);
+        $this->assertFileExists($files_path['file']);
+        $this->assertFileExists($files_path['file_s']);
+    }
 
     /**
      * upload file in a directory
