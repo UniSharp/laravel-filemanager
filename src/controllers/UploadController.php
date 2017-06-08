@@ -52,8 +52,8 @@ class UploadController extends LfmController
         }
 
         $working_dir = parent::getCurrentPath();
-        $original_name = preg_replace('/\..+$/', '', $file->getClientOriginalName());
-        $file_to_upload = $working_dir . DIRECTORY_SEPARATOR . $original_name;
+        $new_filename = $this->getNewName($file);
+        $file_to_upload = $working_dir . DIRECTORY_SEPARATOR . $new_filename;
         $fa = new FileApi($working_dir);
 
         event(new ImageIsUploading($file_to_upload));
@@ -62,9 +62,9 @@ class UploadController extends LfmController
                 $new_filename = $fa
                     ->thumbs([
                         'S' => '96x96'
-                    ])->save($file, $original_name);
+                    ])->save($file, $new_filename);
             } else {
-                $new_filename = $fa->save($file, $original_name);
+                $new_filename = $fa->save($file, $new_filename);
             }
         } catch (\Exception $e) {
             return parent::error('invalid');
@@ -91,7 +91,7 @@ class UploadController extends LfmController
             return 'File failed to upload. Error code: ' . $file->getError();
         }
 
-        $new_filename = $this->getNewName($file);
+        $new_filename = $this->getNewName($file) . '.' . $file->getClientOriginalExtension();
 
         if ($fa->exists($new_filename)) {
             return parent::error('file-exist');
@@ -131,7 +131,7 @@ class UploadController extends LfmController
             $new_filename = preg_replace('/[^A-Za-z0-9\-\']/', '_', $new_filename);
         }
 
-        return $new_filename . '.' . $file->getClientOriginalExtension();
+        return $new_filename;
     }
 
     private function useFile($new_filename)

@@ -160,4 +160,9 @@ class TestCase extends Orchestra\Testbench\TestCase
             @unlink($file_path);
         }
     }
+
+    public function test()
+    {
+        $this->assertEquals(1, 1);
+    }
 }

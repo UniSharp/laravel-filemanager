@@ -166,7 +166,6 @@ class ApiTest extends TestCase
             'working_dir' => $this->root_dir
         ]);
 
-
         $response->assertStatus(200);
         $this->assertEquals($response->getContent(), '["A file with this name already exists!"]');
     }
@@ -360,8 +359,21 @@ class ApiTest extends TestCase
      * upload file with lfm.rename_file = true
      *
      * @group image
-     * @group
      */
+    public function testUploadImageWithRename()
+    {
+        config(['lfm.rename_file' => true]);
+        $response = $this->json('GET', route('unisharp.lfm.upload'), [
+            'upload' => [$this->file],
+            'working_dir' => $this->root_dir
+        ]);
+
+        $response->assertStatus(200);
+
+        $files_path = $this->getStoragedFilePathWithThumb($this->filename, $this->filename_s, $this->root_dir);
+        $this->assertFileNotExists($files_path['file']);
+        $this->assertFileNotExists($files_path['file_s']);
+    }
 
     /**
      * upload file with lfm.alphanumeric_filename = true
