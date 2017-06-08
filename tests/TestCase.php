@@ -134,7 +134,7 @@ class TestCase extends Orchestra\Testbench\TestCase
         ];
     }
 
-    public function getStoragedFilePathWithThumb($filename, $filename_s, $working_dir = null)
+    public function getStoragedFilePathWithThumb($filename, $filename_s, $working_dir)
     {
         $files_path['file'] = $this->getStoragedFilePath($filename, $working_dir);
 
@@ -143,13 +143,12 @@ class TestCase extends Orchestra\Testbench\TestCase
         return $files_path;
     }
 
-    public function getStoragedFilePath($filename, $working_dir = null)
+    public function getStoragedFilePath($filename, $working_dir)
     {
         return storage_path(implode(DIRECTORY_SEPARATOR, [
             'app',
             config('lfm.base_directory'),
             config('lfm.files_folder_name'),
-            (new TestConfigHandler)->userField(),
             $working_dir,
             $filename
         ]));

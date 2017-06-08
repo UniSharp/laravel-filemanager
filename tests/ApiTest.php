@@ -18,7 +18,6 @@ class ApiTest extends TestCase
      * @var String
      */
     protected $filename;
-    protected $dir_name;
 
     /**
      * Upload thumble file name
@@ -26,6 +25,20 @@ class ApiTest extends TestCase
      * @var String
      */
     protected $filename_s;
+
+    /**
+     * Upload directory name
+     *
+     * @var String
+     */
+    protected $dir_name;
+
+    /**
+     * Root directory
+     *
+     * @var String
+     */
+    protected $root_dir = '/1';
 
     public function setUp()
     {
@@ -101,12 +114,13 @@ class ApiTest extends TestCase
     public function testUploadImage()
     {
         $response = $this->json('GET', route('unisharp.lfm.upload'), [
-            'upload' => [$this->file]
+            'upload' => [$this->file],
+            'working_dir' => $this->root_dir
         ]);
 
         $response->assertStatus(200);
 
-        $files_path = $this->getStoragedFilePathWithThumb($this->filename, $this->filename_s);
+        $files_path = $this->getStoragedFilePathWithThumb($this->filename, $this->filename_s, $this->root_dir);
         $this->assertFileExists($files_path['file']);
         $this->assertFileExists($files_path['file_s']);
     }
@@ -120,15 +134,17 @@ class ApiTest extends TestCase
     public function testDeleteImage()
     {
         $this->json('GET', route('unisharp.lfm.upload'), [
-            'upload' => [$this->file]
+            'upload' => [$this->file],
+            'working_dir' => $this->root_dir
         ]);
         $response = $this->json('GET', route('unisharp.lfm.getDelete'), [
-            'items' => $this->filename
+            'items' => $this->filename,
+            'working_dir' => $this->root_dir
         ]);
 
         $response->assertStatus(200);
 
-        $files_path = $this->getStoragedFilePathWithThumb($this->filename, $this->filename_s);
+        $files_path = $this->getStoragedFilePathWithThumb($this->filename, $this->filename_s, $this->root_dir);
         $this->assertFileNotExists($files_path['file']);
         $this->assertFileNotExists($files_path['file_s']);
     }
@@ -142,10 +158,12 @@ class ApiTest extends TestCase
     public function testDoubleUpload()
     {
         $this->json('GET', route('unisharp.lfm.upload'), [
-            'upload' => [$this->file]
+            'upload' => [$this->file],
+            'working_dir' => $this->root_dir
         ]);
         $response = $this->json('GET', route('unisharp.lfm.upload'), [
-            'upload' => [$this->file]
+            'upload' => [$this->file],
+            'working_dir' => $this->root_dir
         ]);
 
 
@@ -162,19 +180,21 @@ class ApiTest extends TestCase
     public function testRenameImage()
     {
         $this->json('GET', route('unisharp.lfm.upload'), [
-            'upload' => [$this->file]
+            'upload' => [$this->file],
+            'working_dir' => $this->root_dir
         ]);
         $uniq = uniqid();
         $new_name = $uniq . '.jpg';
         $new_name_s = $uniq . '_S.jpg';
         $response = $this->json('GET', route('unisharp.lfm.getRename'), [
             'file' => $this->filename,
-            'new_name' => $new_name
+            'new_name' => $new_name,
+            'working_dir' => $this->root_dir
         ]);
 
         $response->assertStatus(200);
 
-        $files_path = $this->getStoragedFilePathWithThumb($new_name, $new_name_s);
+        $files_path = $this->getStoragedFilePathWithThumb($new_name, $new_name_s, $this->root_dir);
         $this->assertFileExists($files_path['file']);
         $this->assertFileExists($files_path['file_s']);
     }
@@ -187,12 +207,13 @@ class ApiTest extends TestCase
     public function testAddDirectory()
     {
         $response = $this->json('GET', route('unisharp.lfm.getAddfolder'), [
-            'name' => $this->dir_name
+            'name' => $this->dir_name,
+            'working_dir' => $this->root_dir
         ]);
 
         $response->assertStatus(200);
 
-        $dir_path = $this->getStoragedFilePath($this->dir_name);
+        $dir_path = $this->getStoragedFilePath($this->dir_name, $this->root_dir);
         $this->assertFileExists($dir_path);
     }
 
@@ -205,24 +226,135 @@ class ApiTest extends TestCase
     public function testDeleteDirectory()
     {
         $this->json('GET', route('unisharp.lfm.getAddfolder'), [
-            'name' => $this->dir_name
+            'name' => $this->dir_name,
+            'working_dir' => $this->root_dir
         ]);
         $reponse = $this->json('GET', route('unisharp.lfm.getDelete'), [
-            'items' => $this->dir_name
+            'items' => $this->dir_name,
+            'working_dir' => $this->root_dir
         ]);
 
         $reponse->assertStatus(200);
 
-        $dir_path = $this->getStoragedFilePath($this->dir_name);
+        $dir_path = $this->getStoragedFilePath($this->dir_name, $this->root_dir);
         $this->assertFileNotExists($dir_path);
+    }
+
+    /**
+     * rename directory
+     *
+     * @group directory
+     * @group rename
+     */
+    public function testRenameDirectory()
+    {
+        $this->json('GET', route('unisharp.lfm.getAddfolder'), [
+            'name' => $this->dir_name,
+            'working_dir' => $this->root_dir
+        ]);
+        $new_dir_name = uniqid();
+        $response = $this->json('GET', route('unisharp.lfm.getRename'), [
+            'file' => $this->dir_name,
+            'new_name' => $new_dir_name,
+            'working_dir' => $this->root_dir
+        ]);
+
+        $response->assertStatus(200);
+
+        $new_dir_path = $this->getStoragedFilePath($new_dir_name, $this->root_dir);
+        $this->assertFileExists($new_dir_path);
     }
 
     /**
      * upload file in a directory
      *
      * @group image
-     * @group
+     * @group directory
      */
+    public function testUploadFileInDirectory()
+    {
+        $this->json('GET', route('unisharp.lfm.getAddfolder'), [
+            'name' => $this->dir_name,
+            'working_dir' => $this->root_dir
+        ]);
+        $working_dir = $this->root_dir . DIRECTORY_SEPARATOR . $this->dir_name;
+        $response = $this->json('GET', route('unisharp.lfm.upload'), [
+            'upload' => [$this->file],
+            'working_dir' => $working_dir
+        ]);
+
+        $response->assertStatus(200);
+
+        $files_path = $this->getStoragedFilePathWithThumb($this->filename, $this->filename_s, $working_dir);
+        $this->assertFileExists($files_path['file']);
+        $this->assertFileExists($files_path['file_s']);
+    }
+
+    /**
+     * delete file in a directory
+     *
+     * @group image
+     * @group directory
+     */
+    public function testDeleteFileInDirectory()
+    {
+        $this->json('GET', route('unisharp.lfm.getAddfolder'), [
+            'name' => $this->dir_name,
+            'working_dir' => $this->root_dir
+        ]);
+
+        $working_dir = $this->root_dir . DIRECTORY_SEPARATOR . $this->dir_name;
+        $response = $this->json('GET', route('unisharp.lfm.upload'), [
+            'upload' => [$this->file],
+            'working_dir' => $working_dir
+        ]);
+
+        $reponse = $this->json('GET', route('unisharp.lfm.getDelete'), [
+            'items' => $this->filename,
+            'working_dir' => $working_dir
+        ]);
+
+        $reponse->assertStatus(200);
+
+        $files_path = $this->getStoragedFilePathWithThumb($this->filename, $this->filename_s, $working_dir);
+        $this->assertFileNotExists($files_path['file']);
+        $this->assertFileNotExists($files_path['file_s']);
+    }
+
+    /**
+     * rename file in directory
+     *
+     * @group image
+     * @group directory
+     */
+    public function testRenameFileInDirectory()
+    {
+        $this->json('GET', route('unisharp.lfm.getAddfolder'), [
+            'name' => $this->dir_name,
+            'working_dir' => $this->root_dir
+        ]);
+
+        $working_dir = $this->root_dir . DIRECTORY_SEPARATOR . $this->dir_name;
+        $response = $this->json('GET', route('unisharp.lfm.upload'), [
+            'upload' => [$this->file],
+            'working_dir' => $working_dir
+        ]);
+
+        $uniq = uniqid();
+        $new_name = $uniq . '.jpg';
+        $new_name_s = $uniq . '_S.jpg';
+        $response = $this->json('GET', route('unisharp.lfm.getRename'), [
+            'file' => $this->filename,
+            'new_name' => $new_name,
+            'working_dir' => $working_dir
+        ]);
+
+        $response->assertStatus(200);
+
+        $files_path = $this->getStoragedFilePathWithThumb($new_name, $new_name_s, $working_dir);
+        $this->assertFileExists($files_path['file']);
+        $this->assertFileExists($files_path['file_s']);
+    }
 
     /**
      * upload file with lfm.rename_file = true
