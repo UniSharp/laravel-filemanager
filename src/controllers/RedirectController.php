@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
+use Unisharp\FileApi\FileApi;
 
 /**
  * Class RedirectController
@@ -10,16 +11,21 @@ use Illuminate\Http\Request;
  */
 class RedirectController extends LfmController
 {
-    private $file_path;
+    private $filename;
+    private $fa;
 
     public function __construct()
     {
         $delimiter = config('lfm.prefix') . '/';
         $url = request()->url();
         // dd($delimiter);
-        $external_path = substr($url, strpos($url, $delimiter) + strlen($delimiter));
+        $external_path = substr($url, strpos($url, $delimiter));
+        preg_match('/(.+)\/([^\/]+)/', $external_path, $matches);
+        $path = $matches[1];
+        $filename = $matches[2];
 
-        $this->file_path = base_path(config('lfm.base_directory', 'public') . '/' . $external_path);
+        $this->fa = new FileApi($path);
+        $this->filename = $filename;
     }
 
     /**
@@ -30,7 +36,8 @@ class RedirectController extends LfmController
      */
     public function getImage($base_path, $image_name)
     {
-        return $this->responseImageOrFile();
+        // return $this->responseImageOrFile();
+        return $this->fa->getResponse($this->filename);
     }
 
     /**
@@ -41,9 +48,10 @@ class RedirectController extends LfmController
      */
     public function getFile(Request $request, $base_path, $file_name)
     {
-        $request->request->add(['type' => 'Files']);
+        // $request->request->add(['type' => 'Files']);
 
-        return $this->responseImageOrFile();
+        // return $this->responseImageOrFile();
+        return $this->fa->getResponse($this->filename);
     }
 
     private function responseImageOrFile()

@@ -45,9 +45,8 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    // Which folder to store files in project, fill in 'public', 'resources', 'storage' and so on.
-    // You should create routes to serve images if it is not set to public.
-    'base_directory' => 'public',
+    // Which folder to store files in filesystem disk .
+    'base_directory' => 'laravel-filemanager',
 
     'images_folder_name' => 'photos',
     'files_folder_name'  => 'files',
