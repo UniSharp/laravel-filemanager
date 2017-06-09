@@ -20,8 +20,8 @@ foreach ($jsonComposerLock->packages as $package) {
     if (isset($lfmVersion) && isset($laravelVersion))
         break;
 }
-$imagickCheck = extension_loaded('imagick') ? 'Install' : 'Not Install';
-$gfCheck = extension_loaded('gd') ? 'Install' : 'Not Install';
+$imagickCheck = extension_loaded('imagick') ? 'Installed' : 'Not Installed';
+$gfCheck = extension_loaded('gd') ? 'Installed' : 'Not Installed';
 
 // show the basic information for debug message
 echo 'OS System & Version: ' . php_uname() . PHP_EOL;
