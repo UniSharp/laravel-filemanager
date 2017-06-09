@@ -559,16 +559,8 @@ trait LfmHelpers
      * @param  mixed  $sort_type  Alphabetic or time.
      * @return array of object
      */
-    public function sortFilesAndDirectories($arr_items, $sort_type)
+    public function sortByColumn($arr_items, $key_to_sort)
     {
-        if ($sort_type == 'time') {
-            $key_to_sort = 'updated';
-        } elseif ($sort_type == 'alphabetic') {
-            $key_to_sort = 'name';
-        } else {
-            $key_to_sort = 'updated';
-        }
-
         uasort($arr_items, function ($a, $b) use ($key_to_sort) {
             return strcmp($a->{$key_to_sort}, $b->{$key_to_sort});
         });
