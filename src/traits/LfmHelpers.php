@@ -586,11 +586,11 @@ trait LfmHelpers
      */
     public function getUserSlug()
     {
-        if (class_exists(config('lfm.user_field'))) {
+        if (is_callable(config('lfm.user_field'))) {
+            $slug_of_user = call_user_func(config('lfm.user_field'));
+        } elseif (class_exists(config('lfm.user_field'))) {
             $config_handler = config('lfm.user_field');
             $slug_of_user = app()->make($config_handler)->userField();
-        } elseif (is_callable(config('lfm.user_field'))) {
-            $slug_of_user = call_user_func(config('lfm.user_field'));
         } else {
             $old_slug_of_user = config('lfm.user_field');
             $slug_of_user = empty(auth()->user()) ? '' : auth()->user()->$old_slug_of_user;
