@@ -28,8 +28,9 @@ class FolderController extends LfmController
 
         foreach ($folder_types as $folder_type => $lang_key) {
             $root_folder_path = parent::getRootFolderPath($folder_type);
+            $fa = new FileApi($root_folder_path);
 
-            $children = parent::getDirectories($root_folder_path);
+            $children = parent::getDirectories($fa);
             usort($children, function ($a, $b) {
                 return strcmp($a->name, $b->name);
             });
