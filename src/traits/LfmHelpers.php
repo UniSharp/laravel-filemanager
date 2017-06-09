@@ -19,6 +19,8 @@ trait LfmHelpers
      */
     private $ds = '/';
 
+    protected $package_name = 'laravel-filemanager';
+
     /**
      * Get real path of a thumbnail on the operating system.
      *
@@ -111,7 +113,7 @@ trait LfmHelpers
         }
 
         if ($type === 'url' && $base_directory !== 'public') {
-            $prefix = config('lfm.prefix', 'laravel-filemanager') . '/' . $prefix;
+            $prefix = config('lfm.url_prefix', $this->package_name) . '/' . $prefix;
         }
 
         return $prefix;
@@ -449,11 +451,11 @@ trait LfmHelpers
         $is_file = $fa->isFile($item);
 
         if (!$is_file) {
-            $file_type = trans('laravel-filemanager::lfm.type-folder');
+            $file_type = trans($this->package_name . '::lfm.type-folder');
             $icon = 'fa-folder-o';
-            $thumb_url = asset('vendor/laravel-filemanager/img/folder.png');
         } elseif ($fa->fileIsImage($item)) {
             $file_type = $fa->getFileType($item);
+            $thumb_url = asset('vendor/' . $this->package_name . '/img/folder.png');
             $icon = 'fa-image';
 
             if ($fa->fileHasThumb($item, FileApi::SIZE_SMALL)) {
@@ -608,7 +610,7 @@ trait LfmHelpers
      */
     public function error($error_type, $variables = [])
     {
-        return trans('laravel-filemanager::lfm.error-' . $error_type, $variables);
+        return trans($this->package_name . '::lfm.error-' . $error_type, $variables);
     }
 
     /**
