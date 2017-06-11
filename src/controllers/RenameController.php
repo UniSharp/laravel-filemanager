@@ -4,7 +4,6 @@ use Unisharp\Laravelfilemanager\Events\ImageIsRenaming;
 use Unisharp\Laravelfilemanager\Events\ImageWasRenamed;
 use Unisharp\Laravelfilemanager\Events\FolderIsRenaming;
 use Unisharp\Laravelfilemanager\Events\FolderWasRenamed;
-use Unisharp\FileApi\FileApi;
 
 /**
  * Class RenameController
@@ -19,11 +18,11 @@ class RenameController extends LfmController
     {
         $old_name = parent::translateFromUtf8(request('file'));
         $new_name = parent::translateFromUtf8(trim(request('new_name')));
-        $working_dir = parent::getCurrentPath();
-        $fa = new FileApi($working_dir);
+
+        $old_file = parent::getCurrentPath($old_name);
 
         if (empty($new_name)) {
-            if ($fa->isDirectory($old_name)) {
+            if ($this->disk->isDirectory($old_file)) {
                 return parent::error('folder-name');
             } else {
                 return parent::error('file-name');
@@ -32,27 +31,30 @@ class RenameController extends LfmController
 
         if (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $new_name)) {
             return parent::error('folder-alnum');
-        } elseif ($fa->exists($new_name)) {
+        } elseif ($this->disk->exists($new_name)) {
             return parent::error('rename');
         }
 
-        if (!$fa->isDirectory($old_name)) {
-            $extension = $fa->extension($old_name);
+        if (!$this->isDirectory($old_file)) {
+            $extension = $this->disk->extension($old_file);
             $new_name = str_replace('.' . $extension, '', $new_name) . '.' . $extension;
         }
 
-        $old_file = $working_dir . DIRECTORY_SEPARATOR . $old_name;
-        $new_file = $working_dir . DIRECTORY_SEPARATOR . $new_name;
+        $new_file = parent::getCurrentPath($new_name);
 
-        if ($fa->isDirectory($old_name)) {
+        if ($this->isDirectory($old_file)) {
             event(new FolderIsRenaming($old_file, $new_file));
         } else {
             event(new ImageIsRenaming($old_file, $new_file));
         }
 
-        $fa->move($old_name, $new_name);
+        if (parent::fileIsImage($old_file)) {
+            $this->move(parent::getThumbPath($old_name), parent::getThumbPath($new_name));
+        }
 
-        if ($fa->isDirectory($old_name)) {
+        $this->move($old_file, $new_file);
+
+        if ($this->isDirectory($old_file)) {
             event(new FolderWasRenamed($old_file, $new_file));
         } else {
             event(new ImageWasRenamed($old_file, $new_file));

@@ -2,7 +2,7 @@
 
 namespace Unisharp\Laravelfilemanager\traits;
 
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Unisharp\FileApi\FileApi;
 
@@ -59,7 +59,7 @@ trait LfmHelpers
 
         $path = $this->translateToOsPath($path);
 
-        return $path;
+        return base_path($path);
     }
 
     /**
@@ -120,18 +120,18 @@ trait LfmHelpers
             $default_folder_name = 'photos';
         }
 
-        $prefix = config('lfm.' . $this->currentLfmType() . 's_folder_name', $default_folder_name);
-        $base_directory = config('lfm.base_directory', 'public');
+        $category_name = config('lfm.' . $this->currentLfmType() . 's_folder_name', $default_folder_name);
 
         if ($type === 'dir') {
-            $prefix = $base_directory . '/' . $prefix;
+            $prefix = $this->disk_root . '/' . $this->package_name;
+            $prefix = str_replace(base_path() . '/', '', $prefix);
         }
 
-        if ($type === 'url' && $base_directory !== 'public') {
-            $prefix = config('lfm.url_prefix', $this->package_name) . '/' . $prefix;
+        if ($type === 'url') {
+            $prefix = config('lfm.url_prefix', $this->package_name);
         }
 
-        return $prefix;
+        return $prefix . '/' . $category_name;
     }
 
     /**
@@ -201,7 +201,7 @@ trait LfmHelpers
      */
     public function getRootFolderPath($type)
     {
-        return $this->getPathPrefix('dir') . $this->rootFolder($type);
+        return base_path($this->getPathPrefix('dir') . $this->rootFolder($type));
     }
 
     /**
@@ -212,12 +212,7 @@ trait LfmHelpers
      */
     public function getName($file)
     {
-        $lfm_file_path = $this->getInternalPath($file);
-
-        $arr_dir = explode($this->ds, $lfm_file_path);
-        $file_name = end($arr_dir);
-
-        return $file_name;
+        return substr($file, strrpos($file, $this->ds) + 1);
     }
 
     /**
@@ -431,11 +426,17 @@ trait LfmHelpers
      * @param  string  $path  Real path of a directory.
      * @return array of objects
      */
-    public function getDirectories($fa)
+    public function getDirectories($path)
     {
-        return array_map(function ($directory) use ($fa) {
-            return $this->objectPresenter($directory, $fa);
-        }, $fa->directories());
+        $path = $this->getStoragePath($path);
+        // var_dump($path);
+        // dd($this->disk->directories($path));
+        return array_map(function ($directory) {
+            // \Log::info(json_encode($this->objectPresenter($directory)));
+            return $this->objectPresenter($directory);
+        }, array_filter($this->disk->directories($path), function ($directory) {
+            return $this->getName($directory) !== config('lfm.thumb_folder_name');
+        }));
     }
 
     /**
@@ -444,14 +445,12 @@ trait LfmHelpers
      * @param  object $fa FileApi object.
      * @return array of objects
      */
-    public function getFilesWithInfo($fa)
+    public function getFilesWithInfo($path)
     {
-        return array_map(function ($filename) use ($fa) {
-            return $this->objectPresenter($filename, $fa);
-        }, array_filter($fa->files(), function ($file) use ($fa) {
-            $thumb_tail_name = '_' . FileApi::SIZE_SMALL . '.' . $fa->extension($file);
-            return strpos($file, $thumb_tail_name) === false;
-        }));
+        $path = $this->getStoragePath($path);
+        return array_map(function ($filename) {
+            return $this->objectPresenter($filename);
+        }, $this->disk->files($path));
     }
 
     /**
@@ -461,37 +460,43 @@ trait LfmHelpers
      * @param  object $fa FileApi object.
      * @return object
      */
-    public function objectPresenter($item, $fa)
+    public function objectPresenter($item)
     {
-        $is_file = $fa->isFile($item);
+        $item_name = $this->getName($item);
+        $full_path = $this->getFullPath($item);
+        $is_file = !$this->isDirectory($full_path);
 
         if (!$is_file) {
             $file_type = trans($this->package_name . '::lfm.type-folder');
             $icon = 'fa-folder-o';
-        } elseif ($fa->fileIsImage($item)) {
-            $file_type = $fa->getFileType($item);
             $thumb_url = asset('vendor/' . $this->package_name . '/img/folder.png');
+        } elseif ($this->fileIsImage($item)) {
+            $file_type = $this->getFileType($item);
             $icon = 'fa-image';
 
-            if ($fa->fileHasThumb($item, FileApi::SIZE_SMALL)) {
-                $thumb_url = $fa->get($item, FileApi::SIZE_SMALL) . '?timestamp=' . $fa->lastModified($item);
+            $thumb_path = $this->getThumbPath($item_name);
+            $file_path = $this->getCurrentPath($item_name);
+            if ($this->imageShouldNotHaveThumb($file_path)) {
+                $thumb_url = $this->getFileUrl($item_name) . '?timestamp=' . filemtime($file_path);
+            } elseif ($this->disk->exists($thumb_path)) {
+                $thumb_url = $this->getThumbUrl($item_name) . '?timestamp=' . filemtime($thumb_path);
             } else {
-                $thumb_url = $fa->get($item, FileApi::SIZE_ORIGINAL);
+                $thumb_url = $this->getFileUrl($item_name) . '?timestamp=' . filemtime($file_path);
             }
         } else {
-            $extension = strtolower($fa->extension($item));
+            $extension = strtolower($this->disk->extension($item_name));
             $file_type = config('lfm.file_type_array.' . $extension) ?: 'File';
             $icon = config('lfm.file_icon_array.' . $extension) ?: 'fa-file';
             $thumb_url = null;
         }
 
         return (object)[
-            'name'    => $item,
-            'url'     => $is_file ? $fa->get($item, FileApi::SIZE_ORIGINAL) : '',
-            'size'    => $is_file ? $this->humanFilesize($fa->size($item)) : '',
-            'updated' => $fa->lastModified($item),
-            'path'    => $is_file ? '' : $this->removePathPrefix($fa->getPath($item)),
-            'time'    => date("Y-m-d h:m", $fa->lastModified($item)),
+            'name'    => $item_name,
+            'url'     => $is_file ? $this->driver->get($item) : '',
+            'size'    => $is_file ? $this->humanFilesize($this->size($item)) : '',
+            'updated' => $this->disk->lastModified($item),
+            'path'    => $is_file ? '' : $this->getInternalPath($full_path),
+            'time'    => date("Y-m-d h:m", $this->disk->lastModified($item)),
             'type'    => $file_type,
             'icon'    => $icon,
             'thumb'   => $thumb_url,
@@ -507,9 +512,20 @@ trait LfmHelpers
      */
     public function createFolderByPath($path)
     {
-        if (!File::exists($path)) {
-            File::makeDirectory($path, 0777, true, true);
+        $path = $this->getStoragePath($path);
+        if (!$this->disk->exists($path)) {
+            $this->disk->makeDirectory($path, 0777, true, true);
         }
+    }
+
+    private function getStoragePath($path)
+    {
+        return str_replace($this->disk_root . '/', '', $path);
+    }
+
+    public function getFullPath($storage_path)
+    {
+        return $this->disk_root . $this->ds . $storage_path;
     }
 
     /**
@@ -520,7 +536,7 @@ trait LfmHelpers
      */
     public function directoryIsEmpty($directory_path)
     {
-        return count(File::allFiles($directory_path)) == 0;
+        return count($this->disk->allFiles($directory_path)) == 0;
     }
 
     /**
@@ -534,6 +550,19 @@ trait LfmHelpers
         $mime_type = $this->getFileType($file);
 
         return starts_with($mime_type, 'image');
+    }
+
+    public function isDirectory($path)
+    {
+        $path = $this->getStoragePath($path);
+        $directory_path = substr($path, 0, strrpos($path, $this->ds));
+        $directory_name = $this->getName($path);
+        return in_array($path, $this->disk->directories($directory_path));
+    }
+
+    public function move($old_file, $new_file)
+    {
+        $this->disk->move($this->getStoragePath($old_file), $this->getStoragePath($new_file));
     }
 
     /**
@@ -561,7 +590,7 @@ trait LfmHelpers
         if ($file instanceof UploadedFile) {
             $mime_type = $file->getMimeType();
         } else {
-            $mime_type = File::mimeType($file);
+            $mime_type = $this->disk->mimeType($this->getStoragePath($file));
         }
 
         return $mime_type;

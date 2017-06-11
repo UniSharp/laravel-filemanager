@@ -26,8 +26,10 @@ class ItemsController extends LfmController
             $key_to_sort = 'updated';
         }
 
-        $files = parent::sortByColumn(parent::getFilesWithInfo($path), $sort_type);
-        $directories = parent::sortByColumn(parent::getDirectories($path), $sort_type);
+        // \Log::info(\File::directories($path));
+
+        $files = parent::sortByColumn(parent::getFilesWithInfo($path), $key_to_sort);
+        $directories = parent::sortByColumn(parent::getDirectories($path), $key_to_sort);
 
         return [
             'html' => (string)view($this->getView())->with([

@@ -54,19 +54,16 @@ class FolderController extends LfmController
     {
         $folder_name = parent::translateFromUtf8(trim(request('name')));
 
-        $working_dir = parent::getCurrentPath();
-        $fa = new FileApi($working_dir);
-
         $path = parent::getCurrentPath($folder_name);
 
         if (empty($folder_name)) {
             return parent::error('folder-name');
-        } elseif ($fa->exists($folder_name)) {
+        } elseif ($this->disk->exists($folder_name)) {
             return parent::error('folder-exist');
         } elseif (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
             return parent::error('folder-alnum');
         } else {
-            $fa->makeDirectory($folder_name);
+            $this->createFolderByPath($path);
             return parent::$success_response;
         }
     }
