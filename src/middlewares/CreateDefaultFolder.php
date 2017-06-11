@@ -11,6 +11,7 @@ class CreateDefaultFolder
 
     public function handle($request, Closure $next)
     {
+        $this->initHelper();
         $this->checkDefaultFolderExists('user');
         $this->checkDefaultFolderExists('share');
 

@@ -21,6 +21,21 @@ trait LfmHelpers
 
     protected $package_name = 'laravel-filemanager';
 
+    private $disk_name = 'local';
+
+    private $disk_root;
+
+    public $disk;
+
+    private $driver;
+
+    public function initHelper()
+    {
+        $this->disk = Storage::disk($this->disk_name); // config('lfm.disk')
+        $this->driver = new FileApi($this->getCurrentPath());
+        $this->disk_root = config('filesystems.disks.' . $this->disk_name . '.root');
+    }
+
     /**
      * Get real path of a thumbnail on the operating system.
      *
