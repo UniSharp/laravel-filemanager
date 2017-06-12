@@ -28,7 +28,7 @@ class DeleteController extends LfmController
             return parent::error('folder-name');
         }
 
-        if (!$fa->exists($name_to_delete)) {
+        if (!parent::exists($file_to_delete)) {
             return parent::error('folder-not-found', ['folder' => $file_to_delete]);
         }
 

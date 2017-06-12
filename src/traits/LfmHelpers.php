@@ -478,7 +478,7 @@ trait LfmHelpers
             $file_path = $this->getCurrentPath($item_name);
             if ($this->imageShouldNotHaveThumb($file_path)) {
                 $thumb_url = $this->getFileUrl($item_name) . '?timestamp=' . filemtime($file_path);
-            } elseif ($this->disk->exists($thumb_path)) {
+            } elseif ($this->exists($thumb_path)) {
                 $thumb_url = $this->getThumbUrl($item_name) . '?timestamp=' . filemtime($thumb_path);
             } else {
                 $thumb_url = $this->getFileUrl($item_name) . '?timestamp=' . filemtime($file_path);
@@ -512,9 +512,8 @@ trait LfmHelpers
      */
     public function createFolderByPath($path)
     {
-        $path = $this->getStoragePath($path);
-        if (!$this->disk->exists($path)) {
-            $this->disk->makeDirectory($path, 0777, true, true);
+        if (!$this->exists($path)) {
+            $this->disk->makeDirectory($this->getStoragePath($path), 0777, true, true);
         }
     }
 
@@ -537,6 +536,10 @@ trait LfmHelpers
     public function directoryIsEmpty($directory_path)
     {
         return count($this->disk->allFiles($directory_path)) == 0;
+
+    public function exists($full_path)
+    {
+        return $this->disk->exists($this->getStoragePath($full_path));
     }
 
     /**
