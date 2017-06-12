@@ -18,9 +18,7 @@ class DeleteController extends LfmController
     public function getDelete()
     {
         $name_to_delete = request('items');
-        $working_dir = parent::getCurrentPath();
-        $file_to_delete = $working_dir . DIRECTORY_SEPARATOR . $name_to_delete;
-        $fa = new FileApi($working_dir);
+        $file_to_delete = parent::getCurrentPath($name_to_delete);
 
         event(new ImageIsDeleting($file_to_delete));
 
@@ -32,17 +30,19 @@ class DeleteController extends LfmController
             return parent::error('folder-not-found', ['folder' => $file_to_delete]);
         }
 
-        if ($fa->isDirectory($name_to_delete)) {
-            if (!$fa->directoryIsEmpty($name_to_delete)) {
+        if (parent::isDirectory($file_to_delete)) {
+            if (!parent::directoryIsEmpty($file_to_delete)) {
                 return parent::error('delete-folder');
             }
 
-            $fa->deleteDirectory($name_to_delete);
+            parent::deleteDirectory($file_to_delete);
+        } else {
+            if (parent::fileIsImage($file_to_delete)) {
+               parent::delete($thumb_to_delete);
+            }
 
-            return parent::$success_response;
+            parent::delete($file_to_delete);
         }
-
-        $fa->drop($name_to_delete);
 
         event(new ImageWasDeleted($file_to_delete));
 

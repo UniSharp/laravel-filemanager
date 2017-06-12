@@ -535,11 +535,22 @@ trait LfmHelpers
      */
     public function directoryIsEmpty($directory_path)
     {
-        return count($this->disk->allFiles($directory_path)) == 0;
+        return count($this->disk->allFiles($this->getStoragePath($directory_path))) == 0;
+    }
 
     public function exists($full_path)
     {
         return $this->disk->exists($this->getStoragePath($full_path));
+    }
+
+    public function delete($full_path)
+    {
+        return $this->disk->delete($this->getStoragePath($full_path));
+    }
+
+    public function deleteDirectory($full_path)
+    {
+        return $this->disk->deleteDirectory($this->getStoragePath($full_path));
     }
 
     /**
