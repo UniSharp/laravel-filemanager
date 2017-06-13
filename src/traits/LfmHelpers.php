@@ -21,19 +21,21 @@ trait LfmHelpers
 
     protected $package_name = 'laravel-filemanager';
 
-    private $disk_name = 'local';
+    private $disk_name = 'local'; // config('lfm.disk')
 
     private $disk_root;
 
     public $disk;
 
-    private $driver;
+    public $driver;
+    public $thumb_driver;
 
     public function initHelper()
     {
-        $this->disk = Storage::disk($this->disk_name); // config('lfm.disk')
-        $this->driver = new FileApi($this->getCurrentPath());
+        $this->disk = Storage::disk($this->disk_name);
         $this->disk_root = config('filesystems.disks.' . $this->disk_name . '.root');
+        $this->driver = new FileApi($this->getStoragePath($this->getCurrentPath()));
+        $this->thumb_driver = new FileApi($this->getStoragePath($this->getThumbPath()));
     }
 
     /**
@@ -429,10 +431,7 @@ trait LfmHelpers
     public function getDirectories($path)
     {
         $path = $this->getStoragePath($path);
-        // var_dump($path);
-        // dd($this->disk->directories($path));
         return array_map(function ($directory) {
-            // \Log::info(json_encode($this->objectPresenter($directory)));
             return $this->objectPresenter($directory);
         }, array_filter($this->disk->directories($path), function ($directory) {
             return $this->getName($directory) !== config('lfm.thumb_folder_name');
@@ -484,7 +483,7 @@ trait LfmHelpers
                 $thumb_url = $this->getFileUrl($item_name) . '?timestamp=' . filemtime($file_path);
             }
         } else {
-            $extension = strtolower($this->disk->extension($item_name));
+            $extension = strtolower(\File::extension($item_name));
             $file_type = config('lfm.file_type_array.' . $extension) ?: 'File';
             $icon = config('lfm.file_icon_array.' . $extension) ?: 'fa-file';
             $thumb_url = null;
@@ -493,7 +492,7 @@ trait LfmHelpers
         return (object)[
             'name'    => $item_name,
             'url'     => $is_file ? $this->driver->get($item) : '',
-            'size'    => $is_file ? $this->humanFilesize($this->size($item)) : '',
+            'size'    => $is_file ? $this->humanFilesize($this->disk->size($item)) : '',
             'updated' => $this->disk->lastModified($item),
             'path'    => $is_file ? '' : $this->getInternalPath($full_path),
             'time'    => date("Y-m-d h:m", $this->disk->lastModified($item)),
