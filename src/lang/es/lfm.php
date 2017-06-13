@@ -19,7 +19,7 @@ return [
     'title-upload'      => 'Subir Archivo',
     'title-view'        => 'Ver Archivo',
     'title-user'        => 'Archivos',
-    'title-shares'      => 'Archivos Compartidos',
+    'title-share'       => 'Archivos Compartidos',
     'title-item'        => 'Item',
     'title-size'        => 'Tamaño',
     'title-type'        => 'Tipo',

@@ -22,7 +22,7 @@ return [
     'title-upload'      => 'Upload File(s)',
     'title-view'        => 'View File',
     'title-user'        => 'Files',
-    'title-shares'      => 'Shared Files',
+    'title-share'       => 'Shared Files',
     'title-item'        => 'Item',
     'title-size'        => 'Size',
     'title-type'        => 'Type',

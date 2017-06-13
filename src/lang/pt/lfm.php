@@ -19,7 +19,7 @@ return [
     'title-upload'      => 'Envio de Arquivo',
     'title-view'        => 'Ver Arquivo',
     'title-user'        => 'Arquivos',
-    'title-shares'      => 'Arquivos Partilhados',
+    'title-share'       => 'Arquivos Partilhados',
     'title-item'        => 'Item',
     'title-size'        => 'Tamanho',
     'title-type'        => 'Tipo',

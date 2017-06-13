@@ -19,7 +19,7 @@ return [
     'title-upload'      => 'Fájl feltöltés',
     'title-view'        => 'Fájl megtekintés',
     'title-user'        => 'Fájlok',
-    'title-shares'      => 'Megosztott fájlok',
+    'title-share'       => 'Megosztott fájlok',
     'title-item'        => 'Elem',
     'title-size'        => 'Méret',
     'title-type'        => 'Típus',

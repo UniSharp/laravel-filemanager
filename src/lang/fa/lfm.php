@@ -19,7 +19,7 @@ return [
     'title-upload'      => 'آپلود کردن فایل',
     'title-view'        => 'مشاهده فایل',
     'title-user'        => 'فایل ها',
-    'title-shares'      => 'فایل های اشتراکی',
+    'title-share'       => 'فایل های اشتراکی',
     'title-item'        => 'آیتم',
     'title-size'        => 'اندازه',
     'title-type'        => 'نوع',

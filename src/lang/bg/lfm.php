@@ -19,7 +19,7 @@ return [
     'title-upload'      => 'Качи файл',
     'title-view'        => 'Виж файл',
     'title-user'        => 'Файлове',
-    'title-shares'      => 'Споделени Файлове',
+    'title-share'       => 'Споделени Файлове',
     'title-item'        => 'Елемент',
     'title-size'        => 'Размер',
     'title-type'        => 'Тип',

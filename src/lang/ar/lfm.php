@@ -19,7 +19,7 @@ return [
     'title-upload'      => 'رفع ملف',
     'title-view'        => 'عرض الملف',
     'title-user'        => 'الملفات',
-    'title-shares'      => 'الملفات المشتركة',
+    'title-share'       => 'الملفات المشتركة',
     'title-item'        => 'ملف',
     'title-size'        => 'الحجم',
     'title-type'        => 'النوع',

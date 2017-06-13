@@ -19,7 +19,7 @@ return [
     'title-upload'      => '上传档案',
     'title-view'        => '预览档案',
     'title-user'        => '我的档案',
-    'title-shares'      => '共享的文件',
+    'title-share'       => '共享的文件',
     'title-item'        => '项目名称',
     'title-size'        => '档案大小',
     'title-type'        => '档案类型',

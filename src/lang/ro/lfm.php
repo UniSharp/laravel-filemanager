@@ -19,7 +19,7 @@ return [
     'title-upload'      => 'Încarcă fișier(e)',
     'title-view'        => 'Vezi fișier',
     'title-user'        => 'Fișiere',
-    'title-shares'      => 'Fișiere distribuite',
+    'title-share'       => 'Fișiere distribuite',
     'title-item'        => 'Element',
     'title-size'        => 'Dimensiune',
     'title-type'        => 'Tip',

@@ -22,7 +22,7 @@ return [
     'title-upload'        => 'Bestand uploaden',
     'title-view'          => 'Bestand bekijken',
     'title-user'          => 'Bestanden',
-    'title-shares'        => 'Openbare map',
+    'title-share'         => 'Openbare map',
     'title-item'          => 'Item',
     'title-size'          => 'Grootte',
     'title-type'          => 'Type',

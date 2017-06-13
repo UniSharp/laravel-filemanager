@@ -19,7 +19,7 @@ return [
     'title-upload' => 'Datei hochladen',
     'title-view' => 'Datei ansehen',
     'title-user' => 'Dateien',
-    'title-shares' => 'Gemeinsame Dateien',
+    'title-share'  => 'Gemeinsame Dateien',
     'title-item' => 'Item',
     'title-size' => 'Größe',
     'title-type' => 'Typ',

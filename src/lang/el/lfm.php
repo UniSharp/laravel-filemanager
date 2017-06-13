@@ -19,7 +19,7 @@ return [
     'title-upload'      => 'Ανέβασμα αρχείου',
     'title-view'        => 'Επισκόπηση αρχείου',
     'title-user'        => 'Αρχεία',
-    'title-shares'      => 'Κοινόχρηστα αρχεία',
+    'title-share'       => 'Κοινόχρηστα αρχεία',
     'title-item'        => 'Αντικείμενο',
     'title-size'        => 'Μέγεθος',
     'title-type'        => 'Τύπος',

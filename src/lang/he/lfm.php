@@ -19,7 +19,7 @@ return [
     'title-upload'      => 'העלאת קובץ',
     'title-view'        => 'צפייה בקובץ',
     'title-user'        => 'קבצים',
-    'title-shares'      => 'קבצים משותפים',
+    'title-share'       => 'קבצים משותפים',
     'title-item'        => 'פריט',
     'title-size'        => 'גודל',
     'title-type'        => 'סוג',

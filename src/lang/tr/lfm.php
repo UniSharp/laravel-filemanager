@@ -19,7 +19,7 @@ return [
     'title-upload'      => 'Dosya Yükle',
     'title-view'        => 'Dosya Gör',
     'title-user'        => 'Dosyalarım',
-    'title-shares'      => 'Paylaşılan Dosyalar',
+    'title-share'       => 'Paylaşılan Dosyalar',
     'title-item'        => 'Dosya',
     'title-size'        => 'Boyut',
     'title-type'        => 'Tür',

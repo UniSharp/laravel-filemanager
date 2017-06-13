@@ -22,7 +22,7 @@ return [
     'title-upload'      => 'Envoyer un/des fichier(s)',
     'title-view'        => 'Voir le fichier',
     'title-user'        => 'Fichiers',
-    'title-shares'      => 'Fichiers partagés',
+    'title-share'       => 'Fichiers partagés',
     'title-item'        => 'Élement',
     'title-size'        => 'Taille du fichier',
     'title-type'        => 'Type de fichier',

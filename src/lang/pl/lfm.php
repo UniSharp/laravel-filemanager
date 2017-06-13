@@ -19,7 +19,7 @@ return [
     'title-upload'      => 'Wgraj plik',
     'title-view'        => 'Podgląd',
     'title-user'        => 'Pliki',
-    'title-shares'      => 'Udostępnione pliki',
+    'title-share'       => 'Udostępnione pliki',
     'title-item'        => 'Nazwa',
     'title-size'        => 'Rozmiar',
     'title-type'        => 'Typ',
