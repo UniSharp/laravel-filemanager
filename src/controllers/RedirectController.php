@@ -11,62 +11,20 @@ use Unisharp\FileApi\FileApi;
  */
 class RedirectController extends LfmController
 {
-    private $filename;
-    private $fa;
-
-    public function __construct()
+    public function showFile($file_path)
     {
-        $delimiter = config('lfm.prefix') . '/';
-        $url = request()->url();
-        // dd($delimiter);
-        $external_path = substr($url, strpos($url, $delimiter));
-        preg_match('/(.+)\/([^\/]+)/', $external_path, $matches);
-        $path = $matches[1];
-        $filename = $matches[2];
+        $request_url = urldecode(request()->url());
+        $storage_path = str_replace(url('/') . '/', '', $request_url);
+        $full_path = $this->disk_root . '/' . $storage_path;
 
-        $this->fa = new FileApi($path);
-        $this->filename = $filename;
-    }
-
-    /**
-     * Get image from custom directory by route
-     *
-     * @param string $image_path
-     * @return string
-     */
-    public function getImage($base_path, $image_name)
-    {
-        // return $this->responseImageOrFile();
-        return $this->fa->getResponse($this->filename);
-    }
-
-    /**
-     * Get file from custom directory by route
-     *
-     * @param string $file_name
-     * @return string
-     */
-    public function getFile(Request $request, $base_path, $file_name)
-    {
-        // $request->request->add(['type' => 'Files']);
-
-        // return $this->responseImageOrFile();
-        return $this->fa->getResponse($this->filename);
-    }
-
-    private function responseImageOrFile()
-    {
-        $file_path = $this->file_path;
-
-        if (!File::exists($file_path)) {
+        if (!parent::exists($full_path)) {
             abort(404);
         }
 
-        $file = File::get($file_path);
-        $type = parent::getFileType($file_path);
+        $file = parent::getFile($storage_path);
 
         $response = Response::make($file);
-        $response->header("Content-Type", $type);
+        $response->header("Content-Type", parent::getFileType($full_path));
 
         return $response;
     }

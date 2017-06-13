@@ -23,7 +23,7 @@ trait LfmHelpers
 
     private $disk_name = 'local'; // config('lfm.disk')
 
-    private $disk_root;
+    public $disk_root;
 
     public $disk;
 
@@ -550,6 +550,11 @@ trait LfmHelpers
     public function deleteDirectory($full_path)
     {
         return $this->disk->deleteDirectory($this->getStoragePath($full_path));
+    }
+
+    public function getFile($storage_path)
+    {
+        return $this->disk->get($storage_path);
     }
 
     /**

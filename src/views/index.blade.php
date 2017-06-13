@@ -149,7 +149,7 @@
   <script src="{{ asset('vendor/laravel-filemanager/js/jquery.form.min.js') }}"></script>
   <script>
     var route_prefix = "{{ url('/') }}";
-    var lfm_route = "{{ url(config('lfm.prefix')) }}";
+    var lfm_route = "{{ url(config('lfm.url_prefix')) }}";
     var lang = {!! json_encode(trans('laravel-filemanager::lfm')) !!};
   </script>
   <script>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/script.js')) !!}</script>
