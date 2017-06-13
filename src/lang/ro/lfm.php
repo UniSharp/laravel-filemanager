@@ -18,7 +18,7 @@ return [
     'title-panel'       => 'Laravel FileManager',
     'title-upload'      => 'Încarcă fișier(e)',
     'title-view'        => 'Vezi fișier',
-    'title-root'        => 'Fișiere',
+    'title-user'        => 'Fișiere',
     'title-shares'      => 'Fișiere distribuite',
     'title-item'        => 'Element',
     'title-size'        => 'Dimensiune',

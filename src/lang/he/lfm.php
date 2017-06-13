@@ -18,7 +18,7 @@ return [
     'title-panel'       => 'מנהל קבצים',
     'title-upload'      => 'העלאת קובץ',
     'title-view'        => 'צפייה בקובץ',
-    'title-root'        => 'קבצים',
+    'title-user'        => 'קבצים',
     'title-shares'      => 'קבצים משותפים',
     'title-item'        => 'פריט',
     'title-size'        => 'גודל',

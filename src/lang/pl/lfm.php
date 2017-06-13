@@ -18,7 +18,7 @@ return [
     'title-panel'       => 'Laravel FileManager',
     'title-upload'      => 'Wgraj plik',
     'title-view'        => 'Podgląd',
-    'title-root'        => 'Pliki',
+    'title-user'        => 'Pliki',
     'title-shares'      => 'Udostępnione pliki',
     'title-item'        => 'Nazwa',
     'title-size'        => 'Rozmiar',

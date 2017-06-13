@@ -18,7 +18,7 @@ return [
     'title-panel'       => 'Laravel FileManager',
     'title-upload'      => 'Ανέβασμα αρχείου',
     'title-view'        => 'Επισκόπηση αρχείου',
-    'title-root'        => 'Αρχεία',
+    'title-user'        => 'Αρχεία',
     'title-shares'      => 'Κοινόχρηστα αρχεία',
     'title-item'        => 'Αντικείμενο',
     'title-size'        => 'Μέγεθος',

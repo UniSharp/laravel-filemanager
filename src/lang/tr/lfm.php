@@ -18,7 +18,7 @@ return [
     'title-panel'       => 'Laravel Dosya Kütüphanesi',
     'title-upload'      => 'Dosya Yükle',
     'title-view'        => 'Dosya Gör',
-    'title-root'        => 'Dosyalarım',
+    'title-user'        => 'Dosyalarım',
     'title-shares'      => 'Paylaşılan Dosyalar',
     'title-item'        => 'Dosya',
     'title-size'        => 'Boyut',

@@ -18,7 +18,7 @@ return [
     'title-panel'       => 'Laravel FileManager',
     'title-upload'      => 'Загрузка файла',
     'title-view'        => 'Просмотр файла',
-    'title-root'        => 'Файлы',
+    'title-user'        => 'Файлы',
     'title-shares'      => 'Общие файлы',
     'title-item'        => 'Номер',
     'title-size'        => 'Размер',

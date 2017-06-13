@@ -18,7 +18,7 @@ return [
     'title-panel'       => 'Laravel Fájlkezelő',
     'title-upload'      => 'Fájl feltöltés',
     'title-view'        => 'Fájl megtekintés',
-    'title-root'        => 'Fájlok',
+    'title-user'        => 'Fájlok',
     'title-shares'      => 'Megosztott fájlok',
     'title-item'        => 'Elem',
     'title-size'        => 'Méret',

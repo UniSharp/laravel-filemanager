@@ -18,7 +18,7 @@ return [
     'title-panel'       => '档案管理',
     'title-upload'      => '上传档案',
     'title-view'        => '预览档案',
-    'title-root'        => '我的档案',
+    'title-user'        => '我的档案',
     'title-shares'      => '共享的文件',
     'title-item'        => '项目名称',
     'title-size'        => '档案大小',

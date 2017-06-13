@@ -18,7 +18,7 @@ return [
     'title-panel' => 'FileManager',
     'title-upload' => 'Datei hochladen',
     'title-view' => 'Datei ansehen',
-    'title-root' => 'Dateien',
+    'title-user' => 'Dateien',
     'title-shares' => 'Gemeinsame Dateien',
     'title-item' => 'Item',
     'title-size' => 'Größe',

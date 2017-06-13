@@ -21,7 +21,7 @@ return [
     'title-panel'       => 'Laravel FileManager',
     'title-upload'      => 'Upload File(s)',
     'title-view'        => 'View File',
-    'title-root'        => 'Files',
+    'title-user'        => 'Files',
     'title-shares'      => 'Shared Files',
     'title-item'        => 'Item',
     'title-size'        => 'Size',

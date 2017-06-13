@@ -18,7 +18,7 @@ return [
     'title-panel'       => 'مدیریت فایل لاراول',
     'title-upload'      => 'آپلود کردن فایل',
     'title-view'        => 'مشاهده فایل',
-    'title-root'        => 'فایل ها',
+    'title-user'        => 'فایل ها',
     'title-shares'      => 'فایل های اشتراکی',
     'title-item'        => 'آیتم',
     'title-size'        => 'اندازه',

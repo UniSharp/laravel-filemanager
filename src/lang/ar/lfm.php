@@ -18,7 +18,7 @@ return [
     'title-panel'       => 'مدير الملفات',
     'title-upload'      => 'رفع ملف',
     'title-view'        => 'عرض الملف',
-    'title-root'        => 'الملفات',
+    'title-user'        => 'الملفات',
     'title-shares'      => 'الملفات المشتركة',
     'title-item'        => 'ملف',
     'title-size'        => 'الحجم',

@@ -18,7 +18,7 @@ return [
     'title-panel'       => 'Administrador de Archivos',
     'title-upload'      => 'Subir Archivo',
     'title-view'        => 'Ver Archivo',
-    'title-root'        => 'Archivos',
+    'title-user'        => 'Archivos',
     'title-shares'      => 'Archivos Compartidos',
     'title-item'        => 'Item',
     'title-size'        => 'Tamaño',

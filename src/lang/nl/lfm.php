@@ -21,7 +21,7 @@ return [
     'title-panel'         => 'Laravel FileManager',
     'title-upload'        => 'Bestand uploaden',
     'title-view'          => 'Bestand bekijken',
-    'title-root'          => 'Bestanden',
+    'title-user'          => 'Bestanden',
     'title-shares'        => 'Openbare map',
     'title-item'          => 'Item',
     'title-size'          => 'Grootte',

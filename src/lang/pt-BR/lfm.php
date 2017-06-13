@@ -18,7 +18,7 @@ return [
     'title-panel'       => 'Gerenciador de Arquivos',
     'title-upload'      => 'Envio de Arquivo',
     'title-view'        => 'Ver Arquivo',
-    'title-root'        => 'Arquivos',
+    'title-user'        => 'Arquivos',
     'title-shares'      => 'Arquivos Compartilhados',
     'title-item'        => 'Item',
     'title-size'        => 'Tamanho',
