@@ -491,7 +491,7 @@ trait LfmHelpers
 
         return (object)[
             'name'    => $item_name,
-            'url'     => $is_file ? $this->driver->get($item) : '',
+            'url'     => $is_file ? $this->getFileUrl($item_name) : '',
             'size'    => $is_file ? $this->humanFilesize($this->disk->size($item)) : '',
             'updated' => $this->disk->lastModified($item),
             'path'    => $is_file ? '' : $this->getInternalPath($full_path),
