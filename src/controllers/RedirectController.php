@@ -1,31 +1,20 @@
-<?php namespace Unisharp\Laravelfilemanager\controllers;
+<?php
 
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Http\Request;
-use Unisharp\FileApi\FileApi;
+namespace Unisharp\Laravelfilemanager\controllers;
 
-/**
- * Class RedirectController
- * @package Unisharp\Laravelfilemanager\controllers
- */
 class RedirectController extends LfmController
 {
-    public function showFile($file_path)
+    public function showFile()
     {
         $request_url = urldecode(request()->url());
-        $storage_path = str_replace(url('/') . '/', '', $request_url);
-        $full_path = $this->disk_root . '/' . $storage_path;
+        $storage_path = str_replace(url('/'), '', $request_url);
+        $full_path = $this->disk_root . $storage_path;
 
         if (!parent::exists($full_path)) {
             abort(404);
         }
 
-        $file = parent::getFile($storage_path);
-
-        $response = Response::make($file);
-        $response->header("Content-Type", parent::getFileType($full_path));
-
-        return $response;
+        return response(parent::getFile($storage_path))
+            ->header("Content-Type", parent::getFileType($full_path));
     }
 }

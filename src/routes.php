@@ -39,10 +39,8 @@ Route::group(compact('middleware', 'prefix', 'as', 'namespace'), function () {
         'uses' => 'FolderController@getAddfolder',
         'as' => 'getAddfolder'
     ]);
-    // Route::get('/deletefolder', [
-    //     'uses' => 'FolderController@getDeletefolder',
-    //     'as' => 'getDeletefolder'
-    // ]);
+
+    // list folders
     Route::get('/folders', [
         'uses' => 'FolderController@getFolders',
         'as' => 'getFolders'

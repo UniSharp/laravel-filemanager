@@ -1,4 +1,4 @@
-@if((sizeof($files) > 0) || (sizeof($directories) > 0))
+@if(sizeof($items) > 0)
 
 <div class="row">
 

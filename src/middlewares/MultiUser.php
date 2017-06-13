@@ -13,7 +13,7 @@ class MultiUser
     {
         $this->initHelper();
 
-        if ($this->allowMultiUser()) {
+        if ($this->allowFolderType('user')) {
             $previous_dir = $request->input('working_dir');
             $working_dir  = $this->rootFolder('user');
 

@@ -1,11 +1,7 @@
-<?php namespace Unisharp\Laravelfilemanager\controllers;
+<?php
 
-use Unisharp\FileApi\FileApi;
+namespace Unisharp\Laravelfilemanager\controllers;
 
-/**
- * Class FolderController
- * @package Unisharp\Laravelfilemanager\controllers
- */
 class FolderController extends LfmController
 {
     /**
@@ -15,33 +11,26 @@ class FolderController extends LfmController
      */
     public function getFolders()
     {
-        $folder_types = [];
-        $root_folders = [];
-
-        if (parent::allowMultiUser()) {
-            $folder_types['user'] = 'root';
-        }
-
-        if (parent::allowShareFolder()) {
-            $folder_types['share'] = 'shares';
-        }
-
-        foreach ($folder_types as $folder_type => $lang_key) {
-            $root_folder_path = parent::getRootFolderPath($folder_type);
-
-            $children = parent::getDirectories($root_folder_path);
-            $children = parent::sortByColumn($children, 'name');
-
-            array_push($root_folders, (object)[
-                'name' => trans('laravel-filemanager::lfm.title-' . $lang_key),
-                'path' => parent::getInternalPath($root_folder_path),
-                'children' => $children,
-                'has_next' => !($lang_key == end($folder_types))
-            ]);
+        $folder_types = ['user', 'share'];
+        foreach ($folder_types as $key => $type) {
+            if (!parent::allowFolderType($type)) {
+                unset($folder_types[$key]);
+            }
         }
 
         return view('laravel-filemanager::tree')
-            ->with(compact('root_folders'));
+            ->with([
+                'root_folders' => array_map(function ($type) use ($folder_types) {
+                    $root_folder_path = parent::getRootFolderPath($type);
+
+                    return (object)[
+                        'name' => trans('laravel-filemanager::lfm.title-' . $type),
+                        'path' => parent::getInternalPath($root_folder_path),
+                        'children' => parent::sortByColumn(parent::getDirectories($root_folder_path), 'name'),
+                        'has_next' => !($type == end($folder_types))
+                    ];
+                }, $folder_types)
+            ]);
     }
 
 
@@ -63,7 +52,7 @@ class FolderController extends LfmController
         } elseif (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
             return parent::error('folder-alnum');
         } else {
-            $this->createFolderByPath($path);
+            parent::createFolderByPath($path);
             return parent::$success_response;
         }
     }

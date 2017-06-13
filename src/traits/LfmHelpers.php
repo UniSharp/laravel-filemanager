@@ -70,9 +70,9 @@ trait LfmHelpers
      * @param  string|null  $image_name  File name of original image
      * @return string|null
      */
-    public function getThumbUrl($image_name = null)
+    public function getThumbUrl($image_name = null, $with_timestamp = false)
     {
-        return $this->getFileUrl($image_name, 'thumb');
+        return $this->getFileUrl($image_name, $with_timestamp, 'thumb');
     }
 
     /**
@@ -81,9 +81,15 @@ trait LfmHelpers
      * @param  string|null  $image_name  File name of original image
      * @return string|null
      */
-    public function getFileUrl($image_name = null, $is_thumb = null)
+    public function getFileUrl($image_name = null, $with_timestamp = false, $is_thumb = null)
     {
-        return url($this->composeSegments('url', $is_thumb, $image_name));
+        $url = url($this->composeSegments('url', $is_thumb, $image_name));
+
+        if ($with_timestamp) {
+            $url .= '?timestamp=' . filemtime($this->getCurrentPath($image_name, $is_thumb));
+        }
+
+        return $url;
     }
 
     /**
@@ -147,7 +153,7 @@ trait LfmHelpers
 
         if (empty($working_dir)) {
             $default_folder_type = 'share';
-            if ($this->allowMultiUser()) {
+            if ($this->allowFolderType('user')) {
                 $default_folder_type = 'user';
             }
 
@@ -374,12 +380,21 @@ trait LfmHelpers
         return $file_type;
     }
 
+    public function allowFolderType($type)
+    {
+        if ($type == 'user') {
+            return $this->allowMultiUser();
+        } else {
+            return $this->allowShareFolder();
+        }
+    }
+
     /**
      * Check if users are allowed to use their private folders.
      *
      * @return boolean
      */
-    public function allowMultiUser()
+    private function allowMultiUser()
     {
         return config('lfm.allow_multi_user') === true;
     }
@@ -390,7 +405,7 @@ trait LfmHelpers
      *
      * @return boolean
      */
-    public function allowShareFolder()
+    private function allowShareFolder()
     {
         if (!$this->allowMultiUser()) {
             return true;
@@ -428,9 +443,11 @@ trait LfmHelpers
      * @param  string  $path  Real path of a directory.
      * @return array of objects
      */
-    public function getDirectories($path)
+    public function getDirectories($path = null)
     {
+        $path = $path ?: $this->getCurrentPath();
         $path = $this->getStoragePath($path);
+
         return array_map(function ($directory) {
             return $this->objectPresenter($directory);
         }, array_filter($this->disk->directories($path), function ($directory) {
@@ -444,9 +461,11 @@ trait LfmHelpers
      * @param  object $fa FileApi object.
      * @return array of objects
      */
-    public function getFilesWithInfo($path)
+    public function getFilesWithInfo($path = null)
     {
+        $path = $path ?: $this->getCurrentPath();
         $path = $this->getStoragePath($path);
+
         return array_map(function ($filename) {
             return $this->objectPresenter($filename);
         }, $this->disk->files($path));
@@ -476,11 +495,11 @@ trait LfmHelpers
             $thumb_path = $this->getThumbPath($file_name);
             $file_path = $this->getCurrentPath($file_name);
             if ($this->imageShouldNotHaveThumb($file_path)) {
-                $thumb_url = $this->getFileUrl($file_name) . '?timestamp=' . filemtime($file_path);
+                $thumb_url = $this->getFileUrl($file_name, true);
             } elseif ($this->exists($thumb_path)) {
-                $thumb_url = $this->getThumbUrl($file_name) . '?timestamp=' . filemtime($thumb_path);
+                $thumb_url = $this->getThumbUrl($file_name, true);
             } else {
-                $thumb_url = $this->getFileUrl($file_name) . '?timestamp=' . filemtime($file_path);
+                $thumb_url = $this->getFileUrl($file_name, true);
             }
         } else {
             $extension = strtolower(\File::extension($file_name));

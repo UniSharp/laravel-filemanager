@@ -20,11 +20,7 @@ class CreateDefaultFolder
 
     private function checkDefaultFolderExists($type = 'share')
     {
-        if ($type === 'user' && !$this->allowMultiUser()) {
-            return;
-        }
-
-        if ($type === 'share' && !$this->allowShareFolder()) {
+        if (!$this->allowFolderType($type)) {
             return;
         }
 

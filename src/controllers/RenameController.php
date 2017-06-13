@@ -1,19 +1,14 @@
-<?php namespace Unisharp\Laravelfilemanager\controllers;
+<?php
+
+namespace Unisharp\Laravelfilemanager\controllers;
 
 use Unisharp\Laravelfilemanager\Events\ImageIsRenaming;
 use Unisharp\Laravelfilemanager\Events\ImageWasRenamed;
 use Unisharp\Laravelfilemanager\Events\FolderIsRenaming;
 use Unisharp\Laravelfilemanager\Events\FolderWasRenamed;
 
-/**
- * Class RenameController
- * @package Unisharp\Laravelfilemanager\controllers
- */
 class RenameController extends LfmController
 {
-    /**
-     * @return string
-     */
     public function getRename()
     {
         $old_name = parent::translateFromUtf8(request('file'));

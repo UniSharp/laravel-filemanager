@@ -1,13 +1,10 @@
-<?php namespace Unisharp\Laravelfilemanager\controllers;
+<?php
+
+namespace Unisharp\Laravelfilemanager\controllers;
 
 use Unisharp\Laravelfilemanager\Events\ImageIsDeleting;
 use Unisharp\Laravelfilemanager\Events\ImageWasDeleted;
-use Unisharp\FileApi\FileApi;
 
-/**
- * Class CropController
- * @package Unisharp\Laravelfilemanager\controllers
- */
 class DeleteController extends LfmController
 {
     /**
@@ -19,6 +16,7 @@ class DeleteController extends LfmController
     {
         $name_to_delete = request('items');
         $file_to_delete = parent::getCurrentPath($name_to_delete);
+        $thumb_to_delete = parent::getThumbPath($name_to_delete);
 
         event(new ImageIsDeleting($file_to_delete));
 
