@@ -459,43 +459,43 @@ trait LfmHelpers
      * @param  object $fa FileApi object.
      * @return object
      */
-    public function objectPresenter($item)
+    public function objectPresenter($storage_path)
     {
-        $item_name = $this->getName($item);
-        $full_path = $this->getFullPath($item);
+        $file_name = $this->getName($storage_path);
+        $full_path = $this->getFullPath($storage_path);
         $is_file = !$this->isDirectory($full_path);
 
         if (!$is_file) {
             $file_type = trans($this->package_name . '::lfm.type-folder');
             $icon = 'fa-folder-o';
             $thumb_url = asset('vendor/' . $this->package_name . '/img/folder.png');
-        } elseif ($this->fileIsImage($item)) {
-            $file_type = $this->getFileType($item);
+        } elseif ($this->fileIsImage($storage_path)) {
+            $file_type = $this->getFileType($storage_path);
             $icon = 'fa-image';
 
-            $thumb_path = $this->getThumbPath($item_name);
-            $file_path = $this->getCurrentPath($item_name);
+            $thumb_path = $this->getThumbPath($file_name);
+            $file_path = $this->getCurrentPath($file_name);
             if ($this->imageShouldNotHaveThumb($file_path)) {
-                $thumb_url = $this->getFileUrl($item_name) . '?timestamp=' . filemtime($file_path);
+                $thumb_url = $this->getFileUrl($file_name) . '?timestamp=' . filemtime($file_path);
             } elseif ($this->exists($thumb_path)) {
-                $thumb_url = $this->getThumbUrl($item_name) . '?timestamp=' . filemtime($thumb_path);
+                $thumb_url = $this->getThumbUrl($file_name) . '?timestamp=' . filemtime($thumb_path);
             } else {
-                $thumb_url = $this->getFileUrl($item_name) . '?timestamp=' . filemtime($file_path);
+                $thumb_url = $this->getFileUrl($file_name) . '?timestamp=' . filemtime($file_path);
             }
         } else {
-            $extension = strtolower(\File::extension($item_name));
+            $extension = strtolower(\File::extension($file_name));
             $file_type = config('lfm.file_type_array.' . $extension) ?: 'File';
             $icon = config('lfm.file_icon_array.' . $extension) ?: 'fa-file';
             $thumb_url = null;
         }
 
         return (object)[
-            'name'    => $item_name,
-            'url'     => $is_file ? $this->getFileUrl($item_name) : '',
-            'size'    => $is_file ? $this->humanFilesize($this->disk->size($item)) : '',
-            'updated' => $this->disk->lastModified($item),
+            'name'    => $file_name,
+            'url'     => $is_file ? $this->getFileUrl($file_name) : '',
+            'size'    => $is_file ? $this->humanFilesize($this->disk->size($storage_path)) : '',
+            'updated' => $this->disk->lastModified($storage_path),
             'path'    => $is_file ? '' : $this->getInternalPath($full_path),
-            'time'    => date("Y-m-d h:m", $this->disk->lastModified($item)),
+            'time'    => date("Y-m-d h:m", $this->disk->lastModified($storage_path)),
             'type'    => $file_type,
             'icon'    => $icon,
             'thumb'   => $thumb_url,
@@ -516,7 +516,7 @@ trait LfmHelpers
         }
     }
 
-    private function getStoragePath($path)
+    public function getStoragePath($path)
     {
         return str_replace($this->disk_root . '/', '', $path);
     }
