@@ -12,13 +12,12 @@
    * [Upgrade](http://unisharp.github.io/laravel-filemanager/upgrade)
  * Demo : [Laravel Filemanager container](https://github.com/UniSharp/laravel-filemanager-example-5.3)
 
-## v1.7 released
+## v1.8 released
  * Please follow the intructions in [upgrade document](https://unisharp.github.io/laravel-filemanager/upgrade).
  * Important changes :
-   * All code refactored.
-   * Fix Windows compatibility.
-   * Fix file cannot be uploaded to "File Mode".
-   * Config file is also refactored, see [config document](https://unisharp.github.io/laravel-filemanager/config).
+   * Fix Windows compatibility (utf-8 file names and folder names).
+   * New feature : Copy & Crop. Thanks [gwleuverink](https://github.com/gwleuverink).
+   * [Config ducoment](https://unisharp.github.io/laravel-filemanager/config) is refactored.
 
 ## Security
 
