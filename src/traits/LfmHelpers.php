@@ -4,7 +4,6 @@ namespace Unisharp\Laravelfilemanager\traits;
 
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Unisharp\FileApi\FileApi;
 
 trait LfmHelpers
 {
@@ -27,15 +26,10 @@ trait LfmHelpers
 
     public $disk;
 
-    public $driver;
-    public $thumb_driver;
-
     public function initHelper()
     {
         $this->disk = Storage::disk($this->disk_name);
         $this->disk_root = config('filesystems.disks.' . $this->disk_name . '.root');
-        $this->driver = new FileApi($this->getStoragePath($this->getCurrentPath()));
-        $this->thumb_driver = new FileApi($this->getStoragePath($this->getThumbPath()));
     }
 
     /**
@@ -438,91 +432,6 @@ trait LfmHelpers
      ****************************/
 
     /**
-     * Get folders by the given directory.
-     *
-     * @param  string  $path  Real path of a directory.
-     * @return array of objects
-     */
-    public function getDirectories($path = null)
-    {
-        $path = $path ?: $this->getCurrentPath();
-        $path = $this->getStoragePath($path);
-
-        return array_map(function ($directory) {
-            return $this->objectPresenter($directory);
-        }, array_filter($this->disk->directories($path), function ($directory) {
-            return $this->getName($directory) !== config('lfm.thumb_folder_name');
-        }));
-    }
-
-    /**
-     * Get files by the given directory.
-     *
-     * @param  object $fa FileApi object.
-     * @return array of objects
-     */
-    public function getFilesWithInfo($path = null)
-    {
-        $path = $path ?: $this->getCurrentPath();
-        $path = $this->getStoragePath($path);
-
-        return array_map(function ($filename) {
-            return $this->objectPresenter($filename);
-        }, $this->disk->files($path));
-    }
-
-    /**
-     * Format a file or folder to object.
-     *
-     * @param  string $item  Name of a file or directory.
-     * @param  object $fa FileApi object.
-     * @return object
-     */
-    public function objectPresenter($storage_path)
-    {
-        $file_name = $this->getName($storage_path);
-        $full_path = $this->getFullPath($storage_path);
-        $is_file = !$this->isDirectory($full_path);
-
-        if (!$is_file) {
-            $file_type = trans($this->package_name . '::lfm.type-folder');
-            $icon = 'fa-folder-o';
-            $thumb_url = asset('vendor/' . $this->package_name . '/img/folder.png');
-        } elseif ($this->fileIsImage($storage_path)) {
-            $file_type = $this->getFileType($storage_path);
-            $icon = 'fa-image';
-
-            $thumb_path = $this->getThumbPath($file_name);
-            $file_path = $this->getCurrentPath($file_name);
-            if ($this->imageShouldNotHaveThumb($file_path)) {
-                $thumb_url = $this->getFileUrl($file_name, true);
-            } elseif ($this->exists($thumb_path)) {
-                $thumb_url = $this->getThumbUrl($file_name, true);
-            } else {
-                $thumb_url = $this->getFileUrl($file_name, true);
-            }
-        } else {
-            $extension = strtolower(\File::extension($file_name));
-            $file_type = config('lfm.file_type_array.' . $extension) ?: 'File';
-            $icon = config('lfm.file_icon_array.' . $extension) ?: 'fa-file';
-            $thumb_url = null;
-        }
-
-        return (object)[
-            'name'    => $file_name,
-            'url'     => $is_file ? $this->getFileUrl($file_name) : '',
-            'size'    => $is_file ? $this->humanFilesize($this->disk->size($storage_path)) : '',
-            'updated' => $this->disk->lastModified($storage_path),
-            'path'    => $is_file ? '' : $this->getInternalPath($full_path),
-            'time'    => date("Y-m-d h:m", $this->disk->lastModified($storage_path)),
-            'type'    => $file_type,
-            'icon'    => $icon,
-            'thumb'   => $thumb_url,
-            'is_file' => $is_file
-        ];
-    }
-
-    /**
      * Create folder if not exist.
      *
      * @param  string  $path  Real path of a directory.
@@ -574,6 +483,15 @@ trait LfmHelpers
     public function getFile($storage_path)
     {
         return $this->disk->get($storage_path);
+    }
+
+    public function appendToFileName($full_path)
+    {
+        $extension = \File::extension($full_path);
+
+        $new_name = str_replace('.' . $extension, '', $this->getName($full_path)) . '.' . $extension;
+
+        return $new_name;
     }
 
     /**
@@ -708,15 +626,5 @@ trait LfmHelpers
     public function isRunningOnWindows()
     {
         return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
-    }
-
-    /**
-     * Remove the prefix path in a path
-     *
-     * @return string
-     */
-    public function removePathPrefix($path)
-    {
-        return str_replace($this->getPathPrefix('dir'), '', $path);
     }
 }

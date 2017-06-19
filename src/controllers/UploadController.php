@@ -5,9 +5,20 @@ namespace Unisharp\Laravelfilemanager\controllers;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Unisharp\Laravelfilemanager\Events\ImageIsUploading;
 use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
+use Unisharp\FileApi\FileApi;
 
 class UploadController extends LfmController
 {
+    private $driver;
+    private $thumb_driver;
+
+    public function __construct()
+    {
+        $this->driver = new FileApi($this->lfm->path('storage'));
+        $this->thumb_driver = new FileApi($this->lfm->thumb()->path('storage'));
+
+        parent::__construct();
+    }
     /**
      * Upload an image/file and (for images) create thumbnail
      *
