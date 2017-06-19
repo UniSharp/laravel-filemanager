@@ -21,12 +21,12 @@ class FolderController extends LfmController
         return view('laravel-filemanager::tree')
             ->with([
                 'root_folders' => array_map(function ($type) use ($folder_types) {
-                    $root_folder_path = parent::getRootFolderPath($type);
+                    $path = $this->lfm->dir(parent::rootFolder($type));
 
                     return (object)[
                         'name' => trans('laravel-filemanager::lfm.title-' . $type),
-                        'path' => parent::getInternalPath($root_folder_path),
-                        'children' => parent::sortByColumn(parent::getDirectories($root_folder_path), 'name'),
+                        'path' => $path->path('working_dir'),
+                        'children' => parent::sortByColumn($path->folders(), 'name'),
                         'has_next' => !($type == end($folder_types))
                     ];
                 }, $folder_types)
@@ -43,16 +43,14 @@ class FolderController extends LfmController
     {
         $folder_name = parent::translateFromUtf8(trim(request('name')));
 
-        $path = parent::getCurrentPath($folder_name);
-
         if (empty($folder_name)) {
             return parent::error('folder-name');
-        } elseif (parent::exists($path)) {
+        } elseif ($this->lfm->exists($folder_name)) {
             return parent::error('folder-exist');
         } elseif (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
             return parent::error('folder-alnum');
         } else {
-            parent::createFolderByPath($path);
+            $this->lfm->createFolder($folder_name);
             return parent::$success_response;
         }
     }

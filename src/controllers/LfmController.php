@@ -3,6 +3,8 @@
 namespace Unisharp\Laravelfilemanager\controllers;
 
 use Unisharp\Laravelfilemanager\traits\LfmHelpers;
+use Unisharp\Laravelfilemanager\LfmPath;
+use Unisharp\Laravelfilemanager\LfmFile;
 
 class LfmController extends Controller
 {
@@ -16,6 +18,15 @@ class LfmController extends Controller
         $this->initHelper();
     }
 
+    public function __get($var_name)
+    {
+        if ($var_name == 'lfm') {
+            return new LfmPath;
+        }
+
+        return null;
+    }
+
     /**
      * Show the filemanager
      *
@@ -23,6 +34,7 @@ class LfmController extends Controller
      */
     public function show()
     {
+        // dd(app()::VERSION > "5.1.0");
         return view('laravel-filemanager::index');
     }
 

@@ -21,11 +21,12 @@ class UploadController extends LfmController
 
         foreach (is_array($uploaded_files) ? $uploaded_files : [$uploaded_files] as $file) {
             $validation_message = $this->uploadValidator($file);
-            $new_filename = $this->proceedSingleUpload($file);
-
             if ($validation_message !== 'pass') {
                 array_push($error_bag, $validation_message);
+                continue;
             }
+
+            $new_filename = $this->proceedSingleUpload($file);
         }
 
         if (is_array($uploaded_files)) {
@@ -40,7 +41,7 @@ class UploadController extends LfmController
     private function proceedSingleUpload($file)
     {
         $new_filename = $this->getNewName($file);
-        $new_file_path = parent::getCurrentPath($new_filename);
+        $new_file_path = $this->lfm->path('full', $new_filename);
 
         event(new ImageIsUploading($new_file_path));
         try {
@@ -68,7 +69,7 @@ class UploadController extends LfmController
 
         $new_filename = $this->getNewName($file) . '.' . $file->getClientOriginalExtension();
 
-        if (parent::exists(parent::getCurrentPath($new_filename))) {
+        if ($this->lfm->exists($new_filename)) {
             return parent::error('file-exist');
         }
 
@@ -113,7 +114,7 @@ class UploadController extends LfmController
     {
         if (parent::fileIsImage($file) && !parent::imageShouldNotHaveThumb($file)) {
             // create folder for thumbnails
-            parent::createFolderByPath(parent::getThumbPath());
+            parent::createFolderByPath($this->lfm->thumb()->path('full'));
 
             // save original image and thumbnails to thumbnail folder
             $new_filename = $this->thumb_driver->thumbs([
@@ -121,15 +122,21 @@ class UploadController extends LfmController
             ])->crop()->save($file, $new_filename);
 
             // move original image out of thumbnail folder
-            parent::move(parent::getThumbPath($new_filename), parent::getCurrentPath($new_filename));
+            parent::move(
+                $this->lfm->thumb()->path('full', $new_filename),
+                $this->lfm->path('full', $new_filename)
+            );
 
             // rename thumbnail
             $thumb_name = substr_replace($new_filename, '_M', strpos($new_filename, '.'), 0);
-            parent::move(parent::getThumbPath($thumb_name), parent::getThumbPath($new_filename));
+            parent::move(
+                $this->lfm->thumb()->path('full', $thumb_name),
+                $this->lfm->thumb()->path('full', $new_filename)
+            );
 
             // delete compress image
             $compress_name = substr_replace($new_filename, '_CP', strpos($new_filename, '.'), 0);
-            parent::delete(parent::getThumbPath($compress_name));
+            parent::delete($this->lfm->thumb()->path('full', $compress_name));
         } else {
             $new_filename = $this->driver->save($file, $new_filename);
         }

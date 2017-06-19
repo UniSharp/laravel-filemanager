@@ -6,6 +6,6 @@ class DownloadController extends LfmController
 {
     public function getDownload()
     {
-        return response()->download(parent::getCurrentPath(request('file')));
+        return response()->download($this->lfm->path('full', request('file')));
     }
 }

@@ -24,11 +24,11 @@ class ItemsController extends LfmController
         return [
             'html' => (string)view($this->getView())->with([
                 'items' => array_merge(
-                    parent::sortByColumn(parent::getDirectories(), $key_to_sort),
-                    parent::sortByColumn(parent::getFilesWithInfo(), $key_to_sort)
+                    parent::sortByColumn($this->lfm->folders(), $key_to_sort),
+                    parent::sortByColumn($this->lfm->files(), $key_to_sort)
                 )
             ]),
-            'working_dir' => parent::getInternalPath(parent::getCurrentPath())
+            'working_dir' => $this->lfm->path('working_dir')
         ];
     }
 

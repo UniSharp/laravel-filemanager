@@ -15,8 +15,8 @@ class DeleteController extends LfmController
     public function getDelete()
     {
         $name_to_delete = request('items');
-        $file_to_delete = parent::getCurrentPath($name_to_delete);
-        $thumb_to_delete = parent::getThumbPath($name_to_delete);
+        $file_to_delete = $this->lfm->path('full', $name_to_delete);
+        $thumb_to_delete = $this->lfm->thumb()->path('full', $name_to_delete);
 
         event(new ImageIsDeleting($file_to_delete));
 

@@ -14,10 +14,12 @@ class RenameController extends LfmController
         $old_name = parent::translateFromUtf8(request('file'));
         $new_name = parent::translateFromUtf8(trim(request('new_name')));
 
-        $old_file = parent::getCurrentPath($old_name);
+        $old_file = $this->lfm->path('full', $old_name);
+
+        $is_directory = parent::isDirectory($old_file);
 
         if (empty($new_name)) {
-            if ($this->disk->isDirectory($old_file)) {
+            if ($is_directory) {
                 return parent::error('folder-name');
             } else {
                 return parent::error('file-name');
@@ -26,30 +28,35 @@ class RenameController extends LfmController
 
         if (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $new_name)) {
             return parent::error('folder-alnum');
-        } elseif ($this->disk->exists($new_name)) {
+        } elseif ($this->lfm->exists($new_name)) {
             return parent::error('rename');
         }
 
-        if (!$this->isDirectory($old_file)) {
-            $extension = $this->disk->extension($old_file);
-            $new_name = str_replace('.' . $extension, '', $new_name) . '.' . $extension;
+        if (!$is_directory) {
+            $extension = \File::extension($old_file);
+            if ($extension) {
+                $new_name = str_replace('.' . $extension, '', $new_name) . '.' . $extension;
+            }
         }
 
-        $new_file = parent::getCurrentPath($new_name);
+        $new_file = $this->lfm->path('full', $new_name);
 
-        if ($this->isDirectory($old_file)) {
+        if ($is_directory) {
             event(new FolderIsRenaming($old_file, $new_file));
         } else {
             event(new ImageIsRenaming($old_file, $new_file));
         }
 
         if (parent::fileIsImage($old_file)) {
-            $this->move(parent::getThumbPath($old_name), parent::getThumbPath($new_name));
+            $this->move(
+                $this->lfm->thumb()->path('full', $old_name),
+                $this->lfm->thumb()->path('full', $new_name)
+            );
         }
 
         $this->move($old_file, $new_file);
 
-        if ($this->isDirectory($old_file)) {
+        if ($is_directory) {
             event(new FolderWasRenamed($old_file, $new_file));
         } else {
             event(new ImageWasRenamed($old_file, $new_file));
