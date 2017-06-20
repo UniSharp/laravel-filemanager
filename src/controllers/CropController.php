@@ -33,6 +33,13 @@ class CropController extends LfmController
         $dataHeight = request('dataHeight');
         $dataWidth  = request('dataWidth');
         $image_path = $this->lfm->path('full', request('img'));
+        $crop_path  = $image_path;
+
+        if (!$overWrite) {
+            $fileParts = explode('.', request('img'));
+            $fileParts[count($fileParts) - 2] = $fileParts[count($fileParts) - 2] . '_cropped_' . time();
+            $crop_path = parent::getCurrentPath(implode('.', $fileParts));
+        }
 
         event(new ImageIsCropping($image_path));
         // crop image

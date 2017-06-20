@@ -19,7 +19,7 @@ return [
 
     'middlewares' => ['web','auth'],
 
-    'prefix' => 'laravel-filemanager',
+    'urls_prefix' => 'laravel-filemanager',
 
     /*
     |--------------------------------------------------------------------------
