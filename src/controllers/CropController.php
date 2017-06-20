@@ -26,7 +26,7 @@ class CropController extends LfmController
     /**
      * Crop the image (called via ajax)
      */
-    public function getCropimage()
+    public function getCropimage($overWrite = true)
     {
         $dataX      = request('dataX');
         $dataY      = request('dataY');
@@ -38,12 +38,17 @@ class CropController extends LfmController
         // crop image
         Image::make($image_path)
             ->crop($dataWidth, $dataHeight, $dataX, $dataY)
-            ->save($image_path);
+            ->save($crop_path);
 
         // make new thumbnail
-        Image::make($image_path)
+        Image::make($crop_path)
             ->fit(config('lfm.thumb_img_width', 200), config('lfm.thumb_img_height', 200))
             ->save($this->lfm->thumb()->path('full', parent::getName($image_path)));
         event(new ImageWasCropped($image_path));
+    }
+
+    public function getNewCropimage (){
+
+        $this->getCropimage(false);
     }
 }

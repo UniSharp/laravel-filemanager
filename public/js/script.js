@@ -334,7 +334,7 @@ function defaultParameters() {
 }
 
 function notImp() {
-  bootbox.alert('Not yet implemented!');;
+  notify('Not yet implemented!');
 }
 
 function notify(message) {
@@ -342,7 +342,6 @@ function notify(message) {
 }
 
 function fileView(file_url, timestamp) {
-  var rnd = makeRandom();
   bootbox.dialog({
     title: lang['title-view'],
     message: $('<img>')
@@ -352,14 +351,4 @@ function fileView(file_url, timestamp) {
     onEscape: true,
     backdrop: true
   });
-}
-
-function makeRandom() {
-  var text = '';
-  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-  for (var i = 0; i < 20; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
 }
