@@ -28,29 +28,29 @@ class ApiTest extends Illuminate\Foundation\Testing\TestCase
         auth()->loginUsingId(1);
 
         $create = $this->getResponseByRouteName('getAddfolder', [
-            'name' => 'testcase'
+            'name' => 'testcase',
         ]);
 
         $create_duplicate = $this->getResponseByRouteName('getAddfolder', [
-            'name' => 'testcase'
+            'name' => 'testcase',
         ]);
 
         $create_empty = $this->getResponseByRouteName('getAddfolder', [
-            'name' => ''
+            'name' => '',
         ]);
 
         Config::set('lfm.alphanumeric_directory', true);
         $create_alphanumeric = $this->getResponseByRouteName('getAddfolder', [
-            'name' => '測試資料夾'
+            'name' => '測試資料夾',
         ]);
 
         $rename = $this->getResponseByRouteName('getRename', [
             'file' => 'testcase',
-            'new_name' => 'testcase2'
+            'new_name' => 'testcase2',
         ]);
 
         $delete = $this->getResponseByRouteName('getDelete', [
-            'items' => 'testcase2'
+            'items' => 'testcase2',
         ]);
 
         $this->assertEquals('OK', $create);
@@ -65,6 +65,7 @@ class ApiTest extends Illuminate\Foundation\Testing\TestCase
     {
         $response = $this->call('GET', route('unisharp.lfm.' . $route_name), $input);
         $data = json_encode($response);
+
         return $response->getContent();
     }
 }

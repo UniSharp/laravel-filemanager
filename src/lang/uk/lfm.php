@@ -46,7 +46,7 @@ return [
     'error-folder-alnum'=> 'Дозволені лише буквено-цифрові імена папок!',
     'error-folder-not-found'=> 'Папку не знайдено! (:folder)',
     'error-mime'        => 'Недозволений MimeType: ',
-    'error-size'		=> 'Розмір перевищує дозволений:',
+    'error-size'        => 'Розмір перевищує дозволений:',
     'error-instance'    => 'Завантажений файл має бути екземпляром UploadedFile',
     'error-invalid'     => 'Неправильний запит на завантаження',
     'error-other'       => 'Сталася помилка: ',

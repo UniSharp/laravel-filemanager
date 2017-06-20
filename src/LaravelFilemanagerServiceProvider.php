@@ -1,14 +1,15 @@
-<?php namespace Unisharp\Laravelfilemanager;
+<?php
 
-use Illuminate\Support\ServiceProvider;
+namespace Unisharp\Laravelfilemanager;
+
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\ServiceProvider;
 
 /**
- * Class LaravelFilemanagerServiceProvider
- * @package Unisharp\Laravelfilemanager
+ * Class LaravelFilemanagerServiceProvider.
  */
-class LaravelFilemanagerServiceProvider extends ServiceProvider {
-
+class LaravelFilemanagerServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap the application services.
      *
@@ -37,7 +38,7 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider {
         ], 'lfm_view');
 
         $this->publishes([
-            __DIR__.'/Handlers/LfmConfigHandler.php' => base_path('app/Handlers/LfmConfigHandler.php')
+            __DIR__.'/Handlers/LfmConfigHandler.php' => base_path('app/Handlers/LfmConfigHandler.php'),
         ], 'lfm_handler');
     }
 
