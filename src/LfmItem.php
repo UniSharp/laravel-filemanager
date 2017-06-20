@@ -15,11 +15,15 @@ class LfmItem
     public $thumb;
     public $is_file;
 
+    private $lfm;
+
     use traits\LfmHelpers;
 
     public function __construct($storage_path)
     {
         $this->initHelper();
+
+        $this->lfm = new LfmPath;
 
         $file_name = $this->getName($storage_path);
         $full_path = $this->getFullPath($storage_path);
@@ -33,14 +37,13 @@ class LfmItem
             $file_type = $this->getFileType($storage_path);
             $icon = 'fa-image';
 
-            $thumb_path = $this->getThumbPath($file_name);
-            $file_path = $this->getCurrentPath($file_name);
+            $file_path = $this->lfm->path('full', $file_name);
             if ($this->imageShouldNotHaveThumb($file_path)) {
-                $thumb_url = $this->getFileUrl($file_name, true);
-            } elseif ($this->exists($thumb_path)) {
-                $thumb_url = $this->getThumbUrl($file_name, true);
+                $thumb_url = $this->lfm->url($file_name, true);
+            } elseif ($this->lfm->thumb()->exists($file_name)) {
+                $thumb_url = $this->lfm->thumb()->url($file_name, true);
             } else {
-                $thumb_url = $this->getFileUrl($file_name, true);
+                $thumb_url = $this->lfm->url($file_name, true);
             }
         } else {
             $extension = strtolower(\File::extension($file_name));
@@ -50,10 +53,10 @@ class LfmItem
         }
 
         $this->name    = $file_name;
-        $this->url     = $is_file ? $this->getFileUrl($file_name) : '';
+        $this->url     = $is_file ? $this->lfm->url($file_name) : '';
         $this->size    = $is_file ? $this->humanFilesize($this->disk->size($storage_path)) : '';
         $this->updated = $this->disk->lastModified($storage_path);
-        $this->path    = $is_file ? '' : $this->getInternalPath($full_path);
+        $this->path    = $is_file ? '' : $this->lfm->path('full');
         $this->time    = date("Y-m-d h:m", $this->disk->lastModified($storage_path));
         $this->type    = $file_type;
         $this->icon    = $icon;

@@ -67,6 +67,37 @@ class LfmPath
         return $result;
     }
 
+    public function url($item_name, $with_timestamp = false)
+    {
+        $prefix = config('lfm.url_prefix', $this->package_name);
+
+        $default_folder_name = 'files';
+        if ($this->isProcessingImages()) {
+            $default_folder_name = 'photos';
+        }
+
+        $category_name = config('lfm.' . $this->currentLfmType() . 's_folder_name', $default_folder_name);
+
+        $this->working_dir = $this->working_dir ?: request('working_dir');
+
+        if (empty($this->working_dir)) {
+            $default_folder_type = 'share';
+            if ($this->allowFolderType('user')) {
+                $default_folder_type = 'user';
+            }
+
+            $this->working_dir = $this->rootFolder($default_folder_type);
+        }
+
+        $result = $prefix . $this->ds . $category_name . $this->working_dir;
+
+        if ($this->is_thumb) {
+            $result .= $this->ds . config('lfm.thumb_folder_name');
+        }
+
+        return url($result . $this->ds . $item_name);
+    }
+
     public function folders()
     {
         $storage_path = $this->path('storage');

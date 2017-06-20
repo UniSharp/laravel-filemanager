@@ -4,6 +4,7 @@ namespace Unisharp\Laravelfilemanager\traits;
 
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Unisharp\Laravelfilemanager\LfmPath;
 
 trait LfmHelpers
 {
@@ -26,87 +27,13 @@ trait LfmHelpers
 
     public $disk;
 
+    private $lfm;
+
     public function initHelper()
     {
         $this->disk = Storage::disk($this->disk_name);
         $this->disk_root = config('filesystems.disks.' . $this->disk_name . '.root');
-    }
-
-    /**
-     * Get real path of a thumbnail on the operating system.
-     *
-     * @param  string|null  $image_name  File name of original image
-     * @return string|null
-     */
-    public function getThumbPath($image_name = null)
-    {
-        return $this->getCurrentPath($image_name, 'thumb');
-    }
-
-    /**
-     * Get real path of a file, image, or current working directory on the operating system.
-     *
-     * @param  string|null  $file_name  File name of image or file
-     * @return string|null
-     */
-    public function getCurrentPath($file_name = null, $is_thumb = null)
-    {
-        $path = $this->composeSegments('dir', $is_thumb, $file_name);
-
-        $path = $this->translateToOsPath($path);
-
-        return base_path($path);
-    }
-
-    /**
-     * Get url of a thumbnail.
-     *
-     * @param  string|null  $image_name  File name of original image
-     * @return string|null
-     */
-    public function getThumbUrl($image_name = null, $with_timestamp = false)
-    {
-        return $this->getFileUrl($image_name, $with_timestamp, 'thumb');
-    }
-
-    /**
-     * Get url of a original image.
-     *
-     * @param  string|null  $image_name  File name of original image
-     * @return string|null
-     */
-    public function getFileUrl($image_name = null, $with_timestamp = false, $is_thumb = null)
-    {
-        $url = url($this->composeSegments('url', $is_thumb, $image_name));
-
-        if ($with_timestamp) {
-            $url .= '?timestamp=' . filemtime($this->getCurrentPath($image_name, $is_thumb));
-        }
-
-        return $url;
-    }
-
-    /**
-     * Assemble needed config or input to form url or real path of a file, image, or current working directory.
-     *
-     * @param  string       $type       Url or dir
-     * @param  bollean      $is_thumb   Image is a thumbnail or not
-     * @param  string|null  $file_name  File name of image or file
-     * @return string|null
-     */
-    private function composeSegments($type, $is_thumb, $file_name)
-    {
-        $full_path = implode($this->ds, [
-            $this->getPathPrefix($type),
-            $this->getFormatedWorkingDir(),
-            $this->appendThumbFolderPath($is_thumb),
-            $file_name
-        ]);
-
-        $full_path = $this->removeDuplicateSlash($full_path);
-        $full_path = $this->translateToLfmPath($full_path);
-
-        return $this->removeLastSlash($full_path);
+        $this->lfm = new LfmPath;
     }
 
     /**
@@ -134,48 +61,6 @@ trait LfmHelpers
         }
 
         return $prefix . '/' . $category_name;
-    }
-
-    /**
-     * Get current or default working directory.
-     *
-     * @return string
-     */
-    private function getFormatedWorkingDir()
-    {
-        $working_dir = request('working_dir');
-
-        if (empty($working_dir)) {
-            $default_folder_type = 'share';
-            if ($this->allowFolderType('user')) {
-                $default_folder_type = 'user';
-            }
-
-            $working_dir = $this->rootFolder($default_folder_type);
-        }
-
-        return $this->removeFirstSlash($working_dir);
-    }
-
-    /**
-     * Get thumbnail folder name.
-     *
-     * @return string|null
-     */
-    private function appendThumbFolderPath($is_thumb)
-    {
-        if (!$is_thumb) {
-            return;
-        }
-
-        $thumb_folder_name = config('lfm.thumb_folder_name');
-        // if user is inside thumbs folder, there is no need
-        // to add thumbs substring to the end of url
-        $in_thumb_folder = str_contains($this->getFormatedWorkingDir(), $this->ds . $thumb_folder_name);
-
-        if (!$in_thumb_folder) {
-            return $thumb_folder_name . $this->ds;
-        }
     }
 
     /**
@@ -218,93 +103,6 @@ trait LfmHelpers
     }
 
     /**
-     * Get url with only working directory and file name.
-     *
-     * @param  string  $full_path  Real path of a file.
-     * @return string
-     */
-    public function getInternalPath($full_path)
-    {
-        $full_path = $this->translateToLfmPath($full_path);
-        $full_path = $this->translateToUtf8($full_path);
-        $lfm_dir_start = strpos($full_path, $this->getPathPrefix('dir'));
-        $working_dir_start = $lfm_dir_start + strlen($this->getPathPrefix('dir'));
-        $lfm_file_path = $this->ds . substr($full_path, $working_dir_start);
-
-        return $this->removeDuplicateSlash($lfm_file_path);
-    }
-
-    /**
-     * Change directiry separator, from url one to one on current operating system.
-     *
-     * @param  string  $path  Url of a file.
-     * @return string
-     */
-    private function translateToOsPath($path)
-    {
-        if ($this->isRunningOnWindows()) {
-            $path = str_replace($this->ds, '\\', $path);
-        }
-        return $path;
-    }
-
-    /**
-     * Change directiry separator, from one on current operating system to url one.
-     *
-     * @param  string  $path  Real path of a file.
-     * @return string
-     */
-    private function translateToLfmPath($path)
-    {
-        if ($this->isRunningOnWindows()) {
-            $path = str_replace('\\', $this->ds, $path);
-        }
-        return $path;
-    }
-
-    /**
-     * Strip duplicate slashes from url.
-     *
-     * @param  string  $path  Any url.
-     * @return string
-     */
-    private function removeDuplicateSlash($path)
-    {
-        return str_replace($this->ds . $this->ds, $this->ds, $path);
-    }
-
-    /**
-     * Strip first slash from url.
-     *
-     * @param  string  $path  Any url.
-     * @return string
-     */
-    private function removeFirstSlash($path)
-    {
-        if (starts_with($path, $this->ds)) {
-            $path = substr($path, 1);
-        }
-
-        return $path;
-    }
-
-    /**
-     * Strip last slash from url.
-     *
-     * @param  string  $path  Any url.
-     * @return string
-     */
-    private function removeLastSlash($path)
-    {
-        // remove last slash
-        if (ends_with($path, $this->ds)) {
-            $path = substr($path, 0, -1);
-        }
-
-        return $path;
-    }
-
-    /**
      * Translate file name to make it compatible on Windows.
      *
      * @param  string  $input  Any string.
@@ -314,21 +112,6 @@ trait LfmHelpers
     {
         if ($this->isRunningOnWindows()) {
             $input = iconv('UTF-8', mb_detect_encoding($input), $input);
-        }
-
-        return $input;
-    }
-
-    /**
-     * Translate file name from Windows.
-     *
-     * @param  string  $input  Any string.
-     * @return string
-     */
-    public function translateToUtf8($input)
-    {
-        if ($this->isRunningOnWindows()) {
-            $input = iconv(mb_detect_encoding($input), 'UTF-8', $input);
         }
 
         return $input;
@@ -483,15 +266,6 @@ trait LfmHelpers
     public function getFile($storage_path)
     {
         return $this->disk->get($storage_path);
-    }
-
-    public function appendToFileName($full_path)
-    {
-        $extension = \File::extension($full_path);
-
-        $new_name = str_replace('.' . $extension, '', $this->getName($full_path)) . '.' . $extension;
-
-        return $new_name;
     }
 
     /**
