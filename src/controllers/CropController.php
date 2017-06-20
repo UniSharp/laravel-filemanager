@@ -57,8 +57,8 @@ class CropController extends LfmController
         event(new ImageWasCropped($image_path));
     }
 
-    public function getNewCropimage (){
-
+    public function getNewCropimage()
+    {
         $this->getCropimage(false);
     }
 }
