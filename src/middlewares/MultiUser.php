@@ -2,8 +2,8 @@
 
 namespace Unisharp\Laravelfilemanager\middlewares;
 
-use Unisharp\Laravelfilemanager\traits\LfmHelpers;
 use Closure;
+use Unisharp\Laravelfilemanager\traits\LfmHelpers;
 
 class MultiUser
 {
@@ -13,7 +13,7 @@ class MultiUser
     {
         if ($this->allowMultiUser()) {
             $previous_dir = $request->input('working_dir');
-            $working_dir  = $this->rootFolder('user');
+            $working_dir = $this->rootFolder('user');
 
             if ($previous_dir == null) {
                 $request->merge(compact('working_dir'));

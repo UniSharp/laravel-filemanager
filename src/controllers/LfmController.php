@@ -1,10 +1,11 @@
-<?php namespace Unisharp\Laravelfilemanager\controllers;
+<?php
+
+namespace Unisharp\Laravelfilemanager\controllers;
 
 use Unisharp\Laravelfilemanager\traits\LfmHelpers;
 
 /**
- * Class LfmController
- * @package Unisharp\Laravelfilemanager\controllers
+ * Class LfmController.
  */
 class LfmController extends Controller
 {
@@ -18,7 +19,7 @@ class LfmController extends Controller
     }
 
     /**
-     * Show the filemanager
+     * Show the filemanager.
      *
      * @return mixed
      */
@@ -39,7 +40,7 @@ class LfmController extends Controller
         $mine_config = 'lfm.valid_' . $type_key . '_mimetypes';
         $config_error = null;
 
-        if (!is_array(config($mine_config))) {
+        if (! is_array(config($mine_config))) {
             array_push($arr_errors, 'Config : ' . $mine_config . ' is not a valid array.');
         }
 

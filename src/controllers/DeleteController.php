@@ -1,17 +1,18 @@
-<?php namespace Unisharp\Laravelfilemanager\controllers;
+<?php
+
+namespace Unisharp\Laravelfilemanager\controllers;
 
 use Illuminate\Support\Facades\File;
 use Unisharp\Laravelfilemanager\Events\ImageIsDeleting;
 use Unisharp\Laravelfilemanager\Events\ImageWasDeleted;
 
 /**
- * Class CropController
- * @package Unisharp\Laravelfilemanager\controllers
+ * Class CropController.
  */
 class DeleteController extends LfmController
 {
     /**
-     * Delete image and associated thumbnail
+     * Delete image and associated thumbnail.
      *
      * @return mixed
      */
@@ -28,12 +29,12 @@ class DeleteController extends LfmController
             return parent::error('folder-name');
         }
 
-        if (!File::exists($file_to_delete)) {
+        if (! File::exists($file_to_delete)) {
             return parent::error('folder-not-found', ['folder' => $file_to_delete]);
         }
 
         if (File::isDirectory($file_to_delete)) {
-            if (!parent::directoryIsEmpty($file_to_delete)) {
+            if (! parent::directoryIsEmpty($file_to_delete)) {
                 return parent::error('delete-folder');
             }
 

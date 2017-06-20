@@ -12,7 +12,7 @@ return [
 
     // Middlewares which should be applied to all package routes.
     // For laravel 5.1 and before, remove 'web' from the array.
-    'middlewares' => ['web','auth'],
+    'middlewares' => ['web', 'auth'],
 
     // The url to this package. Change it if necessary.
     'prefix' => 'laravel-filemanager',
@@ -164,7 +164,7 @@ return [
     | directives are not supported.
     */
     'php_ini_overrides' => [
-        'memory_limit'        => '256M'
-    ]
+        'memory_limit'        => '256M',
+    ],
 
 ];

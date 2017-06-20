@@ -12,7 +12,7 @@ trait LfmHelpers
      *****************************/
 
     /**
-     * Directory separator for url
+     * Directory separator for url.
      *
      * @var string|null
      */
@@ -80,7 +80,7 @@ trait LfmHelpers
             $this->getPathPrefix($type),
             $this->getFormatedWorkingDir(),
             $this->appendThumbFolderPath($is_thumb),
-            $file_name
+            $file_name,
         ]);
 
         $full_path = $this->removeDuplicateSlash($full_path);
@@ -144,7 +144,7 @@ trait LfmHelpers
      */
     private function appendThumbFolderPath($is_thumb)
     {
-        if (!$is_thumb) {
+        if (! $is_thumb) {
             return;
         }
 
@@ -153,7 +153,7 @@ trait LfmHelpers
         // to add thumbs substring to the end of url
         $in_thumb_folder = str_contains($this->getFormatedWorkingDir(), $this->ds . $thumb_folder_name);
 
-        if (!$in_thumb_folder) {
+        if (! $in_thumb_folder) {
             return $thumb_folder_name . $this->ds;
         }
     }
@@ -230,6 +230,7 @@ trait LfmHelpers
         if ($this->isRunningOnWindows()) {
             $path = str_replace($this->ds, '\\', $path);
         }
+
         return $path;
     }
 
@@ -244,6 +245,7 @@ trait LfmHelpers
         if ($this->isRunningOnWindows()) {
             $path = str_replace('\\', $this->ds, $path);
         }
+
         return $path;
     }
 
@@ -319,7 +321,6 @@ trait LfmHelpers
         return $input;
     }
 
-
     /****************************
      ***   Config / Settings  ***
      ****************************/
@@ -327,7 +328,7 @@ trait LfmHelpers
     /**
      * Check current lfm type is image or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function isProcessingImages()
     {
@@ -337,11 +338,11 @@ trait LfmHelpers
     /**
      * Check current lfm type is file or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function isProcessingFiles()
     {
-        return !$this->isProcessingImages();
+        return ! $this->isProcessingImages();
     }
 
     /**
@@ -362,7 +363,7 @@ trait LfmHelpers
     /**
      * Check if users are allowed to use their private folders.
      *
-     * @return boolean
+     * @return bool
      */
     public function allowMultiUser()
     {
@@ -373,11 +374,11 @@ trait LfmHelpers
      * Check if users are allowed to use the shared folder.
      * This can be disabled only when allowMultiUser() is true.
      *
-     * @return boolean
+     * @return bool
      */
     public function allowShareFolder()
     {
-        if (!$this->allowMultiUser()) {
+        if (! $this->allowMultiUser()) {
             return true;
         }
 
@@ -401,7 +402,6 @@ trait LfmHelpers
             }
         }
     }
-
 
     /****************************
      ***     File System      ***
@@ -446,7 +446,7 @@ trait LfmHelpers
         $item_name = $this->getName($item);
         $is_file = is_file($item);
 
-        if (!$is_file) {
+        if (! $is_file) {
             $file_type = trans('laravel-filemanager::lfm.type-folder');
             $icon = 'fa-folder-o';
             $thumb_url = asset('vendor/laravel-filemanager/img/folder.png');
@@ -470,17 +470,17 @@ trait LfmHelpers
             $thumb_url = null;
         }
 
-        return (object)[
+        return (object) [
             'name'    => $item_name,
             'url'     => $is_file ? $this->getFileUrl($item_name) : '',
             'size'    => $is_file ? $this->humanFilesize(File::size($item)) : '',
             'updated' => filemtime($item),
             'path'    => $is_file ? '' : $this->getInternalPath($item),
-            'time'    => date("Y-m-d h:m", filemtime($item)),
+            'time'    => date('Y-m-d h:m', filemtime($item)),
             'type'    => $file_type,
             'icon'    => $icon,
             'thumb'   => $thumb_url,
-            'is_file' => $is_file
+            'is_file' => $is_file,
         ];
     }
 
@@ -492,7 +492,7 @@ trait LfmHelpers
      */
     public function createFolderByPath($path)
     {
-        if (!File::exists($path)) {
+        if (! File::exists($path)) {
             File::makeDirectory($path, 0777, true, true);
         }
     }
@@ -501,7 +501,7 @@ trait LfmHelpers
      * Check a folder and its subfolders is empty or not.
      *
      * @param  string  $directory_path  Real path of a directory.
-     * @return boolean
+     * @return bool
      */
     public function directoryIsEmpty($directory_path)
     {
@@ -512,7 +512,7 @@ trait LfmHelpers
      * Check a file is image or not.
      *
      * @param  mixed  $file  Real path of a file or instance of UploadedFile.
-     * @return boolean
+     * @return bool
      */
     public function fileIsImage($file)
     {
@@ -525,7 +525,7 @@ trait LfmHelpers
      * Check thumbnail should be created when the file is uploading.
      *
      * @param  mixed  $file  Real path of a file or instance of UploadedFile.
-     * @return boolean
+     * @return bool
      */
     public function imageShouldNotHaveThumb($file)
     {
@@ -576,7 +576,6 @@ trait LfmHelpers
         return $arr_items;
     }
 
-
     /****************************
      ***    Miscellaneouses   ***
      ****************************/
@@ -616,21 +615,22 @@ trait LfmHelpers
     /**
      * Make file size readable.
      *
-     * @param  integer  $bytes     File size in bytes.
-     * @param  integer  $decimals  Decimals.
+     * @param  int  $bytes     File size in bytes.
+     * @param  int  $decimals  Decimals.
      * @return string
      */
     public function humanFilesize($bytes, $decimals = 2)
     {
-        $size = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
+        $size = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         $factor = floor((strlen($bytes) - 1) / 3);
+
         return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . ' ' . @$size[$factor];
     }
 
     /**
      * Check current operating system is Windows or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function isRunningOnWindows()
     {
