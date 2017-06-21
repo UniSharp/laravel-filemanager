@@ -49,7 +49,7 @@ return [
     'error-folder-alnum'=> 'فقط اسامی الفبایی برای پوشه مجاز است!',
     'error-folder-not-found'=> 'پوشه‌ای یافت نشد! (:folder)',
     'error-mime'        => 'پسوند غیرمجاز: ',
-    'error-size'		=> 'سایز بیش از حد:',
+    'error-size'        => 'سایز بیش از حد:',
     'error-instance'    => 'فایل آپلود شده باید نمونه ای از UploadedFile باشد',
     'error-invalid'     => 'درخواست آپلود غیرمعتبر',
     'error-other'       => 'خطایی رخ داد: ',

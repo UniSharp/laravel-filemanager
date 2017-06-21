@@ -9,7 +9,7 @@ use Unisharp\Laravelfilemanager\Events\ImageWasResized;
 class ResizeController extends LfmController
 {
     /**
-     * Dipsplay image for resizing
+     * Dipsplay image for resizing.
      *
      * @return mixed
      */
@@ -18,25 +18,25 @@ class ResizeController extends LfmController
         $ratio = 1.0;
         $image = request('img');
 
-        $original_image  = Image::make($this->lfm->path('full', $image));
-        $original_width  = $original_image->width();
+        $original_image = Image::make($this->lfm->path('full', $image));
+        $original_width = $original_image->width();
         $original_height = $original_image->height();
 
         $scaled = false;
 
         if ($original_width > 600) {
-            $ratio  = 600 / $original_width;
-            $width  = $original_width  * $ratio;
+            $ratio = 600 / $original_width;
+            $width = $original_width * $ratio;
             $height = $original_height * $ratio;
             $scaled = true;
         } else {
-            $width  = $original_width;
+            $width = $original_width;
             $height = $original_height;
         }
 
         if ($height > 400) {
-            $ratio  = 400 / $original_height;
-            $width  = $original_width  * $ratio;
+            $ratio = 400 / $original_height;
+            $width = $original_width * $ratio;
             $height = $original_height * $ratio;
             $scaled = true;
         }
@@ -53,10 +53,10 @@ class ResizeController extends LfmController
 
     public function performResize()
     {
-        $dataX  = request('dataX');
-        $dataY  = request('dataY');
+        $dataX = request('dataX');
+        $dataY = request('dataY');
         $height = request('dataHeight');
-        $width  = request('dataWidth');
+        $width = request('dataWidth');
         $image_path = $this->lfm->path('full', request('img'));
 
         event(new ImageIsResizing($image_path));

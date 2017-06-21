@@ -2,10 +2,10 @@
 
 namespace Unisharp\Laravelfilemanager\controllers;
 
+use Unisharp\FileApi\FileApi;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Unisharp\Laravelfilemanager\Events\ImageIsUploading;
 use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
-use Unisharp\FileApi\FileApi;
 
 class UploadController extends LfmController
 {
@@ -19,8 +19,9 @@ class UploadController extends LfmController
 
         parent::__construct();
     }
+
     /**
-     * Upload an image/file and (for images) create thumbnail
+     * Upload an image/file and (for images) create thumbnail.
      *
      * @param UploadRequest $request
      * @return string
@@ -69,10 +70,11 @@ class UploadController extends LfmController
     {
         if (empty($file)) {
             return parent::error('file-empty');
-        } elseif (!$file instanceof UploadedFile) {
+        } elseif (! $file instanceof UploadedFile) {
             return parent::error('instance');
         } elseif ($file->getError() == UPLOAD_ERR_INI_SIZE) {
             $max_size = ini_get('upload_max_filesize');
+
             return parent::error('file-size', ['max' => $max_size]);
         } elseif ($file->getError() != UPLOAD_ERR_OK) {
             return 'File failed to upload. Error code: ' . $file->getError();
@@ -123,13 +125,13 @@ class UploadController extends LfmController
 
     private function save($file, $new_filename)
     {
-        if (parent::fileIsImage($file) && !parent::imageShouldNotHaveThumb($file)) {
+        if (parent::fileIsImage($file) && ! parent::imageShouldNotHaveThumb($file)) {
             // create folder for thumbnails
             parent::createFolderByPath($this->lfm->thumb()->path('full'));
 
             // save original image and thumbnails to thumbnail folder
             $new_filename = $this->thumb_driver->thumbs([
-                'M' => config('lfm.thumb_img_width', 200) . 'x' . config('lfm.thumb_img_height', 200)
+                'M' => config('lfm.thumb_img_width', 200) . 'x' . config('lfm.thumb_img_height', 200),
             ])->crop()->save($file, $new_filename);
 
             // move original image out of thumbnail folder

@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\UploadedFile;
 
 class TestCase extends Orchestra\Testbench\TestCase
 {
@@ -8,7 +7,7 @@ class TestCase extends Orchestra\Testbench\TestCase
     {
         return [
             'Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider',
-            'Unisharp\FileApi\FileApiServiceProvider'
+            'Unisharp\FileApi\FileApiServiceProvider',
         ];
     }
 
@@ -109,7 +108,7 @@ class TestCase extends Orchestra\Testbench\TestCase
         ]);
 
         $app['config']->set('lfm.php_ini_overrides', [
-            'memory_limit'        => '256M'
+            'memory_limit'        => '256M',
         ]);
 
         $app['config']->set('fileapi.path', ['/images/event/']);
@@ -124,13 +123,14 @@ class TestCase extends Orchestra\Testbench\TestCase
     {
         $response = $this->call('GET', route('unisharp.lfm.' . $route_name), $input, $file);
         $data = json_encode($response);
+
         return $response->getContent();
     }
 
     protected function getPackageAliases($app)
     {
         return [
-            'Image' => 'Intervention\Image\Facades\Image'
+            'Image' => 'Intervention\Image\Facades\Image',
         ];
     }
 
@@ -150,7 +150,7 @@ class TestCase extends Orchestra\Testbench\TestCase
             config('lfm.base_directory'),
             config('lfm.files_folder_name'),
             $working_dir,
-            $filename
+            $filename,
         ]));
     }
 

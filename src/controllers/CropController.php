@@ -9,7 +9,7 @@ use Unisharp\Laravelfilemanager\Events\ImageWasCropped;
 class CropController extends LfmController
 {
     /**
-     * Show crop page
+     * Show crop page.
      *
      * @return mixed
      */
@@ -22,20 +22,19 @@ class CropController extends LfmController
             ->with(compact('working_dir', 'img'));
     }
 
-
     /**
-     * Crop the image (called via ajax)
+     * Crop the image (called via ajax).
      */
     public function getCropimage($overWrite = true)
     {
-        $dataX      = request('dataX');
-        $dataY      = request('dataY');
+        $dataX = request('dataX');
+        $dataY = request('dataY');
         $dataHeight = request('dataHeight');
-        $dataWidth  = request('dataWidth');
+        $dataWidth = request('dataWidth');
         $image_path = $this->lfm->path('full', request('img'));
-        $crop_path  = $image_path;
+        $crop_path = $image_path;
 
-        if (!$overWrite) {
+        if (! $overWrite) {
             $fileParts = explode('.', request('img'));
             $fileParts[count($fileParts) - 2] = $fileParts[count($fileParts) - 2] . '_cropped_' . time();
             $crop_path = parent::getCurrentPath(implode('.', $fileParts));

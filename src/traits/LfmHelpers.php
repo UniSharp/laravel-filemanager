@@ -3,8 +3,8 @@
 namespace Unisharp\Laravelfilemanager\traits;
 
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Unisharp\Laravelfilemanager\LfmPath;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait LfmHelpers
 {
@@ -13,7 +13,7 @@ trait LfmHelpers
      *****************************/
 
     /**
-     * Directory separator for url
+     * Directory separator for url.
      *
      * @var string|null
      */
@@ -117,7 +117,6 @@ trait LfmHelpers
         return $input;
     }
 
-
     /****************************
      ***   Config / Settings  ***
      ****************************/
@@ -125,7 +124,7 @@ trait LfmHelpers
     /**
      * Check current lfm type is image or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function isProcessingImages()
     {
@@ -135,11 +134,11 @@ trait LfmHelpers
     /**
      * Check current lfm type is file or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function isProcessingFiles()
     {
-        return !$this->isProcessingImages();
+        return ! $this->isProcessingImages();
     }
 
     /**
@@ -169,7 +168,7 @@ trait LfmHelpers
     /**
      * Check if users are allowed to use their private folders.
      *
-     * @return boolean
+     * @return bool
      */
     private function allowMultiUser()
     {
@@ -180,11 +179,11 @@ trait LfmHelpers
      * Check if users are allowed to use the shared folder.
      * This can be disabled only when allowMultiUser() is true.
      *
-     * @return boolean
+     * @return bool
      */
     private function allowShareFolder()
     {
-        if (!$this->allowMultiUser()) {
+        if (! $this->allowMultiUser()) {
             return true;
         }
 
@@ -209,7 +208,6 @@ trait LfmHelpers
         }
     }
 
-
     /****************************
      ***     File System      ***
      ****************************/
@@ -222,7 +220,7 @@ trait LfmHelpers
      */
     public function createFolderByPath($path)
     {
-        if (!$this->exists($path)) {
+        if (! $this->exists($path)) {
             $this->disk->makeDirectory($this->getStoragePath($path), 0777, true, true);
         }
     }
@@ -241,7 +239,7 @@ trait LfmHelpers
      * Check a folder and its subfolders is empty or not.
      *
      * @param  string  $directory_path  Real path of a directory.
-     * @return boolean
+     * @return bool
      */
     public function directoryIsEmpty($directory_path)
     {
@@ -272,7 +270,7 @@ trait LfmHelpers
      * Check a file is image or not.
      *
      * @param  mixed  $file  Real path of a file or instance of UploadedFile.
-     * @return boolean
+     * @return bool
      */
     public function fileIsImage($file)
     {
@@ -286,6 +284,7 @@ trait LfmHelpers
         $path = $this->getStoragePath($path);
         $directory_path = substr($path, 0, strrpos($path, $this->ds));
         $directory_name = $this->getName($path);
+
         return in_array($path, $this->disk->directories($directory_path));
     }
 
@@ -298,7 +297,7 @@ trait LfmHelpers
      * Check thumbnail should be created when the file is uploading.
      *
      * @param  mixed  $file  Real path of a file or instance of UploadedFile.
-     * @return boolean
+     * @return bool
      */
     public function imageShouldNotHaveThumb($file)
     {
@@ -341,7 +340,6 @@ trait LfmHelpers
         return $arr_items;
     }
 
-
     /****************************
      ***    Miscellaneouses   ***
      ****************************/
@@ -381,21 +379,22 @@ trait LfmHelpers
     /**
      * Make file size readable.
      *
-     * @param  integer  $bytes     File size in bytes.
-     * @param  integer  $decimals  Decimals.
+     * @param  int  $bytes     File size in bytes.
+     * @param  int  $decimals  Decimals.
      * @return string
      */
     public function humanFilesize($bytes, $decimals = 2)
     {
-        $size = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
+        $size = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         $factor = floor((strlen($bytes) - 1) / 3);
+
         return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . ' ' . @$size[$factor];
     }
 
     /**
      * Check current operating system is Windows or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function isRunningOnWindows()
     {
