@@ -21,6 +21,7 @@ class LfmItem
 
     public function __construct($storage_path)
     {
+        return;
         $this->initHelper();
 
         $this->lfm = new LfmPath;

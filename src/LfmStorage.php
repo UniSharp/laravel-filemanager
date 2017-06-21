@@ -2,7 +2,7 @@
 
 namespace Unisharp\Laravelfilemanager;
 
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class LfmStorage
 {
@@ -12,10 +12,11 @@ class LfmStorage
 
     public $disk;
 
-    public function __construct()
+    // TODO: refactor
+    public function __construct($disk = null, $root = null)
     {
-        $this->disk = Storage::disk($this->disk_name);
-        $this->disk_root = config('filesystems.disks.' . $this->disk_name . '.root');
+        $this->disk = $disk ?: Storage::disk($this->disk_name);
+        $this->disk_root = $root ?: config('filesystems.disks.' . $this->disk_name . '.root');
     }
 
     public function directories($storage_path)
@@ -36,13 +37,15 @@ class LfmStorage
      * Create folder if not exist.
      *
      * @param  string  $path  Real path of a directory.
-     * @return null
+     * @return bool
      */
     public function createFolder($storage_path)
     {
         if (! $this->disk->exists($storage_path)) {
-            $this->disk->makeDirectory($storage_path, 0777, true, true);
+            return $this->disk->makeDirectory($storage_path, 0777, true, true);
         }
+
+        return false;
     }
 
     public function exists($storage_path)

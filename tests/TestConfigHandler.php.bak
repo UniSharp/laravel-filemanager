@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 class TestConfigHandler
 {
     public function userField()

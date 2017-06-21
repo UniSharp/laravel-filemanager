@@ -25,14 +25,15 @@
   "require": {
     "php": ">=5.4.0",
     "ext-exif": "*",
-    "illuminate/support": ">=4.2.0",
+    "illuminate/config": ">=5.1.0",
+    "illuminate/filesystem": ">=5.1.0",
+    "illuminate/support": ">=5.1.0",
     "intervention/image": "2.*",
     "unisharp/laravel-fileapi": "dev-master"
   },
   "require-dev": {
-    "orchestra/testbench": "^3.4",
-    "phpspec/phpspec": "~2.1",
-    "phpunit/phpunit": "~4.8"
+    "phpunit/phpunit": "^6.2",
+    "mockery/mockery": "^0.9.9"
   },
   "suggest": {
     "ext-gd": "to use GD library based image processing.",
@@ -40,14 +41,14 @@
   },
   "autoload": {
     "psr-4": {
+      "UniSharp\\LaravelFilemanager\\": "src/",
       "Unisharp\\Laravelfilemanager\\": "src/"
     }
   },
   "autoload-dev": {
-    "classmap": [
-      "tests/TestCase.php",
-      "tests/TestConfigHandler.php"
-    ]
+    "psr-4": {
+        "Tests\\": "tests"
+    }
   },
   "bin": ["bin/debug"]
 }
