@@ -10,11 +10,11 @@ class RedirectController extends LfmController
         $storage_path = str_replace(url('/'), '', $request_url);
         $full_path = $this->disk_root . $storage_path;
 
-        if (!parent::exists($full_path)) {
+        if (! parent::exists($full_path)) {
             abort(404);
         }
 
         return response(parent::getFile($storage_path))
-            ->header("Content-Type", parent::getFileType($full_path));
+            ->header('Content-Type', parent::getFileType($full_path));
     }
 }

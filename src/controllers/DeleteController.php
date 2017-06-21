@@ -8,7 +8,7 @@ use Unisharp\Laravelfilemanager\Events\ImageWasDeleted;
 class DeleteController extends LfmController
 {
     /**
-     * Delete image and associated thumbnail
+     * Delete image and associated thumbnail.
      *
      * @return mixed
      */
@@ -24,19 +24,19 @@ class DeleteController extends LfmController
             return parent::error('folder-name');
         }
 
-        if (!parent::exists($file_to_delete)) {
+        if (! parent::exists($file_to_delete)) {
             return parent::error('folder-not-found', ['folder' => $file_to_delete]);
         }
 
         if (parent::isDirectory($file_to_delete)) {
-            if (!parent::directoryIsEmpty($file_to_delete)) {
+            if (! parent::directoryIsEmpty($file_to_delete)) {
                 return parent::error('delete-folder');
             }
 
             parent::deleteDirectory($file_to_delete);
         } else {
             if (parent::fileIsImage($file_to_delete)) {
-               parent::delete($thumb_to_delete);
+                parent::delete($thumb_to_delete);
             }
 
             parent::delete($file_to_delete);

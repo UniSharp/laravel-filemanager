@@ -5,7 +5,7 @@ namespace Unisharp\Laravelfilemanager\controllers;
 class FolderController extends LfmController
 {
     /**
-     * Get list of folders as json to populate treeview
+     * Get list of folders as json to populate treeview.
      *
      * @return mixed
      */
@@ -13,7 +13,7 @@ class FolderController extends LfmController
     {
         $folder_types = ['user', 'share'];
         foreach ($folder_types as $key => $type) {
-            if (!parent::allowFolderType($type)) {
+            if (! parent::allowFolderType($type)) {
                 unset($folder_types[$key]);
             }
         }
@@ -23,19 +23,18 @@ class FolderController extends LfmController
                 'root_folders' => array_map(function ($type) use ($folder_types) {
                     $path = $this->lfm->dir(parent::rootFolder($type));
 
-                    return (object)[
+                    return (object) [
                         'name' => trans('laravel-filemanager::lfm.title-' . $type),
                         'path' => $path->path('working_dir'),
                         'children' => parent::sortByColumn($path->folders(), 'name'),
-                        'has_next' => !($type == end($folder_types))
+                        'has_next' => ! ($type == end($folder_types)),
                     ];
-                }, $folder_types)
+                }, $folder_types),
             ]);
     }
 
-
     /**
-     * Add a new folder
+     * Add a new folder.
      *
      * @return mixed
      */
@@ -51,6 +50,7 @@ class FolderController extends LfmController
             return parent::error('folder-alnum');
         } else {
             $this->lfm->createFolder($folder_name);
+
             return parent::$success_response;
         }
     }

@@ -17,7 +17,7 @@ return [
 
     'use_package_routes' => true,
 
-    'middlewares' => ['web','auth'],
+    'middlewares' => ['web', 'auth'],
 
     'urls_prefix' => 'laravel-filemanager',
 
@@ -54,7 +54,7 @@ return [
                 'image/png',
                 'image/gif',
                 'image/svg+xml',
-            ]
+            ],
         ],
         'image' => [
             'folder_name'  => 'photos',
@@ -68,8 +68,8 @@ return [
                 'image/svg+xml',
                 'application/pdf',
                 'text/plain',
-            ]
-        ]
+            ],
+        ],
     ],
 
     /*
@@ -146,6 +146,6 @@ return [
     | directives are not supported.
     */
     'php_ini_overrides' => [
-        'memory_limit' => '256M'
-    ]
+        'memory_limit' => '256M',
+    ],
 ];

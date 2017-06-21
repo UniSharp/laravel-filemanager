@@ -46,7 +46,7 @@ return [
     'error-folder-alnum'=> 'Sunt permise doar nume alfanumerice pentru foldere!',
     'error-folder-not-found'=> 'Folderul nu a fost gasit! (:folder)',
     'error-mime'        => 'Unexpected MimeType: ',
-	'error-size'		=> 'Dimensiune peste limită:',
+    'error-size'        => 'Dimensiune peste limită:',
     'error-instance'    => 'Fișierul încărcat trebuie să fie o instanță a UploadedFile',
     'error-invalid'     => 'Cerere invalidă de upload',
     'error-other'       => 'A apărut o eroare: ',

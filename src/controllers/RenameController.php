@@ -32,7 +32,7 @@ class RenameController extends LfmController
             return parent::error('rename');
         }
 
-        if (!$is_directory) {
+        if (! $is_directory) {
             $extension = \File::extension($old_file);
             if ($extension) {
                 $new_name = str_replace('.' . $extension, '', $new_name) . '.' . $extension;

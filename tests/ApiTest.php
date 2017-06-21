@@ -6,37 +6,37 @@ use Illuminate\Support\Facades\Storage;
 class ApiTest extends TestCase
 {
     /**
-     * Upload file
+     * Upload file.
      *
      * @var UploadedFile
      */
     protected $file;
 
     /**
-     * Upload file name
+     * Upload file name.
      *
-     * @var String
+     * @var string
      */
     protected $filename;
 
     /**
-     * Upload thumble file name
+     * Upload thumble file name.
      *
-     * @var String
+     * @var string
      */
     protected $filename_s;
 
     /**
-     * Upload directory name
+     * Upload directory name.
      *
-     * @var String
+     * @var string
      */
     protected $dir_name;
 
     /**
-     * Root directory
+     * Root directory.
      *
-     * @var String
+     * @var string
      */
     protected $root_dir = '/1';
 
@@ -57,14 +57,14 @@ class ApiTest extends TestCase
         $storage_path = implode(DIRECTORY_SEPARATOR, [
             config('lfm.base_directory'),
             config('lfm.files_folder_name'),
-            (new TestConfigHandler)->userField()
+            (new TestConfigHandler)->userField(),
         ]);
         Storage::deleteDirectory($storage_path);
         parent::tearDown();
     }
 
     /**
-     * test directory api
+     * test directory api.
      *
      * @group directory
      */
@@ -73,29 +73,29 @@ class ApiTest extends TestCase
         // auth()->loginUsingId(1);
 
         $create = $this->getResponseByRouteName('getAddfolder', [
-            'name' => 'testcase'
+            'name' => 'testcase',
         ]);
 
         $create_duplicate = $this->getResponseByRouteName('getAddfolder', [
-            'name' => 'testcase'
+            'name' => 'testcase',
         ]);
 
         $create_empty = $this->getResponseByRouteName('getAddfolder', [
-            'name' => ''
+            'name' => '',
         ]);
 
         Config::set('lfm.alphanumeric_directory', true);
         $create_alphanumeric = $this->getResponseByRouteName('getAddfolder', [
-            'name' => '測試資料夾'
+            'name' => '測試資料夾',
         ]);
 
         $rename = $this->getResponseByRouteName('getRename', [
             'file' => 'testcase',
-            'new_name' => 'testcase2'
+            'new_name' => 'testcase2',
         ]);
 
         $delete = $this->getResponseByRouteName('getDelete', [
-            'items' => 'testcase2'
+            'items' => 'testcase2',
         ]);
 
         $this->assertEquals('OK', $create);
@@ -107,7 +107,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * upload a file
+     * upload a file.
      *
      * @group image
      */
@@ -115,7 +115,7 @@ class ApiTest extends TestCase
     {
         $response = $this->json('GET', route('unisharp.lfm.upload'), [
             'upload' => [$this->file],
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
 
         $response->assertStatus(200);
@@ -126,7 +126,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * delete a file
+     * delete a file.
      *
      * @group image
      * @group delete
@@ -135,11 +135,11 @@ class ApiTest extends TestCase
     {
         $this->json('GET', route('unisharp.lfm.upload'), [
             'upload' => [$this->file],
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
         $response = $this->json('GET', route('unisharp.lfm.getDelete'), [
             'items' => $this->filename,
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
 
         $response->assertStatus(200);
@@ -150,7 +150,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * upload file which exists already
+     * upload file which exists already.
      *
      * @group image
      * @group doubleUpload
@@ -159,11 +159,11 @@ class ApiTest extends TestCase
     {
         $this->json('GET', route('unisharp.lfm.upload'), [
             'upload' => [$this->file],
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
         $response = $this->json('GET', route('unisharp.lfm.upload'), [
             'upload' => [$this->file],
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
 
         $response->assertStatus(200);
@@ -171,7 +171,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * change file name
+     * change file name.
      *
      * @group image
      * @group rename
@@ -180,7 +180,7 @@ class ApiTest extends TestCase
     {
         $this->json('GET', route('unisharp.lfm.upload'), [
             'upload' => [$this->file],
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
         $uniq = uniqid();
         $new_name = $uniq . '.jpg';
@@ -188,7 +188,7 @@ class ApiTest extends TestCase
         $response = $this->json('GET', route('unisharp.lfm.getRename'), [
             'file' => $this->filename,
             'new_name' => $new_name,
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
 
         $response->assertStatus(200);
@@ -199,7 +199,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * add directory
+     * add directory.
      *
      * @group directory
      */
@@ -207,7 +207,7 @@ class ApiTest extends TestCase
     {
         $response = $this->json('GET', route('unisharp.lfm.getAddfolder'), [
             'name' => $this->dir_name,
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
 
         $response->assertStatus(200);
@@ -217,7 +217,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * delete directory
+     * delete directory.
      *
      * @group directory
      * @group delete
@@ -226,11 +226,11 @@ class ApiTest extends TestCase
     {
         $this->json('GET', route('unisharp.lfm.getAddfolder'), [
             'name' => $this->dir_name,
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
         $reponse = $this->json('GET', route('unisharp.lfm.getDelete'), [
             'items' => $this->dir_name,
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
 
         $reponse->assertStatus(200);
@@ -240,7 +240,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * rename directory
+     * rename directory.
      *
      * @group directory
      * @group rename
@@ -249,13 +249,13 @@ class ApiTest extends TestCase
     {
         $this->json('GET', route('unisharp.lfm.getAddfolder'), [
             'name' => $this->dir_name,
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
         $new_dir_name = uniqid();
         $response = $this->json('GET', route('unisharp.lfm.getRename'), [
             'file' => $this->dir_name,
             'new_name' => $new_dir_name,
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
 
         $response->assertStatus(200);
@@ -265,7 +265,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * upload file in a directory
+     * upload file in a directory.
      *
      * @group image
      * @group directory
@@ -274,12 +274,12 @@ class ApiTest extends TestCase
     {
         $this->json('GET', route('unisharp.lfm.getAddfolder'), [
             'name' => $this->dir_name,
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
         $working_dir = $this->root_dir . DIRECTORY_SEPARATOR . $this->dir_name;
         $response = $this->json('GET', route('unisharp.lfm.upload'), [
             'upload' => [$this->file],
-            'working_dir' => $working_dir
+            'working_dir' => $working_dir,
         ]);
 
         $response->assertStatus(200);
@@ -290,7 +290,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * delete file in a directory
+     * delete file in a directory.
      *
      * @group image
      * @group directory
@@ -299,18 +299,18 @@ class ApiTest extends TestCase
     {
         $this->json('GET', route('unisharp.lfm.getAddfolder'), [
             'name' => $this->dir_name,
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
 
         $working_dir = $this->root_dir . DIRECTORY_SEPARATOR . $this->dir_name;
         $response = $this->json('GET', route('unisharp.lfm.upload'), [
             'upload' => [$this->file],
-            'working_dir' => $working_dir
+            'working_dir' => $working_dir,
         ]);
 
         $reponse = $this->json('GET', route('unisharp.lfm.getDelete'), [
             'items' => $this->filename,
-            'working_dir' => $working_dir
+            'working_dir' => $working_dir,
         ]);
 
         $reponse->assertStatus(200);
@@ -321,7 +321,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * rename file in directory
+     * rename file in directory.
      *
      * @group image
      * @group directory
@@ -330,13 +330,13 @@ class ApiTest extends TestCase
     {
         $this->json('GET', route('unisharp.lfm.getAddfolder'), [
             'name' => $this->dir_name,
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
 
         $working_dir = $this->root_dir . DIRECTORY_SEPARATOR . $this->dir_name;
         $response = $this->json('GET', route('unisharp.lfm.upload'), [
             'upload' => [$this->file],
-            'working_dir' => $working_dir
+            'working_dir' => $working_dir,
         ]);
 
         $uniq = uniqid();
@@ -345,7 +345,7 @@ class ApiTest extends TestCase
         $response = $this->json('GET', route('unisharp.lfm.getRename'), [
             'file' => $this->filename,
             'new_name' => $new_name,
-            'working_dir' => $working_dir
+            'working_dir' => $working_dir,
         ]);
 
         $response->assertStatus(200);
@@ -356,7 +356,7 @@ class ApiTest extends TestCase
     }
 
     /**
-     * upload file with lfm.rename_file = true
+     * upload file with lfm.rename_file = true.
      *
      * @group image
      */
@@ -365,7 +365,7 @@ class ApiTest extends TestCase
         config(['lfm.rename_file' => true]);
         $response = $this->json('GET', route('unisharp.lfm.upload'), [
             'upload' => [$this->file],
-            'working_dir' => $this->root_dir
+            'working_dir' => $this->root_dir,
         ]);
 
         $response->assertStatus(200);
@@ -375,7 +375,7 @@ class ApiTest extends TestCase
         $this->assertFileNotExists($files_path['file_s']);
     }
 
-    /**
+    /*
      * upload file with lfm.alphanumeric_filename = true
      *
      * @group image

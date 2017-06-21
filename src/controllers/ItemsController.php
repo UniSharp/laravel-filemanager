@@ -5,7 +5,7 @@ namespace Unisharp\Laravelfilemanager\controllers;
 class ItemsController extends LfmController
 {
     /**
-     * Get the images to load for a selected folder
+     * Get the images to load for a selected folder.
      *
      * @return mixed
      */
@@ -22,23 +22,22 @@ class ItemsController extends LfmController
         }
 
         return [
-            'html' => (string)view($this->getView())->with([
+            'html' => (string) view($this->getView())->with([
                 'items' => array_merge(
                     parent::sortByColumn($this->lfm->folders(), $key_to_sort),
                     parent::sortByColumn($this->lfm->files(), $key_to_sort)
-                )
+                ),
             ]),
-            'working_dir' => $this->lfm->path('working_dir')
+            'working_dir' => $this->lfm->path('working_dir'),
         ];
     }
-
 
     private function getView()
     {
         $view_type = 'grid';
         $show_list = request('show_list');
 
-        if ($show_list === "1") {
+        if ($show_list === '1') {
             $view_type = 'list';
         } elseif (is_null($show_list)) {
             $type_key = parent::currentLfmType();

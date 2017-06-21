@@ -2,8 +2,8 @@
 
 namespace Unisharp\Laravelfilemanager\middlewares;
 
-use Unisharp\Laravelfilemanager\traits\LfmHelpers;
 use Closure;
+use Unisharp\Laravelfilemanager\traits\LfmHelpers;
 
 class CreateDefaultFolder
 {
@@ -20,7 +20,7 @@ class CreateDefaultFolder
 
     private function checkDefaultFolderExists($type = 'share')
     {
-        if (!$this->allowFolderType($type)) {
+        if (! $this->allowFolderType($type)) {
             return;
         }
 

@@ -40,7 +40,7 @@ class LfmStorage
      */
     public function createFolder($storage_path)
     {
-        if (!$this->disk->exists($storage_path)) {
+        if (! $this->disk->exists($storage_path)) {
             $this->disk->makeDirectory($storage_path, 0777, true, true);
         }
     }

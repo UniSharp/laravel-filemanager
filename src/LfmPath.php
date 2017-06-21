@@ -3,7 +3,6 @@
 namespace Unisharp\Laravelfilemanager;
 
 use Storage;
-use Unisharp\FileApi\FileApi;
 
 class LfmPath
 {
@@ -23,13 +22,15 @@ class LfmPath
 
     public function dir($working_dir)
     {
-        $this->working_dir = $working_dir ;
+        $this->working_dir = $working_dir;
+
         return $this;
     }
 
     public function thumb()
     {
         $this->is_thumb = true;
+
         return $this;
     }
 
@@ -165,7 +166,7 @@ class LfmPath
     /**
      * Check current lfm type is image or not.
      *
-     * @return boolean
+     * @return bool
      */
     private function isProcessingImages()
     {

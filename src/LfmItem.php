@@ -27,9 +27,9 @@ class LfmItem
 
         $file_name = $this->getName($storage_path);
         $full_path = $this->getFullPath($storage_path);
-        $is_file = !$this->isDirectory($full_path);
+        $is_file = ! $this->isDirectory($full_path);
 
-        if (!$is_file) {
+        if (! $is_file) {
             $file_type = trans($this->package_name . '::lfm.type-folder');
             $icon = 'fa-folder-o';
             $thumb_url = asset('vendor/' . $this->package_name . '/img/folder.png');
@@ -52,15 +52,15 @@ class LfmItem
             $thumb_url = null;
         }
 
-        $this->name    = $file_name;
-        $this->url     = $is_file ? $this->lfm->url($file_name) : '';
-        $this->size    = $is_file ? $this->humanFilesize($this->disk->size($storage_path)) : '';
+        $this->name = $file_name;
+        $this->url = $is_file ? $this->lfm->url($file_name) : '';
+        $this->size = $is_file ? $this->humanFilesize($this->disk->size($storage_path)) : '';
         $this->updated = $this->disk->lastModified($storage_path);
-        $this->path    = $is_file ? '' : $this->lfm->path('full');
-        $this->time    = date("Y-m-d h:m", $this->disk->lastModified($storage_path));
-        $this->type    = $file_type;
-        $this->icon    = $icon;
-        $this->thumb   = $thumb_url;
+        $this->path = $is_file ? '' : $this->lfm->path('full');
+        $this->time = date('Y-m-d h:m', $this->disk->lastModified($storage_path));
+        $this->type = $file_type;
+        $this->icon = $icon;
+        $this->thumb = $thumb_url;
         $this->is_file = $is_file;
     }
 }
