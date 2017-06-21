@@ -167,16 +167,17 @@ class UploadController extends LfmController
         </script>";
     }
     
-    private function _pathinfo($path, $options = null) {
+    private function _pathinfo($path, $options = null) 
+    {
         $path = urlencode($path);
         $parts = is_null($options) ? pathinfo($path) : pathinfo($path, $options);
         if(is_array($parts)) {
-            foreach($parts as $field => $value)
+            foreach($parts as $field => $value) {
                 $parts[$field] = urldecode($value);
-        }   
-        else
+            }
+        } else {
             $parts = urldecode($parts);
+        }
         return $parts;
     }
-
 }
