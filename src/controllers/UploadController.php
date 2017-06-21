@@ -61,7 +61,7 @@ class UploadController extends LfmController
                     ->save($new_file_path, 90);
 
                 $this->makeThumb($new_filename);
-            } 
+            }
             {
                 chmod($file->getRealPath(), 0644); // TODO configurable
                 File::move($file->getRealPath(), $new_file_path);
@@ -168,7 +168,7 @@ class UploadController extends LfmController
         </script>";
     }
 
-    private function _pathinfo($path, $options = null) 
+    private function _pathinfo($path, $options = null)
     {
         $path = urlencode($path);
         $parts = is_null($options) ? pathinfo($path) : pathinfo($path, $options);
