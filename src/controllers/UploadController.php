@@ -179,7 +179,7 @@ class UploadController extends LfmController
         } else {
             $parts = urldecode($parts);
         }
-        
+
         return $parts;
     }
 }
