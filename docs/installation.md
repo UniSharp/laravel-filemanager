@@ -14,6 +14,8 @@
 
 1. Edit `config/app.php` :
 
+    \* *For Laravel 5.5 and up, skip to step 3. All service providers and facades are automatically discovered.* 
+
     Add service providers
 
     ```php
