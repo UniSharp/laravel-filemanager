@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use PHPUnit\Framework\TestCase;
 use UniSharp\LaravelFilemanager\Lfm;
 use Unisharp\Laravelfilemanager\LfmPath;
-use Illuminate\Contracts\Config\Repository as Config;
 
 class LfmPathTest extends TestCase
 {
