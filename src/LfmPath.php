@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 
 class LfmPath
 {
+    // TODO: remove it
     private $ds = '/';
 
+    // TODO: remove it
     protected $package_name = 'laravel-filemanager';
 
     private $working_dir;

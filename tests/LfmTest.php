@@ -112,4 +112,40 @@ class LfmTest extends TestCase
 
         $this->assertEquals('foo', $lfm->getThumbFolderName());
     }
+
+    public function testHumanFilesize()
+    {
+        $lfm = new Lfm(m::mock(Config::class));
+
+        $this->assertEquals('1.00 kB', $lfm->humanFilesize(1024));
+        $this->assertEquals('1.00 MB', $lfm->humanFilesize(1024 ** 2));
+        $this->assertEquals('1.00 GB', $lfm->humanFilesize(1024 ** 3));
+        $this->assertEquals('1.00 TB', $lfm->humanFilesize(1024 ** 4));
+        $this->assertEquals('1.00 PB', $lfm->humanFilesize(1024 ** 5));
+        $this->assertEquals('1.00 EB', $lfm->humanFilesize(1024 ** 6));
+    }
+
+    public function testGetFileIcon()
+    {
+        $config = m::mock(Config::class);
+        $config->shouldReceive('get')->with('lfm.file_icon_array.foo', m::type('string'))->once()->andReturn('fa-foo');
+        $config->shouldReceive('get')->with(m::type('string'), m::type('string'))->once()->andReturn('fa-file');
+
+        $lfm = new Lfm($config);
+
+        $this->assertEquals('fa-foo', $lfm->getFileIcon('foo'));
+        $this->assertEquals('fa-file', $lfm->getFileIcon('bar'));
+    }
+
+    public function testGetFileType()
+    {
+        $config = m::mock(Config::class);
+        $config->shouldReceive('get')->with('lfm.file_type_array.foo', m::type('string'))->once()->andReturn('foo');
+        $config->shouldReceive('get')->with(m::type('string'), m::type('string'))->once()->andReturn('File');
+
+        $lfm = new Lfm($config);
+
+        $this->assertEquals('foo', $lfm->getFileType('foo'));
+        $this->assertEquals('File', $lfm->getFileType('bar'));
+    }
 }

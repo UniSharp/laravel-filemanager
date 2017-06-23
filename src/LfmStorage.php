@@ -12,11 +12,14 @@ class LfmStorage
 
     public $disk;
 
-    // TODO: refactor
-    public function __construct($disk = null, $root = null)
+    public $lfm;
+
+    // TODO: clean DI
+    public function __construct($disk = null, $root = null, Lfm $lfm = null)
     {
         $this->disk = $disk ?: Storage::disk($this->disk_name);
         $this->disk_root = $root ?: config('filesystems.disks.' . $this->disk_name . '.root');
+        $this->lfm = $lfm;
     }
 
     public function directories($storage_path)
@@ -55,6 +58,6 @@ class LfmStorage
 
     public function get($storage_path)
     {
-        return new LfmItem($storage_path);
+        return new LfmItem($this, $storage_path);
     }
 }
