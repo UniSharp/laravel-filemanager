@@ -3,6 +3,8 @@
 namespace Unisharp\Laravelfilemanager\controllers;
 
 use Unisharp\Laravelfilemanager\LfmPath;
+use Unisharp\Laravelfilemanager\Lfm;
+use Unisharp\Laravelfilemanager\LfmStorage;
 use Unisharp\Laravelfilemanager\traits\LfmHelpers;
 
 class LfmController extends Controller
@@ -14,13 +16,15 @@ class LfmController extends Controller
     public function __construct()
     {
         $this->applyIniOverrides();
-        $this->initHelper();
+        // $this->initHelper();
     }
 
     public function __get($var_name)
     {
         if ($var_name == 'lfm') {
-            return new LfmPath;
+            $lfm = new Lfm(config());
+            $lfm->setStorage(new LfmStorage());
+            return new LfmPath($lfm, request());
         }
     }
 

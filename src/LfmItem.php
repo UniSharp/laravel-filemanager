@@ -8,6 +8,7 @@ class LfmItem
 {
     protected $storage;
     protected $path;
+    protected $attributes = [];
 
     // TODO: thumb
     public function __construct(LfmStorage $storage, $path)
@@ -15,11 +16,11 @@ class LfmItem
         $this->storage = $storage;
         $this->path = $path;
 
-        return;
+        // return;
 
-        $this->initHelper();
+        // $this->initHelper();
 
-        $path = new LfmPath;
+        // $path = new LfmPath;
 
         $file_name = $this->fileName();
         $full_path = $this->absolutePath();
@@ -48,16 +49,23 @@ class LfmItem
             $thumb_url = null;
         }
 
-        $this->name = $file_name;
-        $this->url = $is_file ? $path->url($file_name) : '';
-        $this->size = $is_file ? $this->humanFilesize($this->disk->size($storage_path)) : '';
-        $this->updated = $this->disk->lastModified($storage_path);
-        $this->path = $is_file ? '' : $path->path('full');
-        $this->time = date('Y-m-d h:m', $this->disk->lastModified($storage_path));
-        $this->type = $file_type;
-        $this->icon = $icon;
-        $this->thumb = $thumb_url;
-        $this->is_file = $is_file;
+        $this->attributes['name']    = $file_name;
+        $this->attributes['url']     = $is_file ? $path->url($file_name) : '';
+        $this->attributes['size']    = $is_file ? $this->humanFilesize($this->disk->size($storage_path)) : '';
+        $this->attributes['updated'] = $this->disk->lastModified($storage_path);
+        $this->attributes['path']    = $is_file ? '' : $path->path('full');
+        $this->attributes['time']    = date('Y-m-d h:m', $this->disk->lastModified($storage_path));
+        $this->attributes['type']    = $file_type;
+        $this->attributes['icon']    = $icon;
+        $this->attributes['thumb']   = $thumb_url;
+        $this->attributes['is_file'] = $is_file;
+    }
+
+    public function __get($var_name)
+    {
+        if (array_key_exists($var_name, $this->attributes)) {
+            return $this->attributes[$var_name];
+        }
     }
 
     public function fileName()
@@ -72,7 +80,7 @@ class LfmItem
 
     public function isDirectory()
     {
-        return $this->storage->disk->isDirectory($this->absolutePath());
+        return is_dir($this->absolutePath());
     }
 
     public function isFile()
