@@ -2,19 +2,21 @@
 
 namespace Unisharp\Laravelfilemanager\controllers;
 
+use Unisharp\Laravelfilemanager\LfmStorage;
+
 class RedirectController extends LfmController
 {
     public function showFile()
     {
+        $storage = new LfmStorage;
         $request_url = urldecode(request()->url());
         $storage_path = str_replace(url('/'), '', $request_url);
-        $full_path = $this->disk_root . $storage_path;
 
-        if (! parent::exists($full_path)) {
+        if (! $storage->exists($storage_path)) {
             abort(404);
         }
 
-        return response(parent::getFile($storage_path))
-            ->header('Content-Type', parent::getFileType($full_path));
+        return response($storage->getFile($storage_path))
+            ->header('Content-Type', $storage->mimeType($storage_path));
     }
 }

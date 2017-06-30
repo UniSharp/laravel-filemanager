@@ -113,18 +113,6 @@ class LfmTest extends TestCase
         $this->assertEquals('foo', $lfm->getThumbFolderName());
     }
 
-    public function testHumanFilesize()
-    {
-        $lfm = new Lfm(m::mock(Config::class));
-
-        $this->assertEquals('1.00 kB', $lfm->humanFilesize(1024));
-        $this->assertEquals('1.00 MB', $lfm->humanFilesize(1024 ** 2));
-        $this->assertEquals('1.00 GB', $lfm->humanFilesize(1024 ** 3));
-        $this->assertEquals('1.00 TB', $lfm->humanFilesize(1024 ** 4));
-        $this->assertEquals('1.00 PB', $lfm->humanFilesize(1024 ** 5));
-        $this->assertEquals('1.00 EB', $lfm->humanFilesize(1024 ** 6));
-    }
-
     public function testGetFileIcon()
     {
         $config = m::mock(Config::class);

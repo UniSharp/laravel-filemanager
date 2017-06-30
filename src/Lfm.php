@@ -84,21 +84,6 @@ class Lfm
         return $this->config->get('lfm.thumb_folder_name');
     }
 
-    /**
-     * Make file size readable.
-     *
-     * @param  int  $bytes     File size in bytes.
-     * @param  int  $decimals  Decimals.
-     * @return string
-     */
-    public function humanFilesize($bytes, $decimals = 2)
-    {
-        $size = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-        $factor = floor((strlen($bytes) - 1) / 3);
-
-        return sprintf("%.{$decimals}f %s", $bytes / pow(1024, $factor), @$size[$factor]);
-    }
-
     public function getFileIcon($ext)
     {
         return $this->config->get("lfm.file_icon_array.{$ext}", 'fa-file');

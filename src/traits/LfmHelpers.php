@@ -261,11 +261,6 @@ trait LfmHelpers
         return $this->disk->deleteDirectory($this->getStoragePath($full_path));
     }
 
-    public function getFile($storage_path)
-    {
-        return $this->disk->get($storage_path);
-    }
-
     /**
      * Check a file is image or not.
      *
@@ -374,21 +369,6 @@ trait LfmHelpers
     public function error($error_type, $variables = [])
     {
         return trans($this->package_name . '::lfm.error-' . $error_type, $variables);
-    }
-
-    /**
-     * Make file size readable.
-     *
-     * @param  int  $bytes     File size in bytes.
-     * @param  int  $decimals  Decimals.
-     * @return string
-     */
-    public function humanFilesize($bytes, $decimals = 2)
-    {
-        $size = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-        $factor = floor((strlen($bytes) - 1) / 3);
-
-        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . ' ' . @$size[$factor];
     }
 
     /**

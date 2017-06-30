@@ -60,4 +60,14 @@ class LfmStorage
     {
         return new LfmItem($this, $storage_path);
     }
+
+    public function getFile($storage_path)
+    {
+        return $this->disk->get($storage_path);
+    }
+
+    public function mimeType($storage_path)
+    {
+        return $this->disk->mimeType($storage_path);
+    }
 }
