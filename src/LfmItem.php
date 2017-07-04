@@ -66,7 +66,8 @@ class LfmItem
 
     public function fileName()
     {
-        return basename($this->path);
+        $segments = explode('/', $this->path);
+        return end($segments);
     }
 
     public function absolutePath()
