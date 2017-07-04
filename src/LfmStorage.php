@@ -12,14 +12,11 @@ class LfmStorage
 
     public $disk;
 
-    public $lfm;
-
     // TODO: clean DI
-    public function __construct($disk = null, $root = null, Lfm $lfm = null)
+    public function __construct($disk = null, $root = null)
     {
         $this->disk = $disk ?: Storage::disk($this->disk_name);
         $this->disk_root = $root ?: config('filesystems.disks.' . $this->disk_name . '.root');
-        $this->lfm = $lfm;
     }
 
     public function directories($storage_path)

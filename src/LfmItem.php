@@ -10,6 +10,7 @@ class LfmItem
 {
     public $storage;
     public $path;
+    private $lfm;
     protected $attributes = [];
 
     // TODO: thumb
@@ -21,7 +22,8 @@ class LfmItem
 
     public function __get($var_name)
     {
-        $path = new LfmPath($this->storage->lfm, new Request);
+        $this->lfm = new Lfm(config());
+        $path = new LfmPath($this->lfm, new Request);
 
         $file_name = $this->fileName();
         $full_path = $this->absolutePath();
@@ -42,7 +44,7 @@ class LfmItem
             }
         } else {
             $extension = strtolower(\File::extension($file_name));
-            $file_type = $this->storage->lfm->getFileType($extension);
+            $file_type = $this->lfm->getFileType($extension);
             $thumb_url = null;
         }
 
@@ -111,7 +113,8 @@ class LfmItem
 
     public function extension()
     {
-        return $this->storage->disk->extension($this->absolutePath());
+        return pathinfo($this->absolutePath(), PATHINFO_EXTENSION);
+        // return $this->storage->disk->extension($this->absolutePath());
     }
 
     // TODO: check directory

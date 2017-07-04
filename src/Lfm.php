@@ -27,7 +27,7 @@ class Lfm
 
     public function getStorage()
     {
-        return $this->storage;
+        return $this->storage ?: new LfmStorage;
     }
 
     public function allowFolderType($type)

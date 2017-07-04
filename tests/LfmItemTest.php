@@ -69,14 +69,9 @@ class LfmItemTest extends TestCase
 
     public function testExtension()
     {
-        $disk = m::mock('disk');
-        $disk->shouldReceive('extension')->with('/app/foo/bar.baz')->once()->andReturn($ext = 'baz');
+        $ext = 'baz';
 
-        $storage = m::mock(LfmStorage::class);
-        $storage->disk = $disk;
-        $storage->disk_root = '/app';
-
-        $item = new LfmItem($storage, 'foo/bar.baz');
+        $item = new LfmItem(m::mock(LfmStorage::class), 'foo/bar.baz');
 
         $this->assertEquals($ext, $item->extension());
     }
@@ -135,10 +130,6 @@ class LfmItemTest extends TestCase
     public function testIcon()
     {
         $disk = m::mock('disk');
-        // $disk->shouldReceive('isDirectory')->with('foo/biz')->once()->andReturn(true);
-        // $disk->shouldReceive('isDirectory')->with('/app/foo/bar')->times(2)->andReturn(false);
-        $disk->shouldReceive('extension')->with('foo/baz')->once()->andReturn('');
-        $disk->shouldReceive('extension')->with('foo/biz')->once()->andReturn('');
 
         $lfm = m::mock(Lfm::class);
         $lfm->shouldReceive('getFileIcon')->with('')->once()->andReturn('fa-file');
@@ -149,7 +140,6 @@ class LfmItemTest extends TestCase
         $storage->lfm = $lfm;
         $storage->shouldReceive('mimeType')->with('foo/bar')->once()->andReturn('image/png');
         $storage->shouldReceive('mimeType')->with('foo/baz')->once()->andReturn('application/plain');
-        $storage->shouldReceive('mimeType')->with('foo/biz')->once()->andReturn('');
         $storage->shouldReceive('isDirectory')->with('foo/bar')->andReturn(false);
         $storage->shouldReceive('isDirectory')->with('foo/baz')->andReturn(false);
         $storage->shouldReceive('isDirectory')->with('foo/biz')->andReturn(true);
@@ -158,9 +148,9 @@ class LfmItemTest extends TestCase
         $item2 = new LfmItem($storage, 'foo/baz');
         $item3 = new LfmItem($storage, 'foo/biz');
 
+        $this->assertEquals('fa-image',    $item1->icon());
+        $this->assertEquals('fa-file',     $item2->icon());
         $this->assertEquals('fa-folder-o', $item3->icon());
-        $this->assertEquals('fa-image', $item1->icon());
-        $this->assertEquals('fa-file', $item2->icon());
     }
 
     public function testHumanFilesize()

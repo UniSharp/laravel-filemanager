@@ -22,7 +22,7 @@ class LfmPath
 
     public function __construct(Lfm $lfm = null, Request $request = null)
     {
-        $this->lfm = $lfm;
+        $this->lfm = $lfm ?: new Lfm(config());
         $this->request = $request;
     }
 
