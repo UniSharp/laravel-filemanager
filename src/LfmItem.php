@@ -4,11 +4,12 @@ namespace Unisharp\Laravelfilemanager;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use UniSharp\LaravelFilemanager\Lfm;
+use Illuminate\Http\Request;
 
 class LfmItem
 {
-    protected $storage;
-    protected $path;
+    public $storage;
+    public $path;
     protected $attributes = [];
 
     // TODO: thumb
@@ -16,25 +17,23 @@ class LfmItem
     {
         $this->storage = $storage;
         $this->path = $path;
+    }
 
-        // return;
-
-        $lfm = new Lfm(config());
-        $lfm->setStorage(new LfmStorage());
-        $path = new LfmPath($lfm, request());
+    public function __get($var_name)
+    {
+        $path = new LfmPath($this->storage->lfm, new Request);
 
         $file_name = $this->fileName();
         $full_path = $this->absolutePath();
         $is_file = ! $this->isDirectory();
 
         if (! $is_file) {
-            $file_type = trans($this->package_name . '::lfm.type-folder');
-            $thumb_url = asset('vendor/' . $this->package_name . '/img/folder.png');
+            $file_type = trans(Lfm::PACKAGE_NAME . '::lfm.type-folder');
+            $thumb_url = asset('vendor/' . Lfm::PACKAGE_NAME . '/img/folder.png');
         } elseif ($this->isImage()) {
             $file_type = $this->mimeType();
 
-            $file_path = $path->path('full', $file_name);
-            if ($this->imageShouldNotHaveThumb($file_path)) {
+            if ($this->imageShouldNotHaveThumb()) {
                 $thumb_url = $path->url($file_name, true);
             } elseif ($path->thumb()->exists($file_name)) {
                 $thumb_url = $path->thumb()->url($file_name, true);
@@ -43,7 +42,7 @@ class LfmItem
             }
         } else {
             $extension = strtolower(\File::extension($file_name));
-            $file_type = config('lfm.file_type_array.' . $extension) ?: 'File';
+            $file_type = $this->storage->lfm->getFileType($extension);
             $thumb_url = null;
         }
 
@@ -57,10 +56,7 @@ class LfmItem
         $this->attributes['icon']    = $this->icon();
         $this->attributes['thumb']   = $thumb_url;
         $this->attributes['is_file'] = $is_file;
-    }
 
-    public function __get($var_name)
-    {
         if (array_key_exists($var_name, $this->attributes)) {
             return $this->attributes[$var_name];
         }
@@ -78,7 +74,7 @@ class LfmItem
 
     public function isDirectory()
     {
-        return is_dir($this->absolutePath());
+        return $this->storage->isDirectory($this->path);
     }
 
     public function isFile()
@@ -110,7 +106,7 @@ class LfmItem
         //     return $file->getMimeType();
         // }
 
-        return $this->storage->disk->mimeType($this->path);
+        return $this->storage->mimeType($this->path);
     }
 
     public function extension()
@@ -133,6 +129,7 @@ class LfmItem
     // TODO: use carbon
     public function lastModified()
     {
+        return $this->storage->disk->lastModified($this->path);
         return filemtime($this->absolutePath());
     }
 

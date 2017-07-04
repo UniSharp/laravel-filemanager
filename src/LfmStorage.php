@@ -70,4 +70,9 @@ class LfmStorage
     {
         return $this->disk->mimeType($storage_path);
     }
+
+    public function isDirectory($storage_path)
+    {
+        return in_array($storage_path, $this->directories($storage_path));
+    }
 }

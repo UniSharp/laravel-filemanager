@@ -45,7 +45,7 @@ class LfmPath
     // absolute: /var/www/html/project/storage/app/laravel-filemanager/photos/shares
     // storage: laravel-filemanager/photos/shares
     // working directory: shares
-    public function path($type = 'storage', $item_name = null) // full, storage, working_dir
+    public function path($type = 'storage', $item_name = null)
     {
         $this->working_dir = $this->normalizeWorkingDir();
 
