@@ -58,6 +58,7 @@ $('#upload-btn').click(function () {
     success: function (data, statusText, xhr, $form) {
       resetUploadForm();
       refreshFoldersAndItems(data);
+      displaySuccessMessage(data);
     },
     error: function (jqXHR, textStatus, errorThrown) {
       displayErrorResponse(jqXHR);
@@ -154,6 +155,12 @@ function performLfmRequest(url, parameter, type) {
 
 function displayErrorResponse(jqXHR) {
   notify('<div style="max-height:50vh;overflow: scroll;">' + jqXHR.responseText + '</div>');
+}
+
+function displaySuccessMessage(data){
+  if(data == 'OK'){
+    notify('File Uploaded Successfully');
+  }
 }
 
 var refreshFoldersAndItems = function (data) {
