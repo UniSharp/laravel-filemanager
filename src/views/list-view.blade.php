@@ -12,7 +12,7 @@
     <tr>
       <td>
         <i class="fa {{ $item->icon }}"></i>
-        <a class="{{ $item->is_file ? 'file' : 'folder'}}-item clickable" data-id="{{ $item->is_file ? $item->url : $item->path }}">
+        <a class="{{ $item->is_file ? 'file' : 'folder'}}-item clickable" data-id="{{ $item->path }}">
           {{ str_limit($item->name, $limit = 20, $end = '...') }}
         </a>
       </td>
@@ -46,7 +46,7 @@
       <td>
         <div class="media" style="height: 70px;">
           <div class="media-left">
-            <div class="square {{ $item->is_file ? 'file' : 'folder'}}-item clickable"  data-id="{{ $item->is_file ? $item->url : $item->path }}">
+            <div class="square {{ $item->is_file ? 'file' : 'folder'}}-item clickable"  data-id="{{ $item->path }}">
               @if($item->thumb)
               <img src="{{ $item->thumb }}">
               @else
@@ -57,7 +57,7 @@
           <div class="media-body" style="padding-top: 10px;">
             <div class="media-heading">
               <p>
-                <a class="{{ $item->is_file ? 'file' : 'folder'}}-item clickable" data-id="{{ $item->is_file ? $item->url : $item->path }}">
+                <a class="{{ $item->is_file ? 'file' : 'folder'}}-item clickable" data-id="{{ $item->path }}">
                   {{ str_limit($item->name, $limit = 20, $end = '...') }}
                 </a>
                 &nbsp;&nbsp;
@@ -76,5 +76,5 @@
 </table>
 
 @else
-<p>{{ trans('laravel-filemanager::lfm.message-empty') }}</p>
+@include('laravel-filemanager::empty')
 @endif
