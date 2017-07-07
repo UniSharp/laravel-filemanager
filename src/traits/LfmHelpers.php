@@ -27,13 +27,10 @@ trait LfmHelpers
 
     public $disk;
 
-    private $lfm;
-
     public function initHelper()
     {
         $this->disk = Storage::disk($this->disk_name);
         $this->disk_root = config('filesystems.disks.' . $this->disk_name . '.root');
-        // $this->lfm = new LfmPath;
     }
 
     /**

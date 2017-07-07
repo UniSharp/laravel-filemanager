@@ -9,36 +9,42 @@ class LfmItem
 {
     private $lfm_path;
     private $lfm;
+    const COLUMNS = [
+        'name'    => 'fileName',
+        'size'    => 'size',
+        'time'    => 'lastModified',
+        'path'    => 'path',
+        'type'    => 'fileType',
+        'icon'    => 'icon',
+        'thumb'   => 'thumbUrl',
+        'is_file' => 'isFile',
+    ];
+    public $attributes = [];
 
     public function __construct(LfmPath $lfm_path)
     {
         $this->lfm_path = $lfm_path;
         $this->lfm = $lfm_path->lfm ?: new Lfm(new Config);
+        $this->dump();
     }
 
     public function __get($var_name)
     {
-        $mapping = [
-            'name'    => 'fileName',
-            'size'    => 'size',
-            'time'    => 'lastModified',
-            'path'    => 'path',
-            'type'    => 'fileType',
-            'icon'    => 'icon',
-            'thumb'   => 'thumbUrl',
-            'is_file' => 'isFile',
-        ];
+        if (array_key_exists($var_name, $this->attributes)) {
+            return $this->attributes[$var_name];
+        }
+    }
 
-        if (array_key_exists($var_name, $mapping)) {
-            $function_name = $mapping[$var_name];
-            return $this->$function_name();
+    public function dump()
+    {
+        foreach (self::COLUMNS as $var_name => $function_name) {
+            $this->attributes[$var_name] = $this->$function_name();
         }
     }
 
     public function fileName()
     {
-        $segments = explode('/', $this->absolutePath());
-        return end($segments);
+        return $this->lfm_path->getName();
     }
 
     public function absolutePath()
@@ -125,7 +131,7 @@ class LfmItem
     public function path()
     {
         if ($this->isDirectory()) {
-            return $this->absolutePath();
+            return $this->lfm_path->path('working_dir');
         }
 
         return $this->lfm_path->setName($this->fileName())->url();

@@ -22,6 +22,7 @@ class LfmItemTest extends TestCase
     {
         $lfm_path = m::mock(LfmPath::class);
         $lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar');
+        $lfm_path->shouldReceive('getName')->andReturn('bar');
 
         $this->assertEquals('bar', (new LfmItem($lfm_path))->fileName());
     }

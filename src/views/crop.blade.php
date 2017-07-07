@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-8">
     <div class="crop-container">
-      <img src="{{ $img->url . '?timestamp=' . $img->updated }}" class="img img-responsive">
+      <img src="{{ $img->path . '?timestamp=' . $img->time }}" class="img img-responsive">
     </div>
   </div>
   <div class="col-md-4">

@@ -18,7 +18,7 @@
       </td>
       <td>{{ $item->size }}</td>
       <td>{{ $item->type }}</td>
-      <td>{{ $item->time }}</td>
+      <td>{{ date('Y-m-d h:m', $item->time) }}</td>
       <td>
         @if($item->is_file)
         <a href="javascript:trash('{{ $item->name }}')">
@@ -66,7 +66,7 @@
                 </a> --}}
               </p>
             </div>
-            <p style="color: #aaa;font-weight: 400">{{ $item->time }}</p>
+            <p style="color: #aaa;font-weight: 400">{{ date('Y-m-d h:m', $item->time) }}</p>
           </div>
         </div>
       </td>

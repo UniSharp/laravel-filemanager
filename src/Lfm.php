@@ -30,6 +30,12 @@ class Lfm
         return $this->storage ?: app(LfmStorage::class);
     }
 
+    public function getNameFromPath($path)
+    {
+        $segments = explode(self::DS, $path);
+        return end($segments);
+    }
+
     public function allowFolderType($type)
     {
         if ($type == 'user') {

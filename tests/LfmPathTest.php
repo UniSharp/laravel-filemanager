@@ -61,15 +61,15 @@ class LfmPathTest extends TestCase
     public function testPath()
     {
         $lfm = m::mock(Lfm::class);
-        $lfm->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
-        $lfm->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
+        $lfm->shouldReceive('allowFolderType')->with('user')->andReturn(true);
+        $lfm->shouldReceive('getRootFolder')->with('user')->andReturn('/foo');
         $lfm->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
         $lfm->shouldReceive('getCategoryName')->with('file')->times(2)->andReturn('files');
         $lfm->shouldReceive('getDiskRoot')->andReturn(realpath(__DIR__ . '/../') . '/storage/app');
 
         $request = m::mock(Request::class);
         $request->shouldReceive('input')->with('type')->times(2)->andReturn('file');
-        $request->shouldReceive('input')->with('working_dir')->once()->andReturnNull();
+        $request->shouldReceive('input')->with('working_dir')->andReturnNull();
 
         $path = new LfmPath($lfm, $request);
 

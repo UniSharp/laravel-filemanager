@@ -341,12 +341,12 @@ function notify(message) {
   bootbox.alert(message);
 }
 
-function fileView(file_url, timestamp) {
+function fileView(file_url) {
   bootbox.dialog({
     title: lang['title-view'],
     message: $('<img>')
       .addClass('img img-responsive center-block')
-      .attr('src', file_url + '?timestamp=' + timestamp),
+      .attr('src', file_url),
     size: 'large',
     onEscape: true,
     backdrop: true

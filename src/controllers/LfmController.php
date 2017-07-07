@@ -31,7 +31,6 @@ class LfmController extends Controller
      */
     public function show()
     {
-        dd($this->lfm->files());
         // dd(app()::VERSION > "5.1.0");
         return view('laravel-filemanager::index');
     }
