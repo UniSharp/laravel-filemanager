@@ -27,7 +27,7 @@ class Lfm
 
     public function getStorage()
     {
-        return $this->storage ?: new LfmStorage;
+        return $this->storage ?: app(LfmStorage::class);
     }
 
     public function allowFolderType($type)
@@ -74,6 +74,11 @@ class Lfm
         return static::DS . $folder;
     }
 
+    public function getDiskRoot()
+    {
+        return $this->config->get('filesystems.disks.' . 'local' . '.root');
+    }
+
     public function getUrlPrefix()
     {
         return $this->config->get('lfm.url_prefix', static::PACKAGE_NAME);
@@ -103,7 +108,8 @@ class Lfm
     // TODO: do not use url function, and add test
     public function url($path = '')
     {
-        return url($path);
+        return '/' . $path;
+        // return url($path);
     }
 
     /**

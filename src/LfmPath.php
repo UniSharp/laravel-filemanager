@@ -2,8 +2,8 @@
 
 namespace Unisharp\Laravelfilemanager;
 
-use Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LfmPath
 {
@@ -16,14 +16,24 @@ class LfmPath
     private $working_dir;
     private $full_path;
     private $is_thumb = false;
-    private $lfm;
+    public $lfm;
+    private $disk_name = 'local'; // config('lfm.disk')
 
-    protected $request;
+    public $request;
 
     public function __construct(Lfm $lfm = null, Request $request = null)
     {
         $this->lfm = $lfm ?: new Lfm(config());
         $this->request = $request;
+    }
+
+    public function __get($var_name)
+    {
+        if ($var_name == 'storage') {
+            return new LfmStorage($this, Storage::disk($this->disk_name));
+        } elseif ($var_name == 'disk_root') {
+            return $this->lfm->getDiskRoot();
+        }
     }
 
     public function dir($working_dir)
@@ -49,22 +59,13 @@ class LfmPath
     {
         $this->working_dir = $this->normalizeWorkingDir();
 
-        if (empty($this->working_dir)) {
-            $default_folder_type = 'share';
-            if ($this->lfm->allowFolderType('user')) {
-                $default_folder_type = 'user';
-            }
-
-            $this->working_dir = $this->lfm->getRootFolder($default_folder_type);
-        }
-
         // storage/app/laravel-filemanager/files/{user_slug}
         $this->full_path = $this->lfm->basePath() . $this->ds . $this->getPathPrefix() . $this->working_dir;
 
         if ($type == 'storage') {
             // storage_path('app') /
             // laravel-filemanager/files/{user_slug}
-            $result = str_replace($this->lfm->getStorage()->disk_root . $this->ds, '', $this->full_path);
+            $result = str_replace($this->disk_root . $this->ds, '', $this->full_path);
         } elseif ($type == 'working_dir') {
             $result = $this->working_dir;
         } else {
@@ -86,6 +87,8 @@ class LfmPath
     {
         $prefix = $this->lfm->getUrlPrefix();
 
+        // dd($this->request->input());
+
         $default_folder_name = 'files';
         if ($this->isProcessingImages()) {
             $default_folder_name = 'photos';
@@ -95,59 +98,65 @@ class LfmPath
 
         $this->working_dir = $this->normalizeWorkingDir();
 
-        if (empty($this->working_dir)) {
-            $default_folder_type = 'share';
-            if ($this->lfm->allowFolderType('user')) {
-                $default_folder_type = 'user';
-            }
-
-            $this->working_dir = $this->lfm->getRootFolder($default_folder_type);
-        }
-
         $result = $prefix . $this->ds . $category_name . $this->working_dir;
 
         if ($this->is_thumb) {
             $result .= $this->ds . config('lfm.thumb_folder_name');
         }
 
-        return $this->lfm->url($result . $this->ds . $item_name);
+        if ($item_name) {
+            $result .= $this->ds . $item_name;
+        }
+
+        return $this->lfm->url($result);
     }
 
     public function folders()
     {
-        $storage_path = $this->path('storage');
+        $folders = array_map(function ($directory) {
+            return $this->get($directory);
+        }, $this->storage->directories($this));
 
-        return array_filter($this->lfm->getStorage()->directories($storage_path), function ($directory) {
+        return array_filter($folders, function ($directory) {
             return $directory->name !== $this->lfm->getThumbFolderName();
         });
     }
 
     public function files()
     {
-        $storage_path = $this->path('storage');
-
-        return $this->lfm->getStorage()->files($storage_path);
+        return array_map(function ($file_name) {
+            return $this->get($file_name);
+        }, $this->storage->files($this));
     }
 
     public function exists($item_name)
     {
-        $storage_path = $this->path('storage', $item_name);
-
-        return $this->lfm->getStorage()->exists($storage_path);
+        return $this->storage->exists($this);
     }
 
     public function get($item_name)
     {
-        $storage_path = $this->path('storage', $item_name);
-
-        return $this->lfm->getStorage()->get($storage_path);
+        return new LfmItem($this);
     }
 
+    public function __call($function_name, $arguments)
+    {
+        return $this->storage->$function_name();
+    }
+
+    /**
+     * Create folder if not exist.
+     *
+     * @param  string  $path  Real path of a directory.
+     * @return bool
+     */
     public function createFolder($item_name)
     {
-        $storage_path = $this->path('storage', $item_name);
+        if ($this->storage->exists($this)) {
+            return false;
+        }
 
-        return $this->lfm->getStorage()->createFolder($storage_path);
+        return $this->storage->makeDirectory($this);
     }
 
     /**
@@ -161,7 +170,7 @@ class LfmPath
         $category_name = $this->lfm->getCategoryName($this->currentLfmType());
 
         // storage_path('app') / laravel-filemanager
-        $prefix = $this->lfm->getStorage()->disk_root . $this->ds . $this->package_name;
+        $prefix = $this->disk_root . $this->ds . $this->package_name;
 
         // storage/app/laravel-filemanager
         $prefix = str_replace($this->lfm->basePath() . $this->ds, '', $prefix);
@@ -182,7 +191,18 @@ class LfmPath
 
     public function normalizeWorkingDir()
     {
-        return $this->working_dir ?: $this->request->input('working_dir');
+        $this->working_dir = $this->working_dir ?: $this->request->input('working_dir');
+
+        if (empty($this->working_dir)) {
+            $default_folder_type = 'share';
+            if ($this->lfm->allowFolderType('user')) {
+                $default_folder_type = 'user';
+            }
+
+            $this->working_dir = $this->lfm->getRootFolder($default_folder_type);
+        }
+
+        return $this->working_dir;
     }
 
     /**

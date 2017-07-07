@@ -2,74 +2,60 @@
 
 namespace Unisharp\Laravelfilemanager;
 
-use Illuminate\Support\Facades\Storage;
-
 class LfmStorage
 {
-    private $disk_name = 'local'; // config('lfm.disk')
-
-    public $disk_root;
-
     public $disk;
 
+    private $path;
+
     // TODO: clean DI
-    public function __construct($disk = null, $root = null)
+    public function __construct(LfmPath $lfm_path, $disk = null)
     {
-        $this->disk = $disk ?: Storage::disk($this->disk_name);
-        $this->disk_root = $root ?: config('filesystems.disks.' . $this->disk_name . '.root');
+        $this->disk = $disk;
+        $this->path = $lfm_path->path('storage');
     }
 
-    public function directories($storage_path)
+    public function __call($function_name, $arguments)
     {
-        return array_map(function ($directory) {
-            return $this->get($directory);
-        }, $this->disk->directories($storage_path));
+        return $this->disk->$function_name($this->path);
     }
 
-    public function files($storage_path)
+    public function directories()
     {
-        return array_map(function ($file_name) {
-            return $this->get($file_name);
-        }, $this->disk->files($storage_path));
+        return $this->disk->directories($this->path);
     }
 
-    /**
-     * Create folder if not exist.
-     *
-     * @param  string  $path  Real path of a directory.
-     * @return bool
-     */
-    public function createFolder($storage_path)
+    public function files()
     {
-        if (! $this->disk->exists($storage_path)) {
-            return $this->disk->makeDirectory($storage_path, 0777, true, true);
-        }
-
-        return false;
+        return $this->disk->files($this->path);
     }
 
-    public function exists($storage_path)
+    public function makeDirectory()
     {
-        return $this->disk->exists($storage_path);
+        return $this->disk->makeDirectory($this->path, 0777, true, true);
     }
 
-    public function get($storage_path)
+    public function exists()
     {
-        return new LfmItem($this, $storage_path);
+        return $this->disk->exists($this->path);
     }
 
-    public function getFile($storage_path)
+    public function getFile()
     {
-        return $this->disk->get($storage_path);
+        return $this->disk->get($this->path);
     }
 
-    public function mimeType($storage_path)
+    public function mimeType()
     {
-        return $this->disk->mimeType($storage_path);
+        return $this->disk->mimeType($this->path);
     }
 
-    public function isDirectory($storage_path)
+    public function isDirectory()
     {
-        return in_array($storage_path, $this->directories($storage_path));
+        $parent_path = substr($this->path, 0, strrpos($this->path, '/'));
+        $current_path = $this->path;
+        $this->path = $parent_path;
+
+        return in_array($current_path, $this->directories());
     }
 }

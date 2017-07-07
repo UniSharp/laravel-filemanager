@@ -6,8 +6,8 @@ use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use UniSharp\LaravelFilemanager\Lfm;
 use Unisharp\Laravelfilemanager\LfmItem;
+use Unisharp\Laravelfilemanager\LfmPath;
 use Unisharp\Laravelfilemanager\LfmStorage;
-use Illuminate\Contracts\Config\Repository as Config;
 
 class LfmItemTest extends TestCase
 {
@@ -20,142 +20,117 @@ class LfmItemTest extends TestCase
 
     public function testFileName()
     {
-        $storage = m::mock(LfmStorage::class);
+        $lfm_path = m::mock(LfmPath::class);
+        $lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar');
 
-        $item = new LfmItem($storage, 'foo/bar');
-
-        $this->assertEquals('bar', $item->fileName());
+        $this->assertEquals('bar', (new LfmItem($lfm_path))->fileName());
     }
 
     public function testAbsolutePath()
     {
-        $storage = m::mock(LfmStorage::class);
-        $storage->disk_root = '/app';
+        $lfm_path = m::mock(LfmPath::class);
+        $lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar');
 
-        $item = new LfmItem($storage, 'foo/bar');
-
-        $this->assertEquals('/app/foo/bar', $item->absolutePath());
+        $this->assertEquals('foo/bar', (new LfmItem($lfm_path))->absolutePath());
     }
 
     public function testIsDirectory()
     {
-        $storage = m::mock(LfmStorage::class);
-        $storage->shouldReceive('isDirectory')->with('foo/bar')->andReturn(false);
+        $lfm_path = m::mock(LfmPath::class);
+        $lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar');
+        $lfm_path->shouldReceive('isDirectory')->andReturn(false);
 
-        $item = new LfmItem($storage, 'foo/bar');
-
-        $this->assertFalse($item->isDirectory());
+        $this->assertFalse((new LfmItem($lfm_path))->isDirectory());
     }
 
     public function testIsFile()
     {
-        $storage = m::mock(LfmStorage::class);
-        $storage->shouldReceive('isDirectory')->with('foo/bar')->andReturn(false);
+        $lfm_path = m::mock(LfmPath::class);
+        $lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar');
+        $lfm_path->shouldReceive('isDirectory')->andReturn(false);
 
-        $item = new LfmItem($storage, 'foo/bar');
-
-        $this->assertTrue($item->isFile());
-    }
-
-    public function testMimeType()
-    {
-        $storage = m::mock(LfmStorage::class);
-        $storage->shouldReceive('mimeType')->with('foo/bar')->once()->andReturn($mime = 'application/plain');
-
-        $item = new LfmItem($storage, 'foo/bar');
-
-        $this->assertEquals('application/plain', $item->mimeType());
-    }
-
-    public function testExtension()
-    {
-        $ext = 'baz';
-
-        $item = new LfmItem(m::mock(LfmStorage::class), 'foo/bar.baz');
-
-        $this->assertEquals($ext, $item->extension());
+        $this->assertTrue((new LfmItem($lfm_path))->isFile());
     }
 
     public function testIsImage()
     {
-        $storage = m::mock(LfmStorage::class);
-        $storage->shouldReceive('mimeType')->with('foo/bar')->once()->andReturn($mime = 'application/plain');
+        $lfm_path = m::mock(LfmPath::class);
+        $lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar');
+        $lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
 
-        $item = new LfmItem($storage, 'foo/bar');
+        $this->assertFalse((new LfmItem($lfm_path))->isImage());
+    }
 
-        $this->assertFalse($item->isImage());
+    public function testMimeType()
+    {
+        $lfm_path = m::mock(LfmPath::class);
+        $lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar');
+        $lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
+
+        $this->assertEquals('application/plain', (new LfmItem($lfm_path))->mimeType());
+    }
+
+    public function testExtension()
+    {
+        $lfm_path = m::mock(LfmPath::class);
+        $lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar.baz');
+
+        $this->assertEquals('baz', (new LfmItem($lfm_path))->extension());
     }
 
     // TODO: refactor
-    public function testUrl()
+    public function testPath()
     {
-        $lfm = m::mock(Lfm::class);
-        $lfm->shouldReceive('url')->with('/app/foo/bar')->once()->andReturn($url = 'http://localhost/app/foo/bar');
+        $lfm_path = m::mock(LfmPath::class);
+        $lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar');
+        $lfm_path->shouldReceive('isDirectory')->andReturn(true);
 
-        $storage = m::mock(LfmStorage::class);
-        $storage->disk_root = '/app';
-        $storage->lfm = $lfm;
-
-        $item = new LfmItem($storage, 'foo/bar');
-
-        $this->assertEquals($url, $item->url());
+        $this->assertEquals('foo/bar', (new LfmItem($lfm_path))->path());
     }
 
     public function testSize()
     {
-        $disk = m::mock('disk');
-        $disk->shouldReceive('size')->with('foo/bar')->once()->andReturn(1024);
+        $lfm_path = m::mock(LfmPath::class);
+        $lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar');
+        $lfm_path->shouldReceive('isDirectory')->andReturn(false);
+        $lfm_path->shouldReceive('size')->andReturn(1024);
 
-        $storage = m::mock(LfmStorage::class);
-        $storage->disk = $disk;
-
-        $item = new LfmItem($storage, 'foo/bar');
-
-        $this->assertEquals('1.00 kB', $item->size());
+        $this->assertEquals('1.00 kB', (new LfmItem($lfm_path))->size());
     }
 
     public function testLastModified()
     {
-        $disk = m::mock('disk');
-        $disk->shouldReceive('lastModified')->with('foo/bar')->once()->andReturn(0);
+        $lfm_path = m::mock(LfmPath::class);
+        $lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar');
+        $lfm_path->shouldReceive('lastModified')->andReturn(0);
 
-        $storage = m::mock(LfmStorage::class);
-        $storage->disk = $disk;
-
-        $item = new LfmItem($storage, 'foo/bar');
-
-        $this->assertEquals(0, $item->lastModified());
+        $this->assertEquals(0, (new LfmItem($lfm_path))->lastModified());
     }
 
     public function testIcon()
     {
-        $disk = m::mock('disk');
+        $path1 = m::mock(LfmPath::class);
+        $path1->shouldReceive('path')->with('absolute')->andReturn('foo/bar');
+        $path1->shouldReceive('isDirectory')->andReturn(false);
+        $path1->shouldReceive('mimeType')->andReturn('image/png');
 
-        $lfm = m::mock(Lfm::class);
-        $lfm->shouldReceive('getFileIcon')->with('')->once()->andReturn('fa-file');
+        $path2 = m::mock(LfmPath::class);
+        $path2->shouldReceive('path')->with('absolute')->andReturn('foo/baz');
+        $path2->shouldReceive('isDirectory')->andReturn(false);
+        $path2->shouldReceive('mimeType')->andReturn('application/plain');
 
-        $storage = m::mock(LfmStorage::class);
-        $storage->disk = $disk;
-        $storage->disk_root = '/app';
-        $storage->lfm = $lfm;
-        $storage->shouldReceive('mimeType')->with('foo/bar')->once()->andReturn('image/png');
-        $storage->shouldReceive('mimeType')->with('foo/baz')->once()->andReturn('application/plain');
-        $storage->shouldReceive('isDirectory')->with('foo/bar')->andReturn(false);
-        $storage->shouldReceive('isDirectory')->with('foo/baz')->andReturn(false);
-        $storage->shouldReceive('isDirectory')->with('foo/biz')->andReturn(true);
+        $path3 = m::mock(LfmPath::class);
+        $path3->shouldReceive('path')->with('absolute')->andReturn('foo/biz');
+        $path3->shouldReceive('isDirectory')->andReturn(true);
 
-        $item1 = new LfmItem($storage, 'foo/bar');
-        $item2 = new LfmItem($storage, 'foo/baz');
-        $item3 = new LfmItem($storage, 'foo/biz');
-
-        $this->assertEquals('fa-image',    $item1->icon());
-        $this->assertEquals('fa-file',     $item2->icon());
-        $this->assertEquals('fa-folder-o', $item3->icon());
+        $this->assertEquals('fa-image',    (new LfmItem($path1))->icon());
+        $this->assertEquals('fa-file',     (new LfmItem($path2))->icon());
+        $this->assertEquals('fa-folder-o', (new LfmItem($path3))->icon());
     }
 
     public function testHumanFilesize()
     {
-        $item = new LfmItem(m::mock(LfmStorage::class), 'foo/bar');
+        $item = new LfmItem(m::mock(LfmPath::class));
 
         $this->assertEquals('1.00 kB', $item->humanFilesize(1024));
         $this->assertEquals('1.00 MB', $item->humanFilesize(1024 ** 2));

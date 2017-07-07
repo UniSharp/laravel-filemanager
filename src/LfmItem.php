@@ -2,82 +2,53 @@
 
 namespace Unisharp\Laravelfilemanager;
 
+use Illuminate\Config\Repository as Config;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use UniSharp\LaravelFilemanager\Lfm;
-use Illuminate\Http\Request;
 
 class LfmItem
 {
-    public $storage;
-    public $path;
+    private $lfm_path;
     private $lfm;
-    protected $attributes = [];
 
-    // TODO: thumb
-    public function __construct(LfmStorage $storage, $path)
+    public function __construct(LfmPath $lfm_path)
     {
-        $this->storage = $storage;
-        $this->path = $path;
+        $this->lfm_path = $lfm_path;
+        $this->lfm = $lfm_path->lfm ?: new Lfm(new Config);
     }
 
     public function __get($var_name)
     {
-        $this->lfm = new Lfm(config());
-        $path = new LfmPath($this->lfm, new Request);
+        $mapping = [
+            'name'    => 'fileName',
+            'size'    => 'size',
+            'time'    => 'lastModified',
+            'path'    => 'path',
+            'type'    => 'fileType',
+            'icon'    => 'icon',
+            'thumb'   => 'thumbUrl',
+            'is_file' => 'isFile',
+        ];
 
-        $file_name = $this->fileName();
-        $full_path = $this->absolutePath();
-        $is_file = ! $this->isDirectory();
-
-        if (! $is_file) {
-            $file_type = trans(Lfm::PACKAGE_NAME . '::lfm.type-folder');
-            $thumb_url = asset('vendor/' . Lfm::PACKAGE_NAME . '/img/folder.png');
-        } elseif ($this->isImage()) {
-            $file_type = $this->mimeType();
-
-            if ($this->imageShouldNotHaveThumb()) {
-                $thumb_url = $path->url($file_name, true);
-            } elseif ($path->thumb()->exists($file_name)) {
-                $thumb_url = $path->thumb()->url($file_name, true);
-            } else {
-                $thumb_url = $path->url($file_name, true);
-            }
-        } else {
-            $extension = strtolower(\File::extension($file_name));
-            $file_type = $this->lfm->getFileType($extension);
-            $thumb_url = null;
-        }
-
-        $this->attributes['name']    = $file_name;
-        $this->attributes['url']     = $is_file ? $path->url($file_name) : '';
-        $this->attributes['size']    = $is_file ? $this->size() : '';
-        $this->attributes['updated'] = $this->lastModified();
-        $this->attributes['path']    = $is_file ? '' : $this->absolutePath();
-        $this->attributes['time']    = date('Y-m-d h:m', $this->lastModified());
-        $this->attributes['type']    = $file_type;
-        $this->attributes['icon']    = $this->icon();
-        $this->attributes['thumb']   = $thumb_url;
-        $this->attributes['is_file'] = $is_file;
-
-        if (array_key_exists($var_name, $this->attributes)) {
-            return $this->attributes[$var_name];
+        if (array_key_exists($var_name, $mapping)) {
+            $function_name = $mapping[$var_name];
+            return $this->$function_name();
         }
     }
 
     public function fileName()
     {
-        $segments = explode('/', $this->path);
+        $segments = explode('/', $this->absolutePath());
         return end($segments);
     }
 
     public function absolutePath()
     {
-        return $this->storage->disk_root . Lfm::DS . $this->path;
+        return $this->lfm_path->path('absolute');
     }
 
     public function isDirectory()
     {
-        return $this->storage->isDirectory($this->path);
+        return $this->lfm_path->isDirectory();
     }
 
     public function isFile()
@@ -109,7 +80,20 @@ class LfmItem
         //     return $file->getMimeType();
         // }
 
-        return $this->storage->mimeType($this->path);
+        return $this->lfm_path->mimeType();
+    }
+
+    public function fileType()
+    {
+        if ($this->isDirectory()) {
+            return trans(Lfm::PACKAGE_NAME . '::lfm.type-folder');
+        }
+
+        if ($this->isImage()) {
+            return $this->mimeType();
+        }
+
+        return $this->lfm->getFileType($this->extension());
     }
 
     public function extension()
@@ -118,23 +102,46 @@ class LfmItem
         // return $this->storage->disk->extension($this->absolutePath());
     }
 
-    // TODO: check directory
-    public function url()
+    public function thumbUrl()
     {
-        return $this->storage->lfm->url($this->absolutePath());
+        $file_name = $this->fileName();
+
+        if ($this->isDirectory()) {
+            $thumb_url = asset('vendor/' . Lfm::PACKAGE_NAME . '/img/folder.png');
+        } elseif ($this->isImage()) {
+            if ($this->hasThumb()) {
+                $thumb_url = $this->lfm_path->thumb()->url($file_name, true);
+            } else {
+                $thumb_url = $this->lfm_path->url($file_name, true);
+            }
+        } else {
+            $thumb_url = null;
+        }
+
+        return $thumb_url;
+    }
+
+    // TODO: check directory
+    public function path()
+    {
+        if ($this->isDirectory()) {
+            return $this->absolutePath();
+        }
+
+        return $this->lfm_path->url($this->fileName());
     }
 
     // TODO: check directory
     public function size()
     {
-        return $this->humanFilesize($this->storage->disk->size($this->path));
+        return $this->isFile() ? $this->humanFilesize($this->lfm_path->size()) : '';
     }
 
     // TODO: use carbon
     public function lastModified()
     {
-        return $this->storage->disk->lastModified($this->path);
-        return filemtime($this->absolutePath());
+        return $this->lfm_path->lastModified();
+        // return filemtime($this->absolutePath());
     }
 
     public function icon()
@@ -147,15 +154,24 @@ class LfmItem
             return 'fa-image';
         }
 
-        return $this->storage->lfm->getFileIcon($this->extension());
+        return $this->lfm->getFileIcon($this->extension());
     }
 
-    public function imageShouldNotHaveThumb()
+    public function hasThumb()
     {
-        $mine_type = $this->mimeType();
-        $noThumbType = ['image/gif', 'image/svg+xml'];
+        if (!$this->isImage()) {
+            return false;
+        }
 
-        return in_array($mine_type, $noThumbType);
+        if (in_array($this->mimeType(), ['image/gif', 'image/svg+xml'])) {
+            return false;
+        }
+
+        if (!$this->lfm_path->thumb()->exists($this->fileName())) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
