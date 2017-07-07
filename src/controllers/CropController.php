@@ -31,7 +31,7 @@ class CropController extends LfmController
         $dataY = request('dataY');
         $dataHeight = request('dataHeight');
         $dataWidth = request('dataWidth');
-        $image_path = $this->lfm->path('full', request('img'));
+        $image_path = $this->lfm->setName(request('img'))->path('absolute');
         $crop_path = $image_path;
 
         if (! $overWrite) {
@@ -49,7 +49,7 @@ class CropController extends LfmController
         // make new thumbnail
         Image::make($crop_path)
             ->fit(config('lfm.thumb_img_width', 200), config('lfm.thumb_img_height', 200))
-            ->save($this->lfm->thumb()->path('full', parent::getName($image_path)));
+            ->save($this->lfm->thumb()->setName(parent::getName($image_path))->path('absolute'));
         event(new ImageWasCropped($image_path));
     }
 

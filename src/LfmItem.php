@@ -110,9 +110,9 @@ class LfmItem
             $thumb_url = asset('vendor/' . Lfm::PACKAGE_NAME . '/img/folder.png');
         } elseif ($this->isImage()) {
             if ($this->hasThumb()) {
-                $thumb_url = $this->lfm_path->thumb()->url($file_name, true);
+                $thumb_url = $this->lfm_path->setName($file_name)->thumb()->url(true);
             } else {
-                $thumb_url = $this->lfm_path->url($file_name, true);
+                $thumb_url = $this->lfm_path->setName($file_name)->url(true);
             }
         } else {
             $thumb_url = null;
@@ -128,7 +128,7 @@ class LfmItem
             return $this->absolutePath();
         }
 
-        return $this->lfm_path->url($this->fileName());
+        return $this->lfm_path->setName($this->fileName())->url();
     }
 
     // TODO: check directory
@@ -167,7 +167,7 @@ class LfmItem
             return false;
         }
 
-        if (!$this->lfm_path->thumb()->exists($this->fileName())) {
+        if (!$this->lfm_path->setName($this->fileName())->thumb()->exists()) {
             return false;
         }
 

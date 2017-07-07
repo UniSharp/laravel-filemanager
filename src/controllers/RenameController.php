@@ -14,7 +14,7 @@ class RenameController extends LfmController
         $old_name = parent::translateFromUtf8(request('file'));
         $new_name = parent::translateFromUtf8(trim(request('new_name')));
 
-        $old_file = $this->lfm->path('full', $old_name);
+        $old_file = $this->lfm->setName($old_name)->path('absolute');
 
         $is_directory = parent::isDirectory($old_file);
 
@@ -28,7 +28,7 @@ class RenameController extends LfmController
 
         if (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $new_name)) {
             return parent::error('folder-alnum');
-        } elseif ($this->lfm->exists($new_name)) {
+        } elseif ($this->lfm->setName($new_name)->exists()) {
             return parent::error('rename');
         }
 
@@ -39,7 +39,7 @@ class RenameController extends LfmController
             }
         }
 
-        $new_file = $this->lfm->path('full', $new_name);
+        $new_file = $this->lfm->setName($name)->path('absolute');
 
         if ($is_directory) {
             event(new FolderIsRenaming($old_file, $new_file));
@@ -49,8 +49,8 @@ class RenameController extends LfmController
 
         if (parent::fileIsImage($old_file)) {
             $this->move(
-                $this->lfm->thumb()->path('full', $old_name),
-                $this->lfm->thumb()->path('full', $new_name)
+                $this->lfm->setName($old_name)->thumb()->path('absolute'),
+                $this->lfm->setName($new_name)->thumb()->path('absolute')
             );
         }
 

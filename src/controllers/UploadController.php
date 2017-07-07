@@ -53,7 +53,7 @@ class UploadController extends LfmController
     private function proceedSingleUpload($file)
     {
         $new_filename = $this->getNewName($file);
-        $new_file_path = $this->lfm->path('full', $new_filename);
+        $new_file_path = $this->lfm->setName($new_filename)->path('absolute');
 
         event(new ImageIsUploading($new_file_path));
         try {
@@ -82,7 +82,7 @@ class UploadController extends LfmController
 
         $new_filename = $this->getNewName($file) . '.' . $file->getClientOriginalExtension();
 
-        if ($this->lfm->exists($new_filename)) {
+        if ($this->lfm->setName($new_filename)->exists()) {
             return parent::error('file-exist');
         }
 
@@ -127,7 +127,7 @@ class UploadController extends LfmController
     {
         if (parent::fileIsImage($file) && ! parent::imageShouldNotHaveThumb($file)) {
             // create folder for thumbnails
-            parent::createFolderByPath($this->lfm->thumb()->path('full'));
+            parent::createFolderByPath($this->lfm->thumb()->path('absolute'));
 
             // save original image and thumbnails to thumbnail folder
             $new_filename = $this->thumb_driver->thumbs([
@@ -136,20 +136,20 @@ class UploadController extends LfmController
 
             // move original image out of thumbnail folder
             parent::move(
-                $this->lfm->thumb()->path('full', $new_filename),
-                $this->lfm->path('full', $new_filename)
+                $this->lfm->setName($new_filename)->thumb()->path('absolute'),
+                $this->lfm->setName($new_filename)->path('absolute')
             );
 
             // rename thumbnail
             $thumb_name = substr_replace($new_filename, '_M', strpos($new_filename, '.'), 0);
             parent::move(
-                $this->lfm->thumb()->path('full', $thumb_name),
-                $this->lfm->thumb()->path('full', $new_filename)
+                $this->lfm->setName($thumb_name)->thumb()->path('absolute'),
+                $this->lfm->setName($new_filename)->thumb()->path('absolute')
             );
 
             // delete compress image
             $compress_name = substr_replace($new_filename, '_CP', strpos($new_filename, '.'), 0);
-            parent::delete($this->lfm->thumb()->path('full', $compress_name));
+            parent::delete($this->lfm->setName($compress_name)->thumb()->path('absolute'));
         } else {
             $new_filename = $this->driver->save($file, $new_filename);
         }
@@ -159,7 +159,7 @@ class UploadController extends LfmController
 
     private function useFile($new_filename)
     {
-        $file = $this->lfm->url($new_filename);
+        $file = $this->lfm->setName($new_filename)->url();
 
         return "<script type='text/javascript'>
 

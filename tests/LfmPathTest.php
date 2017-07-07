@@ -74,7 +74,7 @@ class LfmPathTest extends TestCase
         $path = new LfmPath($lfm, $request);
 
         $this->assertEquals('laravel-filemanager/files/foo', $path->path());
-        $this->assertEquals('laravel-filemanager/files/foo/bar', $path->path('storage', 'bar'));
+        $this->assertEquals('laravel-filemanager/files/foo/bar', $path->setName('bar')->path('storage'));
     }
 
     public function testUrl()
@@ -94,7 +94,7 @@ class LfmPathTest extends TestCase
 
         $path = new LfmPath($lfm, $request);
 
-        $this->assertEquals('http://localhost/laravel-filemanager/files/foo/foo', $path->url('foo'));
+        $this->assertEquals('http://localhost/laravel-filemanager/files/foo/foo', $path->setName('foo')->url());
     }
 
     // public function testFolders()

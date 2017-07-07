@@ -8,7 +8,7 @@ class RedirectController extends LfmController
 {
     public function showFile()
     {
-        $storage = new LfmStorage;
+        $storage = app(LfmStorage::class);
         $request_url = urldecode(request()->url());
         $storage_path = str_replace(url('/'), '', $request_url);
 

@@ -44,12 +44,12 @@ class FolderController extends LfmController
 
         if (empty($folder_name)) {
             return parent::error('folder-name');
-        } elseif ($this->lfm->exists($folder_name)) {
+        } elseif ($this->lfm->setName($folder_name)->exists()) {
             return parent::error('folder-exist');
         } elseif (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
             return parent::error('folder-alnum');
         } else {
-            $this->lfm->createFolder($folder_name);
+            $this->lfm->setName($folder_name)->createFolder();
 
             return parent::$success_response;
         }

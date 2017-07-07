@@ -15,7 +15,9 @@ class LfmPath
 
     private $working_dir;
     private $full_path;
+    private $item_name;
     private $is_thumb = false;
+
     public $lfm;
     private $disk_name = 'local'; // config('lfm.disk')
 
@@ -50,12 +52,24 @@ class LfmPath
         return $this;
     }
 
+    public function setName($item_name)
+    {
+        $this->item_name = $item_name;
+
+        return $this;
+    }
+
+    public function getName()
+    {
+        return $this->item_name;
+    }
+
     // /var/www/html/project/storage/app/laravel-filemanager/photos/{user_slug}
     // /var/www/html/project/storage/app/laravel-filemanager/photos/shares
     // absolute: /var/www/html/project/storage/app/laravel-filemanager/photos/shares
     // storage: laravel-filemanager/photos/shares
     // working directory: shares
-    public function path($type = 'storage', $item_name = null)
+    public function path ($type = 'storage')
     {
         $this->working_dir = $this->normalizeWorkingDir();
 
@@ -76,18 +90,16 @@ class LfmPath
             $result .= $this->ds . config('lfm.thumb_folder_name');
         }
 
-        if ($item_name) {
-            $result .= $this->ds . $item_name;
+        if ($this->getName()) {
+            $result .= $this->ds . $this->getName();
         }
 
         return $result;
     }
 
-    public function url($item_name, $with_timestamp = false)
+    public function url($with_timestamp = false)
     {
         $prefix = $this->lfm->getUrlPrefix();
-
-        // dd($this->request->input());
 
         $default_folder_name = 'files';
         if ($this->isProcessingImages()) {
@@ -104,8 +116,8 @@ class LfmPath
             $result .= $this->ds . config('lfm.thumb_folder_name');
         }
 
-        if ($item_name) {
-            $result .= $this->ds . $item_name;
+        if ($this->getName()) {
+            $result .= $this->ds . $this->getName();
         }
 
         return $this->lfm->url($result);
@@ -113,8 +125,8 @@ class LfmPath
 
     public function folders()
     {
-        $folders = array_map(function ($directory) {
-            return $this->get($directory);
+        $folders = array_map(function ($directory_path) {
+            return $this->get($directory_path);
         }, $this->storage->directories($this));
 
         return array_filter($folders, function ($directory) {
@@ -124,19 +136,25 @@ class LfmPath
 
     public function files()
     {
-        return array_map(function ($file_name) {
-            return $this->get($file_name);
+        return array_map(function ($file_path) {
+            return $this->get($file_path);
         }, $this->storage->files($this));
     }
 
-    public function exists($item_name)
+    private function getNameFromPath($path)
+    {
+        $segments = explode('/', $path);
+        return end($segments);
+    }
+
+    public function exists()
     {
         return $this->storage->exists($this);
     }
 
-    public function get($item_name)
+    public function get($item_path)
     {
-        return new LfmItem($this);
+        return new LfmItem($this->setName($this->getNameFromPath($item_path)));
     }
 
     public function __call($function_name, $arguments)
@@ -150,7 +168,7 @@ class LfmPath
      * @param  string  $path  Real path of a directory.
      * @return bool
      */
-    public function createFolder($item_name)
+    public function createFolder()
     {
         if ($this->storage->exists($this)) {
             return false;
