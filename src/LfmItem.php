@@ -105,6 +105,7 @@ class LfmItem
     public function extension()
     {
         return pathinfo($this->absolutePath(), PATHINFO_EXTENSION);
+        // return \File::extension($old_file->path('absolute'));
         // return $this->storage->disk->extension($this->absolutePath());
     }
 
@@ -193,5 +194,10 @@ class LfmItem
         $factor = floor((strlen($bytes) - 1) / 3);
 
         return sprintf("%.{$decimals}f %s", $bytes / pow(1024, $factor), @$size[$factor]);
+    }
+
+    public function move($new_path)
+    {
+        return $this->lfm_path->move($this->lfm_path, $new_path);
     }
 }

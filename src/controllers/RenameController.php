@@ -14,9 +14,9 @@ class RenameController extends LfmController
         $old_name = parent::translateFromUtf8(request('file'));
         $new_name = parent::translateFromUtf8(trim(request('new_name')));
 
-        $old_file = $this->lfm->setName($old_name)->path('absolute');
+        $old_file = $this->lfm->get($old_name);
 
-        $is_directory = parent::isDirectory($old_file);
+        $is_directory = $old_file->isDirectory();
 
         if (empty($new_name)) {
             if ($is_directory) {
@@ -33,33 +33,32 @@ class RenameController extends LfmController
         }
 
         if (! $is_directory) {
-            $extension = \File::extension($old_file);
+            $extension = $old_file->extension();
             if ($extension) {
                 $new_name = str_replace('.' . $extension, '', $new_name) . '.' . $extension;
             }
         }
 
-        $new_file = $this->lfm->setName($name)->path('absolute');
+        $new_file = $this->lfm->setName($new_name)->path('absolute');
 
         if ($is_directory) {
-            event(new FolderIsRenaming($old_file, $new_file));
+            event(new FolderIsRenaming($old_file->path('absolute'), $new_file));
         } else {
-            event(new ImageIsRenaming($old_file, $new_file));
+            event(new ImageIsRenaming($old_file->path('absolute'), $new_file));
         }
 
-        if (parent::fileIsImage($old_file)) {
-            $this->move(
-                $this->lfm->setName($old_name)->thumb()->path('absolute'),
-                $this->lfm->setName($new_name)->thumb()->path('absolute')
-            );
+        if ($old_file->isImage()) {
+            $this->lfm->setName($old_name)->thumb()
+                ->move($this->lfm->setName($new_name)->thumb());
         }
 
-        $this->move($old_file, $new_file);
+        $this->lfm->setName($old_name)
+            ->move($this->lfm->setName($new_name));
 
         if ($is_directory) {
-            event(new FolderWasRenamed($old_file, $new_file));
+            event(new FolderWasRenamed($old_file->path('absolute'), $new_file));
         } else {
-            event(new ImageWasRenamed($old_file, $new_file));
+            event(new ImageWasRenamed($old_file->path('absolute'), $new_file));
         }
 
         return parent::$success_response;

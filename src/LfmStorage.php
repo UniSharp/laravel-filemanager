@@ -17,7 +17,7 @@ class LfmStorage
 
     public function __call($function_name, $arguments)
     {
-        return $this->disk->$function_name($this->path);
+        return $this->disk->$function_name($this->path, ...$arguments);
     }
 
     public function directories()
@@ -57,5 +57,15 @@ class LfmStorage
         $this->path = $parent_path;
 
         return in_array($current_path, $this->directories());
+    }
+
+    public function move($new_lfm_path)
+    {
+        return $this->disk->move($this->path, $new_lfm_path->path('storage'));
+    }
+
+    public function directoryIsEmpty()
+    {
+        return count($this->disk->allFiles($this->path)) == 0;
     }
 }

@@ -127,7 +127,7 @@ class UploadController extends LfmController
     {
         if (parent::fileIsImage($file) && ! parent::imageShouldNotHaveThumb($file)) {
             // create folder for thumbnails
-            parent::createFolderByPath($this->lfm->thumb()->path('absolute'));
+            $this->lfm->thumb()->createFolder();
 
             // save original image and thumbnails to thumbnail folder
             $new_filename = $this->thumb_driver->thumbs([
@@ -135,26 +135,27 @@ class UploadController extends LfmController
             ])->crop()->save($file, $new_filename);
 
             // move original image out of thumbnail folder
-            parent::move(
-                $this->lfm->setName($new_filename)->thumb()->path('absolute'),
-                $this->lfm->setName($new_filename)->path('absolute')
-            );
+            $this->lfm->setName($new_filename)->thumb()
+                ->move($this->lfm->setName($new_filename));
 
             // rename thumbnail
-            $thumb_name = substr_replace($new_filename, '_M', strpos($new_filename, '.'), 0);
-            parent::move(
-                $this->lfm->setName($thumb_name)->thumb()->path('absolute'),
-                $this->lfm->setName($new_filename)->thumb()->path('absolute')
-            );
+            $thumb_name = $this->insertSuffix('_M', $new_filename);
+            $this->lfm->setName($thumb_name)->thumb()
+                ->move($this->lfm->setName($new_filename)->thumb());
 
             // delete compress image
-            $compress_name = substr_replace($new_filename, '_CP', strpos($new_filename, '.'), 0);
-            parent::delete($this->lfm->setName($compress_name)->thumb()->path('absolute'));
+            $thumb_name = $this->insertSuffix('_CP', $new_filename);
+            $this->lfm->setName($compress_name)->thumb()->delete();
         } else {
             $new_filename = $this->driver->save($file, $new_filename);
         }
 
         return $new_filename;
+    }
+
+    private function insertSuffix($suffix, $file_name)
+    {
+        return substr_replace($file_name, $suffix, strpos($file_name, '.'), 0);
     }
 
     private function useFile($new_filename)

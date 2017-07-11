@@ -11,8 +11,6 @@ class LfmPath
     private $item_name;
     private $is_thumb = false;
 
-    private $disk_name = 'local'; // config('lfm.disk')
-
     public $lfm;
     public $request;
 
@@ -28,6 +26,8 @@ class LfmPath
             return new LfmStorage($this, Storage::disk($this->disk_name));
         } elseif ($var_name == 'disk_root') {
             return $this->lfm->getDiskRoot();
+        } elseif ($var_name == 'disk_name') {
+            return 'local'; // config('lfm.disk')
         }
     }
 
@@ -157,11 +157,20 @@ class LfmPath
 
     public function __call($function_name, $arguments)
     {
-        $result = $this->storage->$function_name();
+        $result = $this->storage->$function_name(...$arguments);
 
         $this->reset();
 
         return $result;
+    }
+
+    public function delete()
+    {
+        if ($this->isDirectory()) {
+            return $this->storage->deleteDirectory();
+        } else {
+            return $this->storage->delete();
+        }
     }
 
     /**
