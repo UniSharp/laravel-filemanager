@@ -34,33 +34,6 @@ trait LfmHelpers
     }
 
     /**
-     * Assemble base_directory and route prefix config.
-     *
-     * @param  string  $type  Url or dir
-     * @return string
-     */
-    public function getPathPrefix($type)
-    {
-        $default_folder_name = 'files';
-        if ($this->isProcessingImages()) {
-            $default_folder_name = 'photos';
-        }
-
-        $category_name = config('lfm.' . $this->currentLfmType() . 's_folder_name', $default_folder_name);
-
-        if ($type === 'dir') {
-            $prefix = $this->disk_root . '/' . $this->package_name;
-            $prefix = str_replace(base_path() . '/', '', $prefix);
-        }
-
-        if ($type === 'url') {
-            $prefix = config('lfm.url_prefix', $this->package_name);
-        }
-
-        return $prefix . '/' . $category_name;
-    }
-
-    /**
      * Get root working directory.
      *
      * @param  string  $type  User or share.
@@ -75,17 +48,6 @@ trait LfmHelpers
         }
 
         return $this->ds . $folder_name;
-    }
-
-    /**
-     * Get real path of root working directory on the operating system.
-     *
-     * @param  string|null  $type  User or share
-     * @return string|null
-     */
-    public function getRootFolderPath($type)
-    {
-        return base_path($this->getPathPrefix('dir') . $this->rootFolder($type));
     }
 
     /**
@@ -209,53 +171,9 @@ trait LfmHelpers
      ***     File System      ***
      ****************************/
 
-    /**
-     * Create folder if not exist.
-     *
-     * @param  string  $path  Real path of a directory.
-     * @return null
-     */
-    public function createFolderByPath($path)
-    {
-        if (! $this->exists($path)) {
-            $this->disk->makeDirectory($this->getStoragePath($path), 0777, true, true);
-        }
-    }
-
     public function getStoragePath($path)
     {
         return str_replace($this->disk_root . '/', '', $path);
-    }
-
-    public function getFullPath($storage_path)
-    {
-        return $this->disk_root . $this->ds . $storage_path;
-    }
-
-    /**
-     * Check a folder and its subfolders is empty or not.
-     *
-     * @param  string  $directory_path  Real path of a directory.
-     * @return bool
-     */
-    public function directoryIsEmpty($directory_path)
-    {
-        return count($this->disk->allFiles($this->getStoragePath($directory_path))) == 0;
-    }
-
-    public function exists($full_path)
-    {
-        return $this->disk->exists($this->getStoragePath($full_path));
-    }
-
-    public function delete($full_path)
-    {
-        return $this->disk->delete($this->getStoragePath($full_path));
-    }
-
-    public function deleteDirectory($full_path)
-    {
-        return $this->disk->deleteDirectory($this->getStoragePath($full_path));
     }
 
     /**
@@ -269,20 +187,6 @@ trait LfmHelpers
         $mime_type = $this->getFileType($file);
 
         return starts_with($mime_type, 'image');
-    }
-
-    public function isDirectory($path)
-    {
-        $path = $this->getStoragePath($path);
-        $directory_path = substr($path, 0, strrpos($path, $this->ds));
-        $directory_name = $this->getName($path);
-
-        return in_array($path, $this->disk->directories($directory_path));
-    }
-
-    public function move($old_file, $new_file)
-    {
-        $this->disk->move($this->getStoragePath($old_file), $this->getStoragePath($new_file));
     }
 
     /**

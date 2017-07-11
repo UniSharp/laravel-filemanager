@@ -14,7 +14,6 @@ class LfmController extends Controller
     public function __construct()
     {
         $this->applyIniOverrides();
-        // $this->initHelper();
     }
 
     public function __get($var_name)

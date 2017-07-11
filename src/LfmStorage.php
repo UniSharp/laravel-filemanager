@@ -64,6 +64,12 @@ class LfmStorage
         return $this->disk->move($this->path, $new_lfm_path->path('storage'));
     }
 
+    /**
+     * Check a folder and its subfolders is empty or not.
+     *
+     * @param  string  $directory_path  Real path of a directory.
+     * @return bool
+     */
     public function directoryIsEmpty()
     {
         return count($this->disk->allFiles($this->path)) == 0;
