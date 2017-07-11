@@ -2,6 +2,7 @@
 
 namespace Unisharp\Laravelfilemanager\controllers;
 
+use UniSharp\LaravelFilemanager\Lfm;
 use Unisharp\Laravelfilemanager\LfmPath;
 use Unisharp\Laravelfilemanager\traits\LfmHelpers;
 
@@ -20,6 +21,8 @@ class LfmController extends Controller
     {
         if ($var_name == 'lfm') {
             return app(LfmPath::class);
+        } elseif ($var_name == 'helper') {
+            return app(Lfm::class);
         }
     }
 

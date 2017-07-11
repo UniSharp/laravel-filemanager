@@ -34,23 +34,6 @@ trait LfmHelpers
     }
 
     /**
-     * Get root working directory.
-     *
-     * @param  string  $type  User or share.
-     * @return string
-     */
-    public function rootFolder($type)
-    {
-        if ($type === 'user') {
-            $folder_name = $this->getUserSlug();
-        } else {
-            $folder_name = config('lfm.shared_folder_name');
-        }
-
-        return $this->ds . $folder_name;
-    }
-
-    /**
      * Get only the file name.
      *
      * @param  string  $file  Real path of a file.
