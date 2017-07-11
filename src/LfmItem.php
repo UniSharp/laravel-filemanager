@@ -25,7 +25,7 @@ class LfmItem
     {
         $this->lfm_path = $lfm_path;
         $this->lfm = $lfm_path->lfm ?: new Lfm(new Config);
-        $this->dump();
+        $this->fill();
     }
 
     public function __get($var_name)
@@ -35,7 +35,7 @@ class LfmItem
         }
     }
 
-    public function dump()
+    public function fill()
     {
         foreach (self::COLUMNS as $var_name => $function_name) {
             $this->attributes[$var_name] = $this->$function_name();

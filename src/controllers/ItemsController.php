@@ -21,9 +21,6 @@ class ItemsController extends LfmController
             $key_to_sort = 'updated';
         }
 
-        \Log::debug(request('working_dir'));
-        // \Log::info($this->lfm->path('working_dir'));
-
         return [
             'html' => (string) view($this->getView())->with([
                 'items' => array_merge(
