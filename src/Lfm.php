@@ -3,6 +3,7 @@
 namespace UniSharp\LaravelFilemanager;
 
 use Illuminate\Contracts\Config\Repository as Config;
+use Illuminate\Http\Request;
 
 class Lfm
 {
@@ -12,10 +13,12 @@ class Lfm
 
     protected $config;
     protected $storage;
+    protected $request;
 
-    public function __construct(Config $config)
+    public function __construct(Config $config, Request $request = null)
     {
         $this->config = $config;
+        $this->request = $request;
     }
 
     public function setStorage(LfmStorage $storage)
@@ -28,6 +31,21 @@ class Lfm
     public function getStorage()
     {
         return $this->storage ?: app(LfmStorage::class);
+    }
+
+    public function input($key)
+    {
+        return $this->request->input($key);
+    }
+
+    /**
+     * Check current lfm type is image or not.
+     *
+     * @return bool
+     */
+    public function isProcessingImages()
+    {
+        return lcfirst(str_singular($this->input('type'))) === 'image';
     }
 
     public function getNameFromPath($path)

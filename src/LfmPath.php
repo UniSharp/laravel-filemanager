@@ -2,7 +2,6 @@
 
 namespace Unisharp\Laravelfilemanager;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class LfmPath
@@ -11,13 +10,11 @@ class LfmPath
     private $item_name;
     private $is_thumb = false;
 
-    public $lfm;
-    public $request;
+    public $helper;
 
-    public function __construct(Lfm $lfm = null, Request $request = null)
+    public function __construct(Lfm $lfm = null)
     {
-        $this->lfm = $lfm ?: new Lfm(config());
-        $this->request = $request;
+        $this->helper = $lfm ?: new Lfm(config(), request());
     }
 
     public function __get($var_name)
@@ -25,7 +22,7 @@ class LfmPath
         if ($var_name == 'storage') {
             return new LfmStorage($this, Storage::disk($this->disk_name));
         } elseif ($var_name == 'disk_root') {
-            return $this->lfm->getDiskRoot();
+            return $this->helper->getDiskRoot();
         } elseif ($var_name == 'disk_name') {
             return 'local'; // config('lfm.disk')
         }
@@ -67,7 +64,7 @@ class LfmPath
         $working_dir = $this->normalizeWorkingDir();
 
         // storage/app/laravel-filemanager/files/{user_slug}
-        $full_path = $this->lfm->basePath() . Lfm::DS . $this->getPathPrefix() . $working_dir;
+        $full_path = $this->helper->basePath() . Lfm::DS . $this->getPathPrefix() . $working_dir;
 
         if ($type == 'storage') {
             // storage_path('app') /
@@ -94,14 +91,14 @@ class LfmPath
 
     public function url($with_timestamp = false)
     {
-        $prefix = $this->lfm->getUrlPrefix();
+        $prefix = $this->helper->getUrlPrefix();
 
         $default_folder_name = 'files';
-        if ($this->isProcessingImages()) {
+        if ($this->helper->isProcessingImages()) {
             $default_folder_name = 'photos';
         }
 
-        $category_name = $this->lfm->getCategoryName($this->currentLfmType());
+        $category_name = $this->helper->getCategoryName($this->currentLfmType());
 
         $working_dir = $this->normalizeWorkingDir();
 
@@ -117,7 +114,7 @@ class LfmPath
 
         $this->reset();
 
-        return $this->lfm->url($result);
+        return $this->helper->url($result);
     }
 
     public function folders()
@@ -127,7 +124,7 @@ class LfmPath
         }, $this->storage->directories($this));
 
         $visible_folders = array_filter($all_folders, function ($directory) {
-            return $directory->name !== $this->lfm->getThumbFolderName();
+            return $directory->name !== $this->helper->getThumbFolderName();
         });
 
         $this->reset();
@@ -148,7 +145,7 @@ class LfmPath
 
     public function get($item_path)
     {
-        $item = new LfmItem($this->setName($this->lfm->getNameFromPath($item_path)));
+        $item = new LfmItem($this->setName($this->helper->getNameFromPath($item_path)));
 
         $this->reset();
 
@@ -196,39 +193,29 @@ class LfmPath
      */
     public function getPathPrefix()
     {
-        $category_name = $this->lfm->getCategoryName($this->currentLfmType());
+        $category_name = $this->helper->getCategoryName($this->currentLfmType());
 
         // storage_path('app') / laravel-filemanager
         $prefix = $this->disk_root . Lfm::DS . Lfm::PACKAGE_NAME;
 
         // storage/app/laravel-filemanager
-        $prefix = str_replace($this->lfm->basePath() . Lfm::DS, '', $prefix);
+        $prefix = str_replace($this->helper->basePath() . Lfm::DS, '', $prefix);
 
         // storage/app/laravel-filemanager/files
         return $prefix . Lfm::DS . $category_name;
     }
 
-    /**
-     * Check current lfm type is image or not.
-     *
-     * @return bool
-     */
-    public function isProcessingImages()
-    {
-        return lcfirst(str_singular($this->request->input('type'))) === 'image';
-    }
-
     public function normalizeWorkingDir()
     {
-        $working_dir = $this->working_dir ?: $this->request->input('working_dir');
+        $working_dir = $this->working_dir ?: $this->helper->input('working_dir');
 
         if (empty($working_dir)) {
             $default_folder_type = 'share';
-            if ($this->lfm->allowFolderType('user')) {
+            if ($this->helper->allowFolderType('user')) {
                 $default_folder_type = 'user';
             }
 
-            $working_dir = $this->lfm->getRootFolder($default_folder_type);
+            $working_dir = $this->helper->getRootFolder($default_folder_type);
         }
 
         return $working_dir;
@@ -242,7 +229,7 @@ class LfmPath
     private function currentLfmType()
     {
         $file_type = 'file';
-        if ($this->isProcessingImages()) {
+        if ($this->helper->isProcessingImages()) {
             $file_type = 'image';
         }
 

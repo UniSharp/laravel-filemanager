@@ -98,40 +98,6 @@ trait LfmHelpers
         return $file_type;
     }
 
-    public function allowFolderType($type)
-    {
-        if ($type == 'user') {
-            return $this->allowMultiUser();
-        } else {
-            return $this->allowShareFolder();
-        }
-    }
-
-    /**
-     * Check if users are allowed to use their private folders.
-     *
-     * @return bool
-     */
-    private function allowMultiUser()
-    {
-        return config('lfm.allow_multi_user') === true;
-    }
-
-    /**
-     * Check if users are allowed to use the shared folder.
-     * This can be disabled only when allowMultiUser() is true.
-     *
-     * @return bool
-     */
-    private function allowShareFolder()
-    {
-        if (! $this->allowMultiUser()) {
-            return true;
-        }
-
-        return config('lfm.allow_share_folder') === true;
-    }
-
     /**
      * Overrides settings in php.ini.
      *

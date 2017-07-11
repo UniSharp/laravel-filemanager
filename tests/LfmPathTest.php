@@ -19,40 +19,28 @@ class LfmPathTest extends TestCase
 
     public function testNormalizeWorkingDir()
     {
-        $request = m::mock(Request::class);
-        $request->shouldReceive('input')->with('working_dir')->once()->andReturn('foo');
+        $helper = m::mock(Lfm::class);
+        $helper->shouldReceive('input')->with('working_dir')->once()->andReturn('foo');
 
-        $path = new LfmPath(m::mock(Lfm::class), $request);
+        $path = new LfmPath($helper);
 
         $this->assertEquals('foo', $path->normalizeWorkingDir());
         $this->assertEquals('bar', $path->dir('bar')->normalizeWorkingDir());
     }
 
-    public function testIsProcessingImages()
-    {
-        $request = m::mock(Request::class);
-        $request->shouldReceive('input')->with('type')->once()->andReturn('image');
-        $request->shouldReceive('input')->with('type')->once()->andReturn('file');
-
-        $path = new LfmPath(m::mock(Lfm::class), $request);
-
-        $this->assertTrue($path->isProcessingImages());
-        $this->assertFalse($path->isProcessingImages());
-    }
-
     public function testGetPathPrefix()
     {
-        $lfm = m::mock(Lfm::class);
-        $lfm->shouldReceive('getCategoryName')->with('image')->once()->andReturn('photos');
-        $lfm->shouldReceive('getCategoryName')->with('file')->once()->andReturn('files');
-        $lfm->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
-        $lfm->shouldReceive('getDiskRoot')->andReturn('storage/app');
+        $helper = m::mock(Lfm::class);
+        $helper->shouldReceive('getCategoryName')->with('image')->once()->andReturn('photos');
+        $helper->shouldReceive('getCategoryName')->with('file')->once()->andReturn('files');
+        $helper->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
+        $helper->shouldReceive('getDiskRoot')->andReturn('storage/app');
 
         $request = m::mock(Request::class);
-        $request->shouldReceive('input')->with('type')->once()->andReturn('image');
-        $request->shouldReceive('input')->with('type')->once()->andReturn('file');
+        $helper->shouldReceive('isProcessingImages')->once()->andReturn(true);
+        $helper->shouldReceive('isProcessingImages')->once()->andReturn(false);
 
-        $path = new LfmPath($lfm, $request);
+        $path = new LfmPath($helper, $request);
 
         $this->assertEquals('storage/app/laravel-filemanager/photos', $path->getPathPrefix());
         $this->assertEquals('storage/app/laravel-filemanager/files', $path->getPathPrefix());
@@ -60,18 +48,17 @@ class LfmPathTest extends TestCase
 
     public function testPath()
     {
-        $lfm = m::mock(Lfm::class);
-        $lfm->shouldReceive('allowFolderType')->with('user')->andReturn(true);
-        $lfm->shouldReceive('getRootFolder')->with('user')->andReturn('/foo');
-        $lfm->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
-        $lfm->shouldReceive('getCategoryName')->with('file')->times(2)->andReturn('files');
-        $lfm->shouldReceive('getDiskRoot')->andReturn(realpath(__DIR__ . '/../') . '/storage/app');
+        $helper = m::mock(Lfm::class);
+        $helper->shouldReceive('allowFolderType')->with('user')->andReturn(true);
+        $helper->shouldReceive('getRootFolder')->with('user')->andReturn('/foo');
+        $helper->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
+        $helper->shouldReceive('getCategoryName')->with('file')->times(2)->andReturn('files');
+        $helper->shouldReceive('getDiskRoot')->andReturn(realpath(__DIR__ . '/../') . '/storage/app');
 
-        $request = m::mock(Request::class);
-        $request->shouldReceive('input')->with('type')->times(2)->andReturn('file');
-        $request->shouldReceive('input')->with('working_dir')->andReturnNull();
+        $helper->shouldReceive('isProcessingImages')->times(2)->andReturn(false);
+        $helper->shouldReceive('input')->with('working_dir')->andReturnNull();
 
-        $path = new LfmPath($lfm, $request);
+        $path = new LfmPath($helper);
 
         $this->assertEquals('laravel-filemanager/files/foo', $path->path());
         $this->assertEquals('laravel-filemanager/files/foo/bar', $path->setName('bar')->path('storage'));
@@ -79,20 +66,18 @@ class LfmPathTest extends TestCase
 
     public function testUrl()
     {
-        $lfm = m::mock(Lfm::class);
-        $lfm->shouldReceive('getUrlPrefix')->once()->andReturn('laravel-filemanager');
-        $lfm->shouldReceive('getCategoryName')->with('file')->once()->andReturn('files');
-        $lfm->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
-        $lfm->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
-        $lfm->shouldReceive('url')->with(m::type('string'))->once()->andReturnUsing(function ($path) {
+        $helper = m::mock(Lfm::class);
+        $helper->shouldReceive('getUrlPrefix')->once()->andReturn('laravel-filemanager');
+        $helper->shouldReceive('getCategoryName')->with('file')->once()->andReturn('files');
+        $helper->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
+        $helper->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
+        $helper->shouldReceive('url')->with(m::type('string'))->once()->andReturnUsing(function ($path) {
             return "http://localhost/{$path}";
         });
+        $helper->shouldReceive('isProcessingImages')->times(2)->andReturn(false);
+        $helper->shouldReceive('input')->with('working_dir')->once()->andReturnNull();
 
-        $request = m::mock(Request::class);
-        $request->shouldReceive('input')->with('type')->times(2)->andReturn('file');
-        $request->shouldReceive('input')->with('working_dir')->once()->andReturnNull();
-
-        $path = new LfmPath($lfm, $request);
+        $path = new LfmPath($helper);
 
         $this->assertEquals('http://localhost/laravel-filemanager/files/foo/foo', $path->setName('foo')->url());
     }

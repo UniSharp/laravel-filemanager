@@ -2,11 +2,13 @@
 
 namespace Tests;
 
+use Illuminate\Contracts\Config\Repository as Config;
+use Illuminate\Http\Request;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use UniSharp\LaravelFilemanager\Lfm;
+use Unisharp\Laravelfilemanager\LfmPath;
 use Unisharp\Laravelfilemanager\LfmStorage;
-use Illuminate\Contracts\Config\Repository as Config;
 
 class LfmTest extends TestCase
 {
@@ -23,6 +25,18 @@ class LfmTest extends TestCase
 
         $this->assertInstanceOf(Lfm::class, $lfm->setStorage($storage = m::mock(LfmStorage::class)));
         $this->assertEquals($storage, $lfm->getStorage());
+    }
+
+    public function testIsProcessingImages()
+    {
+        $request = m::mock(Request::class);
+        $request->shouldReceive('input')->with('type')->once()->andReturn('image');
+        $request->shouldReceive('input')->with('type')->once()->andReturn('file');
+
+        $lfm = new Lfm(m::mock(Config::class), $request);
+
+        $this->assertTrue($lfm->isProcessingImages());
+        $this->assertFalse($lfm->isProcessingImages());
     }
 
     public function testAllowFolderType()
