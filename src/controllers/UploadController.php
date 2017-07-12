@@ -1,11 +1,11 @@
 <?php
 
-namespace Unisharp\Laravelfilemanager\controllers;
+namespace UniSharp\LaravelFilemanager\controllers;
 
 use Unisharp\FileApi\FileApi;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Unisharp\Laravelfilemanager\Events\ImageIsUploading;
-use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
+use UniSharp\LaravelFilemanager\Events\ImageIsUploading;
+use UniSharp\LaravelFilemanager\Events\ImageWasUploaded;
 
 class UploadController extends LfmController
 {

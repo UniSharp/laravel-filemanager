@@ -1,6 +1,6 @@
 <?php
 
-namespace Unisharp\Laravelfilemanager;
+namespace UniSharp\LaravelFilemanager;
 
 use Illuminate\Config\Repository as Config;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

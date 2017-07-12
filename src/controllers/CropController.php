@@ -1,10 +1,10 @@
 <?php
 
-namespace Unisharp\Laravelfilemanager\controllers;
+namespace UniSharp\LaravelFilemanager\controllers;
 
 use Intervention\Image\Facades\Image;
-use Unisharp\Laravelfilemanager\Events\ImageIsCropping;
-use Unisharp\Laravelfilemanager\Events\ImageWasCropped;
+use UniSharp\LaravelFilemanager\Events\ImageIsCropping;
+use UniSharp\LaravelFilemanager\Events\ImageWasCropped;
 
 class CropController extends LfmController
 {

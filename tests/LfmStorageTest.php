@@ -5,8 +5,8 @@ namespace Tests;
 use Illuminate\Support\Facades\Storage;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
-use Unisharp\Laravelfilemanager\LfmPath;
-use Unisharp\Laravelfilemanager\LfmStorage;
+use UniSharp\LaravelFilemanager\LfmPath;
+use UniSharp\LaravelFilemanager\LfmStorage;
 
 class LfmStorageTest extends TestCase
 {

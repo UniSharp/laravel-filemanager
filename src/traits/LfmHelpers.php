@@ -1,9 +1,9 @@
 <?php
 
-namespace Unisharp\Laravelfilemanager\traits;
+namespace UniSharp\LaravelFilemanager\traits;
 
 use Illuminate\Support\Facades\Storage;
-use Unisharp\Laravelfilemanager\LfmPath;
+use UniSharp\LaravelFilemanager\LfmPath;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait LfmHelpers

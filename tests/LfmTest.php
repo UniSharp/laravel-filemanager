@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use UniSharp\LaravelFilemanager\Lfm;
-use Unisharp\Laravelfilemanager\LfmPath;
-use Unisharp\Laravelfilemanager\LfmStorage;
+use UniSharp\LaravelFilemanager\LfmPath;
+use UniSharp\LaravelFilemanager\LfmStorage;
 
 class LfmTest extends TestCase
 {
