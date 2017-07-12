@@ -1,8 +1,6 @@
 <?php
 
-namespace Unisharp\Laravelfilemanager;
-
-use Illuminate\Support\Facades\Storage;
+namespace UniSharp\LaravelFilemanager;
 
 class LfmPath
 {
@@ -14,18 +12,23 @@ class LfmPath
 
     public function __construct(Lfm $lfm = null)
     {
-        $this->helper = $lfm ?: new Lfm(config(), request());
+        $this->helper = $lfm;
     }
 
     public function __get($var_name)
     {
         if ($var_name == 'storage') {
-            return new LfmStorage($this, Storage::disk($this->disk_name));
-        } elseif ($var_name == 'disk_root') {
-            return $this->helper->getDiskRoot();
-        } elseif ($var_name == 'disk_name') {
-            return 'local'; // config('lfm.disk')
+            return $this->helper->getStorage();
         }
+    }
+
+    public function __call($function_name, $arguments)
+    {
+        $result = $this->storage->$function_name(...$arguments);
+
+        $this->reset();
+
+        return $result;
     }
 
     public function dir($working_dir)
@@ -63,13 +66,24 @@ class LfmPath
     {
         $working_dir = $this->normalizeWorkingDir();
 
+        $category_name = $this->helper->getCategoryName($this->currentLfmType());
+
+        // storage_path('app') / laravel-filemanager
+        $prefix = $this->storage->rootPath() . Lfm::DS . Lfm::PACKAGE_NAME;
+
+        // storage/app/laravel-filemanager
+        $prefix = str_replace($this->helper->basePath() . Lfm::DS, '', $prefix);
+
+        // storage/app/laravel-filemanager/files
+        $path_prefix = $prefix . Lfm::DS . $category_name;
+
         // storage/app/laravel-filemanager/files/{user_slug}
-        $full_path = $this->helper->basePath() . Lfm::DS . $this->getPathPrefix() . $working_dir;
+        $full_path = $this->helper->basePath() . Lfm::DS . $path_prefix . $working_dir;
 
         if ($type == 'storage') {
             // storage_path('app') /
             // laravel-filemanager/files/{user_slug}
-            $result = str_replace($this->disk_root . Lfm::DS, '', $full_path);
+            $result = str_replace($this->storage->rootPath() . Lfm::DS, '', $full_path);
         } elseif ($type == 'working_dir') {
             $result = $working_dir;
         } else {
@@ -152,15 +166,6 @@ class LfmPath
         return $item;
     }
 
-    public function __call($function_name, $arguments)
-    {
-        $result = $this->storage->$function_name(...$arguments);
-
-        $this->reset();
-
-        return $result;
-    }
-
     public function delete()
     {
         if ($this->isDirectory()) {
@@ -191,19 +196,19 @@ class LfmPath
      * @param  string  $type  Url or dir
      * @return string
      */
-    public function getPathPrefix()
-    {
-        $category_name = $this->helper->getCategoryName($this->currentLfmType());
+    // public function getPathPrefix()
+    // {
+    //     $category_name = $this->helper->getCategoryName($this->currentLfmType());
 
-        // storage_path('app') / laravel-filemanager
-        $prefix = $this->disk_root . Lfm::DS . Lfm::PACKAGE_NAME;
+    //     // storage_path('app') / laravel-filemanager
+    //     $prefix = $this->disk_root . Lfm::DS . Lfm::PACKAGE_NAME;
 
-        // storage/app/laravel-filemanager
-        $prefix = str_replace($this->helper->basePath() . Lfm::DS, '', $prefix);
+    //     // storage/app/laravel-filemanager
+    //     $prefix = str_replace($this->helper->basePath() . Lfm::DS, '', $prefix);
 
-        // storage/app/laravel-filemanager/files
-        return $prefix . Lfm::DS . $category_name;
-    }
+    //     // storage/app/laravel-filemanager/files
+    //     return $prefix . Lfm::DS . $category_name;
+    // }
 
     public function normalizeWorkingDir()
     {

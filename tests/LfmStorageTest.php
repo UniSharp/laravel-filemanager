@@ -2,15 +2,37 @@
 
 namespace Tests;
 
+use Illuminate\Support\Facades\Storage;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
-use Unisharp\Laravelfilemanager\LfmItem;
-use Unisharp\Laravelfilemanager\LfmStorage;
-use Unisharp\Laravelfilemanager\Lfm;
 use Unisharp\Laravelfilemanager\LfmPath;
+use Unisharp\Laravelfilemanager\LfmStorage;
 
 class LfmStorageTest extends TestCase
 {
+    private $storage;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $disk = m::mock('disk');
+        $disk->shouldReceive('directories')->with('foo/bar')->andReturn(['foo/bar/baz']);
+        $disk->shouldReceive('files')->with('foo/bar')->andReturn(['foo/bar/baz']);
+        $disk->shouldReceive('makeDirectory')->with('foo/bar', 0777, true, true)->andReturn(true);
+        $disk->shouldReceive('exists')->with('foo/bar')->andReturn(true);
+        $disk->shouldReceive('get')->with('foo/bar')->andReturn(true);
+        $disk->shouldReceive('mimeType')->with('foo/bar')->andReturn('text/plain');
+        $disk->shouldReceive('directories')->with('foo')->andReturn(['foo/bar']);
+
+        Storage::shouldReceive('disk')->andReturn($disk);
+
+        $lfm_path = m::mock(LfmPath::class);
+        $lfm_path->shouldReceive('path')->with('storage')->andReturn('foo/bar');
+
+        $this->storage = new LfmStorage($lfm_path);
+    }
+
     public function tearDown()
     {
         m::close();
@@ -18,92 +40,36 @@ class LfmStorageTest extends TestCase
 
     public function testDirectories()
     {
-        $disk = m::mock('disk');
-        $disk->shouldReceive('directories')->with('foo')->andReturn(['bar']);
-
-        $lfm_path = m::mock(LfmPath::class);
-        $lfm_path->shouldReceive('path')->with('storage')->andReturn('foo');
-
-        $storage = new LfmStorage($lfm_path, $disk);
-
-        $this->assertEquals('bar', $storage->directories('foo')[0]);
+        $this->assertEquals('foo/bar/baz', $this->storage->directories()[0]);
     }
 
     public function testFiles()
     {
-        $disk = m::mock('disk');
-        $disk->shouldReceive('files')->with('foo')->andReturn(['bar']);
-
-        $lfm_path = m::mock(LfmPath::class);
-        $lfm_path->shouldReceive('path')->with('storage')->andReturn('foo');
-
-        $storage = new LfmStorage($lfm_path, $disk);
-
-        $this->assertEquals('bar', $storage->files('foo')[0]);
+        $this->assertEquals('foo/bar/baz', $this->storage->files()[0]);
     }
 
     public function testMakeDirectory()
     {
-        $disk = m::mock('disk');
-        $disk->shouldReceive('makeDirectory')->with('foo', 0777, true, true)->andReturn(true);
-
-        $lfm_path = m::mock(LfmPath::class);
-        $lfm_path->shouldReceive('path')->with('storage')->andReturn('foo');
-
-        $storage = new LfmStorage($lfm_path, $disk);
-
-        $this->assertTrue($storage->makeDirectory('foo'));
+        $this->assertTrue($this->storage->makeDirectory());
     }
 
     public function testExists()
     {
-        $disk = m::mock('disk');
-        $disk->shouldReceive('exists')->with('foo')->andReturn(true);
-
-        $lfm_path = m::mock(LfmPath::class);
-        $lfm_path->shouldReceive('path')->with('storage')->andReturn('foo');
-
-        $storage = new LfmStorage($lfm_path, $disk);
-
-        $this->assertTrue($storage->exists('foo'));
+        $this->assertTrue($this->storage->exists());
     }
 
     public function testGetFile()
     {
-        $disk = m::mock('disk');
-        $disk->shouldReceive('get')->with('foo')->andReturn(true);
-
-        $lfm_path = m::mock(LfmPath::class);
-        $lfm_path->shouldReceive('path')->with('storage')->andReturn('foo');
-
-        $storage = new LfmStorage($lfm_path, $disk);
-
-        $this->assertTrue($storage->getFile('foo'));
+        $this->assertTrue($this->storage->getFile());
     }
 
     public function testMimeType()
     {
-        $disk = m::mock('disk');
-        $disk->shouldReceive('mimeType')->with('foo')->andReturn('text/plain');
-
-        $lfm_path = m::mock(LfmPath::class);
-        $lfm_path->shouldReceive('path')->with('storage')->andReturn('foo');
-
-        $storage = new LfmStorage($lfm_path, $disk);
-
-        $this->assertEquals('text/plain', $storage->mimeType('foo'));
+        $this->assertEquals('text/plain', $this->storage->mimeType());
     }
 
     public function testIsDirectory()
     {
-        $disk = m::mock('disk');
-        $disk->shouldReceive('directories')->with('foo')->andReturn(['foo/bar']);
-
-        $lfm_path = m::mock(LfmPath::class);
-        $lfm_path->shouldReceive('path')->with('storage')->andReturn('foo/bar');
-
-        $storage = new LfmStorage($lfm_path, $disk);
-
-        $this->assertTrue($storage->isDirectory());
+        $this->assertTrue($this->storage->isDirectory());
     }
 }

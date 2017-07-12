@@ -98,11 +98,6 @@ class Lfm
         return static::DS . $folder;
     }
 
-    public function getDiskRoot()
-    {
-        return $this->config->get('filesystems.disks.' . 'local' . '.root');
-    }
-
     public function getUrlPrefix()
     {
         return $this->config->get('lfm.url_prefix', static::PACKAGE_NAME);

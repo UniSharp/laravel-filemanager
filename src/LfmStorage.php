@@ -1,23 +1,32 @@
 <?php
 
-namespace Unisharp\Laravelfilemanager;
+namespace UniSharp\LaravelFilemanager;
+
+use Illuminate\Support\Facades\Storage;
 
 class LfmStorage
 {
+    const DISK_NAME = 'local'; // config('lfm.disk')
+
     public $disk;
 
     private $path;
 
     // TODO: clean DI
-    public function __construct(LfmPath $lfm_path, $disk = null)
+    public function __construct(LfmPath $lfm_path)
     {
-        $this->disk = $disk;
+        $this->disk = Storage::disk(self::DISK_NAME);
         $this->path = $lfm_path->path('storage');
     }
 
     public function __call($function_name, $arguments)
     {
         return $this->disk->$function_name($this->path, ...$arguments);
+    }
+
+    public function rootPath()
+    {
+        return $this->disk->getDriver()->getAdapter()->getPathPrefix();
     }
 
     public function directories()
