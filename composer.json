@@ -42,8 +42,7 @@
   },
   "autoload": {
     "psr-4": {
-      "UniSharp\\LaravelFilemanager\\": "src/",
-      "Unisharp\\Laravelfilemanager\\": "src/"
+      "UniSharp\\LaravelFilemanager\\": "src/"
     }
   },
   "autoload-dev": {
