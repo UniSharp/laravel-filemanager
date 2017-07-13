@@ -159,7 +159,13 @@ function displayErrorResponse(jqXHR) {
 
 function displaySuccessMessage(data){
   if(data == 'OK'){
-    notify('File Uploaded Successfully');
+    var success = $('<div>').addClass('alert alert-success')
+      .append($('<i>').addClass('fa fa-check'))
+      .append(' File Uploaded Successfully.');
+    $('#alerts').append(success);
+    setTimeout(function () {
+      success.remove();
+    }, 2000);
   }
 }
 
