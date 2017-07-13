@@ -21,7 +21,11 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">
+      <div class="col-md-6">
+        <h2>Summernote</h2>
+        <textarea id="summernote-editor" name="content"></textarea>
+      </div>
+      <div class="col-md-6">
         <h2>Standalone Button</h2>
         <div class="input-group">
           <span class="input-group-btn">
@@ -44,7 +48,6 @@
 
   <!-- CKEditor init -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.11/ckeditor.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.11/adapters/jquery.js"></script>
   <script>
     $('textarea[name=ce]').ckeditor({
@@ -97,6 +100,53 @@
   </script>
   <script>
     $('#lfm').filemanager('image', {prefix: route_prefix});
+  </script>
+
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#summernote').summernote();
+    });
+  </script>
+  <script>
+    $(document).ready(function(){
+
+      // Define function to open filemanager window
+      var lfm = function(options, cb) {
+          var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
+          window.open(route_prefix + '?type=' + options.type || 'file', 'FileManager', 'width=900,height=600');
+          window.SetUrl = cb;
+      };
+
+      // Define LFM summernote button
+      var LFMButton = function(context) {
+          var ui = $.summernote.ui;
+          var button = ui.button({
+              contents: '<i class="note-icon-picture"></i> ',
+              tooltip: 'Insert image with filemanager',
+              click: function() {
+
+                  lfm({type: 'image', prefix: '/laravel-filemanager'}, function(url, path) {
+                      context.invoke('insertImage', url);
+                  });
+
+              }
+          });
+          return button.render();
+      };
+
+      // Initialize summernote with LFM button in the popover button group
+      // Please note that you can add this button to any other button group you'd like
+      $('#summernote-editor').summernote({
+          toolbar: [
+              ['popovers', ['lfm']],
+          ],
+          buttons: {
+              lfm: LFMButton
+          }
+      })
+    });
   </script>
 </body>
 </html>
