@@ -18,7 +18,7 @@ class LfmPath
     public function __get($var_name)
     {
         if ($var_name == 'storage') {
-            return $this->helper->getStorage();
+            return new LfmStorage($this);
         }
     }
 
@@ -64,39 +64,22 @@ class LfmPath
     // working directory: shares
     public function path ($type = 'storage')
     {
-        $working_dir = $this->normalizeWorkingDir();
+        $prefix = Lfm::PACKAGE_NAME;
 
-        $category_name = $this->helper->getCategoryName($this->currentLfmType());
-
-        // storage_path('app') / laravel-filemanager
-        $prefix = $this->storage->rootPath() . Lfm::DS . Lfm::PACKAGE_NAME;
-
-        // storage/app/laravel-filemanager
-        $prefix = str_replace($this->helper->basePath() . Lfm::DS, '', $prefix);
-
-        // storage/app/laravel-filemanager/files
-        $path_prefix = $prefix . Lfm::DS . $category_name;
-
-        // storage/app/laravel-filemanager/files/{user_slug}
-        $full_path = $this->helper->basePath() . Lfm::DS . $path_prefix . $working_dir;
+        $storage_path = $this->appendStorageFullPath($prefix);
 
         if ($type == 'storage') {
-            // storage_path('app') /
             // laravel-filemanager/files/{user_slug}
-            $result = str_replace($this->storage->rootPath() . Lfm::DS, '', $full_path);
+            $result = $storage_path;
         } elseif ($type == 'working_dir') {
-            $result = $working_dir;
+            // {user_slug}
+            $result = $this->normalizeWorkingDir();
         } else {
-            $result = $full_path;
+            // /var/www/html/project/storage/app/laravel-filemanager/files/{user_slug}
+            $result = $this->storage->rootPath() . $storage_path;
         }
 
-        if ($this->is_thumb) {
-            $result .= Lfm::DS . config('lfm.thumb_folder_name');
-        }
-
-        if ($this->getName()) {
-            $result .= Lfm::DS . $this->getName();
-        }
+        $result = $this->appendPathToFile($result);
 
         $this->reset();
 
@@ -107,28 +90,33 @@ class LfmPath
     {
         $prefix = $this->helper->getUrlPrefix();
 
-        $default_folder_name = 'files';
-        if ($this->helper->isProcessingImages()) {
-            $default_folder_name = 'photos';
-        }
+        $result = $this->appendStorageFullPath($prefix);
 
-        $category_name = $this->helper->getCategoryName($this->currentLfmType());
-
-        $working_dir = $this->normalizeWorkingDir();
-
-        $result = $prefix . Lfm::DS . $category_name . $working_dir;
-
-        if ($this->is_thumb) {
-            $result .= Lfm::DS . config('lfm.thumb_folder_name');
-        }
-
-        if ($this->getName()) {
-            $result .= Lfm::DS . $this->getName();
-        }
+        $result = $this->appendPathToFile($result);
 
         $this->reset();
 
         return $this->helper->url($result);
+    }
+
+    public function appendStorageFullPath($path)
+    {
+        return $path                                      // laravel-filemanager
+            . Lfm::DS . $this->helper->getCategoryName()  // files
+            . $this->normalizeWorkingDir();               // {user_slug}
+    }
+
+    public function appendPathToFile($path)
+    {
+        if ($this->is_thumb) {
+            $path .= Lfm::DS . $this->helper->getThumbFolderName();
+        }
+
+        if ($this->getName()) {
+            $path .= Lfm::DS . $this->getName();
+        }
+
+        return $path;
     }
 
     public function folders()
@@ -190,26 +178,6 @@ class LfmPath
         return $this->storage->makeDirectory($this);
     }
 
-    /**
-     * Assemble base_directory and route prefix config.
-     *
-     * @param  string  $type  Url or dir
-     * @return string
-     */
-    // public function getPathPrefix()
-    // {
-    //     $category_name = $this->helper->getCategoryName($this->currentLfmType());
-
-    //     // storage_path('app') / laravel-filemanager
-    //     $prefix = $this->disk_root . Lfm::DS . Lfm::PACKAGE_NAME;
-
-    //     // storage/app/laravel-filemanager
-    //     $prefix = str_replace($this->helper->basePath() . Lfm::DS, '', $prefix);
-
-    //     // storage/app/laravel-filemanager/files
-    //     return $prefix . Lfm::DS . $category_name;
-    // }
-
     public function normalizeWorkingDir()
     {
         $working_dir = $this->working_dir ?: $this->helper->input('working_dir');
@@ -224,21 +192,6 @@ class LfmPath
         }
 
         return $working_dir;
-    }
-
-    /**
-     * Get current lfm type..
-     *
-     * @return string
-     */
-    private function currentLfmType()
-    {
-        $file_type = 'file';
-        if ($this->helper->isProcessingImages()) {
-            $file_type = 'image';
-        }
-
-        return $file_type;
     }
 
     // TODO: maybe is useless

@@ -68,7 +68,11 @@ class LfmTest extends TestCase
                ->once()
                ->andReturnUsing($callback);
 
-        $lfm = new Lfm($config);
+        $request = m::mock(Request::class);
+        $request->shouldReceive('input')->with('type')->once()->andReturn('file');
+        $request->shouldReceive('input')->with('type')->once()->andReturn('image');
+
+        $lfm = new Lfm($config, $request);
 
         $this->assertEquals('files', $lfm->getCategoryName('file'));
         $this->assertEquals('photos', $lfm->getCategoryName('image'));

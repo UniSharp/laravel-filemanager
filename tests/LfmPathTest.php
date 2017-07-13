@@ -52,10 +52,8 @@ class LfmPathTest extends TestCase
         $helper->shouldReceive('allowFolderType')->with('user')->andReturn(true);
         $helper->shouldReceive('getRootFolder')->with('user')->andReturn('/foo');
         $helper->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
-        $helper->shouldReceive('getCategoryName')->with('file')->times(2)->andReturn('files');
-
-        $helper->shouldReceive('isProcessingImages')->times(2)->andReturn(false);
         $helper->shouldReceive('input')->with('working_dir')->andReturnNull();
+        $helper->shouldReceive('getCategoryName')->andReturn('files');
 
         $storage = m::mock(LfmStorage::class);
         $storage->shouldReceive('rootPath')->andReturn(realpath(__DIR__ . '/../') . '/storage/app');
@@ -72,14 +70,13 @@ class LfmPathTest extends TestCase
     {
         $helper = m::mock(Lfm::class);
         $helper->shouldReceive('getUrlPrefix')->once()->andReturn('laravel-filemanager');
-        $helper->shouldReceive('getCategoryName')->with('file')->once()->andReturn('files');
         $helper->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
         $helper->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
         $helper->shouldReceive('url')->with(m::type('string'))->once()->andReturnUsing(function ($path) {
             return "http://localhost/{$path}";
         });
-        $helper->shouldReceive('isProcessingImages')->times(2)->andReturn(false);
         $helper->shouldReceive('input')->with('working_dir')->once()->andReturnNull();
+        $helper->shouldReceive('getCategoryName')->andReturn('files');
 
         $path = new LfmPath($helper);
 

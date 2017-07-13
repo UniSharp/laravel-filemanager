@@ -5,6 +5,7 @@ namespace UniSharp\LaravelFilemanager\middlewares;
 use Closure;
 use UniSharp\LaravelFilemanager\Lfm;
 use UniSharp\LaravelFilemanager\LfmPath;
+use UniSharp\LaravelFilemanager\LfmStorage;
 
 class CreateDefaultFolder
 {
@@ -13,7 +14,9 @@ class CreateDefaultFolder
 
     public function __construct()
     {
-        $this->lfm = app(LfmPath::class);
+        $lfm = app(LfmPath::class);
+        $lfm->helper->setStorage(new LfmStorage($lfm));
+        $this->lfm = $lfm;
         $this->helper = app(Lfm::class);
     }
 

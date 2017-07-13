@@ -63,12 +63,29 @@ class Lfm
         }
     }
 
-    public function getCategoryName($type)
+    public function getCategoryName()
     {
+        $type = $this->currentLfmType();
+
         return $this->config->get('lfm.' . $type . 's_folder_name', [
             'file' => 'files',
             'image' => 'photos',
         ][$type]);
+    }
+
+    /**
+     * Get current lfm type..
+     *
+     * @return string
+     */
+    private function currentLfmType()
+    {
+        $file_type = 'file';
+        if ($this->isProcessingImages()) {
+            $file_type = 'image';
+        }
+
+        return $file_type;
     }
 
     // TODO: test

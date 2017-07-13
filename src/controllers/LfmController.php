@@ -4,6 +4,7 @@ namespace UniSharp\LaravelFilemanager\controllers;
 
 use UniSharp\LaravelFilemanager\Lfm;
 use UniSharp\LaravelFilemanager\LfmPath;
+use UniSharp\LaravelFilemanager\LfmStorage;
 use UniSharp\LaravelFilemanager\traits\LfmHelpers;
 
 class LfmController extends Controller
@@ -20,7 +21,9 @@ class LfmController extends Controller
     public function __get($var_name)
     {
         if ($var_name == 'lfm') {
-            return app(LfmPath::class);
+            $lfm = app(LfmPath::class);
+            $lfm->helper->setStorage(new LfmStorage($lfm));
+            return $lfm;
         } elseif ($var_name == 'helper') {
             return app(Lfm::class);
         }
