@@ -92,7 +92,9 @@ Route::group(compact('middleware', 'prefix', 'as', 'namespace'), function () {
     ]);
 
     Route::get('/demo', 'DemoController@index');
+});
 
+Route::group(compact('prefix', 'as', 'namespace'), function () {
     // Get file when base_directory isn't public
     $images_url = '/' . \Config::get('lfm.images_folder_name') . '/{base_path}/{image_name}';
     $files_url = '/' . \Config::get('lfm.files_folder_name') . '/{base_path}/{file_name}';
