@@ -61,7 +61,8 @@ class UploadController extends LfmController
                     ->save($new_file_path, 90);
 
                 $this->makeThumb($new_filename);
-            } else {
+            }
+            {
                 chmod($file->getRealPath(), 0644); // TODO configurable
                 File::move($file->getRealPath(), $new_file_path);
             }
@@ -122,7 +123,7 @@ class UploadController extends LfmController
 
     private function getNewName($file)
     {
-        $new_filename = parent::translateFromUtf8(trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
+        $new_filename = parent::translateFromUtf8(trim($this->_pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
 
         if (config('lfm.rename_file') === true) {
             $new_filename = uniqid();
@@ -165,5 +166,20 @@ class UploadController extends LfmController
         if (op) window.close();
         if (o !== false) o.CKEDITOR.tools.callFunction(funcNum, '$file');
         </script>";
+    }
+
+    private function _pathinfo($path, $options = null)
+    {
+        $path = urlencode($path);
+        $parts = is_null($options) ? pathinfo($path) : pathinfo($path, $options);
+        if (is_array($parts)) {
+            foreach ($parts as $field => $value) {
+                $parts[$field] = urldecode($value);
+            }
+        } else {
+            $parts = urldecode($parts);
+        }
+
+        return $parts;
     }
 }
