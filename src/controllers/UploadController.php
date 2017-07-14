@@ -90,7 +90,7 @@ class UploadController extends LfmController
 
         // size to kb unit is needed
         $file_size = $file->getSize() / 1000;
-        $type_key = parent::currentLfmType();
+        $type_key = $this->helper->currentLfmType();
 
         if (config('lfm.should_validate_mime', false)) {
             $mine_config = 'lfm.valid_' . $type_key . '_mimetypes';

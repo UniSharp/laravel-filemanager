@@ -40,7 +40,7 @@ class ItemsController extends LfmController
         if ($show_list === '1') {
             $view_type = 'list';
         } elseif (is_null($show_list)) {
-            $type_key = parent::currentLfmType();
+            $type_key = $this->helper->currentLfmType();
             $startup_view = config('lfm.' . $type_key . 's_startup_view');
 
             if (in_array($startup_view, ['list', 'grid'])) {

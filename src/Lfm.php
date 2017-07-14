@@ -30,7 +30,7 @@ class Lfm
 
     public function getStorage()
     {
-        return $this->storage ?: app(LfmStorage::class);
+        return $this->storage;
     }
 
     public function input($key)
@@ -78,7 +78,7 @@ class Lfm
      *
      * @return string
      */
-    private function currentLfmType()
+    public function currentLfmType()
     {
         $file_type = 'file';
         if ($this->isProcessingImages()) {
@@ -171,5 +171,41 @@ class Lfm
         }
 
         return $this->config->get('lfm.allow_share_folder') === true;
+    }
+
+    /**
+     * Get only the file name.
+     *
+     * @param  string  $file  Real path of a file.
+     * @return string
+     */
+    public function getName($file)
+    {
+        return substr($file, strrpos($file, $this->ds) + 1);
+    }
+
+    /**
+     * Translate file name to make it compatible on Windows.
+     *
+     * @param  string  $input  Any string.
+     * @return string
+     */
+    public function translateFromUtf8($input)
+    {
+        if ($this->isRunningOnWindows()) {
+            $input = iconv('UTF-8', mb_detect_encoding($input), $input);
+        }
+
+        return $input;
+    }
+
+    /**
+     * Check current operating system is Windows or not.
+     *
+     * @return bool
+     */
+    public function isRunningOnWindows()
+    {
+        return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
     }
 }

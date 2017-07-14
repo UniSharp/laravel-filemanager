@@ -49,7 +49,7 @@ class CropController extends LfmController
         // make new thumbnail
         Image::make($crop_path)
             ->fit(config('lfm.thumb_img_width', 200), config('lfm.thumb_img_height', 200))
-            ->save($this->lfm->thumb()->setName(parent::getName($image_path))->path('absolute'));
+            ->save($this->lfm->thumb()->setName($this->helper->getName($image_path))->path('absolute'));
         event(new ImageWasCropped($image_path));
     }
 

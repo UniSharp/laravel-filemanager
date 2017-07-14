@@ -24,7 +24,7 @@ class LfmItem
     public function __construct(LfmPath $lfm_path)
     {
         $this->lfm_path = $lfm_path;
-        $this->lfm = $lfm_path->lfm ?: new Lfm(new Config);
+        $this->lfm = $lfm_path->lfm;
         $this->fill();
     }
 

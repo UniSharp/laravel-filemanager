@@ -15,6 +15,10 @@ class LfmItemTest extends TestCase
 
     public function setUp()
     {
+        $lfm = m::mock(Lfm::class);
+        $lfm->shouldReceive('getFileType')->with('baz')->andReturn('application/plain');
+        $lfm->shouldReceive('getFileIcon')->with('baz')->andReturn('fa-file');
+
         $this->lfm_path = m::mock(LfmPath::class);
         $this->lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar.baz');
         $this->lfm_path->shouldReceive('getName')->andReturn('bar');
@@ -24,6 +28,7 @@ class LfmItemTest extends TestCase
         $this->lfm_path->shouldReceive('setName')->andReturn($this->lfm_path);
         $this->lfm_path->shouldReceive('url')->andReturn('foo/bar');
         $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
+        $this->lfm_path->lfm = $lfm;
     }
 
     public function tearDown()

@@ -49,7 +49,7 @@ class LfmController extends Controller
             array_push($arr_errors, trans('laravel-filemanager::lfm.message-extension_not_found'));
         }
 
-        $type_key = $this->currentLfmType();
+        $type_key = $this->helper->currentLfmType();
         $mine_config = 'lfm.valid_' . $type_key . '_mimetypes';
         $config_error = null;
 
