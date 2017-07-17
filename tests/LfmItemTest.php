@@ -101,17 +101,11 @@ class LfmItemTest extends TestCase
         // $path1->shouldReceive('isDirectory')->andReturn(false);
         // $path1->shouldReceive('mimeType')->andReturn('image/png');
 
-        // $path2 = m::mock(LfmPath::class);
-        // $path2->shouldReceive('path')->with('absolute')->andReturn('foo/baz');
-        // $path2->shouldReceive('isDirectory')->andReturn(false);
-        // $path2->shouldReceive('mimeType')->andReturn('application/plain');
-
         // $path3 = m::mock(LfmPath::class);
         // $path3->shouldReceive('path')->with('absolute')->andReturn('foo/biz');
         // $path3->shouldReceive('isDirectory')->andReturn(true);
 
         // $this->assertEquals('fa-image',    (new LfmItem($path1))->icon());
-        // $this->assertEquals('fa-file',     (new LfmItem($path2))->icon());
         // $this->assertEquals('fa-folder-o', (new LfmItem($path3))->icon());
     }
 

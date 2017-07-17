@@ -28,24 +28,6 @@ class LfmPathTest extends TestCase
         $this->assertEquals('bar', $path->dir('bar')->normalizeWorkingDir());
     }
 
-    // public function testGetPathPrefix()
-    // {
-    //     $helper = m::mock(Lfm::class);
-    //     $helper->shouldReceive('getCategoryName')->with('image')->once()->andReturn('photos');
-    //     $helper->shouldReceive('getCategoryName')->with('file')->once()->andReturn('files');
-    //     $helper->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
-    //     $helper->shouldReceive('getDiskRoot')->andReturn('storage/app');
-
-    //     $request = m::mock(Request::class);
-    //     $helper->shouldReceive('isProcessingImages')->once()->andReturn(true);
-    //     $helper->shouldReceive('isProcessingImages')->once()->andReturn(false);
-
-    //     $path = new LfmPath($helper, $request);
-
-    //     $this->assertEquals('storage/app/laravel-filemanager/photos', $path->getPathPrefix());
-    //     $this->assertEquals('storage/app/laravel-filemanager/files', $path->getPathPrefix());
-    // }
-
     public function testPath()
     {
         $helper = m::mock(Lfm::class);
@@ -83,59 +65,63 @@ class LfmPathTest extends TestCase
         $this->assertEquals('http://localhost/laravel-filemanager/files/foo/foo', $path->setName('foo')->url());
     }
 
-    // public function testFolders()
-    // {
-    //     $storage = m::mock('storage');
-    //     $storage->disk_root = realpath(__DIR__ . '/../') . '/storage/app';
-    //     $storage->shouldReceive('directories')
-    //         ->with('laravel-filemanager/files/foo')
-    //         ->once()
-    //         ->andReturn([
-    //             $directory = (object) ['name' => 'foo'],
-    //             (object) ['name' => 'thumbs'],
-    //         ]);
+    public function test__Get()
+    {
+        $storage = m::mock(LfmStorage::class);
+        $storage->shouldReceive('foo')->andReturn('bar');
 
-    //     $lfm = m::mock(Lfm::class);
-    //     $lfm->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
-    //     $lfm->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
-    //     $lfm->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
-    //     $lfm->shouldReceive('getCategoryName')->with('file')->once()->andReturn('files');
-    //     $lfm->shouldReceive('getStorage')->andReturn($storage);
-    //     $lfm->shouldReceive('getThumbFolderName')->andReturn('thumbs');
+        $helper = m::mock(Lfm::class);
+        $helper->shouldReceive('getStorage')->andReturn($storage);
 
-    //     $request = m::mock(Request::class);
-    //     $request->shouldReceive('input')->with('type')->once()->andReturn('file');
-    //     $request->shouldReceive('input')->with('working_dir')->once()->andReturnNull();
+        $path = new LfmPath($helper);
 
-    //     $path = new LfmPath($lfm, $request);
+        $this->assertEquals('bar', $path->foo());
+    }
 
-    //     $this->assertEquals([$directory], $path->folders());
-    // }
+    public function testFolders()
+    {
+        $storage = m::mock(LfmStorage::class);
+        $storage->shouldReceive('rootPath')->andReturn(realpath(__DIR__ . '/../') . '/storage/app');
+        $storage->shouldReceive('exists')->andReturn(false);
+        $storage->shouldReceive('makeDirectory')->andReturn(true);
+        $storage->shouldReceive('isDirectory')->andReturn(false);
+        $storage->shouldReceive('size')->andReturn(0);
+        $storage->shouldReceive('lastModified')->andReturn(0);
 
-    // public function testFiles()
-    // {
-    //     $storage = m::mock('storage');
-    //     $storage->disk_root = realpath(__DIR__ . '/../') . '/storage/app';
-    //     $storage->shouldReceive('files')
-    //         ->with('laravel-filemanager/files/foo')
-    //         ->once()
-    //         ->andReturn(['file']);
+        $helper = m::mock(Lfm::class);
+        $helper->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
+        $helper->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
+        $helper->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
+        $helper->shouldReceive('getCategoryName')->with('file')->once()->andReturn('files');
+        $helper->shouldReceive('getStorage')->andReturn($storage);
+        $helper->shouldReceive('getThumbFolderName')->andReturn('thumbs');
 
-    //     $lfm = m::mock(Lfm::class);
-    //     $lfm->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
-    //     $lfm->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
-    //     $lfm->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
-    //     $lfm->shouldReceive('getCategoryName')->with('file')->once()->andReturn('files');
-    //     $lfm->shouldReceive('getStorage')->andReturn($storage);
+        $path = new LfmPath($helper);
 
-    //     $request = m::mock(Request::class);
-    //     $request->shouldReceive('input')->with('type')->once()->andReturn('file');
-    //     $request->shouldReceive('input')->with('working_dir')->once()->andReturnNull();
+        $this->assertEquals([$directory], $path->folders());
+    }
 
-    //     $path = new LfmPath($lfm, $request);
+    public function testFiles()
+    {
+        $storage = m::mock(LfmStorage::class);
+        $storage->shouldReceive('rootPath')->andReturn(realpath(__DIR__ . '/../') . '/storage/app');
+        $storage->shouldReceive('exists')->andReturn(false);
+        $storage->shouldReceive('makeDirectory')->andReturn(true);
+        $storage->shouldReceive('isDirectory')->andReturn(false);
+        $storage->shouldReceive('size')->andReturn(0);
+        $storage->shouldReceive('lastModified')->andReturn(0);
 
-    //     $this->assertEquals(['file'], $path->files());
-    // }
+        $helper = m::mock(Lfm::class);
+        $helper->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
+        $helper->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
+        $helper->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
+        $helper->shouldReceive('getCategoryName')->with('file')->once()->andReturn('files');
+        $helper->shouldReceive('getStorage')->andReturn($storage);
+
+        $path = new LfmPath($helper);
+
+        $this->assertEquals(['file'], $path->files());
+    }
 
     // public function testFiles()
     // {
@@ -147,99 +133,56 @@ class LfmPathTest extends TestCase
     //     $this->assertInstanceOf(LfmItem::class, $storage->files('foo')[0]);
     // }
 
-    // public function testExists()
-    // {
-    //     $storage = m::mock('storage');
-    //     $storage->disk_root = realpath(__DIR__ . '/../') . '/storage/app';
-    //     $storage->shouldReceive('exists')
-    //         ->with('laravel-filemanager/files/foo/bar')
-    //         ->once()
-    //         ->andReturn(true);
+    public function testGet()
+    {
+        $storage = m::mock(LfmStorage::class);
+        $storage->shouldReceive('rootPath')->andReturn(realpath(__DIR__ . '/../') . '/storage/app');
+        $storage->shouldReceive('exists')->andReturn(false);
+        $storage->shouldReceive('makeDirectory')->andReturn(true);
+        $storage->shouldReceive('isDirectory')->andReturn(false);
+        $storage->shouldReceive('size')->andReturn(0);
+        $storage->shouldReceive('lastModified')->andReturn(0);
 
-    //     $lfm = m::mock(Lfm::class);
-    //     $lfm->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
-    //     $lfm->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
-    //     $lfm->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
-    //     $lfm->shouldReceive('getCategoryName')->with('file')->once()->andReturn('files');
-    //     $lfm->shouldReceive('getStorage')->andReturn($storage);
+        $helper = m::mock(Lfm::class);
+        // $helper->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
+        // $helper->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
+        // $helper->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
+        $helper->shouldReceive('getCategoryName')->with()->once()->andReturn('files');
+        $helper->shouldReceive('getNameFromPath')->with('foo')->andReturn('foo');
+        $helper->shouldReceive('getStorage')->andReturn($storage);
+        $helper->shouldReceive('getUrlPrefix')->andReturn('');
+        $helper->shouldReceive('input')->andReturn('foo');
 
-    //     $request = m::mock(Request::class);
-    //     $request->shouldReceive('input')->with('type')->once()->andReturn('file');
-    //     $request->shouldReceive('input')->with('working_dir')->once()->andReturnNull();
+        $path = new LfmPath($helper);
 
-    //     $path = new LfmPath($lfm, $request);
+        $this->assertInstanceOf(LfmItem::class, $path->get('foo'));
+    }
 
-    //     $this->assertTrue($path->exists('bar'));
-    // }
+    public function testCreateFolder()
+    {
+        $storage = m::mock(LfmStorage::class);
+        $storage->shouldReceive('rootPath')->andReturn(realpath(__DIR__ . '/../') . '/storage/app');
+        $storage->shouldReceive('exists')->andReturn(false);
+        $storage->shouldReceive('makeDirectory')->andReturn(true);
 
-    // public function testGet()
-    // {
-    //     $storage = m::mock('storage');
-    //     $storage->disk_root = realpath(__DIR__ . '/../') . '/storage/app';
-    //     $storage->shouldReceive('get')
-    //         ->with('laravel-filemanager/files/foo/bar')
-    //         ->once()
-    //         ->andReturn('file');
+        $helper = m::mock(Lfm::class);
+        $helper->shouldReceive('getStorage')->andReturn($storage);
 
-    //     $lfm = m::mock(Lfm::class);
-    //     $lfm->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
-    //     $lfm->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
-    //     $lfm->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
-    //     $lfm->shouldReceive('getCategoryName')->with('file')->once()->andReturn('files');
-    //     $lfm->shouldReceive('getStorage')->andReturn($storage);
+        $path = new LfmPath($helper);
 
-    //     $request = m::mock(Request::class);
-    //     $request->shouldReceive('input')->with('type')->once()->andReturn('file');
-    //     $request->shouldReceive('input')->with('working_dir')->once()->andReturnNull();
+        $this->assertTrue($path->createFolder('bar'));
+    }
 
-    //     $path = new LfmPath($lfm, $request);
+    public function testCreateFolderButFolderAlreadyExists()
+    {
+        $storage = m::mock(LfmStorage::class);
+        $storage->shouldReceive('exists')->andReturn(true);
 
-    //     $this->assertEquals('file', $path->get('bar'));
-    // }
+        $helper = m::mock(Lfm::class);
+        $helper->shouldReceive('getStorage')->andReturn($storage);
 
-    // public function testCreateFolder()
-    // {
-    //     $storage = m::mock('storage');
-    //     $storage->disk_root = realpath(__DIR__ . '/../') . '/storage/app';
-    //     $storage->shouldReceive('createFolder')
-    //         ->with('laravel-filemanager/files/foo/bar')
-    //         ->once()
-    //         ->andReturn(true);
+        $path = new LfmPath($helper);
 
-    //     $lfm = m::mock(Lfm::class);
-    //     $lfm->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
-    //     $lfm->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
-    //     $lfm->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
-    //     $lfm->shouldReceive('getCategoryName')->with('file')->once()->andReturn('files');
-    //     $lfm->shouldReceive('getStorage')->andReturn($storage);
-
-    //     $request = m::mock(Request::class);
-    //     $request->shouldReceive('input')->with('type')->once()->andReturn('file');
-    //     $request->shouldReceive('input')->with('working_dir')->once()->andReturnNull();
-
-    //     $path = new LfmPath($lfm, $request);
-
-    //     $this->assertTrue($path->createFolder('bar'));
-    // }
-
-    // public function testCreateFolder()
-    // {
-    //     $disk = m::mock('disk');
-    //     $disk->shouldReceive('exists')->with('foo')->once()->andReturn(false);
-    //     $disk->shouldReceive('makeDirectory')->with('foo', 0777, true, true)->once()->andReturn(true);
-
-    //     $storage = new LfmStorage($disk, 'root', m::mock(Lfm::class), m::mock(LfmPath::class));
-
-    //     $this->assertTrue($storage->createFolder('foo'));
-    // }
-
-    // public function testCreateFolderButFolderAlreadyExists()
-    // {
-    //     $disk = m::mock('disk');
-    //     $disk->shouldReceive('exists')->with('foo')->once()->andReturn(true);
-
-    //     $storage = new LfmStorage($disk, 'root', m::mock(Lfm::class), m::mock(LfmPath::class));
-
-    //     $this->assertFalse($storage->createFolder('foo'));
-    // }
+        $this->assertFalse($path->createFolder('foo'));
+    }
 }

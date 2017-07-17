@@ -18,7 +18,7 @@ class LfmPath
     public function __get($var_name)
     {
         if ($var_name == 'storage') {
-            return new LfmStorage($this);
+            return $this->helper->getStorage();
         }
     }
 
