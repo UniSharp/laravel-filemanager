@@ -63,26 +63,31 @@
   display: none;
 }
 
-.square {
+#grid .square {
   width: 100%;
-  padding-bottom: 100%;
-  position: relative;
   border: 1px solid rgb(221, 221, 221);
   border-radius: 3px;
-  // max-width: 210px;
-  max-height: 210px;
 }
-.visible-xs .square {
-  width: 60px;
+
+#list .square {
+  width: 70px !important;
 }
+
+.square {
+  padding-bottom: 100%;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
 .square > img {
   padding: 5px;
-  position: absolute;
-  max-width: 100%;
-  max-height: 100%;
   margin: 0 auto;
-  display: inline-block;
-  vertical-align: middle;
+  position: absolute;
+  display: block;
+  top:0%;
+  left:0%;
+  width: 100%;
 }
 .square > i {
   font-size: 80px;

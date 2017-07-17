@@ -1,45 +1,5 @@
 @if(sizeof($items) > 0)
-<table class="table table-responsive table-condensed table-striped hidden-xs">
-  <thead>
-    <th style='width:50%;'>{{ Lang::get('laravel-filemanager::lfm.title-item') }}</th>
-    <th>{{ Lang::get('laravel-filemanager::lfm.title-size') }}</th>
-    <th>{{ Lang::get('laravel-filemanager::lfm.title-type') }}</th>
-    <th>{{ Lang::get('laravel-filemanager::lfm.title-modified') }}</th>
-    <th>{{ Lang::get('laravel-filemanager::lfm.title-action') }}</th>
-  </thead>
-  <tbody>
-    @foreach($items as $item)
-    <tr>
-      <td>
-        <i class="fa {{ $item->icon }}"></i>
-        <a class="{{ $item->is_file ? 'file' : 'folder'}}-item clickable" data-id="{{ $item->path }}">
-          {{ str_limit($item->name, $limit = 20, $end = '...') }}
-        </a>
-      </td>
-      <td>{{ $item->size }}</td>
-      <td>{{ $item->type }}</td>
-      <td>{{ date('Y-m-d h:m', $item->time) }}</td>
-      <td>
-        @if($item->is_file)
-        <a href="javascript:trash('{{ $item->name }}')">
-          <i class="fa fa-trash fa-fw"></i>
-        </a>
-        @if($item->thumb)
-        <a href="javascript:cropImage('{{ $item->name }}')">
-          <i class="fa fa-crop fa-fw"></i>
-        </a>
-        <a href="javascript:resizeImage('{{ $item->name }}')">
-          <i class="fa fa-arrows fa-fw"></i>
-        </a>
-        @endif
-        @endif
-      </td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
-
-<table class="table visible-xs">
+<table class="table" id="list">
   <tbody>
     @foreach($items as $item)
     <tr>
@@ -61,9 +21,22 @@
                   {{ str_limit($item->name, $limit = 20, $end = '...') }}
                 </a>
                 &nbsp;&nbsp;
-                {{-- <a href="javascript:rename('{{ $item->name }}')">
+                <a href="javascript:rename('{{ $item->name }}')">
                   <i class="fa fa-edit"></i>
-                </a> --}}
+                </a>
+                @if($item->is_file)
+                <a href="javascript:trash('{{ $item->name }}')">
+                  <i class="fa fa-trash fa-fw"></i>
+                </a>
+                @if($item->thumb)
+                <a href="javascript:cropImage('{{ $item->name }}')">
+                  <i class="fa fa-crop fa-fw"></i>
+                </a>
+                <a href="javascript:resizeImage('{{ $item->name }}')">
+                  <i class="fa fa-arrows fa-fw"></i>
+                </a>
+                @endif
+                @endif
               </p>
             </div>
             <p style="color: #aaa;font-weight: 400">{{ date('Y-m-d h:m', $item->time) }}</p>

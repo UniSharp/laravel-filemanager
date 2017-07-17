@@ -1,6 +1,6 @@
 @if(sizeof($items) > 0)
 
-<div class="row">
+<div class="row" id="grid">
 
   @foreach($items as $item)
   <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 img-row">
