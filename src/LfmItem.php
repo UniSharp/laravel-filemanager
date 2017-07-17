@@ -21,10 +21,10 @@ class LfmItem
     ];
     public $attributes = [];
 
-    public function __construct(LfmPath $lfm_path)
+    public function __construct(LfmPath $lfm_path, Lfm $lfm)
     {
-        $this->lfm_path = $lfm_path;
-        $this->lfm = $lfm_path->lfm;
+        $this->lfm_path = $lfm_path->thumb(false);
+        $this->lfm = $lfm;
         $this->fill();
     }
 
@@ -116,11 +116,7 @@ class LfmItem
         if ($this->isDirectory()) {
             $thumb_url = asset('vendor/' . Lfm::PACKAGE_NAME . '/img/folder.png');
         } elseif ($this->isImage()) {
-            if ($this->hasThumb()) {
-                $thumb_url = $this->lfm_path->setName($file_name)->thumb()->url(true);
-            } else {
-                $thumb_url = $this->lfm_path->setName($file_name)->url(true);
-            }
+            $thumb_url = $this->lfm_path->setName($file_name)->thumb($this->hasThumb())->url(true);
         } else {
             $thumb_url = null;
         }

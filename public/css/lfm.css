@@ -87,19 +87,21 @@
   display: block;
   top:0%;
   left:0%;
-  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  max-width: 100%;
 }
-.square > i {
+#grid .square > i {
   font-size: 80px;
   padding: 5px;
   position: absolute;
   top: calc(50% - 40px);
   left: calc(50% - 40px);
 }
-.visible-xs .square > i {
+#list .square > i {
   font-size: 50px;
-  padding: 0px auto;
-  padding-top: 5px;
+  padding: 0px;
+  position: absolute;
   top: calc(50% - 25px);
   left: calc(50% - 25px);
 }

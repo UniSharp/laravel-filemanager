@@ -38,9 +38,9 @@ class LfmPath
         return $this;
     }
 
-    public function thumb()
+    public function thumb($is_thumb = true)
     {
-        $this->is_thumb = true;
+        $this->is_thumb = $is_thumb;
 
         return $this;
     }
@@ -147,7 +147,7 @@ class LfmPath
 
     public function get($item_path)
     {
-        $item = new LfmItem($this->setName($this->helper->getNameFromPath($item_path)));
+        $item = new LfmItem($this->setName($this->helper->getNameFromPath($item_path)), $this->helper);
 
         $this->reset();
 

@@ -12,12 +12,14 @@ use UniSharp\LaravelFilemanager\LfmStorage;
 class LfmItemTest extends TestCase
 {
     private $lfm_path;
+    private $lfm;
 
     public function setUp()
     {
         $lfm = m::mock(Lfm::class);
         $lfm->shouldReceive('getFileType')->with('baz')->andReturn('application/plain');
         $lfm->shouldReceive('getFileIcon')->with('baz')->andReturn('fa-file');
+        $this->lfm = $lfm;
 
         $this->lfm_path = m::mock(LfmPath::class);
         $this->lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar.baz');
@@ -27,8 +29,8 @@ class LfmItemTest extends TestCase
         $this->lfm_path->shouldReceive('lastModified')->andReturn(0);
         $this->lfm_path->shouldReceive('setName')->andReturn($this->lfm_path);
         $this->lfm_path->shouldReceive('url')->andReturn('foo/bar');
+        $this->lfm_path->shouldReceive('thumb')->andReturn($this->lfm_path);
         $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
-        $this->lfm_path->lfm = $lfm;
     }
 
     public function tearDown()
@@ -40,58 +42,58 @@ class LfmItemTest extends TestCase
 
     public function testFileName()
     {
-        $this->assertEquals('bar', (new LfmItem($this->lfm_path))->fileName());
+        $this->assertEquals('bar', (new LfmItem($this->lfm_path, $this->lfm))->fileName());
     }
 
     public function testAbsolutePath()
     {
-        $this->assertEquals('foo/bar.baz', (new LfmItem($this->lfm_path))->absolutePath());
+        $this->assertEquals('foo/bar.baz', (new LfmItem($this->lfm_path, $this->lfm))->absolutePath());
     }
 
     public function testIsDirectory()
     {
-        $this->assertFalse((new LfmItem($this->lfm_path))->isDirectory());
+        $this->assertFalse((new LfmItem($this->lfm_path, $this->lfm))->isDirectory());
     }
 
     public function testIsFile()
     {
-        $this->assertTrue((new LfmItem($this->lfm_path))->isFile());
+        $this->assertTrue((new LfmItem($this->lfm_path, $this->lfm))->isFile());
     }
 
     public function testIsImage()
     {
-        $this->assertFalse((new LfmItem($this->lfm_path))->isImage());
+        $this->assertFalse((new LfmItem($this->lfm_path, $this->lfm))->isImage());
     }
 
     public function testMimeType()
     {
-        $this->assertEquals('application/plain', (new LfmItem($this->lfm_path))->mimeType());
+        $this->assertEquals('application/plain', (new LfmItem($this->lfm_path, $this->lfm))->mimeType());
     }
 
     public function testExtension()
     {
-        $this->assertEquals('baz', (new LfmItem($this->lfm_path))->extension());
+        $this->assertEquals('baz', (new LfmItem($this->lfm_path, $this->lfm))->extension());
     }
 
     // TODO: refactor
     public function testPath()
     {
-        $this->assertEquals('foo/bar', (new LfmItem($this->lfm_path))->path());
+        $this->assertEquals('foo/bar', (new LfmItem($this->lfm_path, $this->lfm))->path());
     }
 
     public function testSize()
     {
-        $this->assertEquals('1.00 kB', (new LfmItem($this->lfm_path))->size());
+        $this->assertEquals('1.00 kB', (new LfmItem($this->lfm_path, $this->lfm))->size());
     }
 
     public function testLastModified()
     {
-        $this->assertEquals(0, (new LfmItem($this->lfm_path))->lastModified());
+        $this->assertEquals(0, (new LfmItem($this->lfm_path, $this->lfm))->lastModified());
     }
 
     public function testIcon()
     {
-        $this->assertEquals('fa-file', (new LfmItem($this->lfm_path))->icon());
+        $this->assertEquals('fa-file', (new LfmItem($this->lfm_path, $this->lfm))->icon());
         return;
 
         // $path1 = m::mock(LfmPath::class);
@@ -115,7 +117,7 @@ class LfmItemTest extends TestCase
 
     public function testHumanFilesize()
     {
-        $item = new LfmItem($this->lfm_path);
+        $item = new LfmItem($this->lfm_path, $this->lfm);
 
         $this->assertEquals('1.00 kB', $item->humanFilesize(1024));
         $this->assertEquals('1.00 MB', $item->humanFilesize(1024 ** 2));
