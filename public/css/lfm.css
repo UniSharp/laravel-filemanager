@@ -41,14 +41,21 @@
 }
 
 .item_name {
-  width: 120px;
   overflow:hidden;
   white-space:nowrap;
   text-overflow: ellipsis;
 }
 
-.clickable {
+a, .square {
   cursor: pointer;
+}
+
+#grid .square.selected {
+  border: 5px solid green;
+  padding-bottom: calc(100% - 10px + 2px);
+}
+#grid .square.selected > img {
+  padding: 1px;
 }
 
 .img-preview {
@@ -59,10 +66,6 @@
   height: 200px;
 }
 
-.hidden {
-  display: none;
-}
-
 #grid .square {
   width: 100%;
   border: 1px solid rgb(221, 221, 221);
@@ -70,7 +73,7 @@
 }
 
 #list .square {
-  width: 70px !important;
+  width: 70px;
 }
 
 .square {
@@ -82,7 +85,6 @@
 
 .square > img {
   padding: 5px;
-  margin: 0 auto;
   position: absolute;
   display: block;
   top:0%;
@@ -93,29 +95,28 @@
 }
 #grid .square > i {
   font-size: 80px;
-  padding: 5px;
   position: absolute;
   top: calc(50% - 40px);
-  left: calc(50% - 40px);
+  left: calc(50% - 40px + 5px);
 }
 #list .square > i {
   font-size: 50px;
-  padding: 0px;
   position: absolute;
   top: calc(50% - 25px);
   left: calc(50% - 25px);
 }
 
 .caption {
-  margin-top: 10px;
   margin-bottom: 20px;
+  border: 1px solid rgb(221, 221, 221);
+  border-top: none;
+  margin-top: -7px;
+  padding: 10px;
 }
-.caption > .btn-group {
-  width: 100%;
-}
-.caption > .btn-group > .item_name {
-  width: calc(100% - 25px);
-}
-.caption > .btn-group > .dropdown-toggle {
-  width: 25px;
+
+#list > .list-item {
+  height: 80px;
+  border-top: 1px solid #ddd;
+  padding: 5px 0 !important;
+  margin-top: 0px;
 }

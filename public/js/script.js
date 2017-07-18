@@ -1,5 +1,6 @@
 var show_list;
 var sort_type = 'alphabetic';
+var multi_selection_enabled = true;
 
 $(document).ready(function () {
   bootbox.setDefaults({locale:lang['locale-bootbox']});
@@ -21,8 +22,8 @@ $(document).ready(function () {
 // ==  Navbar actions  ==
 // ======================
 
-$('#nav-buttons a').click(function (e) {
-  e.preventDefault();
+$('#multi_selection_toggle').click(function () {
+  multi_selection_enabled = !multi_selection_enabled;
 });
 
 $('#to-previous').click(function () {
@@ -68,11 +69,13 @@ $('#upload-btn').click(function () {
 
 $('#thumbnail-display').click(function () {
   show_list = 0;
+  $('#loading').removeClass('hide');
   loadItems();
 });
 
 $('#list-display').click(function () {
   show_list = 1;
+  $('#loading').removeClass('hide');
   loadItems();
 });
 
@@ -91,11 +94,29 @@ $('#list-sort-time').click(function() {
 // ======================
 
 $(document).on('click', '.file-item', function (e) {
-  useFile($(this).data('id'));
+  if (multi_selection_enabled) {
+    var element = $(e.target);
+    if (!element.is('.file-item')) {
+      element.parent('.file-item').toggleClass('selected');
+    } else {
+      element.toggleClass('selected');
+    }
+  } else {
+    useFile($(this).data('id'));
+  }
 });
 
 $(document).on('click', '.folder-item', function (e) {
-  goTo($(this).data('id'));
+  if (multi_selection_enabled) {
+    var element = $(e.target);
+    if (!element.is('.folder-item')) {
+      element.parent('.folder-item').toggleClass('selected');
+    } else {
+      element.toggleClass('selected');
+    }
+  } else {
+    goTo($(this).data('id'));
+  }
 });
 
 function goTo(new_dir) {
@@ -165,7 +186,7 @@ var refreshFoldersAndItems = function (data) {
 };
 
 var hideNavAndShowEditor = function (data) {
-  $('#nav-buttons > ul').addClass('hidden');
+  $('#nav-buttons > ul').addClass('hide');
   $('#content').html(data);
 }
 
@@ -182,7 +203,7 @@ function loadItems() {
     .done(function (data) {
       var response = JSON.parse(data);
       $('#content').html(response.html);
-      $('#nav-buttons > ul').removeClass('hidden');
+      $('#nav-buttons > ul').removeClass('hide');
       $('#working_dir').val(response.working_dir);
       $('#current_dir').text(response.working_dir);
       console.log('Current working_dir : ' + $('#working_dir').val());
@@ -192,6 +213,7 @@ function loadItems() {
         $('#to-previous').removeClass('hide');
       }
       setOpenFolders();
+      $('#loading').addClass('hide');
     });
 }
 

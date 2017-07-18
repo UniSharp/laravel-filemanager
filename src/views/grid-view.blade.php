@@ -8,7 +8,7 @@
     <?php $thumb_src = $item->thumb; ?>
     <?php $item_path = $item->path; ?>
 
-    <div class="square clickable {{ $item->is_file ? 'file' : 'folder'}}-item" data-id="{{ $item_path }}">
+    <div class="square {{ $item->is_file ? 'file' : 'folder'}}-item" data-id="{{ $item_path }}">
       @if($thumb_src)
         <img src="{{ $thumb_src }}">
       @else
@@ -16,8 +16,9 @@
       @endif
     </div>
 
-    <div class="caption text-center">
-      <div class="btn-group">
+    <div class="caption text-center item_name">
+      <a>{{ $item_name }}</a>
+      {{-- <div class="btn-group">
         <button type="button" data-id="{{ $item_path }}" class="item_name btn btn-default btn-xs {{ $item->is_file ? 'file' : 'folder'}}-item">
           {{ $item_name }}
         </button>
@@ -39,7 +40,7 @@
           @endif
           <li><a href="javascript:trash('{{ $item_name }}')"><i class="fa fa-trash fa-fw"></i> {{ Lang::get('laravel-filemanager::lfm.menu-delete') }}</a></li>
         </ul>
-      </div>
+      </div> --}}
     </div>
 
   </div>
