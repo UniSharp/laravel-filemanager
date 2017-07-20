@@ -100,6 +100,6 @@ Route::group(compact('prefix', 'as', 'namespace'), function () {
     $files_url = '/' . \Config::get('lfm.files_folder_name') . '/{base_path}/{file_name}';
     Route::get($images_url, 'RedirectController@getImage')
         ->where('image_name', '.*');
-    Route::get($files_url, 'RedirectController@getFIle')
+    Route::get($files_url, 'RedirectController@getFile')
         ->where('file_name', '.*');
 });
