@@ -93,30 +93,22 @@ $('#list-sort-time').click(function() {
 // ==  Folder actions  ==
 // ======================
 
-$(document).on('click', '.file-item', function (e) {
+$(document).on('click', '#grid a, #list a', function (e) {
+  var element = $(e.target).closest('a');
+
   if (multi_selection_enabled) {
-    var element = $(e.target);
-    if (!element.is('.file-item')) {
-      element.parent('.file-item').toggleClass('selected');
-    } else {
-      element.toggleClass('selected');
-    }
+    element.find('.square').toggleClass('selected');
   } else {
-    useFile($(this).data('id'));
+    if (element.data('type') == '0') {
+      goTo(element.data('path'));
+    } else {
+      useFile(element.data('path'));
+    }
   }
 });
 
-$(document).on('click', '.folder-item', function (e) {
-  if (multi_selection_enabled) {
-    var element = $(e.target);
-    if (!element.is('.folder-item')) {
-      element.parent('.folder-item').toggleClass('selected');
-    } else {
-      element.toggleClass('selected');
-    }
-  } else {
-    goTo($(this).data('id'));
-  }
+$(document).on('click', '#tree a', function (e) {
+  goTo($(e.target).closest('a').data('path'));
 });
 
 function goTo(new_dir) {
@@ -137,11 +129,11 @@ function dir_starts_with(str) {
 }
 
 function setOpenFolders() {
-  var folders = $('.folder-item');
+  var folders = $('[data-type=0]');
 
   for (var i = folders.length - 1; i >= 0; i--) {
     // close folders that are not parent
-    if (! dir_starts_with($(folders[i]).data('id'))) {
+    if (! dir_starts_with($(folders[i]).data('path'))) {
       $(folders[i]).children('i').removeClass('fa-folder-open').addClass('fa-folder');
     } else {
       $(folders[i]).children('i').removeClass('fa-folder').addClass('fa-folder-open');

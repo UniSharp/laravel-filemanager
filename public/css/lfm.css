@@ -14,22 +14,13 @@
   #main {
     border-left: 1px solid silver;
   }
+  #nav {
+    margin: 10px 10px 20px 10px;
+  }
 }
 
 #wrapper {
   padding: 0px;
-}
-
-#wrapper > .panel {
-  border-radius: 0;
-}
-
-#wrapper > .panel > .panel-heading {
-  border-radius: 0;
-}
-
-#wrapper > .panel > .panel-heading > .panel-title {
-  padding: 10px 0;
 }
 
 #wrapper > .row {
@@ -40,14 +31,13 @@
   color: white;
 }
 
-.item_name {
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow: ellipsis;
-}
-
 a, .square {
   cursor: pointer;
+  text-decoration: none !important;
+}
+
+.square i {
+  color: #333;
 }
 
 #grid .square.selected {
@@ -55,6 +45,13 @@ a, .square {
   padding-bottom: calc(100% - 10px + 2px);
 }
 #grid .square.selected > img {
+  padding: 1px;
+}
+
+#list .square.selected {
+  border: 4px solid green;
+}
+#list .square.selected > img {
   padding: 1px;
 }
 
@@ -70,14 +67,16 @@ a, .square {
   width: 100%;
   border: 1px solid rgb(221, 221, 221);
   border-radius: 3px;
+  padding-bottom: 100%;
 }
 
 #list .square {
-  width: 70px;
+  min-width: 70px;
+  height: 70px;
+  margin-right: 10px;
 }
 
 .square {
-  padding-bottom: 100%;
   position: relative;
   display: inline-block;
   overflow: hidden;
@@ -103,20 +102,46 @@ a, .square {
   font-size: 50px;
   position: absolute;
   top: calc(50% - 25px);
-  left: calc(50% - 25px);
+  left: calc(50% - 20px);
 }
 
-.caption {
+#grid .item_name {
   margin-bottom: 20px;
   border: 1px solid rgb(221, 221, 221);
   border-top: none;
   margin-top: -7px;
   padding: 10px;
+  text-align: center;
 }
 
-#list > .list-item {
+#list .item_name {
+  padding: 15px 0 5px;
+}
+
+.item_name {
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+time {
+  color: #aaa;
+  font-weight: 400;
+}
+
+#grid time {
+  display: none;
+}
+
+#list > li {
   height: 80px;
   border-top: 1px solid #ddd;
   padding: 5px 0 !important;
   margin-top: 0px;
+}
+
+#list > li > a {
+  display: flex;
+  flex-direction: row;
 }
