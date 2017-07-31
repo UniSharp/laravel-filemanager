@@ -2,7 +2,6 @@
 
 namespace UniSharp\LaravelFilemanager;
 
-use Illuminate\Config\Repository as Config;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class LfmItem
@@ -111,12 +110,10 @@ class LfmItem
 
     public function thumbUrl()
     {
-        $file_name = $this->fileName();
-
         if ($this->isDirectory()) {
             $thumb_url = asset('vendor/' . Lfm::PACKAGE_NAME . '/img/folder.png');
         } elseif ($this->isImage()) {
-            $thumb_url = $this->lfm_path->setName($file_name)->thumb($this->hasThumb())->url(true);
+            $thumb_url = $this->lfm_path->setName($this->fileName())->thumb($this->hasThumb())->url(true);
         } else {
             $thumb_url = null;
         }
@@ -190,10 +187,5 @@ class LfmItem
         $factor = floor((strlen($bytes) - 1) / 3);
 
         return sprintf("%.{$decimals}f %s", $bytes / pow(1024, $factor), @$size[$factor]);
-    }
-
-    public function move($new_path)
-    {
-        return $this->lfm_path->move($this->lfm_path, $new_path);
     }
 }

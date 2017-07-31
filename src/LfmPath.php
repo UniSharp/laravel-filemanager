@@ -2,6 +2,8 @@
 
 namespace UniSharp\LaravelFilemanager;
 
+use Illuminate\Container\Container;
+
 class LfmPath
 {
     private $working_dir;
@@ -18,6 +20,7 @@ class LfmPath
     public function __get($var_name)
     {
         if ($var_name == 'storage') {
+            // return new LfmStorage($this);
             return $this->helper->getStorage();
         }
     }
@@ -147,7 +150,11 @@ class LfmPath
 
     public function get($item_path)
     {
-        $item = new LfmItem($this->setName($this->helper->getNameFromPath($item_path)), $this->helper);
+        $lfm_path = $this->setName($this->helper->getNameFromPath($item_path));
+
+        // $item = new LfmItem(, $this->helper);
+
+        $item = Container::getInstance()->make(LfmItem::class, [$lfm_path, $this->helper]);
 
         $this->reset();
 

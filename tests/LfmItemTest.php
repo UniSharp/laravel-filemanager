@@ -17,7 +17,7 @@ class LfmItemTest extends TestCase
     public function setUp()
     {
         $lfm = m::mock(Lfm::class);
-        $lfm->shouldReceive('getFileType')->with('baz')->andReturn('application/plain');
+        $lfm->shouldReceive('getFileType')->with('baz')->andReturn('File');
         $lfm->shouldReceive('getFileIcon')->with('baz')->andReturn('fa-file');
         $this->lfm = $lfm;
 
@@ -31,6 +31,8 @@ class LfmItemTest extends TestCase
         $this->lfm_path->shouldReceive('url')->andReturn('foo/bar');
         $this->lfm_path->shouldReceive('thumb')->andReturn($this->lfm_path);
         $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
+        $this->lfm_path->shouldReceive('move')->with($this->lfm_path, m::mock(LfmPath::class))->andReturn(true);
+        $this->lfm_item = new LfmItem($this->lfm_path, $this->lfm);
     }
 
     public function tearDown()
@@ -40,60 +42,82 @@ class LfmItemTest extends TestCase
         parent::tearDown();
     }
 
+    public function test__Get()
+    {
+        $this->lfm_item->attributes['foo'] = 'bar';
+
+        $this->assertEquals('bar', $this->lfm_item->foo);
+    }
+
+    public function testFill()
+    {
+        $this->assertEquals(array_keys($this->lfm_item->attributes), array_keys(LfmItem::COLUMNS));
+    }
+
     public function testFileName()
     {
-        $this->assertEquals('bar', (new LfmItem($this->lfm_path, $this->lfm))->fileName());
+        $this->assertEquals('bar', $this->lfm_item->fileName());
     }
 
     public function testAbsolutePath()
     {
-        $this->assertEquals('foo/bar.baz', (new LfmItem($this->lfm_path, $this->lfm))->absolutePath());
+        $this->assertEquals('foo/bar.baz', $this->lfm_item->absolutePath());
     }
 
     public function testIsDirectory()
     {
-        $this->assertFalse((new LfmItem($this->lfm_path, $this->lfm))->isDirectory());
+        $this->assertFalse($this->lfm_item->isDirectory());
     }
 
     public function testIsFile()
     {
-        $this->assertTrue((new LfmItem($this->lfm_path, $this->lfm))->isFile());
+        $this->assertTrue($this->lfm_item->isFile());
     }
 
     public function testIsImage()
     {
-        $this->assertFalse((new LfmItem($this->lfm_path, $this->lfm))->isImage());
+        $this->assertFalse($this->lfm_item->isImage());
     }
 
     public function testMimeType()
     {
-        $this->assertEquals('application/plain', (new LfmItem($this->lfm_path, $this->lfm))->mimeType());
+        $this->assertEquals('application/plain', $this->lfm_item->mimeType());
+    }
+
+    public function testFileType()
+    {
+        $this->assertEquals('File', $this->lfm_item->fileType());
     }
 
     public function testExtension()
     {
-        $this->assertEquals('baz', (new LfmItem($this->lfm_path, $this->lfm))->extension());
+        $this->assertEquals('baz', $this->lfm_item->extension());
+    }
+
+    public function testThumbUrl()
+    {
+        $this->assertNull($this->lfm_item->thumbUrl());
     }
 
     // TODO: refactor
     public function testPath()
     {
-        $this->assertEquals('foo/bar', (new LfmItem($this->lfm_path, $this->lfm))->path());
+        $this->assertEquals('foo/bar', $this->lfm_item->path());
     }
 
     public function testSize()
     {
-        $this->assertEquals('1.00 kB', (new LfmItem($this->lfm_path, $this->lfm))->size());
+        $this->assertEquals('1.00 kB', $this->lfm_item->size());
     }
 
     public function testLastModified()
     {
-        $this->assertEquals(0, (new LfmItem($this->lfm_path, $this->lfm))->lastModified());
+        $this->assertEquals(0, $this->lfm_item->lastModified());
     }
 
     public function testIcon()
     {
-        $this->assertEquals('fa-file', (new LfmItem($this->lfm_path, $this->lfm))->icon());
+        $this->assertEquals('fa-file', $this->lfm_item->icon());
         return;
 
         // $path1 = m::mock(LfmPath::class);
@@ -109,9 +133,14 @@ class LfmItemTest extends TestCase
         // $this->assertEquals('fa-folder-o', (new LfmItem($path3))->icon());
     }
 
+    public function testHasThumb()
+    {
+        $this->assertFalse($this->lfm_item->hasThumb());
+    }
+
     public function testHumanFilesize()
     {
-        $item = new LfmItem($this->lfm_path, $this->lfm);
+        $item = $this->lfm_item;
 
         $this->assertEquals('1.00 kB', $item->humanFilesize(1024));
         $this->assertEquals('1.00 MB', $item->humanFilesize(1024 ** 2));

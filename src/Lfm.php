@@ -15,7 +15,7 @@ class Lfm
     protected $storage;
     protected $request;
 
-    public function __construct(Config $config, Request $request = null)
+    public function __construct(Config $config = null, Request $request = null)
     {
         $this->config = $config;
         $this->request = $request;
@@ -48,10 +48,15 @@ class Lfm
         return lcfirst(str_singular($this->input('type'))) === 'image';
     }
 
+    /**
+     * Get only the file name.
+     *
+     * @param  string  $path  Real path of a file.
+     * @return string
+     */
     public function getNameFromPath($path)
     {
-        $segments = explode(self::DS, $path);
-        return end($segments);
+        return substr($path, strrpos($path, self::DS) + 1);
     }
 
     public function allowFolderType($type)
@@ -127,7 +132,7 @@ class Lfm
 
     public function getFileIcon($ext)
     {
-        return $this->config->get("lfm.file_icon_array.{$ext}", 'fa-file');
+        return $this->config->get("lfm.file_icon_array.{$ext}", 'fa-file-o');
     }
 
     public function getFileType($ext)
@@ -135,11 +140,11 @@ class Lfm
         return $this->config->get("lfm.file_type_array.{$ext}", 'File');
     }
 
-    // TODO: do not use base_path function, and add test
-    public function basePath($path = '')
-    {
-        return base_path($path);
-    }
+    // // TODO: do not use base_path function, and add test
+    // public function basePath($path = '')
+    // {
+    //     return base_path($path);
+    // }
 
     // TODO: do not use url function, and add test
     public function url($path = '')
@@ -153,7 +158,7 @@ class Lfm
      *
      * @return bool
      */
-    private function allowMultiUser()
+    public function allowMultiUser()
     {
         return $this->config->get('lfm.allow_multi_user') === true;
     }
@@ -164,24 +169,13 @@ class Lfm
      *
      * @return bool
      */
-    private function allowShareFolder()
+    public function allowShareFolder()
     {
         if (! $this->allowMultiUser()) {
             return true;
         }
 
         return $this->config->get('lfm.allow_share_folder') === true;
-    }
-
-    /**
-     * Get only the file name.
-     *
-     * @param  string  $file  Real path of a file.
-     * @return string
-     */
-    public function getName($file)
-    {
-        return substr($file, strrpos($file, $this->ds) + 1);
     }
 
     /**

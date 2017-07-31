@@ -17,6 +17,10 @@ class LfmStorageTest extends TestCase
         parent::setUp();
 
         $disk = m::mock('disk');
+        $disk->shouldReceive('getDriver')->andReturn($disk);
+        $disk->shouldReceive('getAdapter')->andReturn($disk);
+        $disk->shouldReceive('getPathPrefix')->andReturn('foo/bar');
+        $disk->shouldReceive('functionToCall')->with('foo/bar')->andReturn('baz');
         $disk->shouldReceive('directories')->with('foo/bar')->andReturn(['foo/bar/baz']);
         $disk->shouldReceive('files')->with('foo/bar')->andReturn(['foo/bar/baz']);
         $disk->shouldReceive('makeDirectory')->with('foo/bar', 0777, true, true)->andReturn(true);
@@ -24,6 +28,9 @@ class LfmStorageTest extends TestCase
         $disk->shouldReceive('get')->with('foo/bar')->andReturn(true);
         $disk->shouldReceive('mimeType')->with('foo/bar')->andReturn('text/plain');
         $disk->shouldReceive('directories')->with('foo')->andReturn(['foo/bar']);
+
+        $disk->shouldReceive('move')->with('foo/bar', 'foo/bar/baz')->andReturn(true);
+        $disk->shouldReceive('allFiles')->with('foo/bar')->andReturn([]);
 
         Storage::shouldReceive('disk')->andReturn($disk);
 
@@ -36,6 +43,16 @@ class LfmStorageTest extends TestCase
     public function tearDown()
     {
         m::close();
+    }
+
+    public function test__Call()
+    {
+        $this->assertEquals('baz', $this->storage->functionToCall());
+    }
+
+    public function testRootPath()
+    {
+        $this->assertEquals('foo/bar', $this->storage->rootPath());
     }
 
     public function testDirectories()
@@ -71,5 +88,18 @@ class LfmStorageTest extends TestCase
     public function testIsDirectory()
     {
         $this->assertTrue($this->storage->isDirectory());
+    }
+
+    public function testMove()
+    {
+        $new_lfm_path = m::mock(LfmPath::class);
+        $new_lfm_path->shouldReceive('path')->with('storage')->andReturn('foo/bar/baz');
+
+        $this->assertTrue($this->storage->move($new_lfm_path));
+    }
+
+    public function testDirectoryIsEmpty()
+    {
+        $this->assertTrue($this->storage->directoryIsEmpty());
     }
 }
