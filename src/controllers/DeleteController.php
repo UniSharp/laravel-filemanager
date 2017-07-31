@@ -2,6 +2,7 @@
 
 namespace Unisharp\Laravelfilemanager\controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Unisharp\Laravelfilemanager\Events\ImageIsDeleting;
 use Unisharp\Laravelfilemanager\Events\ImageWasDeleted;
@@ -16,9 +17,9 @@ class DeleteController extends LfmController
      *
      * @return mixed
      */
-    public function getDelete()
+    public function getDelete(Request $request)
     {
-        $name_to_delete = request('items');
+        $name_to_delete = $request->input('items');
 
         $file_to_delete = parent::getCurrentPath($name_to_delete);
         $thumb_to_delete = parent::getThumbPath($name_to_delete);

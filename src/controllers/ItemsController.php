@@ -1,6 +1,7 @@
 <?php
 
 namespace Unisharp\Laravelfilemanager\controllers;
+use Illuminate\Http\Request;
 
 /**
  * Class ItemsController.
@@ -12,16 +13,16 @@ class ItemsController extends LfmController
      *
      * @return mixed
      */
-    public function getItems()
+    public function getItems(Request $request)
     {
         $path = parent::getCurrentPath();
-        $sort_type = request('sort_type');
+        $sort_type = $request->input('sort_type');
 
         $files = parent::sortFilesAndDirectories(parent::getFilesWithInfo($path), $sort_type);
         $directories = parent::sortFilesAndDirectories(parent::getDirectories($path), $sort_type);
 
         return [
-            'html' => (string) view($this->getView())->with([
+            'html' => (string) view($this->getView($request))->with([
                 'files'       => $files,
                 'directories' => $directories,
                 'items'       => array_merge($directories, $files),
@@ -30,10 +31,10 @@ class ItemsController extends LfmController
         ];
     }
 
-    private function getView()
+    private function getView($request)
     {
         $view_type = 'grid';
-        $show_list = request('show_list');
+        $show_list = $request->input('show_list');
 
         if ($show_list === '1') {
             $view_type = 'list';

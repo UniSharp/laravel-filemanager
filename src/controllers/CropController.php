@@ -2,6 +2,7 @@
 
 namespace Unisharp\Laravelfilemanager\controllers;
 
+use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Unisharp\Laravelfilemanager\Events\ImageIsCropping;
 use Unisharp\Laravelfilemanager\Events\ImageWasCropped;
@@ -16,10 +17,10 @@ class CropController extends LfmController
      *
      * @return mixed
      */
-    public function getCrop()
+    public function getCrop(Request $request)
     {
-        $working_dir = request('working_dir');
-        $img = parent::objectPresenter(parent::getCurrentPath(request('img')));
+        $working_dir = $request->input('working_dir');
+        $img = parent::objectPresenter(parent::getCurrentPath($request->input('img')));
 
         return view('laravel-filemanager::crop')
             ->with(compact('working_dir', 'img'));
@@ -28,17 +29,17 @@ class CropController extends LfmController
     /**
      * Crop the image (called via ajax).
      */
-    public function getCropimage($overWrite = true)
+    public function getCropimage($request, $overWrite = true)
     {
-        $dataX = request('dataX');
-        $dataY = request('dataY');
-        $dataHeight = request('dataHeight');
-        $dataWidth = request('dataWidth');
-        $image_path = parent::getCurrentPath(request('img'));
+        $dataX = $request->input('dataX');
+        $dataY = $request->input('dataY');
+        $dataHeight = $request->input('dataHeight');
+        $dataWidth = $request->input('dataWidth');
+        $image_path = parent::getCurrentPath($request->input('img'));
         $crop_path = $image_path;
 
         if (! $overWrite) {
-            $fileParts = explode('.', request('img'));
+            $fileParts = explode('.', $request->input('img'));
             $fileParts[count($fileParts) - 2] = $fileParts[count($fileParts) - 2] . '_cropped_' . time();
             $crop_path = parent::getCurrentPath(implode('.', $fileParts));
         }
@@ -56,8 +57,8 @@ class CropController extends LfmController
         event(new ImageWasCropped($image_path));
     }
 
-    public function getNewCropimage()
+    public function getNewCropimage(Request $request)
     {
-        $this->getCropimage(false);
+        $this->getCropimage($request, false);
     }
 }

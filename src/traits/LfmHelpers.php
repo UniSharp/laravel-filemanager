@@ -123,7 +123,7 @@ trait LfmHelpers
      */
     private function getFormatedWorkingDir()
     {
-        $working_dir = request('working_dir');
+        $working_dir = \Request::input('working_dir');
 
         if (empty($working_dir)) {
             $default_folder_type = 'share';

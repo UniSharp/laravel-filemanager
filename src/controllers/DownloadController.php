@@ -2,6 +2,8 @@
 
 namespace Unisharp\Laravelfilemanager\controllers;
 
+use Illuminate\Http\Request;
+
 /**
  * Class DownloadController.
  */
@@ -12,8 +14,8 @@ class DownloadController extends LfmController
      *
      * @return mixed
      */
-    public function getDownload()
+    public function getDownload(Request $request)
     {
-        return response()->download(parent::getCurrentPath(request('file')));
+        return response()->download(parent::getCurrentPath($request->input('file')));
     }
 }

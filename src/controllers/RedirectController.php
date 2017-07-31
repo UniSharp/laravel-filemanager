@@ -13,10 +13,10 @@ class RedirectController extends LfmController
 {
     private $file_path;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
         $delimiter = config('lfm.prefix') . '/';
-        $url = urldecode(request()->url());
+        $url = urldecode($request->url());
         // dd($delimiter);
         $external_path = substr($url, strpos($url, $delimiter) + strlen($delimiter));
 

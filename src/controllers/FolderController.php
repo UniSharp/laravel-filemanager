@@ -2,6 +2,7 @@
 
 namespace Unisharp\Laravelfilemanager\controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -52,9 +53,9 @@ class FolderController extends LfmController
      *
      * @return mixed
      */
-    public function getAddfolder()
+    public function getAddfolder(Request $request)
     {
-        $folder_name = parent::translateFromUtf8(trim(request('name')));
+        $folder_name = parent::translateFromUtf8(trim($request->input('name')));
 
         $path = parent::getCurrentPath($folder_name);
 

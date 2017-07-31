@@ -2,6 +2,7 @@
 
 namespace Unisharp\Laravelfilemanager\controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -19,9 +20,9 @@ class UploadController extends LfmController
      * @param UploadRequest $request
      * @return string
      */
-    public function upload()
+    public function upload(Request $request)
     {
-        $files = request()->file('upload');
+        $files = $request->file('upload');
         $error_bag = [];
         foreach (is_array($files) ? $files : [$files] as $file) {
             $validation_message = $this->uploadValidator($file);
