@@ -10,7 +10,7 @@ class LfmPath
     private $item_name;
     private $is_thumb = false;
 
-    public $helper;
+    private $helper;
 
     public function __construct(Lfm $lfm = null)
     {
@@ -20,8 +20,7 @@ class LfmPath
     public function __get($var_name)
     {
         if ($var_name == 'storage') {
-            // return new LfmStorage($this);
-            return $this->helper->getStorage();
+            return $this->helper->getStorage($this->path('storage'));
         }
     }
 
@@ -152,9 +151,7 @@ class LfmPath
     {
         $lfm_path = $this->setName($this->helper->getNameFromPath($item_path));
 
-        // $item = new LfmItem(, $this->helper);
-
-        $item = Container::getInstance()->make(LfmItem::class, [$lfm_path, $this->helper]);
+        $item = app(LfmItem::class, [$lfm_path, $this->helper]);
 
         $this->reset();
 

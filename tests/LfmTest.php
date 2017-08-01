@@ -19,12 +19,9 @@ class LfmTest extends TestCase
         parent::tearDown();
     }
 
-    public function testSetAndGetStorage()
+    public function testGetStorage()
     {
-        $lfm = new Lfm(m::mock(Config::class));
-
-        $this->assertInstanceOf(Lfm::class, $lfm->setStorage($storage = m::mock(LfmStorage::class)));
-        $this->assertEquals($storage, $lfm->getStorage());
+        $this->assertInstanceOf(LfmStorage::class, (new Lfm)->getStorage('foo/bar'));
     }
 
     public function testInput()

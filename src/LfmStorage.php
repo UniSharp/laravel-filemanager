@@ -8,15 +8,15 @@ class LfmStorage
 {
     const DISK_NAME = 'local'; // config('lfm.disk')
 
-    public $disk;
+    private $disk;
 
     private $path;
 
     // TODO: clean DI
-    public function __construct(LfmPath $lfm_path)
+    public function __construct($storage_path)
     {
         $this->disk = Storage::disk(self::DISK_NAME);
-        $this->path = $lfm_path->path('storage');
+        $this->path = $storage_path;
     }
 
     public function __call($function_name, $arguments)
@@ -26,6 +26,7 @@ class LfmStorage
 
     public function rootPath()
     {
+        // storage_path('app')
         return $this->disk->getDriver()->getAdapter()->getPathPrefix();
     }
 

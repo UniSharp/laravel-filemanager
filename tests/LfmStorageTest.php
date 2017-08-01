@@ -34,10 +34,7 @@ class LfmStorageTest extends TestCase
 
         Storage::shouldReceive('disk')->andReturn($disk);
 
-        $lfm_path = m::mock(LfmPath::class);
-        $lfm_path->shouldReceive('path')->with('storage')->andReturn('foo/bar');
-
-        $this->storage = new LfmStorage($lfm_path);
+        $this->storage = new LfmStorage('foo/bar');
     }
 
     public function tearDown()

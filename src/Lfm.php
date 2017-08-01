@@ -21,16 +21,9 @@ class Lfm
         $this->request = $request;
     }
 
-    public function setStorage(LfmStorage $storage)
+    public function getStorage($storage_path)
     {
-        $this->storage = $storage;
-
-        return $this;
-    }
-
-    public function getStorage()
-    {
-        return $this->storage;
+        return new LfmStorage($storage_path);
     }
 
     public function input($key)

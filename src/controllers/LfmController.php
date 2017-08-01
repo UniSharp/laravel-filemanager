@@ -21,9 +21,7 @@ class LfmController extends Controller
     public function __get($var_name)
     {
         if ($var_name == 'lfm') {
-            $lfm = app(LfmPath::class);
-            $lfm->helper->setStorage(new LfmStorage($lfm));
-            return $lfm;
+            return app(LfmPath::class);
         } elseif ($var_name == 'helper') {
             return app(Lfm::class);
         }
