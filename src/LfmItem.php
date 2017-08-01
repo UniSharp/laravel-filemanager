@@ -24,21 +24,16 @@ class LfmItem
     {
         $this->lfm_path = $lfm_path->thumb(false);
         $this->lfm = $lfm;
-        $this->fill();
     }
 
     public function __get($var_name)
     {
-        if (array_key_exists($var_name, $this->attributes)) {
-            return $this->attributes[$var_name];
-        }
-    }
-
-    public function fill()
-    {
-        foreach (self::COLUMNS as $var_name => $function_name) {
+        if (!array_key_exists($var_name, $this->attributes)) {
+            $function_name = self::COLUMNS[$var_name];
             $this->attributes[$var_name] = $this->$function_name();
         }
+
+        return $this->attributes[$var_name];
     }
 
     public function fileName()

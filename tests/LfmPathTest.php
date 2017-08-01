@@ -2,10 +2,11 @@
 
 namespace Tests;
 
-use Mockery as m;
 use Illuminate\Http\Request;
+use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use UniSharp\LaravelFilemanager\Lfm;
+use UniSharp\LaravelFilemanager\LfmItem;
 use UniSharp\LaravelFilemanager\LfmPath;
 
 class LfmPathTest extends TestCase
@@ -133,71 +134,48 @@ class LfmPathTest extends TestCase
         $this->assertEquals($prefix . '/thumbs/baz', $path->appendPathToFile($prefix));
     }
 
-    // public function testFolders()
-    // {
-    //     $storage = m::mock(LfmStorage::class);
-    //     $storage->shouldReceive('rootPath')->andReturn(realpath(__DIR__ . '/../') . '/storage/app');
-    //     $storage->shouldReceive('exists')->andReturn(false);
-    //     $storage->shouldReceive('makeDirectory')->andReturn(true);
-    //     $storage->shouldReceive('isDirectory')->andReturn(false);
-    //     $storage->shouldReceive('size')->andReturn(0);
-    //     $storage->shouldReceive('lastModified')->andReturn(0);
+    public function testFolders()
+    {
+        $storage = m::mock(LfmStorage::class);
+        $storage->shouldReceive('directories')->andReturn(['foo/bar']);
 
-    //     $helper = m::mock(Lfm::class);
-    //     $helper->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
-    //     $helper->shouldReceive('getStorage')->andReturn($storage);
-    //     $helper->shouldReceive('getThumbFolderName')->andReturn('thumbs');
+        $helper = m::mock(Lfm::class);
+        $helper->shouldReceive('getCategoryName')->andReturn('files');
+        $helper->shouldReceive('input')->with('working_dir')->andReturn('/shares');
+        $helper->shouldReceive('getStorage')->andReturn($storage);
+        $helper->shouldReceive('getNameFromPath')->andReturn('bar');
+        $helper->shouldReceive('getThumbFolderName')->andReturn('thumbs');
 
-    //     $path = new LfmPath($helper);
+        $path = new LfmPath($helper);
 
-    //     // $this->assertEquals([$directory], $path->folders());
-    // }
+        $this->assertInstanceOf(LfmItem::class, $path->folders()[0]);
+    }
 
-    // public function testFiles()
-    // {
-    //     $storage = m::mock(LfmStorage::class);
-    //     $storage->shouldReceive('rootPath')->andReturn(realpath(__DIR__ . '/../') . '/storage/app');
-    //     $storage->shouldReceive('exists')->andReturn(false);
-    //     $storage->shouldReceive('makeDirectory')->andReturn(true);
-    //     $storage->shouldReceive('isDirectory')->andReturn(false);
-    //     $storage->shouldReceive('size')->andReturn(0);
-    //     $storage->shouldReceive('lastModified')->andReturn(0);
+    public function testFiles()
+    {
+        $storage = m::mock(LfmStorage::class);
+        $storage->shouldReceive('files')->andReturn(['foo/bar']);
 
-    //     $helper = m::mock(Lfm::class);
-    //     $helper->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
-    //     $helper->shouldReceive('getStorage')->andReturn($storage);
+        $helper = m::mock(Lfm::class);
+        $helper->shouldReceive('getCategoryName')->andReturn('files');
+        $helper->shouldReceive('input')->with('working_dir')->andReturn('/shares');
+        $helper->shouldReceive('getStorage')->andReturn($storage);
+        $helper->shouldReceive('getNameFromPath')->andReturn('bar');
 
-    //     $path = new LfmPath($helper);
+        $path = new LfmPath($helper);
 
-    //     // $this->assertEquals(['file'], $path->files());
-    // }
+        $this->assertInstanceOf(LfmItem::class, $path->files()[0]);
+    }
 
-    // public function testGet()
-    // {
-    //     $storage = m::mock(LfmStorage::class);
-    //     $storage->shouldReceive('rootPath')->andReturn(realpath(__DIR__ . '/../') . '/storage/app');
-    //     $storage->shouldReceive('exists')->andReturn(false);
-    //     $storage->shouldReceive('makeDirectory')->andReturn(true);
-    //     $storage->shouldReceive('isDirectory')->andReturn(false);
-    //     $storage->shouldReceive('size')->andReturn(0);
-    //     $storage->shouldReceive('lastModified')->andReturn(0);
+    public function testGet()
+    {
+        $helper = m::mock(Lfm::class);
+        $helper->shouldReceive('getNameFromPath')->andReturn('bar');
 
-    //     $helper = m::mock(Lfm::class);
-    //     $helper->shouldReceive('getNameFromPath')->with('foo')->andReturn('foo');
-    //     $helper->shouldReceive('getStorage')->andReturn($storage);
-    //     $helper->shouldReceive('getUrlPrefix')->andReturn('');
-    //     $helper->shouldReceive('input')->andReturn('foo');
+        $path = new LfmPath($helper);
 
-    //     $path = new LfmPath($helper);
-
-    //     $item = m::mock(LfmItem::class);
-
-    //     $container = m::mock(Container::class);
-    //     $container->shouldReceive('getInstance')->andReturn($container);
-    //     $container->shouldReceive('make')->with('UniSharp\LaravelFilemanager\LfmItem', [$path, $helper])->andReturn($item);
-
-    //     // $this->assertInstanceOf(LfmItem::class, $path->get('foo'));
-    // }
+        $this->assertInstanceOf(LfmItem::class, $path->get('foo'));
+    }
 
     public function testDelete()
     {

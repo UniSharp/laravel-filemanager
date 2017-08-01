@@ -140,7 +140,7 @@ class LfmPath
     {
         $files = array_map(function ($file_path) {
             return $this->get($file_path);
-        }, $this->storage->files($this));
+        }, $this->storage->files());
 
         $this->reset();
 
@@ -149,9 +149,12 @@ class LfmPath
 
     public function get($item_path)
     {
-        $lfm_path = $this->setName($this->helper->getNameFromPath($item_path));
+        $lfm_path = clone $this;
+        $lfm_path = $lfm_path->setName($this->helper->getNameFromPath($item_path));
 
-        $item = app(LfmItem::class, [$lfm_path, $this->helper]);
+        // $item = app(LfmItem::class, [$lfm_path, $this->helper]);
+
+        $item = Container::getInstance()->make(LfmItem::class, [$lfm_path, $this->helper]);
 
         $this->reset();
 
