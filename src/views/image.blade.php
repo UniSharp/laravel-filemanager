@@ -9,6 +9,6 @@
 
   <div>
     <div class="item_name">{{ $item->name }}</div>
-    <time class="item_date">{{ date('Y-m-d h:m', $item->time) }}</time>
+    <time>{{ date('Y-m-d h:m', $item->time) }}</time>
   </div>
 </a>

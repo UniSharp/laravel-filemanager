@@ -1,30 +1,6 @@
-@media screen and (max-width: 768px) {
-  #main {
-    padding: 0px;
-  }
-  #nav {
-    margin-bottom: -1px;
-  }
-  #content > .row {
-    margin: 0px;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  #main {
-    border-left: 1px solid silver;
-  }
-  #nav {
-    margin: 10px 10px 20px 10px;
-  }
-}
-
-#wrapper {
-  padding: 0px;
-}
-
-#wrapper > .row {
-  margin: 0px;
+#tree {
+  border-right: 1px solid silver;
+  min-height: calc(100vh - 72px - 20px);
 }
 
 #fab a:hover, #fab a:focus{

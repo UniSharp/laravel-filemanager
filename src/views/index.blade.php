@@ -24,106 +24,105 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
 </head>
 <body>
-  <div class="container-fluid" id="wrapper">
-    <nav class="navbar navbar-default" id="nav">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-buttons">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand hide" id="to-previous">
-          <i class="fa fa-arrow-left"></i>
-          <span class="hidden-xs">{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
-        </a>
-        <a class="navbar-brand">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
-      </div>
-      <div class="collapse navbar-collapse" id="nav-buttons">
-        <ul class="nav navbar-nav navbar-right">
-          <li id="loading" class="hide"><a><i class="fa fa-spinner fa-spin fa-2x"></i></a></li>
-          <li>
-            <a id="multi_selection_toggle">
-              <i class="fa fa-check-square"></i>
-              <span>Multi selection</span>
-            </a>
-          </li>
-          <li>
-            <a id="thumbnail-display">
-              <i class="fa fa-th-large"></i>
-              <span>{{ trans('laravel-filemanager::lfm.nav-thumbnails') }}</span>
-            </a>
-          </li>
-          <li>
-            <a id="list-display">
-              <i class="fa fa-list-ul"></i>
-              <span>{{ trans('laravel-filemanager::lfm.nav-list') }}</span>
-            </a>
-          </li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-sort"></i>&nbsp;
-              {{ trans('laravel-filemanager::lfm.nav-sort') }}
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a id="list-sort-alphabetic">
-                  <i class="fa fa-sort-alpha-asc"></i> {{ trans('laravel-filemanager::lfm.nav-sort-alphabetic') }}
-                </a>
-              </li>
-              <li>
-                <a id="list-sort-time">
-                  <i class="fa fa-sort-amount-asc"></i> {{ trans('laravel-filemanager::lfm.nav-sort-time') }}
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-2 hidden-xs">
-        <div id="tree"></div>
-      </div>
+      <nav class="navbar navbar-default" id="nav">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-buttons">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand hide" id="to-previous">
+            <i class="fa fa-arrow-left fa-fw"></i>
+            <span class="hidden-xs">{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
+          </a>
+          <a class="navbar-brand">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
+        </div>
+        <div class="collapse navbar-collapse" id="nav-buttons">
+          <ul class="nav navbar-nav navbar-right">
+            <li id="loading" class="hide"><a><i class="fa fa-spinner fa-spin fa-2x"></i></a></li>
+            <li>
+              <a id="multi_selection_toggle">
+                <i class="fa fa-check-square fa-fw"></i>
+                <span>Multi selection</span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <i class="fa fa-edit fa-fw"></i>
+                <span>{{ trans('laravel-filemanager::lfm.menu-rename') }}</span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <i class="fa fa-arrow-circle-o-down fa-fw"></i>
+                <span>{{ trans('laravel-filemanager::lfm.menu-download') }}</span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <i class="fa fa-image fa-fw"></i>
+                <span>{{ trans('laravel-filemanager::lfm.menu-view') }}</span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <i class="fa fa-arrows-alt fa-fw"></i>
+                <span>{{ trans('laravel-filemanager::lfm.menu-resize') }}</span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <i class="fa fa-crop fa-fw"></i>
+                <span>{{ trans('laravel-filemanager::lfm.menu-crop') }}</span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <i class="fa fa-trash fa-fw"></i>
+                <span>{{ trans('laravel-filemanager::lfm.menu-delete') }}</span>
+              </a>
+            </li>
+            <li>
+              <a id="grid-display">
+                <i class="fa fa-th-large fa-fw"></i>
+                <span>{{ trans('laravel-filemanager::lfm.nav-thumbnails') }}</span>
+              </a>
+            </li>
+            <li>
+              <a id="list-display">
+                <i class="fa fa-list-ul fa-fw"></i>
+                <span>{{ trans('laravel-filemanager::lfm.nav-list') }}</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-sort fa-fw"></i>
+                {{ trans('laravel-filemanager::lfm.nav-sort') }}
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a id="list-sort-alphabetic">
+                    <i class="fa fa-sort-alpha-asc"></i> {{ trans('laravel-filemanager::lfm.nav-sort-alphabetic') }}
+                  </a>
+                </li>
+                <li>
+                  <a id="list-sort-time">
+                    <i class="fa fa-sort-amount-asc"></i> {{ trans('laravel-filemanager::lfm.nav-sort-time') }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="col-sm-2 hidden-xs" id="tree"></div>
 
       <div class="col-sm-10 col-xs-12" id="main">
-        <nav class="navbar navbar-default">
-          <div class="navbar-header">
-            <a class="navbar-brand">
-              <i class="fa fa-edit fa-fw"></i>
-              <span>{{ trans('laravel-filemanager::lfm.menu-rename') }}</span>
-            </a>
-            <a class="navbar-brand">
-              <i class="fa fa-arrow-circle-o-down fa-fw"></i>
-              <span>{{ trans('laravel-filemanager::lfm.menu-download') }}</span>
-            </a>
-            <a class="navbar-brand">
-              <span>|</span>
-            </a>
-            <a class="navbar-brand">
-              <i class="fa fa-image fa-fw"></i>
-              <span>{{ trans('laravel-filemanager::lfm.menu-view') }}</span>
-            </a>
-            <a class="navbar-brand">
-              <i class="fa fa-arrows-alt fa-fw"></i>
-              <span>{{ trans('laravel-filemanager::lfm.menu-resize') }}</span>
-            </a>
-            <a class="navbar-brand">
-              <i class="fa fa-crop fa-fw"></i>
-              <span>{{ trans('laravel-filemanager::lfm.menu-crop') }}</span>
-            </a>
-            <a class="navbar-brand">
-              <span>|</span>
-            </a>
-            <a class="navbar-brand">
-              <i class="fa fa-trash fa-fw"></i>
-              <span>{{ trans('laravel-filemanager::lfm.menu-delete') }}</span>
-            </a>
-          </div>
-        </nav>
-
-        <div class="visible-xs" id="current_dir" style="padding: 5px 15px;background-color: #f8f8f8;color: #5e5e5e;"></div>
+        {{-- <div class="visible-xs" id="current_dir" style="padding: 5px 15px;background-color: #f8f8f8;color: #5e5e5e;"></div> --}}
 
         <div id="alerts"></div>
 

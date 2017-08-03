@@ -67,7 +67,7 @@ $('#upload-btn').click(function () {
   });
 });
 
-$('#thumbnail-display').click(function () {
+$('#grid-display').click(function () {
   show_list = 0;
   $('#loading').removeClass('hide');
   loadItems();
