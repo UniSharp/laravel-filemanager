@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 use UniSharp\LaravelFilemanager\Lfm;
 use UniSharp\LaravelFilemanager\LfmItem;
 use UniSharp\LaravelFilemanager\LfmPath;
-use UniSharp\LaravelFilemanager\LfmStorage;
 
 class LfmItemTest extends TestCase
 {
@@ -16,23 +15,10 @@ class LfmItemTest extends TestCase
 
     public function setUp()
     {
-        $lfm = m::mock(Lfm::class);
-        $lfm->shouldReceive('getFileType')->with('baz')->andReturn('File');
-        $lfm->shouldReceive('getFileIcon')->with('baz')->andReturn('fa-file');
-        $this->lfm = $lfm;
+        $this->lfm = m::mock(Lfm::class);
 
         $this->lfm_path = m::mock(LfmPath::class);
-        $this->lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar.baz');
-        $this->lfm_path->shouldReceive('getName')->andReturn('bar');
-        $this->lfm_path->shouldReceive('isDirectory')->andReturn(false);
-        $this->lfm_path->shouldReceive('size')->andReturn(1024);
-        $this->lfm_path->shouldReceive('lastModified')->andReturn(0);
-        $this->lfm_path->shouldReceive('setName')->andReturn($this->lfm_path);
-        $this->lfm_path->shouldReceive('url')->andReturn('foo/bar');
         $this->lfm_path->shouldReceive('thumb')->andReturn($this->lfm_path);
-        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
-        $this->lfm_path->shouldReceive('move')->with($this->lfm_path, m::mock(LfmPath::class))->andReturn(true);
-        $this->lfm_item = new LfmItem($this->lfm_path, $this->lfm);
     }
 
     public function tearDown()
@@ -44,81 +30,142 @@ class LfmItemTest extends TestCase
 
     public function test__Get()
     {
+        $this->lfm_item = new LfmItem($this->lfm_path, m::mock(Lfm::class));
+
         $this->lfm_item->attributes['foo'] = 'bar';
 
         $this->assertEquals('bar', $this->lfm_item->foo);
     }
 
-    // public function testFill()
-    // {
-    //     $this->assertEquals(array_keys($this->lfm_item->attributes), array_keys(LfmItem::COLUMNS));
-    // }
-
-    public function testFileName()
+    public function testName()
     {
-        $this->assertEquals('bar', $this->lfm_item->fileName());
+        $this->lfm_path->shouldReceive('getName')->andReturn('bar');
+
+        $item = new LfmItem($this->lfm_path, $this->lfm);
+
+        $this->assertEquals('bar', $item->name());
     }
 
     public function testAbsolutePath()
     {
-        $this->assertEquals('foo/bar.baz', $this->lfm_item->absolutePath());
+        $this->lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar.baz');
+
+        $item = new LfmItem($this->lfm_path, $this->lfm);
+
+        $this->assertEquals('foo/bar.baz', $item->absolutePath());
     }
 
     public function testIsDirectory()
     {
-        $this->assertFalse($this->lfm_item->isDirectory());
+        $this->lfm_path->shouldReceive('isDirectory')->andReturn(false);
+
+        $item = new LfmItem($this->lfm_path, $this->lfm);
+
+        $this->assertFalse($item->isDirectory());
     }
 
     public function testIsFile()
     {
-        $this->assertTrue($this->lfm_item->isFile());
+        $this->lfm_path->shouldReceive('isDirectory')->andReturn(false);
+
+        $item = new LfmItem($this->lfm_path, $this->lfm);
+
+        $this->assertTrue($item->isFile());
     }
 
     public function testIsImage()
     {
-        $this->assertFalse($this->lfm_item->isImage());
+        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
+
+        $item = new LfmItem($this->lfm_path, $this->lfm);
+
+        $this->assertFalse($item->isImage());
     }
 
     public function testMimeType()
     {
-        $this->assertEquals('application/plain', $this->lfm_item->mimeType());
+        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
+
+        $item = new LfmItem($this->lfm_path, $this->lfm);
+
+        $this->assertEquals('application/plain', $item->mimeType());
     }
 
-    public function testFileType()
+    public function testType()
     {
-        $this->assertEquals('File', $this->lfm_item->fileType());
+        $this->lfm_path->shouldReceive('isDirectory')->andReturn(false);
+        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
+        $this->lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar.baz');
+
+        $this->lfm->shouldReceive('getFileType')->with('baz')->andReturn('File');
+
+        $item = new LfmItem($this->lfm_path, $this->lfm);
+
+        $this->assertEquals('File', $item->type());
     }
 
     public function testExtension()
     {
-        $this->assertEquals('baz', $this->lfm_item->extension());
+        $this->lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar.baz');
+
+        $item = new LfmItem($this->lfm_path, $this->lfm);
+
+        $this->assertEquals('baz', $item->extension());
     }
 
     public function testThumbUrl()
     {
-        $this->assertNull($this->lfm_item->thumbUrl());
+        $this->lfm_path->shouldReceive('isDirectory')->andReturn(false);
+        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
+
+        $item = new LfmItem($this->lfm_path, $this->lfm);
+
+        $this->assertNull($item->thumbUrl());
     }
 
     // TODO: refactor
     public function testPath()
     {
-        $this->assertEquals('foo/bar', $this->lfm_item->path());
+        $this->lfm_path->shouldReceive('isDirectory')->andReturn(false);
+        $this->lfm_path->shouldReceive('getName')->andReturn('bar');
+        $this->lfm_path->shouldReceive('setName')->andReturn($this->lfm_path);
+        $this->lfm_path->shouldReceive('url')->andReturn('foo/bar');
+
+        $item = new LfmItem($this->lfm_path, $this->lfm);
+
+        $this->assertEquals('foo/bar', $item->path());
     }
 
     public function testSize()
     {
-        $this->assertEquals('1.00 kB', $this->lfm_item->size());
+        $this->lfm_path->shouldReceive('size')->andReturn(1024);
+        $this->lfm_path->shouldReceive('isDirectory')->andReturn(false);
+
+        $item = new LfmItem($this->lfm_path, $this->lfm);
+
+        $this->assertEquals('1.00 kB', $item->size());
     }
 
-    public function testLastModified()
+    public function testTime()
     {
-        $this->assertEquals(0, $this->lfm_item->lastModified());
+        $this->lfm_path->shouldReceive('lastModified')->andReturn(0);
+
+        $item = new LfmItem($this->lfm_path, $this->lfm);
+
+        $this->assertEquals(0, $item->time());
     }
 
     public function testIcon()
     {
-        $this->assertEquals('fa-file', $this->lfm_item->icon());
-        return;
+        $this->lfm_path->shouldReceive('isDirectory')->andReturn(false);
+        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
+        $this->lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar.baz');
+
+        $this->lfm->shouldReceive('getFileIcon')->with('baz')->andReturn('fa-file');
+
+        $item = new LfmItem($this->lfm_path, $this->lfm);
+
+        $this->assertEquals('fa-file', $item->icon());
 
         // $path1 = m::mock(LfmPath::class);
         // $path1->shouldReceive('path')->with('absolute')->andReturn('foo/bar');
@@ -135,12 +182,16 @@ class LfmItemTest extends TestCase
 
     public function testHasThumb()
     {
-        $this->assertFalse($this->lfm_item->hasThumb());
+        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
+
+        $item = new LfmItem($this->lfm_path, $this->lfm);
+
+        $this->assertFalse($item->hasThumb());
     }
 
     public function testHumanFilesize()
     {
-        $item = $this->lfm_item;
+        $item = new LfmItem($this->lfm_path, $this->lfm);
 
         $this->assertEquals('1.00 kB', $item->humanFilesize(1024));
         $this->assertEquals('1.00 MB', $item->humanFilesize(1024 ** 2));

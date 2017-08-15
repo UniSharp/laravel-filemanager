@@ -12,7 +12,6 @@ class Lfm
     const DS = '/';
 
     protected $config;
-    protected $storage;
     protected $request;
 
     public function __construct(Config $config = null, Request $request = null)
@@ -72,7 +71,7 @@ class Lfm
     }
 
     /**
-     * Get current lfm type..
+     * Get current lfm type.
      *
      * @return string
      */
@@ -86,7 +85,6 @@ class Lfm
         return $file_type;
     }
 
-    // TODO: test
     public function getUserSlug()
     {
         $config = $this->config->get('lfm.user_field');
@@ -132,12 +130,6 @@ class Lfm
     {
         return $this->config->get("lfm.file_type_array.{$ext}", 'File');
     }
-
-    // // TODO: do not use base_path function, and add test
-    // public function basePath($path = '')
-    // {
-    //     return base_path($path);
-    // }
 
     // TODO: do not use url function, and add test
     public function url($path = '')

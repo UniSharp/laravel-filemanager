@@ -8,16 +8,7 @@ class LfmItem
 {
     private $lfm_path;
     private $lfm;
-    const COLUMNS = [
-        'name'    => 'fileName',
-        'size'    => 'size',
-        'time'    => 'lastModified',
-        'path'    => 'path',
-        'type'    => 'fileType',
-        'icon'    => 'icon',
-        'thumb'   => 'thumbUrl',
-        'is_file' => 'isFile',
-    ];
+
     public $attributes = [];
 
     public function __construct(LfmPath $lfm_path, Lfm $lfm)
@@ -29,14 +20,14 @@ class LfmItem
     public function __get($var_name)
     {
         if (!array_key_exists($var_name, $this->attributes)) {
-            $function_name = self::COLUMNS[$var_name];
+            $function_name = camel_case($var_name);
             $this->attributes[$var_name] = $this->$function_name();
         }
 
         return $this->attributes[$var_name];
     }
 
-    public function fileName()
+    public function name()
     {
         return $this->lfm_path->getName();
     }
@@ -83,7 +74,7 @@ class LfmItem
         return $this->lfm_path->mimeType();
     }
 
-    public function fileType()
+    public function type()
     {
         if ($this->isDirectory()) {
             return trans(Lfm::PACKAGE_NAME . '::lfm.type-folder');
@@ -108,7 +99,7 @@ class LfmItem
         if ($this->isDirectory()) {
             $thumb_url = asset('vendor/' . Lfm::PACKAGE_NAME . '/img/folder.png');
         } elseif ($this->isImage()) {
-            $thumb_url = $this->lfm_path->setName($this->fileName())->thumb($this->hasThumb())->url(true);
+            $thumb_url = $this->lfm_path->thumb($this->hasThumb())->url(true);
         } else {
             $thumb_url = null;
         }
@@ -116,24 +107,21 @@ class LfmItem
         return $thumb_url;
     }
 
-    // TODO: check directory
     public function path()
     {
         if ($this->isDirectory()) {
             return $this->lfm_path->path('working_dir');
         }
 
-        return $this->lfm_path->setName($this->fileName())->url();
+        return $this->lfm_path->url();
     }
 
-    // TODO: check directory
     public function size()
     {
         return $this->isFile() ? $this->humanFilesize($this->lfm_path->size()) : '';
     }
 
-    // TODO: use carbon
-    public function lastModified()
+    public function time()
     {
         return $this->lfm_path->lastModified();
         // return filemtime($this->absolutePath());
@@ -162,7 +150,7 @@ class LfmItem
             return false;
         }
 
-        if (!$this->lfm_path->setName($this->fileName())->thumb()->exists()) {
+        if (!$this->lfm_path->thumb()->exists()) {
             return false;
         }
 

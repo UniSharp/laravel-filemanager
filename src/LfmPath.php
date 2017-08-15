@@ -152,8 +152,6 @@ class LfmPath
         $lfm_path = clone $this;
         $lfm_path = $lfm_path->setName($this->helper->getNameFromPath($item_path));
 
-        // $item = app(LfmItem::class, [$lfm_path, $this->helper]);
-
         $item = Container::getInstance()->make(LfmItem::class, [$lfm_path, $this->helper]);
 
         $this->reset();

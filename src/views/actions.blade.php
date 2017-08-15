@@ -1,5 +1,5 @@
 <?php $item_name = $item->name; ?>
-<?php $thumb_src = $item->thumb; ?>
+<?php $thumb_src = $item->thumb_url; ?>
 <?php $item_path = $item->path; ?>
 <div class="btn-group">
   <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-expanded="false">

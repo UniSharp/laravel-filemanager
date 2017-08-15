@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use UniSharp\LaravelFilemanager\Lfm;
-use UniSharp\LaravelFilemanager\LfmPath;
 use UniSharp\LaravelFilemanager\LfmStorage;
 
 class LfmTest extends TestCase
@@ -178,11 +177,6 @@ class LfmTest extends TestCase
         $this->assertEquals('foo', $lfm->getFileType('foo'));
         $this->assertEquals('File', $lfm->getFileType('bar'));
     }
-
-    // public function testBasePath()
-    // {
-    //     //
-    // }
 
     public function testUrl()
     {
