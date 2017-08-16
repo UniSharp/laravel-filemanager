@@ -78,6 +78,8 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    'driver' => 'file',
+
     'rename_file' => false,
 
     'alphanumeric_filename'  => false,

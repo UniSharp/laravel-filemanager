@@ -4,7 +4,7 @@ namespace UniSharp\LaravelFilemanager;
 
 use Illuminate\Support\Facades\Storage;
 
-class LfmStorage
+class LfmStorageRepository implements RepositoryContract
 {
     const DISK_NAME = 'local'; // config('lfm.disk')
 
@@ -12,7 +12,6 @@ class LfmStorage
 
     private $path;
 
-    // TODO: clean DI
     public function __construct($storage_path)
     {
         $this->disk = Storage::disk(self::DISK_NAME);

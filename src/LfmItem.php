@@ -74,37 +74,11 @@ class LfmItem
         return $this->lfm_path->mimeType();
     }
 
-    public function type()
-    {
-        if ($this->isDirectory()) {
-            return trans(Lfm::PACKAGE_NAME . '::lfm.type-folder');
-        }
-
-        if ($this->isImage()) {
-            return $this->mimeType();
-        }
-
-        return $this->lfm->getFileType($this->extension());
-    }
-
     public function extension()
     {
         return pathinfo($this->absolutePath(), PATHINFO_EXTENSION);
         // return \File::extension($old_file->path('absolute'));
         // return $this->storage->disk->extension($this->absolutePath());
-    }
-
-    public function thumbUrl()
-    {
-        if ($this->isDirectory()) {
-            $thumb_url = asset('vendor/' . Lfm::PACKAGE_NAME . '/img/folder.png');
-        } elseif ($this->isImage()) {
-            $thumb_url = $this->lfm_path->thumb($this->hasThumb())->url(true);
-        } else {
-            $thumb_url = null;
-        }
-
-        return $thumb_url;
     }
 
     public function path()
@@ -127,6 +101,19 @@ class LfmItem
         // return filemtime($this->absolutePath());
     }
 
+    public function thumbUrl()
+    {
+        if ($this->isDirectory()) {
+            return asset('vendor/' . Lfm::PACKAGE_NAME . '/img/folder.png');
+        }
+
+        if ($this->isImage()) {
+            return $this->lfm_path->thumb($this->hasThumb())->url(true);
+        }
+
+        return null;
+    }
+
     public function icon()
     {
         if ($this->isDirectory()) {
@@ -138,6 +125,19 @@ class LfmItem
         }
 
         return $this->lfm->getFileIcon($this->extension());
+    }
+
+    public function type()
+    {
+        if ($this->isDirectory()) {
+            return trans(Lfm::PACKAGE_NAME . '::lfm.type-folder');
+        }
+
+        if ($this->isImage()) {
+            return $this->mimeType();
+        }
+
+        return $this->lfm->getFileType($this->extension());
     }
 
     public function hasThumb()

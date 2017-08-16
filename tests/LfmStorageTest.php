@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Storage;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use UniSharp\LaravelFilemanager\LfmPath;
-use UniSharp\LaravelFilemanager\LfmStorage;
+use UniSharp\LaravelFilemanager\LfmStorageRepository;
 
-class LfmStorageTest extends TestCase
+class LfmStorageRepositoryTest extends TestCase
 {
     private $storage;
 
@@ -34,7 +34,7 @@ class LfmStorageTest extends TestCase
 
         Storage::shouldReceive('disk')->andReturn($disk);
 
-        $this->storage = new LfmStorage('foo/bar');
+        $this->storage = new LfmStorageRepository('foo/bar');
     }
 
     public function tearDown()

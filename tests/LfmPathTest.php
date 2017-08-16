@@ -23,7 +23,7 @@ class LfmPathTest extends TestCase
         $storage = m::mock(LfmStorage::class);
 
         $helper = m::mock(Lfm::class);
-        $helper->shouldReceive('getStorage')->with('laravel-filemanager/files/bar')->andReturn($storage);
+        $helper->shouldReceive('getStorage')->with('files/bar')->andReturn($storage);
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('input')->with('working_dir')->andReturn('/bar');
 
@@ -38,7 +38,7 @@ class LfmPathTest extends TestCase
         $storage->shouldReceive('foo')->andReturn('bar');
 
         $helper = m::mock(Lfm::class);
-        $helper->shouldReceive('getStorage')->with('laravel-filemanager/files/bar')->andReturn($storage);
+        $helper->shouldReceive('getStorage')->with('files/bar')->andReturn($storage);
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('input')->with('working_dir')->andReturn('/bar');
 
@@ -83,14 +83,13 @@ class LfmPathTest extends TestCase
 
         $path = new LfmPath($helper);
 
-        $this->assertEquals('laravel-filemanager/files/foo', $path->path());
-        $this->assertEquals('laravel-filemanager/files/foo/bar', $path->setName('bar')->path('storage'));
+        $this->assertEquals('files/foo', $path->path());
+        $this->assertEquals('files/foo/bar', $path->setName('bar')->path('storage'));
     }
 
     public function testUrl()
     {
         $helper = m::mock(Lfm::class);
-        $helper->shouldReceive('getUrlPrefix')->once()->andReturn('laravel-filemanager');
         $helper->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
         $helper->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
         $helper->shouldReceive('url')->with(m::type('string'))->once()->andReturnUsing(function ($path) {
@@ -101,20 +100,7 @@ class LfmPathTest extends TestCase
 
         $path = new LfmPath($helper);
 
-        $this->assertEquals('http://localhost/laravel-filemanager/files/foo/foo', $path->setName('foo')->url());
-    }
-
-    public function testAppendStorageFullPath()
-    {
-        $helper = m::mock(Lfm::class);
-        $helper->shouldReceive('getCategoryName')->andReturn('files');
-        $helper->shouldReceive('input')->andReturn('/shares');
-
-        $path = new LfmPath($helper);
-
-        $prefix = 'laravel-filemanager';
-
-        $this->assertEquals($prefix . '/files/shares', $path->appendStorageFullPath($prefix));
+        $this->assertEquals('http://localhost/files/foo/foo', $path->setName('foo')->url());
     }
 
     public function testThumbAndAppendPathToFile()
@@ -184,7 +170,7 @@ class LfmPathTest extends TestCase
         $storage->shouldReceive('deleteDirectory')->andReturn('folder_deleted');
 
         $helper = m::mock(Lfm::class);
-        $helper->shouldReceive('getStorage')->with('laravel-filemanager/files/bar')->andReturn($storage);
+        $helper->shouldReceive('getStorage')->with('files/bar')->andReturn($storage);
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('input')->with('working_dir')->andReturn('/bar');
 
@@ -197,7 +183,7 @@ class LfmPathTest extends TestCase
         $storage->shouldReceive('delete')->andReturn('file_deleted');
 
         $helper = m::mock(Lfm::class);
-        $helper->shouldReceive('getStorage')->with('laravel-filemanager/files/bar')->andReturn($storage);
+        $helper->shouldReceive('getStorage')->with('files/bar')->andReturn($storage);
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('input')->with('working_dir')->andReturn('/bar');
 
@@ -214,7 +200,7 @@ class LfmPathTest extends TestCase
         $storage->shouldReceive('makeDirectory')->andReturn(true);
 
         $helper = m::mock(Lfm::class);
-        $helper->shouldReceive('getStorage')->with('laravel-filemanager/files/bar')->andReturn($storage);
+        $helper->shouldReceive('getStorage')->with('files/bar')->andReturn($storage);
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('input')->with('working_dir')->andReturn('/bar');
 
@@ -230,7 +216,7 @@ class LfmPathTest extends TestCase
         $storage->shouldReceive('makeDirectory')->andReturn(true);
 
         $helper = m::mock(Lfm::class);
-        $helper->shouldReceive('getStorage')->with('laravel-filemanager/files/bar')->andReturn($storage);
+        $helper->shouldReceive('getStorage')->with('files/bar')->andReturn($storage);
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('input')->with('working_dir')->andReturn('/bar');
 

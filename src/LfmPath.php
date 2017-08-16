@@ -26,11 +26,7 @@ class LfmPath
 
     public function __call($function_name, $arguments)
     {
-        $result = $this->storage->$function_name(...$arguments);
-
-        $this->reset();
-
-        return $result;
+        return $this->storage->$function_name(...$arguments);
     }
 
     public function dir($working_dir)
@@ -59,53 +55,29 @@ class LfmPath
         return $this->item_name;
     }
 
-    // /var/www/html/project/storage/app/laravel-filemanager/photos/{user_slug}
-    // /var/www/html/project/storage/app/laravel-filemanager/photos/shares
-    // absolute: /var/www/html/project/storage/app/laravel-filemanager/photos/shares
-    // storage: laravel-filemanager/photos/shares
-    // working directory: shares
     public function path ($type = 'storage')
     {
-        $prefix = Lfm::PACKAGE_NAME;
-
-        $storage_path = $this->appendStorageFullPath($prefix);
-
-        if ($type == 'storage') {
-            // laravel-filemanager/files/{user_slug}
-            $result = $storage_path;
-        } elseif ($type == 'working_dir') {
-            // {user_slug}
+        if ($type == 'working_dir') {
+            // working directory: /{user_slug}
             $result = $this->normalizeWorkingDir();
+        } elseif ($type == 'storage') {
+            // storage: files/{user_slug}
+            $result = $this->helper->getCategoryName() . $this->normalizeWorkingDir();
         } else {
-            // /var/www/html/project/storage/app/laravel-filemanager/files/{user_slug}
-            $result = $this->storage->rootPath() . $storage_path;
+            // absolute: /var/www/html/project/storage/app/files/{user_slug}
+            $result = $this->storage->rootPath() . $this->helper->getCategoryName() . $this->normalizeWorkingDir();
         }
 
-        $result = $this->appendPathToFile($result);
-
-        $this->reset();
-
-        return $result;
+        return $this->appendPathToFile($result);
     }
 
     public function url($with_timestamp = false)
     {
-        $prefix = $this->helper->getUrlPrefix();
-
-        $result = $this->appendStorageFullPath($prefix);
+        $result = $this->helper->getCategoryName() . $this->normalizeWorkingDir();
 
         $result = $this->appendPathToFile($result);
 
-        $this->reset();
-
         return $this->helper->url($result);
-    }
-
-    public function appendStorageFullPath($path)
-    {
-        return $path                                      // laravel-filemanager
-            . Lfm::DS . $this->helper->getCategoryName()  // files
-            . $this->normalizeWorkingDir();               // {user_slug}
     }
 
     public function appendPathToFile($path)
@@ -127,24 +99,16 @@ class LfmPath
             return $this->get($directory_path);
         }, $this->storage->directories($this));
 
-        $visible_folders = array_filter($all_folders, function ($directory) {
+        return array_filter($all_folders, function ($directory) {
             return $directory->name !== $this->helper->getThumbFolderName();
         });
-
-        $this->reset();
-
-        return $visible_folders;
     }
 
     public function files()
     {
-        $files = array_map(function ($file_path) {
+        return array_map(function ($file_path) {
             return $this->get($file_path);
         }, $this->storage->files());
-
-        $this->reset();
-
-        return $files;
     }
 
     public function get($item_path)
@@ -152,11 +116,7 @@ class LfmPath
         $lfm_path = clone $this;
         $lfm_path = $lfm_path->setName($this->helper->getNameFromPath($item_path));
 
-        $item = Container::getInstance()->make(LfmItem::class, [$lfm_path, $this->helper]);
-
-        $this->reset();
-
-        return $item;
+        return Container::getInstance()->make(LfmItem::class, [$lfm_path, $this->helper]);
     }
 
     public function delete()
@@ -197,13 +157,5 @@ class LfmPath
         }
 
         return $working_dir;
-    }
-
-    // TODO: maybe is useless
-    private function reset()
-    {
-        // $this->working_dir = null;
-        // $this->item_name = null;
-        // $this->is_thumb = false;
     }
 }

@@ -92,4 +92,6 @@ Route::group(compact('middleware', 'prefix', 'as', 'namespace'), function () {
     Route::get('/demo', 'DemoController@index');
 });
 
-Route::get('/' . config('lfm.url_prefix') . '/' . config('lfm.images_folder_name') . '/{file_path}', $namespace . '\RedirectController@showFile')->where('file_path', '.*');
+if (app('\UniSharp\LaravelFilemanager\Lfm')->shouldSetStorageRoute()) {
+    Route::get('/' . config('lfm.images_folder_name') . '/{file_path}', $namespace . '\RedirectController@showFile')->where('file_path', '.*');
+}
