@@ -135,23 +135,6 @@ class LfmTest extends TestCase
         $this->assertEquals('/bar', $lfm->getRootFolder('shared'));
     }
 
-    public function testGetUrlPrefix()
-    {
-        $config = m::mock(Config::class);
-        $config->shouldReceive('get')->with('lfm.url_prefix', m::type('string'))->once()->andReturn('foo');
-        $config->shouldReceive('get')
-               ->with('lfm.url_prefix', m::type('string'))
-               ->once()
-               ->andReturnUsing(function ($key, $default) {
-                   return $default;
-               });
-
-        $lfm = new Lfm($config);
-
-        $this->assertEquals('foo', $lfm->getUrlPrefix());
-        $this->assertEquals('laravel-filemanager', $lfm->getUrlPrefix());
-    }
-
     public function testGetThumbFolderName()
     {
         $config = m::mock(Config::class);

@@ -114,11 +114,6 @@ class Lfm
         return static::DS . $folder;
     }
 
-    public function getUrlPrefix()
-    {
-        return $this->config->get('lfm.url_prefix', static::PACKAGE_NAME);
-    }
-
     public function getThumbFolderName()
     {
         return $this->config->get('lfm.thumb_folder_name');

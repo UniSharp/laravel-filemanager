@@ -92,15 +92,12 @@ class LfmPathTest extends TestCase
         $helper = m::mock(Lfm::class);
         $helper->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
         $helper->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
-        $helper->shouldReceive('url')->with(m::type('string'))->once()->andReturnUsing(function ($path) {
-            return "http://localhost/{$path}";
-        });
         $helper->shouldReceive('input')->with('working_dir')->once()->andReturnNull();
         $helper->shouldReceive('getCategoryName')->andReturn('files');
 
         $path = new LfmPath($helper);
 
-        $this->assertEquals('http://localhost/files/foo/foo', $path->setName('foo')->url());
+        $this->assertEquals('/files/foo/foo', $path->setName('foo')->url());
     }
 
     public function testThumbAndAppendPathToFile()

@@ -73,11 +73,7 @@ class LfmPath
 
     public function url($with_timestamp = false)
     {
-        $result = $this->helper->getCategoryName() . $this->normalizeWorkingDir();
-
-        $result = $this->appendPathToFile($result);
-
-        return $this->helper->url($result);
+        return Lfm::DS . $this->path('storage');
     }
 
     public function appendPathToFile($path)
