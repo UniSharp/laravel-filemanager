@@ -3,8 +3,42 @@
   min-height: calc(100vh - 72px - 20px);
 }
 
+#mobile_tree {
+  background-color: #f9f9f9;
+  position: absolute;
+  z-index:999;
+  width: 300px;
+  left: -300px;
+  /*left: 0px;*/
+  height: 100vh;
+}
+
+#nav {
+  border: none;
+  border-radius: 0px;
+  background-color: #75C7C3;
+}
+
+#nav a {
+  color: white;
+}
+
+#nav .navbar-toggle {
+  border: none;
+  padding: 10px;
+  margin: 0;
+}
+
+#nav .navbar-toggle:hover {
+  background: none;
+}
+
 #fab a:hover, #fab a:focus{
   color: white;
+}
+
+.invisible {
+  opacity: 0;
 }
 
 a, .square {

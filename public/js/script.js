@@ -1,4 +1,5 @@
 var show_list;
+var show_tree = false;
 var sort_type = 'alphabetic';
 var multi_selection_enabled = true;
 
@@ -32,14 +33,28 @@ $('#to-previous').click(function () {
   goTo(previous_dir);
 });
 
-$('#add-folder').click(function () {
+$('#show_tree').click(function () {
+  $('#mobile_tree').animate({'left': '0px'}, 1000, 'easeOutExpo');
+  setTimeout(function () {
+    show_tree = true;
+  }, 1000);
+});
+
+$('.row').click(function () {
+  if (show_tree) {
+    $('#mobile_tree').animate({'left': '-300px'}, 1000, 'easeOutExpo');
+    show_tree = false;
+  }
+});
+
+$(document).on('click', '#add-folder', function () {
   bootbox.prompt(lang['message-name'], function (result) {
     if (result == null) return;
     createFolder(result);
   });
 });
 
-$('#upload').click(function () {
+$(document).on('click', '#upload', function () {
   $('#uploadModal').modal('show');
 });
 
@@ -200,9 +215,9 @@ function loadItems() {
       $('#current_dir').text(response.working_dir);
       console.log('Current working_dir : ' + $('#working_dir').val());
       if (getPreviousDir() == '') {
-        $('#to-previous').addClass('hide');
+        $('#to-previous').addClass('invisible');
       } else {
-        $('#to-previous').removeClass('hide');
+        $('#to-previous').removeClass('invisible');
       }
       setOpenFolders();
       $('#loading').addClass('hide');
