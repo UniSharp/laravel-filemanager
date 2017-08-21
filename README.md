@@ -37,6 +37,15 @@ This approach ensures that only authenticated users have access to the Laravel-F
 
 **If you use the laravel-filemanager default route, make sure the `auth` middleware (set in config/lfm.php) is enabled and functional**.
 
+## v2.0 progress
+* [x] (done) Unit test
+* [ ] (done, need manual tests) Integrate with Laravel Storage
+* [ ] (in progress) Multiple selection
+* [ ] (in progress) Responsive design
+* [ ] (in progress) Config refactoring
+* [ ] JSON APIs
+* [ ] Move to folder function
+
 
 ## Credits
 Special thanks to
