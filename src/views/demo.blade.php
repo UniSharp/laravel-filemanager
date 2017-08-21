@@ -26,7 +26,7 @@
         <textarea id="summernote-editor" name="content"></textarea>
       </div>
       <div class="col-md-6">
-        <h2>Standalone Button</h2>
+        <h2>Standalone Image Button</h2>
         <div class="input-group">
           <span class="input-group-btn">
             <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
@@ -36,6 +36,16 @@
           <input id="thumbnail" class="form-control" type="text" name="filepath">
         </div>
         <img id="holder" style="margin-top:15px;max-height:100px;">
+        <h2>Standalone File Button</h2>
+        <div class="input-group">
+          <span class="input-group-btn">
+            <a id="lfm2" data-input="thumbnail2" data-preview="holder2" class="btn btn-primary">
+              <i class="fa fa-picture-o"></i> Choose
+            </a>
+          </span>
+          <input id="thumbnail2" class="form-control" type="text" name="filepath">
+        </div>
+        <img id="holder2" style="margin-top:15px;max-height:100px;">
       </div>
     </div>
   </div>
@@ -100,6 +110,7 @@
   </script>
   <script>
     $('#lfm').filemanager('image', {prefix: route_prefix});
+    $('#lfm2').filemanager('file', {prefix: route_prefix});
   </script>
 
   <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
