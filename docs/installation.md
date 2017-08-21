@@ -39,7 +39,16 @@
     php artisan vendor:publish --tag=lfm_public
     ```
     
+1. Run commands to clear cache :
+    
+    ```bash
+    php artisan route:clear
+    php artisan config:clear
+    ```
+    
 1. Ensure that the files & images directories (in `config/lfm.php`) are writable by your web server (run commands like `chown` or `chmod`).
+
+## What's next
 
 1. Check the [integration document](http://unisharp.github.io/laravel-filemanager/integration) to see how to apply this package.
 
