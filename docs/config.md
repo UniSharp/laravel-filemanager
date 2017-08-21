@@ -6,7 +6,7 @@
 |--------------------|---------|--------------------------------------------------------------------------------------------------------------|
 | use\_package\_routes | boolean | Use routes from package or not. If false, you will need to define routes to all controllers of this package. |
 | middlewares        | array   | Middlewares to be applied to default routes. For laravel 5.1 and before, remove 'web' from the array.        |
-| prefix             | string  | The url prefix to this package. Change it if necessary.                                                      |
+| url_prefix         | string  | The url prefix to this package. Change it if necessary.                                                      |
 
 
 ## Multi-User Mode:

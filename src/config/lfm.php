@@ -15,7 +15,7 @@ return [
     'middlewares' => ['web', 'auth'],
 
     // The url to this package. Change it if necessary.
-    'prefix' => 'laravel-filemanager',
+    'url_prefix' => 'laravel-filemanager',
 
     /*
     |--------------------------------------------------------------------------
