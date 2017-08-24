@@ -17,7 +17,7 @@
  * Important changes :
    * Fix Windows compatibility (utf-8 file names and folder names).
    * New feature : Copy & Crop. Thanks [gwleuverink](https://github.com/gwleuverink).
-   * [Config ducoment](https://unisharp.github.io/laravel-filemanager/config) is refactored.
+   * [Config document](https://unisharp.github.io/laravel-filemanager/config) is refactored.
 
 ## Security
 

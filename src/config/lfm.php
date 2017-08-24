@@ -28,7 +28,7 @@ return [
     // If true, share folder will be created when allow_multi_user is true.
     'allow_share_folder' => true,
 
-    // Flexibla way to customize client folders accessibility
+    // Flexible way to customize client folders accessibility
     // If you want to customize client folders, publish tag="lfm_handler"
     // Then you can rewrite userField function in App\Handler\ConfigHander class
     // And set 'user_field' to App\Handler\ConfigHander::class
