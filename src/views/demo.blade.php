@@ -48,6 +48,14 @@
         <img id="holder2" style="margin-top:15px;max-height:100px;">
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Embed file manager</h2>
+        <div style="height: 500px;overflow: hidden">
+          {!! view('laravel-filemanager::index') !!}
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
