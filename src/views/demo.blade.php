@@ -51,8 +51,7 @@
     <div class="row">
       <div class="col-md-12">
         <h2>Embed file manager</h2>
-        <iframe src="/laravel-filemanager" style="width: 100%; height: 500px; overflow: hidden; border: none;">
-        </iframe>
+        <iframe src="/laravel-filemanager" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
       </div>
     </div>
   </div>
