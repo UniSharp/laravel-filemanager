@@ -141,6 +141,10 @@
     </div>
   </div>
 
+  <div id="lfm-loader">
+    <img src="{{asset('vendor/laravel-filemanager/img/loader.svg')}}">
+  </div>
+
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
