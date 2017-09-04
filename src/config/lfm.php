@@ -95,6 +95,13 @@ return [
         'image/svg+xml',
     ],
 
+    // Create thumbnails automatically only for listed types. Make this array empty to disable creating any thumbnails
+    'thumb_mimetypes' => [
+        'image/jpeg',
+        'image/pjpeg',
+        'image/png',
+    ],
+
     // available since v1.3.0
     // only when '/laravel-filemanager?type=Files'
     'valid_file_mimetypes' => [

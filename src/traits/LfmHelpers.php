@@ -257,7 +257,7 @@ trait LfmHelpers
      */
     private function removeDuplicateSlash($path)
     {
-        return str_replace($this->ds . $this->ds, $this->ds, $path);
+        return preg_replace('/\\'.$this->ds.'{2,}/', $this->ds, $path);
     }
 
     /**
@@ -530,9 +530,8 @@ trait LfmHelpers
     public function imageShouldNotHaveThumb($file)
     {
         $mine_type = $this->getFileType($file);
-        $noThumbType = ['image/gif', 'image/svg+xml'];
 
-        return in_array($mine_type, $noThumbType);
+        return !in_array($mine_type, config('lfm.thumb_mimetypes'));
     }
 
     /**
