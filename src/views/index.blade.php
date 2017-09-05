@@ -21,6 +21,7 @@
   {{-- Use the line below instead of the above if you need to cache the css. --}}
   {{-- <link rel="stylesheet" href="{{ asset('/vendor/laravel-filemanager/css/lfm.css') }}"> --}}
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/mfb.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/dropzone.min.css') }}">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
 </head>
 <body>
@@ -85,7 +86,7 @@
           </div>
         </nav>
         <div class="visible-xs" id="current_dir" style="padding: 5px 15px;background-color: #f8f8f8;color: #5e5e5e;"></div>
-
+        
         <div id="alerts"></div>
 
         <div id="content"></div>
@@ -119,12 +120,12 @@
           <h4 class="modal-title" id="myModalLabel">{{ trans('laravel-filemanager::lfm.title-upload') }}</h4>
         </div>
         <div class="modal-body">
-          <form action="{{ route('unisharp.lfm.upload') }}" role='form' id='uploadForm' name='uploadForm' method='post' enctype='multipart/form-data'>
+          <form action="{{ route('unisharp.lfm.upload') }}" role='form' id='uploadForm' name='uploadForm' method='post' enctype='multipart/form-data' class="dropzone">
             <div class="form-group" id="attachment">
-              <label for='upload' class='control-label'>{{ trans('laravel-filemanager::lfm.message-choose') }}</label>
-              <div class="controls">
+              
+              <div class="controls text-center">
                 <div class="input-group" style="width: 100%">
-                  <input type="file" id="upload" name="upload[]" multiple="multiple">
+                  <a class="btn btn-primary" id="upload-button">{{ trans('laravel-filemanager::lfm.message-choose') }}</a>
                 </div>
               </div>
             </div>
@@ -135,7 +136,6 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-close') }}</button>
-          <button type="button" class="btn btn-primary" id="upload-btn">{{ trans('laravel-filemanager::lfm.btn-upload') }}</button>
         </div>
       </div>
     </div>
@@ -147,6 +147,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
   <script src="{{ asset('vendor/laravel-filemanager/js/cropper.min.js') }}"></script>
   <script src="{{ asset('vendor/laravel-filemanager/js/jquery.form.min.js') }}"></script>
+  <script src="{{ asset('vendor/laravel-filemanager/js/dropzone.min.js') }}"></script>
   <script>
     var route_prefix = "{{ url('/') }}";
     var lfm_route = "{{ url(config('lfm.url_prefix')) }}";
@@ -184,6 +185,27 @@
         }
       ]
     });
+
+    Dropzone.options.uploadForm = {
+      paramName: "upload[]", // The name that will be used to transfer the file
+      uploadMultiple: false,
+      parallelUploads: 5,
+      clickable: '#upload-button',
+      dictDefaultMessage: 'Or drop files here to upload',
+      init: function() {
+        var _this = this; // For the closure
+        this.on("addedfile", function(file) { refreshFoldersAndItems('OK'); });
+        this.on('success', function(file, response) {
+          
+          if(response != 'OK'){
+            this.defaultOptions.error(file, response.join('\n'));
+          }
+          
+      });
+      },
+      acceptedFiles: "{{ lcfirst(str_singular(request('type'))) == 'image' ? implode(',', config('lfm.valid_image_mimetypes')) : implode(',', config('lfm.valid_file_mimetypes')) }}",
+      maxFilesize: ({{ lcfirst(str_singular(request('type'))) == 'image' ? config('lfm.max_image_size') : config('lfm.max_file_size') }} / 1000)
+    }
   </script>
 </body>
 </html>
