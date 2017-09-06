@@ -493,7 +493,7 @@ trait LfmHelpers
     public function createFolderByPath($path)
     {
         if (! File::exists($path)) {
-            File::makeDirectory($path, 0777, true, true);
+            File::makeDirectory($path, config('lfm.create_folder_mode', 0755), true, true);
         }
     }
 
@@ -529,9 +529,12 @@ trait LfmHelpers
      */
     public function imageShouldNotHaveThumb($file)
     {
-        $mine_type = $this->getFileType($file);
+        if (!config('lfm.should_create_thumbnails'))
+            return true;
 
-        return !in_array($mine_type, config('lfm.thumb_mimetypes'));
+        $mime_type = $this->getFileType($file);
+
+        return ! in_array($mime_type, config('lfm.raster_mimetypes'));
     }
 
     /**

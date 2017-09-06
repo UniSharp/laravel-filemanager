@@ -137,3 +137,13 @@
   display: inline-block;
   vertical-align: middle;
 }
+
+.table-list-view{
+  margin-bottom: 120px;
+}
+.table-list-view .actions{
+  text-align: right;
+}
+.table-list-view .actions a:hover{
+  text-decoration: none;
+}

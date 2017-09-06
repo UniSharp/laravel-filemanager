@@ -95,12 +95,21 @@ return [
         'image/svg+xml',
     ],
 
-    // Create thumbnails automatically only for listed types. Make this array empty to disable creating any thumbnails
-    'thumb_mimetypes' => [
+    // If true, image thumbnails would be created during upload
+    'should_create_thumbnails' => true,
+
+    // Create thumbnails automatically only for listed types.
+    'raster_mimetypes' => [
         'image/jpeg',
         'image/pjpeg',
         'image/png',
     ],
+
+    // permissions to be set when create a new folder or when it creates automatically with thumbnails
+    'create_folder_mode' => 0755,
+
+    // permissions to be set on file upload.
+    'create_file_mode' => 0644,
 
     // available since v1.3.0
     // only when '/laravel-filemanager?type=Files'
