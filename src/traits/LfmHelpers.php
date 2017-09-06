@@ -529,7 +529,7 @@ trait LfmHelpers
      */
     public function imageShouldNotHaveThumb($file)
     {
-        if (!config('lfm.should_create_thumbnails'))
+        if (! config('lfm.should_create_thumbnails'))
             return true;
 
         $mime_type = $this->getFileType($file);
