@@ -112,3 +112,38 @@
 .caption > .btn-group > .dropdown-toggle {
   width: 25px;
 }
+
+#lfm-loader{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: gray;
+  opacity: 0.7;
+  z-index: 9999;
+  text-align: center;
+}
+#lfm-loader:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+}
+#lfm-loader img{
+  width: 100px;
+  margin: 0 auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.table-list-view{
+  margin-bottom: 120px;
+}
+.table-list-view .actions{
+  text-align: right;
+}
+.table-list-view .actions a:hover{
+  text-decoration: none;
+}
