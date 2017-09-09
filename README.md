@@ -47,10 +47,10 @@ This approach ensures that only authenticated users have access to the Laravel-F
 * [ ] Move to folder function
 
 
-## Credits
-Special thanks to
+## Contributors & Credits
 
  * [All contibutors](https://github.com/UniSharp/laravel-filemanager/graphs/contributors) from GitHub. (issues / PR)
  * [@taswler](https://github.com/tsawler) the original author.
  * [@olivervogel](https://github.com/olivervogel) for the awesome [image library](https://github.com/Intervention/image).
- * All [@UniSharp](https://github.com/UniSharp) members.
+ * All [@UniSharp](https://github.com/UniSharp) members, especially [Stream](https://github.com/g0110280), the lead maintainer.
+ * SVG Loaders by [Sam](http://samherbert.net/svg-loaders/) (Licensed MIT)
