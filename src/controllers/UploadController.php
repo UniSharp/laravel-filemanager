@@ -121,17 +121,21 @@ class UploadController extends LfmController
         return 'pass';
     }
 
+    protected function replaceInsecureSuffix($name)
+    {
+        return preg_replace("/\.php$/", '', $name);
+    }
+
     private function getNewName($file)
     {
         $new_filename = parent::translateFromUtf8(trim($this->_pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
-        $new_filename = preg_replace("/\.php$/", '', $new_filename);
         if (config('lfm.rename_file') === true) {
             $new_filename = uniqid();
         } elseif (config('lfm.alphanumeric_filename') === true) {
             $new_filename = preg_replace('/[^A-Za-z0-9\-\']/', '_', $new_filename);
         }
 
-        return $new_filename . '.' . $file->getClientOriginalExtension();
+        return $new_filename . $this->replaceInsecureSuffix('.' . $file->getClientOriginalExtension());
     }
 
     private function makeThumb($new_filename)
