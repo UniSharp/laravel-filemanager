@@ -25,6 +25,7 @@
   "require": {
     "php": ">=5.4.0",
     "ext-exif": "*",
+    "ext-fileinfo": "*",
     "illuminate/support": ">=4.2.0",
     "intervention/image": "2.*"
   },
