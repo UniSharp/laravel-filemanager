@@ -1,9 +1,8 @@
 Please check the following instructions before submitting a bug :
  * Make sure you are using the latest version.
- * If you are new to this package, make sure you followed every step from [installation document](http://unisharp.github.io/laravel-filemanager/installation).
- * If you have problem applying this package, please check the [integration document](http://unisharp.github.io/laravel-filemanager/integration).
- * If anything went broken after you upgraded, please check the [upgrade document](http://unisharp.github.io/laravel-filemanager/upgrade).
+ * Make sure you read [installation](http://unisharp.github.io/laravel-filemanager/installation), [integration](http://unisharp.github.io/laravel-filemanager/integration), and [upgrade](http://unisharp.github.io/laravel-filemanager/upgrade) document.
 
 If your problem still remains, please do these steps :
- * run `php ./vendor/unisharp/laravel-filemanager/bin/debug` and paste the results here.
- * (optional) If there are errors in browser console, click on the links and you should see some PHP exceptions. Please capture screenshots and paste them here.
+ * Run `php ./vendor/unisharp/laravel-filemanager/bin/debug` and paste the results here.
+ * Capture screenshots of your browser console and paste them here.
+ * Provide the steps to reproduce your issue, so we might solve it quicker.
