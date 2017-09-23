@@ -91,7 +91,7 @@ Route::group(compact('middleware', 'prefix', 'as', 'namespace'), function () {
         'as' => 'getDelete',
     ]);
 
-    Route::get('/demo', 'DemoController@index');
+    // Route::get('/demo', 'DemoController@index');
 });
 
 Route::group(compact('prefix', 'as', 'namespace'), function () {
