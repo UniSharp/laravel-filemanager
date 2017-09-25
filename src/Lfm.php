@@ -51,7 +51,11 @@ class Lfm
      */
     public function getNameFromPath($path)
     {
-        return substr($path, strrpos($path, self::DS) + 1);
+        if (str_contains($path, self::DS)) {
+            return substr($path, strrpos($path, self::DS) + 1);
+        }
+
+        return $path;
     }
 
     public function allowFolderType($type)
