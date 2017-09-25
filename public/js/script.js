@@ -102,7 +102,7 @@ $('[data-sortby]').click(function() {
 });
 
 $('[data-action]').click(function () {
-  window[$(this).data('action')](getFirstSelected());
+  window[$(this).data('action')](getOneSelected());
 });
 
 // ======================
@@ -116,7 +116,6 @@ $(document).on('click', '#grid a, #list a', function (e) {
   if (multi_selection_enabled) {
     selected.toggleElement(element_path);
     element.find('.square').toggleClass('selected');
-    console.log(selected)
     toggleActions();
   } else {
     if (element.data('type') === 0) {
@@ -127,21 +126,33 @@ $(document).on('click', '#grid a, #list a', function (e) {
   }
 });
 
-function getFirstSelected () {
-  return $('[data-path="'+selected[0]+'"]');
+function getOneSelected(item_path) {
+  return $('[data-path="' + item_path || selected[0] + '"]');
 }
 
-function toggleActions () {
+function getSelectedItems() {
+  return selected.map(function (path) {
+    return getOneSelected(path);
+  });
+}
+
+function toggleActions() {
   var one_selected = selected.length === 1;
   var many_selected = selected.length >= 1;
-  var is_image = getFirstSelected().data('image') === 1;
+  var only_image = getSelectedItems()
+    .filter(function (item) { return item.data('image') === 0; })
+    .length === 0;
+  var only_file = getSelectedItems()
+    .filter(function (item) { return item.data('type') === 0; })
+    .length === 0;
 
-  $('[data-action=use]').toggleClass('hide', !many_selected)
+  $('[data-action=use]').toggleClass('hide', !(many_selected && only_file))
   $('[data-action=rename]').toggleClass('hide', !one_selected)
-  $('[data-action=preview]').toggleClass('hide', !(one_selected && is_image))
-  $('[data-action=download]').toggleClass('hide', !many_selected)
-  $('[data-action=resize]').toggleClass('hide', !(one_selected && is_image))
-  $('[data-action=crop]').toggleClass('hide', !(one_selected && is_image))
+  $('[data-action=preview]').toggleClass('hide', !(one_selected && only_image))
+  $('[data-action=move]').toggleClass('hide', !(many_selected))
+  $('[data-action=download]').toggleClass('hide', !(many_selected && only_file))
+  $('[data-action=resize]').toggleClass('hide', !(one_selected && only_image))
+  $('[data-action=crop]').toggleClass('hide', !(one_selected && only_image))
   $('[data-action=trash]').toggleClass('hide', !many_selected)
 }
 
@@ -298,6 +309,10 @@ function preview(item) {
     onEscape: true,
     backdrop: true
   });
+}
+
+function move(item) {
+  notImp();
 }
 
 function use(item) {

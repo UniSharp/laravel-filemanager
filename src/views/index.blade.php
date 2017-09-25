@@ -93,6 +93,12 @@
               </a>
             </li>
             <li>
+              <a data-action="move">
+                <i class="fa fa-share-square-o fa-fw"></i>
+                <span>Move</span>
+              </a>
+            </li>
+            <li>
               <a data-action="resize">
                 <i class="fa fa-arrows-alt fa-fw"></i>
                 <span>{{ trans('laravel-filemanager::lfm.menu-resize') }}</span>
