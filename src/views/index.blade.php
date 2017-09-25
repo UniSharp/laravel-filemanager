@@ -61,13 +61,19 @@
         </div>
         <div class="collapse navbar-collapse" id="nav-buttons">
           <ul class="nav navbar-nav navbar-right">
-            <li id="loading" class="hide"><a><i class="fa fa-spinner fa-spin fa-2x"></i></a></li>
+            <li id="loading" class="hide"><a><i class="fa fa-spinner fa-spin"></i></a></li>
             {{-- <li>
               <a id="multi_selection_toggle">
                 <i class="fa fa-check-square fa-fw"></i>
                 <span>Multi selection</span>
               </a>
             </li> --}}
+            <li>
+              <a data-action="use">
+                <i class="fa fa-check fa-fw"></i>
+                <span>Confirm</span>
+              </a>
+            </li>
             <li>
               <a data-action="rename">
                 <i class="fa fa-edit fa-fw"></i>
@@ -99,19 +105,19 @@
               </a>
             </li>
             <li>
-              <a data-action="delete">
+              <a data-action="trash">
                 <i class="fa fa-trash fa-fw"></i>
                 <span>{{ trans('laravel-filemanager::lfm.menu-delete') }}</span>
               </a>
             </li>
             <li>
-              <a id="grid-display">
+              <a data-display="grid">
                 <i class="fa fa-th-large fa-fw"></i>
                 <span>{{ trans('laravel-filemanager::lfm.nav-thumbnails') }}</span>
               </a>
             </li>
             <li>
-              <a id="list-display">
+              <a data-display="list">
                 <i class="fa fa-list-ul fa-fw"></i>
                 <span>{{ trans('laravel-filemanager::lfm.nav-list') }}</span>
               </a>
@@ -123,12 +129,12 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a id="list-sort-alphabetic">
+                  <a data-sortby="alphabetic">
                     <i class="fa fa-sort-alpha-asc"></i> {{ trans('laravel-filemanager::lfm.nav-sort-alphabetic') }}
                   </a>
                 </li>
                 <li>
-                  <a id="list-sort-time">
+                  <a data-sortby="time">
                     <i class="fa fa-sort-amount-asc"></i> {{ trans('laravel-filemanager::lfm.nav-sort-time') }}
                   </a>
                 </li>
