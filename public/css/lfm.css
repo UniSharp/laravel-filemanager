@@ -1,10 +1,19 @@
+a {
+  color: #333844;
+}
+
+.nav-pills > li.active > a {
+  background-color: #75C7C3;
+  border-radius: 0;
+}
+
 #tree {
   border-right: 1px solid silver;
   min-height: calc(100vh - 72px - 20px);
 }
 
 #mobile_tree {
-  background-color: #f9f9f9;
+  background-color: rgb(240, 240, 240);
   position: absolute;
   z-index:999;
   width: 300px;
@@ -16,7 +25,7 @@
 #nav {
   border: none;
   border-radius: 0px;
-  background-color: #75C7C3;
+  background-color: #333844;
 }
 
 #nav a {
@@ -51,7 +60,7 @@ a, .square {
 }
 
 #grid .square.selected {
-  border: 5px solid green;
+  border: 5px solid #75C7C3;
   padding-bottom: calc(100% - 10px + 2px);
 }
 #grid .square.selected > img {
@@ -59,18 +68,10 @@ a, .square {
 }
 
 #list .square.selected {
-  border: 4px solid green;
+  border: 4px solid #75C7C3;
 }
 #list .square.selected > img {
   padding: 1px;
-}
-
-.img-preview {
-  background-color: #f7f7f7;
-  overflow: hidden;
-  width: 100%;
-  text-align: center;
-  height: 200px;
 }
 
 #grid .square {
