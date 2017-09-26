@@ -45,7 +45,7 @@
       </ul>
     </aside>
     <div class="row">
-      <nav class="navbar navbar-default" id="nav">
+      <nav class="navbar navbar-inverse" id="nav">
         <div class="navbar-header">
           <a class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-buttons">
             <i class="fa fa-cog fa-2x fa-tw"></i>

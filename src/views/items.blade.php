@@ -10,7 +10,7 @@
       data-image="{{ (int)$item->is_image }}">
       <div class="square">
         @if($item->thumb_url)
-        <img src="{{ $item->thumb_url }}">
+        <div class="img-bordered" style="background-image: url('{{ $item->thumb_url }}');"></div>
         @else
         <i class="fa {{ $item->icon }} fa-5x"></i>
         @endif
