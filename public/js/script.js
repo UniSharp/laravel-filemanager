@@ -131,9 +131,11 @@ function getOneSelected(item_path) {
 }
 
 function getSelectedItems() {
-  return selected.map(function (path) {
-    return getOneSelected(path);
+  var arr_objects = [];
+  selected.forEach(function (index, path) {
+    arr_objects.push(getOneSelected(path));
   });
+  return arr_objects;
 }
 
 function toggleActions() {
