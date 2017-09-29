@@ -456,7 +456,7 @@ trait LfmHelpers
 
             $thumb_path = $this->getThumbPath($item_name);
             $file_path = $this->getCurrentPath($item_name);
-            if ($this->imageShouldNotHaveThumb($file_path)) {
+            if (! $this->imageShouldHaveThumb($file_path)) {
                 $thumb_url = $this->getFileUrl($item_name) . '?timestamp=' . filemtime($file_path);
             } elseif (File::exists($thumb_path)) {
                 $thumb_url = $this->getThumbUrl($item_name) . '?timestamp=' . filemtime($thumb_path);
@@ -527,15 +527,15 @@ trait LfmHelpers
      * @param  mixed  $file  Real path of a file or instance of UploadedFile.
      * @return bool
      */
-    public function imageShouldNotHaveThumb($file)
+    public function imageShouldHaveThumb($file)
     {
         if (! config('lfm.should_create_thumbnails')) {
-            return true;
+            return false;
         }
 
         $mime_type = $this->getFileType($file);
 
-        return ! in_array($mime_type, config('lfm.raster_mimetypes'));
+        return in_array($mime_type, config('lfm.raster_mimetypes'));
     }
 
     /**
