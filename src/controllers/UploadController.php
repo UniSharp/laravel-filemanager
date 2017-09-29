@@ -13,112 +13,142 @@ use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
  */
 class UploadController extends LfmController
 {
+
+    protected $errors;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->errors = [];
+    }
+
     /**
-     * Upload an image/file and (for images) create thumbnail.
+     * Upload files
      *
-     * @param UploadRequest $request
+     * @param void
      * @return string
      */
     public function upload()
     {
         $files = request()->file('upload');
-        $error_bag = [];
-        foreach (is_array($files) ? $files : [$files] as $file) {
-            $validation_message = $this->uploadValidator($file);
-            $new_filename = $this->proceedSingleUpload($file);
 
-            if ($validation_message !== 'pass') {
-                array_push($error_bag, $validation_message);
-            } elseif ($new_filename == 'invalid') {
-                array_push($error_bag, $response);
+        // single file
+        if (!is_array($files)) {
+            $file = $files;
+            if (!$this->fileIsValid($file)) {
+                return $this->errors;
             }
+
+            if (!$this->proceedSingleUpload($file)) {
+                return $this->errors;
+            }
+
+            // upload via ckeditor 'Upload' tab
+            $new_filename = $this->getNewName($file);
+            return $this->useFile($new_filename);
         }
 
-        if (is_array($files)) {
-            $response = count($error_bag) > 0 ? $error_bag : parent::$success_response;
-        } else { // upload via ckeditor 'Upload' tab
-            $response = $this->useFile($new_filename);
+
+        // Multiple files
+        foreach ($files as $file) {
+            if (!$this->fileIsValid($file)) {
+                continue;
+            }
+            $this->proceedSingleUpload($file);
         }
 
-        return $response;
+        return count($this->errors) > 0 ? $this->errors : parent::$success_response;
     }
 
     private function proceedSingleUpload($file)
     {
-        $validation_message = $this->uploadValidator($file);
-        if ($validation_message !== 'pass') {
-            return $validation_message;
-        }
-
         $new_filename = $this->getNewName($file);
         $new_file_path = parent::getCurrentPath($new_filename);
 
         event(new ImageIsUploading($new_file_path));
         try {
-            if (parent::fileIsImage($file) && parent::imageShouldHaveThumb($file)) {
+            if (parent::fileIsImage($file)) {
+                // Process & compress the image
                 Image::make($file->getRealPath())
                     ->orientate() //Apply orientation from exif data
                     ->save($new_file_path, 90);
 
-                $this->makeThumb($new_filename);
+                // Generate a thumbnail
+                if (parent::imageShouldHaveThumb($file)) {
+                    $this->makeThumb($new_filename);
+                }
             }
-            {
-                chmod($file->getRealPath(), config('lfm.create_file_mode', 0644));
-                File::move($file->getRealPath(), $new_file_path);
-            }
+
+            // Create (move) the file
+            chmod($file->getRealPath(), config('lfm.create_file_mode', 0644));
+            File::move($file->getRealPath(), $new_file_path);
         } catch (\Exception $e) {
-            return parent::error('invalid');
+            array_push($this->errors, parent::error('invalid'));
+            // FIXME: Exception must be logged.
+            return false;
         }
+
+        // TODO should be "FileWasUploaded"
         event(new ImageWasUploaded(realpath($new_file_path)));
 
-        return $new_filename;
+        return true;
     }
 
-    private function uploadValidator($file)
+    private function fileIsValid($file)
     {
-        $is_valid = false;
-        $force_invalid = false;
-
         if (empty($file)) {
-            return parent::error('file-empty');
-        } elseif (! $file instanceof UploadedFile) {
-            return parent::error('instance');
-        } elseif ($file->getError() == UPLOAD_ERR_INI_SIZE) {
-            $max_size = ini_get('upload_max_filesize');
+            array_push($this->errors, parent::error('file-empty'));
+            return false;
+        }
 
-            return parent::error('file-size', ['max' => $max_size]);
-        } elseif ($file->getError() != UPLOAD_ERR_OK) {
-            return 'File failed to upload. Error code: ' . $file->getError();
+        if (! $file instanceof UploadedFile) {
+            array_push($this->errors, parent::error('instance'));
+            return false;
+        }
+
+        if ($file->getError() == UPLOAD_ERR_INI_SIZE) {
+            $max_size = ini_get('upload_max_filesize');
+            array_push($this->errors, parent::error('file-size', ['max' => $max_size]));
+            return false;
+        }
+
+        if ($file->getError() != UPLOAD_ERR_OK) {
+            $msg = 'File failed to upload. Error code: ' . $file->getError();
+            array_push($this->errors, $msg);
+            return false;
         }
 
         $new_filename = $this->getNewName($file);
 
         if (File::exists(parent::getCurrentPath($new_filename))) {
-            return parent::error('file-exist');
+            array_push($this->errors, parent::error('file-exist'));
+            return false;
         }
 
         $mimetype = $file->getMimeType();
 
-        // size to kb unit is needed
-        $file_size = $file->getSize() / 1000;
+        // Bytes to KB
+        $file_size = $file->getSize() / 1024;
         $type_key = parent::currentLfmType();
 
         if (config('lfm.should_validate_mime', false)) {
             $mine_config = 'lfm.valid_' . $type_key . '_mimetypes';
             $valid_mimetypes = config($mine_config, []);
             if (false === in_array($mimetype, $valid_mimetypes)) {
-                return parent::error('mime') . $mimetype;
+                array_push($this->errors, parent::error('mime') . $mimetype);
+                return false;
             }
         }
 
         if (config('lfm.should_validate_size', false)) {
             $max_size = config('lfm.max_' . $type_key . '_size', 0);
             if ($file_size > $max_size) {
-                return parent::error('size') . $mimetype;
+                array_push($this->errors, parent::error('size'));
+                return false;
             }
         }
 
-        return 'pass';
+        return true;
     }
 
     protected function replaceInsecureSuffix($name)
@@ -128,7 +158,7 @@ class UploadController extends LfmController
 
     private function getNewName($file)
     {
-        $new_filename = parent::translateFromUtf8(trim($this->_pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
+        $new_filename = parent::translateFromUtf8(trim($this->pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
         if (config('lfm.rename_file') === true) {
             $new_filename = uniqid();
         } elseif (config('lfm.alphanumeric_filename') === true) {
@@ -172,7 +202,7 @@ class UploadController extends LfmController
         </script>";
     }
 
-    private function _pathinfo($path, $options = null)
+    private function pathinfo($path, $options = null)
     {
         $path = urlencode($path);
         $parts = is_null($options) ? pathinfo($path) : pathinfo($path, $options);
