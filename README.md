@@ -49,8 +49,20 @@ This approach ensures that only authenticated users have access to the Laravel-F
 
 ## Contributors & Credits
 
+### Developers / Maintainers
+
+ * [Stream](https://github.com/g0110280)
+ * [@gwleuverink](https://github.com/gwleuverink)
+ * All [@UniSharp](https://github.com/UniSharp) members
+
+### Contributors
+
  * [All contibutors](https://github.com/UniSharp/laravel-filemanager/graphs/contributors) from GitHub. (issues / PR)
- * [@taswler](https://github.com/tsawler) the original author.
+ * [@taswler](https://github.com/tsawler) the original author of this package.
+ * Nathan for providing security suggestions.
+
+### Credits
+
  * [@olivervogel](https://github.com/olivervogel) for the awesome [image library](https://github.com/Intervention/image).
- * All [@UniSharp](https://github.com/UniSharp) members, especially [Stream](https://github.com/g0110280), the lead maintainer.
  * SVG Loaders by [Sam](http://samherbert.net/svg-loaders/) (Licensed MIT)
+
