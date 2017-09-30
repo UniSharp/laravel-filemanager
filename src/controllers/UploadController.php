@@ -13,7 +13,6 @@ use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
  */
 class UploadController extends LfmController
 {
-
     protected $errors;
 
     public function __construct()
@@ -23,7 +22,7 @@ class UploadController extends LfmController
     }
 
     /**
-     * Upload files
+     * Upload files.
      *
      * @param void
      * @return string
@@ -33,25 +32,25 @@ class UploadController extends LfmController
         $files = request()->file('upload');
 
         // single file
-        if (!is_array($files)) {
+        if (! is_array($files)) {
             $file = $files;
-            if (!$this->fileIsValid($file)) {
+            if (! $this->fileIsValid($file)) {
                 return $this->errors;
             }
 
-            if (!$this->proceedSingleUpload($file)) {
+            if (! $this->proceedSingleUpload($file)) {
                 return $this->errors;
             }
 
             // upload via ckeditor 'Upload' tab
             $new_filename = $this->getNewName($file);
+
             return $this->useFile($new_filename);
         }
 
-
         // Multiple files
         foreach ($files as $file) {
-            if (!$this->fileIsValid($file)) {
+            if (! $this->fileIsValid($file)) {
                 continue;
             }
             $this->proceedSingleUpload($file);
@@ -98,23 +97,27 @@ class UploadController extends LfmController
     {
         if (empty($file)) {
             array_push($this->errors, parent::error('file-empty'));
+
             return false;
         }
 
         if (! $file instanceof UploadedFile) {
             array_push($this->errors, parent::error('instance'));
+
             return false;
         }
 
         if ($file->getError() == UPLOAD_ERR_INI_SIZE) {
             $max_size = ini_get('upload_max_filesize');
             array_push($this->errors, parent::error('file-size', ['max' => $max_size]));
+
             return false;
         }
 
         if ($file->getError() != UPLOAD_ERR_OK) {
             $msg = 'File failed to upload. Error code: ' . $file->getError();
             array_push($this->errors, $msg);
+
             return false;
         }
 
@@ -122,6 +125,7 @@ class UploadController extends LfmController
 
         if (File::exists(parent::getCurrentPath($new_filename))) {
             array_push($this->errors, parent::error('file-exist'));
+
             return false;
         }
 
@@ -136,6 +140,7 @@ class UploadController extends LfmController
             $valid_mimetypes = config($mine_config, []);
             if (false === in_array($mimetype, $valid_mimetypes)) {
                 array_push($this->errors, parent::error('mime') . $mimetype);
+
                 return false;
             }
         }
@@ -144,6 +149,7 @@ class UploadController extends LfmController
             $max_size = config('lfm.max_' . $type_key . '_size', 0);
             if ($file_size > $max_size) {
                 array_push($this->errors, parent::error('size'));
+
                 return false;
             }
         }
