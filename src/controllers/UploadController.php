@@ -13,7 +13,6 @@ use Unisharp\Laravelfilemanager\Events\ImageWasUploaded;
  */
 class UploadController extends LfmController
 {
-
     protected $errors;
 
     public function __construct()
