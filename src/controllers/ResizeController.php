@@ -27,6 +27,7 @@ class ResizeController extends LfmController
 
         $scaled = false;
 
+        // FIXME size should be configurable
         if ($original_width > 600) {
             $ratio = 600 / $original_width;
             $width = $original_width * $ratio;
