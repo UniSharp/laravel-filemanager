@@ -535,7 +535,10 @@ trait LfmHelpers
 
         $mime_type = $this->getFileType($file);
 
-        return in_array($mime_type, config('lfm.raster_mimetypes'));
+        return in_array(
+            $mime_type,
+            config('lfm.raster_mimetypes', ['image/jpeg', 'image/pjpeg', 'image/png'])
+        );
     }
 
     /**
