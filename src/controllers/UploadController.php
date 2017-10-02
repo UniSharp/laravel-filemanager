@@ -152,7 +152,7 @@ class UploadController extends LfmController
 
     protected function replaceInsecureSuffix($name)
     {
-        return preg_replace("/\.php$/", '', $name);
+        return preg_replace("/\.php$/i", '', $name);
     }
 
     private function getNewName($file)
