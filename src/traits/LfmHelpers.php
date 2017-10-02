@@ -529,7 +529,7 @@ trait LfmHelpers
      */
     public function imageShouldHaveThumb($file)
     {
-        if (! config('lfm.should_create_thumbnails')) {
+        if (! config('lfm.should_create_thumbnails', true)) {
             return false;
         }
 

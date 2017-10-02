@@ -49,7 +49,7 @@ class CropController extends LfmController
             ->crop($dataWidth, $dataHeight, $dataX, $dataY)
             ->save($crop_path);
 
-        if (config('lfm.should_create_thumbnails')) {
+        if (config('lfm.should_create_thumbnails', true)) {
             // create thumb folder
             parent::createFolderByPath(parent::getThumbPath());
 
