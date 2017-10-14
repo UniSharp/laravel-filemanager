@@ -50,7 +50,7 @@ return [
     'error-folder-not-found'=> 'Klasör bulunamadı! (:folder)',
     'error-mime'        => 'Beklenmeyen Mime Türü: ',
     'error-size'        => 'Boyut sınırın üstünde:',
-    'error-instance'    => 'The uploaded file should be an instance of UploadedFile',
+    'error-instance'    => 'Yüklenen dosya, UploadedFile örneğinde olmalıdır',
     'error-invalid'     => 'Geçersiz yükleme isteği',
     'error-other'       => 'Bir hata oluştu: ',
     'error-too-large'   => 'Girilen veri çok fazla!',
