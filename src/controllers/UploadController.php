@@ -67,6 +67,7 @@ class UploadController extends LfmController
         event(new ImageIsUploading($new_file_path));
         try {
             if (parent::fileIsImage($file)) {
+                // File is an image
                 // Process & compress the image
                 Image::make($file->getRealPath())
                     ->orientate() //Apply orientation from exif data
@@ -76,11 +77,12 @@ class UploadController extends LfmController
                 if (parent::imageShouldHaveThumb($file)) {
                     $this->makeThumb($new_filename);
                 }
+            } else {
+                // File is not an image
+                // Create (move) the file
+                File::move($file->getRealPath(), $new_file_path);
             }
-
-            // Create (move) the file
-            chmod($file->getRealPath(), config('lfm.create_file_mode', 0644));
-            File::move($file->getRealPath(), $new_file_path);
+            chmod($new_file_path, config('lfm.create_file_mode', 0644));
         } catch (\Exception $e) {
             array_push($this->errors, parent::error('invalid'));
             // FIXME: Exception must be logged.
