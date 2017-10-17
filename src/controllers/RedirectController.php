@@ -15,7 +15,7 @@ class RedirectController extends LfmController
 
     public function __construct()
     {
-        $delimiter = config('lfm.url_prefix') . '/';
+        $delimiter = config('lfm.url_prefix', config('lfm.prefix')). '/';
         $url = urldecode(request()->url());
         $external_path = substr($url, strpos($url, $delimiter) + strlen($delimiter));
 
