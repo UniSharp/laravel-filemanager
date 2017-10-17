@@ -102,7 +102,7 @@ $('[data-sortby]').click(function() {
 });
 
 $('[data-action]').click(function () {
-  window[$(this).data('action')](getOneSelected());
+  window[$(this).data('action')](getOneSelectedElement());
 });
 
 // ======================
@@ -126,14 +126,14 @@ $(document).on('click', '#grid a, #list a', function (e) {
   }
 });
 
-function getOneSelected(item_path) {
-  return $('[data-path="' + item_path || selected[0] + '"]');
+function getOneSelectedElement(item_path) {
+  return $('[data-path="' + (item_path || selected[0]) + '"]');
 }
 
 function getSelectedItems() {
   var arr_objects = [];
   selected.forEach(function (index, path) {
-    arr_objects.push(getOneSelected(path));
+    arr_objects.push(getOneSelectedElement(path));
   });
   return arr_objects;
 }
