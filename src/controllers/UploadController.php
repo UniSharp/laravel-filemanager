@@ -66,19 +66,17 @@ class UploadController extends LfmController
 
         event(new ImageIsUploading($new_file_path));
         try {
-            if (parent::fileIsImage($file)) {
-                // File is an image
-                // Process & compress the image
+            if (parent::fileIsImage($file) && !in_array($file->getMimeType(), ['image/gif', 'image/svg+xml'])) {
+                // Handle image rotation
                 Image::make($file->getRealPath())
                     ->orientate() //Apply orientation from exif data
-                    ->save($new_file_path, 90);
+                    ->save($new_file_path);
 
                 // Generate a thumbnail
                 if (parent::imageShouldHaveThumb($file)) {
                     $this->makeThumb($new_filename);
                 }
             } else {
-                // File is not an image
                 // Create (move) the file
                 File::move($file->getRealPath(), $new_file_path);
             }
