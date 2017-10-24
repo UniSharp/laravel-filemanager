@@ -36,7 +36,7 @@ return [
     'message-delete'    => 'Bạn có chắc chắn muốn xoá mục này?',
     'message-name'      => 'Tên thư mục:',
     'message-rename'    => 'Đổi tên thành:',
-    'message-extension_not_found' => 'Vui lòng cài đặt gói mở rộng gd hoặc imagick to cắt, thay đổi kích thước và tạo ảnh đại điện cho các hình ảnh.',
+    'message-extension_not_found' => 'Vui lòng cài đặt gói mở rộng gd hoặc imagick để cắt, thay đổi kích thước và tạo ảnh đại điện cho các hình ảnh.',
 
     'error-rename'      => 'Tên tập tin đã được chọn!',
     'error-file-name'   => 'Tên tập tin không được trống!',
