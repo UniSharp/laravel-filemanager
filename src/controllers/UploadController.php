@@ -3,6 +3,7 @@
 namespace Unisharp\Laravelfilemanager\controllers;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Unisharp\Laravelfilemanager\Events\ImageIsUploading;
@@ -83,7 +84,13 @@ class UploadController extends LfmController
             chmod($new_file_path, config('lfm.create_file_mode', 0644));
         } catch (\Exception $e) {
             array_push($this->errors, parent::error('invalid'));
-            // FIXME: Exception must be logged.
+
+            Log::error($e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
             return false;
         }
 
