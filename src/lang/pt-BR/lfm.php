@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'nav-back'          => 'Back',
+    'nav-back'          => 'Voltar',
     'nav-new'           => 'Nova Pasta',
     'nav-upload'        => 'Enviar',
     'nav-thumbnails'    => 'Miniatura',
@@ -33,17 +33,17 @@ return [
     'message-delete'    => 'Você está certo que quer deletar este arquivo?',
     'message-name'      => 'Nome da pasta:',
     'message-rename'    => 'Renomear para:',
-    'message-extension_not_found' => '(translation wanted)',
+    'message-extension_not_found' => 'Por favor instale a extenção gd ou imagick para recortar, redimensionar e criar miniaturas das imagens.',
 
     'error-rename'      => 'Nome de arquivo já está em uso!',
     'error-file-empty'  => 'Você deve escolher um arquivo!',
     'error-file-exist'  => 'Um arquivo com este nome já existe!',
-    'error-file-size'   => 'File size exceeds server limit! (maximum size: :max)',
+    'error-file-size'   => 'Tamanho do arquivo excedeu o limite permitido pelo servidor! (Tamanho máximo: :max)',
     'error-delete-folder'=> 'Você não pode deletar esta pasta, pois ela não está vazia!',
     'error-folder-name' => 'Nome da pasta não pode ser vazio!',
     'error-folder-exist'=> 'Uma pasta com este nome já existe!',
-    'error-folder-alnum'=> 'Only alphanumeric folder names are allowed!',
-    'error-mime'        => 'Unexpected MimeType: ',
+    'error-folder-alnum'=> 'Permitido somente caracteres alfanuméricos para nomes de pastas!',
+    'error-mime'        => 'MimeType inesperado: ',
     'error-instance'    => 'The uploaded file should be an instance of UploadedFile',
     'error-invalid'     => 'Invalid upload request',
 
