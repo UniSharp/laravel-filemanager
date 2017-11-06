@@ -54,6 +54,10 @@
 | max\_file\_size         | int     | Specify max size of uploading file.                                      |
 | should\_validate\_mime  | boolean | If true, the mime type of uploading file will be verified.               |
 | valid\_image\_mimetypes | array   | Array of mime types. Available since v1.3.0 .                       |
+| should\_create\_thumbnails | boolean   | If true, thumbnails will be created for faster loading.                       |
+| raster\_mimetypes       | array   | Array of mime types. Thumbnails will be created only for these mimetypes.                       |
+| create\_folder\_mode    | int     | Permission setting for folders created by this package.                       |
+| create\_file\_mode      | int     | Permission setting for files uploaded to this package.                       |
 | valid\_file\_mimetypes  | array   | Array of mime types. Available since v1.3.0 .                       |
 
 
