@@ -21,7 +21,7 @@ class LfmFileRepository implements RepositoryContract
     public function rootPath()
     {
         // public_path()
-        return public_path();
+        return public_path() . '/';
     }
 
     public function directories()
@@ -77,5 +77,16 @@ class LfmFileRepository implements RepositoryContract
     public function directoryIsEmpty()
     {
         return count(File::allFiles($this->path)) == 0;
+    }
+
+    public function save($file, $new_filename)
+    {
+        $result_filename = $new_filename . '.' . $file->getClientOriginalExtension();
+        $new_filepath = $this->path . '/' . $result_filename;
+        File::move($file->getRealPath(), $new_filepath);
+
+        \Log::info($result_filename);
+
+        return $result_filename;
     }
 }

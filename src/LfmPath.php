@@ -3,6 +3,10 @@
 namespace UniSharp\LaravelFilemanager;
 
 use Illuminate\Container\Container;
+use Intervention\Image\Facades\Image;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use UniSharp\LaravelFilemanager\Events\ImageIsUploading;
+use UniSharp\LaravelFilemanager\Events\ImageWasUploaded;
 
 class LfmPath
 {
@@ -71,6 +75,7 @@ class LfmPath
         return $this->appendPathToFile($result);
     }
 
+    // TODO: work with timestamp
     public function url($with_timestamp = false)
     {
         return Lfm::DS . $this->path('storage');
@@ -187,5 +192,114 @@ class LfmPath
     public function error($error_type, $variables = [])
     {
         return $this->helper->error($error_type, $variables);
+    }
+
+    // Upload section
+    public function upload($file)
+    {
+        $this->uploadValidator($file);
+        $new_filename = $this->getNewName($file);
+        $new_file_path = $this->setName($new_filename)->path('absolute');
+
+        event(new ImageIsUploading($new_file_path));
+        try {
+            $new_filename = $this->save($file, $new_filename);
+        } catch (\Exception $e) {
+            \Log::info($e);
+            return $this->error('invalid');
+        }
+        event(new ImageWasUploaded($new_file_path));
+
+        return $new_filename;
+    }
+
+    private function uploadValidator($file)
+    {
+        if (empty($file)) {
+            return $this->error('file-empty');
+        } elseif (! $file instanceof UploadedFile) {
+            return $this->error('instance');
+        } elseif ($file->getError() == UPLOAD_ERR_INI_SIZE) {
+            return $this->error('file-size', ['max' => ini_get('upload_max_filesize')]);
+        } elseif ($file->getError() != UPLOAD_ERR_OK) {
+            throw new \Exception('File failed to upload. Error code: ' . $file->getError());
+        }
+
+        $new_filename = $this->getNewName($file) . '.' . $file->getClientOriginalExtension();
+
+        if ($this->setName($new_filename)->exists()) {
+            return $this->error('file-exist');
+        }
+
+        $mimetype = $file->getMimeType();
+
+        $type_key = $this->helper->currentLfmType();
+
+        if (config('lfm.should_validate_mime', false)) {
+            $mine_config = 'lfm.valid_' . $type_key . '_mimetypes';
+            $valid_mimetypes = config($mine_config, []);
+            if (false === in_array($mimetype, $valid_mimetypes)) {
+                return $this->error('mime') . $mimetype;
+            }
+        }
+
+        if (config('lfm.should_validate_size', false)) {
+            $max_size = config('lfm.max_' . $type_key . '_size', 0);
+            // size to kb unit is needed
+            $file_size = $file->getSize() / 1000;
+            if ($file_size > $max_size) {
+                return $this->error('size') . $file_size;
+            }
+        }
+
+        return 'pass';
+    }
+
+    private function getNewName($file)
+    {
+        $new_filename = $this->helper->translateFromUtf8(trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
+
+        if (config('lfm.rename_file') === true) {
+            $new_filename = uniqid();
+        } elseif (config('lfm.alphanumeric_filename') === true) {
+            $new_filename = preg_replace('/[^A-Za-z0-9\-\']/', '_', $new_filename);
+        }
+
+        return $new_filename;
+    }
+
+    private function save($file, $new_filename)
+    {
+        $should_create_thumbnail = $this->isUploadingImage($file) && $this->shouldCreateThumb($file);
+        $filename = $this->setName(null)->thumb(false)->storage->save($file, $new_filename);
+
+        if ($should_create_thumbnail) {
+            $this->makeThumbnail($filename);
+        }
+
+        return $filename;
+    }
+
+    public function makeThumbnail($filename)
+    {
+        // create folder for thumbnails
+        $this->setName(null)->thumb(true)->createFolder();
+
+        \Log::info($this->thumb(false)->setName($filename)->path('absolute'));
+
+        // generate cropped thumbnail
+        Image::make($this->thumb(false)->setName($filename)->path('absolute'))
+            ->fit(config('lfm.thumb_img_width', 200), config('lfm.thumb_img_height', 200))
+            ->save($this->thumb(true)->setName($filename)->path('absolute'));
+    }
+
+    private function isUploadingImage($file)
+    {
+        return starts_with($file->getMimeType(), 'image');
+    }
+
+    private function shouldCreateThumb($file)
+    {
+        return !in_array($file->getMimeType(), ['image/gif', 'image/svg+xml']);
     }
 }

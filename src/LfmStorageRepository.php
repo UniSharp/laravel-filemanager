@@ -3,6 +3,7 @@
 namespace UniSharp\LaravelFilemanager;
 
 use Illuminate\Support\Facades\Storage;
+use Unisharp\FileApi\FileApi;
 
 class LfmStorageRepository implements RepositoryContract
 {
@@ -82,5 +83,17 @@ class LfmStorageRepository implements RepositoryContract
     public function directoryIsEmpty()
     {
         return count($this->disk->allFiles($this->path)) == 0;
+    }
+
+    public function save($file, $new_filename)
+    {
+        $new_filename = (new FileApi($this->path))->thumbs([])->save($file, $new_filename);
+
+        return $new_filename;
+    }
+
+    private function insertSuffix($suffix, $file_name)
+    {
+        return substr_replace($file_name, $suffix, strpos($file_name, '.'), 0);
     }
 }
