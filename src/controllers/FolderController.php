@@ -26,7 +26,7 @@ class FolderController extends LfmController
                     return (object) [
                         'name' => trans('laravel-filemanager::lfm.title-' . $type),
                         'path' => $path->path('working_dir'),
-                        'children' => parent::sortByColumn($path->folders(), 'name'),
+                        'children' => $path->folders('name'),
                         'has_next' => ! ($type == end($folder_types)),
                     ];
                 }, $folder_types),

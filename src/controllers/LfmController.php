@@ -9,8 +9,6 @@ use UniSharp\LaravelFilemanager\traits\LfmHelpers;
 
 class LfmController extends Controller
 {
-    use LfmHelpers;
-
     protected static $success_response = 'OK';
 
     public function __construct()
@@ -56,5 +54,35 @@ class LfmController extends Controller
         }
 
         return $arr_errors;
+    }
+
+    /**
+     * Shorter function of getting localized error message..
+     *
+     * @param  mixed  $error_type  Key of message in lang file.
+     * @param  mixed  $variables   Variables the message needs.
+     * @return string
+     */
+    public function error($error_type, $variables = [])
+    {
+        throw new \Exception(trans(Lfm::PACKAGE_NAME . '::lfm.error-' . $error_type, $variables));
+    }
+
+    /**
+     * Overrides settings in php.ini.
+     *
+     * @return null
+     */
+    public function applyIniOverrides()
+    {
+        if (count(config('lfm.php_ini_overrides')) == 0) {
+            return;
+        }
+
+        foreach (config('lfm.php_ini_overrides') as $key => $value) {
+            if ($value && $value != 'false') {
+                ini_set($key, $value);
+            }
+        }
     }
 }

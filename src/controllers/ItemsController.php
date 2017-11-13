@@ -20,8 +20,8 @@ class ItemsController extends LfmController
         return [
             'html' => (string) view('laravel-filemanager::items')->with([
                 'items' => array_merge(
-                    parent::sortByColumn($this->lfm->folders(), $key_to_sort),
-                    parent::sortByColumn($this->lfm->files(), $key_to_sort)
+                    $this->lfm->folders($key_to_sort),
+                    $this->lfm->files($key_to_sort)
                 ),
                 'display' => $this->getDisplayType(),
             ]),

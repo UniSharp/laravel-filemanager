@@ -89,22 +89,26 @@ class LfmPath
         return $path;
     }
 
-    public function folders()
+    public function folders($column = 'name')
     {
         $all_folders = array_map(function ($directory_path) {
             return $this->get($directory_path);
         }, $this->storage->directories($this));
 
-        return array_filter($all_folders, function ($directory) {
+        $folders = array_filter($all_folders, function ($directory) {
             return $directory->name !== $this->helper->getThumbFolderName();
         });
+
+        return $this->sortByColumn($folders, $column);
     }
 
-    public function files()
+    public function files($column = 'name')
     {
-        return array_map(function ($file_path) {
+        $files = array_map(function ($file_path) {
             return $this->get($file_path);
         }, $this->storage->files());
+
+        return $this->sortByColumn($files, $column);
     }
 
     public function get($item_path)
@@ -153,5 +157,21 @@ class LfmPath
         }
 
         return $working_dir;
+    }
+
+    /**
+     * Sort files and directories.
+     *
+     * @param  mixed  $arr_items  Array of files or folders or both.
+     * @param  mixed  $sort_type  Alphabetic or time.
+     * @return array of object
+     */
+    public function sortByColumn($arr_items, $key_to_sort = 'name')
+    {
+        uasort($arr_items, function ($a, $b) use ($key_to_sort) {
+            return strcmp($a->{$key_to_sort}, $b->{$key_to_sort});
+        });
+
+        return $arr_items;
     }
 }
