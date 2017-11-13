@@ -92,6 +92,21 @@ class Lfm
         return $file_type;
     }
 
+    public function getDisplayMode()
+    {
+        $type_key = $this->currentLfmType();
+        $startup_view = config('lfm.' . $type_key . 's_startup_view');
+
+        $view_type = 'grid';
+        $target_display_type = $this->input('show_list') ?: $startup_view;
+
+        if (in_array($target_display_type, ['list', 'grid'])) {
+            $view_type = $target_display_type;
+        }
+
+        return $view_type;
+    }
+
     public function getUserSlug()
     {
         $config = $this->config->get('lfm.user_field');

@@ -23,24 +23,9 @@ class ItemsController extends LfmController
                     $this->lfm->folders($key_to_sort),
                     $this->lfm->files($key_to_sort)
                 ),
-                'display' => $this->getDisplayType(),
+                'display' => $this->helper->getDisplayMode(),
             ]),
             'working_dir' => $this->lfm->path('working_dir'),
         ];
-    }
-
-    private function getDisplayType()
-    {
-        $type_key = $this->helper->currentLfmType();
-        $startup_view = config('lfm.' . $type_key . 's_startup_view');
-
-        $view_type = 'grid';
-        $target_display_type = request('show_list') ?: $startup_view;
-
-        if (in_array($target_display_type, ['list', 'grid'])) {
-            $view_type = $target_display_type;
-        }
-
-        return $view_type;
     }
 }

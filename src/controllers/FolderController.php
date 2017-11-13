@@ -11,12 +11,9 @@ class FolderController extends LfmController
      */
     public function getFolders()
     {
-        $folder_types = ['user', 'share'];
-        foreach ($folder_types as $key => $type) {
-            if (! $this->helper->allowFolderType($type)) {
-                unset($folder_types[$key]);
-            }
-        }
+        $folder_types = array_filter(['user', 'share'], function ($type) {
+            return $this->helper->allowFolderType($type);
+        });
 
         return view('laravel-filemanager::tree')
             ->with([
