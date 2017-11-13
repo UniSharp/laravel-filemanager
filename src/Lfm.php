@@ -221,4 +221,16 @@ class Lfm
 
         return true;
     }
+
+    /**
+     * Shorter function of getting localized error message..
+     *
+     * @param  mixed  $error_type  Key of message in lang file.
+     * @param  mixed  $variables   Variables the message needs.
+     * @return string
+     */
+    public function error($error_type, $variables = [])
+    {
+        throw new \Exception(trans(self::PACKAGE_NAME . '::lfm.error-' . $error_type, $variables));
+    }
 }

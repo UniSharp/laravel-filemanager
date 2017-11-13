@@ -183,4 +183,9 @@ class LfmPath
 
         return $arr_items;
     }
+
+    public function error($error_type, $variables = [])
+    {
+        return $this->helper->error($error_type, $variables);
+    }
 }
