@@ -89,7 +89,7 @@ class LfmPath
         return $path;
     }
 
-    public function folders($column = 'name')
+    public function folders($column = null)
     {
         $all_folders = array_map(function ($directory_path) {
             return $this->get($directory_path);
@@ -102,7 +102,7 @@ class LfmPath
         return $this->sortByColumn($folders, $column);
     }
 
-    public function files($column = 'name')
+    public function files($column = null)
     {
         $files = array_map(function ($file_path) {
             return $this->get($file_path);
@@ -166,8 +166,17 @@ class LfmPath
      * @param  mixed  $sort_type  Alphabetic or time.
      * @return array of object
      */
-    public function sortByColumn($arr_items, $key_to_sort = 'name')
+    public function sortByColumn($arr_items, $key_to_sort = null)
     {
+        if (is_null($key_to_sort)) {
+            $sort_type = $this->helper->input('sort_type');
+            if (!$sort_type || $sort_type == 'alphabetic') {
+                $key_to_sort = 'name';
+            } else {
+                $key_to_sort = 'time';
+            }
+        }
+
         uasort($arr_items, function ($a, $b) use ($key_to_sort) {
             return strcmp($a->{$key_to_sort}, $b->{$key_to_sort});
         });

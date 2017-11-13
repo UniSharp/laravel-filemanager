@@ -11,18 +11,9 @@ class ItemsController extends LfmController
      */
     public function getItems()
     {
-        if (request('sort_type') == 'alphabetic') {
-            $key_to_sort = 'name';
-        } else {
-            $key_to_sort = 'time';
-        }
-
         return [
             'html' => (string) view('laravel-filemanager::items')->with([
-                'items' => array_merge(
-                    $this->lfm->folders($key_to_sort),
-                    $this->lfm->files($key_to_sort)
-                ),
+                'items' => array_merge($this->lfm->folders(), $this->lfm->files()),
                 'display' => $this->helper->getDisplayMode(),
             ]),
             'working_dir' => $this->lfm->path('working_dir'),
