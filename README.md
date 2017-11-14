@@ -39,12 +39,14 @@ This approach ensures that only authenticated users have access to the Laravel-F
 
 ## v2.0 progress
 * [x] (done) Unit test
-* [ ] (done, need manual tests) Integrate with Laravel Storage
-* [ ] (in progress) Multiple selection
+* [x] (done) Integrate with Laravel Storage
+* [x] (done) Multiple selection
+* [ ] Configurable disk of storage
 * [ ] (in progress) Responsive design
 * [ ] (in progress) Config refactoring
-* [ ] JSON APIs
+* [ ] (in progress) JSON APIs
 * [ ] Move to folder function
+* [ ] Applying MIME icon generator
 
 
 ## Contributors & Credits
