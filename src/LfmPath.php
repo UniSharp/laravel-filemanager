@@ -59,7 +59,7 @@ class LfmPath
         return $this->item_name;
     }
 
-    public function path ($type = 'storage')
+    public function path($type = 'storage')
     {
         if ($type == 'working_dir') {
             // working directory: /{user_slug}
