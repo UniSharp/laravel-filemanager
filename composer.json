@@ -29,7 +29,7 @@
     "illuminate/filesystem": ">=5.1.0",
     "illuminate/support": ">=5.1.0",
     "intervention/image": "2.*",
-    "unisharp/laravel-fileapi": "1.*",
+    "unisharp/laravel-fileapi": ">=1.0.2",
     "illuminate/http": ">=5.1.0",
     "illuminate/container": "^5.4"
   },
