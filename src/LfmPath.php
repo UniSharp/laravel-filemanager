@@ -273,6 +273,8 @@ class LfmPath
         $should_create_thumbnail = $this->isUploadingImage($file) && $this->shouldCreateThumb($file);
         $filename = $this->setName(null)->thumb(false)->storage->save($file, $new_filename);
 
+        chmod($this->setName($filename)->thumb(false)->path('absolute'), config('lfm.create_file_mode', 0644));
+
         if ($should_create_thumbnail) {
             $this->makeThumbnail($filename);
         }
