@@ -41,8 +41,6 @@ class UploadController extends LfmController
             if (is_null($new_filename)) {
                 $response = $error_bag[0];
             } else {
-                \Log::info($new_filename);
-                \Log::info($this->lfm->setName($new_filename)->url());
                 $response = view(Lfm::PACKAGE_NAME . '::use')
                     ->withFile($this->lfm->setName($new_filename)->url());
             }

@@ -209,13 +209,13 @@ class Lfm
     {
         $driver = $this->config->get('lfm.driver');
 
-        if ($driver == 'file') {
+        if ($driver === 'file') {
             return false;
         }
 
         $storage_root = $this->getStorage('/')->rootPath();
 
-        if ($driver == 'storage' && (ends_with($storage_root, 'public') && ends_with($storage_root, 'public/'))) {
+        if ($driver === 'storage' && (ends_with($storage_root, 'public') && ends_with($storage_root, 'public/'))) {
             return false;
         }
 

@@ -10,7 +10,7 @@ class LfmFileRepository implements RepositoryContract
 
     public function __construct($storage_path)
     {
-        $this->path = $storage_path;
+        $this->path = $this->rootPath() . $storage_path;
     }
 
     public function __call($function_name, $arguments)
@@ -18,9 +18,9 @@ class LfmFileRepository implements RepositoryContract
         return File::$function_name($this->path, ...$arguments);
     }
 
+    // TODO: check ending with slash in tests
     public function rootPath()
     {
-        // public_path()
         return public_path() . '/';
     }
 
