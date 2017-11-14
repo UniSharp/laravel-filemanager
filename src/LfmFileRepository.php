@@ -10,7 +10,7 @@ class LfmFileRepository implements RepositoryContract
 
     public function __construct($storage_path)
     {
-        $this->path = $this->rootPath() . $storage_path;
+        $this->path = $storage_path;
     }
 
     public function __call($function_name, $arguments)

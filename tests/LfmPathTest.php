@@ -125,6 +125,7 @@ class LfmPathTest extends TestCase
         $helper = m::mock(Lfm::class);
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('input')->with('working_dir')->andReturn('/shares');
+        $helper->shouldReceive('input')->with('sort_type')->andReturn('alphabetic');
         $helper->shouldReceive('getStorage')->andReturn($storage);
         $helper->shouldReceive('getNameFromPath')->andReturn('bar');
         $helper->shouldReceive('getThumbFolderName')->andReturn('thumbs');
@@ -142,6 +143,7 @@ class LfmPathTest extends TestCase
         $helper = m::mock(Lfm::class);
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('input')->with('working_dir')->andReturn('/shares');
+        $helper->shouldReceive('input')->with('sort_type')->andReturn('alphabetic');
         $helper->shouldReceive('getStorage')->andReturn($storage);
         $helper->shouldReceive('getNameFromPath')->andReturn('bar');
 
