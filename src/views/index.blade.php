@@ -175,6 +175,8 @@
             <i class="fa fa-folder-open-o"></i> {{ trans('laravel-filemanager::lfm.message-empty') }}
           </div>
         </div>
+
+        <div id="editor"></div>
       </div>
 
       <ul id="fab"></ul>

@@ -159,28 +159,30 @@ $('[data-action]').click(function () {
 
 $(document).on('click', '#items a', function (e) {
   var element = $(e.target).closest('a');
-  var element_id = element.data('id');
 
   if (multi_selection_enabled) {
-    selected.toggleElement(element_id);
+    selected.toggleElement(element.data('id'));
     element.find('.square').toggleClass('selected');
     toggleActions();
   } else {
-    if (element.data('type') === 0) {
-      goTo(getOneSelectedElement().path);
-    } else {
+    if (element.is_file) {
       useFile(getOneSelectedElement().path);
+    } else {
+      goTo(getOneSelectedElement().path);
     }
   }
 });
 
-function getOneSelectedElement(item_path) {
-  return items[selected[0]];
+function getOneSelectedElement(item_id) {
+  if (item_id === undefined) {
+    item_id = selected[0];
+  }
+  return items[item_id];
 }
 
 function getSelectedItems() {
   var arr_objects = [];
-  selected.forEach(function (index, id) {
+  selected.forEach(function (id, index) {
     arr_objects.push(getOneSelectedElement(id));
   });
   return arr_objects;
@@ -190,10 +192,10 @@ function toggleActions() {
   var one_selected = selected.length === 1;
   var many_selected = selected.length >= 1;
   var only_image = getSelectedItems()
-    .filter(function (item) { return item.is_image === 0; })
+    .filter(function (item) { return !item.is_image; })
     .length === 0;
   var only_file = getSelectedItems()
-    .filter(function (item) { return item.is_file === 0; })
+    .filter(function (item) { return !item.is_file; })
     .length === 0;
 
   $('[data-action=use]').toggleClass('hide', !(many_selected && only_file))
@@ -221,14 +223,10 @@ function getPreviousDir() {
   return working_dir.substring(0, working_dir.lastIndexOf(ds));
 }
 
-function dir_starts_with(str) {
-  return ($('#working_dir').val() + '/').indexOf(str + '/') === 0;
-}
-
 function setOpenFolders() {
   $('[data-type=0]').each(function (index, folder) {
     // close folders that are not parent
-    var should_open = dir_starts_with($(folder).data('path'));
+    var should_open = ($('#working_dir').val() + '/').startsWith($(folder).data('path') + '/');
     $(folder).children('i')
       .toggleClass('fa-folder-open', should_open)
       .toggleClass('fa-folder', !should_open);
@@ -273,7 +271,8 @@ var refreshFoldersAndItems = function (data) {
 
 var hideNavAndShowEditor = function (data) {
   $('#nav-buttons > ul').addClass('hide');
-  $('#content').html(data);
+  $('#editor').removeClass('hide').html(data);
+  $('#content').addClass('hide');
 }
 
 function loadFolders() {
@@ -292,8 +291,9 @@ function loadItems() {
       items = response.items;
       var hasItems = response.items.length !== 0;
       $('#empty').toggleClass('hide', hasItems);
-      $('#items').toggleClass('hide', !hasItems);
-      $('#items').html('').removeClass('grid list row').addClass(response.display);
+      $('#items').toggleClass('hide', !hasItems).html('');
+      $('#editor').addClass('hide').html('');
+      $('#content').removeClass('hide');
 
       if (hasItems) {
         items.forEach(function (item, index) {
