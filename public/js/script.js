@@ -306,7 +306,7 @@ function loadItems() {
 
           template.children('a').attr('data-id', index);
           if (item.thumb_url) {
-            var image = $('<div>').addClass('img-bordered').css('background-image', 'url("' + item.thumb_url + '")')
+            var image = $('<div>').addClass('img-bordered').css('background-image', 'url("' + item.thumb_url + '?timestamp=' + item.time + '")')
           } else {
             var image = $('<i>').addClass('fa fa-5x ' + item.icon)
           }
