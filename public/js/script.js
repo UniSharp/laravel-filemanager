@@ -175,7 +175,7 @@ function getPreviousDir() {
 }
 
 function dir_starts_with(str) {
-  return $('#working_dir').val().indexOf(str) === 0;
+  return ($('#working_dir').val() + '/').indexOf(str + '/') === 0;
 }
 
 function setOpenFolders() {
