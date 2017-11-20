@@ -66,14 +66,14 @@ a, .square {
   position: relative;
 }
 
-#grid .square {
+.grid .square {
   width: 100%;
   border: 1px solid rgb(221, 221, 221);
   border-radius: 3px;
   padding-bottom: 100%;
 }
 
-#list .square {
+.list .square {
   min-width: 70px;
   height: 70px;
   margin-right: 10px;
@@ -94,18 +94,18 @@ a, .square {
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
-#grid .square > i {
+.grid .square > i {
   font-size: 80px;
 }
-#list .square > i {
+.list .square > i {
   font-size: 50px;
 }
 
-#grid .square.selected {
+.grid .square.selected {
   border: 5px solid #75C7C3;
   padding-bottom: calc(100% - 10px + 2px);
 }
-#list .square.selected {
+.list .square.selected {
   border: 4px solid #75C7C3;
 }
 .square.selected > .img-bordered {
@@ -121,7 +121,7 @@ a, .square {
   width: 100%;
 }
 
-#grid .item_name {
+.grid .item_name {
   margin-bottom: 20px;
   border: 1px solid rgb(221, 221, 221);
   border-top: none;
@@ -130,7 +130,7 @@ a, .square {
   text-align: center;
 }
 
-#list .item_name {
+.list .item_name {
   padding: 15px 0 5px;
 }
 
@@ -139,18 +139,18 @@ time {
   font-weight: 400;
 }
 
-#grid time {
+.grid time {
   display: none;
 }
 
-#list > li {
+.list > li {
   height: 80px;
   border-top: 1px solid rgb(221, 221, 221);
   padding: 5px 0 !important;
   margin-top: 0px;
 }
 
-#list > li > a {
+.list > li > a {
   display: flex;
   flex-direction: row;
 }

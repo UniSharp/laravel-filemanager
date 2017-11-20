@@ -27,6 +27,15 @@ class LfmItem
         return $this->attributes[$var_name];
     }
 
+    public function fill()
+    {
+        foreach (['name', 'path', 'time', 'icon', 'is_file', 'is_image', 'thumb_url'] as $column) {
+            $this->__get($column);
+        }
+
+        return $this;
+    }
+
     public function name()
     {
         return $this->lfm_path->getName();

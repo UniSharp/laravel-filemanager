@@ -12,10 +12,10 @@ class ItemsController extends LfmController
     public function getItems()
     {
         return [
-            'html' => (string) view('laravel-filemanager::items')->with([
-                'items' => array_merge($this->lfm->folders(), $this->lfm->files()),
-                'display' => $this->helper->getDisplayMode(),
-            ]),
+            'items' => array_map(function ($item) {
+                    return $item->fill()->attributes;
+                }, array_merge($this->lfm->folders(), $this->lfm->files())),
+            'display' => $this->helper->getDisplayMode(),
             'working_dir' => $this->lfm->path('working_dir'),
         ];
     }

@@ -3,6 +3,7 @@ var show_tree = false;
 var sort_type = 'alphabetic';
 var multi_selection_enabled = true;
 var selected = [];
+var items = [];
 
 Array.prototype.toggleElement = function (element) {
   var element_index = this.indexOf(element);
@@ -109,31 +110,31 @@ $('[data-action]').click(function () {
 // ==  Folder actions  ==
 // ======================
 
-$(document).on('click', '#grid a, #list a', function (e) {
+$(document).on('click', '#items a', function (e) {
   var element = $(e.target).closest('a');
-  var element_path = element.data('path');
+  var element_id = element.data('id');
 
   if (multi_selection_enabled) {
-    selected.toggleElement(element_path);
+    selected.toggleElement(element_id);
     element.find('.square').toggleClass('selected');
     toggleActions();
   } else {
     if (element.data('type') === 0) {
-      goTo(element_path);
+      goTo(getOneSelectedElement().path);
     } else {
-      useFile(element_path);
+      useFile(getOneSelectedElement().path);
     }
   }
 });
 
 function getOneSelectedElement(item_path) {
-  return $('[data-path="' + (item_path || selected[0]) + '"]');
+  return items[selected[0]];
 }
 
 function getSelectedItems() {
   var arr_objects = [];
-  selected.forEach(function (index, path) {
-    arr_objects.push(getOneSelectedElement(path));
+  selected.forEach(function (index, id) {
+    arr_objects.push(getOneSelectedElement(id));
   });
   return arr_objects;
 }
@@ -142,10 +143,10 @@ function toggleActions() {
   var one_selected = selected.length === 1;
   var many_selected = selected.length >= 1;
   var only_image = getSelectedItems()
-    .filter(function (item) { return item.data('image') === 0; })
+    .filter(function (item) { return item.is_image === 0; })
     .length === 0;
   var only_file = getSelectedItems()
-    .filter(function (item) { return item.data('type') === 0; })
+    .filter(function (item) { return item.is_file === 0; })
     .length === 0;
 
   $('[data-action=use]').toggleClass('hide', !(many_selected && only_file))
@@ -241,7 +242,34 @@ function loadItems() {
     .done(function (data) {
       selected = [];
       var response = JSON.parse(data);
-      $('#content').html(response.html);
+      items = response.items;
+      var hasItems = response.items.length !== 0;
+      $('#empty').toggleClass('hide', hasItems);
+      $('#items').toggleClass('hide', !hasItems);
+      $('#items').html('').removeClass('grid list row').addClass(response.display);
+
+      if (hasItems) {
+        items.forEach(function (item, index) {
+          items[(new Date()).getTime()] = item;
+          var template = $('#item-template').clone().removeClass('hide').removeAttr('id');
+          if (response.display === 'grid') {
+            $('#items').addClass('grid row');
+            template.addClass('col-xs-4 col-sm-4 col-md-3 col-lg-2');
+          }
+
+          template.children('a').attr('data-id', index);
+          if (item.thumb_url) {
+            var image = $('<div>').addClass('img-bordered').css('background-image', 'url("' + item.thumb_url + '")')
+          } else {
+            var image = $('<i>').addClass('fa fa-5x ' + item.icon)
+          }
+          template.find('.square').append(image);
+          template.find('.item_name').text(item.name);
+          template.find('time').text(item.time);
+
+          $('#items').append(template);
+        });
+      }
       $('#nav-buttons > ul').removeClass('hide');
       $('#working_dir').val(response.working_dir);
       $('#current_dir').text(response.working_dir);
@@ -265,11 +293,11 @@ function createFolder(folder_name) {
 function rename(item) {
   bootbox.prompt({
     title: lang['message-rename'],
-    value: item.data('name'),
+    value: item.name,
     callback: function (result) {
       if (result == null) return;
       performLfmRequest('rename', {
-        file: item.data('name'),
+        file: item.name,
         new_name: result
       }).done(refreshFoldersAndItems);
     }
@@ -279,25 +307,25 @@ function rename(item) {
 function trash(item) {
   bootbox.confirm(lang['message-delete'], function (result) {
     if (result == true) {
-      performLfmRequest('delete', {items: item.data('name')})
+      performLfmRequest('delete', {items: item.name})
         .done(refreshFoldersAndItems);
     }
   });
 }
 
 function crop(item) {
-  performLfmRequest('crop', {img: item.data('name')})
+  performLfmRequest('crop', {img: item.name})
     .done(hideNavAndShowEditor);
 }
 
 function resize(item) {
-  performLfmRequest('resize', {img: item.data('name')})
+  performLfmRequest('resize', {img: item.name})
     .done(hideNavAndShowEditor);
 }
 
 function download(item) {
   var data = defaultParameters();
-  data['file'] = item.data('name');
+  data['file'] = item.name;
   location.href = lfm_route + '/download?' + $.param(data);
 }
 
@@ -306,7 +334,7 @@ function preview(item) {
     title: lang['title-view'],
     message: $('<img>')
       .addClass('img img-responsive center-block')
-      .attr('src', item.data('path') + '?timestamp=' + item.data('time')),
+      .attr('src', item.path + '?timestamp=' + item.time),
     size: 'large',
     onEscape: true,
     backdrop: true
@@ -370,7 +398,7 @@ function use(item) {
     window.opener.SetUrl(p,w,h);
   }
 
-  var url = item.data('path');
+  var url = item.path;
   var field_name = getUrlParam('field_name');
   var is_ckeditor = getUrlParam('CKEditor');
   var is_fcke = typeof data != 'undefined' && data['Properties']['Width'] != '';

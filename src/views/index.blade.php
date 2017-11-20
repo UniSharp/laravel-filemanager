@@ -157,7 +157,24 @@
 
         <div id="alerts"></div>
 
-        <div id="content"></div>
+        <div id="content">
+          <ul id="items" class="list-unstyled"></ul>
+
+          <li id="item-template" class="hide">
+            <a>
+              <div class="square"></div>
+
+              <div>
+                <div class="item_name"></div>
+                <time></time>
+              </div>
+            </a>
+          </li>
+
+          <div class="alert alert-warning hide" id="empty">
+            <i class="fa fa-folder-open-o"></i> {{ trans('laravel-filemanager::lfm.message-empty') }}
+          </div>
+        </div>
       </div>
 
       <ul id="fab"></ul>
