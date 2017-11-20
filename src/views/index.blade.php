@@ -225,53 +225,5 @@
   <script>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/script.js')) !!}</script>
   {{-- Use the line below instead of the above if you need to cache the script. --}}
   {{-- <script src="{{ asset('vendor/laravel-filemanager/js/script.js') }}"></script> --}}
-  <script>
-    $.fn.fab = function (options) {
-      var menu = this;
-      menu.addClass('mfb-component--br mfb-zoomin').attr('data-mfb-toggle', 'hover');
-
-      var wrapper = $('<li>').addClass('mfb-component__wrap');
-      menu.append(wrapper);
-
-      var parent_button = $('<a>');
-      parent_button.addClass('mfb-component__button--main')
-        .append($('<i>').addClass('mfb-component__main-icon--resting fa fa-plus'))
-        .append($('<i>').addClass('mfb-component__main-icon--active fa fa-times'));
-      wrapper.append(parent_button);
-
-      var children_list = $('<ul>');
-      wrapper.append(children_list);
-
-      options.buttons.forEach(function (button) {
-        children_list.append(
-          $('<li>').append(
-            $('<a>').addClass('mfb-component__button--child')
-              .attr('data-mfb-label', button.label)
-              .attr('id', button.attrs.id)
-              .append(
-                $('<i>').addClass('mfb-component__child-icon')
-                  .addClass(button.icon)
-            )
-          )
-        );
-      });
-
-      children_list.addClass('mfb-component__list');
-    };
-    $('#fab').fab({
-      buttons: [
-        {
-          icon: 'fa fa-folder',
-          label: lang['nav-new'],
-          attrs: {id: 'add-folder'}
-        },
-        {
-          icon: 'fa fa-upload',
-          label: lang['nav-upload'],
-          attrs: {id: 'upload'}
-        }
-      ]
-    });
-  </script>
 </body>
 </html>
