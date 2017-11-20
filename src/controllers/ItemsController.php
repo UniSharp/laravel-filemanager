@@ -13,8 +13,8 @@ class ItemsController extends LfmController
     {
         return [
             'items' => array_map(function ($item) {
-                    return $item->fill()->attributes;
-                }, array_merge($this->lfm->folders(), $this->lfm->files())),
+                return $item->fill()->attributes;
+            }, array_merge($this->lfm->folders(), $this->lfm->files())),
             'display' => $this->helper->getDisplayMode(),
             'working_dir' => $this->lfm->path('working_dir'),
         ];
