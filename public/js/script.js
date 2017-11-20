@@ -63,6 +63,26 @@ $(document).ready(function () {
       }
     ]
   });
+
+  actions.forEach(function (action) {
+    $('#nav-buttons .dropdown').before(
+      $('<li>').append(
+        $('<a>').attr('data-action', action.name)
+          .append($('<i>').addClass('fa fa-fw fa-' + action.icon))
+          .append($('<span>').text(action.label))
+      )
+    );
+  });
+
+  sortings.forEach(function (sort) {
+    $('#nav-buttons .dropdown-menu').append(
+      $('<li>').append(
+        $('<a>').attr('data-sortby', sort.by)
+          .append($('<i>').addClass('fa fa-fw fa-' + sort.icon))
+          .append($('<span>').text(sort.label))
+      )
+    );
+  });
   loadFolders();
   performLfmRequest('errors')
     .done(function (response) {
@@ -139,17 +159,17 @@ $('#upload-btn').click(function () {
   });
 });
 
-$('[data-display]').click(function() {
+$(document).on('click', '[data-display]', function() {
   show_list = $(this).data('display');
   loadItems();
 });
 
-$('[data-sortby]').click(function() {
+$(document).on('click', '[data-sortby]', function() {
   sort_type = $(this).data('sortby');
   loadItems();
 });
 
-$('[data-action]').click(function () {
+$(document).on('click', '[data-action]', function () {
   window[$(this).data('action')](getOneSelectedElement());
 });
 

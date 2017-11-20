@@ -68,83 +68,11 @@
                 <span>Multi selection</span>
               </a>
             </li> --}}
-            <li>
-              <a data-action="use">
-                <i class="fa fa-check fa-fw"></i>
-                <span>Confirm</span>
-              </a>
-            </li>
-            <li>
-              <a data-action="rename">
-                <i class="fa fa-edit fa-fw"></i>
-                <span>{{ trans('laravel-filemanager::lfm.menu-rename') }}</span>
-              </a>
-            </li>
-            <li>
-              <a data-action="download">
-                <i class="fa fa-arrow-circle-o-down fa-fw"></i>
-                <span>{{ trans('laravel-filemanager::lfm.menu-download') }}</span>
-              </a>
-            </li>
-            <li>
-              <a data-action="preview">
-                <i class="fa fa-image fa-fw"></i>
-                <span>{{ trans('laravel-filemanager::lfm.menu-view') }}</span>
-              </a>
-            </li>
-            <li>
-              <a data-action="move">
-                <i class="fa fa-share-square-o fa-fw"></i>
-                <span>Move</span>
-              </a>
-            </li>
-            <li>
-              <a data-action="resize">
-                <i class="fa fa-arrows-alt fa-fw"></i>
-                <span>{{ trans('laravel-filemanager::lfm.menu-resize') }}</span>
-              </a>
-            </li>
-            <li>
-              <a data-action="crop">
-                <i class="fa fa-crop fa-fw"></i>
-                <span>{{ trans('laravel-filemanager::lfm.menu-crop') }}</span>
-              </a>
-            </li>
-            <li>
-              <a data-action="trash">
-                <i class="fa fa-trash fa-fw"></i>
-                <span>{{ trans('laravel-filemanager::lfm.menu-delete') }}</span>
-              </a>
-            </li>
-            <li>
-              <a data-display="grid">
-                <i class="fa fa-th-large fa-fw"></i>
-                <span>{{ trans('laravel-filemanager::lfm.nav-thumbnails') }}</span>
-              </a>
-            </li>
-            <li>
-              <a data-display="list">
-                <i class="fa fa-list-ul fa-fw"></i>
-                <span>{{ trans('laravel-filemanager::lfm.nav-list') }}</span>
-              </a>
-            </li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-sort fa-fw"></i>
-                {{ trans('laravel-filemanager::lfm.nav-sort') }}
+                <i class="fa fa-sort fa-fw"></i>{{ trans('laravel-filemanager::lfm.nav-sort') }}
               </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a data-sortby="alphabetic">
-                    <i class="fa fa-sort-alpha-asc"></i> {{ trans('laravel-filemanager::lfm.nav-sort-alphabetic') }}
-                  </a>
-                </li>
-                <li>
-                  <a data-sortby="time">
-                    <i class="fa fa-sort-amount-asc"></i> {{ trans('laravel-filemanager::lfm.nav-sort-time') }}
-                  </a>
-                </li>
-              </ul>
+              <ul class="dropdown-menu"></ul>
             </li>
           </ul>
         </div>
@@ -223,6 +151,66 @@
     var route_prefix = "{{ url('/') }}";
     var lfm_route = "{{ url(config('lfm.url_prefix')) }}";
     var lang = {!! json_encode(trans('laravel-filemanager::lfm')) !!};
+    var actions = [
+      {
+        name: 'use',
+        icon: 'check',
+        label: 'Confirm'
+      },
+      {
+        name: 'rename',
+        icon: 'edit',
+        label: lang['menu-rename']
+      },
+      {
+        name: 'download',
+        icon: 'arrow-circle-o-down',
+        label: lang['menu-download']
+      },
+      {
+        name: 'preview',
+        icon: 'image',
+        label: lang['menu-view']
+      },
+      {
+        name: 'resize',
+        icon: 'arrows-alt',
+        label: lang['menu-resize']
+      },
+      {
+        name: 'crop',
+        icon: 'crop',
+        label: lang['menu-crop']
+      },
+      {
+        name: 'trash',
+        icon: 'trash',
+        label: lang['menu-delete']
+      },
+      {
+        name: 'grid',
+        icon: 'th-large',
+        label: lang['nav-thumbnails']
+      },
+      {
+        name: 'list',
+        icon: 'list-ul',
+        label: lang['nav-list']
+      },
+    ];
+
+    var sortings = [
+      {
+        by: 'alphabetic',
+        icon: 'sort-alpha-asc',
+        label: lang['nav-sort-alphabetic']
+      },
+      {
+        by: 'time',
+        icon: 'sort-amount-asc',
+        label: lang['nav-sort-time']
+      }
+    ];
   </script>
   <script>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/script.js')) !!}</script>
   {{-- Use the line below instead of the above if you need to cache the script. --}}
