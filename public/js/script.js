@@ -226,6 +226,7 @@ function toggleActions() {
   $('[data-action=resize]').toggleClass('hide', !(one_selected && only_image))
   $('[data-action=crop]').toggleClass('hide', !(one_selected && only_image))
   $('[data-action=trash]').toggleClass('hide', !many_selected)
+  $('#fab').toggleClass('hide', selected.length !== 0)
 }
 
 $(document).on('click', '#tree a', function (e) {
