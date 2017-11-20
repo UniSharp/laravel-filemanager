@@ -39,13 +39,13 @@ class UploadController extends LfmController
                 return $this->errors;
             }
 
-            if (!$this->proceedSingleUpload($file)) {
+            $filename = $this->proceedSingleUpload($file);
+            if ($filename === false) {
                 return $this->errors;
             }
 
             // upload via ckeditor 'Upload' tab
-            $new_filename = $this->getNewName($file);
-            return $this->useFile($new_filename);
+            return $this->useFile($filename);
         }
 
 
@@ -97,7 +97,7 @@ class UploadController extends LfmController
         // TODO should be "FileWasUploaded"
         event(new ImageWasUploaded(realpath($new_file_path)));
 
-        return true;
+        return $new_filename;
     }
 
     private function fileIsValid($file)
