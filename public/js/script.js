@@ -66,8 +66,8 @@ $(document).ready(function () {
 
   actions.forEach(function (action) {
     $('#nav-buttons .dropdown').before(
-      $('<li>').append(
-        $('<a>').attr('data-action', action.name)
+      $('<li>').addClass('nav-item').append(
+        $('<a>').addClass('nav-link').attr('data-action', action.name)
           .append($('<i>').addClass('fa fa-fw fa-' + action.icon))
           .append($('<span>').text(action.label))
       )
@@ -76,11 +76,9 @@ $(document).ready(function () {
 
   sortings.forEach(function (sort) {
     $('#nav-buttons .dropdown-menu').append(
-      $('<li>').append(
-        $('<a>').attr('data-sortby', sort.by)
-          .append($('<i>').addClass('fa fa-fw fa-' + sort.icon))
-          .append($('<span>').text(sort.label))
-      )
+      $('<a>').addClass('dropdown-item').attr('data-sortby', sort.by)
+        .append($('<i>').addClass('fa fa-fw fa-' + sort.icon))
+        .append($('<span>').text(sort.label))
     );
   });
   loadFolders();

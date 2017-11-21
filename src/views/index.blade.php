@@ -14,7 +14,7 @@
 
   <title>{{ trans('laravel-filemanager::lfm.title-page') }}</title>
   <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/laravel-filemanager/img/folder.png') }}">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/cropper.min.css') }}">
   <style>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/css/lfm.css')) !!}</style>
@@ -24,6 +24,44 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
 </head>
 <body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav">
+    {{-- <div class="navbar-header">
+      <a class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-buttons">
+        <i class="fa fa-cog fa-2x fa-tw"></i>
+      </a>
+      <a class="navbar-brand invisible hidden-xs" id="to-previous">
+        <i class="fa fa-arrow-left fa-fw"></i>
+        <span class="hidden-xs">{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
+      </a>
+      <a class="navbar-brand visible-xs" id="show_tree">
+        <i class="fa fa-bars fa-fw"></i>
+      </a>
+      <a class="navbar-brand">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
+    </div> --}}
+    <a class="navbar-brand">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
+    <div class="collapse navbar-collapse" id="nav-buttons">
+      <ul class="navbar-nav ml-auto">
+        <li id="loading" class="nav-item">
+          <a class="nav-link">
+            <i class="fa fa-spinner fa-spin"></i>
+          </a>
+        </li>
+        {{-- <li>
+          <a id="multi_selection_toggle">
+            <i class="fa fa-check-square fa-fw"></i>
+            <span>Multi selection</span>
+          </a>
+        </li> --}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-sort fa-fw"></i>{{ trans('laravel-filemanager::lfm.nav-sort') }}
+          </a>
+          <div class="dropdown-menu"></div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
   <div class="container-fluid">
     <aside id="mobile_tree">
       <div class="row">
@@ -44,40 +82,9 @@
         </li>
       </ul>
     </aside>
-    <div class="row">
-      <nav class="navbar navbar-inverse" id="nav">
-        <div class="navbar-header">
-          <a class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-buttons">
-            <i class="fa fa-cog fa-2x fa-tw"></i>
-          </a>
-          <a class="navbar-brand invisible hidden-xs" id="to-previous">
-            <i class="fa fa-arrow-left fa-fw"></i>
-            <span class="hidden-xs">{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
-          </a>
-          <a class="navbar-brand visible-xs" id="show_tree">
-            <i class="fa fa-bars fa-fw"></i>
-          </a>
-          <a class="navbar-brand">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
-        </div>
-        <div class="collapse navbar-collapse" id="nav-buttons">
-          <ul class="nav navbar-nav navbar-right">
-            <li id="loading" class="hide"><a><i class="fa fa-spinner fa-spin"></i></a></li>
-            {{-- <li>
-              <a id="multi_selection_toggle">
-                <i class="fa fa-check-square fa-fw"></i>
-                <span>Multi selection</span>
-              </a>
-            </li> --}}
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-sort fa-fw"></i>{{ trans('laravel-filemanager::lfm.nav-sort') }}
-              </a>
-              <ul class="dropdown-menu"></ul>
-            </li>
-          </ul>
-        </div>
-      </nav>
 
+
+    <div class="row">
       <div class="col-sm-2 hidden-xs" id="tree"></div>
 
       <div class="col-sm-10 col-xs-12" id="main">
@@ -141,10 +148,11 @@
     </div>
   </div>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script src="{{ asset('vendor/laravel-filemanager/js/cropper.min.js') }}"></script>
   <script src="{{ asset('vendor/laravel-filemanager/js/jquery.form.min.js') }}"></script>
   <script>

@@ -1,3 +1,7 @@
+.hide {
+  display: none;
+}
+
 a {
   color: #333844;
 }
@@ -69,7 +73,6 @@ a, .square {
 .grid .square {
   width: 100%;
   border: 1px solid rgb(221, 221, 221);
-  border-radius: 3px;
   padding-bottom: 100%;
 }
 
