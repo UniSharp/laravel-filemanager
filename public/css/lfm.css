@@ -8,7 +8,7 @@ a {
   color: white;
 }
 
-#nav, #nav .dropdown-menu {
+#nav, #nav .dropdown-menu, .bg-main {
   background-color: #333844;
 }
 
@@ -17,11 +17,13 @@ a {
 }
 
 #tree {
-  border-right: 1px solid rgb(221, 221, 221);
-  min-height: calc(100vh - 56px - 32px);
+  // border-right: 1px solid rgb(221, 221, 221);
+  // min-height: calc(100vh - 56px - 32px);
 }
 
 #mobile_tree {
+  // background-color: #333844;
+  background-color: white;
   position: absolute;
   z-index: 999;
   width: 300px;
@@ -29,9 +31,24 @@ a {
   /*height: 100vh;*/
 }
 
-.nav-pills > li.active > a {
-  background-color: #75C7C3;
+.nav-pills > .nav-item > .nav-link {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+}
+
+.nav-pills > .sub-item > .nav-link {
+  height: 3rem;
+  padding-left: 3rem;
+}
+
+.nav-pills > li.active > a, .nav-pills > li:hover > a {
+  // background-color: #75C7C3;
+  // background-color: #333844;
+  background-color: #ddd;
   border-radius: 0;
+  // color: white;
+  color: #333844;
 }
 
 .square {

@@ -71,22 +71,44 @@
     </div>
   </nav>
 
-  <aside id="mobile_tree" class="bg-secondary">
-    <div class="row">
-      <div class="col-xs-4">
-        <img src="/vendor/laravel-filemanager/img/folder.png" class="w-100 p-5">
+  <aside id="mobile_tree">
+    <div class="mt-3 mx-3">
+      <h1 style="font-size: 1.5rem;">Laravel File Manager</h1>
+      <small class="d-block">Ver 2.0</small>
+      <div class="row mt-3">
+        <div class="col-3">
+          <img src="https://www.unisharp.com/img/favicon_unisharp_logo.png">
+        </div>
+
+        <div class="col-9">
+          <p>Current usage :</p>
+          <p>20 GB (Max : 1 TB)</p>
+        </div>
       </div>
-      <div class="col-xs-8">
-        <h4>Laravel File Manager</h4>
-        <small>Ver 2.0</small>
+      <div class="progress mt-3" style="height: .5rem;">
+        <div class="progress-bar progress-bar-striped progress-bar-animated w-75 bg-main" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
     </div>
-    <ul class="nav nav-pills nav-stacked">
-      <li class="active"><a href="#">
-        <i class="fa fa-user fa-fw"></i> My</a>
+    <ul class="nav nav-pills flex-column mt-3">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
+          <i class="fa fa-folder-open fa-fw"></i> My
+        </a>
       </li>
-      <li><a href="#">
-        <i class="fa fa-share-alt fa-fw"></i> Share</a>
+      <li class="nav-item sub-item">
+        <a class="nav-link" href="#">
+          <i class="fa fa-folder fa-fw"></i> Share
+        </a>
+      </li>
+      <li class="nav-item sub-item">
+        <a class="nav-link" href="#">
+          <i class="fa fa-folder fa-fw"></i> Share
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fa fa-folder fa-fw"></i> Share
+        </a>
       </li>
     </ul>
   </aside>
@@ -130,15 +152,15 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aia-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">{{ trans('laravel-filemanager::lfm.title-upload') }}</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aia-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
           <form action="{{ route('unisharp.lfm.upload') }}" role='form' id='uploadForm' name='uploadForm' method='post' enctype='multipart/form-data'>
             <div class="form-group" id="attachment">
               <label for='upload' class='control-label'>{{ trans('laravel-filemanager::lfm.message-choose') }}</label>
               <div class="controls">
-                <div class="input-group" style="width: 100%">
+                <div class="input-group w-100">
                   <input type="file" id="upload" name="upload[]" multiple="multiple">
                 </div>
               </div>
@@ -149,8 +171,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-close') }}</button>
-          <button type="button" class="btn btn-primary" id="upload-btn">{{ trans('laravel-filemanager::lfm.btn-upload') }}</button>
+          <button type="button" class="btn btn-secondary btn-lg w-50" data-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-close') }}</button>
+          <button type="button" class="btn btn-primary btn-lg w-50" id="upload-btn">{{ trans('laravel-filemanager::lfm.btn-upload') }}</button>
         </div>
       </div>
     </div>
