@@ -64,10 +64,10 @@ $(document).ready(function () {
     ]
   });
 
-  actions.forEach(function (action) {
+  actions.reverse().forEach(function (action) {
     $('#nav-buttons #loading').after(
       $('<li>').addClass('nav-item').append(
-        $('<a>').addClass('nav-link').attr('data-action', action.name)
+        $('<a>').addClass('nav-link d-none').attr('data-action', action.name)
           .append($('<i>').addClass('fa fa-fw fa-' + action.icon))
           .append($('<span>').text(action.label))
       )
@@ -218,15 +218,15 @@ function toggleActions() {
     .filter(function (item) { return !item.is_file; })
     .length === 0;
 
-  $('[data-action=use]').toggleClass('hide', !(many_selected && only_file))
-  $('[data-action=rename]').toggleClass('hide', !one_selected)
-  $('[data-action=preview]').toggleClass('hide', !(one_selected && only_image))
-  $('[data-action=move]').toggleClass('hide', !(many_selected))
-  $('[data-action=download]').toggleClass('hide', !(many_selected && only_file))
-  $('[data-action=resize]').toggleClass('hide', !(one_selected && only_image))
-  $('[data-action=crop]').toggleClass('hide', !(one_selected && only_image))
-  $('[data-action=trash]').toggleClass('hide', !many_selected)
-  $('#fab').toggleClass('hide', selected.length !== 0)
+  $('[data-action=use]').toggleClass('d-none', !(many_selected && only_file))
+  $('[data-action=rename]').toggleClass('d-none', !one_selected)
+  $('[data-action=preview]').toggleClass('d-none', !(one_selected && only_image))
+  $('[data-action=move]').toggleClass('d-none', !(many_selected))
+  $('[data-action=download]').toggleClass('d-none', !(many_selected && only_file))
+  $('[data-action=resize]').toggleClass('d-none', !(one_selected && only_image))
+  $('[data-action=crop]').toggleClass('d-none', !(one_selected && only_image))
+  $('[data-action=trash]').toggleClass('d-none', !many_selected)
+  $('#fab').toggleClass('d-none', selected.length !== 0)
 }
 
 $(document).on('click', '#tree a', function (e) {
@@ -291,9 +291,9 @@ var refreshFoldersAndItems = function (data) {
 };
 
 var hideNavAndShowEditor = function (data) {
-  $('#nav-buttons > ul').addClass('hide');
-  $('#editor').removeClass('hide').html(data);
-  $('#content').addClass('hide');
+  $('#nav-buttons > ul').addClass('d-none');
+  $('#editor').removeClass('d-none').html(data);
+  $('#content').addClass('d-none');
 }
 
 function loadFolders() {
@@ -311,15 +311,15 @@ function loadItems() {
       var response = JSON.parse(data);
       items = response.items;
       var hasItems = response.items.length !== 0;
-      $('#empty').toggleClass('hide', hasItems);
-      $('#items').toggleClass('hide', !hasItems).html('').removeClass('list grid row');
-      $('#editor').addClass('hide').html('');
-      $('#content').removeClass('hide');
+      $('#empty').toggleClass('d-none', hasItems);
+      $('#items').toggleClass('d-none', !hasItems).html('').removeClass('list grid row');
+      $('#editor').addClass('d-none').html('');
+      $('#content').removeClass('d-none');
 
       if (hasItems) {
         items.forEach(function (item, index) {
           items[(new Date()).getTime()] = item;
-          var template = $('#item-template').clone().removeClass('hide').removeAttr('id');
+          var template = $('#item-template').clone().removeClass('d-none').removeAttr('id');
           if (response.display === 'grid') {
             $('#items').addClass('grid row');
             template.addClass('col-xs-4 col-sm-4 col-md-3 col-lg-2');
@@ -340,13 +340,13 @@ function loadItems() {
           $('#items').append(template);
         });
       }
-      $('#nav-buttons > ul').removeClass('hide');
+      $('#nav-buttons > ul').removeClass('d-none');
       $('#working_dir').val(response.working_dir);
       $('#current_dir').text(response.working_dir);
       console.log('Current working_dir : ' + $('#working_dir').val());
       $('#to-previous').toggleClass('invisible', getPreviousDir() == '');
       setOpenFolders();
-      $('#loading').addClass('hide');
+      $('#loading').addClass('d-none');
       toggleActions();
     });
 }

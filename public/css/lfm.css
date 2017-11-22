@@ -1,17 +1,14 @@
-.hide {
-  display: none;
-}
-
 a {
   color: #333844;
+  text-decoration: none !important;
+  cursor: pointer;
 }
 
-.nav-pills > li.active > a {
-  background-color: #75C7C3;
-  border-radius: 0;
+#nav a, #fab a {
+  color: white;
 }
 
-#nav .dropdown-menu {
+#nav, #nav .dropdown-menu {
   background-color: #333844;
 }
 
@@ -26,37 +23,19 @@ a {
 
 #mobile_tree {
   position: absolute;
-  z-index:999;
+  z-index: 999;
   width: 300px;
   left: -300px;
   /*height: 100vh;*/
 }
 
-#nav {
-  background-color: #333844;
-}
-
-#nav a {
-  color: white;
-}
-
-#nav .navbar-toggler {
-  border: none;
-  padding: 10px;
-  margin: 0;
-}
-
-
-#fab a, #fab a{
-  color: white;
-}
-
-a, .square {
-  cursor: pointer;
-  text-decoration: none !important;
+.nav-pills > li.active > a {
+  background-color: #75C7C3;
+  border-radius: 0;
 }
 
 .square {
+  cursor: pointer;
   position: relative;
 }
 
@@ -105,13 +84,6 @@ a, .square {
   margin: 1px;
   width: calc(100% - 1px * 2);
   height: calc(100% - 1px * 2);
-}
-
-.item_name {
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow: ellipsis;
-  width: 100%;
 }
 
 .grid .item_name {

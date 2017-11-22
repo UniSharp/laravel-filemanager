@@ -33,7 +33,7 @@
       <i class="fa fa-bars fa-fw"></i>
     </a>
     <a class="navbar-brand">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
-    <a class="navbar-toggler collapsed ml-auto" data-toggle="collapse" data-target="#nav-buttons">
+    <a class="navbar-toggler collapsed border-0 p-2 m-0 ml-auto" data-toggle="collapse" data-target="#nav-buttons">
       <i class="fa fa-cog fa-fw"></i>
     </a>
     <div class="collapse navbar-collapse" id="nav-buttons">
@@ -103,7 +103,7 @@
         <div id="content">
           <ul id="items" class="list-unstyled"></ul>
 
-          <li id="item-template" class="hide">
+          <li id="item-template" class="d-none">
             <a>
               <div class="square"></div>
 
@@ -114,7 +114,7 @@
             </a>
           </li>
 
-          <div class="alert alert-warning hide" id="empty">
+          <div id="empty" class="alert alert-warning d-none">
             <i class="fa fa-folder-open-o"></i> {{ trans('laravel-filemanager::lfm.message-empty') }}
           </div>
         </div>
