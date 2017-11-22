@@ -65,7 +65,7 @@ $(document).ready(function () {
   });
 
   actions.forEach(function (action) {
-    $('#nav-buttons .dropdown').before(
+    $('#nav-buttons #loading').after(
       $('<li>').addClass('nav-item').append(
         $('<a>').addClass('nav-link').attr('data-action', action.name)
           .append($('<i>').addClass('fa fa-fw fa-' + action.icon))
@@ -159,6 +159,7 @@ $('#upload-btn').click(function () {
 
 $(document).on('click', '[data-display]', function() {
   show_list = $(this).data('display');
+  console.log(show_list);
   loadItems();
 });
 
@@ -168,6 +169,7 @@ $(document).on('click', '[data-sortby]', function() {
 });
 
 $(document).on('click', '[data-action]', function () {
+  console.log($(this).data('action'));
   window[$(this).data('action')](getOneSelectedElement());
 });
 
@@ -310,7 +312,7 @@ function loadItems() {
       items = response.items;
       var hasItems = response.items.length !== 0;
       $('#empty').toggleClass('hide', hasItems);
-      $('#items').toggleClass('hide', !hasItems).html('');
+      $('#items').toggleClass('hide', !hasItems).html('').removeClass('list grid row');
       $('#editor').addClass('hide').html('');
       $('#content').removeClass('hide');
 
@@ -321,6 +323,8 @@ function loadItems() {
           if (response.display === 'grid') {
             $('#items').addClass('grid row');
             template.addClass('col-xs-4 col-sm-4 col-md-3 col-lg-2');
+          } else {
+            $('#items').addClass('list');
           }
 
           template.children('a').attr('data-id', index);
@@ -331,7 +335,7 @@ function loadItems() {
           }
           template.find('.square').append(image);
           template.find('.item_name').text(item.name);
-          template.find('time').text(item.time);
+          template.find('time').text((new Date(item.time)).toLocaleString());
 
           $('#items').append(template);
         });

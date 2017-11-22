@@ -11,31 +11,28 @@ a {
   border-radius: 0;
 }
 
-#nav ul.dropdown-menu {
+#nav .dropdown-menu {
   background-color: #333844;
 }
 
-#nav ul.dropdown-menu > li > a:hover {
+#nav .dropdown-menu > a:hover {
   color: #333844;
 }
 
 #tree {
   border-right: 1px solid rgb(221, 221, 221);
-  min-height: calc(100vh - 72px - 20px);
+  min-height: calc(100vh - 56px - 32px);
 }
 
 #mobile_tree {
-  background-color: white;
   position: absolute;
   z-index:999;
   width: 300px;
   left: -300px;
-  height: 100vh;
+  /*height: 100vh;*/
 }
 
 #nav {
-  border: none;
-  border-radius: 0px;
   background-color: #333844;
 }
 
@@ -43,22 +40,15 @@ a {
   color: white;
 }
 
-#nav .navbar-toggle {
+#nav .navbar-toggler {
   border: none;
   padding: 10px;
   margin: 0;
 }
 
-#nav .navbar-toggle:hover {
-  background: none;
-}
 
-#fab a:hover, #fab a:focus{
+#fab a, #fab a{
   color: white;
-}
-
-.invisible {
-  opacity: 0;
 }
 
 a, .square {
@@ -134,22 +124,26 @@ a, .square {
 }
 
 .list .item_name {
-  padding: 15px 0 5px;
+  padding: 10px 0 5px;
 }
 
 time {
-  color: #aaa;
-  font-weight: 400;
+  font-size: .9rem;
 }
 
 .grid time {
   display: none;
 }
 
+.info > * {
+  display: block;
+  max-width: calc(100vw - 70px - 60px);
+}
+
 .list > li {
   height: 80px;
   border-top: 1px solid rgb(221, 221, 221);
-  padding: 5px 0 !important;
+  padding: 5px 0;
   margin-top: 0px;
 }
 

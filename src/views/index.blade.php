@@ -24,21 +24,18 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav">
-    {{-- <div class="navbar-header">
-      <a class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-buttons">
-        <i class="fa fa-cog fa-2x fa-tw"></i>
-      </a>
-      <a class="navbar-brand invisible hidden-xs" id="to-previous">
-        <i class="fa fa-arrow-left fa-fw"></i>
-        <span class="hidden-xs">{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
-      </a>
-      <a class="navbar-brand visible-xs" id="show_tree">
-        <i class="fa fa-bars fa-fw"></i>
-      </a>
-      <a class="navbar-brand">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
-    </div> --}}
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark" id="nav">
+    <a class="navbar-brand invisible" id="to-previous">
+      <i class="fa fa-arrow-left fa-fw"></i>
+      <span class="d-none d-md-inline">{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
+    </a>
+    <a class="navbar-brand visible" id="show_tree">
+      <i class="fa fa-bars fa-fw"></i>
+    </a>
     <a class="navbar-brand">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
+    <a class="navbar-toggler collapsed ml-auto" data-toggle="collapse" data-target="#nav-buttons">
+      <i class="fa fa-cog fa-fw"></i>
+    </a>
     <div class="collapse navbar-collapse" id="nav-buttons">
       <ul class="navbar-nav ml-auto">
         <li id="loading" class="nav-item">
@@ -52,42 +49,53 @@
             <span>Multi selection</span>
           </a>
         </li> --}}
+        <li class="nav-item">
+          <a class="nav-link" data-display="grid">
+            <i class="fa fa-th-large fa-fw"></i>
+            <span>{{ trans('laravel-filemanager::lfm.nav-thumbnails') }}</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-display="list">
+            <i class="fa fa-list-ul fa-fw"></i>
+            <span>{{ trans('laravel-filemanager::lfm.nav-list') }}</span>
+          </a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-sort fa-fw"></i>{{ trans('laravel-filemanager::lfm.nav-sort') }}
           </a>
-          <div class="dropdown-menu"></div>
+          <div class="dropdown-menu dropdown-menu-right"></div>
         </li>
       </ul>
     </div>
   </nav>
 
-  <div class="container-fluid">
-    <aside id="mobile_tree">
-      <div class="row">
-        <div class="col-xs-4">
-          <img src="/vendor/laravel-filemanager/img/folder.png" style="width: 100%">
-        </div>
-        <div class="col-xs-8">
-          <h4>Laravel File Manager</h4>
-          <small>Ver 2.0</small>
-        </div>
-      </div>
-      <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a href="#">
-          <i class="fa fa-user fa-tw"></i> My</a>
-        </li>
-        <li><a href="#">
-          <i class="fa fa-share-alt fa-tw"></i> Share</a>
-        </li>
-      </ul>
-    </aside>
-
-
+  <aside id="mobile_tree" class="bg-secondary">
     <div class="row">
-      <div class="col-sm-2 hidden-xs" id="tree"></div>
+      <div class="col-xs-4">
+        <img src="/vendor/laravel-filemanager/img/folder.png" class="w-100 p-5">
+      </div>
+      <div class="col-xs-8">
+        <h4>Laravel File Manager</h4>
+        <small>Ver 2.0</small>
+      </div>
+    </div>
+    <ul class="nav nav-pills nav-stacked">
+      <li class="active"><a href="#">
+        <i class="fa fa-user fa-fw"></i> My</a>
+      </li>
+      <li><a href="#">
+        <i class="fa fa-share-alt fa-fw"></i> Share</a>
+      </li>
+    </ul>
+  </aside>
 
-      <div class="col-sm-10 col-xs-12" id="main">
+  <div class="container-fluid pt-3">
+    <div class="row">
+      <div class="col-md-2 d-none d-md-block" id="tree"></div>
+
+      <div class="col-md-10 col-12" id="main">
         {{-- <div class="visible-xs" id="current_dir" style="padding: 5px 15px;background-color: #f8f8f8;color: #5e5e5e;"></div> --}}
 
         <div id="alerts"></div>
@@ -99,9 +107,9 @@
             <a>
               <div class="square"></div>
 
-              <div>
-                <div class="item_name"></div>
-                <time></time>
+              <div class="info">
+                <div class="item_name text-truncate"></div>
+                <time class="text-muted font-weight-light text-truncate"></time>
               </div>
             </a>
           </li>
@@ -194,16 +202,6 @@
         name: 'trash',
         icon: 'trash',
         label: lang['menu-delete']
-      },
-      {
-        name: 'grid',
-        icon: 'th-large',
-        label: lang['nav-thumbnails']
-      },
-      {
-        name: 'list',
-        icon: 'list-ul',
-        label: lang['nav-list']
       },
     ];
 
