@@ -122,24 +122,20 @@
 
         <div id="alerts"></div>
 
-        <div id="content">
-          <ul id="items" class="list-unstyled"></ul>
-
-          <li id="item-template" class="d-none">
-            <a>
-              <div class="square"></div>
-
-              <div class="info">
-                <div class="item_name text-truncate"></div>
-                <time class="text-muted font-weight-light text-truncate"></time>
-              </div>
-            </a>
-          </li>
-
-          <div id="empty" class="alert alert-warning d-none">
-            <i class="fa fa-folder-open-o"></i> {{ trans('laravel-filemanager::lfm.message-empty') }}
-          </div>
+        <div id="empty" class="alert alert-warning d-none">
+          <i class="fa fa-folder-open-o"></i> {{ trans('laravel-filemanager::lfm.message-empty') }}
         </div>
+
+        <div id="content"></div>
+
+        <a id="item-template" class="d-none">
+          <div class="square"></div>
+
+          <div class="info">
+            <div class="item_name text-truncate"></div>
+            <time class="text-muted font-weight-light text-truncate"></time>
+          </div>
+        </a>
 
         <div id="editor"></div>
       </div>

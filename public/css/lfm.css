@@ -16,19 +16,12 @@ a {
   color: #333844;
 }
 
-#tree {
-  // border-right: 1px solid rgb(221, 221, 221);
-  // min-height: calc(100vh - 56px - 32px);
-}
-
 #mobile_tree {
-  // background-color: #333844;
   background-color: white;
   position: absolute;
   z-index: 999;
   width: 300px;
   left: -300px;
-  /*height: 100vh;*/
 }
 
 .nav-pills > .nav-item > .nav-link {
@@ -43,39 +36,53 @@ a {
 }
 
 .nav-pills > li.active > a, .nav-pills > li:hover > a {
-  // background-color: #75C7C3;
-  // background-color: #333844;
   background-color: #ddd;
   border-radius: 0;
-  // color: white;
   color: #333844;
 }
 
 .square {
   cursor: pointer;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.grid .square {
-  width: 100%;
-  border: 1px solid rgb(221, 221, 221);
-  padding-bottom: 100%;
+.grid {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.list .square {
-  min-width: 70px;
-  height: 70px;
+.grid a {
+  margin-left: 10px;
   margin-right: 10px;
 }
 
+.grid .square {
+  border: 1px solid rgb(221, 221, 221);
+}
+
+.list .square {
+  margin-right: 1rem;
+}
+
 .square > .img-bordered {
-  position: absolute;
-  width: calc(100% - 5px * 2);
-  height: calc(100% - 5px * 2);
   margin: 5px;
   background-size: cover;
   background-position: center;
 }
+
+.grid .square > .img-bordered {
+  width: 200px;
+  height: 200px;
+}
+
+.list .square > .img-bordered {
+  width: 70px;
+  height: 70px;
+}
+
 .square > i {
   color: #333844;
   position: absolute;
@@ -92,15 +99,12 @@ a {
 
 .grid .square.selected {
   border: 5px solid #75C7C3;
-  padding-bottom: calc(100% - 10px + 2px);
 }
 .list .square.selected {
   border: 4px solid #75C7C3;
 }
 .square.selected > .img-bordered {
   margin: 1px;
-  width: calc(100% - 1px * 2);
-  height: calc(100% - 1px * 2);
 }
 
 .grid .item_name {
@@ -124,19 +128,19 @@ time {
   display: none;
 }
 
+.info {
+  max-width: 212px;
+}
+
 .info > * {
   display: block;
   max-width: calc(100vw - 70px - 60px);
 }
 
-.list > li {
-  height: 80px;
+.list a {
   border-top: 1px solid rgb(221, 221, 221);
   padding: 5px 0;
   margin-top: 0px;
-}
-
-.list > li > a {
   display: flex;
   flex-direction: row;
 }
