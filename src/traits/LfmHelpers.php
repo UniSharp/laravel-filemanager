@@ -63,7 +63,12 @@ trait LfmHelpers
      */
     public function getFileUrl($image_name = null, $is_thumb = null)
     {
-        return url($this->composeSegments('url', $is_thumb, $image_name));
+    	$url = $this->composeSegments('url', $is_thumb, $image_name);
+    	if(config('lfm.relative_paths', false)){
+    		//Return url without domain
+			return '/'.$url;
+		}
+        return url($url);
     }
 
     /**
