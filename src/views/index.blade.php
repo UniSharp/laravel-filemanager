@@ -25,11 +25,11 @@
 </head>
 <body>
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark" id="nav">
-    <a class="navbar-brand invisible" id="to-previous">
+    <a class="navbar-brand invisible-lg d-none d-lg-inline" id="to-previous">
       <i class="fa fa-arrow-left fa-fw"></i>
-      <span class="d-none d-md-inline">{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
+      <span class="d-none d-lg-inline">{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
     </a>
-    <a class="navbar-brand visible" id="show_tree">
+    <a class="navbar-brand d-block d-lg-none" id="show_tree">
       <i class="fa fa-bars fa-fw"></i>
     </a>
     <a class="navbar-brand">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
@@ -89,35 +89,14 @@
         <div class="progress-bar progress-bar-striped progress-bar-animated w-75 bg-main" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
     </div>
-    <ul class="nav nav-pills flex-column mt-3">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">
-          <i class="fa fa-folder-open fa-fw"></i> My
-        </a>
-      </li>
-      <li class="nav-item sub-item">
-        <a class="nav-link" href="#">
-          <i class="fa fa-folder fa-fw"></i> Share
-        </a>
-      </li>
-      <li class="nav-item sub-item">
-        <a class="nav-link" href="#">
-          <i class="fa fa-folder fa-fw"></i> Share
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fa fa-folder fa-fw"></i> Share
-        </a>
-      </li>
-    </ul>
+    <div id="tree2" class="mt-3"></div>
   </aside>
 
-  <div class="container-fluid pt-3">
-    <div class="row">
-      <div class="col-md-2 d-none d-md-block" id="tree"></div>
+  <div class="container-fluid pt-3 d-flex flex-row">
+    {{-- <div class="row"> --}}
+      <div id="tree" class="d-none d-lg-block"></div>
 
-      <div class="col-md-10 col-12" id="main">
+      <div id="main">
         {{-- <div class="visible-xs" id="current_dir" style="padding: 5px 15px;background-color: #f8f8f8;color: #5e5e5e;"></div> --}}
 
         <div id="alerts"></div>
@@ -136,12 +115,10 @@
             <time class="text-muted font-weight-light text-truncate"></time>
           </div>
         </a>
-
-        <div id="editor"></div>
       </div>
 
       <ul id="fab"></ul>
-    </div>
+    {{-- </div> --}}
   </div>
 
   <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

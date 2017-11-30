@@ -108,17 +108,26 @@ $('#to-previous').click(function () {
   goTo(previous_dir);
 });
 
-$('#show_tree').click(function () {
-  $('#mobile_tree').animate({'left': '0px'}, 1000, 'easeOutExpo');
-  setTimeout(function () {
-    show_tree = true;
-  }, 1000);
+function toggleMobileTree(should_display) {
+  if (should_display) {
+    $('#mobile_tree').animate({'left': '0px'}, 1000, 'easeOutExpo', function () {
+      show_tree = true;
+    });
+  } else {
+    $('#mobile_tree').animate({'left': '-' + $('#mobile_tree').width() + 'px'}, 1000, 'easeOutExpo', function () {
+      show_tree = false;
+    });
+  }
+}
+
+$('#show_tree').click(function (e) {
+  console.log(show_tree);
+  toggleMobileTree(!show_tree);
 });
 
-$('.row').click(function () {
+$('#main').click(function (e) {
   if (show_tree) {
-    $('#mobile_tree').animate({'left': '-' + $('#mobile_tree').width() + 'px'}, 1000, 'easeOutExpo');
-    show_tree = false;
+    toggleMobileTree(false);
   }
 });
 
@@ -159,7 +168,6 @@ $('#upload-btn').click(function () {
 
 $(document).on('click', '[data-display]', function() {
   show_list = $(this).data('display');
-  console.log(show_list);
   loadItems();
 });
 
@@ -169,7 +177,6 @@ $(document).on('click', '[data-sortby]', function() {
 });
 
 $(document).on('click', '[data-action]', function () {
-  console.log($(this).data('action'));
   window[$(this).data('action')](getOneSelectedElement());
 });
 
@@ -233,6 +240,11 @@ $(document).on('click', '#tree a', function (e) {
   goTo($(e.target).closest('a').data('path'));
 });
 
+$(document).on('click', '#tree2 a', function (e) {
+  goTo($(e.target).closest('a').data('path'));
+  toggleMobileTree(false);
+});
+
 function goTo(new_dir) {
   $('#working_dir').val(new_dir);
   loadItems();
@@ -292,14 +304,14 @@ var refreshFoldersAndItems = function (data) {
 
 var hideNavAndShowEditor = function (data) {
   $('#nav-buttons > ul').addClass('d-none');
-  $('#editor').removeClass('d-none').html(data);
-  $('#content').addClass('d-none');
+  $('#content').html(data);
 }
 
 function loadFolders() {
   performLfmRequest('folders', {}, 'html')
     .done(function (data) {
       $('#tree').html(data);
+      $('#tree2').html(data);
       loadItems();
     });
 }
@@ -312,22 +324,24 @@ function loadItems() {
       items = response.items;
       var hasItems = response.items.length !== 0;
       $('#empty').toggleClass('d-none', hasItems);
-      $('#content').html('').removeClass('list grid');
-      $('#editor').addClass('d-none').html('');
+      $('#content').html('').removeAttr('class');
 
       if (hasItems) {
         $('#content').addClass(response.display);
 
         items.forEach(function (item, index) {
           items[(new Date()).getTime()] = item;
-          var template = $('#item-template').clone().removeClass('d-none').removeAttr('id');
 
-          template.children('a').attr('data-id', index);
+          var template = $('#item-template').clone()
+            .removeAttr('id class')
+            .attr('data-id', index);
+
           if (item.thumb_url) {
             var image = $('<div>').addClass('img-bordered').css('background-image', 'url("' + item.thumb_url + '?timestamp=' + item.time + '")')
           } else {
             var image = $('<i>').addClass('fa fa-5x ' + item.icon)
           }
+
           template.find('.square').append(image);
           template.find('.item_name').text(item.name);
           template.find('time').text((new Date(item.time)).toLocaleString());
@@ -339,7 +353,9 @@ function loadItems() {
       $('#working_dir').val(response.working_dir);
       $('#current_dir').text(response.working_dir);
       console.log('Current working_dir : ' + $('#working_dir').val());
-      $('#to-previous').toggleClass('invisible', getPreviousDir() == '');
+      var atRootFolder = getPreviousDir() == '';
+      $('#to-previous').toggleClass('d-none invisible-lg', atRootFolder);
+      $('#show_tree').toggleClass('d-none', !atRootFolder).toggleClass('d-block', atRootFolder);
       setOpenFolders();
       $('#loading').addClass('d-none');
       toggleActions();
