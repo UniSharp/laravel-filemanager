@@ -121,7 +121,6 @@ function toggleMobileTree(should_display) {
 }
 
 $('#show_tree').click(function (e) {
-  console.log(show_tree);
   toggleMobileTree(!show_tree);
 });
 
@@ -264,6 +263,9 @@ function setOpenFolders() {
       .toggleClass('fa-folder-open', should_open)
       .toggleClass('fa-folder', !should_open);
   });
+
+  $('.nav-pills').find('li').removeClass('active');
+  $('[data-path="' + $('#working_dir').val() + '"]').parent('.nav-item').addClass('active');
 }
 
 // ====================
@@ -317,6 +319,7 @@ function loadFolders() {
 }
 
 function loadItems() {
+  $('#loading').removeClass('d-none');
   performLfmRequest('jsonitems', {show_list: show_list, sort_type: sort_type}, 'html')
     .done(function (data) {
       selected = [];
