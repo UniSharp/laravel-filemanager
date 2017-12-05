@@ -21,6 +21,7 @@ class LfmStorageRepository implements RepositoryContract
 
     public function __call($function_name, $arguments)
     {
+        // TODO: check function exists
         return $this->disk->$function_name($this->path, ...$arguments);
     }
 

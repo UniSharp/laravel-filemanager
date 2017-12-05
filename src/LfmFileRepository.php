@@ -15,6 +15,7 @@ class LfmFileRepository implements RepositoryContract
 
     public function __call($function_name, $arguments)
     {
+        // TODO: check function exists
         return File::$function_name($this->path, ...$arguments);
     }
 
@@ -84,8 +85,6 @@ class LfmFileRepository implements RepositoryContract
         $result_filename = $new_filename . '.' . $file->getClientOriginalExtension();
         $new_filepath = $this->path . '/' . $result_filename;
         File::move($file->getRealPath(), $new_filepath);
-
-        \Log::info($result_filename);
 
         return $result_filename;
     }
