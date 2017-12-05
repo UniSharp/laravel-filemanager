@@ -16,9 +16,9 @@ return [
 
     // The url to this package. Change it if necessary.
     'url_prefix' => 'laravel-filemanager',
-	
-	// Use relative paths (without domain)
-	'relative_paths' => false,
+
+    // Use relative paths (without domain)
+    'relative_paths' => false,
 
     /*
     |--------------------------------------------------------------------------
