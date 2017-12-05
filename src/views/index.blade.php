@@ -86,7 +86,7 @@
           </div>
         </nav>
         <div class="visible-xs" id="current_dir" style="padding: 5px 15px;background-color: #f8f8f8;color: #5e5e5e;"></div>
-        
+
         <div id="alerts"></div>
 
         <div id="content"></div>
@@ -122,7 +122,7 @@
         <div class="modal-body">
           <form action="{{ route('unisharp.lfm.upload') }}" role='form' id='uploadForm' name='uploadForm' method='post' enctype='multipart/form-data' class="dropzone">
             <div class="form-group" id="attachment">
-              
+
               <div class="controls text-center">
                 <div class="input-group" style="width: 100%">
                   <a class="btn btn-primary" id="upload-button">{{ trans('laravel-filemanager::lfm.message-choose') }}</a>
@@ -198,13 +198,12 @@
       dictDefaultMessage: 'Or drop files here to upload',
       init: function() {
         var _this = this; // For the closure
-        this.on("addedfile", function(file) { refreshFoldersAndItems('OK'); });
         this.on('success', function(file, response) {
-          
-          if(response != 'OK'){
+          if (response == 'OK') {
+            refreshFoldersAndItems('OK');
+          } else {
             this.defaultOptions.error(file, response.join('\n'));
           }
-          
       });
       },
       acceptedFiles: "{{ lcfirst(str_singular(request('type'))) == 'image' ? implode(',', config('lfm.valid_image_mimetypes')) : implode(',', config('lfm.valid_file_mimetypes')) }}",
