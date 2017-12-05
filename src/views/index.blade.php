@@ -229,14 +229,13 @@
       dictDefaultMessage: 'Or drop files here to upload',
       init: function() {
         var _this = this; // For the closure
-        this.on("addedfile", function(file) { refreshFoldersAndItems('OK'); });
         this.on('success', function(file, response) {
-
-          if(response != 'OK'){
+          if (response == 'OK') {
+            refreshFoldersAndItems('OK');
+          } else {
             this.defaultOptions.error(file, response.join('\n'));
           }
-
-      });
+        });
       },
       acceptedFiles: "{{ lcfirst(str_singular(request('type'))) == 'image' ? implode(',', config('lfm.valid_image_mimetypes')) : implode(',', config('lfm.valid_file_mimetypes')) }}",
       maxFilesize: ({{ lcfirst(str_singular(request('type'))) == 'image' ? config('lfm.max_image_size') : config('lfm.max_file_size') }} / 1000)

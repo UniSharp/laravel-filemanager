@@ -46,8 +46,7 @@ class UploadController extends LfmController
             }
 
             // upload via ckeditor 'Upload' tab
-            $new_filename = $this->getNewName($file);
-            return $this->useFile($new_filename);
+            return $this->useFile($filename);
         }
 
         if (is_array($uploaded_files)) {
@@ -62,10 +61,5 @@ class UploadController extends LfmController
         }
 
         return $response;
-    }
-
-    protected function replaceInsecureSuffix($name)
-    {
-        return preg_replace("/\.php$/i", '', $name);
     }
 }
