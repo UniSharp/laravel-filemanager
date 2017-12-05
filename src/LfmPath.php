@@ -208,6 +208,7 @@ class LfmPath
             \Log::info($e);
             return $this->error('invalid');
         }
+        // TODO should be "FileWasUploaded"
         event(new ImageWasUploaded($new_file_path));
 
         return $new_filename;

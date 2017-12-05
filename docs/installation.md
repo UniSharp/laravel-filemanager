@@ -1,7 +1,8 @@
 ## Requirements
  * php >= 5.4
  * exif extension
- * gd OR imagick (choose one only)
+ * fileinfo extension
+ * GD Library >=2.0 or Imagick PHP extension >=6.5.7
  * Laravel 5
  * requires [intervention/image](https://github.com/Intervention/image) (to make thumbs, crop and resize images).
 
@@ -9,10 +10,12 @@
 1. Install package 
 
     ```bash
-    composer require unisharp/laravel-filemanager
+    composer require unisharp/laravel-filemanager:~1.8
     ```
 
 1. Edit `config/app.php` :
+
+    \* *For Laravel 5.5 and up, skip to step 3. All service providers and facades are automatically discovered.* 
 
     Add service providers
 
@@ -37,7 +40,16 @@
     php artisan vendor:publish --tag=lfm_public
     ```
     
+1. Run commands to clear cache :
+    
+    ```bash
+    php artisan route:clear
+    php artisan config:clear
+    ```
+    
 1. Ensure that the files & images directories (in `config/lfm.php`) are writable by your web server (run commands like `chown` or `chmod`).
+
+## What's next
 
 1. Check the [integration document](http://unisharp.github.io/laravel-filemanager/integration) to see how to apply this package.
 

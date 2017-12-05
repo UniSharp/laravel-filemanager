@@ -47,8 +47,13 @@ class FolderController extends LfmController
             return parent::error('folder-alnum');
         } else {
             $this->lfm->setName($folder_name)->createFolder();
-
-            return parent::$success_response;
         }
+
+        if (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
+            return parent::error('folder-alnum');
+        }
+
+        parent::createFolderByPath($path);
+        return parent::$success_response;
     }
 }

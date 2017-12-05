@@ -92,6 +92,10 @@ $(document).ready(function () {
         );
       });
     });
+
+    $(window).on('dragenter', function(){
+      $('#uploadModal').modal('show');
+    });
 });
 
 // ======================
@@ -157,6 +161,7 @@ $('#upload-btn').click(function () {
     success: function (data, statusText, xhr, $form) {
       resetUploadForm();
       refreshFoldersAndItems(data);
+      displaySuccessMessage(data);
     },
     error: function (jqXHR, textStatus, errorThrown) {
       displayErrorResponse(jqXHR);
@@ -296,6 +301,18 @@ function displayErrorResponse(jqXHR) {
   notify('<div style="max-height:50vh;overflow: scroll;">' + jqXHR.responseText + '</div>');
 }
 
+function displaySuccessMessage(data){
+  if(data == 'OK'){
+    var success = $('<div>').addClass('alert alert-success')
+      .append($('<i>').addClass('fa fa-check'))
+      .append(' File Uploaded Successfully.');
+    $('#alerts').append(success);
+    setTimeout(function () {
+      success.remove();
+    }, 2000);
+  }
+}
+
 var refreshFoldersAndItems = function (data) {
   loadFolders();
   if (data != 'OK') {
@@ -320,6 +337,7 @@ function loadFolders() {
 
 function loadItems() {
   $('#loading').removeClass('d-none');
+  $('#lfm-loader').show();
   performLfmRequest('jsonitems', {show_list: show_list, sort_type: sort_type}, 'html')
     .done(function (data) {
       selected = [];
@@ -362,6 +380,9 @@ function loadItems() {
       setOpenFolders();
       $('#loading').addClass('d-none');
       toggleActions();
+    })
+    .always(function(){
+      $('#lfm-loader').hide();
     });
 }
 
@@ -505,8 +526,8 @@ function use(item) {
       window.close();
     }
   } else {
-    // No WYSIWYG editor found, use custom method.
-    window.opener.SetUrl(url, file_path);
+    // No editor found, open/download file using browser's default method
+    window.open(url);
   }
 }
 //end useFile
