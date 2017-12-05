@@ -189,12 +189,12 @@ class UploadController extends LfmController
     {
         $file = parent::getFileUrl($new_filename);
 
-        $responseType=request()->input('responseType');
-        if ($responseType && $responseType=='json') {
+        $responseType = request()->input('responseType');
+        if ($responseType && $responseType == 'json') {
             return [
-                "uploaded"=> 1,
-                "fileName"=> $new_filename,
-                "url"=> $file,
+                "uploaded" => 1,
+                "fileName" => $new_filename,
+                "url" => $file,
             ];
         }
 
