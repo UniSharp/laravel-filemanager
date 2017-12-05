@@ -54,19 +54,6 @@
     }
   },
   "bin": ["bin/debug"],
-  "scripts": {
-    "post-install-cmd": [
-      "php artisan vendor:publish --tag=lfm_config",
-      "php artisan vendor:publish --tag=lfm_public",
-      "php artisan route:clear",
-      "php aritsan config:clear"
-    ],
-    "post-update-cmd": [
-      "php artisan vendor:publish --tag=lfm_public --force",
-      "php artisan route:clear",
-      "php aritsan config:clear"
-    ]
-  },
   "extra": {
     "laravel": {
       "providers": [
