@@ -44,9 +44,6 @@ class UploadController extends LfmController
                 ]);
                 array_push($error_bag, $e->getMessage());
             }
-
-            // upload via ckeditor 'Upload' tab
-            return $this->useFile($filename);
         }
 
         if (is_array($uploaded_files)) {
