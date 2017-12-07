@@ -5,17 +5,29 @@
 
     this.on('click', function(e) {
       var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
-      localStorage.setItem('target_input', $(this).data('input'));
-      localStorage.setItem('target_preview', $(this).data('preview'));
+      var target_input = $('#' + $(this).data('input'));
+      var target_preview = $('#' + $(this).data('preview'));
       window.open(route_prefix + '?type=' + type, 'FileManager', 'width=900,height=600');
-      window.SetUrl = function (url, file_path) {
-          //set the value of the desired input to image url
-          var target_input = $('#' + localStorage.getItem('target_input'));
-          target_input.val(file_path).trigger('change');
+      window.SetUrl = function (items) {
+        var file_path = items.map(function (item) {
+          return item.path;
+        }).join(',');
 
-          //set or change the preview image src
-          var target_preview = $('#' + localStorage.getItem('target_preview'));
-          target_preview.attr('src', url).trigger('change');
+        // set the value of the desired input to image url
+        target_input.val('').val(file_path).trigger('change');
+
+        // clear previous preview
+        target_preview.html('');
+
+        // set or change the preview image src
+        items.forEach(function (item) {
+          target_preview.append(
+            $('<img>').attr('src', item.thumb_url)
+          );
+        });
+
+        // trigger change event
+        target_preview.trigger('change');
       };
       return false;
     });

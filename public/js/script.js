@@ -519,7 +519,7 @@ function use(item) {
     } else if (is_fcke) {      // use FCKEditor 2.0 integration method
       useFckeditor2(url);
     } else {                   // standalone button or other situations
-      window.opener.SetUrl(url, file_path);
+      window.opener.SetUrl(getSelectedItems());
     }
 
     if (window.opener) {
