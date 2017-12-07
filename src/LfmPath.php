@@ -64,15 +64,16 @@ class LfmPath
         if ($type == 'working_dir') {
             // working directory: /{user_slug}
             $result = $this->normalizeWorkingDir();
+            return $this->appendPathToFile($result, false);
         } elseif ($type == 'storage') {
             // storage: files/{user_slug}
             $result = $this->helper->getCategoryName() . $this->normalizeWorkingDir();
+            return $this->appendPathToFile($result, $this->helper->isRunningOnWindows());
         } else {
             // absolute: /var/www/html/project/storage/app/files/{user_slug}
             $result = $this->storage->rootPath() . $this->helper->getCategoryName() . $this->normalizeWorkingDir();
+            return $this->appendPathToFile($result, $this->helper->isRunningOnWindows());
         }
-
-        return $this->appendPathToFile($result);
     }
 
     // TODO: work with timestamp
@@ -81,14 +82,19 @@ class LfmPath
         return Lfm::DS . $this->path('storage');
     }
 
-    public function appendPathToFile($path)
+    public function appendPathToFile($path, $is_windows = false)
     {
+        $ds = Lfm::DS;
+        if ($is_windows) {
+            $ds = '\\';
+        }
+
         if ($this->is_thumb) {
-            $path .= Lfm::DS . $this->helper->getThumbFolderName();
+            $path .= $ds . $this->helper->getThumbFolderName();
         }
 
         if ($this->getName()) {
-            $path .= Lfm::DS . $this->getName();
+            $path .= $ds . $this->getName();
         }
 
         return $path;

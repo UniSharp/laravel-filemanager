@@ -51,11 +51,7 @@ class Lfm
      */
     public function getNameFromPath($path)
     {
-        if (str_contains($path, self::DS)) {
-            return substr($path, strrpos($path, self::DS) + 1);
-        }
-
-        return $path;
+        return pathinfo($path, PATHINFO_FILENAME);
     }
 
     public function allowFolderType($type)
@@ -130,7 +126,12 @@ class Lfm
             $folder = $this->config->get('lfm.shared_folder_name');
         }
 
-        return static::DS . $folder;
+        $ds = static::DS;
+        if ($this->isRunningOnWindows()) {
+            $ds = '\\';
+        }
+
+        return $ds . $folder;
     }
 
     public function getThumbFolderName()
