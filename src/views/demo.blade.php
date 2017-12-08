@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Laravel Filemanager</title>
   <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/laravel-filemanager/img/folder.png') }}">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -29,7 +29,7 @@
         <h2>Standalone Image Button</h2>
         <div class="input-group">
           <span class="input-group-btn">
-            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
               <i class="fa fa-picture-o"></i> Choose
             </a>
           </span>
@@ -39,7 +39,7 @@
         <h2>Standalone File Button</h2>
         <div class="input-group">
           <span class="input-group-btn">
-            <a id="lfm2" data-input="thumbnail2" data-preview="holder2" class="btn btn-primary">
+            <a id="lfm2" data-input="thumbnail2" data-preview="holder2" class="btn btn-primary text-white">
               <i class="fa fa-picture-o"></i> Choose
             </a>
           </span>
@@ -56,8 +56,9 @@
     </div>
   </div>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
   <script>
    var route_prefix = "{{ url(config('lfm.url_prefix')) }}";
   </script>
@@ -119,13 +120,14 @@
     $('#lfm2').filemanager('file', {prefix: route_prefix});
   </script>
 
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script>
-  <script>
-    $(document).ready(function() {
-      $('#summernote').summernote();
-    });
-  </script>
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+  <style>
+    .popover {
+      top: auto;
+      left: auto;
+    }
+  </style>
   <script>
     $(document).ready(function(){
 
