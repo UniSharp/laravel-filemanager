@@ -72,29 +72,8 @@
     </div>
   </nav>
 
-  <aside id="mobile_tree">
-    <div class="mt-3 mx-3">
-      <h1 style="font-size: 1.5rem;">Laravel File Manager</h1>
-      <small class="d-block">Ver 2.0</small>
-      <div class="row mt-3">
-        <div class="col-3">
-          <img src="https://www.unisharp.com/img/favicon_unisharp_logo.png">
-        </div>
-
-        <div class="col-9">
-          <p>Current usage :</p>
-          <p>20 GB (Max : 1 TB)</p>
-        </div>
-      </div>
-      <div class="progress mt-3" style="height: .5rem;">
-        <div class="progress-bar progress-bar-striped progress-bar-animated w-75 bg-main" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>
-    </div>
-    <div id="tree2" class="mt-3"></div>
-  </aside>
-
   <div class="container-fluid pt-3 d-flex flex-row">
-    <div id="tree" class="d-none d-lg-block"></div>
+    <div id="tree"></div>
 
     <div id="main">
       {{-- <div class="visible-xs" id="current_dir" style="padding: 5px 15px;background-color: #f8f8f8;color: #5e5e5e;"></div> --}}

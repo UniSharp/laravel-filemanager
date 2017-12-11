@@ -114,11 +114,11 @@ $('#to-previous').click(function () {
 
 function toggleMobileTree(should_display) {
   if (should_display) {
-    $('#mobile_tree').animate({'left': '0px'}, 1000, 'easeOutExpo', function () {
+    $('#tree').animate({'left': '0px'}, 1000, 'easeOutExpo', function () {
       show_tree = true;
     });
   } else {
-    $('#mobile_tree').animate({'left': '-' + $('#mobile_tree').width() + 'px'}, 1000, 'easeOutExpo', function () {
+    $('#tree').animate({'left': '-' + $('#tree').width() + 'px'}, 1000, 'easeOutExpo', function () {
       show_tree = false;
     });
   }
@@ -241,10 +241,6 @@ function toggleActions() {
 }
 
 $(document).on('click', '#tree a', function (e) {
-  goTo($(e.target).closest('a').data('path'));
-});
-
-$(document).on('click', '#tree2 a', function (e) {
   goTo($(e.target).closest('a').data('path'));
   toggleMobileTree(false);
 });

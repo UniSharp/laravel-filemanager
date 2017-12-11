@@ -34,15 +34,16 @@ a {
 }
 
 #tree {
+  background-color: white;
   width: 300px;
 }
 
-#mobile_tree {
-  background-color: white;
-  position: absolute;
-  z-index: 999;
-  width: 300px;
-  left: -300px;
+@media screen and (max-width: 991px) {
+  #tree {
+    position: absolute;
+    z-index: 999;
+    left: -300px;
+  }
 }
 
 #empty {
