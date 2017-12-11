@@ -97,8 +97,19 @@ return [
 
     'should_validate_size'   => false,
 
-
     'should_validate_mime'   => false,
+
+    // permissions to be set when create a new folder or when it creates automatically with thumbnails
+    'create_folder_mode' => 0755,
+
+    // permissions to be set on file upload.
+    'create_file_mode' => 0644,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Thumbnail
+    |--------------------------------------------------------------------------
+    */
 
     // If true, image thumbnails would be created during upload
     'should_create_thumbnails' => true,
@@ -109,18 +120,6 @@ return [
         'image/pjpeg',
         'image/png',
     ],
-
-    // permissions to be set when create a new folder or when it creates automatically with thumbnails
-    'create_folder_mode' => 0755,
-
-    // permissions to be set on file upload.
-    'create_file_mode' => 0644,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Thumbnail Dimensions
-    |--------------------------------------------------------------------------
-    */
 
     'thumb_img_width'  => 200,
 

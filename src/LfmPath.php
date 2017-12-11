@@ -243,18 +243,15 @@ class LfmPath
         $type_key = $this->helper->currentLfmType();
 
         if (config('lfm.should_validate_mime', false)) {
-            $mine_config = 'lfm.valid_' . $type_key . '_mimetypes';
-            $valid_mimetypes = config($mine_config, []);
-            if (false === in_array($mimetype, $valid_mimetypes)) {
+            if (false === in_array($mimetype, $this->helper->availableMimeTypes())) {
                 return $this->error('mime') . $mimetype;
             }
         }
 
         if (config('lfm.should_validate_size', false)) {
-            $max_size = config('lfm.max_' . $type_key . '_size', 0);
             // size to kb unit is needed
             $file_size = $file->getSize() / 1000;
-            if ($file_size > $max_size) {
+            if ($file_size > $this->helper->maxUploadSize()) {
                 return $this->error('size') . $file_size;
             }
         }
@@ -293,8 +290,6 @@ class LfmPath
     {
         // create folder for thumbnails
         $this->setName(null)->thumb(true)->createFolder();
-
-        \Log::info($this->thumb(false)->setName($filename)->path('absolute'));
 
         // generate cropped thumbnail
         Image::make($this->thumb(false)->setName($filename)->path('absolute'))
