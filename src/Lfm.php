@@ -51,7 +51,7 @@ class Lfm
      */
     public function getNameFromPath($path)
     {
-        return pathinfo($path, PATHINFO_FILENAME);
+        return pathinfo($path, PATHINFO_BASENAME);
     }
 
     public function allowFolderType($type)
