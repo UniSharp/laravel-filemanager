@@ -34,7 +34,7 @@ class LfmController extends Controller
     {
         // dd($this->lfm->files()[1]->hasThumb());
         // dd(app()::VERSION > "5.1.0");
-        return view('laravel-filemanager::index');
+        return view('laravel-filemanager::index')->withHelper($this->helper);
     }
 
     public function getErrors()

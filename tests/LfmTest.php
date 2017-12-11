@@ -77,15 +77,13 @@ class LfmTest extends TestCase
     {
         $config = m::mock(Config::class);
         $config->shouldReceive('get')
-               ->with('lfm.files_folder_name', m::type('string'))
+               ->with('lfm.folder_categories.file.folder_name', m::type('string'))
                ->once()
-               ->andReturnUsing($callback = function ($key, $default) {
-                   return $default;
-               });
+               ->andReturn('files');
         $config->shouldReceive('get')
-               ->with('lfm.images_folder_name', m::type('string'))
+               ->with('lfm.folder_categories.image.folder_name', m::type('string'))
                ->once()
-               ->andReturnUsing($callback);
+               ->andReturn('photos');
 
         $request = m::mock(Request::class);
         $request->shouldReceive('input')->with('type')->once()->andReturn('file');
@@ -112,7 +110,7 @@ class LfmTest extends TestCase
     public function testGetUserSlug()
     {
         $config = m::mock(Config::class);
-        $config->shouldReceive('get')->with('lfm.user_field')->once()->andReturn(function () {
+        $config->shouldReceive('get')->with('lfm.user_folder_name')->once()->andReturn(function () {
             return 'foo';
         });
 
@@ -124,7 +122,7 @@ class LfmTest extends TestCase
     public function testGetRootFolder()
     {
         $config = m::mock(Config::class);
-        $config->shouldReceive('get')->with('lfm.user_field')->once()->andReturn(function () {
+        $config->shouldReceive('get')->with('lfm.user_folder_name')->once()->andReturn(function () {
             return 'foo';
         });
         $config->shouldReceive('get')->with('lfm.shared_folder_name')->once()->andReturn('bar');

@@ -67,10 +67,7 @@ class Lfm
     {
         $type = $this->currentLfmType();
 
-        return $this->config->get('lfm.' . $type . 's_folder_name', [
-            'file' => 'files',
-            'image' => 'photos',
-        ][$type]);
+        return $this->config->get('lfm.folder_categories.' . $type . '.folder_name', 'files');
     }
 
     /**
@@ -91,7 +88,7 @@ class Lfm
     public function getDisplayMode()
     {
         $type_key = $this->currentLfmType();
-        $startup_view = config('lfm.' . $type_key . 's_startup_view');
+        $startup_view = config('lfm.folder_categories.' . $type_key . '.startup_view');
 
         $view_type = 'grid';
         $target_display_type = $this->input('show_list') ?: $startup_view;
@@ -105,7 +102,7 @@ class Lfm
 
     public function getUserSlug()
     {
-        $config = $this->config->get('lfm.user_field');
+        $config = $this->config->get('lfm.user_folder_name');
 
         if (is_callable($config)) {
             return call_user_func($config);
@@ -147,6 +144,16 @@ class Lfm
     public function getFileType($ext)
     {
         return $this->config->get("lfm.file_type_array.{$ext}", 'File');
+    }
+
+    public function availableMimeTypes()
+    {
+        return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.valid_mime');
+    }
+
+    public function maxUploadSize()
+    {
+        return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.max_size');
     }
 
     // TODO: do not use url function, and add test
