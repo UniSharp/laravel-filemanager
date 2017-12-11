@@ -11,8 +11,8 @@ class RenameController extends LfmController
 {
     public function getRename()
     {
-        $old_name = $this->helper->translateFromUtf8(request('file'));
-        $new_name = $this->helper->translateFromUtf8(trim(request('new_name')));
+        $old_name = $this->helper->input('file');
+        $new_name = $this->helper->input('new_name');
 
         $old_file = $this->lfm->get($old_name);
 

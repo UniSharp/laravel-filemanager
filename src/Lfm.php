@@ -30,7 +30,7 @@ class Lfm
 
     public function input($key)
     {
-        return $this->request->input($key);
+        return $this->translateFromUtf8($this->request->input($key));
     }
 
     /**

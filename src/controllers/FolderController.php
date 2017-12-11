@@ -37,7 +37,7 @@ class FolderController extends LfmController
      */
     public function getAddfolder()
     {
-        $folder_name = $this->helper->translateFromUtf8(trim(request('name')));
+        $folder_name = $this->helper->input('name');
 
         if (empty($folder_name)) {
             return parent::error('folder-name');

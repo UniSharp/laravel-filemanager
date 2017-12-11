@@ -100,7 +100,7 @@ class LfmPath
         return $path;
     }
 
-    public function folders($column = null)
+    public function folders()
     {
         $all_folders = array_map(function ($directory_path) {
             return $this->get($directory_path);
@@ -110,16 +110,16 @@ class LfmPath
             return $directory->name !== $this->helper->getThumbFolderName();
         });
 
-        return $this->sortByColumn($folders, $column);
+        return $this->sortByColumn($folders);
     }
 
-    public function files($column = null)
+    public function files()
     {
         $files = array_map(function ($file_path) {
             return $this->get($file_path);
         }, $this->storage->files());
 
-        return $this->sortByColumn($files, $column);
+        return $this->sortByColumn($files);
     }
 
     public function get($item_path)
@@ -168,15 +168,12 @@ class LfmPath
      * @param  mixed  $sort_type  Alphabetic or time.
      * @return array of object
      */
-    public function sortByColumn($arr_items, $key_to_sort = null)
+    public function sortByColumn($arr_items)
     {
-        if (is_null($key_to_sort)) {
-            $sort_type = $this->helper->input('sort_type');
-            if (!$sort_type || $sort_type == 'alphabetic') {
-                $key_to_sort = 'name';
-            } else {
-                $key_to_sort = 'time';
-            }
+        if ($this->helper->input('sort_type') === 'alphabetic') {
+            $key_to_sort = 'name';
+        } else {
+            $key_to_sort = 'time';
         }
 
         uasort($arr_items, function ($a, $b) use ($key_to_sort) {
@@ -200,7 +197,7 @@ class LfmPath
 
         event(new ImageIsUploading($new_file_path));
         try {
-            $new_filename = $this->save($file, $new_filename);
+            $new_filename = $this->saveFile($file, $new_filename);
         } catch (\Exception $e) {
             \Log::info($e);
             return $this->error('invalid');
@@ -229,11 +226,8 @@ class LfmPath
             return $this->error('file-exist');
         }
 
-        $mimetype = $file->getMimeType();
-
-        $type_key = $this->helper->currentLfmType();
-
         if (config('lfm.should_validate_mime', false)) {
+            $mimetype = $file->getMimeType();
             if (false === in_array($mimetype, $this->helper->availableMimeTypes())) {
                 return $this->error('mime') . $mimetype;
             }
@@ -263,9 +257,10 @@ class LfmPath
         return $new_filename;
     }
 
-    private function save($file, $new_filename)
+    private function saveFile($file, $new_filename)
     {
-        $should_create_thumbnail = $this->isUploadingImage($file) && $this->shouldCreateThumb($file);
+        $should_create_thumbnail = $this->shouldCreateThumb($file);
+
         $filename = $this->setName(null)->thumb(false)->storage->save($file, $new_filename);
 
         chmod($this->setName($filename)->thumb(false)->path('absolute'), config('lfm.create_file_mode', 0644));
@@ -288,13 +283,9 @@ class LfmPath
             ->save($this->thumb(true)->setName($filename)->path('absolute'));
     }
 
-    private function isUploadingImage($file)
-    {
-        return starts_with($file->getMimeType(), 'image');
-    }
-
     private function shouldCreateThumb($file)
     {
-        return !in_array($file->getMimeType(), ['image/gif', 'image/svg+xml']);
+        return starts_with($file->getMimeType(), 'image')
+            && !in_array($file->getMimeType(), ['image/gif', 'image/svg+xml']);
     }
 }
