@@ -43,6 +43,21 @@ a {
   left: -300px;
 }
 
+#empty {
+  height: 60vh;
+}
+
+#empty:not(.d-none) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#empty > i {
+  font-size: 10rem;
+}
+
 .nav-pills > .nav-item > .nav-link {
   height: 5rem;
   display: flex;
@@ -108,15 +123,13 @@ a {
 
 .square > i {
   color: #333844;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
 }
 .grid .square > i {
+  padding: 20px;
   font-size: 80px;
 }
 .list .square > i {
+  padding: 10px;
   font-size: 50px;
 }
 
@@ -188,14 +201,4 @@ time {
   margin: 0 auto;
   display: inline-block;
   vertical-align: middle;
-}
-
-.table-list-view{
-  margin-bottom: 120px;
-}
-.table-list-view .actions{
-  text-align: right;
-}
-.table-list-view .actions a:hover{
-  text-decoration: none;
 }

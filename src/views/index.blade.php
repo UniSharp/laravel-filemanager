@@ -94,32 +94,31 @@
   </aside>
 
   <div class="container-fluid pt-3 d-flex flex-row">
-    {{-- <div class="row"> --}}
-      <div id="tree" class="d-none d-lg-block"></div>
+    <div id="tree" class="d-none d-lg-block"></div>
 
-      <div id="main">
-        {{-- <div class="visible-xs" id="current_dir" style="padding: 5px 15px;background-color: #f8f8f8;color: #5e5e5e;"></div> --}}
+    <div id="main">
+      {{-- <div class="visible-xs" id="current_dir" style="padding: 5px 15px;background-color: #f8f8f8;color: #5e5e5e;"></div> --}}
 
-        <div id="alerts"></div>
+      <div id="alerts"></div>
 
-        <div id="empty" class="alert alert-warning d-none">
-          <i class="fa fa-folder-open-o"></i> {{ trans('laravel-filemanager::lfm.message-empty') }}
-        </div>
-
-        <div id="content"></div>
-
-        <a id="item-template" class="d-none">
-          <div class="square"></div>
-
-          <div class="info">
-            <div class="item_name text-truncate"></div>
-            <time class="text-muted font-weight-light text-truncate"></time>
-          </div>
-        </a>
+      <div id="empty" class="d-none">
+        <i class="fa fa-folder-open-o"></i>
+        {{ trans('laravel-filemanager::lfm.message-empty') }}
       </div>
 
-      <ul id="fab"></ul>
-    {{-- </div> --}}
+      <div id="content"></div>
+
+      <a id="item-template" class="d-none">
+        <div class="square"></div>
+
+        <div class="info">
+          <div class="item_name text-truncate"></div>
+          <time class="text-muted font-weight-light text-truncate"></time>
+        </div>
+      </a>
+    </div>
+
+    <ul id="fab"></ul>
   </div>
 
   <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -133,7 +132,7 @@
           <form action="{{ route('unisharp.lfm.upload') }}" role='form' id='uploadForm' name='uploadForm' method='post' enctype='multipart/form-data' class="dropzone">
             <div class="form-group" id="attachment">
               <div class="controls text-center">
-                <div class="input-group" style="width: 100%">
+                <div class="input-group w-100">
                   <a class="btn btn-primary" id="upload-button">{{ trans('laravel-filemanager::lfm.message-choose') }}</a>
                 </div>
               </div>
