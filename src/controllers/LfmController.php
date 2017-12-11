@@ -4,8 +4,6 @@ namespace UniSharp\LaravelFilemanager\controllers;
 
 use UniSharp\LaravelFilemanager\Lfm;
 use UniSharp\LaravelFilemanager\LfmPath;
-use UniSharp\LaravelFilemanager\LfmStorage;
-use UniSharp\LaravelFilemanager\traits\LfmHelpers;
 
 class LfmController extends Controller
 {
@@ -16,11 +14,16 @@ class LfmController extends Controller
         $this->applyIniOverrides();
     }
 
+    /**
+     * Set up needed functions.
+     *
+     * @return object|null
+     */
     public function __get($var_name)
     {
-        if ($var_name == 'lfm') {
+        if ($var_name === 'lfm') {
             return app(LfmPath::class);
-        } elseif ($var_name == 'helper') {
+        } elseif ($var_name === 'helper') {
             return app(Lfm::class);
         }
     }
@@ -32,11 +35,15 @@ class LfmController extends Controller
      */
     public function show()
     {
-        // dd($this->lfm->files()[1]->hasThumb());
-        // dd(app()::VERSION > "5.1.0");
-        return view('laravel-filemanager::index')->withHelper($this->helper);
+        return view('laravel-filemanager::index')
+            ->withHelper($this->helper);
     }
 
+    /**
+     * Check if any extension or config is missing.
+     *
+     * @return array
+     */
     public function getErrors()
     {
         $arr_errors = [];
@@ -45,12 +52,20 @@ class LfmController extends Controller
             array_push($arr_errors, trans('laravel-filemanager::lfm.message-extension_not_found'));
         }
 
-        $type_key = $this->helper->currentLfmType();
-        $mine_config = 'lfm.valid_' . $type_key . '_mimetypes';
-        $config_error = null;
+        if (! extension_loaded('exif')) {
+            array_push($arr_errors, 'EXIF extension not found.');
+        }
 
-        if (! is_array(config($mine_config))) {
-            array_push($arr_errors, 'Config : ' . $mine_config . ' is not a valid array.');
+        if (! extension_loaded('fileinfo')) {
+            array_push($arr_errors, 'Fileinfo extension not found.');
+        }
+
+        $mine_config_key = 'lfm.folder_categories.'
+            . $this->helper->currentLfmType()
+            . '.valid_mime';
+
+        if (! is_array(config($mine_config_key))) {
+            array_push($arr_errors, 'Config : ' . $mine_config_key . ' is not a valid array.');
         }
 
         return $arr_errors;
@@ -68,7 +83,7 @@ class LfmController extends Controller
      */
     public function applyIniOverrides()
     {
-        if (count(config('lfm.php_ini_overrides')) == 0) {
+        if (count(config('lfm.php_ini_overrides')) === 0) {
             return;
         }
 
