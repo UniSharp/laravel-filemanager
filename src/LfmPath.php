@@ -170,10 +170,11 @@ class LfmPath
      */
     public function sortByColumn($arr_items)
     {
-        if ($this->helper->input('sort_type') === 'alphabetic') {
-            $key_to_sort = 'name';
+        $sort_by = $this->helper->input('sort_type');
+        if (in_array($sort_by, ['name', 'time'])) {
+            $key_to_sort = $sort_by;
         } else {
-            $key_to_sort = 'time';
+            $key_to_sort = 'name';
         }
 
         uasort($arr_items, function ($a, $b) use ($key_to_sort) {

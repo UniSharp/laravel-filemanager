@@ -39,21 +39,20 @@ class FolderController extends LfmController
     {
         $folder_name = $this->helper->input('name');
 
-        if (empty($folder_name)) {
-            return parent::error('folder-name');
-        } elseif ($this->lfm->setName($folder_name)->exists()) {
-            return parent::error('folder-exist');
-        } elseif (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
-            return parent::error('folder-alnum');
-        } else {
-            $this->lfm->setName($folder_name)->createFolder();
+        try {
+            if (empty($folder_name)) {
+                return $this->helper->error('folder-name');
+            } elseif ($this->lfm->setName($folder_name)->exists()) {
+                return $this->helper->error('folder-exist');
+            } elseif (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
+                return $this->helper->error('folder-alnum');
+            } else {
+                $this->lfm->setName($folder_name)->createFolder();
+            }
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
 
-        if (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
-            return parent::error('folder-alnum');
-        }
-
-        parent::createFolderByPath($path);
         return parent::$success_response;
     }
 }
