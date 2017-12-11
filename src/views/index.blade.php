@@ -34,16 +34,12 @@
       <i class="fa fa-bars fa-fw"></i>
     </a>
     <a class="navbar-brand">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
+    <a id="loading" class="nav-brand"><i class="fa fa-spinner fa-spin"></i></a>
     <a class="navbar-toggler collapsed border-0 p-2 m-0 ml-auto" data-toggle="collapse" data-target="#nav-buttons">
       <i class="fa fa-cog fa-fw"></i>
     </a>
     <div class="collapse navbar-collapse" id="nav-buttons">
       <ul class="navbar-nav ml-auto">
-        <li id="loading" class="nav-item">
-          <a class="nav-link">
-            <i class="fa fa-spinner fa-spin"></i>
-          </a>
-        </li>
         {{-- <li>
           <a id="multi_selection_toggle">
             <i class="fa fa-check-square fa-fw"></i>
@@ -128,9 +124,9 @@
     </div>
   </div>
 
-  <div id="lfm-loader">
+  {{-- <div id="lfm-loader">
     <img src="{{asset('vendor/laravel-filemanager/img/loader.svg')}}">
-  </div>
+  </div> --}}
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
@@ -141,7 +137,6 @@
   <script src="{{ asset('vendor/laravel-filemanager/js/jquery.form.min.js') }}"></script>
   <script src="{{ asset('vendor/laravel-filemanager/js/dropzone.min.js') }}"></script>
   <script>
-    var route_prefix = "{{ url('/') }}";
     var lfm_route = "{{ url(config('lfm.url_prefix')) }}";
     var lang = {!! json_encode(trans('laravel-filemanager::lfm')) !!};
     var actions = [

@@ -65,7 +65,7 @@ $(document).ready(function () {
   });
 
   actions.reverse().forEach(function (action) {
-    $('#nav-buttons #loading').after(
+    $('#nav-buttons > ul').append(
       $('<li>').addClass('nav-item').append(
         $('<a>').addClass('nav-link d-none').attr('data-action', action.name)
           .append($('<i>').addClass('fa fa-fw fa-' + action.icon))
@@ -503,7 +503,6 @@ function use(item) {
   var field_name = getUrlParam('field_name');
   var is_ckeditor = getUrlParam('CKEditor');
   var is_fcke = typeof data != 'undefined' && data['Properties']['Width'] != '';
-  var file_path = url.replace(route_prefix, '');
 
   if (window.opener || window.tinyMCEPopup || field_name || getUrlParam('CKEditorCleanUpFuncNum') || is_ckeditor) {
     if (window.tinyMCEPopup) { // use TinyMCE > 3.0 integration method
