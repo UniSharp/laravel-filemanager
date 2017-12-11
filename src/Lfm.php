@@ -115,8 +115,15 @@ class Lfm
         return empty(auth()->user()) ? '' : auth()->user()->$config;
     }
 
-    public function getRootFolder($type)
+    public function getRootFolder($type = null)
     {
+        if (is_null($type)) {
+            $type = 'share';
+            if ($this->allowFolderType('user')) {
+                $type = 'user';
+            }
+        }
+
         if ($type === 'user') {
             $folder = $this->getUserSlug();
         } else {

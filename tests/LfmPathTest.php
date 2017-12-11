@@ -73,8 +73,7 @@ class LfmPathTest extends TestCase
     public function testPath()
     {
         $helper = m::mock(Lfm::class);
-        $helper->shouldReceive('allowFolderType')->with('user')->andReturn(true);
-        $helper->shouldReceive('getRootFolder')->with('user')->andReturn('/foo');
+        $helper->shouldReceive('getRootFolder')->andReturn('/foo');
         $helper->shouldReceive('basePath')->andReturn(realpath(__DIR__ . '/../'));
         $helper->shouldReceive('input')->with('working_dir')->andReturnNull();
         $helper->shouldReceive('getCategoryName')->andReturn('files');
@@ -94,8 +93,7 @@ class LfmPathTest extends TestCase
     public function testUrl()
     {
         $helper = m::mock(Lfm::class);
-        $helper->shouldReceive('allowFolderType')->with('user')->once()->andReturn(true);
-        $helper->shouldReceive('getRootFolder')->with('user')->once()->andReturn('/foo');
+        $helper->shouldReceive('getRootFolder')->once()->andReturn('/foo');
         $helper->shouldReceive('input')->with('working_dir')->once()->andReturnNull();
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('isRunningOnWindows')->andReturn(false);

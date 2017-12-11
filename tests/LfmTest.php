@@ -122,6 +122,7 @@ class LfmTest extends TestCase
     public function testGetRootFolder()
     {
         $config = m::mock(Config::class);
+        $config->shouldReceive('get')->with('lfm.allow_multi_user')->andReturn(true);
         $config->shouldReceive('get')->with('lfm.user_folder_name')->once()->andReturn(function () {
             return 'foo';
         });

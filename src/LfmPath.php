@@ -156,18 +156,9 @@ class LfmPath
 
     public function normalizeWorkingDir()
     {
-        $working_dir = $this->working_dir ?: $this->helper->input('working_dir');
-
-        if (empty($working_dir)) {
-            $default_folder_type = 'share';
-            if ($this->helper->allowFolderType('user')) {
-                $default_folder_type = 'user';
-            }
-
-            $working_dir = $this->helper->getRootFolder($default_folder_type);
-        }
-
-        return $working_dir;
+        return $this->working_dir
+            ?: $this->helper->input('working_dir')
+            ?: $this->helper->getRootFolder();
     }
 
     /**
