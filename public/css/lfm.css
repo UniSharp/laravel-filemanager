@@ -1,3 +1,5 @@
+/* General */
+
 a {
   color: #333844;
   text-decoration: none !important;
@@ -45,6 +47,7 @@ a {
 
 #empty {
   height: 60vh;
+  color: #333844;
 }
 
 #empty:not(.d-none) {
@@ -57,6 +60,35 @@ a {
 #empty > i {
   font-size: 10rem;
 }
+
+/* Loader */
+
+#lfm-loader {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: gray;
+  opacity: 0.7;
+  z-index: 9999;
+  text-align: center;
+}
+#lfm-loader:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+}
+#lfm-loader img {
+  width: 100px;
+  margin: 0 auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Sidebar */
 
 .nav-pills > .nav-item > .nav-link {
   height: 5rem;
@@ -75,12 +107,15 @@ a {
   color: #333844;
 }
 
+/* Items */
+
 .square {
   cursor: pointer;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 5px;
 }
 
 .grid {
@@ -97,28 +132,32 @@ a {
   flex-direction: column;
 }
 
+.list a {
+  border-top: 1px solid rgb(221, 221, 221);
+  padding: 5px 0;
+  margin-top: 0px;
+  display: flex;
+  flex-direction: row;
+}
+
 .grid .square {
   border: 1px solid rgb(221, 221, 221);
+  width: 135px;
+  height: 135px;
 }
 
 .list .square {
   margin-right: 1rem;
-}
-
-.square > .img-bordered {
-  margin: 5px;
-  background-size: cover;
-  background-position: center;
-}
-
-.grid .square > .img-bordered {
-  width: 120px;
-  height: 120px;
-}
-
-.list .square > .img-bordered {
   width: 70px;
   height: 70px;
+}
+
+.square > div {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .square > i {
@@ -139,8 +178,8 @@ a {
 .list .square.selected {
   border: 4px solid #75C7C3;
 }
-.square.selected > .img-bordered {
-  margin: 1px;
+.square.selected {
+  padding: 1px;
 }
 
 .grid .item_name {
@@ -150,7 +189,7 @@ a {
   margin-top: -1px;
   padding: 10px;
   text-align: center;
-  max-width: calc(120px + 12px);
+  max-width: calc(135px);
 }
 
 .list .item_name {
@@ -168,37 +207,4 @@ time {
 
 .info > * {
   max-width: calc(100vw - 70px - 60px);
-}
-
-.list a {
-  border-top: 1px solid rgb(221, 221, 221);
-  padding: 5px 0;
-  margin-top: 0px;
-  display: flex;
-  flex-direction: row;
-}
-
-#lfm-loader{
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: gray;
-  opacity: 0.7;
-  z-index: 9999;
-  text-align: center;
-}
-#lfm-loader:before {
-  content: "";
-  display: inline-block;
-  vertical-align: middle;
-  height: 100%;
-}
-#lfm-loader img{
-  width: 100px;
-  margin: 0 auto;
-  display: inline-block;
-  vertical-align: middle;
 }
