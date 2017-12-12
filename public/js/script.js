@@ -65,7 +65,7 @@ $(document).ready(function () {
   });
 
   actions.reverse().forEach(function (action) {
-    $('#nav-buttons > ul').append(
+    $('#nav-buttons > ul').prepend(
       $('<li>').addClass('nav-item').append(
         $('<a>').addClass('nav-link d-none').attr('data-action', action.name)
           .append($('<i>').addClass('fa fa-fw fa-' + action.icon))
@@ -135,10 +135,7 @@ $('#main').click(function (e) {
 });
 
 $(document).on('click', '#add-folder', function () {
-  bootbox.prompt(lang['message-name'], function (result) {
-    if (result == null) return;
-    createFolder(result);
-  });
+  dialog(lang['message-name'], '', createFolder);
 });
 
 $(document).on('click', '#upload', function () {
@@ -297,8 +294,8 @@ function displayErrorResponse(jqXHR) {
   notify('<div style="max-height:50vh;overflow: scroll;">' + jqXHR.responseText + '</div>');
 }
 
-function displaySuccessMessage(data){
-  if(data == 'OK'){
+function displaySuccessMessage(data) {
+  if (data == 'OK') {
     var success = $('<div>').addClass('alert alert-success')
       .append($('<i>').addClass('fa fa-check'))
       .append(' File Uploaded Successfully.');
@@ -326,7 +323,6 @@ function loadFolders() {
   performLfmRequest('folders', {}, 'html')
     .done(function (data) {
       $('#tree').html(data);
-      $('#tree2').html(data);
       loadItems();
     });
 }
@@ -392,25 +388,18 @@ function createFolder(folder_name) {
 // ==================================
 
 function rename(item) {
-  bootbox.prompt({
-    title: lang['message-rename'],
-    value: item.name,
-    callback: function (result) {
-      if (result == null) return;
-      performLfmRequest('rename', {
-        file: item.name,
-        new_name: result
-      }).done(refreshFoldersAndItems);
-    }
+  dialog(lang['message-rename'], item.name, function (new_name) {
+    performLfmRequest('rename', {
+      file: item.name,
+      new_name: new_name
+    }).done(refreshFoldersAndItems);
   });
 }
 
 function trash(item) {
-  bootbox.confirm(lang['message-delete'], function (result) {
-    if (result == true) {
-      performLfmRequest('delete', {items: item.name})
-        .done(refreshFoldersAndItems);
-    }
+  notify(lang['message-delete'], function () {
+    performLfmRequest('delete', {items: item.name})
+      .done(refreshFoldersAndItems)
   });
 }
 
@@ -431,15 +420,11 @@ function download(item) {
 }
 
 function preview(item) {
-  bootbox.dialog({
-    title: lang['title-view'],
-    message: $('<img>')
-      .addClass('img img-responsive center-block')
-      .attr('src', item.path + '?timestamp=' + item.time),
-    size: 'large',
-    onEscape: true,
-    backdrop: true
-  });
+  notify(
+    $('<img>')
+      .addClass('w-100')
+      .attr('src', item.path + '?timestamp=' + item.time)
+  );
 }
 
 function move(item) {
@@ -542,6 +527,16 @@ function notImp() {
   notify('Not yet implemented!');
 }
 
-function notify(message) {
-  bootbox.alert(message);
+function notify(body, callback) {
+  $('#notify').find('.btn-primary').toggle(callback !== undefined);
+  $('#notify').find('.btn-primary').click(callback);
+  $('#notify').modal('show').find('.modal-body').html(body);
+}
+
+function dialog(title, value, callback) {
+  $('#dialog').find('input').val(value);
+  $('#dialog').find('.btn-primary').click(function () {
+    callback($('#dialog').find('input').val());
+  });
+  $('#dialog').modal('show').find('.modal-title').text(title);
 }
