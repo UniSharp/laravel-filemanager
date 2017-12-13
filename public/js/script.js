@@ -534,6 +534,9 @@ function notify(body, callback) {
 
 function dialog(title, value, callback) {
   $('#dialog').find('input').val(value);
+  $('#dialog').on('shown.bs.modal', function () {
+    $('#dialog').find('input').focus();
+  });
   $('#dialog').find('.btn-primary').unbind().click(function (e) {
     callback($('#dialog').find('input').val());
   });
