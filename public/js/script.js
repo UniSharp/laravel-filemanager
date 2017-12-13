@@ -48,7 +48,6 @@ Array.prototype.toggleElement = function (element) {
 };
 
 $(document).ready(function () {
-  bootbox.setDefaults({locale:lang['locale-bootbox']});
   $('#fab').fab({
     buttons: [
       {
@@ -529,13 +528,13 @@ function notImp() {
 
 function notify(body, callback) {
   $('#notify').find('.btn-primary').toggle(callback !== undefined);
-  $('#notify').find('.btn-primary').click(callback);
+  $('#notify').find('.btn-primary').unbind().click(callback);
   $('#notify').modal('show').find('.modal-body').html(body);
 }
 
 function dialog(title, value, callback) {
   $('#dialog').find('input').val(value);
-  $('#dialog').find('.btn-primary').click(function () {
+  $('#dialog').find('.btn-primary').unbind().click(function (e) {
     callback($('#dialog').find('input').val());
   });
   $('#dialog').modal('show').find('.modal-title').text(title);
