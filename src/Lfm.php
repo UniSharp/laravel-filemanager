@@ -21,8 +21,8 @@ class Lfm
 
     public function getStorage($storage_path)
     {
-        if ($this->config->get('lfm.driver') == 'storage') {
-            return new LfmStorageRepository($storage_path);
+        if ($this->config->get('lfm.driver') === 'storage') {
+            return new LfmStorageRepository($storage_path, $this->config->get('lfm.disk'));
         } else {
             return new LfmFileRepository($storage_path);
         }
@@ -230,7 +230,7 @@ class Lfm
 
         $storage_root = $this->getStorage('/')->rootPath();
 
-        if ($driver === 'storage' && (ends_with($storage_root, 'public') && ends_with($storage_root, 'public/'))) {
+        if ($driver === 'storage' && (ends_with($storage_root, 'public') || ends_with($storage_root, 'public/'))) {
             return false;
         }
 

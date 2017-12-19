@@ -82,10 +82,6 @@ class LfmFileRepository implements RepositoryContract
 
     public function save($file, $new_filename)
     {
-        $result_filename = $new_filename . '.' . $file->getClientOriginalExtension();
-        $new_filepath = $this->path . '/' . $result_filename;
-        File::move($file->getRealPath(), $new_filepath);
-
-        return $result_filename;
+        File::move($file->getRealPath(), $this->path . '/' . $new_filename);
     }
 }

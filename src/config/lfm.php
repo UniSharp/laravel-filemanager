@@ -89,6 +89,8 @@ return [
 
     'driver' => 'file',
 
+    'disk' => 'local',
+
     'rename_file' => false,
 
     'alphanumeric_filename'  => false,

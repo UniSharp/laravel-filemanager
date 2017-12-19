@@ -7,15 +7,16 @@ use Unisharp\FileApi\FileApi;
 
 class LfmStorageRepository implements RepositoryContract
 {
-    const DISK_NAME = 'local'; // config('lfm.disk')
+    private $disk_name;
 
     private $disk;
 
     private $path;
 
-    public function __construct($storage_path)
+    public function __construct($storage_path, $disk_name)
     {
-        $this->disk = Storage::disk(self::DISK_NAME);
+        $this->disk_name = $disk_name;
+        $this->disk = Storage::disk($this->disk_name);
         $this->path = $storage_path;
     }
 
@@ -88,9 +89,7 @@ class LfmStorageRepository implements RepositoryContract
 
     public function save($file, $new_filename)
     {
-        $new_filename = (new FileApi($this->path))->thumbs([])->save($file, $new_filename);
-
-        return $new_filename;
+        $this->disk->putFileAs($this->path, $file, $new_filename);
     }
 
     private function insertSuffix($suffix, $file_name)
