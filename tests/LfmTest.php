@@ -24,6 +24,7 @@ class LfmTest extends TestCase
         $config = m::mock(Config::class);
         $config->shouldReceive('get')->with('lfm.driver')->once()->andReturn('file');
         $config->shouldReceive('get')->with('lfm.driver')->once()->andReturn('storage');
+        $config->shouldReceive('get')->with('lfm.disk')->once()->andReturn('local');
 
         $lfm1 = new Lfm($config);
         $lfm2 = new Lfm($config);
@@ -39,18 +40,6 @@ class LfmTest extends TestCase
         $lfm = new Lfm(m::mock(Config::class), $request);
 
         $this->assertEquals('bar', $lfm->input('foo'));
-    }
-
-    public function testIsProcessingImages()
-    {
-        $request = m::mock(Request::class);
-        $request->shouldReceive('input')->with('type')->once()->andReturn('image');
-        $request->shouldReceive('input')->with('type')->once()->andReturn('file');
-
-        $lfm = new Lfm(m::mock(Config::class), $request);
-
-        $this->assertTrue($lfm->isProcessingImages());
-        $this->assertFalse($lfm->isProcessingImages());
     }
 
     public function testGetNameFromPath()
@@ -84,6 +73,9 @@ class LfmTest extends TestCase
                ->with('lfm.folder_categories.image.folder_name', m::type('string'))
                ->once()
                ->andReturn('photos');
+        $config->shouldReceive('get')
+            ->with('lfm.folder_categories')
+            ->andReturn(['file' => [], 'image' => []]);
 
         $request = m::mock(Request::class);
         $request->shouldReceive('input')->with('type')->once()->andReturn('file');
@@ -100,11 +92,18 @@ class LfmTest extends TestCase
         $request = m::mock(Request::class);
         $request->shouldReceive('input')->with('type')->once()->andReturn('file');
         $request->shouldReceive('input')->with('type')->once()->andReturn('image');
+        $request->shouldReceive('input')->with('type')->once()->andReturn('foo');
 
-        $lfm = new Lfm(m::mock(Config::class), $request);
+        $config = m::mock(Config::class);
+        $config->shouldReceive('get')
+            ->with('lfm.folder_categories')
+            ->andReturn(['file' => [], 'image' => []]);
+
+        $lfm = new Lfm($config, $request);
 
         $this->assertEquals('file', $lfm->currentLfmType());
         $this->assertEquals('image', $lfm->currentLfmType());
+        $this->assertEquals('file', $lfm->currentLfmType());
     }
 
     public function testGetUserSlug()

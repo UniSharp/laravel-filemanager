@@ -158,7 +158,7 @@ class LfmPathTest extends TestCase
         $this->assertInstanceOf(LfmItem::class, $path->files()[0]);
     }
 
-    public function testGet()
+    public function testPretty()
     {
         $helper = m::mock(Lfm::class);
         $helper->shouldReceive('getNameFromPath')->andReturn('bar');
@@ -166,7 +166,7 @@ class LfmPathTest extends TestCase
 
         $path = new LfmPath($helper);
 
-        $this->assertInstanceOf(LfmItem::class, $path->get('foo'));
+        $this->assertInstanceOf(LfmItem::class, $path->pretty('foo'));
     }
 
     public function testDelete()

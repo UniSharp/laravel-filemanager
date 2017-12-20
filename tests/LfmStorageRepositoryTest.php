@@ -34,7 +34,7 @@ class LfmStorageRepositoryTest extends TestCase
 
         Storage::shouldReceive('disk')->andReturn($disk);
 
-        $this->storage = new LfmStorageRepository('foo/bar');
+        $this->storage = new LfmStorageRepository('foo/bar', 'local');
     }
 
     public function tearDown()
@@ -62,19 +62,9 @@ class LfmStorageRepositoryTest extends TestCase
         $this->assertEquals('foo/bar/baz', $this->storage->files()[0]);
     }
 
-    public function testMakeDirectory()
-    {
-        $this->assertTrue($this->storage->makeDirectory());
-    }
-
     public function testExists()
     {
         $this->assertTrue($this->storage->exists());
-    }
-
-    public function testGetFile()
-    {
-        $this->assertTrue($this->storage->getFile());
     }
 
     public function testMimeType()
@@ -93,10 +83,5 @@ class LfmStorageRepositoryTest extends TestCase
         $new_lfm_path->shouldReceive('path')->with('storage')->andReturn('foo/bar/baz');
 
         $this->assertTrue($this->storage->move($new_lfm_path));
-    }
-
-    public function testDirectoryIsEmpty()
-    {
-        $this->assertTrue($this->storage->directoryIsEmpty());
     }
 }

@@ -96,6 +96,7 @@ class LfmItemTest extends TestCase
         $this->lfm_path->shouldReceive('isDirectory')->andReturn(false);
         $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
         $this->lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar.baz');
+        $this->lfm_path->shouldReceive('extension')->andReturn('baz');
 
         $this->lfm->shouldReceive('getFileType')->with('baz')->andReturn('File');
 
@@ -107,6 +108,7 @@ class LfmItemTest extends TestCase
     public function testExtension()
     {
         $this->lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar.baz');
+        $this->lfm_path->shouldReceive('extension')->andReturn('baz');
 
         $item = new LfmItem($this->lfm_path, $this->lfm);
 
@@ -160,6 +162,7 @@ class LfmItemTest extends TestCase
         $this->lfm_path->shouldReceive('isDirectory')->andReturn(false);
         $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
         $this->lfm_path->shouldReceive('path')->with('absolute')->andReturn('foo/bar.baz');
+        $this->lfm_path->shouldReceive('extension')->andReturn('baz');
 
         $this->lfm->shouldReceive('getFileIcon')->with('baz')->andReturn('fa-file');
 
