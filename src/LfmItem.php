@@ -9,6 +9,7 @@ class LfmItem
     private $lfm_path;
     private $lfm;
 
+    private $columns = ['name', 'path', 'time', 'icon', 'is_file', 'is_image', 'thumb_url'];
     public $attributes = [];
 
     public function __construct(LfmPath $lfm_path, Lfm $lfm)
@@ -29,7 +30,7 @@ class LfmItem
 
     public function fill()
     {
-        foreach (['name', 'path', 'time', 'icon', 'is_file', 'is_image', 'thumb_url'] as $column) {
+        foreach ($this->columns as $column) {
             $this->__get($column);
         }
 
@@ -85,9 +86,7 @@ class LfmItem
 
     public function extension()
     {
-        return pathinfo($this->absolutePath(), PATHINFO_EXTENSION);
-        // return \File::extension($old_file->path('absolute'));
-        // return $this->storage->disk->extension($this->absolutePath());
+        return $this->lfm_path->extension();
     }
 
     public function path()
@@ -107,7 +106,6 @@ class LfmItem
     public function time()
     {
         return $this->lfm_path->lastModified();
-        // return filemtime($this->absolutePath());
     }
 
     public function thumbUrl()

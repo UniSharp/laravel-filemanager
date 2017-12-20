@@ -34,16 +34,6 @@ class Lfm
     }
 
     /**
-     * Check current lfm type is image or not.
-     *
-     * @return bool
-     */
-    public function isProcessingImages()
-    {
-        return lcfirst(str_singular($this->input('type'))) === 'image';
-    }
-
-    /**
      * Get only the file name.
      *
      * @param  string  $path  Real path of a file.
@@ -77,12 +67,16 @@ class Lfm
      */
     public function currentLfmType()
     {
-        $file_type = 'file';
-        if ($this->isProcessingImages()) {
-            $file_type = 'image';
+        $lfm_type = 'file';
+
+        $request_type = lcfirst(str_singular($this->input('type')));
+        $available_types = array_keys($this->config->get('lfm.folder_categories'));
+
+        if (in_array($request_type, $available_types)) {
+            $lfm_type = $request_type;
         }
 
-        return $file_type;
+        return $lfm_type;
     }
 
     public function getDisplayMode()

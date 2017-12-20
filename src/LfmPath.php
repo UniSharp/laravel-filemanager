@@ -103,7 +103,7 @@ class LfmPath
     public function folders()
     {
         $all_folders = array_map(function ($directory_path) {
-            return $this->get($directory_path);
+            return $this->pretty($directory_path);
         }, $this->storage->directories($this));
 
         $folders = array_filter($all_folders, function ($directory) {
@@ -116,13 +116,13 @@ class LfmPath
     public function files()
     {
         $files = array_map(function ($file_path) {
-            return $this->get($file_path);
+            return $this->pretty($file_path);
         }, $this->storage->files());
 
         return $this->sortByColumn($files);
     }
 
-    public function get($item_path)
+    public function pretty($item_path)
     {
         $lfm_path = clone $this;
         $lfm_path = $lfm_path->setName($this->helper->getNameFromPath($item_path));
@@ -151,7 +151,18 @@ class LfmPath
             return false;
         }
 
-        return $this->storage->makeDirectory($this);
+        return $this->storage->makeDirectory(0777, true, true);
+    }
+
+    /**
+     * Check a folder and its subfolders is empty or not.
+     *
+     * @param  string  $directory_path  Real path of a directory.
+     * @return bool
+     */
+    public function directoryIsEmpty()
+    {
+        return count($this->disk->allFiles()) == 0;
     }
 
     public function normalizeWorkingDir()
@@ -165,7 +176,6 @@ class LfmPath
      * Sort files and directories.
      *
      * @param  mixed  $arr_items  Array of files or folders or both.
-     * @param  mixed  $sort_type  Alphabetic or time.
      * @return array of object
      */
     public function sortByColumn($arr_items)

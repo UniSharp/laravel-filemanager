@@ -247,13 +247,12 @@ function goTo(new_dir) {
 }
 
 function getPreviousDir() {
-  var ds = '/';
   var working_dir = $('#working_dir').val();
-  return working_dir.substring(0, working_dir.lastIndexOf(ds));
+  return working_dir.substring(0, working_dir.lastIndexOf('/'));
 }
 
 function setOpenFolders() {
-  $('[data-type=0]').each(function (index, folder) {
+  $('#tree [data-path]').each(function (index, folder) {
     // close folders that are not parent
     var should_open = ($('#working_dir').val() + '/').startsWith($(folder).data('path') + '/');
     $(folder).children('i')
@@ -261,8 +260,8 @@ function setOpenFolders() {
       .toggleClass('fa-folder', !should_open);
   });
 
-  $('.nav-pills').find('li').removeClass('active');
-  $('[data-path="' + $('#working_dir').val() + '"]').parent('.nav-item').addClass('active');
+  $('#tree .nav-item').removeClass('active');
+  $('#tree [data-path="' + $('#working_dir').val() + '"]').parent('.nav-item').addClass('active');
 }
 
 // ====================
@@ -334,7 +333,7 @@ function loadItems() {
       selected = [];
       var response = JSON.parse(data);
       items = response.items;
-      var hasItems = response.items.length !== 0;
+      var hasItems = items.length !== 0;
       $('#empty').toggleClass('d-none', hasItems);
       $('#content').html('').removeAttr('class');
 
