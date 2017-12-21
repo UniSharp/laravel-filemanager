@@ -14,7 +14,7 @@ class RenameController extends LfmController
         $old_name = $this->helper->input('file');
         $new_name = $this->helper->input('new_name');
 
-        $old_file = $this->lfm->get($old_name);
+        $old_file = $this->lfm->pretty($old_name);
 
         $is_directory = $old_file->isDirectory();
 

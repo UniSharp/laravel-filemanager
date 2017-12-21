@@ -15,7 +15,7 @@ class DeleteController extends LfmController
     public function getDelete()
     {
         $name_to_delete = request('items');
-        $file_to_delete = $this->lfm->get($name_to_delete);
+        $file_to_delete = $this->lfm->pretty($name_to_delete);
         $file_path = $file_to_delete->path('absolute');
 
         event(new ImageIsDeleting($file_path));

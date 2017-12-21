@@ -18,7 +18,7 @@ class CropController extends LfmController
         return view('laravel-filemanager::crop')
             ->with([
                 'working_dir' => request('working_dir'),
-                'img' => $this->lfm->get(request('img'))
+                'img' => $this->lfm->pretty(request('img'))
             ]);
     }
 
