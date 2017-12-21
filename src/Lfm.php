@@ -124,12 +124,7 @@ class Lfm
             $folder = $this->config->get('lfm.shared_folder_name');
         }
 
-        $ds = static::DS;
-        if ($this->isRunningOnWindows()) {
-            $ds = '\\';
-        }
-
-        return $ds . $folder;
+        return $this->ds() . $folder;
     }
 
     public function getThumbFolderName()
@@ -205,6 +200,21 @@ class Lfm
     }
 
     /**
+     * Get directory seperator of current operating system.
+     *
+     * @return string
+     */
+    public function ds()
+    {
+        $ds = Lfm::DS;
+        if ($this->isRunningOnWindows()) {
+            $ds = '\\';
+        }
+
+        return $ds;
+    }
+
+    /**
      * Check current operating system is Windows or not.
      *
      * @return bool
@@ -214,6 +224,11 @@ class Lfm
         return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
     }
 
+    /**
+     * Check if the package should set up route to the file or not(storage driver).
+     *
+     * @return bool
+     */
     public function shouldSetStorageRoute()
     {
         $driver = $this->config->get('lfm.driver');

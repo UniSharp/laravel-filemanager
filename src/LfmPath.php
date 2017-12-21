@@ -61,32 +61,20 @@ class LfmPath
 
     public function path($type = 'storage')
     {
+        $ds = Lfm::DS;
+        if ($type !== 'working_dir') {
+            $ds = $this->helper->ds();
+        }
+
         if ($type == 'working_dir') {
             // working directory: /{user_slug}
-            $result = $this->normalizeWorkingDir();
-            return $this->appendPathToFile($result, false);
+            $path = $this->normalizeWorkingDir();
         } elseif ($type == 'storage') {
             // storage: files/{user_slug}
-            $result = $this->helper->getCategoryName() . $this->normalizeWorkingDir();
-            return $this->appendPathToFile($result, $this->helper->isRunningOnWindows());
+            $path = $this->helper->getCategoryName() . $this->normalizeWorkingDir();
         } else {
             // absolute: /var/www/html/project/storage/app/files/{user_slug}
-            $result = $this->storage->rootPath() . $this->helper->getCategoryName() . $this->normalizeWorkingDir();
-            return $this->appendPathToFile($result, $this->helper->isRunningOnWindows());
-        }
-    }
-
-    // TODO: work with timestamp
-    public function url($with_timestamp = false)
-    {
-        return Lfm::DS . $this->path('storage');
-    }
-
-    public function appendPathToFile($path, $is_windows = false)
-    {
-        $ds = Lfm::DS;
-        if ($is_windows) {
-            $ds = '\\';
+            $path = $this->storage->rootPath() . $this->helper->getCategoryName() . $this->normalizeWorkingDir();
         }
 
         if ($this->is_thumb) {
@@ -98,6 +86,12 @@ class LfmPath
         }
 
         return $path;
+    }
+
+    // TODO: work with timestamp
+    public function url($with_timestamp = false)
+    {
+        return Lfm::DS . $this->helper->getCategoryName() . $this->path('working_dir');
     }
 
     public function folders()

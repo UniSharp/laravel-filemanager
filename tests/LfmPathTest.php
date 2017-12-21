@@ -27,6 +27,7 @@ class LfmPathTest extends TestCase
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('input')->with('working_dir')->andReturn('/bar');
         $helper->shouldReceive('isRunningOnWindows')->andReturn(false);
+        $helper->shouldReceive('ds')->andReturn('/');
 
         $path = new LfmPath($helper);
 
@@ -43,6 +44,7 @@ class LfmPathTest extends TestCase
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('input')->with('working_dir')->andReturn('/bar');
         $helper->shouldReceive('isRunningOnWindows')->andReturn(false);
+        $helper->shouldReceive('ds')->andReturn('/');
 
         $path = new LfmPath($helper);
 
@@ -78,6 +80,7 @@ class LfmPathTest extends TestCase
         $helper->shouldReceive('input')->with('working_dir')->andReturnNull();
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('isRunningOnWindows')->andReturn(false);
+        $helper->shouldReceive('ds')->andReturn('/');
 
         $storage = m::mock(LfmStorage::class);
         $storage->shouldReceive('rootPath')->andReturn(realpath(__DIR__ . '/../') . '/storage/app');
@@ -103,24 +106,6 @@ class LfmPathTest extends TestCase
         $this->assertEquals('/files/foo/foo', $path->setName('foo')->url());
     }
 
-    public function testThumbAndAppendPathToFile()
-    {
-        $helper = m::mock(Lfm::class);
-        $helper->shouldReceive('getThumbFolderName')->andReturn('thumbs');
-        $helper->shouldReceive('isRunningOnWindows')->andReturn(false);
-
-        $path = new LfmPath($helper);
-        $path->setName('baz');
-
-        $prefix = 'bar';
-
-        $this->assertEquals($prefix . '/baz', $path->appendPathToFile($prefix));
-
-        $path->thumb();
-
-        $this->assertEquals($prefix . '/thumbs/baz', $path->appendPathToFile($prefix));
-    }
-
     public function testFolders()
     {
         $storage = m::mock(LfmStorage::class);
@@ -134,6 +119,7 @@ class LfmPathTest extends TestCase
         $helper->shouldReceive('getNameFromPath')->andReturn('bar');
         $helper->shouldReceive('getThumbFolderName')->andReturn('thumbs');
         $helper->shouldReceive('isRunningOnWindows')->andReturn(false);
+        $helper->shouldReceive('ds')->andReturn('/');
 
         $path = new LfmPath($helper);
 
@@ -152,6 +138,7 @@ class LfmPathTest extends TestCase
         $helper->shouldReceive('getStorage')->andReturn($storage);
         $helper->shouldReceive('getNameFromPath')->andReturn('bar');
         $helper->shouldReceive('isRunningOnWindows')->andReturn(false);
+        $helper->shouldReceive('ds')->andReturn('/');
 
         $path = new LfmPath($helper);
 
@@ -180,6 +167,7 @@ class LfmPathTest extends TestCase
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('input')->with('working_dir')->andReturn('/bar');
         $helper->shouldReceive('isRunningOnWindows')->andReturn(false);
+        $helper->shouldReceive('ds')->andReturn('/');
 
         $path1 = new LfmPath($helper);
 
@@ -194,6 +182,7 @@ class LfmPathTest extends TestCase
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('input')->with('working_dir')->andReturn('/bar');
         $helper->shouldReceive('isRunningOnWindows')->andReturn(false);
+        $helper->shouldReceive('ds')->andReturn('/');
 
         $path2 = new LfmPath($helper);
 
@@ -212,6 +201,7 @@ class LfmPathTest extends TestCase
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('input')->with('working_dir')->andReturn('/bar');
         $helper->shouldReceive('isRunningOnWindows')->andReturn(false);
+        $helper->shouldReceive('ds')->andReturn('/');
 
         $path = new LfmPath($helper);
 
@@ -229,6 +219,7 @@ class LfmPathTest extends TestCase
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('input')->with('working_dir')->andReturn('/bar');
         $helper->shouldReceive('isRunningOnWindows')->andReturn(false);
+        $helper->shouldReceive('ds')->andReturn('/');
 
         $path = new LfmPath($helper);
 
