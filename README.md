@@ -46,7 +46,7 @@ This approach ensures that only authenticated users have access to the Laravel-F
 * [x] (done) JSON APIs
 * [ ] Move to folder function
 * [ ] (in progress) Applying MIME icon generator
-* [ ] (in progress) Configurable disk of storage
+* [x] (done) Configurable disk of storage
 * [x] (done) Bootstrap 4 support
 * [x] (done) Remove bootbox
 
