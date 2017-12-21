@@ -48,7 +48,7 @@ class RenameController extends LfmController
             event(new ImageIsRenaming($old_file->path('absolute'), $new_file));
         }
 
-        if ($old_file->isImage()) {
+        if ($old_file->hasThumb()) {
             $this->lfm->setName($old_name)->thumb()
                 ->move($this->lfm->setName($new_name)->thumb());
         }
