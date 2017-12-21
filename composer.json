@@ -53,7 +53,6 @@
         "Tests\\": "tests"
     }
   },
-  "bin": ["bin/debug"],
   "extra": {
     "laravel": {
       "providers": [
