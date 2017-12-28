@@ -189,6 +189,11 @@
         label: lang['menu-view']
       },
       {
+        name: 'move',
+        icon: 'sign-out',
+        label: 'move'
+      },
+      {
         name: 'resize',
         icon: 'arrows-alt',
         label: lang['menu-resize']
