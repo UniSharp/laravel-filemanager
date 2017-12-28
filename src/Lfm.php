@@ -82,7 +82,7 @@ class Lfm
     public function getDisplayMode()
     {
         $type_key = $this->currentLfmType();
-        $startup_view = config('lfm.folder_categories.' . $type_key . '.startup_view');
+        $startup_view = $this->config->get('lfm.folder_categories.' . $type_key . '.startup_view');
 
         $view_type = 'grid';
         $target_display_type = $this->input('show_list') ?: $startup_view;
