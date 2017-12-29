@@ -126,7 +126,7 @@ class LfmItemTest extends TestCase
     }
 
     // TODO: refactor
-    public function testPath()
+    public function testUrl()
     {
         $this->lfm_path->shouldReceive('isDirectory')->andReturn(false);
         $this->lfm_path->shouldReceive('getName')->andReturn('bar');
@@ -135,7 +135,7 @@ class LfmItemTest extends TestCase
 
         $item = new LfmItem($this->lfm_path, $this->lfm);
 
-        $this->assertEquals('foo/bar', $item->path());
+        $this->assertEquals('foo/bar', $item->url());
     }
 
     public function testSize()

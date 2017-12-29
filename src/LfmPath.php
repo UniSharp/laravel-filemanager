@@ -61,37 +61,31 @@ class LfmPath
 
     public function path($type = 'storage')
     {
-        $ds = Lfm::DS;
-        if ($type !== 'working_dir') {
-            $ds = $this->helper->ds();
-        }
-
         if ($type == 'working_dir') {
             // working directory: /{user_slug}
-            $path = $this->normalizeWorkingDir();
+            return $this->normalizeWorkingDir();
+        } elseif ($type == 'url') {
+            // storage: files/{user_slug}
+            return $this->helper->getCategoryName() . $this->path('working_dir');
         } elseif ($type == 'storage') {
             // storage: files/{user_slug}
-            $path = $this->helper->getCategoryName() . $this->normalizeWorkingDir();
+            // storage on windows: files\{user_slug}
+            return $this->translateToOsPath($this->path('url'));
         } else {
             // absolute: /var/www/html/project/storage/app/files/{user_slug}
-            $path = $this->storage->rootPath() . $this->helper->getCategoryName() . $this->normalizeWorkingDir();
+            // absolute on windows: C:\project\storage\app\files\{user_slug}
+            return $this->storage->rootPath() . $this->path('storage');
         }
-
-        if ($this->is_thumb) {
-            $path .= $ds . $this->helper->getThumbFolderName();
-        }
-
-        if ($this->getName()) {
-            $path .= $ds . $this->getName();
-        }
-
-        return $path;
     }
 
-    // TODO: work with timestamp
-    public function url($with_timestamp = false)
+    public function translateToOsPath($path)
     {
-        return Lfm::DS . $this->helper->getCategoryName() . $this->path('working_dir');
+        return str_replace(Lfm::DS, $this->helper->ds(), $path);
+    }
+
+    public function url()
+    {
+        return Lfm::DS . $this->path('url');
     }
 
     public function folders()
@@ -161,9 +155,19 @@ class LfmPath
 
     public function normalizeWorkingDir()
     {
-        return $this->working_dir
+        $path = $this->working_dir
             ?: $this->helper->input('working_dir')
             ?: $this->helper->getRootFolder();
+
+        if ($this->is_thumb) {
+            $path .= Lfm::DS . $this->helper->getThumbFolderName();
+        }
+
+        if ($this->getName()) {
+            $path .= Lfm::DS . $this->getName();
+        }
+
+        return $path;
     }
 
     /**

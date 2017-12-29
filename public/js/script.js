@@ -193,9 +193,9 @@ $(document).on('click', '#content a', function (e) {
     toggleActions();
   } else {
     if (element.is_file) {
-      useFile(getOneSelectedElement().path);
+      useFile(getOneSelectedElement().url);
     } else {
-      goTo(getOneSelectedElement().path);
+      goTo(getOneSelectedElement().url);
     }
   }
 });
@@ -421,7 +421,7 @@ function preview(item) {
   notify(
     $('<img>')
       .addClass('w-100')
-      .attr('src', item.path + '?timestamp=' + item.time)
+      .attr('src', item.url + '?timestamp=' + item.time)
   );
 }
 
@@ -482,7 +482,7 @@ function use(item) {
     window.opener.SetUrl(p,w,h);
   }
 
-  var url = item.path;
+  var url = item.url;
   var field_name = getUrlParam('field_name');
   var is_ckeditor = getUrlParam('CKEditor');
   var is_fcke = typeof data != 'undefined' && data['Properties']['Width'] != '';
