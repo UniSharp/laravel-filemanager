@@ -42,9 +42,9 @@ class LfmStorageRepository implements RepositoryContract
         return $this->disk->move($this->path, $new_lfm_path->path('storage'));
     }
 
-    public function save($file, $new_filename)
+    public function save($file_content)
     {
-        $this->disk->putFileAs($this->path, $file, $new_filename);
+        $this->disk->put($this->path, $file_content);
     }
 
     public function url($path)
@@ -52,9 +52,9 @@ class LfmStorageRepository implements RepositoryContract
         return $this->disk->url($path);
     }
 
-    public function makeDirectory($mode, $recursive, $force)
+    public function makeDirectory()
     {
-        $this->disk->makeDirectory($this->path, $mode, $recursive, $force);
+        $this->disk->makeDirectory($this->path, ...$arguments);
 
         $this->disk->setVisibility($this->path, 'public');
     }

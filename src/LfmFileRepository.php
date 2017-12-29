@@ -44,9 +44,9 @@ class LfmFileRepository implements RepositoryContract
         return File::move($this->path, $new_lfm_path->path('storage'));
     }
 
-    public function save($file, $new_filename)
+    public function save($file)
     {
-        $dest_file_path = $this->path . '/' . $new_filename;
+        $dest_file_path = $this->path;
 
         File::move($file->getRealPath(), $dest_file_path);
 
