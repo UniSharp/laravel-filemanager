@@ -6,16 +6,15 @@ use Illuminate\Support\Facades\Storage;
 
 class RedirectController extends LfmController
 {
-    public function showFile()
+    public function showFile($file_path)
     {
-        $request_url = urldecode(request()->url());
-        $storage_path = str_replace(url('/'), '', $request_url);
+        $storage = Storage::disk($this->helper->config('disk'));
 
-        if (! Storage::exists($storage_path)) {
+        if (! $storage->exists($file_path)) {
             abort(404);
         }
 
-        return response(Storage::get($storage_path))
-            ->header('Content-Type', Storage::mimeType($storage_path));
+        return response($storage->get($file_path))
+            ->header('Content-Type', $storage->mimeType($file_path));
     }
 }
