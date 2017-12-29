@@ -85,7 +85,7 @@ class LfmPath
 
     public function url()
     {
-        return Lfm::DS . $this->path('url');
+        return $this->storage->url($this->path('url'));
     }
 
     public function folders()
@@ -139,7 +139,7 @@ class LfmPath
             return false;
         }
 
-        return $this->storage->makeDirectory(0777, true, true);
+        $this->storage->makeDirectory(0777, true, true);
     }
 
     /**

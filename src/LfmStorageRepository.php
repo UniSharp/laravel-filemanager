@@ -46,4 +46,16 @@ class LfmStorageRepository implements RepositoryContract
     {
         $this->disk->putFileAs($this->path, $file, $new_filename);
     }
+
+    public function url($path)
+    {
+        return $this->disk->url($path);
+    }
+
+    public function makeDirectory($mode, $recursive, $force)
+    {
+        $this->disk->makeDirectory($this->path, $mode, $recursive, $force);
+
+        $this->disk->setVisibility($this->path, 'public');
+    }
 }

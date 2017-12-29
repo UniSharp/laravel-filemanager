@@ -25,6 +25,11 @@ class LfmFileRepository implements RepositoryContract
         return public_path() . '/';
     }
 
+    public function url($path)
+    {
+        return '/' . $path;
+    }
+
     public function isDirectory()
     {
         $parent_path = substr($this->path, 0, strrpos($this->path, '/'));
