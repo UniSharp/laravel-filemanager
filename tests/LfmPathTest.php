@@ -96,10 +96,16 @@ class LfmPathTest extends TestCase
     public function testUrl()
     {
         $helper = m::mock(Lfm::class);
-        $helper->shouldReceive('getRootFolder')->once()->andReturn('/foo');
-        $helper->shouldReceive('input')->with('working_dir')->once()->andReturnNull();
+        $helper->shouldReceive('getRootFolder')->andReturn('/foo');
+        $helper->shouldReceive('input')->with('working_dir')->andReturnNull();
         $helper->shouldReceive('getCategoryName')->andReturn('files');
         $helper->shouldReceive('isRunningOnWindows')->andReturn(false);
+        $helper->shouldReceive('ds')->andReturn('/');
+
+        $storage = m::mock(LfmStorage::class);
+        $storage->shouldReceive('url')->andReturn('/files/foo/foo');
+
+        $helper->shouldReceive('getStorage')->andReturn($storage);
 
         $path = new LfmPath($helper);
 
@@ -205,7 +211,7 @@ class LfmPathTest extends TestCase
 
         $path = new LfmPath($helper);
 
-        $this->assertTrue($path->createFolder('bar'));
+        $this->assertNull($path->createFolder('bar'));
     }
 
     public function testCreateFolderButFolderAlreadyExists()
