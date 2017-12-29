@@ -113,14 +113,14 @@ $('#to-previous').click(function () {
 
 function toggleMobileTree(should_display) {
   if (should_display) {
-    $('#tree').animate({'left': '0px'}, 1000, 'easeOutExpo', function () {
-      show_tree = true;
-    });
+    var position = '0px';
   } else {
-    $('#tree').animate({'left': '-' + $('#tree').width() + 'px'}, 1000, 'easeOutExpo', function () {
-      show_tree = false;
-    });
+    var position = '-' + $('#tree').width() + 'px';
   }
+
+  $('#tree').animate({'left': position}, 1000, 'easeOutExpo', function () {
+    show_tree = should_display;
+  });
 }
 
 $('#show_tree').click(function (e) {
@@ -265,18 +265,6 @@ function performLfmRequest(url, parameter, type) {
 
 function displayErrorResponse(jqXHR) {
   notify('<div style="max-height:50vh;overflow: scroll;">' + jqXHR.responseText + '</div>');
-}
-
-function displaySuccessMessage(data) {
-  if (data == 'OK') {
-    var success = $('<div>').addClass('alert alert-success')
-      .append($('<i>').addClass('fa fa-check'))
-      .append(' File Uploaded Successfully.');
-    $('#alerts').append(success);
-    setTimeout(function () {
-      success.remove();
-    }, 2000);
-  }
 }
 
 var refreshFoldersAndItems = function (data) {
