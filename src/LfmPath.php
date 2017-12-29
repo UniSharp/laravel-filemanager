@@ -201,12 +201,12 @@ class LfmPath
     public function upload($file)
     {
         $this->uploadValidator($file);
-        $new_filename = $this->getNewName($file);
-        $new_file_path = $this->setName($new_filename)->path('absolute');
+        $new_file_name = $this->getNewName($file);
+        $new_file_path = $this->setName($new_file_name)->path('absolute');
 
         event(new ImageIsUploading($new_file_path));
         try {
-            $new_filename = $this->saveFile($file, $new_filename);
+            $new_file_name = $this->saveFile($file, $new_file_name);
         } catch (\Exception $e) {
             \Log::info($e);
             return $this->error('invalid');
@@ -214,7 +214,7 @@ class LfmPath
         // TODO should be "FileWasUploaded"
         event(new ImageWasUploaded($new_file_path));
 
-        return $new_filename;
+        return $new_file_name;
     }
 
     private function uploadValidator($file)
@@ -229,9 +229,9 @@ class LfmPath
             throw new \Exception('File failed to upload. Error code: ' . $file->getError());
         }
 
-        $new_filename = $this->getNewName($file) . '.' . $file->getClientOriginalExtension();
+        $new_file_name = $this->getNewName($file) . '.' . $file->getClientOriginalExtension();
 
-        if ($this->setName($new_filename)->exists()) {
+        if ($this->setName($new_file_name)->exists()) {
             return $this->error('file-exist');
         }
 
@@ -255,54 +255,48 @@ class LfmPath
 
     private function getNewName($file)
     {
-        $new_filename = $this->helper->translateFromUtf8(trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
+        $new_file_name = $this->helper->translateFromUtf8(trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
 
         if (config('lfm.rename_file') === true) {
-            $new_filename = uniqid();
+            $new_file_name = uniqid();
         } elseif (config('lfm.alphanumeric_filename') === true) {
-            $new_filename = preg_replace('/[^A-Za-z0-9\-\']/', '_', $new_filename);
+            $new_file_name = preg_replace('/[^A-Za-z0-9\-\']/', '_', $new_file_name);
         }
 
         $extension = $file->getClientOriginalExtension();
 
         if ($extension) {
-            $new_filename .= '.' . $extension;
+            $new_file_name .= '.' . $extension;
         }
 
-        return $new_filename;
+        return $new_file_name;
     }
 
-    private function saveFile($file, $new_filename)
+    private function saveFile($file, $new_file_name)
     {
-        $should_create_thumbnail = $this->shouldCreateThumb($file);
+        $this->setName($new_file_name)->storage->save(file_get_contents($file));
 
-        $this->setName($new_filename)->thumb(false)->storage->save(file_get_contents($file));
+        $this->makeThumbnail($new_file_name);
 
-        if ($should_create_thumbnail) {
-            $this->makeThumbnail($new_filename);
+        return $new_file_name;
+    }
+
+    public function makeThumbnail($file_name)
+    {
+        $original_image = $this->pretty($file_name);
+
+        if (!$original_image->shouldCreateThumb()) {
+            return;
         }
 
-        return $new_filename;
-    }
-
-    public function makeThumbnail($filename)
-    {
         // create folder for thumbnails
         $this->setName(null)->thumb(true)->createFolder();
 
-        $image_content = $this->thumb(false)->setName($filename)->get();
-
-        // generate cropped thumbnail
-        $image = Image::make($image_content)
+        // generate cropped image content
+        $image_content = Image::make($original_image->get())
             ->fit(config('lfm.thumb_img_width', 200), config('lfm.thumb_img_height', 200))
             ->encode();
 
-        $this->setName($filename)->thumb(true)->storage->save($image);
-    }
-
-    private function shouldCreateThumb($file)
-    {
-        return starts_with($file->getMimeType(), 'image')
-            && !in_array($file->getMimeType(), ['image/gif', 'image/svg+xml']);
+        $this->setName($file_name)->thumb(true)->storage->save($image_content);
     }
 }

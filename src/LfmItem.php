@@ -153,15 +153,33 @@ class LfmItem
             return false;
         }
 
-        if (in_array($this->mimeType(), ['image/gif', 'image/svg+xml'])) {
-            return false;
-        }
-
         if (!$this->lfm->thumb()->exists()) {
             return false;
         }
 
         return true;
+    }
+
+    public function shouldCreateThumb()
+    {
+        if (!$this->helper->config('should_create_thumbnails')) {
+            return false;
+        }
+
+        if (!$this->isImage()) {
+            return false;
+        }
+
+        if (in_array($this->mimeType(), ['image/gif', 'image/svg+xml'])) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function get()
+    {
+        return $this->lfm->get();
     }
 
     /**
