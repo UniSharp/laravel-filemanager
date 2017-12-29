@@ -27,27 +27,27 @@ class CropController extends LfmController
      */
     public function getCropimage($overWrite = true)
     {
-        $dataX = request('dataX');
-        $dataY = request('dataY');
-        $dataHeight = request('dataHeight');
-        $dataWidth = request('dataWidth');
-        $image_path = $this->lfm->setName(request('img'))->path('absolute');
+        $image_name = request('img');
+        $image_path = $this->lfm->setName($image_name)->path('absolute');
         $crop_path = $image_path;
 
         if (! $overWrite) {
-            $fileParts = explode('.', request('img'));
+            $fileParts = explode('.', $image_name);
             $fileParts[count($fileParts) - 2] = $fileParts[count($fileParts) - 2] . '_cropped_' . time();
             $crop_path = $this->lfm->setName(implode('.', $fileParts))->path('absolute');
         }
 
         event(new ImageIsCropping($image_path));
+
+        $crop_info = request()->only('dataWidth', 'dataHeight', 'dataX', 'dataY');
+
         // crop image
         Image::make($image_path)
-            ->crop($dataWidth, $dataHeight, $dataX, $dataY)
+            ->crop(...array_values($crop_info))
             ->save($crop_path);
 
         // make new thumbnail
-        $this->lfm->makeThumbnail($this->helper->getNameFromPath($image_path));
+        $this->lfm->makeThumbnail($image_name);
 
         event(new ImageWasCropped($image_path));
     }
