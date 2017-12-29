@@ -93,5 +93,7 @@ Route::group(compact('middleware', 'prefix', 'as', 'namespace'), function () {
 });
 
 if (app('\UniSharp\LaravelFilemanager\Lfm')->shouldSetStorageRoute()) {
-    Route::get('/' . config('lfm.images_folder_name') . '/{file_path}', $namespace . '\RedirectController@showFile')->where('file_path', '.*');
+    foreach (config('lfm.folder_categories') as $folder_category) {
+        Route::get('/' . $folder_category['folder_name'] . '/{file_path}', $namespace . '\RedirectController@showFile')->where('file_path', '.*');
+    }
 }

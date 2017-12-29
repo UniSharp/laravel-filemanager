@@ -274,8 +274,6 @@ class LfmPath
 
         $this->setName(null)->thumb(false)->storage->save($file, $new_filename);
 
-        chmod($this->setName($new_filename)->thumb(false)->path('absolute'), config('lfm.create_file_mode', 0644));
-
         if ($should_create_thumbnail) {
             $this->makeThumbnail($new_filename);
         }
@@ -288,10 +286,21 @@ class LfmPath
         // create folder for thumbnails
         $this->setName(null)->thumb(true)->createFolder();
 
+        $image_path = $this->thumb(false)->setName($filename)->path('storage');
+
+        $image_content = $this->storage->get($image_path);
+
+        $thumb_path = $this->thumb(true)->setName($filename)->path('absolute');
+
         // generate cropped thumbnail
-        Image::make($this->thumb(false)->setName($filename)->path('absolute'))
+        $image = Image::make($image_content)
             ->fit(config('lfm.thumb_img_width', 200), config('lfm.thumb_img_height', 200))
-            ->save($this->thumb(true)->setName($filename)->path('absolute'));
+            ->save($thumb_path);
+
+        \Log::info($this->storage->rootPath());
+        \Log::info($thumb_path);
+
+        $this->setName(null)->thumb(true)->storage->save(new UploadedFile($thumb_path, $filename), $filename);
     }
 
     private function shouldCreateThumb($file)

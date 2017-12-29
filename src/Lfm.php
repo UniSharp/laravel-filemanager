@@ -33,6 +33,11 @@ class Lfm
         return $this->translateFromUtf8($this->request->input($key));
     }
 
+    public function config($key)
+    {
+        return $this->config->get('lfm.' . $key);
+    }
+
     /**
      * Get only the file name.
      *
