@@ -141,31 +141,6 @@ $(document).on('click', '#upload', function () {
   $('#uploadModal').modal('show');
 });
 
-$('#upload-btn').click(function () {
-  $(this).html('')
-    .append($('<i>').addClass('fa fa-refresh fa-spin'))
-    .append(" " + lang['btn-uploading'])
-    .addClass('disabled');
-
-  function resetUploadForm() {
-    $('#uploadModal').modal('hide');
-    $('#upload-btn').html(lang['btn-upload']).removeClass('disabled');
-    $('input#upload').val('');
-  }
-
-  $('#uploadForm').ajaxSubmit({
-    success: function (data, statusText, xhr, $form) {
-      resetUploadForm();
-      refreshFoldersAndItems(data);
-      displaySuccessMessage(data);
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      displayErrorResponse(jqXHR);
-      resetUploadForm();
-    }
-  });
-});
-
 $(document).on('click', '[data-display]', function() {
   show_list = $(this).data('display');
   loadItems();

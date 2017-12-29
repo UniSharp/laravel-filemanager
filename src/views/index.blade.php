@@ -108,7 +108,7 @@
             <div class="form-group" id="attachment">
               <div class="controls text-center">
                 <div class="input-group w-100">
-                  <a class="btn btn-primary" id="upload-button">{{ trans('laravel-filemanager::lfm.message-choose') }}</a>
+                  <a class="btn btn-primary w-100" id="upload-button">{{ trans('laravel-filemanager::lfm.message-choose') }}</a>
                 </div>
               </div>
             </div>
@@ -118,7 +118,7 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-close') }}</button>
+          <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-close') }}</button>
         </div>
       </div>
     </div>
