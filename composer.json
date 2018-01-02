@@ -56,7 +56,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Unisharp\\Laravelfilemanager\\LaravelFilemanagerServiceProvider"
+        "Unisharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider"
       ],
       "aliases": {
       }
