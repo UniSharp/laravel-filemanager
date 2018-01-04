@@ -7,10 +7,12 @@ use Illuminate\Support\Facades\File;
 class LfmFileRepository implements RepositoryContract
 {
     private $path;
+    private $helper;
 
-    public function __construct($storage_path)
+    public function __construct($storage_path, $helper)
     {
         $this->path = $storage_path;
+        $this->helper = $helper;
     }
 
     public function __call($function_name, $arguments)
@@ -22,23 +24,14 @@ class LfmFileRepository implements RepositoryContract
     // TODO: check ending with slash in tests
     public function rootPath()
     {
-        return public_path() . '/';
+        return public_path() . $this->helper->ds();
     }
 
     public function url($path)
     {
         return '/' . $path;
     }
-
-    public function isDirectory()
-    {
-        $parent_path = substr($this->path, 0, strrpos($this->path, '/'));
-        $current_path = $this->path;
-        $this->path = $parent_path;
-
-        return in_array($current_path, $this->directories());
-    }
-
+    
     public function move($new_lfm_path)
     {
         return File::move($this->path, $new_lfm_path->path('storage'));

@@ -7,12 +7,13 @@ use Illuminate\Support\Facades\Storage;
 class LfmStorageRepository implements RepositoryContract
 {
     private $disk;
-
     private $path;
+    private $helper;
 
-    public function __construct($storage_path, $disk_name)
+    public function __construct($storage_path, $helper)
     {
-        $this->disk = Storage::disk($disk_name);
+        $this->helper = $helper;
+        $this->disk = Storage::disk($this->helper->config('disk'));
         $this->path = $storage_path;
     }
 
@@ -26,15 +27,6 @@ class LfmStorageRepository implements RepositoryContract
     {
         // storage_path('app')
         return $this->disk->getDriver()->getAdapter()->getPathPrefix();
-    }
-
-    public function isDirectory()
-    {
-        $parent_path = substr($this->path, 0, strrpos($this->path, '/'));
-        $current_path = $this->path;
-        $this->path = $parent_path;
-
-        return in_array($current_path, $this->directories());
     }
 
     public function move($new_lfm_path)

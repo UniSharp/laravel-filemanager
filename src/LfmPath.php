@@ -24,7 +24,7 @@ class LfmPath
     public function __get($var_name)
     {
         if ($var_name == 'storage') {
-            return $this->helper->getStorage($this->path('storage'));
+            return $this->helper->getStorage($this->path('url'));
         }
     }
 
@@ -63,7 +63,7 @@ class LfmPath
     {
         if ($type == 'working_dir') {
             // working directory: /{user_slug}
-            return $this->normalizeWorkingDir();
+            return $this->translateToLfmPath($this->normalizeWorkingDir());
         } elseif ($type == 'url') {
             // storage: files/{user_slug}
             return $this->helper->getCategoryName() . $this->path('working_dir');
@@ -76,6 +76,11 @@ class LfmPath
             // absolute on windows: C:\project\storage\app\files\{user_slug}
             return $this->storage->rootPath() . $this->path('storage');
         }
+    }
+
+    public function translateToLfmPath($path)
+    {
+        return str_replace($this->helper->ds(), Lfm::DS, $path);
     }
 
     public function translateToOsPath($path)
@@ -140,6 +145,25 @@ class LfmPath
         }
 
         $this->storage->makeDirectory(0777, true, true);
+    }
+
+    public function isDirectory()
+    {
+        $working_dir = $this->path('working_dir');
+        $parent_dir = substr($working_dir, 0, strrpos($working_dir, '/'));
+
+        $parent_path = clone $this;
+        $parent_path->dir($parent_dir)->setName(null);
+
+        $directories = $parent_path->directories();
+
+        $that = $this;
+
+        $directories = array_map(function ($directory_path) use ($that) {
+            return $this->translateToLfmPath($directory_path);
+        }, $directories);
+
+        return in_array($this->path('url'), $directories);
     }
 
     /**
