@@ -321,6 +321,6 @@ class LfmPath
             ->fit(config('lfm.thumb_img_width', 200), config('lfm.thumb_img_height', 200))
             ->encode();
 
-        $this->setName($file_name)->thumb(true)->storage->save($image_content);
+        $this->setName($file_name)->thumb(true)->storage->save((string) $image_content);
     }
 }
