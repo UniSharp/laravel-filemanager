@@ -120,7 +120,7 @@ class LfmPath
         $lfm_path = clone $this;
         $lfm_path = $lfm_path->setName($this->helper->getNameFromPath($item_path));
 
-        return Container::getInstance()->make(LfmItem::class, [$lfm_path, $this->helper]);
+        return Container::getInstance()->makeWith(LfmItem::class, ['lfm' => $lfm_path, 'helper' => $this->helper]);
     }
 
     public function delete()
