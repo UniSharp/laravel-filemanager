@@ -27,11 +27,11 @@
     "ext-exif": "*",
     "ext-fileinfo": "*",
     "intervention/image": "2.*",
-    "illuminate/config": ">=5.1.0",
-    "illuminate/filesystem": ">=5.1.0",
-    "illuminate/support": ">=5.1.0",
-    "illuminate/http": ">=5.1.0",
-    "illuminate/container": "^5.4",
+    "illuminate/config": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
+    "illuminate/filesystem": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
+    "illuminate/support": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
+    "illuminate/http": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
+    "illuminate/container": "5.4.* || 5.5.*",
     "unisharp/laravel-fileapi": ">=1.0.2"
   },
   "require-dev": {
