@@ -447,14 +447,21 @@ function use(item) {
 
   var url = item.url;
   var field_name = getUrlParam('field_name');
+  var callback = getUrlParam('callback');
   var is_ckeditor = getUrlParam('CKEditor');
   var is_fcke = typeof data != 'undefined' && data['Properties']['Width'] != '';
 
-  if (window.opener || window.tinyMCEPopup || field_name || getUrlParam('CKEditorCleanUpFuncNum') || is_ckeditor) {
+  if (window.opener || window.tinyMCEPopup || field_name || callback || getUrlParam('CKEditorCleanUpFuncNum') || is_ckeditor) {
     if (window.tinyMCEPopup) { // use TinyMCE > 3.0 integration method
       useTinymce3(url);
     } else if (field_name) {   // tinymce 4 and colorbox
       useTinymce4AndColorbox(url, field_name);
+    } else if (callback && (window[callback] || parent[callback])) {
+      if (window[callback]) {
+        window[callback](getSelectedItems());
+      } else if (parent[callback]) {
+        parent[callback](getSelecteditems());
+      }
     } else if(is_ckeditor) {   // use CKEditor 3.0 + integration method
       useCkeditor3(url);
     } else if (is_fcke) {      // use FCKEditor 2.0 integration method
