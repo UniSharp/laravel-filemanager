@@ -165,6 +165,7 @@
   <script src="{{ asset('vendor/laravel-filemanager/js/jquery.form.min.js') }}"></script>
   <script src="{{ asset('vendor/laravel-filemanager/js/dropzone.min.js') }}"></script>
   <script>
+    document.domain = "{{config('lfm.document_domain')}}";
     var lfm_route = "{{ url(config('lfm.url_prefix')) }}";
     var lang = {!! json_encode(trans('laravel-filemanager::lfm')) !!};
     var actions = [

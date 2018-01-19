@@ -22,6 +22,9 @@ return [
     // The url to this package. Change it if necessary.
     'url_prefix' => 'laravel-filemanager',
 
+    // Url to configure the iframe document.domain
+    'document_domain' => 'localhost',
+
     // Use relative paths (without domain)
     'relative_paths' => false,
 
