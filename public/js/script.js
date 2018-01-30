@@ -311,9 +311,9 @@ function loadItems() {
             .attr('data-id', index);
 
           if (item.thumb_url) {
-            var image = $('<div>').css('background-image', 'url("' + item.thumb_url + '?timestamp=' + item.time + '")')
+            var image = $('<div>').css('background-image', 'url("' + item.thumb_url + '?timestamp=' + item.time + '")');
           } else {
-            var image = $('<i>').addClass('fa fa-5x ' + item.icon)
+            var image = $('<div>').addClass('mime-icon ico-' + item.icon);
           }
 
           template.find('.square').append(image);

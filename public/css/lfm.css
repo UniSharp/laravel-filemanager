@@ -62,6 +62,13 @@ a {
   font-size: 10rem;
 }
 
+/* Mime icon generator overwrite */
+
+.mime-icon:before {
+  top: calc(45% - 1rem);
+  font-size: 2rem;
+}
+
 /* Loader */
 
 #lfm-loader {

@@ -131,7 +131,7 @@ class LfmItem
             return 'fa-image';
         }
 
-        return $this->helper->getFileIcon($this->extension());
+        return $this->extension();
     }
 
     public function type()
