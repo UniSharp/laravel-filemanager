@@ -168,7 +168,7 @@ class LfmItemTest extends TestCase
 
         $item = new LfmItem($this->lfm_path, $this->lfm);
 
-        $this->assertEquals('fa-file', $item->icon());
+        $this->assertEquals('baz', $item->icon());
 
         // $path1 = m::mock(LfmPath::class);
         // $path1->shouldReceive('path')->with('absolute')->andReturn('foo/bar');
