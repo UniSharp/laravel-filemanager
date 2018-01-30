@@ -28,7 +28,7 @@ class LfmItemTest extends TestCase
         parent::tearDown();
     }
 
-    public function test__Get()
+    public function testMagicGet()
     {
         $this->lfm_item = new LfmItem($this->lfm_path, m::mock(Lfm::class));
 

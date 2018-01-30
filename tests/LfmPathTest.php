@@ -18,7 +18,7 @@ class LfmPathTest extends TestCase
         parent::tearDown();
     }
 
-    public function test__Get()
+    public function testMagicGet()
     {
         $storage = m::mock(LfmStorage::class);
 
@@ -34,7 +34,7 @@ class LfmPathTest extends TestCase
         $this->assertEquals($storage, $path->storage);
     }
 
-    public function test__Call()
+    public function testMagicCall()
     {
         $storage = m::mock(LfmStorage::class);
         $storage->shouldReceive('foo')->andReturn('bar');

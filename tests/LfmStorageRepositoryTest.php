@@ -38,7 +38,7 @@ class LfmStorageRepositoryTest extends TestCase
         m::close();
     }
 
-    public function test__Call()
+    public function testMagicCall()
     {
         $this->assertEquals('baz', $this->storage->functionToCall());
     }

@@ -279,7 +279,8 @@ class LfmPath
 
     private function getNewName($file)
     {
-        $new_file_name = $this->helper->translateFromUtf8(trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
+        $new_file_name = $this->helper
+            ->translateFromUtf8(trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
 
         if (config('lfm.rename_file') === true) {
             $new_file_name = uniqid();
