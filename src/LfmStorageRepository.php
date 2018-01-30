@@ -50,4 +50,9 @@ class LfmStorageRepository implements RepositoryContract
 
         $this->disk->setVisibility($this->path, 'public');
     }
+
+    public function extension()
+    {
+        return pathinfo($this->path, PATHINFO_EXTENSION);
+    }
 }
