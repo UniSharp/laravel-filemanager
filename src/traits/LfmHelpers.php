@@ -63,7 +63,7 @@ trait LfmHelpers
      */
     public function getFileUrl($image_name = null, $is_thumb = null)
     {
-        return url($this->composeSegments('url', $is_thumb, $image_name));
+        return url(config('lfm.url_prefix') . $this->composeSegments('url', $is_thumb, $image_name));
     }
 
     /**
