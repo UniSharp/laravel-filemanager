@@ -332,7 +332,7 @@ trait LfmHelpers
      */
     public function isProcessingImages()
     {
-        return lcfirst(str_singular(request('type'))) === 'image';
+        return lcfirst(str_singular(request('type') ? request('type') : '')) === 'image';
     }
 
     /**
