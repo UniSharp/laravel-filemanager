@@ -107,6 +107,9 @@ return [
     // permissions to be set on file upload.
     'create_file_mode' => 0644,
 
+    // If true, it will attempt to chmod the file after upload
+    'should_change_file_mode' => true,
+
     /*
     |--------------------------------------------------------------------------
     | Thumbnail

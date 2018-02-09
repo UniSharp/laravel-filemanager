@@ -43,6 +43,8 @@ class LfmFileRepository implements RepositoryContract
 
         File::move($file->getRealPath(), $dest_file_path);
 
-        chmod($dest_file_path, config('lfm.create_file_mode', 0644));
+        if (config('lfm.should_change_file_mode', true)) {
+            chmod($dest_file_path, config('lfm.create_file_mode', 0644));
+        }
     }
 }
