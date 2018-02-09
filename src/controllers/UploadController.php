@@ -81,7 +81,9 @@ class UploadController extends LfmController
                 // Create (move) the file
                 File::move($file->getRealPath(), $new_file_path);
             }
-            chmod($new_file_path, config('lfm.create_file_mode', 0644));
+            if (config('lfm.should_change_file_mode', true)) {
+                chmod($new_file_path, config('lfm.create_file_mode', 0644));
+            }
         } catch (\Exception $e) {
             array_push($this->errors, parent::error('invalid'));
 
