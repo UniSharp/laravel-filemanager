@@ -58,6 +58,7 @@
 | raster\_mimetypes       | array   | Array of mime types. Thumbnails will be created only for these mimetypes.                       |
 | create\_folder\_mode    | int     | Permission setting for folders created by this package.                       |
 | create\_file\_mode      | int     | Permission setting for files uploaded to this package.                       |
+| should\_change\_file\_mode | boolean | If true, it will attempt to chmod the file after upload                  |
 | valid\_file\_mimetypes  | array   | Array of mime types. Available since v1.3.0 .                       |
 
 
