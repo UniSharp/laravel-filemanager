@@ -153,7 +153,7 @@ class LfmPath
         $working_dir = $this->path('working_dir');
         $parent_dir = substr($working_dir, 0, strrpos($working_dir, '/'));
 
-        $parent_path = clone $this;
+        $parent_path = app(static::class);
         $parent_path->dir($parent_dir)->setName(null);
 
         $directories = $parent_path->directories();
