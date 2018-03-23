@@ -118,10 +118,10 @@ class LfmPath
 
     public function pretty($item_path)
     {
-        $lfm_path = clone $this;
-        $lfm_path = $lfm_path->setName($this->helper->getNameFromPath($item_path));
-
-        return Container::getInstance()->makeWith(LfmItem::class, ['lfm' => $lfm_path, 'helper' => $this->helper]);
+        return Container::getInstance()->makeWith(LfmItem::class, [
+            'lfm' => (clone $this)->setName($this->helper->getNameFromPath($item_path)),
+            'helper' => $this->helper
+        ]);
     }
 
     public function delete()
@@ -153,18 +153,11 @@ class LfmPath
         $working_dir = $this->path('working_dir');
         $parent_dir = substr($working_dir, 0, strrpos($working_dir, '/'));
 
-        $parent_path = app(static::class);
-        $parent_path->dir($parent_dir)->setName(null);
+        $parent_directories = array_map(function ($directory_path) {
+            return app(static::class)->translateToLfmPath($directory_path);
+        }, app(static::class)->dir($parent_dir)->directories());
 
-        $directories = $parent_path->directories();
-
-        $that = $this;
-
-        $directories = array_map(function ($directory_path) use ($that) {
-            return $this->translateToLfmPath($directory_path);
-        }, $directories);
-
-        return in_array($this->path('url'), $directories);
+        return in_array($this->path('url'), $parent_directories);
     }
 
     /**
