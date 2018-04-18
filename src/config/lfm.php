@@ -87,9 +87,9 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'driver' => 'file',
+    'driver' => 'storage',
 
-    'disk' => 'local',
+    'disk' => 's3',
 
     'rename_file' => false,
 
