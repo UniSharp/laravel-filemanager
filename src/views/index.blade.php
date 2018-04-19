@@ -36,7 +36,7 @@
     </a>
     <a class="navbar-brand">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
     <a id="loading" class="nav-brand"><i class="fa fa-spinner fa-spin"></i></a>
-    <a class="navbar-toggler collapsed border-0 p-2 m-0 ml-auto" data-toggle="collapse" data-target="#nav-buttons">
+    <a class="navbar-toggler collapsed border-0 px-1 py-2 m-0 ml-auto" data-toggle="collapse" data-target="#nav-buttons">
       <i class="fa fa-cog fa-fw"></i>
     </a>
     <div class="collapse navbar-collapse" id="nav-buttons">
@@ -63,13 +63,13 @@
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-sort fa-fw"></i>{{ trans('laravel-filemanager::lfm.nav-sort') }}
           </a>
-          <div class="dropdown-menu dropdown-menu-right"></div>
+          <div class="dropdown-menu dropdown-menu-right border-0"></div>
         </li>
       </ul>
     </div>
   </nav>
 
-  <div class="container-fluid pt-3 d-flex flex-row">
+  <div class="d-flex flex-row">
     <div id="tree"></div>
 
     <div id="main">

@@ -331,7 +331,7 @@ function loadItems() {
       $('#to-previous').toggleClass('d-none invisible-lg', atRootFolder);
       $('#show_tree').toggleClass('d-none', !atRootFolder).toggleClass('d-block', atRootFolder);
       setOpenFolders();
-      $('#loading').addClass('d-none');
+      // $('#loading').addClass('d-none');
       toggleActions();
     })
     .always(function(){
