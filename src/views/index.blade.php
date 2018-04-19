@@ -94,7 +94,8 @@
       </a>
     </div>
 
-    <ul id="fab"></ul>
+    {{-- <ul id="fab"></ul> --}}
+    <div id="fab2"></div>
   </div>
 
   <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

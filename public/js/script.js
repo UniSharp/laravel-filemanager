@@ -38,6 +38,29 @@ $.fn.fab = function (options) {
   children_list.addClass('mfb-component__list');
 };
 
+$.fn.fab2 = function (options) {
+  var menu = this;
+  menu.addClass('fab-wrapper');
+
+  menu.append(
+    $('<a>')
+      .addClass('fab-button fab-toggle')
+      .append($('<i>').addClass('fa fa-plus'))
+  );
+
+  var children_list = $('<div>').addClass('fab-actions');
+  menu.prepend(children_list);
+
+  options.buttons.forEach(function (button) {
+    children_list.append(
+      $('<a>').addClass('fab-button fab-action')
+        .attr('data-label', button.label)
+        .attr('id', button.attrs.id)
+        .append($('<i>').addClass(button.icon))
+    );
+  });
+};
+
 Array.prototype.toggleElement = function (element) {
   var element_index = this.indexOf(element);
   if (element_index === -1) {
@@ -59,6 +82,20 @@ $(document).ready(function () {
         icon: 'fa fa-upload',
         label: lang['nav-upload'],
         attrs: {id: 'upload'}
+      }
+    ]
+  });
+  $('#fab2').fab2({
+    buttons: [
+      {
+        icon: 'fa fa-upload',
+        label: lang['nav-upload'],
+        attrs: {id: 'upload'}
+      },
+      {
+        icon: 'fa fa-folder',
+        label: lang['nav-new'],
+        attrs: {id: 'add-folder'}
       }
     ]
   });
@@ -331,7 +368,7 @@ function loadItems() {
       $('#to-previous').toggleClass('d-none invisible-lg', atRootFolder);
       $('#show_tree').toggleClass('d-none', !atRootFolder).toggleClass('d-block', atRootFolder);
       setOpenFolders();
-      // $('#loading').addClass('d-none');
+      $('#loading').addClass('d-none');
       toggleActions();
     })
     .always(function(){
