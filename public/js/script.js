@@ -9,17 +9,17 @@ $.fn.fab = function (options) {
   var menu = this;
   menu.addClass('fab-wrapper');
 
-  menu.append(
-    $('<a>')
-      .addClass('fab-button fab-toggle')
-      .append($('<i>').addClass('fa fa-plus'))
-  );
+  var toggler = $('<a>')
+    .addClass('fab-button fab-toggle')
+    .append($('<i>').addClass('fa fa-plus'))
+    .click(function () {
+      menu.toggleClass('fab-expand');
+    })
 
-  var children_list = $('<div>').addClass('fab-actions');
-  menu.prepend(children_list);
+  menu.append(toggler);
 
   options.buttons.forEach(function (button) {
-    children_list.append(
+    toggler.before(
       $('<a>').addClass('fab-button fab-action')
         .attr('data-label', button.label)
         .attr('id', button.attrs.id)
