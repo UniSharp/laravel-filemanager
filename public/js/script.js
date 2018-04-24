@@ -142,7 +142,11 @@ $(document).on('click', '[data-sortby]', function() {
 });
 
 $(document).on('click', '[data-action]', function () {
-  window[$(this).data('action')](getOneSelectedElement());
+  if ($(this).data('multiple')) {
+    window[$(this).data('action')](getSelectedItems());
+  } else {
+    window[$(this).data('action')](getOneSelectedElement());
+  }
 });
 
 // ======================
@@ -197,7 +201,8 @@ function toggleActions() {
   $('[data-action=download]').toggleClass('d-none', !(one_selected && only_file))
   $('[data-action=resize]').toggleClass('d-none', !(one_selected && only_image))
   $('[data-action=crop]').toggleClass('d-none', !(one_selected && only_image))
-  $('[data-action=trash]').toggleClass('d-none', !one_selected)
+  $('[data-action=trash]').toggleClass('d-none', !many_selected)
+  $('#actions').toggleClass('d-none', selected.length === 0)
   $('#fab').toggleClass('d-none', selected.length !== 0)
 }
 
@@ -347,9 +352,11 @@ function rename(item) {
   });
 }
 
-function trash(item) {
+function trash(items) {
   notify(lang['message-delete'], function () {
-    performLfmRequest('delete', {items: item.name})
+    performLfmRequest('delete', {
+      items: items.map(function (item) { return item.name; })
+    })
       .done(refreshFoldersAndItems)
   });
 }

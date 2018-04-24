@@ -14,33 +14,44 @@ class DeleteController extends LfmController
      */
     public function getDelete()
     {
-        $name_to_delete = request('items');
-        $file_to_delete = $this->lfm->pretty($name_to_delete);
-        $file_path = $file_to_delete->absolutePath();
+        $item_names = request('items');
+        $errors = [];
 
-        event(new ImageIsDeleting($file_path));
+        foreach ($item_names as $name_to_delete) {
+            $file_to_delete = $this->lfm->pretty($name_to_delete);
+            $file_path = $file_to_delete->absolutePath();
 
-        if (is_null($name_to_delete)) {
-            return parent::error('folder-name');
-        }
+            event(new ImageIsDeleting($file_path));
 
-        if (! $this->lfm->setName($name_to_delete)->exists()) {
-            return parent::error('folder-not-found', ['folder' => $file_path]);
-        }
-
-        if ($this->lfm->setName($name_to_delete)->isDirectory()) {
-            if (! $this->lfm->setName($name_to_delete)->directoryIsEmpty()) {
-                return parent::error('delete-folder');
+            if (is_null($name_to_delete)) {
+                array_push($errors, parent::error('folder-name'));
+                continue;
             }
-        } else {
-            if ($file_to_delete->isImage()) {
-                $this->lfm->setName($name_to_delete)->thumb()->delete();
+
+            if (! $this->lfm->setName($name_to_delete)->exists()) {
+                array_push($errors, parent::error('folder-not-found', ['folder' => $file_path]));
+                continue;
             }
+
+            if ($this->lfm->setName($name_to_delete)->isDirectory()) {
+                if (! $this->lfm->setName($name_to_delete)->directoryIsEmpty()) {
+                    array_push($errors, parent::error('delete-folder'));
+                    continue;
+                }
+            } else {
+                if ($file_to_delete->isImage()) {
+                    $this->lfm->setName($name_to_delete)->thumb()->delete();
+                }
+            }
+
+            $this->lfm->setName($name_to_delete)->delete();
+
+            event(new ImageWasDeleted($file_path));
         }
 
-        $this->lfm->setName($name_to_delete)->delete();
-
-        event(new ImageWasDeleted($file_path));
+        if (count($errors) > 0) {
+            return $errors;
+        }
 
         return parent::$success_response;
     }

@@ -171,42 +171,50 @@
       {
         name: 'use',
         icon: 'check',
-        label: 'Confirm'
+        label: 'Confirm',
+        multiple: true
       },
       {
         name: 'rename',
         icon: 'edit',
-        label: lang['menu-rename']
+        label: lang['menu-rename'],
+        multiple: false
       },
       {
         name: 'download',
         icon: 'arrow-circle-o-down',
-        label: lang['menu-download']
+        label: lang['menu-download'],
+        multiple: true
       },
       {
         name: 'preview',
         icon: 'image',
-        label: lang['menu-view']
+        label: lang['menu-view'],
+        multiple: true
       },
       {
         name: 'move',
         icon: 'sign-out',
-        label: 'move'
+        label: 'move',
+        multiple: true
       },
       {
         name: 'resize',
         icon: 'arrows-alt',
-        label: lang['menu-resize']
+        label: lang['menu-resize'],
+        multiple: false
       },
       {
         name: 'crop',
         icon: 'crop',
-        label: lang['menu-crop']
+        label: lang['menu-crop'],
+        multiple: false
       },
       {
         name: 'trash',
         icon: 'trash',
-        label: lang['menu-delete']
+        label: lang['menu-delete'],
+        multiple: true
       },
     ];
 
