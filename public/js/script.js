@@ -56,7 +56,9 @@ $(document).ready(function () {
   actions.reverse().forEach(function (action) {
     $('#nav-buttons > ul').prepend(
       $('<li>').addClass('nav-item').append(
-        $('<a>').addClass('nav-link d-none').attr('data-action', action.name)
+        $('<a>').addClass('nav-link d-none')
+          .attr('data-action', action.name)
+          .attr('data-multiple', action.multiple)
           .append($('<i>').addClass('fa fa-fw fa-' + action.icon))
           .append($('<span>').text(action.label))
       )
@@ -196,8 +198,8 @@ function toggleActions() {
 
   $('[data-action=use]').toggleClass('d-none', !(many_selected && only_file))
   $('[data-action=rename]').toggleClass('d-none', !one_selected)
-  $('[data-action=preview]').toggleClass('d-none', !(one_selected && only_image))
-  $('[data-action=move]').toggleClass('d-none', !(one_selected))
+  $('[data-action=preview]').toggleClass('d-none', !(many_selected && only_image))
+  $('[data-action=move]').toggleClass('d-none', !(many_selected))
   $('[data-action=download]').toggleClass('d-none', !(one_selected && only_file))
   $('[data-action=resize]').toggleClass('d-none', !(one_selected && only_image))
   $('[data-action=crop]').toggleClass('d-none', !(one_selected && only_image))
@@ -377,12 +379,20 @@ function download(item) {
   location.href = lfm_route + '/download?' + $.param(data);
 }
 
-function preview(item) {
-  notify(
-    $('<img>')
-      .addClass('w-100')
-      .attr('src', item.url + '?timestamp=' + item.time)
-  );
+function preview(items) {
+  var carousel = $('#carouselTemplate').clone().attr('id', 'previewCarousel').removeClass('d-none');
+  var imageTemplate = carousel.find('.carousel-item').clone().removeClass('active');
+  carousel.children('.carousel-inner').html('');
+
+  items.forEach(function (item, index) {
+    var carouselItem = imageTemplate.clone()
+      .addClass(index === 0 ? 'active' : '');
+    carouselItem.find('.carousel-image')
+      .css('background-image', 'url(\'' + item.url + '?timestamp=' + item.time + '\')');
+    carousel.children('.carousel-inner').append(carouselItem);
+  });
+
+  notify(carousel);
 }
 
 function move(item) {

@@ -14,7 +14,7 @@
 
   <title>{{ trans('laravel-filemanager::lfm.title-page') }}</title>
   <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/laravel-filemanager/img/72px color.png') }}">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/cropper.min.css') }}">
@@ -66,6 +66,11 @@
         </li>
       </ul>
     </div>
+  </nav>
+
+  <nav class="bg-light fixed-bottom border-top d-none" id="actions">
+    <a data-action="preview" data-multiple="true"><i class="fa fa-image"></i>Preview</a>
+    <a data-action="use" data-multiple="true"><i class="fa fa-check"></i>Confirm</a>
   </nav>
 
   <div class="d-flex flex-row">
@@ -153,13 +158,29 @@
     </div>
   </div>
 
+  <div id="carouselTemplate" class="d-none carousel slide" data-ride="carousel" >
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="carousel-image"></div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#previewCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#previewCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
   {{-- <div id="lfm-loader">
     <img src="{{asset('vendor/laravel-filemanager/img/loader.svg')}}">
   </div> --}}
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script src="{{ asset('vendor/laravel-filemanager/js/cropper.min.js') }}"></script>
   <script src="{{ asset('vendor/laravel-filemanager/js/jquery.form.min.js') }}"></script>
@@ -168,12 +189,12 @@
     var lfm_route = "{{ url(config('lfm.url_prefix')) }}";
     var lang = {!! json_encode(trans('laravel-filemanager::lfm')) !!};
     var actions = [
-      {
-        name: 'use',
-        icon: 'check',
-        label: 'Confirm',
-        multiple: true
-      },
+      // {
+      //   name: 'use',
+      //   icon: 'check',
+      //   label: 'Confirm',
+      //   multiple: true
+      // },
       {
         name: 'rename',
         icon: 'edit',
@@ -186,12 +207,12 @@
         label: lang['menu-download'],
         multiple: true
       },
-      {
-        name: 'preview',
-        icon: 'image',
-        label: lang['menu-view'],
-        multiple: true
-      },
+      // {
+      //   name: 'preview',
+      //   icon: 'image',
+      //   label: lang['menu-view'],
+      //   multiple: true
+      // },
       {
         name: 'move',
         icon: 'sign-out',

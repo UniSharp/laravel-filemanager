@@ -1,5 +1,9 @@
 /* General */
 
+body {
+  padding-bottom: 4rem;
+}
+
 a {
   color: #333844;
   text-decoration: none !important;
@@ -16,6 +20,26 @@ a {
 
 #nav .dropdown-menu > a:hover {
   color: #333844;
+}
+
+#actions {
+  display: flex;
+}
+
+#actions > a {
+  display: inline-block;
+  line-height: 4rem;
+  text-align: center;
+  width: 100%;
+  font-size: 1.25rem;
+}
+
+#actions > a > i {
+  margin-right: .25rem;
+}
+
+#actions > a + a {
+  border-left: 1px solid #dee2e6;
 }
 
 #main {
@@ -60,6 +84,13 @@ a {
 
 #empty > i {
   font-size: 10rem;
+}
+
+.carousel-image {
+  height: 50vh;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 /* Loader */
