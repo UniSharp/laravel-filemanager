@@ -91,6 +91,7 @@ a {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+  margin: 0 auto;
 }
 
 /* Loader */

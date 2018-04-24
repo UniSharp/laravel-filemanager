@@ -389,9 +389,13 @@ function preview(items) {
   items.forEach(function (item, index) {
     var carouselItem = imageTemplate.clone()
       .addClass(index === 0 ? 'active' : '');
-    carouselItem.find('.carousel-image')
-      // .addClass('mime-icon ico-' + item.icon);
-      .css('background-image', 'url(\'' + item.url + '?timestamp=' + item.time + '\')');
+
+    if (item.thumb_url) {
+      carouselItem.find('.carousel-image').css('background-image', 'url(\'' + item.url + '?timestamp=' + item.time + '\')');
+    } else {
+      carouselItem.find('.carousel-image').css('width', '50vh').append($('<div>').addClass('mime-icon ico-' + item.icon));
+    }
+
     carousel.children('.carousel-inner').append(carouselItem);
 
     var carouselIndicator = indicatorTemplate.clone()
