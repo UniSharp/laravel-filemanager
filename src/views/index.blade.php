@@ -158,7 +158,10 @@
     </div>
   </div>
 
-  <div id="carouselTemplate" class="d-none carousel slide" data-ride="carousel" >
+  <div id="carouselTemplate" class="d-none carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#previewCarousel" data-slide-to="0" class="active"></li>
+    </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div class="carousel-image"></div>

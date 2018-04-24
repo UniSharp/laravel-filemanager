@@ -198,8 +198,8 @@ function toggleActions() {
 
   $('[data-action=use]').toggleClass('d-none', !(many_selected && only_file))
   $('[data-action=rename]').toggleClass('d-none', !one_selected)
-  $('[data-action=preview]').toggleClass('d-none', !(many_selected && only_image))
-  $('[data-action=move]').toggleClass('d-none', !(many_selected))
+  $('[data-action=preview]').toggleClass('d-none', !(many_selected && only_file))
+  $('[data-action=move]').toggleClass('d-none', !(many_selected && only_file))
   $('[data-action=download]').toggleClass('d-none', !(one_selected && only_file))
   $('[data-action=resize]').toggleClass('d-none', !(one_selected && only_image))
   $('[data-action=crop]').toggleClass('d-none', !(one_selected && only_image))
@@ -382,14 +382,22 @@ function download(item) {
 function preview(items) {
   var carousel = $('#carouselTemplate').clone().attr('id', 'previewCarousel').removeClass('d-none');
   var imageTemplate = carousel.find('.carousel-item').clone().removeClass('active');
+  var indicatorTemplate = carousel.find('.carousel-indicators > li').clone().removeClass('active');
   carousel.children('.carousel-inner').html('');
+  carousel.children('.carousel-indicators').html('');
 
   items.forEach(function (item, index) {
     var carouselItem = imageTemplate.clone()
       .addClass(index === 0 ? 'active' : '');
     carouselItem.find('.carousel-image')
+      // .addClass('mime-icon ico-' + item.icon);
       .css('background-image', 'url(\'' + item.url + '?timestamp=' + item.time + '\')');
     carousel.children('.carousel-inner').append(carouselItem);
+
+    var carouselIndicator = indicatorTemplate.clone()
+      .addClass(index === 0 ? 'active' : '')
+      .attr('data-slide-to', index);
+    carousel.children('.carousel-indicators').append(carouselIndicator);
   });
 
   notify(carousel);
