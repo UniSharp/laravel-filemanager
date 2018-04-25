@@ -515,6 +515,7 @@ function use(item) {
   } else {
     // No editor found, open/download file using browser's default method
     window.open(url);
+    // notify('window.opener not found');
   }
 }
 //end useFile

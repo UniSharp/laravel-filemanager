@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Laravel Filemanager</title>
   <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/laravel-filemanager/img/72px color.png') }}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
@@ -12,21 +13,21 @@
     <h1 class="page-header">Integration Demo Page</h1>
     <div class="row">
       <div class="col-md-6">
-        <h2>CKEditor</h2>
+        <h2 class="mt-4">CKEditor</h2>
         <textarea name="ce" class="form-control"></textarea>
       </div>
       <div class="col-md-6">
-        <h2>TinyMCE</h2>
+        <h2 class="mt-4">TinyMCE</h2>
         <textarea name="tm" class="form-control"></textarea>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6">
-        <h2>Summernote</h2>
+        <h2 class="mt-4">Summernote</h2>
         <textarea id="summernote-editor" name="content"></textarea>
       </div>
       <div class="col-md-6">
-        <h2>Standalone Image Button</h2>
+        <h2 class="mt-4">Standalone Image Button</h2>
         <div class="input-group">
           <span class="input-group-btn">
             <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
@@ -36,7 +37,7 @@
           <input id="thumbnail" class="form-control" type="text" name="filepath">
         </div>
         <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-        <h2>Standalone File Button</h2>
+        <h2 class="mt-4">Standalone File Button</h2>
         <div class="input-group">
           <span class="input-group-btn">
             <a id="lfm2" data-input="thumbnail2" data-preview="holder2" class="btn btn-primary text-white">
@@ -50,7 +51,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <h2>Embed file manager</h2>
+        <h2 class="mt-4">Embed file manager</h2>
         <iframe src="/laravel-filemanager" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
       </div>
     </div>
