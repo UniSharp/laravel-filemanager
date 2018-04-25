@@ -24,6 +24,9 @@ $.fn.fab = function (options) {
         .attr('data-label', button.label)
         .attr('id', button.attrs.id)
         .append($('<i>').addClass(button.icon))
+        .click(function () {
+          menu.removeClass('fab-expand');
+        })
     );
   });
 };
