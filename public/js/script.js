@@ -167,7 +167,7 @@ $(document).on('click', '#content a', function (e) {
     toggleActions();
   } else {
     if (element.is_file) {
-      useFile(getOneSelectedElement().url);
+      use(getOneSelectedElement().url);
     } else {
       goTo(getOneSelectedElement().url);
     }
@@ -289,8 +289,7 @@ function loadFolders() {
 }
 
 function loadItems() {
-  $('#loading').removeClass('d-none');
-  $('#lfm-loader').show();
+  loading(true);
   performLfmRequest('jsonitems', {show_list: show_list, sort_type: sort_type}, 'html')
     .done(function (data) {
       selected = [];
@@ -325,18 +324,18 @@ function loadItems() {
       }
       $('#nav-buttons > ul').removeClass('d-none');
       $('#working_dir').val(response.working_dir);
-      $('#current_dir').text(response.working_dir);
       console.log('Current working_dir : ' + $('#working_dir').val());
       var atRootFolder = getPreviousDir() == '';
       $('#to-previous').toggleClass('d-none invisible-lg', atRootFolder);
       $('#show_tree').toggleClass('d-none', !atRootFolder).toggleClass('d-block', atRootFolder);
       setOpenFolders();
-      $('#loading').addClass('d-none');
+      loading(false);
       toggleActions();
-    })
-    .always(function(){
-      $('#lfm-loader').hide();
     });
+}
+
+function loading(show_loading) {
+  $('#loading').toggleClass('d-none', !show_loading);
 }
 
 function createFolder(folder_name) {
@@ -361,8 +360,7 @@ function trash(items) {
   notify(lang['message-delete'], function () {
     performLfmRequest('delete', {
       items: items.map(function (item) { return item.name; })
-    })
-      .done(refreshFoldersAndItems)
+    }).done(refreshFoldersAndItems)
   });
 }
 

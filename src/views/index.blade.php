@@ -33,8 +33,8 @@
     <a class="navbar-brand d-block d-lg-none" id="show_tree">
       <i class="fas fa-bars fa-fw"></i>
     </a>
-    <a class="navbar-brand">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
-    <a id="loading" class="nav-brand"><i class="fas fa-spinner fa-spin"></i></a>
+    <a class="navbar-brand">Home</a>
+    <a id="loading" class="navbar-brand"><i class="fas fa-spinner fa-spin"></i></a>
     <a class="navbar-toggler collapsed border-0 px-1 py-2 m-0 ml-auto" data-toggle="collapse" data-target="#nav-buttons">
       <i class="fas fa-cog fa-fw"></i>
     </a>
@@ -77,8 +77,6 @@
     <div id="tree"></div>
 
     <div id="main">
-      {{-- <div class="visible-xs" id="current_dir" style="padding: 5px 15px;background-color: #f8f8f8;color: #5e5e5e;"></div> --}}
-
       <div id="alerts"></div>
 
       <div id="empty" class="d-none">
@@ -176,10 +174,6 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
-
-  {{-- <div id="lfm-loader">
-    <img src="{{asset('vendor/laravel-filemanager/img/loader.svg')}}">
-  </div> --}}
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
