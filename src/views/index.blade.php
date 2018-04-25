@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
   <!-- Chrome, Firefox OS and Opera -->
-  <meta name="theme-color" content="#75C7C3">
+  <meta name="theme-color" content="#333844">
   <!-- Windows Phone -->
-  <meta name="msapplication-navbutton-color" content="#75C7C3">
+  <meta name="msapplication-navbutton-color" content="#333844">
   <!-- iOS Safari -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="#75C7C3">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#333844">
 
   <title>{{ trans('laravel-filemanager::lfm.title-page') }}</title>
   <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/laravel-filemanager/img/72px color.png') }}">
@@ -82,7 +82,7 @@
       <div id="alerts"></div>
 
       <div id="empty" class="d-none">
-        <i class="fas fa-folder-open-o"></i>
+        <i class="far fa-folder-open"></i>
         {{ trans('laravel-filemanager::lfm.message-empty') }}
       </div>
 
