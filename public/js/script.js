@@ -84,9 +84,9 @@ $(document).ready(function () {
       });
     });
 
-    $(window).on('dragenter', function(){
-      $('#uploadModal').modal('show');
-    });
+  $(window).on('dragenter', function(){
+    $('#uploadModal').modal('show');
+  });
 });
 
 // ======================
@@ -403,6 +403,33 @@ function preview(items) {
       .attr('data-slide-to', index);
     carousel.children('.carousel-indicators').append(carouselIndicator);
   });
+
+
+  // carousel swipe control
+  var touchStartX = null;
+
+  carousel.on('touchstart', function (event) {
+    var e = event.originalEvent;
+    if (e.touches.length == 1) {
+      var touch = e.touches[0];
+      touchStartX = touch.pageX;
+    }
+  }).on('touchmove', function (event) {
+    var e = event.originalEvent;
+    if (touchStartX != null) {
+      var touchCurrentX = e.changedTouches[0].pageX;
+      if ((touchCurrentX - touchStartX) > 60) {
+        touchStartX = null;
+        carousel.carousel('prev');
+      } else if ((touchStartX - touchCurrentX) > 60) {
+        touchStartX = null;
+        carousel.carousel('next');
+      }
+    }
+  }).on('touchend', function () {
+    touchStartX = null;
+  });
+  // end carousel swipe control
 
   notify(carousel);
 }
