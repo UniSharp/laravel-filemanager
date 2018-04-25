@@ -11,7 +11,7 @@ $.fn.fab = function (options) {
 
   var toggler = $('<a>')
     .addClass('fab-button fab-toggle')
-    .append($('<i>').addClass('fa fa-plus'))
+    .append($('<i>').addClass('fas fa-plus'))
     .click(function () {
       menu.toggleClass('fab-expand');
     })
@@ -41,12 +41,12 @@ $(document).ready(function () {
   $('#fab').fab({
     buttons: [
       {
-        icon: 'fa fa-upload',
+        icon: 'fas fa-upload',
         label: lang['nav-upload'],
         attrs: {id: 'upload'}
       },
       {
-        icon: 'fa fa-folder',
+        icon: 'fas fa-folder',
         label: lang['nav-new'],
         attrs: {id: 'add-folder'}
       }
@@ -59,7 +59,7 @@ $(document).ready(function () {
         $('<a>').addClass('nav-link d-none')
           .attr('data-action', action.name)
           .attr('data-multiple', action.multiple)
-          .append($('<i>').addClass('fa fa-fw fa-' + action.icon))
+          .append($('<i>').addClass('fas fa-fw fa-' + action.icon))
           .append($('<span>').text(action.label))
       )
     );
@@ -68,7 +68,7 @@ $(document).ready(function () {
   sortings.forEach(function (sort) {
     $('#nav-buttons .dropdown-menu').append(
       $('<a>').addClass('dropdown-item').attr('data-sortby', sort.by)
-        .append($('<i>').addClass('fa fa-fw fa-' + sort.icon))
+        .append($('<i>').addClass('fas fa-fw fa-' + sort.icon))
         .append($('<span>').text(sort.label))
     );
   });
@@ -78,7 +78,7 @@ $(document).ready(function () {
       JSON.parse(response).forEach(function (message) {
         $('#alerts').append(
           $('<div>').addClass('alert alert-warning')
-            .append($('<i>').addClass('fa fa-exclamation-circle'))
+            .append($('<i>').addClass('fas fa-exclamation-circle'))
             .append(' ' + message)
         );
       });

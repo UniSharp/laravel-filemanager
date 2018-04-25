@@ -15,7 +15,7 @@
   <title>{{ trans('laravel-filemanager::lfm.title-page') }}</title>
   <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/laravel-filemanager/img/72px color.png') }}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/cropper.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/dropzone.min.css') }}">
@@ -27,16 +27,16 @@
 <body>
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark" id="nav">
     <a class="navbar-brand invisible-lg d-none d-lg-inline" id="to-previous">
-      <i class="fa fa-arrow-left fa-fw"></i>
+      <i class="fas fa-arrow-left fa-fw"></i>
       <span class="d-none d-lg-inline">{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
     </a>
     <a class="navbar-brand d-block d-lg-none" id="show_tree">
-      <i class="fa fa-bars fa-fw"></i>
+      <i class="fas fa-bars fa-fw"></i>
     </a>
     <a class="navbar-brand">{{ trans('laravel-filemanager::lfm.title-panel') }}</a>
-    <a id="loading" class="nav-brand"><i class="fa fa-spinner fa-spin"></i></a>
+    <a id="loading" class="nav-brand"><i class="fas fa-spinner fa-spin"></i></a>
     <a class="navbar-toggler collapsed border-0 px-1 py-2 m-0 ml-auto" data-toggle="collapse" data-target="#nav-buttons">
-      <i class="fa fa-cog fa-fw"></i>
+      <i class="fas fa-cog fa-fw"></i>
     </a>
     <div class="collapse navbar-collapse" id="nav-buttons">
       <ul class="navbar-nav ml-auto">
@@ -48,19 +48,19 @@
         </li> --}}
         <li class="nav-item">
           <a class="nav-link" data-display="grid">
-            <i class="fa fa-th-large fa-fw"></i>
+            <i class="fas fa-th-large fa-fw"></i>
             <span>{{ trans('laravel-filemanager::lfm.nav-thumbnails') }}</span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-display="list">
-            <i class="fa fa-list-ul fa-fw"></i>
+            <i class="fas fa-list-ul fa-fw"></i>
             <span>{{ trans('laravel-filemanager::lfm.nav-list') }}</span>
           </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-sort fa-fw"></i>{{ trans('laravel-filemanager::lfm.nav-sort') }}
+            <i class="fas fa-sort fa-fw"></i>{{ trans('laravel-filemanager::lfm.nav-sort') }}
           </a>
           <div class="dropdown-menu dropdown-menu-right border-0"></div>
         </li>
@@ -69,8 +69,8 @@
   </nav>
 
   <nav class="bg-light fixed-bottom border-top d-none" id="actions">
-    <a data-action="preview" data-multiple="true"><i class="fa fa-image"></i>Preview</a>
-    <a data-action="use" data-multiple="true"><i class="fa fa-check"></i>Confirm</a>
+    <a data-action="preview" data-multiple="true"><i class="fas fa-images"></i>Preview</a>
+    <a data-action="use" data-multiple="true"><i class="fas fa-check"></i>Confirm</a>
   </nav>
 
   <div class="d-flex flex-row">
@@ -82,7 +82,7 @@
       <div id="alerts"></div>
 
       <div id="empty" class="d-none">
-        <i class="fa fa-folder-open-o"></i>
+        <i class="fas fa-folder-open-o"></i>
         {{ trans('laravel-filemanager::lfm.message-empty') }}
       </div>
 
@@ -206,7 +206,7 @@
       },
       {
         name: 'download',
-        icon: 'arrow-circle-o-down',
+        icon: 'download',
         label: lang['menu-download'],
         multiple: true
       },
@@ -218,7 +218,7 @@
       // },
       {
         name: 'move',
-        icon: 'sign-out',
+        icon: 'paste',
         label: 'move',
         multiple: true
       },
@@ -245,12 +245,12 @@
     var sortings = [
       {
         by: 'alphabetic',
-        icon: 'sort-alpha-asc',
+        icon: 'sort-alpha-down',
         label: lang['nav-sort-alphabetic']
       },
       {
         by: 'time',
-        icon: 'sort-amount-asc',
+        icon: 'sort-numeric-down',
         label: lang['nav-sort-time']
       }
     ];
