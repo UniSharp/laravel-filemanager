@@ -317,7 +317,7 @@ function loadItems() {
 
           template.find('.square').append(image);
           template.find('.item_name').text(item.name);
-          template.find('time').text((new Date(item.time)).toLocaleString());
+          template.find('time').text((new Date(item.time * 1000)).toLocaleString());
 
           $('#content').append(template);
         });
