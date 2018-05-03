@@ -168,7 +168,7 @@ class LfmPath
      */
     public function directoryIsEmpty()
     {
-        return count($this->disk->allFiles()) == 0;
+        return count($this->storage->allFiles()) == 0;
     }
 
     public function normalizeWorkingDir()
