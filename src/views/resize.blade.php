@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-8" id="containment">
-    <img id="resize" src="{{ $img->path . '?timestamp=' . $img->time }}" height="{{ $height }}" width="{{ $width }}">
+    <img id="resize" src="{{ $img->url . '?timestamp=' . $img->time }}" height="{{ $height }}" width="{{ $width }}">
   </div>
   <div class="col-md-4">
 

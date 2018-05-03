@@ -42,9 +42,9 @@ class LfmItem
         return $this->lfm->getName();
     }
 
-    public function absolutePath()
+    public function path($type = 'absolute')
     {
-        return $this->lfm->path('absolute');
+        return $this->lfm->path($type);
     }
 
     public function isDirectory()
