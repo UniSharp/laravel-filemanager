@@ -254,6 +254,9 @@ function performLfmRequest(url, parameter, type) {
 
   return $.ajax({
     type: 'GET',
+    beforeSend: function(request) {
+      request.setRequestHeader("Authorization", 'Bearer ' + getUrlParam('token'));
+    },
     dataType: type || 'text',
     url: lfm_route + '/' + url,
     data: data,
@@ -439,13 +442,13 @@ function move(item) {
   notImp();
 }
 
-function use(item) {
-  function getUrlParam(paramName) {
-    var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
-    var match = window.location.search.match(reParam);
-    return ( match && match.length > 1 ) ? match[1] : null;
-  }
+function getUrlParam(paramName) {
+  var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
+  var match = window.location.search.match(reParam);
+  return ( match && match.length > 1 ) ? match[1] : null;
+}
 
+function use(item) {
   function useTinymce3(url) {
     var win = tinyMCEPopup.getWindowArg("window");
     win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = url;
