@@ -448,7 +448,7 @@ function getUrlParam(paramName) {
   return ( match && match.length > 1 ) ? match[1] : null;
 }
 
-function use(item) {
+function use(items) {
   function useTinymce3(url) {
     var win = tinyMCEPopup.getWindowArg("window");
     win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = url;
@@ -495,7 +495,7 @@ function use(item) {
     window.opener.SetUrl(p,w,h);
   }
 
-  var url = item.url;
+  var url = items[0].url;
   var field_name = getUrlParam('field_name');
   var is_ckeditor = getUrlParam('CKEditor');
   var is_fcke = typeof data != 'undefined' && data['Properties']['Width'] != '';
