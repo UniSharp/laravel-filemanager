@@ -21,25 +21,25 @@
       <td>{{ $item->time }}</td>
       <td class="actions">
         @if($item->is_file)
-          <a href="javascript:download('{{ $item->name }}')" title="{{ Lang::get('laravel-filemanager::lfm.menu-download') }}">
+          <a href="javascript:download({{ json_encode($item->name) }})" title="{{ Lang::get('laravel-filemanager::lfm.menu-download') }}">
             <i class="fa fa-download fa-fw"></i>
           </a>
           @if($item->thumb)
-            <a href="javascript:fileView('{{ $item->url }}', '{{ $item->updated }}')" title="{{ Lang::get('laravel-filemanager::lfm.menu-view') }}">
+            <a href="javascript:fileView({{ json_encode($item->url) }}, '{{ $item->updated }}')" title="{{ Lang::get('laravel-filemanager::lfm.menu-view') }}">
               <i class="fa fa-image fa-fw"></i>
             </a>
-            <a href="javascript:cropImage('{{ $item->name }}')" title="{{ Lang::get('laravel-filemanager::lfm.menu-crop') }}">
+            <a href="javascript:cropImage({{ json_encode($item->name) }})" title="{{ Lang::get('laravel-filemanager::lfm.menu-crop') }}">
               <i class="fa fa-crop fa-fw"></i>
             </a>
-            <a href="javascript:resizeImage('{{ $item->name }}')" title="{{ Lang::get('laravel-filemanager::lfm.menu-resize') }}">
+            <a href="javascript:resizeImage({{ json_encode($item->name) }})" title="{{ Lang::get('laravel-filemanager::lfm.menu-resize') }}">
               <i class="fa fa-arrows fa-fw"></i>
             </a>
           @endif
         @endif
-        <a href="javascript:rename('{{ $item->name }}')" title="{{ Lang::get('laravel-filemanager::lfm.menu-rename') }}">
+        <a href="javascript:rename({{ json_encode($item->name) }})" title="{{ Lang::get('laravel-filemanager::lfm.menu-rename') }}">
           <i class="fa fa-edit fa-fw"></i>
         </a>
-        <a href="javascript:trash('{{ $item->name }}')" title="{{ Lang::get('laravel-filemanager::lfm.menu-delete') }}">
+        <a href="javascript:trash({{ json_encode($item->name) }})" title="{{ Lang::get('laravel-filemanager::lfm.menu-delete') }}">
           <i class="fa fa-trash fa-fw"></i>
         </a>
       </td>
@@ -70,7 +70,7 @@
                   {{ str_limit($item->name, $limit = 20, $end = '...') }}
                 </a>
                 &nbsp;&nbsp;
-                {{-- <a href="javascript:rename('{{ $item->name }}')">
+                {{-- <a href="javascript:rename({{ json_encode($item->name) }})">
                   <i class="fa fa-edit"></i>
                 </a> --}}
               </p>
