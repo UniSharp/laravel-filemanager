@@ -22,14 +22,10 @@ class LfmTest extends TestCase
     public function testGetStorage()
     {
         $config = m::mock(Config::class);
-        $config->shouldReceive('get')->with('lfm.driver')->once()->andReturn('file');
-        $config->shouldReceive('get')->with('lfm.driver')->once()->andReturn('storage');
         $config->shouldReceive('get')->with('lfm.disk')->once()->andReturn('local');
 
-        $lfm1 = new Lfm($config);
-        $lfm2 = new Lfm($config);
-        $this->assertInstanceOf(LfmFileRepository::class, $lfm1->getStorage('foo/bar'));
-        $this->assertInstanceOf(LfmStorageRepository::class, $lfm2->getStorage('foo/bar'));
+        $lfm = new Lfm($config);
+        $this->assertInstanceOf(LfmStorageRepository::class, $lfm->getStorage('foo/bar'));
     }
 
     public function testInput()

@@ -21,11 +21,7 @@ class Lfm
 
     public function getStorage($storage_path)
     {
-        if ($this->config->get('lfm.driver') === 'storage') {
-            return new LfmStorageRepository($storage_path, $this);
-        } else {
-            return new LfmFileRepository($storage_path, $this);
-        }
+        return new LfmStorageRepository($storage_path, $this);
     }
 
     public function input($key)
