@@ -1,12 +1,12 @@
 <?php
 
 $middleware = array_merge(\Config::get('lfm.middlewares'), [
-    '\UniSharp\LaravelFilemanager\middlewares\CreateDefaultFolder',
-    '\UniSharp\LaravelFilemanager\middlewares\MultiUser',
+    '\UniSharp\LaravelFilemanager\Middlewares\CreateDefaultFolder',
+    '\UniSharp\LaravelFilemanager\Middlewares\MultiUser',
 ]);
 $prefix = \Config::get('lfm.url_prefix', \Config::get('lfm.prefix', 'laravel-filemanager'));
 $as = 'unisharp.lfm.';
-$namespace = '\UniSharp\LaravelFilemanager\controllers';
+$namespace = '\UniSharp\LaravelFilemanager\Controllers';
 
 // make sure authenticated
 Route::group(compact('middleware', 'prefix', 'as', 'namespace'), function () {
