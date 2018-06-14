@@ -153,13 +153,6 @@ class Lfm
         return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.max_size');
     }
 
-    // TODO: do not use url function, and add test
-    public function url($path = '')
-    {
-        return '/' . $path;
-        // return url($path);
-    }
-
     /**
      * Check if users are allowed to use their private folders.
      *
@@ -223,28 +216,6 @@ class Lfm
     public function isRunningOnWindows()
     {
         return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
-    }
-
-    /**
-     * Check if the package should set up route to the file or not(storage driver).
-     *
-     * @return bool
-     */
-    public function shouldSetStorageRoute()
-    {
-        $driver = $this->config->get('lfm.driver');
-
-        if ($driver === 'file') {
-            return false;
-        }
-
-        $storage_root = $this->getStorage('/')->rootPath();
-
-        if ($driver === 'storage' && (ends_with($storage_root, 'public') || ends_with($storage_root, 'public/'))) {
-            return false;
-        }
-
-        return true;
     }
 
     /**

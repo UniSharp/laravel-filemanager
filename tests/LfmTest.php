@@ -163,11 +163,6 @@ class LfmTest extends TestCase
         $this->assertEquals('File', $lfm->getFileType('bar'));
     }
 
-    public function testUrl()
-    {
-        $this->assertEquals('/foo/bar', (new Lfm)->url('foo/bar'));
-    }
-
     public function testAllowMultiUser()
     {
         $config = m::mock(Config::class);
