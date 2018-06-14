@@ -33,6 +33,16 @@
     Code above is for Laravel 5.1.
     In Laravel 5.0 should leave only quoted class names.
 
+1. Edit `routes/web.php` :
+
+    Create route group to wrap package routes
+
+    ```php
+    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
+    ```
+
 1. Publish the package's config and assets :
 
     ```bash
