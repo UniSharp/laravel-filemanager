@@ -40,14 +40,14 @@
   },
   "autoload": {
     "psr-4": {
-      "Unisharp\\Laravelfilemanager\\": "src/"
+      "UniSharp\\LaravelFilemanager\\": "src/"
     }
   },
   "bin": ["bin/debug"],
   "extra": {
     "laravel": {
       "providers": [
-        "Unisharp\\Laravelfilemanager\\LaravelFilemanagerServiceProvider"
+        "UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider"
       ],
       "aliases": {
       }
