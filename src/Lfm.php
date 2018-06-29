@@ -270,6 +270,16 @@ class Lfm
                 'as' => 'getItems',
             ]);
 
+            Route::get('/move', [
+                'uses' => $namespace . 'ItemsController@move',
+                'as' => 'move',
+            ]);
+
+            Route::get('/domove',[
+                'uses' => $namespace . 'ItemsController@domove',
+                'as' => 'domove'
+            ]);
+
             // folders
             Route::get('/newfolder', [
                 'uses' => $namespace . 'FolderController@getAddfolder',
