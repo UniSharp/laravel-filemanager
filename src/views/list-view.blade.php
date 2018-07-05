@@ -11,7 +11,19 @@
     @foreach($items as $item)
     <tr>
       <td>
-        <i class="fa {{ $item->icon }}"></i>
+        @if($item->is_file)
+        <?php $thumb_src = $item->thumb; ?>
+					@if($thumb_src)
+					<a href="javascript:fileView('{{ $item->url }}', '{{ $item->updated }}')" title="{{ Lang::get('laravel-filemanager::lfm.menu-view') }}">
+					      <img width="40" height="40" src="{{$item->url}}" alt="">
+					    </a>
+					@else
+					<i class="fa {{ $item->icon }} fa-5x"></i>
+		      	@endif
+         @else
+            <i class="fa {{ $item->icon }}"></i>
+        @endif
+
         <a class="{{ $item->is_file ? 'file' : 'folder'}}-item clickable" data-id="{{ $item->is_file ? $item->url : $item->path }}" title="{{$item->name}}">
           {{ str_limit($item->name, $limit = 40, $end = '...') }}
         </a>
