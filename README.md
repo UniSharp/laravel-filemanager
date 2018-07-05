@@ -1,7 +1,7 @@
 # Laravel Filemanager
 [![Travis CI](https://img.shields.io/travis/UniSharp/laravel-filemanager.svg)](https://travis-ci.org/UniSharp/laravel-filemanager)
 [![Total Downloads](https://poser.pugx.org/unisharp/laravel-filemanager/downloads)](https://packagist.org/packages/unisharp/laravel-filemanager)
-[![Latest Unstable Version](https://img.shields.io/badge/unstable-v2.0.0--alpha3-orange.svg)](https://packagist.org/packages/unisharp/laravel-filemanager)
+[![Latest Unstable Version](https://img.shields.io/badge/unstable-v2.0.0--alpha4-orange.svg)](https://packagist.org/packages/unisharp/laravel-filemanager)
 [![Latest Stable Version](https://poser.pugx.org/unisharp/laravel-filemanager/v/stable)](https://packagist.org/packages/unisharp/laravel-filemanager)
 [![License](https://poser.pugx.org/unisharp/laravel-filemanager/license)](https://packagist.org/packages/unisharp/laravel-filemanager)
 
@@ -13,6 +13,17 @@
    * [Events](http://unisharp.github.io/laravel-filemanager/events)
    * [Upgrade](http://unisharp.github.io/laravel-filemanager/upgrade)
  * Demo : [Laravel Filemanager container](https://github.com/UniSharp/laravel-filemanager-example-5.3)
+
+## Installing alpha version
+The alpha version of `v2.0` contains support of cloud storage and fresh new UI with RWD.
+
+ * Run `composer require unisharp/laravel-filemanager:dev-master` to get the latest code.
+ * Run `composer require unisharp/laravel-filemanager:v2.0.0-alpha4` to get the latest release of alpha version.
+
+## Errors with namespace
+We have changed namespace from `Unisharp` to `UniSharp`, and change the first character of every namespace into capital.
+
+If you are updating this package and encounter any errors like `Class not found`, please remove this package entirely and reinstall again.
 
 ## v1.8 released
  * Please follow the intructions in [upgrade document](https://unisharp.github.io/laravel-filemanager/upgrade).
