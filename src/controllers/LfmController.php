@@ -1,8 +1,8 @@
 <?php
 
-namespace UniSharp\LaravelFilemanager\controllers;
+namespace UniSharp\LaravelFilemanager\Controllers;
 
-use UniSharp\LaravelFilemanager\traits\LfmHelpers;
+use UniSharp\LaravelFilemanager\Traits\LfmHelpers;
 
 /**
  * Class LfmController.

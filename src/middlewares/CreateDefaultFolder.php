@@ -1,9 +1,9 @@
 <?php
 
-namespace UniSharp\LaravelFilemanager\middlewares;
+namespace UniSharp\LaravelFilemanager\Middlewares;
 
 use Closure;
-use UniSharp\LaravelFilemanager\traits\LfmHelpers;
+use UniSharp\LaravelFilemanager\Traits\LfmHelpers;
 
 class CreateDefaultFolder
 {
