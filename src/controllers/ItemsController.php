@@ -1,6 +1,6 @@
 <?php
 
-namespace UniSharp\LaravelFilemanager\controllers;
+namespace UniSharp\LaravelFilemanager\Controllers;
 
 use UniSharp\LaravelFilemanager\Events\FileIsMoving;
 use UniSharp\LaravelFilemanager\Events\FileWasMoving;
