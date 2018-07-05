@@ -23,9 +23,9 @@
         <label class="btn btn-primary btn-aspectRatio" onclick="changeAspectRatio(this, 2 / 3)">
           2:3
         </label>
-        {{--<label class="btn btn-primary" onclick="changeAspectRatio(this, null)">
+        <label class="btn btn-primary" onclick="changeAspectRatio(this, null)">
           Free
-        </label>--}}
+        </label>
       </div>
       <br>
       <br>
