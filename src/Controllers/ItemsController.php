@@ -68,9 +68,9 @@ class ItemsController extends LfmController
             $new_file = $this->lfm->setName($item)->dir($target);
             $this->lfm->setName($item)->move($new_file);
             if ($is_directory) {
-                    event(new FolderWasMoving($old_file->path(), $new_file->path()));
+                event(new FolderWasMoving($old_file->path(), $new_file->path()));
             } else {
-                    event(new FileWasMoving($old_file->path(), $new_file->path()));
+                event(new FileWasMoving($old_file->path(), $new_file->path()));
             }
         };
 
