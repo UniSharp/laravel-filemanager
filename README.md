@@ -1,4 +1,5 @@
 <p align="center"><img src="https://unisharp.github.io/laravel-filemanager/images/logo_type_1.png"></p>
+
 [![Travis CI](https://img.shields.io/travis/UniSharp/laravel-filemanager.svg)](https://travis-ci.org/UniSharp/laravel-filemanager)
 [![Total Downloads](https://poser.pugx.org/unisharp/laravel-filemanager/downloads)](https://packagist.org/packages/unisharp/laravel-filemanager)
 [![Latest Unstable Version](https://img.shields.io/badge/unstable-v2.0.0--alpha4-orange.svg)](https://packagist.org/packages/unisharp/laravel-filemanager)
@@ -78,6 +79,7 @@ This approach ensures that only authenticated users have access to the Laravel-F
  * [All contibutors](https://github.com/UniSharp/laravel-filemanager/graphs/contributors) from GitHub. (issues / PR)
  * [@taswler](https://github.com/tsawler) the original author of this package.
  * Nathan for providing security suggestions.
+ * [@mdnazmulhasan27771](https://github.com/mdnazmulhasan27771) the designer of our logo.
 
 ### Credits
 
