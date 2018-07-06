@@ -52,7 +52,7 @@ class ItemsController extends LfmController
         $target = $this->helper->input('goToFolder');
         $items = $this->helper->input('items');
 
-        foreach ($items as $item ) {
+        foreach ($items as $item) {
             $old_file = $this->lfm->pretty($item);
             $is_directory = $old_file->isDirectory();
 

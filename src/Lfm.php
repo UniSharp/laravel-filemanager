@@ -275,7 +275,7 @@ class Lfm
                 'as' => 'move',
             ]);
 
-            Route::get('/domove',[
+            Route::get('/domove', [
                 'uses' => $namespace . 'ItemsController@domove',
                 'as' => 'domove'
             ]);
