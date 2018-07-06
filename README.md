@@ -1,4 +1,4 @@
-# Laravel Filemanager
+<p align="center"><img src="https://unisharp.github.io/laravel-filemanager/images/logo_type_1.png"></p>
 [![Travis CI](https://img.shields.io/travis/UniSharp/laravel-filemanager.svg)](https://travis-ci.org/UniSharp/laravel-filemanager)
 [![Total Downloads](https://poser.pugx.org/unisharp/laravel-filemanager/downloads)](https://packagist.org/packages/unisharp/laravel-filemanager)
 [![Latest Unstable Version](https://img.shields.io/badge/unstable-v2.0.0--alpha4-orange.svg)](https://packagist.org/packages/unisharp/laravel-filemanager)
