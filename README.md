@@ -58,12 +58,13 @@ This approach ensures that only authenticated users have access to the Laravel-F
 * [x] (done) Responsive design
 * [x] (done) Config refactoring
 * [x] (done) JSON APIs
-* [ ] Move to folder function
+* [x] (done) Move to folder function
 * [x] (done) Applying MIME icon generator
 * [x] (done) Refactor floating action buttons
 * [x] (done) Configurable disk of storage
 * [x] (done) Bootstrap 4 support
 * [x] (done) Remove bootbox
+* [ ] Documents for v2.0
 
 
 ## Contributors & Credits
