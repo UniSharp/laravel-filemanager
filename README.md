@@ -79,7 +79,7 @@ This approach ensures that only authenticated users have access to the Laravel-F
  * [All contibutors](https://github.com/UniSharp/laravel-filemanager/graphs/contributors) from GitHub. (issues / PR)
  * [@taswler](https://github.com/tsawler) the original author of this package.
  * Nathan for providing security suggestions.
- * [@mdnazmulhasan27771](https://github.com/mdnazmulhasan27771) the designer of our logo.
+ * [@mdnazmulhasan27771](https://github.com/mdnazmulhasan27771) the designer of our logo. (Licensed CC BY 4.0)
 
 ### Credits
 
