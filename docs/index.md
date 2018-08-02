@@ -10,7 +10,7 @@
  * Public and private folders for multi users
  * Customizable routes, middlewares, views, and folder path
  * Supports two types : files and images. Each type works in different directory.
- * Supported locales : ar, bg, de, el, en, es, fa, fr, he, hu, nl, pl, pt-BR, pt_PT, ro, ru, tr, zh-CN, zh-TW
+ * Supported locales : ar, bg, de, el, en, es, fa, fr, it, he, hu, nl, pl, pt-BR, pt_PT, ro, ru, tr, zh-CN, zh-TW
 
 PR is welcome!
 
