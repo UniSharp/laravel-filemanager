@@ -255,7 +255,10 @@ function performLfmRequest(url, parameter, type) {
   return $.ajax({
     type: 'GET',
     beforeSend: function(request) {
-      request.setRequestHeader("Authorization", 'Bearer ' + getUrlParam('token'));
+      var token = getUrlParam('token');
+      if (token !== null) {
+        request.setRequestHeader("Authorization", 'Bearer ' + token);
+      }
     },
     dataType: type || 'text',
     url: lfm_route + '/' + url,
