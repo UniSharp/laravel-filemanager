@@ -86,4 +86,6 @@ This approach ensures that only authenticated users have access to the Laravel-F
 
  * [@olivervogel](https://github.com/olivervogel) for the awesome [image library](https://github.com/Intervention/image).
  * SVG Loaders by [Sam](http://samherbert.net/svg-loaders/) (Licensed MIT)
+ * Articles and videos which helped promoting this package.
+ * All users and you.
 
