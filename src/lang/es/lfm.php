@@ -32,7 +32,7 @@ return [
     'type-folder'       => 'Carpeta',
 
     'message-empty'     => 'Carpeta está vacía.',
-    'message-choose'    => 'Sleccione Archivo',
+    'message-choose'    => 'Seleccione Archivo',
     'message-delete'    => '¿Está seguro que desea eliminar este item?',
     'message-name'      => 'Nombre de Carpeta:',
     'message-rename'    => 'Renombrar a:',
