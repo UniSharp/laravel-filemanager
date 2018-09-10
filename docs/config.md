@@ -19,8 +19,8 @@
 
 ### If you want to name private folders other than columns of users table, follow these steps:
 1. Run `php artisan vendor:publish --tag=lfm_handler`.
-2. Fill `App\Handler\ConfigHander::class` into `user_field`.
-3. Edit `userField()` in the `App\Handler\ConfigHander`
+2. Fill `App\Handler\ConfigHandler::class` into `user_field`.
+3. Edit `userField()` in the `App\Handler\ConfigHandler`
 
 
 ## Working Directory:
