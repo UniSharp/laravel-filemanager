@@ -212,7 +212,7 @@
       {
         name: 'move',
         icon: 'paste',
-        label: 'move',
+        label: lang['menu-move'],
         multiple: true
       },
       {
