@@ -39,7 +39,7 @@ class LfmStorageRepository implements RepositoryContract
 	    $nameint = strripos($this->path, "/");
 	    $nameclean = substr($this->path, $nameint + 1);
 	    $pathclean = substr_replace($this->path, "", $nameint);
-	    $this->disk->putFileAs($pathclean, $file_content, $nameclean, 'public');
+	    $this->disk->putFileAs($pathclean, $file, $nameclean, 'public');
     }
 
     public function url($path)
