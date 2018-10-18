@@ -73,8 +73,6 @@
   function doResize() {
     performLfmRequest('doresize', {
       img: $("#img").val(),
-      dataX: $("#dataX").val(),
-      dataY: $("#dataY").val(),
       dataHeight: $("#height").val(),
       dataWidth: $("#width").val()
     }).done(loadItems);
