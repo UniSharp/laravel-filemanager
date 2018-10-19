@@ -30,7 +30,7 @@
 The alpha version of `v2.0` contains support of cloud storage and fresh new UI with RWD.
 
  * Run `composer require unisharp/laravel-filemanager:dev-master` to get the latest code.
- * Run `composer require unisharp/laravel-filemanager:v2.0.0-alpha4` to get the latest release of alpha version.
+ * Run `composer require unisharp/laravel-filemanager:v2.0.0-alpha5` to get the latest release of alpha version.
 
 ## Errors with namespace
 We have changed namespace from `Unisharp` to `UniSharp`, and change the first character of every namespace into capital.
