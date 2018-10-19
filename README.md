@@ -26,8 +26,6 @@
   <a href="https://github.com/UniSharp/laravel-filemanager-example-5.3">Demo</a>
 </p>
 
- * Demo : [Laravel Filemanager container](https://github.com/UniSharp/laravel-filemanager-example-5.3)
-
 ## Installing alpha version
 The alpha version of `v2.0` contains support of cloud storage and fresh new UI with RWD.
 
