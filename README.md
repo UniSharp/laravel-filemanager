@@ -1,18 +1,31 @@
 <p align="center"><img src="https://unisharp.github.io/laravel-filemanager/images/logo_type_1.png"></p>
 
-[![Travis CI](https://img.shields.io/travis/UniSharp/laravel-filemanager.svg)](https://travis-ci.org/UniSharp/laravel-filemanager)
-[![Total Downloads](https://poser.pugx.org/unisharp/laravel-filemanager/downloads)](https://packagist.org/packages/unisharp/laravel-filemanager)
-[![Latest Unstable Version](https://img.shields.io/badge/unstable-v2.0.0--alpha4-orange.svg)](https://packagist.org/packages/unisharp/laravel-filemanager)
-[![Latest Stable Version](https://poser.pugx.org/unisharp/laravel-filemanager/v/stable)](https://packagist.org/packages/unisharp/laravel-filemanager)
-[![License](https://poser.pugx.org/unisharp/laravel-filemanager/license)](https://packagist.org/packages/unisharp/laravel-filemanager)
+<p align="center">
+  <a target="_blank" href="https://travis-ci.org/UniSharp/laravel-filemanager"><img src="https://img.shields.io/travis/UniSharp/laravel-filemanager.svg"></a>
+  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/downloads"></a>
+  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/badge/unstable-v2.0.0--alpha5-orange.svg"></a>
+  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/v/stable"></a>
+  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/license"></a>
+</p>
 
- * Document : [unisharp.github.io/laravel-filemanager](http://unisharp.github.io/laravel-filemanager/)
-   * [Installation](http://unisharp.github.io/laravel-filemanager/installation)
-   * [Integration](http://unisharp.github.io/laravel-filemanager/integration)
-   * [Config](http://unisharp.github.io/laravel-filemanager/config)
-   * [Customization](http://unisharp.github.io/laravel-filemanager/customization)
-   * [Events](http://unisharp.github.io/laravel-filemanager/events)
-   * [Upgrade](http://unisharp.github.io/laravel-filemanager/upgrade)
+<p align="center">
+  <a href="http://unisharp.github.io/laravel-filemanager/">Documents</a>
+・
+  <a href="http://unisharp.github.io/laravel-filemanager/installation">Installation</a>
+・
+  <a href="http://unisharp.github.io/laravel-filemanager/integration">Integration</a>
+・
+  <a href="http://unisharp.github.io/laravel-filemanager/config">Config</a>
+・
+  <a href="http://unisharp.github.io/laravel-filemanager/customization">Customization</a>
+・
+  <a href="http://unisharp.github.io/laravel-filemanager/events">Events</a>
+・
+  <a href="http://unisharp.github.io/laravel-filemanager/upgrade">Upgrade</a>
+・
+  <a href="https://github.com/UniSharp/laravel-filemanager-example-5.3">Demo</a>
+</p>
+
  * Demo : [Laravel Filemanager container](https://github.com/UniSharp/laravel-filemanager-example-5.3)
 
 ## Installing alpha version
