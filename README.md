@@ -1,4 +1,4 @@
-<p align="center"><img src="https://unisharp.github.io/laravel-filemanager/images/logo_type_1.png"></p>
+<p align="center"><img src="https://unisharp.github.io/laravel-filemanager/images/logo_vertical_colored.png"></p>
 
 <p align="center">
   <a target="_blank" href="https://travis-ci.org/UniSharp/laravel-filemanager"><img src="https://img.shields.io/travis/UniSharp/laravel-filemanager.svg"></a>
