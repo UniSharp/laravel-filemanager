@@ -74,7 +74,7 @@ class Lfm
         $lfm_type = 'file';
 
         $request_type = lcfirst(str_singular($this->input('type') ?: ''));
-        $available_types = array_keys($this->config->get('lfm.folder_categories'), []);
+        $available_types = array_keys($this->config->get('lfm.folder_categories', []));
 
         if (in_array($request_type, $available_types)) {
             $lfm_type = $request_type;
