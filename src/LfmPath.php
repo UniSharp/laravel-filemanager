@@ -248,7 +248,7 @@ class LfmPath
 
         $new_file_name = $this->getNewName($file);
 
-        if ($this->setName($new_file_name)->exists()) {
+        if ($this->setName($new_file_name)->exists() && !config('lfm.over_write_on_duplicate')) {
             return $this->error('file-exist');
         }
 
