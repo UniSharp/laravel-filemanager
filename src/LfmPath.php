@@ -246,7 +246,7 @@ class LfmPath
             throw new \Exception('File failed to upload. Error code: ' . $file->getError());
         }
 
-        $new_file_name = $this->getNewName($file) . '.' . $file->getClientOriginalExtension();
+        $new_file_name = $this->getNewName($file);
 
         if ($this->setName($new_file_name)->exists()) {
             return $this->error('file-exist');
