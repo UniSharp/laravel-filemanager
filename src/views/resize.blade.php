@@ -58,8 +58,10 @@
     $("#width_display").html($("#resize").width() + "px");
 
     $("#resize").resizable({
-      aspectRatio: true,
+      aspectRatio: {{ config('lfm.resize_aspectRatio')?'true':'false' }},
+      @if(config('lfm.resize_containment'))
       containment: "#containment",
+      @endif
       handles: "n, e, s, w, se, sw, ne, nw",
       resize: function (event, ui) {
         $("#width").val($("#resize").width());
