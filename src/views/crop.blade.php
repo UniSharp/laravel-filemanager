@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row pt-5">
   <div class="col-md-8">
     <div class="crop-container">
       <img src="{{ $img->url . '?timestamp=' . $img->time }}" class="img img-responsive">
@@ -6,10 +6,8 @@
   </div>
   <div class="col-md-4">
     <div class="text-center">
-
       <div class="img-preview center-block"></div>
       <br>
-
       <div class="btn-group clearfix">
         <label class="btn btn-primary btn-aspectRatio active" onclick="changeAspectRatio(this, 16 / 9)">
           16:9
@@ -23,16 +21,17 @@
         <label class="btn btn-primary btn-aspectRatio" onclick="changeAspectRatio(this, 2 / 3)">
           2:3
         </label>
-        <label class="btn btn-primary" onclick="changeAspectRatio(this, null)">
+        <label class="btn btn-primary btn-aspectRatio" onclick="changeAspectRatio(this, null)">
           Free
         </label>
       </div>
       <br>
       <br>
-
-      <button class="btn btn-primary" onclick="performCrop()">{{ trans('laravel-filemanager::lfm.btn-crop') }}</button>
-      <button class="btn btn-primary" onclick="performCropNew()">{{ trans('laravel-filemanager::lfm.btn-copy-crop') }}</button>
-      <button class="btn btn-info" onclick="loadItems()">{{ trans('laravel-filemanager::lfm.btn-cancel') }}</button>
+      <div class="btn-group clearfix">
+        <button class="btn btn-warning" onclick="performCrop()">{{ trans('laravel-filemanager::lfm.btn-crop') }}</button>
+        <button class="btn btn-info" onclick="performCropNew()">{{ trans('laravel-filemanager::lfm.btn-copy-crop') }}</button>
+        <button class="btn btn-default" onclick="loadItems()">{{ trans('laravel-filemanager::lfm.btn-cancel') }}</button>
+      </div>
       <form id='cropForm'>
         <input type="hidden" id="img" name="img" value="{{ $img->name }}">
         <input type="hidden" id="working_dir" name="working_dir" value="{{ $working_dir }}">
@@ -44,7 +43,6 @@
       </form>
     </div>
   </div>
-
 </div>
 
 <script>
