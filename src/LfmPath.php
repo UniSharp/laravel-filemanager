@@ -311,7 +311,7 @@ class LfmPath
         $this->setName(null)->thumb(true)->createFolder();
 
         // generate cropped image content
-        $image_path = $this->setName($file_name)->thumb(true)->path('absolute');
+        $this->setName($file_name)->thumb(true);
         $image = Image::make($original_image->get())
             ->fit(config('lfm.thumb_img_width', 200), config('lfm.thumb_img_height', 200));
 
