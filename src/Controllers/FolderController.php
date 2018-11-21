@@ -44,7 +44,7 @@ class FolderController extends LfmController
                 return $this->helper->error('folder-name');
             } elseif ($this->lfm->setName($folder_name)->exists()) {
                 return $this->helper->error('folder-exist');
-            } elseif (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
+            } elseif (config('lfm.alphanumeric_directory') && preg_match('/[а-яА-Я]/i', $folder_name)) {
                 return $this->helper->error('folder-alnum');
             } else {
                 $this->lfm->setName($folder_name)->createFolder();
