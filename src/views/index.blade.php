@@ -201,7 +201,7 @@
         name: 'download',
         icon: 'download',
         label: lang['menu-download'],
-        multiple: false
+        multiple: true
       },
       // {
       //   name: 'preview',

@@ -203,7 +203,7 @@ function toggleActions() {
   $('[data-action=rename]').toggleClass('d-none', !one_selected)
   $('[data-action=preview]').toggleClass('d-none', !(many_selected && only_file))
   $('[data-action=move]').toggleClass('d-none', !many_selected)
-  $('[data-action=download]').toggleClass('d-none', !(one_selected && only_file))
+  $('[data-action=download]').toggleClass('d-none', !(many_selected && only_file))
   $('[data-action=resize]').toggleClass('d-none', !(one_selected && only_image))
   $('[data-action=crop]').toggleClass('d-none', !(one_selected && only_image))
   $('[data-action=trash]').toggleClass('d-none', !many_selected)
@@ -380,10 +380,21 @@ function resize(item) {
     .done(hideNavAndShowEditor);
 }
 
-function download(item) {
-  var data = defaultParameters();
-  data['file'] = item.name;
-  location.href = lfm_route + '/download?' + $.param(data);
+function download(items) {
+  items.forEach(function (item, index) {
+    var data = defaultParameters();
+
+    data['file'] = item.name;
+
+    var token = getUrlParam('token');
+    if (token) {
+      data['token'] = token;
+    }
+
+    setTimeout(function () {
+      location.href = lfm_route + '/download?' + $.param(data);
+    }, index * 100);
+  });
 }
 
 function preview(items) {
