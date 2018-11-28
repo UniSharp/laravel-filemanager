@@ -1,9 +1,5 @@
 /* General */
 
-body {
-  padding-bottom: 4rem;
-}
-
 a {
   color: #333844;
   text-decoration: none !important;
@@ -141,6 +137,10 @@ a {
 }
 
 /* Items */
+
+#content.preserve_actions_space {
+  padding-bottom: 4rem; /* preserve space for main actions */
+}
 
 .square {
   cursor: pointer;

@@ -63,6 +63,7 @@ return [
     'btn-close'         => 'Close',
     'btn-crop'          => 'Crop',
     'btn-copy-crop'     => 'Copy & Crop',
+    'btn-crop-free'     => 'Free',
     'btn-cancel'        => 'Cancel',
     'btn-confirm'       => 'Confirm',
     'btn-resize'        => 'Resize',

@@ -283,7 +283,8 @@ var refreshFoldersAndItems = function (data) {
 
 var hideNavAndShowEditor = function (data) {
   $('#nav-buttons > ul').addClass('d-none');
-  $('#content').html(data);
+  $('#content').html(data).removeClass('preserve_actions_space');
+  $('#actions').addClass('d-none');
 }
 
 function loadFolders() {
@@ -306,7 +307,7 @@ function loadItems() {
       $('#content').html('').removeAttr('class');
 
       if (hasItems) {
-        $('#content').addClass(response.display);
+        $('#content').addClass(response.display).addClass('preserve_actions_space');
 
         items.forEach(function (item, index) {
           items[(new Date()).getTime()] = item;

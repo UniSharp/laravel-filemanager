@@ -62,6 +62,7 @@ return [
     'btn-close'         => '關閉',
     'btn-crop'          => '裁剪',
     'btn-copy-crop'     => '裁剪為新的檔案',
+    'btn-crop-free'     => '不限比例',
     'btn-cancel'        => '取消',
     'btn-confirm'       => '確認',
     'btn-resize'        => '縮放',
