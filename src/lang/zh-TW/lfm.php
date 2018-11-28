@@ -16,6 +16,8 @@ return [
     'menu-download'     => '下載',
     'menu-resize'       => '縮放',
     'menu-crop'         => '裁剪',
+    'menu-move'         => '搬移',
+    'menu-multiple'     => '多選',
 
     'title-page'        => '檔案管理',
     'title-panel'       => '檔案管理',
@@ -58,7 +60,9 @@ return [
     'btn-uploading'     => '上傳中...',
     'btn-close'         => '關閉',
     'btn-crop'          => '裁剪',
+    'btn-copy-crop'     => '裁剪為新的檔案',
     'btn-cancel'        => '取消',
+    'btn-confirm'       => '確認',
     'btn-resize'        => '縮放',
 
     'resize-ratio'      => '比例:',

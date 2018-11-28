@@ -16,6 +16,8 @@ return [
     'menu-download'     => 'Download',
     'menu-resize'       => 'Resize',
     'menu-crop'         => 'Crop',
+    'menu-move'         => 'Move',
+    'menu-multiple'     => 'Multi-selection',
 
     'title-page'        => 'File Manager',
     'title-panel'       => 'Laravel FileManager',
@@ -61,6 +63,7 @@ return [
     'btn-crop'          => 'Crop',
     'btn-copy-crop'     => 'Copy & Crop',
     'btn-cancel'        => 'Cancel',
+    'btn-confirm'       => 'Confirm',
     'btn-resize'        => 'Resize',
 
     'resize-ratio'      => 'Ratio:',
