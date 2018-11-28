@@ -33,7 +33,7 @@
     <a class="navbar-brand d-block d-lg-none" id="show_tree">
       <i class="fas fa-bars fa-fw"></i>
     </a>
-    <a class="navbar-brand">Home</a>
+    <a class="navbar-brand">{{ trans('laravel-filemanager::lfm.nav-home') }}</a>
     <a id="loading" class="navbar-brand"><i class="fas fa-spinner fa-spin"></i></a>
     <a class="navbar-toggler collapsed border-0 px-1 py-2 m-0 ml-auto" data-toggle="collapse" data-target="#nav-buttons">
       <i class="fas fa-cog fa-fw"></i>
