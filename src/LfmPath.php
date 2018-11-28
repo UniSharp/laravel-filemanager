@@ -97,7 +97,7 @@ class LfmPath
     {
         $all_folders = array_map(function ($directory_path) {
             return $this->pretty($directory_path);
-        }, $this->storage->directories($this));
+        }, $this->storage->directories());
 
         $folders = array_filter($all_folders, function ($directory) {
             return $directory->name !== $this->helper->getThumbFolderName();
