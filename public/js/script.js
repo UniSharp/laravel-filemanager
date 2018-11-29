@@ -419,6 +419,7 @@ function preview(items) {
   var indicatorTemplate = carousel.find('.carousel-indicators > li').clone().removeClass('active');
   carousel.children('.carousel-inner').html('');
   carousel.children('.carousel-indicators').html('');
+  carousel.children('.carousel-indicators,.carousel-control-prev,.carousel-control-next').toggle(items.length > 1);
 
   items.forEach(function (item, index) {
     var carouselItem = imageTemplate.clone()
@@ -429,6 +430,10 @@ function preview(items) {
     } else {
       carouselItem.find('.carousel-image').css('width', '50vh').append($('<div>').addClass('mime-icon ico-' + item.icon));
     }
+
+    carouselItem.find('.carousel-label').attr('target', '_blank').attr('href', item.url)
+      .append(item.name)
+      .append($('<i class="fas fa-external-link-alt ml-2"></i>'));
 
     carousel.children('.carousel-inner').append(carouselItem);
 

@@ -156,21 +156,26 @@
     </div>
   </div>
 
-  <div id="carouselTemplate" class="d-none carousel slide" data-ride="carousel">
+  <div id="carouselTemplate" class="d-none carousel slide bg-light" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#previewCarousel" data-slide-to="0" class="active"></li>
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
+        <a class="carousel-label"></a>
         <div class="carousel-image"></div>
       </div>
     </div>
     <a class="carousel-control-prev" href="#previewCarousel" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <div class="carousel-control-background" aria-hidden="true">
+        <i class="fas fa-chevron-left"></i>
+      </div>
       <span class="sr-only">Previous</span>
     </a>
     <a class="carousel-control-next" href="#previewCarousel" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <div class="carousel-control-background" aria-hidden="true">
+        <i class="fas fa-chevron-right"></i>
+      </div>
       <span class="sr-only">Next</span>
     </a>
   </div>

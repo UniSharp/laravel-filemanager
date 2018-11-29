@@ -97,6 +97,29 @@ a {
   margin: 0 auto;
 }
 
+.carousel-indicators {
+  bottom: 0;
+}
+
+.carousel-label, .carousel-label:hover {
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(transparent 10px, rgba(0, 0, 0, .4), rgba(0, 0, 0, .5));
+  padding: 40px 20px 30px;
+  width: 100%;
+  color: white;
+  word-break: break-word;
+  text-align: center;
+}
+
+.carousel-control-background {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  box-shadow: 0 0 10px #666;
+  background-color: #666;
+}
+
 #uploadForm > .dz-default.dz-message {
   border: 2px dashed #ccc;
   border-radius: 5px;
