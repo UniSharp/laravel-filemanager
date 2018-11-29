@@ -122,8 +122,8 @@ $('#multi_selection_toggle').click(function () {
   multi_selection_enabled = !multi_selection_enabled;
 
   $('#multi_selection_toggle i')
-    .toggleClass('fa-check-square', multi_selection_enabled)
-    .toggleClass('fa-square', !multi_selection_enabled);
+    .toggleClass('fa-ban', multi_selection_enabled)
+    .toggleClass('fa-check-double', !multi_selection_enabled);
 
   if (!multi_selection_enabled) {
     clearSelected();
@@ -199,7 +199,8 @@ $(document).on('dblclick', '#content a', function (e) {
 });
 
 function getOneSelectedElement(orderOfItem) {
-  return items[orderOfItem || selected[0]];
+  var index = orderOfItem !== undefined ? orderOfItem : selected[0];
+  return items[index];
 }
 
 function getSelectedItems() {
