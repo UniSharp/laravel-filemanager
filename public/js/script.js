@@ -486,6 +486,8 @@ function getUrlParam(paramName) {
 
 function use(items) {
   function useTinymce3(url) {
+    if (!usingTinymce3()) { return; }
+
     var win = tinyMCEPopup.getWindowArg("window");
     win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = url;
     if (typeof(win.ImageDialog) != "undefined") {
@@ -502,8 +504,10 @@ function use(items) {
     tinyMCEPopup.close();
   }
 
-  function useTinymce4AndColorbox(url, field_name) {
-    parent.document.getElementById(field_name).value = url;
+  function useTinymce4AndColorbox(url) {
+    if (!usingTinymce4AndColorbox()) { return; }
+
+    parent.document.getElementById(getUrlParam('field_name')).value = url;
 
     if(typeof parent.tinyMCE !== "undefined") {
       parent.tinyMCE.activeEditor.windowManager.close();
@@ -514,6 +518,8 @@ function use(items) {
   }
 
   function useCkeditor3(url) {
+    if (!usingCkeditor3()) { return; }
+
     if (window.opener) {
       // Popup
       window.opener.CKEDITOR.tools.callFunction(getUrlParam('CKEditorFuncNum'), url);
@@ -525,6 +531,8 @@ function use(items) {
   }
 
   function useFckeditor2(url) {
+    if (!usingFckeditor2()) { return; }
+
     var p = url;
     var w = data['Properties']['Width'];
     var h = data['Properties']['Height'];
@@ -532,40 +540,62 @@ function use(items) {
   }
 
   var url = items[0].url;
-  var field_name = getUrlParam('field_name');
   var callback = getUrlParam('callback');
-  var is_ckeditor = getUrlParam('CKEditor');
-  var is_fcke = typeof data != 'undefined' && data['Properties']['Width'] != '';
+  var useFileSucceeded = true;
 
-  if (window.opener || window.tinyMCEPopup || field_name || callback || getUrlParam('CKEditorCleanUpFuncNum') || is_ckeditor) {
-    if (window.tinyMCEPopup) { // use TinyMCE > 3.0 integration method
-      useTinymce3(url);
-    } else if (field_name) {   // tinymce 4 and colorbox
-      useTinymce4AndColorbox(url, field_name);
-    } else if (callback && (window[callback] || parent[callback])) {
-      if (window[callback]) {
-        window[callback](getSelectedItems());
-      } else if (parent[callback]) {
-        parent[callback](getSelecteditems());
-      }
-    } else if(is_ckeditor) {   // use CKEditor 3.0 + integration method
-      useCkeditor3(url);
-    } else if (is_fcke) {      // use FCKEditor 2.0 integration method
-      useFckeditor2(url);
-    } else {                   // standalone button or other situations
-      window.opener.SetUrl(getSelectedItems());
-    }
+  if (usingWysiwygEditor()) {
+    useTinymce3(url);
 
+    useTinymce4AndColorbox(url);
+
+    useCkeditor3(url);
+
+    useFckeditor2(url);
+  } else if (callback && window[callback]) {
+    window[callback](getSelectedItems());
+  } else if (callback && parent[callback]) {
+    parent[callback](getSelecteditems());
+  } else if (window.opener) { // standalone button or other situations
+    window.opener.SetUrl(getSelectedItems());
+  } else {
+    useFileSucceeded = false;
+  }
+
+  if (useFileSucceeded) {
     if (window.opener) {
       window.close();
     }
   } else {
+    console.log('window.opener not found');
     // No editor found, open/download file using browser's default method
     window.open(url);
-    // notify('window.opener not found');
   }
 }
 //end useFile
+
+// ==================================
+// ==     WYSIWYG Editors Check    ==
+// ==================================
+
+function usingTinymce3() {
+  return !!window.tinyMCEPopup;
+}
+
+function usingTinymce4AndColorbox() {
+  return !!getUrlParam('field_name');
+}
+
+function usingCkeditor3() {
+  return !!getUrlParam('CKEditor') || !!getUrlParam('CKEditorCleanUpFuncNum');
+}
+
+function usingFckeditor2() {
+  return window.opener && typeof data != 'undefined' && data['Properties']['Width'] != '';
+}
+
+function usingWysiwygEditor() {
+  return usingTinymce3() || usingTinymce4AndColorbox() || usingCkeditor3() || usingFckeditor2();
+}
 
 // ==================================
 // ==            Others            ==
