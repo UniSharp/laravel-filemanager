@@ -1,7 +1,7 @@
 var show_list;
 var show_tree = false;
 var sort_type = 'alphabetic';
-var multi_selection_enabled = true;
+var multi_selection_enabled = false;
 var selected = [];
 var items = [];
 
@@ -31,14 +31,36 @@ $.fn.fab = function (options) {
   });
 };
 
-Array.prototype.toggleElement = function (element) {
-  var element_index = this.indexOf(element);
-  if (element_index === -1) {
-    this.push(element);
-  } else {
-    this.splice(element_index, 1);
+function toggleSelected (e) {
+  if (!multi_selection_enabled) {
+    selected = [];
   }
-};
+
+  var sequence = $(e.target).closest('a').data('id');
+  var element_index = selected.indexOf(sequence);
+  if (element_index === -1) {
+    selected.push(sequence);
+  } else {
+    selected.splice(element_index, 1);
+  }
+
+  updateSelectedStyle();
+}
+
+function clearSelected () {
+  selected = [];
+
+  updateSelectedStyle();
+}
+
+function updateSelectedStyle() {
+  items.forEach(function (item, index) {
+    $('[data-id=' + index + ']')
+      .find('.square')
+      .toggleClass('selected', selected.indexOf(index) > -1);
+  });
+  toggleActions();
+}
 
 $(document).ready(function () {
   $('#fab').fab({
@@ -98,6 +120,14 @@ $(document).ready(function () {
 
 $('#multi_selection_toggle').click(function () {
   multi_selection_enabled = !multi_selection_enabled;
+
+  $('#multi_selection_toggle i')
+    .toggleClass('fa-check-square', multi_selection_enabled)
+    .toggleClass('fa-square', !multi_selection_enabled);
+
+  if (!multi_selection_enabled) {
+    clearSelected();
+  }
 });
 
 $('#to-previous').click(function () {
@@ -147,46 +177,36 @@ $(document).on('click', '[data-sortby]', function() {
 });
 
 $(document).on('click', '[data-action]', function () {
-  if ($(this).data('multiple')) {
-    window[$(this).data('action')](getSelectedItems());
-  } else {
-    window[$(this).data('action')](getOneSelectedElement());
-  }
+  var dataToProcess = $(this).data('multiple') ? getSelectedItems() : getOneSelectedElement();
+
+  window[$(this).data('action')](dataToProcess);
 });
 
 // ======================
 // ==  Folder actions  ==
 // ======================
 
-$(document).on('click', '#content a', function (e) {
-  var element = $(e.target).closest('a');
+$(document).on('click', '#content a', toggleSelected);
 
-  if (multi_selection_enabled) {
-    selected.toggleElement(element.data('id'));
-    element.find('.square').toggleClass('selected');
-    toggleActions();
+$(document).on('dblclick', '#content a', function (e) {
+  var clickedElement = getOneSelectedElement($(e.target).closest('a').data('id'));
+
+  if (clickedElement.is_file) {
+    use(getSelectedItems());
   } else {
-    if (element.is_file) {
-      use(getOneSelectedElement().url);
-    } else {
-      goTo(getOneSelectedElement().url);
-    }
+    goTo(clickedElement.url);
   }
 });
 
-function getOneSelectedElement(item_id) {
-  if (item_id === undefined) {
-    item_id = selected[0];
-  }
-  return items[item_id];
+function getOneSelectedElement(orderOfItem) {
+  return items[orderOfItem || selected[0]];
 }
 
 function getSelectedItems() {
-  var arr_objects = [];
-  selected.forEach(function (id, index) {
+  return selected.reduce(function (arr_objects, id) {
     arr_objects.push(getOneSelectedElement(id));
-  });
-  return arr_objects;
+    return arr_objects
+  }, []);
 }
 
 function toggleActions() {
@@ -454,9 +474,7 @@ function preview(items) {
 }
 
 function move(items) {
-  performLfmRequest('move', {
-      items: items.map(function (item) { return item.name; })
-    })
+  performLfmRequest('move', { items: items.map(function (item) { return item.name; }) })
     .done(refreshFoldersAndItems);
 }
 

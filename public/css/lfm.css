@@ -45,7 +45,8 @@ a {
 @media screen and (min-width: 992px) {
   #main {
     width: calc(100% - 300px);
-    margin-left: 1rem;
+    /*margin-left: 1rem;*/
+    padding: 1rem;
   }
 
   .invisible-lg {
