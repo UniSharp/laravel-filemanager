@@ -63,7 +63,13 @@ a {
   #tree {
     position: absolute;
     z-index: 999;
-    left: -300px;
+    left: 0;
+    transform: translateX(-100%);
+    transition: 1s transform;
+  }
+
+  #tree.in {
+    transform: translateX(0);
   }
 }
 

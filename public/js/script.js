@@ -1,5 +1,4 @@
 var show_list;
-var show_tree = false;
 var sort_type = 'alphabetic';
 var multi_selection_enabled = false;
 var selected = [];
@@ -137,23 +136,18 @@ $('#to-previous').click(function () {
 });
 
 function toggleMobileTree(should_display) {
-  if (should_display) {
-    var position = '0px';
-  } else {
-    var position = '-' + $('#tree').width() + 'px';
+  if (should_display === undefined) {
+    should_display = !$('#tree').hasClass('in');
   }
-
-  $('#tree').animate({'left': position}, 1000, 'easeOutExpo', function () {
-    show_tree = should_display;
-  });
+  $('#tree').toggleClass('in', should_display);
 }
 
 $('#show_tree').click(function (e) {
-  toggleMobileTree(!show_tree);
+  toggleMobileTree();
 });
 
 $('#main').click(function (e) {
-  if (show_tree) {
+  if ($('#tree').hasClass('in')) {
     toggleMobileTree(false);
   }
 });
