@@ -111,7 +111,7 @@
             <div class="form-group" id="attachment">
               <div class="controls text-center">
                 <div class="input-group w-100">
-                  <a class="btn btn-primary w-100" id="upload-button">{{ trans('laravel-filemanager::lfm.message-choose') }}</a>
+                  <a class="btn btn-primary w-100 text-white" id="upload-button">{{ trans('laravel-filemanager::lfm.message-choose') }}</a>
                 </div>
               </div>
             </div>
@@ -257,7 +257,7 @@
       uploadMultiple: false,
       parallelUploads: 5,
       clickable: '#upload-button',
-      dictDefaultMessage: 'Or drop files here to upload',
+      dictDefaultMessage: "{{ trans('laravel-filemanager::lfm.message-drop') }}",
       init: function() {
         var _this = this; // For the closure
         this.on('success', function(file, response) {

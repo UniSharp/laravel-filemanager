@@ -40,6 +40,7 @@ return [
     'message-name'      => '資料夾名稱:',
     'message-rename'    => '重新命名為:',
     'message-extension_not_found' => '請安裝 gd 或 imagick 以使用縮放、裁剪、及縮圖功能',
+    'message-drop'      => '或將檔案拖拉到此處',
 
     'error-rename'      => '名稱重複，請重新輸入！',
     'error-file-name'   => '請輸入檔案名稱！',

@@ -90,6 +90,14 @@ a {
   margin: 0 auto;
 }
 
+#uploadForm > .dz-default.dz-message {
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  color: #aaa;
+  margin: 0;
+  padding: 3rem 0;
+}
+
 /* Loader */
 
 #lfm-loader {
