@@ -30,39 +30,6 @@ $.fn.fab = function (options) {
   });
 };
 
-function toggleSelected (e) {
-  if (!multi_selection_enabled) {
-    selected = [];
-  }
-
-  var sequence = $(e.target).closest('a').data('id');
-  var element_index = selected.indexOf(sequence);
-  if (element_index === -1) {
-    selected.push(sequence);
-  } else {
-    selected.splice(element_index, 1);
-  }
-
-  updateSelectedStyle();
-}
-
-function clearSelected () {
-  selected = [];
-
-  multi_selection_enabled = false;
-
-  updateSelectedStyle();
-}
-
-function updateSelectedStyle() {
-  items.forEach(function (item, index) {
-    $('[data-id=' + index + ']')
-      .find('.square')
-      .toggleClass('selected', selected.indexOf(index) > -1);
-  });
-  toggleActions();
-}
-
 $(document).ready(function () {
   $('#fab').fab({
     buttons: [
@@ -87,9 +54,6 @@ $(document).ready(function () {
           .attr('data-multiple', action.multiple)
           .append($('<i>').addClass('fas fa-fw fa-' + action.icon))
           .append($('<span>').text(action.label))
-          .click(function () {
-            window[$(this).data('action')](action.multiple ? getSelectedItems() : getOneSelectedElement());
-          })
       )
     );
   });
@@ -105,6 +69,7 @@ $(document).ready(function () {
         })
     );
   });
+
   loadFolders();
   performLfmRequest('errors')
     .done(function (response) {
@@ -178,9 +143,46 @@ $(document).on('click', '[data-display]', function() {
   loadItems();
 });
 
-// ======================
-// ==  Folder actions  ==
-// ======================
+$(document).on('click', '[data-action]', function() {
+  window[$(this).data('action')]($(this).data('multiple') ? getSelectedItems() : getOneSelectedElement());
+});
+
+// ==========================
+// ==  Multiple Selection  ==
+// ==========================
+
+function toggleSelected (e) {
+  if (!multi_selection_enabled) {
+    selected = [];
+  }
+
+  var sequence = $(e.target).closest('a').data('id');
+  var element_index = selected.indexOf(sequence);
+  if (element_index === -1) {
+    selected.push(sequence);
+  } else {
+    selected.splice(element_index, 1);
+  }
+
+  updateSelectedStyle();
+}
+
+function clearSelected () {
+  selected = [];
+
+  multi_selection_enabled = false;
+
+  updateSelectedStyle();
+}
+
+function updateSelectedStyle() {
+  items.forEach(function (item, index) {
+    $('[data-id=' + index + ']')
+      .find('.square')
+      .toggleClass('selected', selected.indexOf(index) > -1);
+  });
+  toggleActions();
+}
 
 function getOneSelectedElement(orderOfItem) {
   var index = orderOfItem !== undefined ? orderOfItem : selected[0];
@@ -212,10 +214,15 @@ function toggleActions() {
   $('[data-action=resize]').toggleClass('d-none', !(one_selected && only_image));
   $('[data-action=crop]').toggleClass('d-none', !(one_selected && only_image));
   $('[data-action=trash]').toggleClass('d-none', !many_selected);
+  $('[data-action=open]').toggleClass('d-none', !one_selected || only_file);
   $('#multi_selection_toggle').toggleClass('d-none', usingWysiwygEditor() || !many_selected);
   $('#actions').toggleClass('d-none', selected.length === 0);
   $('#fab').toggleClass('d-none', selected.length !== 0);
 }
+
+// ======================
+// ==  Folder actions  ==
+// ======================
 
 $(document).on('click', '#tree a', function (e) {
   goTo($(e.target).closest('a').data('path'));
@@ -438,6 +445,10 @@ function download(items) {
       location.href = lfm_route + '/download?' + $.param(data);
     }, index * 100);
   });
+}
+
+function open(item) {
+  goTo(item.url);
 }
 
 function preview(items) {

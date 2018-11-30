@@ -67,6 +67,7 @@ return [
     'btn-cancel'        => '取消',
     'btn-confirm'       => '確認',
     'btn-resize'        => '縮放',
+    'btn-open'          => '開啟資料夾',
 
     'resize-ratio'      => '比例:',
     'resize-scaled'     => '是否已縮放:',

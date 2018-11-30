@@ -68,6 +68,7 @@ return [
     'btn-cancel'        => 'Cancel',
     'btn-confirm'       => 'Confirm',
     'btn-resize'        => 'Resize',
+    'btn-open'          => 'Open Folder',
 
     'resize-ratio'      => 'Ratio:',
     'resize-scaled'     => 'Image scaled:',
