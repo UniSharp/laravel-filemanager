@@ -13,7 +13,7 @@ $.fn.fab = function (options) {
     .append($('<i>').addClass('fas fa-plus'))
     .click(function () {
       menu.toggleClass('fab-expand');
-    })
+    });
 
   menu.append(toggler);
 
@@ -48,6 +48,8 @@ function toggleSelected (e) {
 
 function clearSelected () {
   selected = [];
+
+  multi_selection_enabled = false;
 
   updateSelectedStyle();
 }
@@ -111,6 +113,10 @@ $(document).ready(function () {
   $(window).on('dragenter', function(){
     $('#uploadModal').modal('show');
   });
+
+  if (usingWysiwygEditor()) {
+    $('#multi_selection_toggle').hide();
+  }
 });
 
 // ======================
@@ -121,7 +127,7 @@ $('#multi_selection_toggle').click(function () {
   multi_selection_enabled = !multi_selection_enabled;
 
   $('#multi_selection_toggle i')
-    .toggleClass('fa-ban', multi_selection_enabled)
+    .toggleClass('fa-times', multi_selection_enabled)
     .toggleClass('fa-check-double', !multi_selection_enabled);
 
   if (!multi_selection_enabled) {
@@ -214,16 +220,17 @@ function toggleActions() {
     .filter(function (item) { return !item.is_file; })
     .length === 0;
 
-  $('[data-action=use]').toggleClass('d-none', !(many_selected && only_file))
-  $('[data-action=rename]').toggleClass('d-none', !one_selected)
-  $('[data-action=preview]').toggleClass('d-none', !(many_selected && only_file))
-  $('[data-action=move]').toggleClass('d-none', !many_selected)
-  $('[data-action=download]').toggleClass('d-none', !(many_selected && only_file))
-  $('[data-action=resize]').toggleClass('d-none', !(one_selected && only_image))
-  $('[data-action=crop]').toggleClass('d-none', !(one_selected && only_image))
-  $('[data-action=trash]').toggleClass('d-none', !many_selected)
-  $('#actions').toggleClass('d-none', selected.length === 0)
-  $('#fab').toggleClass('d-none', selected.length !== 0)
+  $('[data-action=use]').toggleClass('d-none', !(many_selected && only_file));
+  $('[data-action=rename]').toggleClass('d-none', !one_selected);
+  $('[data-action=preview]').toggleClass('d-none', !(many_selected && only_file));
+  $('[data-action=move]').toggleClass('d-none', !many_selected);
+  $('[data-action=download]').toggleClass('d-none', !(many_selected && only_file));
+  $('[data-action=resize]').toggleClass('d-none', !(one_selected && only_image));
+  $('[data-action=crop]').toggleClass('d-none', !(one_selected && only_image));
+  $('[data-action=trash]').toggleClass('d-none', !many_selected);
+  $('#multi_selection_toggle').toggleClass('d-none', usingWysiwygEditor() || !many_selected);
+  $('#actions').toggleClass('d-none', selected.length === 0);
+  $('#fab').toggleClass('d-none', selected.length !== 0);
 }
 
 $(document).on('click', '#tree a', function (e) {

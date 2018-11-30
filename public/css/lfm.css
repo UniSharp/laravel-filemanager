@@ -38,6 +38,14 @@ a {
   border-left: 1px solid #dee2e6;
 }
 
+#multi_selection_toggle > i.fa-check-double {
+  font-size: 20px;
+}
+
+#multi_selection_toggle > i.fa-times {
+  font-size: 24px;
+}
+
 #main {
   width: 100%;
 }

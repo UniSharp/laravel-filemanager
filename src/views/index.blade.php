@@ -35,17 +35,17 @@
     </a>
     <a class="navbar-brand d-block d-lg-none">{{ trans('laravel-filemanager::lfm.nav-home') }}</a>
     <a id="loading" class="navbar-brand"><i class="fas fa-spinner fa-spin"></i></a>
-    <a class="navbar-toggler collapsed border-0 px-1 py-2 m-0 ml-auto" data-toggle="collapse" data-target="#nav-buttons">
+    <div class="ml-auto px-2">
+      <a class="navbar-link d-none" id="multi_selection_toggle">
+        <i class="fa fa-check-double fa-fw"></i>
+        <span class="d-none d-lg-inline">{{ trans('laravel-filemanager::lfm.menu-multiple') }}</span>
+      </a>
+    </div>
+    <a class="navbar-toggler collapsed border-0 px-1 py-2 m-0" data-toggle="collapse" data-target="#nav-buttons">
       <i class="fas fa-cog fa-fw"></i>
     </a>
-    <div class="collapse navbar-collapse" id="nav-buttons">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" id="multi_selection_toggle">
-            <i class="fa fa-check-double fa-fw"></i>
-            <span>{{ trans('laravel-filemanager::lfm.menu-multiple') }}</span>
-          </a>
-        </li>
+    <div class="collapse navbar-collapse flex-grow-0" id="nav-buttons">
+      <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" data-display="grid">
             <i class="fas fa-th-large fa-fw"></i>
