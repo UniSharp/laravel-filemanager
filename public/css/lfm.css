@@ -46,6 +46,15 @@ a {
   font-size: 24px;
 }
 
+.breadcrumb-item:not(.active) {
+  transition: .2s color;
+}
+
+.breadcrumb-item:not(.active):hover {
+  cursor: pointer;
+  color: #75C7C3;
+}
+
 #main {
   width: 100%;
 }

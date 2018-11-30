@@ -79,6 +79,12 @@
     <div id="main">
       <div id="alerts"></div>
 
+      <nav aria-label="breadcrumb" class="d-none d-lg-block" id="breadcrumbs">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item invisible">Home</li>
+        </ol>
+      </nav>
+
       <div id="empty" class="d-none">
         <i class="far fa-folder-open"></i>
         {{ trans('laravel-filemanager::lfm.message-empty') }}
