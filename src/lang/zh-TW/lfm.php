@@ -9,7 +9,6 @@ return [
     'nav-sort'          => '排序',
     'nav-sort-alphabetic'=> '依字母排序',
     'nav-sort-time'     => '依時間排序',
-    'nav-home'          => '根目錄',
 
     'menu-rename'       => '重新命名',
     'menu-delete'       => '刪除',

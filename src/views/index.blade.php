@@ -33,7 +33,7 @@
     <a class="navbar-brand d-block d-lg-none" id="show_tree">
       <i class="fas fa-bars fa-fw"></i>
     </a>
-    <a class="navbar-brand d-block d-lg-none">{{ trans('laravel-filemanager::lfm.nav-home') }}</a>
+    <a class="navbar-brand d-block d-lg-none" id="current_folder"></a>
     <a id="loading" class="navbar-brand"><i class="fas fa-spinner fa-spin"></i></a>
     <div class="ml-auto px-2">
       <a class="navbar-link d-none" id="multi_selection_toggle">

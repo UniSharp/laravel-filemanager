@@ -365,6 +365,7 @@ function loadItems() {
         }
       });
 
+      $('#current_folder').text(breadcrumbs[breadcrumbs.length - 1]);
       $('#breadcrumbs > ol').html('');
       breadcrumbs.forEach(function (breadcrumb, index) {
         var li = $('<li>').addClass('breadcrumb-item').text(breadcrumb);

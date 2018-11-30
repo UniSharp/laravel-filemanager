@@ -9,7 +9,6 @@ return [
     'nav-sort'          => 'Sort',
     'nav-sort-alphabetic'=> 'Sort By Alphabets',
     'nav-sort-time'     => 'Sort By Time',
-    'nav-home'          => 'Home',
 
     'menu-rename'       => 'Rename',
     'menu-delete'       => 'Delete',
