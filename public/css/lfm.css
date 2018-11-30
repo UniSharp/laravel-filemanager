@@ -38,12 +38,8 @@ a {
   border-left: 1px solid #dee2e6;
 }
 
-#multi_selection_toggle > i.fa-check-double {
+#multi_selection_toggle > i {
   font-size: 20px;
-}
-
-#multi_selection_toggle > i.fa-times {
-  font-size: 24px;
 }
 
 .breadcrumb-item:not(.active) {
