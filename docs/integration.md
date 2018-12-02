@@ -156,7 +156,7 @@ If you are going to use filemanager independently, meaning set the value of an i
 1. Import lfm.js(run `php artisan vendor:publish` if you need).
 
     ```html
-    <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     ```
 
 1. Init filemanager with type. (requires jQuery)
