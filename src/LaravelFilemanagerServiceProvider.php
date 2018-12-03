@@ -35,8 +35,8 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/Handlers/LfmConfigHandler.php' => base_path('app/Handlers/LfmConfigHandler.php'),
         ], 'lfm_handler');
-        
-        if(config('lfm.use_package_routes')) {
+
+        if (config('lfm.use_package_routes')) {
             \UniSharp\LaravelFilemanager\Lfm::routes();
         }
     }

@@ -76,6 +76,9 @@ This approach ensures that only authenticated users have access to the Laravel-F
 * [x] (done) Bootstrap 4 support
 * [x] (done) Remove bootbox
 * [ ] Documents for v2.0
+* [x] (done) Resize function RWD refactor
+* [ ] ConfigHandler should overwrite most configs
+* [ ] Events should pass object instead of only file path
 
 
 ## Contributors & Credits
