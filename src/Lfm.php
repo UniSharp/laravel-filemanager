@@ -128,7 +128,8 @@ class Lfm
             $folder = $this->config->get('lfm.shared_folder_name');
         }
 
-        return $this->ds() . $folder;
+        // the slash is for url, dont replace it with directory seperator
+        return '/' . $folder;
     }
 
     public function getThumbFolderName()
