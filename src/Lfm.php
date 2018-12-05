@@ -243,9 +243,8 @@ class Lfm
     {
         $middleware = [ CreateDefaultFolder::class, MultiUser::class ];
         $as = 'unisharp.lfm.';
-        $prefix = config('lfm.url_prefix');
 
-        Route::group(compact('middleware', 'as', 'prefix'), function () {
+        Route::group(compact('middleware', 'as'), function () {
             $namespace = '\\UniSharp\\LaravelFilemanager\\Controllers\\';
 
             // display main layout
