@@ -13,7 +13,7 @@
     composer require unisharp/laravel-filemanager:~1.8
     ```
 
-1. Edit `config/app.php` :
+1. (optional) Edit `config/app.php` :
 
     \* *For Laravel 5.5 and up, skip to step 3. All service providers and facades are automatically discovered.*
 
@@ -32,21 +32,6 @@
 
     Code above is for Laravel 5.1.
     In Laravel 5.0 should leave only quoted class names.
-
-1. (Alpha version only) Edit `routes/web.php` :
-
-    Create route group to wrap package routes.
-
-    Make sure `auth` middleware is present to :
-
-    1. prevent unauthorized uploads
-    1. properly work with multi-user mode
-
-    ```php
-    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
-        \UniSharp\LaravelFilemanager\Lfm::routes();
-    });
-    ```
 
 1. Publish the package's config and assets :
 
