@@ -194,7 +194,6 @@
   <script src="{{ asset('vendor/laravel-filemanager/js/cropper.min.js') }}"></script>
   <script src="{{ asset('vendor/laravel-filemanager/js/dropzone.min.js') }}"></script>
   <script>
-    var lfm_route = "{{ url(config('lfm.url_prefix')) }}";
     var lang = {!! json_encode(trans('laravel-filemanager::lfm')) !!};
     var actions = [
       // {
@@ -269,7 +268,7 @@
       uploadMultiple: false,
       parallelUploads: 5,
       clickable: '#upload-button',
-      dictDefaultMessage: "{{ trans('laravel-filemanager::lfm.message-drop') }}",
+      dictDefaultMessage: lang['message-drop'],
       init: function() {
         var _this = this; // For the closure
         this.on('success', function(file, response) {
@@ -281,7 +280,7 @@
         });
       },
       headers: {
-        'Authorization': 'Bearer {{ request('token') }}'
+        'Authorization': 'Bearer ' + getUrlParam('token')
       },
       acceptedFiles: "{{ implode(',', $helper->availableMimeTypes()) }}",
       maxFilesize: ({{ $helper->maxUploadSize() }} / 1000)

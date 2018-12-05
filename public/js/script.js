@@ -1,3 +1,4 @@
+var lfm_route = location.origin + location.pathname;
 var show_list;
 var sort_type = 'alphabetic';
 var multi_selection_enabled = false;
