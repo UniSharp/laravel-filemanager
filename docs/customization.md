@@ -3,16 +3,16 @@
 
     Create route group to wrap package routes.
 
-    Make sure `auth` middleware is present to :
-
-    1. prevent unauthorized uploads
-    1. properly work with multi-user mode
-
     ```php
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();
     });
     ```
+
+    Make sure `auth` middleware is present to :
+
+    1. prevent unauthorized uploads
+    1. work properly with multi-user mode
 
 1. Make sure urls below is correspond to your route (remember to include type parameter `?type=Images` or `?type=Files`) :
   * CKEditor
