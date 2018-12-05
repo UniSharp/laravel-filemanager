@@ -3,7 +3,7 @@
 <p align="center">
   <a target="_blank" href="https://travis-ci.org/UniSharp/laravel-filemanager"><img src="https://img.shields.io/travis/UniSharp/laravel-filemanager.svg"></a>
   <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/downloads"></a>
-  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/badge/unstable-v2.0.0--alpha5-orange.svg"></a>
+  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/badge/unstable-v2.0.0--alpha7-orange.svg"></a>
   <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/v/stable"></a>
   <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/license"></a>
 </p>
@@ -30,7 +30,7 @@
 The alpha version of `v2.0` contains support of cloud storage and fresh new UI with RWD.
 
  * Run `composer require unisharp/laravel-filemanager:dev-master` to get the latest code.
- * Run `composer require unisharp/laravel-filemanager:v2.0.0-alpha5` to get the latest release of alpha version.
+ * Run `composer require unisharp/laravel-filemanager:v2.0.0-alpha7` to get the latest release of alpha version.
 
 ## Errors with namespace
 We have changed namespace from `Unisharp` to `UniSharp`, and change the first character of every namespace into capital.
