@@ -243,99 +243,99 @@ class Lfm
     {
         $middleware = [ CreateDefaultFolder::class, MultiUser::class ];
         $as = 'unisharp.lfm.';
+        $namespace = '\\UniSharp\\LaravelFilemanager\\Controllers\\';
 
-        Route::group(compact('middleware', 'as'), function () {
-            $namespace = '\\UniSharp\\LaravelFilemanager\\Controllers\\';
+        Route::group(compact('middleware', 'as', 'namespace'), function () {
 
             // display main layout
             Route::get('/', [
-                'uses' => $namespace . 'LfmController@show',
+                'uses' => 'LfmController@show',
                 'as' => 'show',
             ]);
 
             // display integration error messages
             Route::get('/errors', [
-                'uses' => $namespace . 'LfmController@getErrors',
+                'uses' => 'LfmController@getErrors',
                 'as' => 'getErrors',
             ]);
 
             // upload
             Route::any('/upload', [
-                'uses' => $namespace . 'UploadController@upload',
+                'uses' => 'UploadController@upload',
                 'as' => 'upload',
             ]);
 
             // list images & files
             Route::get('/jsonitems', [
-                'uses' => $namespace . 'ItemsController@getItems',
+                'uses' => 'ItemsController@getItems',
                 'as' => 'getItems',
             ]);
 
             Route::get('/move', [
-                'uses' => $namespace . 'ItemsController@move',
+                'uses' => 'ItemsController@move',
                 'as' => 'move',
             ]);
 
             Route::get('/domove', [
-                'uses' => $namespace . 'ItemsController@domove',
+                'uses' => 'ItemsController@domove',
                 'as' => 'domove'
             ]);
 
             // folders
             Route::get('/newfolder', [
-                'uses' => $namespace . 'FolderController@getAddfolder',
+                'uses' => 'FolderController@getAddfolder',
                 'as' => 'getAddfolder',
             ]);
 
             // list folders
             Route::get('/folders', [
-                'uses' => $namespace . 'FolderController@getFolders',
+                'uses' => 'FolderController@getFolders',
                 'as' => 'getFolders',
             ]);
 
             // crop
             Route::get('/crop', [
-                'uses' => $namespace . 'CropController@getCrop',
+                'uses' => 'CropController@getCrop',
                 'as' => 'getCrop',
             ]);
             Route::get('/cropimage', [
-                'uses' => $namespace . 'CropController@getCropimage',
+                'uses' => 'CropController@getCropimage',
                 'as' => 'getCropimage',
             ]);
             Route::get('/cropnewimage', [
-                'uses' => $namespace . 'CropController@getNewCropimage',
+                'uses' => 'CropController@getNewCropimage',
                 'as' => 'getCropimage',
             ]);
 
             // rename
             Route::get('/rename', [
-                'uses' => $namespace . 'RenameController@getRename',
+                'uses' => 'RenameController@getRename',
                 'as' => 'getRename',
             ]);
 
             // scale/resize
             Route::get('/resize', [
-                'uses' => $namespace . 'ResizeController@getResize',
+                'uses' => 'ResizeController@getResize',
                 'as' => 'getResize',
             ]);
             Route::get('/doresize', [
-                'uses' => $namespace . 'ResizeController@performResize',
+                'uses' => 'ResizeController@performResize',
                 'as' => 'performResize',
             ]);
 
             // download
             Route::get('/download', [
-                'uses' => $namespace . 'DownloadController@getDownload',
+                'uses' => 'DownloadController@getDownload',
                 'as' => 'getDownload',
             ]);
 
             // delete
             Route::get('/delete', [
-                'uses' => $namespace . 'DeleteController@getDelete',
+                'uses' => 'DeleteController@getDelete',
                 'as' => 'getDelete',
             ]);
 
-            Route::get('/demo', $namespace . 'DemoController@index');
+            Route::get('/demo', 'DemoController@index');
         });
     }
 }
