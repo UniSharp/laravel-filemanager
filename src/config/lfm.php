@@ -17,23 +17,8 @@ return [
 
     'use_package_routes'       => true,
 
-    'middlewares'              => ['web', 'auth'],
-
-    // The url to this package. Change it if necessary.
-    'url_prefix'               => 'laravel-filemanager',
-
-    // Use relative paths (without domain)
-    'relative_paths'           => false,
-
-    // behavior on files with identical name
-    // setting it to true cause old file replace with new one
-    // setting it to false show `error-file-exist` error and stop upload
-    'over_write_on_duplicate'  => false,
-
-    // behavior on files with identical name
-    // setting it to true cause old file replace with new one
-    // setting it to false show `error-file-exist` error and stop upload
-    'over_write_on_duplicate' => false,
+    // // Use relative paths (without domain)
+    // 'relative_paths'           => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -118,6 +103,11 @@ return [
     // If true, it will attempt to chmod the file after upload
     'should_change_file_mode'  => true,
 
+    // behavior on files with identical name
+    // setting it to true cause old file replace with new one
+    // setting it to false show `error-file-exist` error and stop upload
+    'over_write_on_duplicate'  => false,
+
     /*
     |--------------------------------------------------------------------------
     | Thumbnail
@@ -133,17 +123,20 @@ return [
         'image/pjpeg',
         'image/png',
     ],
+
+    'thumb_img_width'          => 200,
+
+    'thumb_img_height'         => 200,
+
     /*
     |--------------------------------------------------------------------------
     | jQuery UI options
     |--------------------------------------------------------------------------
      */
+
     'resize_aspectRatio'       => false,
+
     'resize_containment'       => true,
-
-    'thumb_img_width'          => 200,
-
-    'thumb_img_height'         => 200,
 
     /*
     |--------------------------------------------------------------------------

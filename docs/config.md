@@ -62,6 +62,11 @@
 | should\_change\_file\_mode | boolean | If true, it will attempt to chmod the file after upload                   |
 | valid\_file\_mimetypes     | array   | Array of mime types. Available since v1.3.0 .                             |
 
+##### Appendix:
+
+  * [full mime types list](http://docs.w3cub.com/http/basics_of_http/mime_types/complete_list_of_mime_types/)
+  * [Laravel File Storage](https://laravel.com/docs/master/filesystem)
+
 
 ## Thumbnail dimensions:
 
