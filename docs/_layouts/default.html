@@ -8,6 +8,12 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
     <style>
+      h1.project-name {
+        margin-top: 100px;
+      }
+      h2.project-tagline {
+        margin-bottom: 5rem;
+      }
       #nav > span > a {
         color: #dddddd;
       }
@@ -15,20 +21,86 @@
         content: ' |';
         color: #dddddd;
       }
+      .button-group {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+      }
+      @media screen and (max-width: 42em) {
+        a.btn {
+          width: 50%;
+          margin: 0;
+        }
+
+        a.btn + a.btn {
+          margin-top: 0;
+          margin-left: 15px;
+        }
+      }
+
+      .main-content {
+        padding: 1rem !important;
+      }
+
+      #carbonads {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, .05);
+        font-size: 14px;
+        padding: 15px 15px 15px 160px;
+      }
+
+      #carbonads a {
+        text-decoration: none;
+      }
+
+      #carbonads a:hover {
+        color: inherit;
+      }
+
+      .carbon-img {
+        float: left;
+        margin-left: -145px;
+        width: 130px;
+        height: 100px;
+      }
+
+      .carbon-img img {
+        width: 130px;
+        height: 100px;
+      }
+
+      .carbon-text {
+        color: #333;
+      }
+
+      .carbon-poweredby {
+        display: block;
+        color: #777;
+      }
+
+      @media only screen and (min-width: 400px) {
+        #carbonads {
+          max-width: 330px;
+        }
+      }
     </style>
   </head>
   <body>
     <section class="page-header">
       <h1 class="project-name">{{ site.title | default: site.github.repository_name }}</h1>
       <h2 class="project-tagline">{{ site.description | default: site.github.project_tagline }}</h2>
-      <a class="btn" href="https://github.com/UniSharp/laravel-filemanager-example-5.3" target="_blank">Demo</a>
-      {% if site.github.is_project_page %}
+      <div class="button-group">
+        <a class="btn" href="https://github.com/UniSharp/laravel-filemanager-example-5.3" target="_blank">Demo</a>
+        {% if site.github.is_project_page %}
         <a href="{{ site.github.repository_url }}" class="btn">View on GitHub</a>
-      {% endif %}
-      {% if site.show_downloads %}
-        <a href="{{ site.github.zip_url }}" class="btn">Download .zip</a>
-        <a href="{{ site.github.tar_url }}" class="btn">Download .tar.gz</a>
-      {% endif %}
+        {% endif %}
+        {% if site.show_downloads %}
+          <a href="{{ site.github.zip_url }}" class="btn">Download .zip</a>
+          <a href="{{ site.github.tar_url }}" class="btn">Download .tar.gz</a>
+        {% endif %}
+      </div>
+
       <nav id="nav">
         <span><a href="/laravel-filemanager">Home</a></span>
         <span><a href="installation">Installation</a></span>
@@ -42,6 +114,7 @@
     </section>
 
     <section class="main-content">
+      <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CK7DE2JL&placement=unisharpgithubio" id="_carbonads_js"></script>
       {{ content }}
 
       <footer class="site-footer">
