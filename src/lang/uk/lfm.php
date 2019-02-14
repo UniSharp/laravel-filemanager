@@ -8,7 +8,7 @@ return [
     'nav-list'          => 'Список',
     'nav-sort'          => 'Сортувати',
     'nav-sort-alphabetic'=> 'Сортувати за алфавітом',
-    'nav-sort-time'     => 'Сортувати по часу',
+    'nav-sort-time'     => 'Сортувати за часом',
 
     'menu-rename'       => 'Перейменувати',
     'menu-delete'       => 'Вилучити',
