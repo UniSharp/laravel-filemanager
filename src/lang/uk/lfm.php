@@ -6,6 +6,9 @@ return [
     'nav-upload'        => 'Завантажити',
     'nav-thumbnails'    => 'Мініатюри',
     'nav-list'          => 'Список',
+    'nav-sort'          => 'Сортувати',
+    'nav-sort-alphabetic'=> 'Сортувати за алфавітом',
+    'nav-sort-time'     => 'Сортувати по часу',
 
     'menu-rename'       => 'Перейменувати',
     'menu-delete'       => 'Вилучити',
@@ -13,6 +16,8 @@ return [
     'menu-download'     => 'Завантажити',
     'menu-resize'       => 'Змінити розмір',
     'menu-crop'         => 'Обрізати',
+    'menu-move'         => 'Перемістити',
+    'menu-multiple'     => 'Multi-виділення',
 
     'title-page'        => 'Менеджер файлів',
     'title-panel'       => 'Laravel FileManager',
@@ -34,6 +39,7 @@ return [
     'message-name'      => 'Назва папки:',
     'message-rename'    => 'Перейменувати в:',
     'message-extension_not_found' => 'Інсталюйте, будь ласка, розширення GD чи ImageMagick щоб мати можливість кадрувати, змінювати розміри чи створювати ескізи зображень.',
+    'message-drop'      => 'Або перетягніть файли сюди для завантаження',
 
     'error-rename'      => 'Ім\'я файлу вже використовується!',
     'error-file-name'   => 'Ім\'я файлу не може бути порожнім!',
@@ -56,8 +62,12 @@ return [
     'btn-uploading'     => 'Завантаження...',
     'btn-close'         => 'Закрити',
     'btn-crop'          => 'Обрізати',
+    'btn-copy-crop'     => 'Скопіювати & Обрізати',
+    'btn-crop-free'     => 'Звільнити',
     'btn-cancel'        => 'Скасувати',
+    'btn-confirm'       => 'Підтвердити',
     'btn-resize'        => 'Змінити розмір',
+    'btn-open'          => 'Відкрити папку',
 
     'resize-ratio'      => 'Співвідношення:',
     'resize-scaled'     => 'Масштабоване зображення:',
