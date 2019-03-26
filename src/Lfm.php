@@ -241,7 +241,7 @@ class Lfm
      */
     public static function routes()
     {
-        $middleware = [ CreateDefaultFolder::class, MultiUser::class ];
+        $middleware = array_merge([ CreateDefaultFolder::class, MultiUser::class ], \config('lfm.middlewares') ?? []);
         $as = 'unisharp.lfm.';
         $namespace = '\\UniSharp\\LaravelFilemanager\\Controllers\\';
 
