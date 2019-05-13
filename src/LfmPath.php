@@ -177,11 +177,11 @@ class LfmPath
             ?: $this->helper->getRootFolder();
 
         if ($this->is_thumb) {
-            $path .= Lfm::DS . $this->helper->getThumbFolderName();
+            $path = rtrim($path, Lfm::DS) . Lfm::DS . $this->helper->getThumbFolderName();
         }
 
         if ($this->getName()) {
-            $path .= Lfm::DS . $this->getName();
+            $path = rtrim($path, Lfm::DS) . Lfm::DS . $this->getName();
         }
 
         return $path;
