@@ -75,7 +75,8 @@ class LfmItemTest extends TestCase
 
     public function testIsImage()
     {
-        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
+        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain')->shouldReceive('isDirectory')
+            ->andReturn(false);
 
         $item = new LfmItem($this->lfm_path, $this->lfm);
 
@@ -150,7 +151,8 @@ class LfmItemTest extends TestCase
 
     public function testTime()
     {
-        $this->lfm_path->shouldReceive('lastModified')->andReturn(0);
+        $this->lfm_path->shouldReceive('lastModified')->andReturn(0)->shouldReceive('isDirectory')
+            ->andReturn(false);
 
         $item = new LfmItem($this->lfm_path, $this->lfm);
 
@@ -185,7 +187,8 @@ class LfmItemTest extends TestCase
 
     public function testHasThumb()
     {
-        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
+        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain')->shouldReceive('isDirectory')
+            ->andReturn(false);
 
         $item = new LfmItem($this->lfm_path, $this->lfm);
 
