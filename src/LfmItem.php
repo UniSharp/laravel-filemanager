@@ -65,7 +65,11 @@ class LfmItem
      */
     public function isImage()
     {
-        return starts_with($this->mimeType(), 'image');
+        if (!$this->isDirectory()) {
+            return starts_with($this->mimeType(), 'image');
+        }
+
+        return false;
     }
 
     /**
@@ -105,7 +109,11 @@ class LfmItem
 
     public function time()
     {
-        return $this->lfm->lastModified();
+        if (!$this->isDirectory()) {
+            return $this->lfm->lastModified();
+        }
+
+        return false;
     }
 
     public function thumbUrl()
