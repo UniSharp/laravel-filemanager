@@ -177,10 +177,12 @@ class LfmPath
             ?: $this->helper->getRootFolder();
 
         if ($this->is_thumb) {
+            // Prevent if working dir is "/" normalizeWorkingDir will add double "//" that breaks S3 functionality
             $path = rtrim($path, Lfm::DS) . Lfm::DS . $this->helper->getThumbFolderName();
         }
 
         if ($this->getName()) {
+            // Prevent if working dir is "/" normalizeWorkingDir will add double "//" that breaks S3 functionality
             $path = rtrim($path, Lfm::DS) . Lfm::DS . $this->getName();
         }
 
