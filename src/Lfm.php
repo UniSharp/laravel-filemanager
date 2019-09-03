@@ -5,6 +5,7 @@ namespace UniSharp\LaravelFilemanager;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use UniSharp\LaravelFilemanager\Middlewares\CreateDefaultFolder;
 use UniSharp\LaravelFilemanager\Middlewares\MultiUser;
 
@@ -73,7 +74,7 @@ class Lfm
     {
         $lfm_type = 'file';
 
-        $request_type = lcfirst(str_singular($this->input('type') ?: ''));
+        $request_type = lcfirst(Str::singular($this->input('type') ?: ''));
         $available_types = array_keys($this->config->get('lfm.folder_categories') ?: []);
 
         if (in_array($request_type, $available_types)) {
