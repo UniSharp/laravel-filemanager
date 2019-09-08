@@ -2,6 +2,7 @@
 
 namespace UniSharp\LaravelFilemanager;
 
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class LfmItem
@@ -21,7 +22,7 @@ class LfmItem
     public function __get($var_name)
     {
         if (!array_key_exists($var_name, $this->attributes)) {
-            $function_name = camel_case($var_name);
+            $function_name = Str::camel($var_name);
             $this->attributes[$var_name] = $this->$function_name();
         }
 
@@ -66,7 +67,7 @@ class LfmItem
     public function isImage()
     {
         if (!$this->isDirectory()) {
-            return starts_with($this->mimeType(), 'image');
+            return Str::startsWith($this->mimeType(), 'image');
         }
 
         return false;
@@ -145,7 +146,7 @@ class LfmItem
     public function type()
     {
         if ($this->isDirectory()) {
-            return trans(Lfm::PACKAGE_NAME . '::lfm.type-folder');
+            return __(Lfm::PACKAGE_NAME . '::lfm.type-folder');
         }
 
         if ($this->isImage()) {

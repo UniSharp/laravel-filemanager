@@ -22,15 +22,15 @@
           2:3
         </label>
         <label class="btn btn-info btn-aspectRatio" onclick="changeAspectRatio(this, null)">
-          {{ trans('laravel-filemanager::lfm.btn-crop-free') }}
+          {{ __('laravel-filemanager::lfm.btn-crop-free') }}
         </label>
       </div>
       <br>
       <br>
       <div class="btn-group clearfix">
-        <button class="btn btn-secondary" onclick="loadItems()">{{ trans('laravel-filemanager::lfm.btn-cancel') }}</button>
-        <button class="btn btn-warning" onclick="performCropNew()">{{ trans('laravel-filemanager::lfm.btn-copy-crop') }}</button>
-        <button class="btn btn-primary" onclick="performCrop()">{{ trans('laravel-filemanager::lfm.btn-crop') }}</button>
+        <button class="btn btn-secondary" onclick="loadItems()">{{ __('laravel-filemanager::lfm.btn-cancel') }}</button>
+        <button class="btn btn-warning" onclick="performCropNew()">{{ __('laravel-filemanager::lfm.btn-copy-crop') }}</button>
+        <button class="btn btn-primary" onclick="performCrop()">{{ __('laravel-filemanager::lfm.btn-crop') }}</button>
       </div>
       <form id='cropForm'>
         <input type="hidden" id="img" name="img" value="{{ $img->name }}">

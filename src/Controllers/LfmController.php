@@ -49,7 +49,7 @@ class LfmController extends Controller
         $arr_errors = [];
 
         if (! extension_loaded('gd') && ! extension_loaded('imagick')) {
-            array_push($arr_errors, trans('laravel-filemanager::lfm.message-extension_not_found'));
+            array_push($arr_errors, __('laravel-filemanager::lfm.message-extension_not_found'));
         }
 
         if (! extension_loaded('exif')) {

@@ -101,9 +101,9 @@ class ApiTest extends TestCase
         ]);
 
         $this->assertEquals('OK', $create);
-        $this->assertEquals(trans('laravel-filemanager::lfm.error-folder-exist'), $create_duplicate);
-        $this->assertEquals(trans('laravel-filemanager::lfm.error-folder-name'), $create_empty);
-        $this->assertEquals(trans('laravel-filemanager::lfm.error-folder-alnum'), $create_alphanumeric);
+        $this->assertEquals(__('laravel-filemanager::lfm.error-folder-exist'), $create_duplicate);
+        $this->assertEquals(__('laravel-filemanager::lfm.error-folder-name'), $create_empty);
+        $this->assertEquals(__('laravel-filemanager::lfm.error-folder-alnum'), $create_alphanumeric);
         $this->assertEquals('OK', $rename);
         $this->assertEquals('OK', $delete);
     }

@@ -29,37 +29,37 @@
         <tbody>
           @if ($scaled)
           <tr>
-            <td class="text-nowrap">{{ trans('laravel-filemanager::lfm.resize-ratio') }}</td>
+            <td class="text-nowrap">{{ __('laravel-filemanager::lfm.resize-ratio') }}</td>
             <td class="text-right">{{ number_format($ratio, 2) }}</td>
           </tr>
           <tr>
-            <td class="text-nowrap">{{ trans('laravel-filemanager::lfm.resize-scaled') }}</td>
+            <td class="text-nowrap">{{ __('laravel-filemanager::lfm.resize-scaled') }}</td>
             <td class="text-right">
-              {{ trans('laravel-filemanager::lfm.resize-true') }}
+              {{ __('laravel-filemanager::lfm.resize-true') }}
             </td>
           </tr>
           @endif
           <tr>
-            <td class="text-nowrap">{{ trans('laravel-filemanager::lfm.resize-old-height') }}</td>
+            <td class="text-nowrap">{{ __('laravel-filemanager::lfm.resize-old-height') }}</td>
             <td class="text-right">{{ $original_height }}px</td>
           </tr>
           <tr>
-            <td class="text-nowrap">{{ trans('laravel-filemanager::lfm.resize-old-width') }}</td>
+            <td class="text-nowrap">{{ __('laravel-filemanager::lfm.resize-old-width') }}</td>
             <td class="text-right">{{ $original_width }}px</td>
           </tr>
           <tr>
-            <td class="text-nowrap" style="vertical-align: middle">{{ trans('laravel-filemanager::lfm.resize-new-height') }}</td>
+            <td class="text-nowrap" style="vertical-align: middle">{{ __('laravel-filemanager::lfm.resize-new-height') }}</td>
             <td class="text-right"><input type="text" id="height_display" class="form-control w-50 d-inline mr-2" value="{{ $height }}">px</td>
           </tr>
           <tr>
-            <td class="text-nowrap" style="vertical-align: middle">{{ trans('laravel-filemanager::lfm.resize-new-width') }}</td>
+            <td class="text-nowrap" style="vertical-align: middle">{{ __('laravel-filemanager::lfm.resize-new-width') }}</td>
             <td class="text-right"><input type="text" id="width_display" class="form-control w-50 d-inline mr-2" value="{{ $width }}">px</td>
           </tr>
         </tbody>
       </table>
       <div class="d-flex mb-3">
-        <button class="btn btn-secondary w-50 mr-1" onclick="loadItems()">{{ trans('laravel-filemanager::lfm.btn-cancel') }}</button>
-        <button class="btn btn-primary w-50" onclick="doResize()">{{ trans('laravel-filemanager::lfm.btn-resize') }}</button>
+        <button class="btn btn-secondary w-50 mr-1" onclick="loadItems()">{{ __('laravel-filemanager::lfm.btn-cancel') }}</button>
+        <button class="btn btn-primary w-50" onclick="doResize()">{{ __('laravel-filemanager::lfm.btn-resize') }}</button>
       </div>
 
       <input type="hidden" id="img" name="img" value="{{ $img->name }}">
