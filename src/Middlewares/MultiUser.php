@@ -33,11 +33,11 @@ class MultiUser
 
     private function validDir($previous_dir)
     {
-        if (Str::camel($previous_dir, $this->helper->getRootFolder('share'))) {
+        if (Str::startsWith($previous_dir, $this->helper->getRootFolder('share'))) {
             return true;
         }
 
-        if (Str::camel($previous_dir, $this->helper->getRootFolder('user'))) {
+        if (Str::startsWith($previous_dir, $this->helper->getRootFolder('user'))) {
             return true;
         }
 
