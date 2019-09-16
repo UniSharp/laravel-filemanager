@@ -34,8 +34,8 @@
 ## Installing alpha version
 The alpha version of `v2.0` contains support of cloud storage and fresh new UI with RWD.
 
- * Run `composer require unisharp/laravel-filemanager:dev-master` to get the latest code.
- * Run `composer require unisharp/laravel-filemanager:v2.0.0-alpha9` to get the latest release of alpha version.
+ * Run `composer require xuandung38/laravel-filemanager:dev-master` to get the latest code.
+ * Run `composer require xuandung38/laravel-filemanager:v2.0.0-alpha9` to get the latest release of alpha version.
 
 ## v2.0 progress
 * [x] (done) Unit test
