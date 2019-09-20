@@ -1,34 +1,34 @@
-<p align="center"><img src="https://unisharp.github.io/laravel-filemanager/images/logo_vertical_colored.png"></p>
+<p align="center"><img src="https://xuandung38.github.io/laravel-filemanager/images/logo_vertical_colored.png"></p>
 
 <p align="center">
-  <a target="_blank" href="https://travis-ci.org/UniSharp/laravel-filemanager"><img src="https://img.shields.io/travis/UniSharp/laravel-filemanager.svg"></a>
-  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/downloads"></a>
-  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/packagist/dm/unisharp/laravel-filemanager.svg"></a>
-  <a target="_blank" href="https://scrutinizer-ci.com/g/UniSharp/laravel-filemanager/"><img src="https://scrutinizer-ci.com/g/UniSharp/laravel-filemanager/badges/quality-score.png?b=master"></a>
-  <a target="_blank" href="https://codeclimate.com/github/UniSharp/laravel-filemanager/maintainability"><img src="https://api.codeclimate.com/v1/badges/e51f2ef8f4d9f97268db/maintainability" /></a>
-  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/badge/unstable-v2.0.0--alpha8-orange.svg"></a>
-  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/v/stable"></a>
-  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/license"></a>
+  <a target="_blank" href="https://travis-ci.org/Xuandung38/laravel-filemanager"><img src="https://img.shields.io/travis/Xuandung38/laravel-filemanager.svg"></a>
+  <a target="_blank" href="https://packagist.org/packages/xuandung38/laravel-filemanager"><img src="https://poser.pugx.org/xuandung38/laravel-filemanager/downloads"></a>
+  <a target="_blank" href="https://packagist.org/packages/xuandung38/laravel-filemanager"><img src="https://img.shields.io/packagist/dm/xuandung38/laravel-filemanager.svg"></a>
+  <a target="_blank" href="https://scrutinizer-ci.com/g/Xuandung38/laravel-filemanager/"><img src="https://scrutinizer-ci.com/g/Xuandung38/laravel-filemanager/badges/quality-score.png?b=master"></a>
+  <a target="_blank" href="https://codeclimate.com/github/Xuandung38/laravel-filemanager/maintainability"><img src="https://api.codeclimate.com/v1/badges/e51f2ef8f4d9f97268db/maintainability" /></a>
+  <a target="_blank" href="https://packagist.org/packages/xuandung38/laravel-filemanager"><img src="https://img.shields.io/badge/unstable-v2.0.0--alpha8-orange.svg"></a>
+  <a target="_blank" href="https://packagist.org/packages/xuandung38/laravel-filemanager"><img src="https://poser.pugx.org/xuandung38/laravel-filemanager/v/stable"></a>
+  <a target="_blank" href="https://packagist.org/packages/xuandung38/laravel-filemanager"><img src="https://poser.pugx.org/xuandung38/laravel-filemanager/license"></a>
 </p>
 
 <p align="center">
-  <a href="http://unisharp.github.io/laravel-filemanager/">Documents</a>
+  <a href="http://xuandung38.github.io/laravel-filemanager/">Documents</a>
 ・
-  <a href="http://unisharp.github.io/laravel-filemanager/installation">Installation</a>
+  <a href="http://xuandung38.github.io/laravel-filemanager/installation">Installation</a>
 ・
-  <a href="http://unisharp.github.io/laravel-filemanager/integration">Integration</a>
+  <a href="http://xuandung38.github.io/laravel-filemanager/integration">Integration</a>
 ・
-  <a href="http://unisharp.github.io/laravel-filemanager/config">Config</a>
+  <a href="http://xuandung38.github.io/laravel-filemanager/config">Config</a>
 ・
-  <a href="http://unisharp.github.io/laravel-filemanager/customization">Customization</a>
+  <a href="http://xuandung38.github.io/laravel-filemanager/customization">Customization</a>
 ・
-  <a href="http://unisharp.github.io/laravel-filemanager/events">Events</a>
+  <a href="http://xuandung38.github.io/laravel-filemanager/events">Events</a>
 ・
-  <a href="http://unisharp.github.io/laravel-filemanager/upgrade">Upgrade</a>
+  <a href="http://xuandung38.github.io/laravel-filemanager/upgrade">Upgrade</a>
 ・
-  <a href="https://github.com/UniSharp/laravel-filemanager-example-5.3">Demo</a>
+  <a href="https://github.com/Xuandung38/laravel-filemanager-example-5.3">Demo</a>
 ・
-  <a href="https://github.com/UniSharp/laravel-filemanager/wiki">FAQ</a>
+  <a href="https://github.com/Xuandung38/laravel-filemanager/wiki">FAQ</a>
 </p>
 
 ## Installing alpha version
@@ -57,19 +57,19 @@ The alpha version of `v2.0` contains support of cloud storage and fresh new UI w
 * [ ] Add more events for files and folders manipulation
 
 ## Documents of V1
-https://github.com/UniSharp/laravel-filemanager/tree/v1/docs
+https://github.com/Xuandung38/laravel-filemanager/tree/v1/docs
 
 ## Errors with namespace
-We have changed namespace from `Unisharp` to `UniSharp`, and change the first character of every namespace into capital.
+We have changed namespace from `Xuandung38` to `Xuandung38`, and change the first character of every namespace into capital.
 
 If you are updating this package and encounter any errors like `Class not found`, please remove this package entirely and reinstall again.
 
 ## v1.8 released
- * Please follow the intructions in [upgrade document](https://unisharp.github.io/laravel-filemanager/upgrade).
+ * Please follow the intructions in [upgrade document](https://xuandung38.github.io/laravel-filemanager/upgrade).
  * Important changes :
    * Fix Windows compatibility (utf-8 file names and folder names).
    * New feature : Copy & Crop. Thanks [gwleuverink](https://github.com/gwleuverink).
-   * [Config document](https://unisharp.github.io/laravel-filemanager/config) is refactored.
+   * [Config document](https://xuandung38.github.io/laravel-filemanager/config) is refactored.
 
 ## Security
 
@@ -79,8 +79,8 @@ If, for example, you want to ensure that only logged in users have the ability t
 
 ```php
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show');
-    Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload');
+    Route::get('/laravel-filemanager', '\Xuandung38\LaravelFilemanager\Controllers\LfmController@show');
+    Route::post('/laravel-filemanager/upload', '\Xuandung38\LaravelFilemanager\Controllers\UploadController@upload');
     // list all lfm routes here...
 });
 ```
@@ -95,11 +95,11 @@ This approach ensures that only authenticated users have access to the Laravel-F
 
  * [Stream](https://github.com/g0110280)
  * [@gwleuverink](https://github.com/gwleuverink)
- * All [@UniSharp](https://github.com/UniSharp) members
+ * All [@Xuandung38](https://github.com/Xuandung38) members
 
 ### Contributors
 
- * [All contibutors](https://github.com/UniSharp/laravel-filemanager/graphs/contributors) from GitHub. (issues / PR)
+ * [All contibutors](https://github.com/Xuandung38/laravel-filemanager/graphs/contributors) from GitHub. (issues / PR)
  * [@taswler](https://github.com/tsawler) the original author of this package.
  * Nathan for providing security suggestions.
  * [@mdnazmulhasan27771](https://github.com/mdnazmulhasan27771) the designer of our logo. (Licensed CC BY 4.0)

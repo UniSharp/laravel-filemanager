@@ -115,7 +115,7 @@ class ApiTest extends TestCase
      */
     public function testUploadImage()
     {
-        $response = $this->json('GET', route('unisharp.lfm.upload'), [
+        $response = $this->json('GET', route('xuandung38.lfm.upload'), [
             'upload' => [$this->file],
             'working_dir' => $this->root_dir,
         ]);
@@ -135,11 +135,11 @@ class ApiTest extends TestCase
      */
     public function testDeleteImage()
     {
-        $this->json('GET', route('unisharp.lfm.upload'), [
+        $this->json('GET', route('xuandung38.lfm.upload'), [
             'upload' => [$this->file],
             'working_dir' => $this->root_dir,
         ]);
-        $response = $this->json('GET', route('unisharp.lfm.getDelete'), [
+        $response = $this->json('GET', route('xuandung38.lfm.getDelete'), [
             'items' => $this->filename,
             'working_dir' => $this->root_dir,
         ]);
@@ -159,11 +159,11 @@ class ApiTest extends TestCase
      */
     public function testDoubleUpload()
     {
-        $this->json('GET', route('unisharp.lfm.upload'), [
+        $this->json('GET', route('xuandung38.lfm.upload'), [
             'upload' => [$this->file],
             'working_dir' => $this->root_dir,
         ]);
-        $response = $this->json('GET', route('unisharp.lfm.upload'), [
+        $response = $this->json('GET', route('xuandung38.lfm.upload'), [
             'upload' => [$this->file],
             'working_dir' => $this->root_dir,
         ]);
@@ -180,14 +180,14 @@ class ApiTest extends TestCase
      */
     public function testRenameImage()
     {
-        $this->json('GET', route('unisharp.lfm.upload'), [
+        $this->json('GET', route('xuandung38.lfm.upload'), [
             'upload' => [$this->file],
             'working_dir' => $this->root_dir,
         ]);
         $uniq = uniqid();
         $new_name = $uniq . '.jpg';
         $new_name_s = $uniq . '_S.jpg';
-        $response = $this->json('GET', route('unisharp.lfm.getRename'), [
+        $response = $this->json('GET', route('xuandung38.lfm.getRename'), [
             'file' => $this->filename,
             'new_name' => $new_name,
             'working_dir' => $this->root_dir,
@@ -207,7 +207,7 @@ class ApiTest extends TestCase
      */
     public function testAddDirectory()
     {
-        $response = $this->json('GET', route('unisharp.lfm.getAddfolder'), [
+        $response = $this->json('GET', route('xuandung38.lfm.getAddfolder'), [
             'name' => $this->dir_name,
             'working_dir' => $this->root_dir,
         ]);
@@ -226,11 +226,11 @@ class ApiTest extends TestCase
      */
     public function testDeleteDirectory()
     {
-        $this->json('GET', route('unisharp.lfm.getAddfolder'), [
+        $this->json('GET', route('xuandung38.lfm.getAddfolder'), [
             'name' => $this->dir_name,
             'working_dir' => $this->root_dir,
         ]);
-        $reponse = $this->json('GET', route('unisharp.lfm.getDelete'), [
+        $reponse = $this->json('GET', route('xuandung38.lfm.getDelete'), [
             'items' => $this->dir_name,
             'working_dir' => $this->root_dir,
         ]);
@@ -249,12 +249,12 @@ class ApiTest extends TestCase
      */
     public function testRenameDirectory()
     {
-        $this->json('GET', route('unisharp.lfm.getAddfolder'), [
+        $this->json('GET', route('xuandung38.lfm.getAddfolder'), [
             'name' => $this->dir_name,
             'working_dir' => $this->root_dir,
         ]);
         $new_dir_name = uniqid();
-        $response = $this->json('GET', route('unisharp.lfm.getRename'), [
+        $response = $this->json('GET', route('xuandung38.lfm.getRename'), [
             'file' => $this->dir_name,
             'new_name' => $new_dir_name,
             'working_dir' => $this->root_dir,
@@ -274,12 +274,12 @@ class ApiTest extends TestCase
      */
     public function testUploadFileInDirectory()
     {
-        $this->json('GET', route('unisharp.lfm.getAddfolder'), [
+        $this->json('GET', route('xuandung38.lfm.getAddfolder'), [
             'name' => $this->dir_name,
             'working_dir' => $this->root_dir,
         ]);
         $working_dir = $this->root_dir . DIRECTORY_SEPARATOR . $this->dir_name;
-        $response = $this->json('GET', route('unisharp.lfm.upload'), [
+        $response = $this->json('GET', route('xuandung38.lfm.upload'), [
             'upload' => [$this->file],
             'working_dir' => $working_dir,
         ]);
@@ -299,18 +299,18 @@ class ApiTest extends TestCase
      */
     public function testDeleteFileInDirectory()
     {
-        $this->json('GET', route('unisharp.lfm.getAddfolder'), [
+        $this->json('GET', route('xuandung38.lfm.getAddfolder'), [
             'name' => $this->dir_name,
             'working_dir' => $this->root_dir,
         ]);
 
         $working_dir = $this->root_dir . DIRECTORY_SEPARATOR . $this->dir_name;
-        $response = $this->json('GET', route('unisharp.lfm.upload'), [
+        $response = $this->json('GET', route('xuandung38.lfm.upload'), [
             'upload' => [$this->file],
             'working_dir' => $working_dir,
         ]);
 
-        $reponse = $this->json('GET', route('unisharp.lfm.getDelete'), [
+        $reponse = $this->json('GET', route('xuandung38.lfm.getDelete'), [
             'items' => $this->filename,
             'working_dir' => $working_dir,
         ]);
@@ -330,13 +330,13 @@ class ApiTest extends TestCase
      */
     public function testRenameFileInDirectory()
     {
-        $this->json('GET', route('unisharp.lfm.getAddfolder'), [
+        $this->json('GET', route('xuandung38.lfm.getAddfolder'), [
             'name' => $this->dir_name,
             'working_dir' => $this->root_dir,
         ]);
 
         $working_dir = $this->root_dir . DIRECTORY_SEPARATOR . $this->dir_name;
-        $response = $this->json('GET', route('unisharp.lfm.upload'), [
+        $response = $this->json('GET', route('xuandung38.lfm.upload'), [
             'upload' => [$this->file],
             'working_dir' => $working_dir,
         ]);
@@ -344,7 +344,7 @@ class ApiTest extends TestCase
         $uniq = uniqid();
         $new_name = $uniq . '.jpg';
         $new_name_s = $uniq . '_S.jpg';
-        $response = $this->json('GET', route('unisharp.lfm.getRename'), [
+        $response = $this->json('GET', route('xuandung38.lfm.getRename'), [
             'file' => $this->filename,
             'new_name' => $new_name,
             'working_dir' => $working_dir,
@@ -365,7 +365,7 @@ class ApiTest extends TestCase
     public function testUploadImageWithRename()
     {
         config(['lfm.rename_file' => true]);
-        $response = $this->json('GET', route('unisharp.lfm.upload'), [
+        $response = $this->json('GET', route('xuandung38.lfm.upload'), [
             'upload' => [$this->file],
             'working_dir' => $this->root_dir,
         ]);

@@ -1,5 +1,5 @@
 ## Note
-Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which already integrated all options from below.
+Check `vendor/xuandung38/laravel-filemanager/src/views/demo.blade.php`, which already integrated all options from below.
 
 ## WYSIWYG Editor Integration:
 ### Option 1: CKEditor
@@ -29,7 +29,7 @@ Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which alre
 
   ```html
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
+  <script src="/vendor/xuandung38/laravel-ckeditor/adapters/jquery.js"></script>
   <script>
   $('textarea.my-editor').ckeditor(options);
   </script>

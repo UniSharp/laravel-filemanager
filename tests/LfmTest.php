@@ -6,9 +6,9 @@ use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Http\Request;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
-use UniSharp\LaravelFilemanager\Lfm;
-use UniSharp\LaravelFilemanager\LfmFileRepository;
-use UniSharp\LaravelFilemanager\LfmStorageRepository;
+use Xuandung38\LaravelFilemanager\Lfm;
+use Xuandung38\LaravelFilemanager\LfmFileRepository;
+use Xuandung38\LaravelFilemanager\LfmStorageRepository;
 
 class LfmTest extends TestCase
 {

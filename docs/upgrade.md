@@ -5,7 +5,7 @@
   1. Run commands:
 
       ```bash
-      composer update unisharp/laravel-filemanager
+      composer update xuandung38/laravel-filemanager
 
       php artisan vendor:publish --tag=lfm_view --force
       php artisan vendor:publish --tag=lfm_public --force
@@ -18,6 +18,6 @@
   1. Clear browser cache if page is broken after upgrading.
 
 ## Errors with namespace
-We have changed namespace from `Unisharp` to `UniSharp`, and change the first character of every namespace into capital.
+We have changed namespace from `Xuandung38` to `Xuandung38`, and change the first character of every namespace into capital.
 
 If you are updating this package and encounter any errors like `Class not found`, please remove this package entirely and reinstall again.

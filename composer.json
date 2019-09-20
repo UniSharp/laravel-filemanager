@@ -18,8 +18,8 @@
       "email": "trevor.sawler@gmail.com"
     },
     {
-      "name": "UniSharp Ltd.",
-      "email": "opensource@unisharp.com"
+      "name": "Xuandung38 Ltd.",
+      "email": "opensource@xuandung38.com"
     },
     {
       "name": "xuandung38.",
@@ -48,7 +48,7 @@
   },
   "autoload": {
     "psr-4": {
-      "UniSharp\\LaravelFilemanager\\": "src/"
+      "Xuandung38\\LaravelFilemanager\\": "src/"
     }
   },
   "autoload-dev": {
@@ -59,7 +59,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider"
+        "Xuandung38\\LaravelFilemanager\\LaravelFilemanagerServiceProvider"
       ],
       "aliases": {
       }

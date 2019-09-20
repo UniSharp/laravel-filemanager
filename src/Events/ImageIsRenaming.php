@@ -1,6 +1,6 @@
 <?php
 
-namespace UniSharp\LaravelFilemanager\Events;
+namespace Xuandung38\LaravelFilemanager\Events;
 
 class ImageIsRenaming
 {

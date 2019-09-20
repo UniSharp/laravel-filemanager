@@ -7,8 +7,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
     public function getPackageProviders($app)
     {
         return [
-            'Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider',
-            'Unisharp\FileApi\FileApiServiceProvider',
+            'Xuandung38\Laravelfilemanager\LaravelFilemanagerServiceProvider',
+            'Xuandung38\FileApi\FileApiServiceProvider',
         ];
     }
 
@@ -122,7 +122,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     public function getResponseByRouteName($route_name, $input = [], $file = [])
     {
-        $response = $this->call('GET', route('unisharp.lfm.' . $route_name), $input, $file);
+        $response = $this->call('GET', route('xuandung38.lfm.' . $route_name), $input, $file);
         $data = json_encode($response);
 
         return $response->getContent();

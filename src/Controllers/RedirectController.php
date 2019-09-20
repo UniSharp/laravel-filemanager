@@ -1,6 +1,6 @@
 <?php
 
-namespace UniSharp\LaravelFilemanager\Controllers;
+namespace Xuandung38\LaravelFilemanager\Controllers;
 
 use Illuminate\Support\Facades\Storage;
 

@@ -5,7 +5,7 @@
 
     ```php
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
-        \UniSharp\LaravelFilemanager\Lfm::routes();
+        \Xuandung38\LaravelFilemanager\Lfm::routes();
     });
     ```
 
@@ -35,7 +35,7 @@
     ```
 
 ## Views
-Copy views to `resources/views/vendor/unisharp/laravel-filemanager/` :
+Copy views to `resources/views/vendor/xuandung38/laravel-filemanager/` :
 
 ```bash
 php artisan vendor:publish --tag=lfm_view
@@ -43,5 +43,5 @@ php artisan vendor:publish --tag=lfm_view
 
 ## Translations
 
-1. Copy `vendor/unisharp/laravel-filemanager/src/lang/en` to `/resources/lang/vendor/laravel-filemanager/<YOUR LANGUAGE>/lfm.php`.
+1. Copy `vendor/xuandung38/laravel-filemanager/src/lang/en` to `/resources/lang/vendor/laravel-filemanager/<YOUR LANGUAGE>/lfm.php`.
 1. Edit the file as you please.

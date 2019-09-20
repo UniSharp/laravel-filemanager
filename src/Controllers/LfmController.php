@@ -1,9 +1,9 @@
 <?php
 
-namespace UniSharp\LaravelFilemanager\Controllers;
+namespace Xuandung38\LaravelFilemanager\Controllers;
 
-use UniSharp\LaravelFilemanager\Lfm;
-use UniSharp\LaravelFilemanager\LfmPath;
+use Xuandung38\LaravelFilemanager\Lfm;
+use Xuandung38\LaravelFilemanager\LfmPath;
 
 class LfmController extends Controller
 {

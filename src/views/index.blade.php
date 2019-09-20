@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/cropper.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/dropzone.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/mime-icons.min.css') }}">
-  <style>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/css/lfm.css')) !!}</style>
+  <style>{!! \File::get(base_path('vendor/xuandung38/laravel-filemanager/public/css/lfm.css')) !!}</style>
   {{-- Use the line below instead of the above if you need to cache the css. --}}
   {{-- <link rel="stylesheet" href="{{ asset('/vendor/laravel-filemanager/css/lfm.css') }}"> --}}
 </head>
@@ -114,7 +114,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aia-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
-          <form action="{{ route('unisharp.lfm.upload') }}" role='form' id='uploadForm' name='uploadForm' method='post' enctype='multipart/form-data' class="dropzone">
+          <form action="{{ route('xuandung38.lfm.upload') }}" role='form' id='uploadForm' name='uploadForm' method='post' enctype='multipart/form-data' class="dropzone">
             <div class="form-group" id="attachment">
               <div class="controls text-center">
                 <div class="input-group w-100">
@@ -259,7 +259,7 @@
       }
     ];
   </script>
-  <script>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/script.js')) !!}</script>
+  <script>{!! \File::get(base_path('vendor/xuandung38/laravel-filemanager/public/js/script.js')) !!}</script>
   {{-- Use the line below instead of the above if you need to cache the script. --}}
   {{-- <script src="{{ asset('vendor/laravel-filemanager/js/script.js') }}"></script> --}}
   <script>

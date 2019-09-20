@@ -1,10 +1,10 @@
 <?php
 
-namespace UniSharp\LaravelFilemanager\Middlewares;
+namespace Xuandung38\LaravelFilemanager\Middlewares;
 
 use Closure;
 use Illuminate\Support\Str;
-use UniSharp\LaravelFilemanager\Lfm;
+use Xuandung38\LaravelFilemanager\Lfm;
 
 class MultiUser
 {
