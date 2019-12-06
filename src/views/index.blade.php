@@ -92,6 +92,7 @@
       </div>
 
       <div id="content"></div>
+      <div id="pagination"></div>
 
       <a id="item-template" class="d-none">
         <div class="square"></div>

@@ -189,7 +189,8 @@ a {
 
 /* Items */
 
-#content.preserve_actions_space {
+#pagination.preserve_actions_space {
+  padding-top: 1em;
   padding-bottom: 4rem; /* preserve space for main actions */
 }
 
