@@ -43,7 +43,7 @@ class UploadController extends LfmController
         }
 
         if (is_array($uploaded_files)) {
-            $response = count($error_bag) > 0 ? $error_bag : parent::$success_response;
+            $response = count($error_bag) > 0 ? $error_bag : array(parent::$success_response);
         } else { // upload via ckeditor 'Upload' tab
             if (is_null($new_filename)) {
                 $response = $error_bag[0];
