@@ -5,7 +5,7 @@ return [
     'nav-new' => 'Neuer Ordner',
     'nav-upload' => 'Hochladen',
     'nav-thumbnails' => 'Thumbnails',
-    'nav-list' => 'List',
+    'nav-list' => 'Liste',
 
     'menu-rename' => 'Umbenennen',
     'menu-delete' => 'Löschen',
@@ -58,7 +58,7 @@ return [
     'btn-uploading' => 'Hochladen...',
     'btn-close' => 'Schließen',
     'btn-crop' => 'Zuschneiden',
-    'btn-cancel' => 'Stornieren',
+    'btn-cancel' => 'Abbrechen',
     'btn-resize' => 'Größe ändern',
 
     'resize-ratio' => 'Verhältnis:',
