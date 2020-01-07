@@ -57,7 +57,11 @@ class LfmStorageRepository
     {
         $this->disk->makeDirectory($this->path, ...func_get_args());
 
-        $this->disk->setVisibility($this->path, 'public');
+        // some filesystems (e.g. Google Storage, S3?) don't let you set ACLs on directories (because they don't exist)
+        // https://cloud.google.com/storage/docs/naming#object-considerations
+        if ($this->disk->has($this->path)) {
+            $this->disk->setVisibility($this->path, 'public');
+        }
     }
 
     public function extension()
