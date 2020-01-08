@@ -52,7 +52,7 @@
     <div class="row">
       <div class="col-md-12">
         <h2 class="mt-4">Embed file manager</h2>
-        <iframe src="/laravel-filemanager" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
+        <iframe src="/filemanager" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
   <script>
-   var route_prefix = "{{ url(config('lfm.url_prefix')) }}";
+   var route_prefix = "/filemanager";
   </script>
 
   <!-- CKEditor init -->
@@ -126,7 +126,7 @@
       let button = document.getElementById(id);
 
       button.addEventListener('click', function () {
-        var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
+        var route_prefix = (options && options.prefix) ? options.prefix : '/filemanager';
         var target_input = document.getElementById(button.getAttribute('data-input'));
         var target_preview = document.getElementById(button.getAttribute('data-preview'));
 
@@ -173,7 +173,7 @@
 
       // Define function to open filemanager window
       var lfm = function(options, cb) {
-        var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
+        var route_prefix = (options && options.prefix) ? options.prefix : '/filemanager';
         window.open(route_prefix + '?type=' + options.type || 'file', 'FileManager', 'width=900,height=600');
         window.SetUrl = cb;
       };
@@ -186,7 +186,7 @@
           tooltip: 'Insert image with filemanager',
           click: function() {
 
-            lfm({type: 'image', prefix: '/laravel-filemanager'}, function(lfmItems, path) {
+            lfm({type: 'image', prefix: '/filemanager'}, function(lfmItems, path) {
               lfmItems.forEach(function (lfmItem) {
                 context.invoke('insertImage', lfmItem.url);
               });

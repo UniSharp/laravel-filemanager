@@ -40,7 +40,7 @@
     php artisan vendor:publish --tag=lfm_public
     ```
 
-1. Run commands to clear cache :
+1. (optional) Run commands to clear cache :
 
     ```bash
     php artisan route:clear
