@@ -101,7 +101,7 @@ class Lfm
 
     public function getUserSlug()
     {
-        $config = $this->config->get('lfm.user_folder_name');
+        $config = $this->config->get('lfm.private_folder_name');
 
         if (is_callable($config)) {
             return call_user_func($config);
@@ -138,11 +138,6 @@ class Lfm
         return $this->config->get('lfm.thumb_folder_name');
     }
 
-    public function getFileIcon($ext)
-    {
-        return $this->config->get("lfm.file_icon_array.{$ext}", 'fa-file-o');
-    }
-
     public function getFileType($ext)
     {
         return $this->config->get("lfm.file_type_array.{$ext}", 'File');
@@ -165,7 +160,7 @@ class Lfm
      */
     public function allowMultiUser()
     {
-        return $this->config->get('lfm.allow_multi_user') === true;
+        return $this->config->get('lfm.allow_private_folder') === true;
     }
 
     /**
@@ -180,7 +175,7 @@ class Lfm
             return true;
         }
 
-        return $this->config->get('lfm.allow_share_folder') === true;
+        return $this->config->get('lfm.allow_shared_folder') === true;
     }
 
     /**

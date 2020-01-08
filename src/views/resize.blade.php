@@ -78,10 +78,8 @@
     renderResizedValues($("#width_display").val(), $("#height_display").val());
 
     $("#resize").resizable({
-      aspectRatio: {{ config('lfm.resize_aspectRatio')?'true':'false' }},
-      @if(config('lfm.resize_containment'))
+      aspectRatio: true,
       containment: "#containment",
-      @endif
       handles: "n, e, s, w, se, sw, ne, nw",
       resize: function (event, ui) {
         renderResizedValues(ui.size.width, ui.size.height);
