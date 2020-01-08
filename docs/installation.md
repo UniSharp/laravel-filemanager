@@ -6,11 +6,23 @@
  * Laravel 5
  * requires [intervention/image](https://github.com/Intervention/image) (to make thumbs, crop and resize images).
 
-## Installation
+## TL;DR
+1. Run these lines
+
+    ```bash
+    composer require unisharp/laravel-filemanager
+    php artisan vendor:publish --tag=lfm_config
+    php artisan vendor:publish --tag=lfm_public
+    php artisan storage:link
+    ```
+
+1. Edit `APP_URL` in `.env`.
+
+## Full Installation Guide
 1. Install package
 
     ```bash
-    composer require unisharp/laravel-filemanager:~1.8
+    composer require unisharp/laravel-filemanager
     ```
 
 1. (optional) Edit `config/app.php` :
@@ -56,6 +68,9 @@
     ```
 
 1. Edit `APP_URL` in `.env`.
+
+## Installing alpha version
+ * Run `composer require unisharp/laravel-filemanager:dev-master` to get the latest developer version.
 
 ## What's next
 
