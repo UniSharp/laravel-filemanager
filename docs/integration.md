@@ -172,8 +172,8 @@ If you are going to use filemanager independently, meaning set the value of an i
     Domain can be specified in the second parameter(optional, but will be required when developing on Windows mechines) :
 
     ```javascript
-    var domain = "{{ url() }}";
-    $('#lfm').filemanager('image', {prefix: domain});
+    var route_prefix = "url-to-filemanager";
+    $('#lfm').filemanager('image', {prefix: route_prefix});
     ```
 
 ## JavaScript integration
@@ -181,22 +181,51 @@ In case you are developing javascript application and you want dynamically to tr
 
 
 ```javascript
-var lfm = function(options, cb) {
+var lfm = function(id, type, options) {
+  let button = document.getElementById(id);
 
-  var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
+  button.addEventListener('click', function () {
+    var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
+    var target_input = document.getElementById(button.getAttribute('data-input'));
+    var target_preview = document.getElementById(button.getAttribute('data-preview'));
 
-  window.open(route_prefix + '?type=' + options.type || 'file', 'FileManager', 'width=900,height=600');
-  window.SetUrl = cb;
-}
+    window.open(route_prefix + '?type=' + options.type || 'file', 'FileManager', 'width=900,height=600');
+    window.SetUrl = function (items) {
+      var file_path = items.map(function (item) {
+        return item.url;
+      }).join(',');
+
+      // set the value of the desired input to image url
+      target_input.value = file_path;
+      target_input.dispatchEvent(new Event('change'));
+
+      // clear previous preview
+      target_preview.innerHtml = '';
+
+      // set or change the preview image src
+      items.forEach(function (item) {
+        let img = document.createElement('img')
+        img.setAttribute('style', 'height: 5rem')
+        img.setAttribute('src', item.thumb_url)
+        target_preview.appendChild(img);
+      });
+
+      // trigger change event
+      target_preview.dispatchEvent(new Event('change'));
+    };
+  });
+};
 ```
 
 And use it like this:
 
 ```javascript
-lfm({type: 'image', prefix: 'prefix'}, function(url, path) {
-
-});
+var route_prefix = "url-to-filemanager";
+lfm('lfm', 'image', {prefix: route_prefix});
+lfm('lfm2', 'file', {prefix: route_prefix});
 ```
+
+The first parameter is id, the second parameter is the type of laravel filemanager(which ).
 
 ## Embed file manager
 
