@@ -9,7 +9,7 @@
   <a target="_blank" href="https://travis-ci.org/UniSharp/laravel-filemanager"><img src="https://img.shields.io/travis/UniSharp/laravel-filemanager.svg"></a>
   <a target="_blank" href="https://scrutinizer-ci.com/g/UniSharp/laravel-filemanager/"><img src="https://scrutinizer-ci.com/g/UniSharp/laravel-filemanager/badges/quality-score.png?b=master"></a>
   <a target="_blank" href="https://codeclimate.com/github/UniSharp/laravel-filemanager/maintainability"><img src="https://api.codeclimate.com/v1/badges/e51f2ef8f4d9f97268db/maintainability" /></a>
-  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/badge/unstable-dev-master-orange.svg"></a>
+  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/badge/unstable-dev--master-orange.svg"></a>
 </p>
 
 <p align="center">
@@ -32,8 +32,6 @@
   <a href="https://github.com/UniSharp/laravel-filemanager/wiki">FAQ</a>
 </p>
 
-![RWD demo](https://unisharp.github.io/laravel-filemanager/images/screenshots-v2.png)
-
 ## v2.0 progress
 🎉 Finally v2.0.0 has been released! 🎉
 
@@ -51,6 +49,8 @@ There are still some thing we need to do make this package better:
 * [ ] Add more events for files and folders manipulation
 
 We are also going to gain more integration like vue.js and Laravel Nova. Any PR is welcome!
+
+![RWD demo](https://unisharp.github.io/laravel-filemanager/images/screenshots-v2.png)
 
 ## Contributors & Credits
 
