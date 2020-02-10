@@ -43,16 +43,23 @@ class UploadController extends LfmController
         }
 
         if (is_array($uploaded_files)) {
-            $response = count($error_bag) > 0 ? $error_bag : array(parent::$success_response);
-        } else { // upload via ckeditor 'Upload' tab
+            $response = count($error_bag) > 0 ? $error_bag : parent::$success_response;
+        } else { // upload via ckeditor5 expects json responses
             if (is_null($new_filename)) {
-                $response = $error_bag[0];
+                $response = ['error' =>
+                                [
+                                    'message' =>  $error_bag[0]
+                                ]
+                            ];
             } else {
-                $response = view(Lfm::PACKAGE_NAME . '::use')
-                    ->withFile($this->lfm->setName($new_filename)->url());
+                $url = $this->lfm->setName($new_filename)->url();
+
+                $response = [
+                    'url' => $url
+                ];
             }
         }
 
-        return $response;
+        return response()->json($response);
     }
 }
