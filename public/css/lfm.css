@@ -181,10 +181,22 @@ a {
   padding-left: 3rem;
 }
 
-.nav-pills > li.active > a, .nav-pills > li:hover > a {
+.nav-pills > li.active > a, .nav-pills > li > a:hover {
   background-color: #ddd;
   border-radius: 0;
   color: #333844;
+}
+
+/* Move item */
+
+.nav-pills > .sub-item .nav-pills {
+  list-style-type: none;
+}
+
+.nav-pills > .sub-item .nav-pills > .sub-item > .nav-link {
+  height: 2em;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 /* Items */

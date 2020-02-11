@@ -97,6 +97,9 @@ return [
     // setting it to false show `error-file-exist` error and stop upload
     'over_write_on_duplicate'  => false,
 
+    // move files and folders to all levels (true - default) or only the root folders (false)
+    'move_to_all_levels'       => true,
+
     /*
     |--------------------------------------------------------------------------
     | Thumbnail

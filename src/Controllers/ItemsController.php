@@ -44,7 +44,8 @@ class ItemsController extends LfmController
                     ];
                 }, $folder_types),
             ])
-            ->with('items', $items);
+            ->with('items', $items)
+            ->with('lfm', $this->lfm);
     }
 
     public function domove()
