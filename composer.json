@@ -1,6 +1,6 @@
 {
   "name": "neopheus/laravel-filemanager",
-  "description": "A file upload/editor intended for use with Laravel 5 to 6 and CKEditor / TinyMCE",
+  "description": "A file upload/editor intended for use with Laravel 5 to 7 and CKEditor / TinyMCE",
   "license": "MIT",
   "keywords": [
     "filemanager",
