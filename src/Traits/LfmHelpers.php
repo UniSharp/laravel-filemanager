@@ -2,6 +2,7 @@
 
 namespace UniSharp\LaravelFilemanager\Traits;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -332,7 +333,7 @@ trait LfmHelpers
      */
     public function isProcessingImages()
     {
-        return lcfirst(str_singular(request('type', '') ?: '')) === 'image';
+        return lcfirst(Str::singular(request('type', '') ?: '')) === 'image';
     }
 
     /**
