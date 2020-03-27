@@ -1,9 +1,9 @@
 <?php
 
-namespace UniSharp\LaravelFilemanager\Controllers;
+namespace serwin35\LaravelFilemanager\Controllers;
 
-use UniSharp\LaravelFilemanager\Events\ImageIsDeleting;
-use UniSharp\LaravelFilemanager\Events\ImageWasDeleted;
+use serwin35\LaravelFilemanager\Events\ImageIsDeleting;
+use serwin35\LaravelFilemanager\Events\ImageWasDeleted;
 
 class DeleteController extends LfmController
 {

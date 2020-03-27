@@ -1,11 +1,11 @@
 <?php
 
-namespace UniSharp\LaravelFilemanager\Controllers;
+namespace serwin35\LaravelFilemanager\Controllers;
 
 use Illuminate\Support\Facades\Log;
-use UniSharp\LaravelFilemanager\Events\ImageIsUploading;
-use UniSharp\LaravelFilemanager\Events\ImageWasUploaded;
-use UniSharp\LaravelFilemanager\Lfm;
+use serwin35\LaravelFilemanager\Events\ImageIsUploading;
+use serwin35\LaravelFilemanager\Events\ImageWasUploaded;
+use serwin35\LaravelFilemanager\Lfm;
 
 class UploadController extends LfmController
 {

@@ -6,7 +6,7 @@ If, for example, you want to ensure that only logged in users have the ability t
 
 ```php
 Route::group(['middleware' => 'auth'], function () { // auth middleware is important!
-    \UniSharp\LaravelFilemanager\Lfm::routes();
+    \serwin35\LaravelFilemanager\Lfm::routes();
 });
 ```
 
