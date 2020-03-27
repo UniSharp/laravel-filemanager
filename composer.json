@@ -1,6 +1,6 @@
 {
   "name": "serwin35/laravel-filemanager",
-  "description": "A file upload/editor intended for use with Laravel 5 to 6 and CKEditor / TinyMCE",
+  "description": "A file upload/editor intended for use with Laravel and CKEditor / TinyMCE",
   "license": "MIT",
   "keywords": [
     "filemanager",
@@ -48,7 +48,7 @@
   },
   "autoload": {
     "psr-4": {
-      "UniSharp\\LaravelFilemanager\\": "src/"
+      "serwin35\\LaravelFilemanager\\": "src/"
     }
   },
   "autoload-dev": {
