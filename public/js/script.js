@@ -558,6 +558,17 @@ function use(items) {
     }
   }
 
+  function useTinymce5(url){
+    if (!usingTinymce5()) { return; }
+
+    parent.postMessage({
+      mceAction: 'insert',
+      content: url
+    });
+
+    parent.postMessage({ mceAction: 'close' });
+  }
+
   function useCkeditor3(url) {
     if (!usingCkeditor3()) { return; }
 
@@ -588,6 +599,8 @@ function use(items) {
     useTinymce3(url);
 
     useTinymce4AndColorbox(url);
+
+    useTinymce5(url);
 
     useCkeditor3(url);
 
@@ -626,6 +639,10 @@ function usingTinymce4AndColorbox() {
   return !!getUrlParam('field_name');
 }
 
+function usingTinymce5(){
+    return !!getUrlParam('editor');
+}
+
 function usingCkeditor3() {
   return !!getUrlParam('CKEditor') || !!getUrlParam('CKEditorCleanUpFuncNum');
 }
@@ -635,7 +652,7 @@ function usingFckeditor2() {
 }
 
 function usingWysiwygEditor() {
-  return usingTinymce3() || usingTinymce4AndColorbox() || usingCkeditor3() || usingFckeditor2();
+  return usingTinymce3() || usingTinymce4AndColorbox() || usingTinymce5() || usingCkeditor3() || usingFckeditor2();
 }
 
 // ==================================
