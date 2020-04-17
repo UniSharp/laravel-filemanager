@@ -16,6 +16,8 @@ return [
     'menu-download'     => 'Загрузить',
     'menu-resize'       => 'Изменить размер',
     'menu-crop'         => 'Обрезать',
+    'menu-move'         => 'Переместить',
+    'menu-multiple'     => 'Multi-выбор',
 
     'title-page'        => 'Менеджер файлов',
     'title-panel'       => 'Laravel FileManager',
@@ -37,8 +39,10 @@ return [
     'message-name'      => 'Название папки:',
     'message-rename'    => 'Переименовать в:',
     'message-extension_not_found' => 'Требуется установка GD или Imagick расширения для обрезания, масштабирования и создания миниатюр изображений.',
-    
+    'message-drop'      => 'Или переместите сюда файлы для загрузки',
+
     'error-rename'      => 'Имя файла уже используется!',
+    'error-file-name'   => 'Имя файла не может быть пустым!',
     'error-file-empty'  => 'Вы должны выбрать файл!',
     'error-file-exist'  => 'Файл с этим именем уже существует!',
     'error-file-size'   => 'Размер файла превышает разрешенный сервером размер! (максимальный размер: :max)',
@@ -46,7 +50,9 @@ return [
     'error-folder-name' => 'Имя папки не может быть пустым!',
     'error-folder-exist'=> 'Папка с таким названием уже существует!',
     'error-folder-alnum'=> 'Название папки должно содержать только цифры и латинские буквы!',
+    'error-folder-not-found'=> 'Папка не найдена! (:folder)',
     'error-mime'        => 'Неподдерживаемый MimeType: ',
+    'error-size'        => 'Размер превышает разрешенный:',
     'error-instance'    => 'Загруженный файл должен быть экземпляром UploadedFile',
     'error-invalid'     => 'Неверный запрос загрузки',
     'error-other'       => 'Произошла ошибка: ',
@@ -56,8 +62,12 @@ return [
     'btn-uploading'     => 'Загрузка...',
     'btn-close'         => 'Закрыть',
     'btn-crop'          => 'Обрезать',
+    'btn-copy-crop'     => 'Скопировать & Обрезать',
+    'btn-crop-free'     => 'Освободить',
     'btn-cancel'        => 'Отмена',
+    'btn-confirm'       => 'Подтвердить',
     'btn-resize'        => 'Изменить размер',
+    'btn-open'          => 'Открыть папку',
 
     'resize-ratio'      => 'Соотношение:',
     'resize-scaled'     => 'Масштабировать изображение:',
