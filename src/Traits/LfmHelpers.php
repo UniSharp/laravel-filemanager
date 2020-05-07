@@ -269,7 +269,7 @@ trait LfmHelpers
      */
     private function removeFirstSlash($path)
     {
-        if (starts_with($path, $this->ds)) {
+        if (Str::startsWith($path, $this->ds)) {
             $path = substr($path, 1);
         }
 
@@ -519,7 +519,7 @@ trait LfmHelpers
     {
         $mime_type = $this->getFileType($file);
 
-        return starts_with($mime_type, 'image');
+        return Str::startsWith($mime_type, 'image');
     }
 
     /**
