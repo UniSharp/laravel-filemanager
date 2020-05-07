@@ -2,8 +2,8 @@
 
 namespace UniSharp\LaravelFilemanager\Traits;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait LfmHelpers
@@ -152,7 +152,7 @@ trait LfmHelpers
         $thumb_folder_name = config('lfm.thumb_folder_name');
         // if user is inside thumbs folder, there is no need
         // to add thumbs substring to the end of url
-        $in_thumb_folder = str_contains($this->getFormatedWorkingDir(), $this->ds . $thumb_folder_name);
+        $in_thumb_folder = Str::contains($this->getFormatedWorkingDir(), $this->ds . $thumb_folder_name);
 
         if (! $in_thumb_folder) {
             return $thumb_folder_name . $this->ds;
