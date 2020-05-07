@@ -285,7 +285,7 @@ trait LfmHelpers
     private function removeLastSlash($path)
     {
         // remove last slash
-        if (ends_with($path, $this->ds)) {
+        if (Str::endsWith($path, $this->ds)) {
             $path = substr($path, 0, -1);
         }
 
