@@ -2,8 +2,8 @@
 
 namespace UniSharp\LaravelFilemanager\Traits;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait LfmHelpers
@@ -152,7 +152,7 @@ trait LfmHelpers
         $thumb_folder_name = config('lfm.thumb_folder_name');
         // if user is inside thumbs folder, there is no need
         // to add thumbs substring to the end of url
-        $in_thumb_folder = str_contains($this->getFormatedWorkingDir(), $this->ds . $thumb_folder_name);
+        $in_thumb_folder = Str::contains($this->getFormatedWorkingDir(), $this->ds . $thumb_folder_name);
 
         if (! $in_thumb_folder) {
             return $thumb_folder_name . $this->ds;
@@ -269,7 +269,7 @@ trait LfmHelpers
      */
     private function removeFirstSlash($path)
     {
-        if (starts_with($path, $this->ds)) {
+        if (Str::startsWith($path, $this->ds)) {
             $path = substr($path, 1);
         }
 
@@ -285,7 +285,7 @@ trait LfmHelpers
     private function removeLastSlash($path)
     {
         // remove last slash
-        if (ends_with($path, $this->ds)) {
+        if (Str::endsWith($path, $this->ds)) {
             $path = substr($path, 0, -1);
         }
 
@@ -519,7 +519,7 @@ trait LfmHelpers
     {
         $mime_type = $this->getFileType($file);
 
-        return starts_with($mime_type, 'image');
+        return Str::startsWith($mime_type, 'image');
     }
 
     /**
