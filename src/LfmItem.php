@@ -4,7 +4,6 @@ namespace UniSharp\LaravelFilemanager;
 
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Illuminate\Support\Str;
 
 class LfmItem
 {
