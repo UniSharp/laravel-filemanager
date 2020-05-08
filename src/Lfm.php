@@ -153,6 +153,11 @@ class Lfm
         return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.max_size');
     }
 
+    public function getPaginationPerPage()
+    {
+        return $this->config->get("lfm.paginator.perPage", 30);
+    }
+
     /**
      * Check if users are allowed to use their private folders.
      *
