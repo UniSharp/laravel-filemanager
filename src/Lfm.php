@@ -305,7 +305,7 @@ class Lfm
             ]);
             Route::get('/cropnewimage', [
                 'uses' => 'CropController@getNewCropimage',
-                'as' => 'getCropimage',
+                'as' => 'getCropnewimage',
             ]);
 
             // rename
