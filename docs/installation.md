@@ -69,6 +69,25 @@
 
 1. Edit `APP_URL` in `.env`.
 
+1. Edit `routes/web.php` :
+
+    Create route group to wrap package routes.
+
+    ```php
+    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
+    ```
+
+    Make sure `auth` middleware is present to :
+
+    1. prevent unauthorized uploads
+    1. work properly with multi-user mode
+
+1. make sure database exists
+
+1. login and visit `/laravel-filemanager/demo`
+
 ## Installing alpha version
  * Run `composer require unisharp/laravel-filemanager:dev-master` to get the latest developer version.
 
