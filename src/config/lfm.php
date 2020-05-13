@@ -98,6 +98,9 @@ return [
 
     'alphanumeric_directory'   => false,
 
+    // When creating folder or renaming folder/file, automatically convert to alphanumeric instead of error
+    'convert_to_alphanumeric'  => false,
+
     'should_validate_size'     => false,
 
     'should_validate_mime'     => false,

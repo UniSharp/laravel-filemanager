@@ -3,6 +3,7 @@
 namespace UniSharp\LaravelFilemanager;
 
 use Illuminate\Container\Container;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use UniSharp\LaravelFilemanager\Events\ImageIsUploading;
@@ -276,7 +277,7 @@ class LfmPath
         if (config('lfm.rename_file') === true) {
             $new_file_name = uniqid();
         } elseif (config('lfm.alphanumeric_filename') === true) {
-            $new_file_name = preg_replace('/[^A-Za-z0-9\-\']/', '_', $new_file_name);
+            $new_file_name = Str::slug($new_file_name);
         }
 
         $extension = $file->getClientOriginalExtension();
