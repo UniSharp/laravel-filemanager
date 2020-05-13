@@ -35,7 +35,7 @@ class RenameController extends LfmController
             if (preg_match('/[^\w\-_]/i', $new_name)) {
                 return parent::error('folder-alnum');
             }
-        }else if(!$is_directory && config('lfm.alphanumeric_filename')){
+        } elseif (!$is_directory && config('lfm.alphanumeric_filename')) {
             // Remove extension for checks to alphanum characters
             $extension = $old_file->extension();
             if ($extension) {
