@@ -289,7 +289,6 @@ class LfmPath
             $counter = 1;
             $file_name_without_extentions = $new_file_name;
             while ($this->setName(($extension) ? $new_file_name_with_extention : $new_file_name)->exists()) {
-
                 if (config('lfm.alphanumeric_filename') === true) {
                     $suffix = '_'.$counter;
                 } else {
