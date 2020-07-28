@@ -273,19 +273,37 @@ class LfmPath
         $new_file_name = $this->helper
             ->translateFromUtf8(trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
 
+        $extension = $file->getClientOriginalExtension();
+
+
         if (config('lfm.rename_file') === true) {
             $new_file_name = uniqid();
         } elseif (config('lfm.alphanumeric_filename') === true) {
             $new_file_name = preg_replace('/[^A-Za-z0-9\-\']/', '_', $new_file_name);
         }
-
-        $extension = $file->getClientOriginalExtension();
-
         if ($extension) {
-            $new_file_name .= '.' . $extension;
+            $new_file_name_with_extention = $new_file_name . '.' . $extension;
+        }
+            if (config('lfm.rename_duplicates') === true) {
+            $counter = 1;
+            $file_name_without_extentions = $new_file_name;
+            while ($this->setName(($extension) ? $new_file_name_with_extention : $new_file_name)->exists()) {
+
+                if (config('lfm.alphanumeric_filename') === true) {
+                    $suffix = '_'.$counter;
+                } else {
+                    $suffix = " ({$counter})";
+                }
+                $new_file_name = $file_name_without_extentions.$suffix;
+
+                if ($extension) {
+                    $new_file_name_with_extention = $new_file_name . '.' . $extension;
+                }
+                $counter++;
+            }
         }
 
-        return $new_file_name;
+        return ($extension) ? $new_file_name_with_extention : $new_file_name;
     }
 
     private function saveFile($file, $new_file_name)
