@@ -270,6 +270,7 @@ class LfmPath
 
     private function getNewName($file)
     {
+        setlocale(LC_ALL, 'en_US.UTF-8');
         $new_file_name = $this->helper
             ->translateFromUtf8(trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
 
