@@ -62,6 +62,8 @@ return [
     'btn-copy-crop'     => 'Másolás és vágás',
     'btn-cancel'        => 'Mégse',
     'btn-resize'        => 'Átméretezés',
+    'btn-confirm'       => 'Ok',
+    'btn-crop-free'     => 'Szabad arány',
 
     'resize-ratio'      => 'Arány:',
     'resize-scaled'     => 'Kép méretarány:',
