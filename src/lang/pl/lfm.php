@@ -6,6 +6,7 @@ return [
     'nav-upload'        => 'Wgraj plik',
     'nav-thumbnails'    => 'Miniaturki',
     'nav-list'          => 'Lista',
+    'nav-sort'          => 'Sortuj',
 
     'menu-rename'       => 'Zmień nazwę',
     'menu-delete'       => 'Usuń',
@@ -13,6 +14,7 @@ return [
     'menu-download'     => 'Pobierz',
     'menu-resize'       => 'Zmień rozmiar',
     'menu-crop'         => 'Przytnij',
+    'menu-multiple'     => 'Zaznacz wiele',
 
     'title-page'        => 'Menedżer plików',
     'title-panel'       => 'Laravel FileManager',
@@ -55,6 +57,10 @@ return [
     'btn-crop'          => 'Przytnij',
     'btn-cancel'        => 'Anuluj',
     'btn-resize'        => 'Zmień rozmiar',
+    'btn-confirm'       => 'Zatwierdź',
+    'btn-copy-crop'     => 'Kopiuj przycięte',
+    'btn-crop-free'     => 'Skaluj',
+    'btn-open'          => 'Otwórz',
 
     'resize-ratio'      => 'Stosunek:',
     'resize-scaled'     => 'Zmieniono rozmiar:',
