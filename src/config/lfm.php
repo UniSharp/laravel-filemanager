@@ -94,6 +94,8 @@ return [
 
     'rename_file'              => false,
 
+    'rename_duplicates'        => false,
+
     'alphanumeric_filename'    => false,
 
     'alphanumeric_directory'   => false,
