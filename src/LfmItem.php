@@ -12,7 +12,7 @@ class LfmItem
     private $isDirectory;
     private $mimeType = null;
 
-    private $columns = ['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url'];
+    private $columns = [];
     public $attributes = [];
 
     public function __construct(LfmPath $lfm, Lfm $helper, $isDirectory = false)
@@ -20,6 +20,7 @@ class LfmItem
         $this->lfm = $lfm->thumb(false);
         $this->helper = $helper;
         $this->isDirectory = $isDirectory;
+        $this->columns = config('lfm.item_columns', ['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url']);
     }
 
     public function __get($var_name)
