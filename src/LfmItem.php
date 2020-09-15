@@ -20,7 +20,7 @@ class LfmItem
         $this->lfm = $lfm->thumb(false);
         $this->helper = $helper;
         $this->isDirectory = $isDirectory;
-        $this->columns = config('lfm.item_columns', ['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url']);
+        $this->columns = $helper->config('item_columns')??['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url'];
     }
 
     public function __get($var_name)
