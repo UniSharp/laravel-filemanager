@@ -42,6 +42,7 @@ Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which alre
 <textarea name="content" class="form-control my-editor">{!! old('content', $content) !!}</textarea>
 <script>
   var editor_config = {
+    path_absolute : "/",
     selector: 'textarea.my-editor',
     relative_urls: false,
     plugins: [
@@ -55,7 +56,7 @@ Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which alre
       var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
       var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
 
-      var cmsURL = "/admin/" + 'laravel-filemanager?editor=' + meta.fieldname;
+      var cmsURL = editor_config.path_absolute + 'laravel-filemanager?editor=' + meta.fieldname;
       if (meta.filetype == 'image') {
         cmsURL = cmsURL + "&type=Images";
       } else {
