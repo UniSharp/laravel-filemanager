@@ -126,6 +126,7 @@ class LfmPathTest extends TestCase
         $helper->shouldReceive('getThumbFolderName')->andReturn('thumbs');
         $helper->shouldReceive('isRunningOnWindows')->andReturn(false);
         $helper->shouldReceive('ds')->andReturn('/');
+        $helper->shouldReceive('config')->with('item_columns')->andReturn(['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url']);
 
         $path = new LfmPath($helper);
 
@@ -145,6 +146,7 @@ class LfmPathTest extends TestCase
         $helper->shouldReceive('getNameFromPath')->andReturn('bar');
         $helper->shouldReceive('isRunningOnWindows')->andReturn(false);
         $helper->shouldReceive('ds')->andReturn('/');
+        $helper->shouldReceive('config')->with('item_columns')->andReturn(['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url']);
 
         $path = new LfmPath($helper);
 
@@ -156,6 +158,7 @@ class LfmPathTest extends TestCase
         $helper = m::mock(Lfm::class);
         $helper->shouldReceive('getNameFromPath')->andReturn('bar');
         $helper->shouldReceive('isRunningOnWindows')->andReturn(false);
+        $helper->shouldReceive('config')->with('item_columns')->andReturn(['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url']);
 
         $path = new LfmPath($helper);
 

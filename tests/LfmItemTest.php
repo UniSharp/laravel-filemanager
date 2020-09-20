@@ -19,6 +19,7 @@ class LfmItemTest extends TestCase
 
         $this->lfm_path = m::mock(LfmPath::class);
         $this->lfm_path->shouldReceive('thumb')->andReturn($this->lfm_path);
+        $this->lfm->shouldReceive('config')->with('item_columns')->andReturn(['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url']);
     }
 
     public function tearDown()
@@ -30,7 +31,7 @@ class LfmItemTest extends TestCase
 
     public function testMagicGet()
     {
-        $this->lfm_item = new LfmItem($this->lfm_path, m::mock(Lfm::class));
+        $this->lfm_item = new LfmItem($this->lfm_path, $this->lfm);
 
         $this->lfm_item->attributes['foo'] = 'bar';
 
