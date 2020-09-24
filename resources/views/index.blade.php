@@ -91,6 +91,10 @@
         {{ trans('laravel-filemanager::lfm.message-empty') }}
       </div>
 
+      <div>
+        <input type="text" name="keyword" id="keyword" placeholder="keyword">
+      </div>
+
       <div id="content"></div>
       <div id="pagination"></div>
 
