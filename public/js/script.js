@@ -419,9 +419,8 @@ function createPagination(paginationSetting) {
 }
 
 function loadItems(page) {
-  var keyword = $('#keyword').val();
   loading(true);
-  performLfmRequest('jsonitems', {show_list: show_list, sort_type: sort_type, page: page, keyword: keyword || 1}, 'html')
+  performLfmRequest('jsonitems', {show_list: show_list, sort_type: sort_type, page: page || 1}, 'html')
     .done(function (data) {
       selected = [];
       var response = JSON.parse(data);
@@ -787,7 +786,8 @@ function usingWysiwygEditor() {
 function defaultParameters() {
   return {
     working_dir: $('#working_dir').val(),
-    type: $('#type').val()
+    type: $('#type').val(),
+    keyword: $('#keyword').val()
   };
 }
 
