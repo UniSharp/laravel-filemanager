@@ -2,6 +2,8 @@
 
 namespace UniSharp\LaravelFilemanager\Controllers;
 
+use Illuminate\Http\Request;
+
 use UniSharp\LaravelFilemanager\Events\FileIsMoving;
 use UniSharp\LaravelFilemanager\Events\FileWasMoving;
 use UniSharp\LaravelFilemanager\Events\FolderIsMoving;
@@ -14,10 +16,10 @@ class ItemsController extends LfmController
      *
      * @return mixed
      */
-    public function getItems()
+    public function getItems(Request $request)
     {
         $currentPage = self::getCurrentPageFromRequest();
-        $keyword = self::getKeywordFromRequest();
+        $keyword = $request->keyword;
 
         $perPage = $this->helper->getPaginationPerPage();
         $items = array_merge($this->lfm->folders(), $this->lfm->files());
@@ -26,14 +28,14 @@ class ItemsController extends LfmController
             return $item->fill()->attributes;
         }, array_slice($items, ($currentPage - 1) * $perPage, $perPage));
 
-        if($keyword != "") {
-            $items = array_filter($items, function($item) {
+        if($keyword != null) {
+            $items = array_values(array_filter($items, function($item) use ($keyword) {
                 if($this->like_match("%".$keyword."%", $item['name'])) {
                     return true;
                 } else {
                     return false;
                 }
-            });
+            }));
         }
 
         return [
