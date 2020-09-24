@@ -28,9 +28,9 @@ class ItemsController extends LfmController
             return $item->fill()->attributes;
         }, array_slice($items, ($currentPage - 1) * $perPage, $perPage));
 
-        if($keyword != null) {
+        if ($keyword != null) {
             $items = array_values(array_filter($items, function($item) use ($keyword) {
-                if($this->like_match("%".$keyword."%", $item['name'])) {
+                if ($this->like_match("%".$keyword."%", $item['name'])) {
                     return true;
                 } else {
                     return false;
