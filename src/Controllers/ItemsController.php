@@ -22,6 +22,14 @@ class ItemsController extends LfmController
         $perPage = $this->helper->getPaginationPerPage();
         $items = array_merge($this->lfm->folders(), $this->lfm->files());
 
+        dd($items);
+
+        /*$items = array_filter($items, function($item) {
+            // return TRUE (keep this product in the list) if its location matches
+            return $item['location'] === $_GET['location'];
+        });*/
+
+
         return [
             'items' => array_map(function ($item) {
                 return $item->fill()->attributes;
