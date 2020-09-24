@@ -23,7 +23,6 @@ class ItemsController extends LfmController
         $items = array_merge($this->lfm->folders(), $this->lfm->files());
 
         dd($items);
-        exit();
 
         /*$items = array_filter($items, function($item) {
             // return TRUE (keep this product in the list) if its location matches
