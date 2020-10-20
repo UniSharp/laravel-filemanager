@@ -28,7 +28,9 @@ class ItemsController extends LfmController
             return $item->fill()->attributes;
         }, array_slice($items, ($currentPage - 1) * $perPage, $perPage));
 
-        if ($keyword != null) {
+        $c = count($items);
+
+        if (!empty($keyword)) {
             $items = array_values(array_filter($items, function ($item) use ($keyword) {
                 if ($this->like_match("%".$keyword."%", $item['name'])) {
                     return true;
@@ -39,10 +41,10 @@ class ItemsController extends LfmController
         }
 
         return [
-            'items' => $items,
+            'items' => $items_lot,
             'paginator' => [
                 'current_page' => $currentPage,
-                'total' => count($items),
+                'total' => $c,
                 'per_page' => $perPage,
             ],
             'display' => $this->helper->getDisplayMode(),
