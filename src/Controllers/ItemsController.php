@@ -18,7 +18,7 @@ class ItemsController extends LfmController
      */
     public function getItems(Request $request)
     {
-        $currentPage = self::getCurrentPageFromRequest();
+        /*$currentPage = self::getCurrentPageFromRequest();
         $keyword = $request->keyword;
 
         $perPage = $this->helper->getPaginationPerPage();
@@ -41,10 +41,32 @@ class ItemsController extends LfmController
         }
 
         return [
+            'items' => array_map(function ($item) {
+                return $item->fill()->attributes;
+            }, array_slice($items, ($currentPage - 1) * $perPage, $perPage)),
             'items' => $items,
             'paginator' => [
                 'current_page' => $currentPage,
                 'total' => $c,
+                'per_page' => $perPage,
+            ],
+            'display' => $this->helper->getDisplayMode(),
+            'working_dir' => $this->lfm->path('working_dir'),
+        ];*/
+
+
+        $currentPage = self::getCurrentPageFromRequest();
+
+        $perPage = $this->helper->getPaginationPerPage();
+        $items = array_merge($this->lfm->folders(), $this->lfm->files());
+
+        return [
+            'items' => array_map(function ($item) {
+                return $item->fill()->attributes;
+            }, array_slice($items, ($currentPage - 1) * $perPage, $perPage)),
+            'paginator' => [
+                'current_page' => $currentPage,
+                'total' => count($items),
                 'per_page' => $perPage,
             ],
             'display' => $this->helper->getDisplayMode(),
