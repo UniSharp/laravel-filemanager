@@ -41,7 +41,7 @@ class ItemsController extends LfmController
 
 
         return [
-            'items' => $items_lot,
+            'items' => $items,
             'paginator' => [
                 'current_page' => $currentPage,
                 'total' => $c,
