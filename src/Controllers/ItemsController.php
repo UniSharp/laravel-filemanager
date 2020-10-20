@@ -59,10 +59,13 @@ class ItemsController extends LfmController
         $perPage = $this->helper->getPaginationPerPage();
         $items = array_merge($this->lfm->folders(), $this->lfm->files());
 
-        var_dump($items);exit();
+        //var_dump($items);exit();
+
+        $items = array_map(function ($item) {
+            return $item->fill()->attributes;
+        }, $items);
         
         $keyword = $request->keyword;
-
         if (!empty($keyword)) {
             $items = array_values(array_filter($items, function ($item) use ($keyword) {
                 if ($this->like_match("%".$keyword."%", $item['name'])) {
@@ -74,9 +77,7 @@ class ItemsController extends LfmController
         }
 
         return [
-            'items' => array_map(function ($item) {
-                return $item->fill()->attributes;
-            }, array_slice($items, ($currentPage - 1) * $perPage, $perPage)),
+            'items' => array_slice($items, ($currentPage - 1) * $perPage, $perPage),
             'paginator' => [
                 'current_page' => $currentPage,
                 'total' => count($items),
