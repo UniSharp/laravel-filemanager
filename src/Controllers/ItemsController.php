@@ -17,54 +17,15 @@ class ItemsController extends LfmController
      */
     public function getItems(Request $request)
     {
-        /*$currentPage = self::getCurrentPageFromRequest();
-        $keyword = $request->keyword;
-
-        $perPage = $this->helper->getPaginationPerPage();
-        $items = array_merge($this->lfm->folders(), $this->lfm->files());
-
-        $items = array_map(function ($item) {
-            return $item->fill()->attributes;
-        }, array_slice($items, ($currentPage - 1) * $perPage, $perPage));
-
-        $c = count($items);
-
-        if (!empty($keyword)) {
-            $items = array_values(array_filter($items, function ($item) use ($keyword) {
-                if ($this->like_match("%".$keyword."%", $item['name'])) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }));
-        }
-
-
-        return [
-            'items' => array_map(function ($item) {
-                return $item->fill()->attributes;
-            }, array_slice($items, ($currentPage - 1) * $perPage, $perPage)),
-            'items' => $items,
-            'paginator' => [
-                'current_page' => $currentPage,
-                'total' => $c,
-                'per_page' => $perPage,
-            ],
-            'display' => $this->helper->getDisplayMode(),
-            'working_dir' => $this->lfm->path('working_dir'),
-        ];*/
-
         $currentPage = self::getCurrentPageFromRequest();
 
         $perPage = $this->helper->getPaginationPerPage();
         $items = array_merge($this->lfm->folders(), $this->lfm->files());
 
-        //var_dump($items);exit();
-
         $items = array_map(function ($item) {
             return $item->fill()->attributes;
         }, $items);
-        
+
         $keyword = $request->keyword;
         if (!empty($keyword)) {
             $items = array_values(array_filter($items, function ($item) use ($keyword) {
