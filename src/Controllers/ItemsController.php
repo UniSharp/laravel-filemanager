@@ -59,6 +59,8 @@ class ItemsController extends LfmController
 
         $perPage = $this->helper->getPaginationPerPage();
         $items = array_merge($this->lfm->folders(), $this->lfm->files());
+
+        dd($items);
         
         $keyword = $request->keyword;
 
