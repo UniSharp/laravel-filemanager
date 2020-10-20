@@ -60,6 +60,16 @@ class ItemsController extends LfmController
         $perPage = $this->helper->getPaginationPerPage();
         $items = array_merge($this->lfm->folders(), $this->lfm->files());
 
+        if (!empty($keyword)) {
+            $items = array_values(array_filter($items, function ($item) use ($keyword) {
+                if ($this->like_match("%".$keyword."%", $item['name'])) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }));
+        }
+
         return [
             'items' => array_map(function ($item) {
                 return $item->fill()->attributes;
