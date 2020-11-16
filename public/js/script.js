@@ -144,6 +144,17 @@ $(document).on('click', '[data-display]', function() {
   loadItems();
 });
 
+$(document).on('click', '#keyword-button', function() {
+  show_list = $(this).data('display');
+  loadItems();
+});
+
+$(document).on('click', '#keyword-reset-button', function() {
+  $('#keyword').val("");
+  show_list = $(this).data('display');
+  loadItems();
+});
+
 $(document).on('click', '[data-action]', function() {
   window[$(this).data('action')]($(this).data('multiple') ? getSelectedItems() : getOneSelectedElement());
 });
@@ -420,6 +431,7 @@ function createPagination(paginationSetting) {
 
 function loadItems(page) {
   loading(true);
+  var keyword = $('#keyword').val();
   performLfmRequest('jsonitems', {show_list: show_list, sort_type: sort_type, page: page || 1}, 'html')
     .done(function (data) {
       selected = [];
@@ -786,7 +798,8 @@ function usingWysiwygEditor() {
 function defaultParameters() {
   return {
     working_dir: $('#working_dir').val(),
-    type: $('#type').val()
+    type: $('#type').val(),
+    keyword: $('#keyword').val(),
   };
 }
 
