@@ -2,6 +2,8 @@
 
 namespace UniSharp\LaravelFilemanager\Controllers;
 
+use Illuminate\Support\Str;
+
 class FolderController extends LfmController
 {
     /**
@@ -42,13 +44,20 @@ class FolderController extends LfmController
         try {
             if ($folder_name === null || $folder_name == '') {
                 return $this->helper->error('folder-name');
-            } elseif ($this->lfm->setName($folder_name)->exists()) {
-                return $this->helper->error('folder-exist');
-            } elseif (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
-                return $this->helper->error('folder-alnum');
-            } else {
-                $this->lfm->setName($folder_name)->createFolder();
             }
+            if ($this->lfm->setName($folder_name)->exists()) {
+                return $this->helper->error('folder-exist');
+            }
+
+            if (config('lfm.alphanumeric_directory')) {
+                if (config('lfm.convert_to_alphanumeric')) {
+                    $folder_name = Str::slug($folder_name);
+                } elseif (preg_match('/[^\w\-_]/i', $folder_name)) {
+                    return $this->helper->error('folder-alnum');
+                }
+            }
+
+            $this->lfm->setName($folder_name)->createFolder();
         } catch (\Exception $e) {
             return $e->getMessage();
         }
