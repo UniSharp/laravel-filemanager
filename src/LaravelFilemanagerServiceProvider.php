@@ -51,6 +51,8 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__ . '/config/lfm.php', 'lfm-config');
+
         $this->app->singleton('laravel-filemanager', function () {
             return true;
         });

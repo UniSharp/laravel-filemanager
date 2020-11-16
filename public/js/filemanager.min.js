@@ -1,0 +1,1 @@
+window.filemanager=function(){var n=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"/filemanager",e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"FileManager",i=arguments.length>2&&void 0!==arguments[2]?arguments[2]:"width=900,height=600";return new Promise(function(o){window.open(n,e,i),window.SetUrl=o})};
