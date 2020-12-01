@@ -201,7 +201,7 @@ class LfmPath
         }
 
         uasort($arr_items, function ($a, $b) use ($key_to_sort) {
-            return strcmp($a->{$key_to_sort}, $b->{$key_to_sort});
+            return strcasecmp($a->{$key_to_sort}, $b->{$key_to_sort});
         });
 
         return $arr_items;
