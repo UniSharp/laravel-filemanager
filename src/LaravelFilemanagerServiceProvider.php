@@ -38,7 +38,7 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider
         ], 'lfm_handler');
 
         if (config('lfm.use_package_routes')) {
-            Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
+            Route::group(['prefix' => config('prefix') ?: 'filemanger', 'middleware' => config('lfm.middlewares') ?: ['web','auth'] ], function () {
                 \UniSharp\LaravelFilemanager\Lfm::routes();
             });
         }
