@@ -55,7 +55,8 @@ class UploadController extends LfmController
                 $url = $this->lfm->setName($new_filename)->url();
 
                 $response = [
-                    'url' => $url
+                    'url' => $url,
+                    'uploaded' => $url
                 ];
             }
         }
