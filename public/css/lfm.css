@@ -385,3 +385,38 @@ time {
   white-space: nowrap;
   content: attr(data-label);
 }
+
+/*Rotate container*/
+#rotate-container {
+  overflow: hidden;
+}
+#rotate-container.rotate90 #image,
+#rotate-container.rotate270 #image {
+  max-width: 600px;
+}
+
+#rotate-container #image {
+  transform-origin: top left;
+  /* IE 10+, Firefox, etc. */
+  -webkit-transform-origin: top left;
+  /* Chrome */
+  -ms-transform-origin: top left;
+  /* IE 9 */
+  max-height:600px;
+}
+
+#rotate-container.rotate90 #image {
+  transform: rotate(90deg) translateY(-100%);
+  -webkit-transform: rotate(90deg) translateY(-100%);
+  -ms-transform: rotate(90deg) translateY(-100%);
+}
+#rotate-container.rotate180 #image {
+  transform: rotate(180deg) translate(-100%, -100%);
+  -webkit-transform: rotate(180deg) translate(-100%, -100%);
+  -ms-transform: rotate(180deg) translateX(-100%, -100%);
+}
+#rotate-container.rotate270 #image {
+  transform: rotate(270deg) translateX(-100%);
+  -webkit-transform: rotate(270deg) translateX(-100%);
+  -ms-transform: rotate(270deg) translateX(-100%);
+}

@@ -336,6 +336,7 @@ class LfmPath
         // generate cropped image content
         $this->setName($file_name)->thumb(true);
         $image = Image::make($original_image->get())
+            ->orientate()
             ->fit(config('lfm.thumb_img_width', 200), config('lfm.thumb_img_height', 200));
 
         $this->storage->put($image->stream()->detach(), 'public');

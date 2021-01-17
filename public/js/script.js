@@ -213,6 +213,7 @@ function toggleActions() {
   $('[data-action=move]').toggleClass('d-none', !many_selected);
   $('[data-action=download]').toggleClass('d-none', !(many_selected && only_file));
   $('[data-action=resize]').toggleClass('d-none', !(one_selected && only_image));
+  $('[data-action=rotate]').toggleClass('d-none', !(one_selected && only_image));
   $('[data-action=crop]').toggleClass('d-none', !(one_selected && only_image));
   $('[data-action=trash]').toggleClass('d-none', !many_selected);
   $('[data-action=open]').toggleClass('d-none', !one_selected || only_file);
@@ -549,6 +550,11 @@ function trash(items) {
 
 function crop(item) {
   performLfmRequest('crop', {img: item.name})
+    .done(hideNavAndShowEditor);
+}
+
+function rotate(item) {
+  performLfmRequest('rotate', {img: item.name})
     .done(hideNavAndShowEditor);
 }
 

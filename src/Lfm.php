@@ -314,6 +314,17 @@ class Lfm
                 'as' => 'getRename',
             ]);
 
+
+            Route::get('/rotate', [
+                'uses' => 'RotateController@getRotate',
+                'as' => 'getRotate',
+            ]);
+
+            Route::get('/rotateimage', [
+                'uses' => 'RotateController@getRotateImage',
+                'as' => 'getRotateImage',
+            ]);
+
             // scale/resize
             Route::get('/resize', [
                 'uses' => 'ResizeController@getResize',
