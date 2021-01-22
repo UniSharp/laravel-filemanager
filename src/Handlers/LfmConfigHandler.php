@@ -1,6 +1,6 @@
 <?php
 
-namespace UniSharp\Handlers;
+namespace UniSharp\LaravelFilemanager\Handlers;
 
 class LfmConfigHandler extends \UniSharp\LaravelFilemanager\Handlers\ConfigHandler
 {
