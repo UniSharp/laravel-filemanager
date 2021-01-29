@@ -46,6 +46,7 @@ class Lfm
      */
     public function getNameFromPath($path)
     {
+        setlocale(LC_ALL, 'en_US.UTF-8');
         return pathinfo($path, PATHINFO_BASENAME);
     }
 

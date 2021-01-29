@@ -66,6 +66,7 @@ class LfmStorageRepository
 
     public function extension()
     {
+        setlocale(LC_ALL, 'en_US.UTF-8');
         return pathinfo($this->path, PATHINFO_EXTENSION);
     }
 }
