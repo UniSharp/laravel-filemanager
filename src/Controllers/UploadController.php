@@ -46,11 +46,9 @@ class UploadController extends LfmController
             $response = count($error_bag) > 0 ? $error_bag : parent::$success_response;
         } else { // upload via ckeditor5 expects json responses
             if (is_null($new_filename)) {
-                $response = ['error' =>
-                                [
-                                    'message' =>  $error_bag[0]
-                                ]
-                            ];
+                $response = [
+                    'error' => [ 'message' =>  $error_bag[0] ]
+                ];
             } else {
                 $url = $this->lfm->setName($new_filename)->url();
 
