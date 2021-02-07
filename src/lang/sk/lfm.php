@@ -23,7 +23,7 @@ return [
     'title-panel'       => 'Laravel FileManager',
     'title-upload'      => 'Nahrať súbor(y)',
     'title-view'        => 'Zobraziť súbor',
-    'title-user'        => 'Súbory',
+    'title-user'        => 'Moje súbory',
     'title-share'       => 'Zdieľané súbory',
     'title-item'        => 'Položka',
     'title-size'        => 'Veľkosť',
