@@ -33,9 +33,11 @@ class RenameController extends LfmController
             }
         }
 
-        if (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $new_name)) {
+        if ($is_directory && config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $new_name)) {
             return parent::error('folder-alnum');
-        // return parent::error('file-alnum');
+        }
+        else if (config('lfm.alphanumeric_filename') && preg_match('/[^.\w-]/i', $new_name)) {
+	        return parent::error('file-alnum');
         } elseif ($this->lfm->setName($new_name)->exists()) {
             return parent::error('rename');
         }
