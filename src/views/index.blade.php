@@ -281,11 +281,15 @@
           }
         });
       },
-      headers: {
-        'Authorization': 'Bearer ' + getUrlParam('token')
-      },
       acceptedFiles: "{{ implode(',', $helper->availableMimeTypes()) }}",
       maxFilesize: ({{ $helper->maxUploadSize() }} / 1000)
+    }
+
+    var token = getUrlParam('token');
+    if (token !== null) {
+      Dropzone.options.uploadForm.headers = {
+        'Authorization': 'Bearer ' + token
+      };
     }
   </script>
 </body>
