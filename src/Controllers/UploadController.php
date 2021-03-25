@@ -2,6 +2,7 @@
 
 namespace UniSharp\LaravelFilemanager\Controllers;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use UniSharp\LaravelFilemanager\Events\ImageIsUploading;
 use UniSharp\LaravelFilemanager\Events\ImageWasUploaded;
@@ -25,7 +26,7 @@ class UploadController extends LfmController
      */
     public function upload()
     {
-        $uploaded_files = request()->file('upload');
+        $uploaded_files = Arr::flatten(request()->file('upload'));
         $error_bag = [];
         $new_filename = null;
 
