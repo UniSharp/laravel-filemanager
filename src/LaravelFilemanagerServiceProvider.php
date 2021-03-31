@@ -22,6 +22,10 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/views', 'laravel-filemanager');
 
         $this->publishes([
+            __DIR__.'/../resources/lang' => 'resources/lang/vendor/laravel-filemanager',
+        ], ['lfm', 'lang', 'lfm_lang']);
+
+        $this->publishes([
             __DIR__.'/../config/lfm.php' => base_path('config/lfm.php'),
         ], 'lfm_config');
 
