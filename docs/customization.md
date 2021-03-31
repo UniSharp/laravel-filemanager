@@ -35,13 +35,22 @@
     ```
 
 ## Views
-Copy views to `resources/views/vendor/unisharp/laravel-filemanager/` :
+
+Publish views:
 
 ```bash
 php artisan vendor:publish --tag=lfm_view
 ```
 
+Edit views in `/resources/views/vendor/laravel-filemanager`.
+
 ## Translations
 
-1. Copy `vendor/unisharp/laravel-filemanager/src/lang/en` to `/resources/lang/vendor/laravel-filemanager/<YOUR LANGUAGE>/lfm.php`.
-1. Edit the file as you please.
+Publish translations:
+
+```bash
+php artisan vendor:publish --tag=lfm_lang
+```
+
+1. Copy `/resources/lang/vendor/laravel-filemanager/en` to `/resources/lang/vendor/laravel-filemanager/<LANGUAGE>`.
+1. Edit translations as you please.
