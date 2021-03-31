@@ -17,7 +17,7 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadTranslationsFrom(__DIR__.'/lang', 'laravel-filemanager');
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'laravel-filemanager');
 
         $this->loadViewsFrom(__DIR__.'/views', 'laravel-filemanager');
 
@@ -30,7 +30,7 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider
         ], 'lfm_public');
 
         $this->publishes([
-            __DIR__.'/views'  => base_path('resources/views/vendor/laravel-filemanager'),
+            __DIR__.'/../resources/views' => base_path('resources/views/vendor/laravel-filemanager'),
         ], 'lfm_view');
 
         $this->publishes([
