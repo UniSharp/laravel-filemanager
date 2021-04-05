@@ -93,6 +93,8 @@ return [
 
     'alphanumeric_filename'  => false,
 
+    'slug_filename' => false,
+
     'alphanumeric_directory' => false,
 
     'should_validate_size'   => false,
