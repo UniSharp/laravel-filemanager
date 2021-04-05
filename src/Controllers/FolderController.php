@@ -40,7 +40,7 @@ class FolderController extends LfmController
         $folder_name = $this->helper->input('name');
 
         try {
-            if (empty($folder_name)) {
+            if ($folder_name === null || $folder_name == '') {
                 return $this->helper->error('folder-name');
             } elseif ($this->lfm->setName($folder_name)->exists()) {
                 return $this->helper->error('folder-exist');

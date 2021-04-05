@@ -1,2 +1,6 @@
 /vendor
 composer.lock
+/docs/Gemfile.lock
+/docs/_site
+.DS_Store
+/.idea

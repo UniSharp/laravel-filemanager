@@ -2,10 +2,18 @@
 
 namespace UniSharp\LaravelFilemanager\Controllers;
 
+use Illuminate\Support\Facades\Storage;
+
 class DownloadController extends LfmController
 {
     public function getDownload()
     {
-        return response()->download($this->lfm->setName(request('file'))->path('absolute'));
+        $file = $this->lfm->setName(request('file'));
+
+        if (!Storage::disk($this->helper->config('disk'))->exists($file->path('storage'))) {
+            abort(404);
+        }
+
+        return response()->download($file->path('absolute'));
     }
 }

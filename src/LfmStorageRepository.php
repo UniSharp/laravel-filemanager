@@ -3,8 +3,9 @@
 namespace UniSharp\LaravelFilemanager;
 
 use Illuminate\Support\Facades\Storage;
+use League\Flysystem\Cached\CachedAdapter;
 
-class LfmStorageRepository implements RepositoryContract
+class LfmStorageRepository
 {
     private $disk;
     private $path;
@@ -25,8 +26,13 @@ class LfmStorageRepository implements RepositoryContract
 
     public function rootPath()
     {
-        // storage_path('app')
-        return $this->disk->getDriver()->getAdapter()->getPathPrefix();
+        $adapter = $this->disk->getDriver()->getAdapter();
+
+        if ($adapter instanceof CachedAdapter) {
+            $adapter = $adapter->getAdapter();
+        }
+
+        return $adapter->getPathPrefix();
     }
 
     public function move($new_lfm_path)
@@ -36,7 +42,10 @@ class LfmStorageRepository implements RepositoryContract
 
     public function save($file)
     {
-        $this->disk->put($this->path, file_get_contents($file));
+        $nameint = strripos($this->path, "/");
+        $nameclean = substr($this->path, $nameint + 1);
+        $pathclean = substr_replace($this->path, "", $nameint);
+        $this->disk->putFileAs($pathclean, $file, $nameclean);
     }
 
     public function url($path)
@@ -48,11 +57,16 @@ class LfmStorageRepository implements RepositoryContract
     {
         $this->disk->makeDirectory($this->path, ...func_get_args());
 
-        $this->disk->setVisibility($this->path, 'public');
+        // some filesystems (e.g. Google Storage, S3?) don't let you set ACLs on directories (because they don't exist)
+        // https://cloud.google.com/storage/docs/naming#object-considerations
+        if ($this->disk->has($this->path)) {
+            $this->disk->setVisibility($this->path, 'public');
+        }
     }
 
     public function extension()
     {
+        setlocale(LC_ALL, 'en_US.UTF-8');
         return pathinfo($this->path, PATHINFO_EXTENSION);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace UniSharp\LaravelFilemanager\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use UniSharp\LaravelFilemanager\Events\ImageIsDeleting;
 use UniSharp\LaravelFilemanager\Events\ImageWasDeleted;
 
@@ -18,6 +19,12 @@ class DeleteController extends LfmController
         $errors = [];
 
         foreach ($item_names as $name_to_delete) {
+            $file = $this->lfm->setName($name_to_delete);
+
+            if (!Storage::disk($this->helper->config('disk'))->exists($file->path('storage'))) {
+                abort(404);
+            }
+
             $file_to_delete = $this->lfm->pretty($name_to_delete);
             $file_path = $file_to_delete->path();
 

@@ -1,9 +1,5 @@
 /* General */
 
-body {
-  padding-bottom: 4rem;
-}
-
 a {
   color: #333844;
   text-decoration: none !important;
@@ -42,6 +38,19 @@ a {
   border-left: 1px solid #dee2e6;
 }
 
+#multi_selection_toggle > i {
+  font-size: 20px;
+}
+
+.breadcrumb-item:not(.active) {
+  transition: .2s color;
+}
+
+.breadcrumb-item:not(.active):hover {
+  cursor: pointer;
+  color: #75C7C3;
+}
+
 #main {
   width: 100%;
 }
@@ -49,7 +58,8 @@ a {
 @media screen and (min-width: 992px) {
   #main {
     width: calc(100% - 300px);
-    margin-left: 1rem;
+    /*margin-left: 1rem;*/
+    padding: 1rem;
   }
 
   .invisible-lg {
@@ -66,7 +76,13 @@ a {
   #tree {
     position: absolute;
     z-index: 999;
-    left: -300px;
+    left: 0;
+    transform: translateX(-100%);
+    transition: 1s transform;
+  }
+
+  #tree.in {
+    transform: translateX(0);
   }
 }
 
@@ -92,6 +108,37 @@ a {
   background-size: contain;
   background-repeat: no-repeat;
   margin: 0 auto;
+}
+
+.carousel-indicators {
+  bottom: 0;
+}
+
+.carousel-label, .carousel-label:hover {
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(transparent 10px, rgba(0, 0, 0, .4), rgba(0, 0, 0, .5));
+  padding: 40px 20px 30px;
+  width: 100%;
+  color: white;
+  word-break: break-word;
+  text-align: center;
+}
+
+.carousel-control-background {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  box-shadow: 0 0 10px #666;
+  background-color: #666;
+}
+
+#uploadForm > .dz-default.dz-message {
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  color: #aaa;
+  margin: 0;
+  padding: 3rem 0;
 }
 
 /* Loader */
@@ -141,6 +188,15 @@ a {
 }
 
 /* Items */
+
+#pagination > ul.pagination {
+  justify-content: center;
+}
+
+#pagination.preserve_actions_space {
+  padding-top: 1em;
+  padding-bottom: 4rem; /* preserve space for main actions */
+}
 
 .square {
   cursor: pointer;
@@ -251,9 +307,17 @@ time {
   font-size: 2rem;
 }
 
-.list .mime-icon:before {
+.list .mime-icon .ico:before {
   top: calc(45% - .5rem);
   font-size: 1rem;
+}
+
+.mime-icon .ico {
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
 }
 
 /* Floating action buttons */

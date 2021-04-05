@@ -4,7 +4,7 @@
     type = type || 'file';
 
     this.on('click', function(e) {
-      var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
+      var route_prefix = (options && options.prefix) ? options.prefix : '/filemanager';
       var target_input = $('#' + $(this).data('input'));
       var target_preview = $('#' + $(this).data('preview'));
       window.open(route_prefix + '?type=' + type, 'FileManager', 'width=900,height=600');

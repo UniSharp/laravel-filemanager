@@ -1,5 +1,18 @@
 ## Routes
-1. Copy the routes in `/vendor/unisharp/laravel-filemanager/src/routes.php`
+1. Edit `routes/web.php` :
+
+    Create route group to wrap package routes.
+
+    ```php
+    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
+    ```
+
+    Make sure `auth` middleware is present to :
+
+    1. prevent unauthorized uploads
+    1. work properly with multi-user mode
 
 1. Make sure urls below is correspond to your route (remember to include type parameter `?type=Images` or `?type=Files`) :
   * CKEditor
@@ -8,7 +21,7 @@
       filebrowserImageBrowseUrl: '/your-custom-route?type=Images',
       filebrowserBrowseUrl: '/your-custom-route?type=Files'
     });
-    ```  
+    ```
   * TinyMCE
     ```javascript
     ...

@@ -2,7 +2,6 @@
 
 namespace UniSharp\LaravelFilemanager;
 
-use Illuminate\Http\File;
 use Illuminate\Container\Container;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -72,7 +71,7 @@ class LfmPath
         } elseif ($type == 'storage') {
             // storage: files/{user_slug}
             // storage on windows: files\{user_slug}
-            return $this->translateToOsPath($this->path('url'));
+            return str_replace(Lfm::DS, $this->helper->ds(), $this->path('url'));
         } else {
             // absolute: /var/www/html/project/storage/app/files/{user_slug}
             // absolute on windows: C:\project\storage\app\files\{user_slug}
@@ -85,11 +84,6 @@ class LfmPath
         return str_replace($this->helper->ds(), Lfm::DS, $path);
     }
 
-    public function translateToOsPath($path)
-    {
-        return str_replace(Lfm::DS, $this->helper->ds(), $path);
-    }
-
     public function url()
     {
         return $this->storage->url($this->path('url'));
@@ -98,8 +92,8 @@ class LfmPath
     public function folders()
     {
         $all_folders = array_map(function ($directory_path) {
-            return $this->pretty($directory_path);
-        }, $this->storage->directories($this));
+            return $this->pretty($directory_path, true);
+        }, $this->storage->directories());
 
         $folders = array_filter($all_folders, function ($directory) {
             return $directory->name !== $this->helper->getThumbFolderName();
@@ -117,11 +111,12 @@ class LfmPath
         return $this->sortByColumn($files);
     }
 
-    public function pretty($item_path)
+    public function pretty($item_path, $isDirectory = false)
     {
         return Container::getInstance()->makeWith(LfmItem::class, [
             'lfm' => (clone $this)->setName($this->helper->getNameFromPath($item_path)),
-            'helper' => $this->helper
+            'helper' => $this->helper,
+            'isDirectory' => $isDirectory
         ]);
     }
 
@@ -179,11 +174,13 @@ class LfmPath
             ?: $this->helper->getRootFolder();
 
         if ($this->is_thumb) {
-            $path .= Lfm::DS . $this->helper->getThumbFolderName();
+            // Prevent if working dir is "/" normalizeWorkingDir will add double "//" that breaks S3 functionality
+            $path = rtrim($path, Lfm::DS) . Lfm::DS . $this->helper->getThumbFolderName();
         }
 
         if ($this->getName()) {
-            $path .= Lfm::DS . $this->getName();
+            // Prevent if working dir is "/" normalizeWorkingDir will add double "//" that breaks S3 functionality
+            $path = rtrim($path, Lfm::DS) . Lfm::DS . $this->getName();
         }
 
         return $path;
@@ -205,7 +202,7 @@ class LfmPath
         }
 
         uasort($arr_items, function ($a, $b) use ($key_to_sort) {
-            return strcmp($a->{$key_to_sort}, $b->{$key_to_sort});
+            return strcasecmp($a->{$key_to_sort}, $b->{$key_to_sort});
         });
 
         return $arr_items;
@@ -213,7 +210,7 @@ class LfmPath
 
     public function error($error_type, $variables = [])
     {
-        return $this->helper->error($error_type, $variables);
+        throw new \Exception($this->helper->error($error_type, $variables));
     }
 
     // Upload section
@@ -248,14 +245,21 @@ class LfmPath
             throw new \Exception('File failed to upload. Error code: ' . $file->getError());
         }
 
-        $new_file_name = $this->getNewName($file) . '.' . $file->getClientOriginalExtension();
+        $new_file_name = $this->getNewName($file);
 
-        if ($this->setName($new_file_name)->exists()) {
+        if ($this->setName($new_file_name)->exists() && !config('lfm.over_write_on_duplicate')) {
             return $this->error('file-exist');
         }
 
+        $mimetype = $file->getMimeType();
+
+        $excutable = ['text/x-php'];
+
+        if (in_array($mimetype, $excutable)) {
+            throw new \Exception('Invalid file detected');
+        }
+
         if (config('lfm.should_validate_mime', false)) {
-            $mimetype = $file->getMimeType();
             if (false === in_array($mimetype, $this->helper->availableMimeTypes())) {
                 return $this->error('mime') . $mimetype;
             }
@@ -274,8 +278,11 @@ class LfmPath
 
     private function getNewName($file)
     {
-        $new_file_name = $this->helper
-            ->translateFromUtf8(trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
+        $new_file_name = $this->helper->translateFromUtf8(
+            trim($this->helper->utf8Pathinfo($file->getClientOriginalName(), "filename"))
+        );
+
+        $extension = $file->getClientOriginalExtension();
 
         if (config('lfm.rename_file') === true) {
             $new_file_name = uniqid();
@@ -285,13 +292,29 @@ class LfmPath
             $new_file_name = Str::slug($new_file_name, '_');
         }
 
-        $extension = $file->getClientOriginalExtension();
-
         if ($extension) {
-            $new_file_name .= '.' . $extension;
+            $new_file_name_with_extention = $new_file_name . '.' . $extension;
         }
 
-        return $new_file_name;
+        if (config('lfm.rename_duplicates') === true) {
+            $counter = 1;
+            $file_name_without_extentions = $new_file_name;
+            while ($this->setName(($extension) ? $new_file_name_with_extention : $new_file_name)->exists()) {
+                if (config('lfm.alphanumeric_filename') === true) {
+                    $suffix = '_'.$counter;
+                } else {
+                    $suffix = " ({$counter})";
+                }
+                $new_file_name = $file_name_without_extentions.$suffix;
+
+                if ($extension) {
+                    $new_file_name_with_extention = $new_file_name . '.' . $extension;
+                }
+                $counter++;
+            }
+        }
+
+        return ($extension) ? $new_file_name_with_extention : $new_file_name;
     }
 
     private function saveFile($file, $new_file_name)
@@ -315,13 +338,10 @@ class LfmPath
         $this->setName(null)->thumb(true)->createFolder();
 
         // generate cropped image content
-        $image_path = $this->setName($file_name)->thumb(true)->path('absolute');
+        $this->setName($file_name)->thumb(true);
         $image = Image::make($original_image->get())
-            ->fit(config('lfm.thumb_img_width', 200), config('lfm.thumb_img_height', 200))
-            ->save($image_path);
+            ->fit(config('lfm.thumb_img_width', 200), config('lfm.thumb_img_height', 200));
 
-        $file = new File($image_path);
-
-        $this->setName($file_name)->thumb(true)->storage->save($file);
+        $this->storage->put($image->stream()->detach(), 'public');
     }
 }

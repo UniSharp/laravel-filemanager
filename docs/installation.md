@@ -6,16 +6,28 @@
  * Laravel 5
  * requires [intervention/image](https://github.com/Intervention/image) (to make thumbs, crop and resize images).
 
-## Installation
-1. Install package 
+## TL;DR
+1. Run these lines
 
     ```bash
-    composer require unisharp/laravel-filemanager:~1.8
+    composer require unisharp/laravel-filemanager
+    php artisan vendor:publish --tag=lfm_config
+    php artisan vendor:publish --tag=lfm_public
+    php artisan storage:link
     ```
 
-1. Edit `config/app.php` :
+1. Edit `APP_URL` in `.env`.
 
-    \* *For Laravel 5.5 and up, skip to step 3. All service providers and facades are automatically discovered.* 
+## Full Installation Guide
+1. Install package
+
+    ```bash
+    composer require unisharp/laravel-filemanager
+    ```
+
+1. (optional) Edit `config/app.php` :
+
+    \* *For Laravel 5.5 and up, skip to step 3. All service providers and facades are automatically discovered.*
 
     Add service providers
 
@@ -33,9 +45,33 @@
     Code above is for Laravel 5.1.
     In Laravel 5.0 should leave only quoted class names.
 
-1. (Alpha version only) Edit `routes/web.php` :
+1. Publish the package's config and assets :
 
-    Create route group to wrap package routes
+    ```bash
+    php artisan vendor:publish --tag=lfm_config
+    php artisan vendor:publish --tag=lfm_public
+    ```
+
+1. (optional) Run commands to clear cache :
+
+    ```bash
+    php artisan route:clear
+    php artisan config:clear
+    ```
+
+1. Ensure that the files & images directories (in `config/lfm.php`) are writable by your web server (run commands like `chown` or `chmod`).
+
+1. Create symbolic link :
+
+    ```bash
+    php artisan storage:link
+    ```
+
+1. Edit `APP_URL` in `.env`.
+
+1. Edit `routes/web.php` :
+
+    Create route group to wrap package routes.
 
     ```php
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
@@ -43,29 +79,17 @@
     });
     ```
 
-1. Publish the package's config and assets :
+    Make sure `auth` middleware is present to :
 
-    ```bash
-    php artisan vendor:publish --tag=lfm_config
-    php artisan vendor:publish --tag=lfm_public
-    ```
-    
-1. Run commands to clear cache :
-    
-    ```bash
-    php artisan route:clear
-    php artisan config:clear
-    ```
-    
-1. Ensure that the files & images directories (in `config/lfm.php`) are writable by your web server (run commands like `chown` or `chmod`).
+    1. prevent unauthorized uploads
+    1. work properly with multi-user mode
 
-1. Create symbolic link : 
+1. make sure database exists
 
-    ```bash
-    php artisan storage:link
-    ```
+1. login and visit `/laravel-filemanager/demo`
 
-1. Edit `APP_URL` in `.env`.
+## Installing alpha version
+ * Run `composer require unisharp/laravel-filemanager:dev-master` to get the latest developer version.
 
 ## What's next
 

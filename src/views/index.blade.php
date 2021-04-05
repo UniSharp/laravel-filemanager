@@ -15,7 +15,7 @@
   <title>{{ trans('laravel-filemanager::lfm.title-page') }}</title>
   <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/laravel-filemanager/img/72px color.png') }}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/cropper.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/dropzone.min.css') }}">
@@ -33,19 +33,19 @@
     <a class="navbar-brand d-block d-lg-none" id="show_tree">
       <i class="fas fa-bars fa-fw"></i>
     </a>
-    <a class="navbar-brand">Home</a>
+    <a class="navbar-brand d-block d-lg-none" id="current_folder"></a>
     <a id="loading" class="navbar-brand"><i class="fas fa-spinner fa-spin"></i></a>
-    <a class="navbar-toggler collapsed border-0 px-1 py-2 m-0 ml-auto" data-toggle="collapse" data-target="#nav-buttons">
+    <div class="ml-auto px-2">
+      <a class="navbar-link d-none" id="multi_selection_toggle">
+        <i class="fa fa-check-double fa-fw"></i>
+        <span class="d-none d-lg-inline">{{ trans('laravel-filemanager::lfm.menu-multiple') }}</span>
+      </a>
+    </div>
+    <a class="navbar-toggler collapsed border-0 px-1 py-2 m-0" data-toggle="collapse" data-target="#nav-buttons">
       <i class="fas fa-cog fa-fw"></i>
     </a>
-    <div class="collapse navbar-collapse" id="nav-buttons">
-      <ul class="navbar-nav ml-auto">
-        {{-- <li>
-          <a id="multi_selection_toggle">
-            <i class="fa fa-check-square fa-fw"></i>
-            <span>Multi selection</span>
-          </a>
-        </li> --}}
+    <div class="collapse navbar-collapse flex-grow-0" id="nav-buttons">
+      <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" data-display="grid">
             <i class="fas fa-th-large fa-fw"></i>
@@ -69,8 +69,9 @@
   </nav>
 
   <nav class="bg-light fixed-bottom border-top d-none" id="actions">
-    <a data-action="preview" data-multiple="true"><i class="fas fa-images"></i>Preview</a>
-    <a data-action="use" data-multiple="true"><i class="fas fa-check"></i>Confirm</a>
+    <a data-action="open" data-multiple="false"><i class="fas fa-folder-open"></i>{{ trans('laravel-filemanager::lfm.btn-open') }}</a>
+    <a data-action="preview" data-multiple="true"><i class="fas fa-images"></i>{{ trans('laravel-filemanager::lfm.menu-view') }}</a>
+    <a data-action="use" data-multiple="true"><i class="fas fa-check"></i>{{ trans('laravel-filemanager::lfm.btn-confirm') }}</a>
   </nav>
 
   <div class="d-flex flex-row">
@@ -79,12 +80,19 @@
     <div id="main">
       <div id="alerts"></div>
 
+      <nav aria-label="breadcrumb" class="d-none d-lg-block" id="breadcrumbs">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item invisible">Home</li>
+        </ol>
+      </nav>
+
       <div id="empty" class="d-none">
         <i class="far fa-folder-open"></i>
         {{ trans('laravel-filemanager::lfm.message-empty') }}
       </div>
 
       <div id="content"></div>
+      <div id="pagination"></div>
 
       <a id="item-template" class="d-none">
         <div class="square"></div>
@@ -111,7 +119,7 @@
             <div class="form-group" id="attachment">
               <div class="controls text-center">
                 <div class="input-group w-100">
-                  <a class="btn btn-primary w-100" id="upload-button">{{ trans('laravel-filemanager::lfm.message-choose') }}</a>
+                  <a class="btn btn-primary w-100 text-white" id="upload-button">{{ trans('laravel-filemanager::lfm.message-choose') }}</a>
                 </div>
               </div>
             </div>
@@ -132,8 +140,8 @@
       <div class="modal-content">
         <div class="modal-body"></div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary w-100" data-dismiss="modal">OK</button>
+          <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-close') }}</button>
+          <button type="button" class="btn btn-primary w-100" data-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-confirm') }}</button>
         </div>
       </div>
     </div>
@@ -149,28 +157,33 @@
           <input type="text" class="form-control">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary w-100" data-dismiss="modal">OK</button>
+          <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-close') }}</button>
+          <button type="button" class="btn btn-primary w-100" data-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-confirm') }}</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="carouselTemplate" class="d-none carousel slide" data-ride="carousel">
+  <div id="carouselTemplate" class="d-none carousel slide bg-light" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#previewCarousel" data-slide-to="0" class="active"></li>
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
+        <a class="carousel-label"></a>
         <div class="carousel-image"></div>
       </div>
     </div>
     <a class="carousel-control-prev" href="#previewCarousel" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <div class="carousel-control-background" aria-hidden="true">
+        <i class="fas fa-chevron-left"></i>
+      </div>
       <span class="sr-only">Previous</span>
     </a>
     <a class="carousel-control-next" href="#previewCarousel" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <div class="carousel-control-background" aria-hidden="true">
+        <i class="fas fa-chevron-right"></i>
+      </div>
       <span class="sr-only">Next</span>
     </a>
   </div>
@@ -182,7 +195,6 @@
   <script src="{{ asset('vendor/laravel-filemanager/js/cropper.min.js') }}"></script>
   <script src="{{ asset('vendor/laravel-filemanager/js/dropzone.min.js') }}"></script>
   <script>
-    var lfm_route = "{{ url(config('lfm.url_prefix')) }}";
     var lang = {!! json_encode(trans('laravel-filemanager::lfm')) !!};
     var actions = [
       // {
@@ -212,7 +224,7 @@
       {
         name: 'move',
         icon: 'paste',
-        label: 'move',
+        label: lang['menu-move'],
         multiple: true
       },
       {
@@ -256,8 +268,9 @@
       paramName: "upload[]", // The name that will be used to transfer the file
       uploadMultiple: false,
       parallelUploads: 5,
+      timeout:0,
       clickable: '#upload-button',
-      dictDefaultMessage: 'Or drop files here to upload',
+      dictDefaultMessage: lang['message-drop'],
       init: function() {
         var _this = this; // For the closure
         this.on('success', function(file, response) {
@@ -269,7 +282,7 @@
         });
       },
       headers: {
-        'Authorization': 'Bearer {{ request('token') }}'
+        'Authorization': 'Bearer ' + getUrlParam('token')
       },
       acceptedFiles: "{{ implode(',', $helper->availableMimeTypes()) }}",
       maxFilesize: ({{ $helper->maxUploadSize() }} / 1000)

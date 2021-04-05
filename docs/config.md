@@ -19,8 +19,8 @@
 
 ### If you want to name private folders other than columns of users table, follow these steps:
 1. Run `php artisan vendor:publish --tag=lfm_handler`.
-2. Fill `App\Handler\ConfigHander::class` into `user_field`.
-3. Edit `userField()` in the `App\Handler\ConfigHander`
+2. Fill `App\Handler\ConfigHandler::class` into `user_field`.
+3. Edit `userField()` in the `App\Handler\ConfigHandler`
 
 
 ## Working Directory:
@@ -62,6 +62,11 @@
 | create\_file\_mode         | int     | Permission setting for files uploaded to this package.                    |
 | should\_change\_file\_mode | boolean | If true, it will attempt to chmod the file after upload                   |
 | valid\_file\_mimetypes     | array   | Array of mime types. Available since v1.3.0 .                             |
+
+##### Appendix:
+
+  * [full mime types list](http://docs.w3cub.com/http/basics_of_http/mime_types/complete_list_of_mime_types/)
+  * [Laravel File Storage](https://laravel.com/docs/master/filesystem)
 
 
 ## Thumbnail dimensions:

@@ -16,6 +16,8 @@ return [
     'menu-download'     => '下載',
     'menu-resize'       => '縮放',
     'menu-crop'         => '裁剪',
+    'menu-move'         => '搬移',
+    'menu-multiple'     => '多選',
 
     'title-page'        => '檔案管理',
     'title-panel'       => '檔案管理',
@@ -37,6 +39,7 @@ return [
     'message-name'      => '資料夾名稱:',
     'message-rename'    => '重新命名為:',
     'message-extension_not_found' => '請安裝 gd 或 imagick 以使用縮放、裁剪、及縮圖功能',
+    'message-drop'      => '或將檔案拖拉到此處',
 
     'error-rename'      => '名稱重複，請重新輸入！',
     'error-file-name'   => '請輸入檔案名稱！',
@@ -58,8 +61,12 @@ return [
     'btn-uploading'     => '上傳中...',
     'btn-close'         => '關閉',
     'btn-crop'          => '裁剪',
+    'btn-copy-crop'     => '裁剪為新的檔案',
+    'btn-crop-free'     => '不限比例',
     'btn-cancel'        => '取消',
+    'btn-confirm'       => '確認',
     'btn-resize'        => '縮放',
+    'btn-open'          => '開啟資料夾',
 
     'resize-ratio'      => '比例:',
     'resize-scaled'     => '是否已縮放:',

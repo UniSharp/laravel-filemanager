@@ -19,6 +19,7 @@ class LfmItemTest extends TestCase
 
         $this->lfm_path = m::mock(LfmPath::class);
         $this->lfm_path->shouldReceive('thumb')->andReturn($this->lfm_path);
+        $this->lfm->shouldReceive('config')->with('item_columns')->andReturn(['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url']);
     }
 
     public function tearDown()
@@ -30,7 +31,7 @@ class LfmItemTest extends TestCase
 
     public function testMagicGet()
     {
-        $this->lfm_item = new LfmItem($this->lfm_path, m::mock(Lfm::class));
+        $this->lfm_item = new LfmItem($this->lfm_path, $this->lfm);
 
         $this->lfm_item->attributes['foo'] = 'bar';
 
@@ -75,7 +76,8 @@ class LfmItemTest extends TestCase
 
     public function testIsImage()
     {
-        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
+        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain')->shouldReceive('isDirectory')
+            ->andReturn(false);
 
         $item = new LfmItem($this->lfm_path, $this->lfm);
 
@@ -150,7 +152,8 @@ class LfmItemTest extends TestCase
 
     public function testTime()
     {
-        $this->lfm_path->shouldReceive('lastModified')->andReturn(0);
+        $this->lfm_path->shouldReceive('lastModified')->andReturn(0)->shouldReceive('isDirectory')
+            ->andReturn(false);
 
         $item = new LfmItem($this->lfm_path, $this->lfm);
 
@@ -185,7 +188,8 @@ class LfmItemTest extends TestCase
 
     public function testHasThumb()
     {
-        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain');
+        $this->lfm_path->shouldReceive('mimeType')->andReturn('application/plain')->shouldReceive('isDirectory')
+            ->andReturn(false);
 
         $item = new LfmItem($this->lfm_path, $this->lfm);
 

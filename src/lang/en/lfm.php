@@ -16,6 +16,8 @@ return [
     'menu-download'     => 'Download',
     'menu-resize'       => 'Resize',
     'menu-crop'         => 'Crop',
+    'menu-move'         => 'Move',
+    'menu-multiple'     => 'Multi-selection',
 
     'title-page'        => 'File Manager',
     'title-panel'       => 'Laravel FileManager',
@@ -37,6 +39,7 @@ return [
     'message-name'      => 'Folder name:',
     'message-rename'    => 'Rename to:',
     'message-extension_not_found' => 'Please install gd or imagick extension to crop, resize, and make thumbnails of images.',
+    'message-drop'      => 'Or drop files here to upload',
 
     'error-rename'      => 'File name already in use!',
     'error-file-name'   => 'File name cannot be empty!',
@@ -60,8 +63,11 @@ return [
     'btn-close'         => 'Close',
     'btn-crop'          => 'Crop',
     'btn-copy-crop'     => 'Copy & Crop',
+    'btn-crop-free'     => 'Free',
     'btn-cancel'        => 'Cancel',
+    'btn-confirm'       => 'Confirm',
     'btn-resize'        => 'Resize',
+    'btn-open'          => 'Open Folder',
 
     'resize-ratio'      => 'Ratio:',
     'resize-scaled'     => 'Image scaled:',
@@ -70,6 +76,4 @@ return [
     'resize-old-width'  => 'Original Width:',
     'resize-new-height' => 'Height:',
     'resize-new-width'  => 'Width:',
-
-    'locale-bootbox'    => 'en',
 ];

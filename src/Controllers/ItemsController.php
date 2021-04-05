@@ -2,6 +2,7 @@
 
 namespace UniSharp\LaravelFilemanager\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use UniSharp\LaravelFilemanager\Events\FileIsMoving;
 use UniSharp\LaravelFilemanager\Events\FileWasMoving;
 use UniSharp\LaravelFilemanager\Events\FolderIsMoving;
@@ -16,10 +17,20 @@ class ItemsController extends LfmController
      */
     public function getItems()
     {
+        $currentPage = self::getCurrentPageFromRequest();
+
+        $perPage = $this->helper->getPaginationPerPage();
+        $items = array_merge($this->lfm->folders(), $this->lfm->files());
+
         return [
             'items' => array_map(function ($item) {
                 return $item->fill()->attributes;
-            }, array_merge($this->lfm->folders(), $this->lfm->files())),
+            }, array_slice($items, ($currentPage - 1) * $perPage, $perPage)),
+            'paginator' => [
+                'current_page' => $currentPage,
+                'total' => count($items),
+                'per_page' => $perPage,
+            ],
             'display' => $this->helper->getDisplayMode(),
             'working_dir' => $this->lfm->path('working_dir'),
         ];
@@ -56,6 +67,12 @@ class ItemsController extends LfmController
             $old_file = $this->lfm->pretty($item);
             $is_directory = $old_file->isDirectory();
 
+            $file = $this->lfm->setName($item);
+
+            if (!Storage::disk($this->helper->config('disk'))->exists($file->path('storage'))) {
+                abort(404);
+            }
+
             if ($old_file->hasThumb()) {
                 $new_file = $this->lfm->setName($item)->thumb()->dir($target);
                 if ($is_directory) {
@@ -75,5 +92,13 @@ class ItemsController extends LfmController
         };
 
         return parent::$success_response;
+    }
+
+    private static function getCurrentPageFromRequest()
+    {
+        $currentPage = (int) request()->get('page', 1);
+        $currentPage = $currentPage < 1 ? 1 : $currentPage;
+
+        return $currentPage;
     }
 }

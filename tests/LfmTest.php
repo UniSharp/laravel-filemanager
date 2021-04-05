@@ -46,10 +46,10 @@ class LfmTest extends TestCase
     public function testAllowFolderType()
     {
         $config = m::mock(Config::class);
-        $config->shouldReceive('get')->with('lfm.allow_multi_user')->once()->andReturn(true);
-        $config->shouldReceive('get')->with('lfm.allow_multi_user')->once()->andReturn(false);
-        $config->shouldReceive('get')->with('lfm.allow_multi_user')->once()->andReturn(true);
-        $config->shouldReceive('get')->with('lfm.allow_share_folder')->once()->andReturn(false);
+        $config->shouldReceive('get')->with('lfm.allow_private_folder')->once()->andReturn(true);
+        $config->shouldReceive('get')->with('lfm.allow_private_folder')->once()->andReturn(false);
+        $config->shouldReceive('get')->with('lfm.allow_private_folder')->once()->andReturn(true);
+        $config->shouldReceive('get')->with('lfm.allow_shared_folder')->once()->andReturn(false);
 
         $lfm = new Lfm($config);
 
@@ -105,7 +105,7 @@ class LfmTest extends TestCase
     public function testGetUserSlug()
     {
         $config = m::mock(Config::class);
-        $config->shouldReceive('get')->with('lfm.user_folder_name')->once()->andReturn(function () {
+        $config->shouldReceive('get')->with('lfm.private_folder_name')->once()->andReturn(function () {
             return 'foo';
         });
 
@@ -117,8 +117,8 @@ class LfmTest extends TestCase
     public function testGetRootFolder()
     {
         $config = m::mock(Config::class);
-        $config->shouldReceive('get')->with('lfm.allow_multi_user')->andReturn(true);
-        $config->shouldReceive('get')->with('lfm.user_folder_name')->once()->andReturn(function () {
+        $config->shouldReceive('get')->with('lfm.allow_private_folder')->andReturn(true);
+        $config->shouldReceive('get')->with('lfm.private_folder_name')->once()->andReturn(function () {
             return 'foo';
         });
         $config->shouldReceive('get')->with('lfm.shared_folder_name')->once()->andReturn('bar');
@@ -139,18 +139,6 @@ class LfmTest extends TestCase
         $this->assertEquals('foo', $lfm->getThumbFolderName());
     }
 
-    public function testGetFileIcon()
-    {
-        $config = m::mock(Config::class);
-        $config->shouldReceive('get')->with('lfm.file_icon_array.foo', m::type('string'))->once()->andReturn('fa-foo');
-        $config->shouldReceive('get')->with(m::type('string'), m::type('string'))->once()->andReturn('fa-file');
-
-        $lfm = new Lfm($config);
-
-        $this->assertEquals('fa-foo', $lfm->getFileIcon('foo'));
-        $this->assertEquals('fa-file', $lfm->getFileIcon('bar'));
-    }
-
     public function testGetFileType()
     {
         $config = m::mock(Config::class);
@@ -166,7 +154,7 @@ class LfmTest extends TestCase
     public function testAllowMultiUser()
     {
         $config = m::mock(Config::class);
-        $config->shouldReceive('get')->with('lfm.allow_multi_user')->once()->andReturn(true);
+        $config->shouldReceive('get')->with('lfm.allow_private_folder')->once()->andReturn(true);
 
         $lfm = new Lfm($config);
 
@@ -176,9 +164,9 @@ class LfmTest extends TestCase
     public function testAllowShareFolder()
     {
         $config = m::mock(Config::class);
-        $config->shouldReceive('get')->with('lfm.allow_multi_user')->once()->andReturn(false);
-        $config->shouldReceive('get')->with('lfm.allow_multi_user')->once()->andReturn(true);
-        $config->shouldReceive('get')->with('lfm.allow_share_folder')->once()->andReturn(false);
+        $config->shouldReceive('get')->with('lfm.allow_private_folder')->once()->andReturn(false);
+        $config->shouldReceive('get')->with('lfm.allow_private_folder')->once()->andReturn(true);
+        $config->shouldReceive('get')->with('lfm.allow_shared_folder')->once()->andReturn(false);
 
         $lfm = new Lfm($config);
 

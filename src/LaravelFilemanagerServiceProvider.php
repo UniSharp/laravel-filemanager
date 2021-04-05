@@ -2,6 +2,7 @@
 
 namespace UniSharp\LaravelFilemanager;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -35,6 +36,12 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/Handlers/LfmConfigHandler.php' => base_path('app/Handlers/LfmConfigHandler.php'),
         ], 'lfm_handler');
+
+        if (config('lfm.use_package_routes')) {
+            Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
+                \UniSharp\LaravelFilemanager\Lfm::routes();
+            });
+        }
     }
 
     /**
@@ -44,6 +51,8 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__ . '/config/lfm.php', 'lfm-config');
+
         $this->app->singleton('laravel-filemanager', function () {
             return true;
         });
