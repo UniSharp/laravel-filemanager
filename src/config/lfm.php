@@ -169,4 +169,39 @@ return [
     'php_ini_overrides'        => [
         'memory_limit' => '256M',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | default prefix route
+    |--------------------------------------------------------------------------
+    |
+     */
+
+    'route_prefix'             => env('MIX_FILE_MANAGER_PREFIX_ROUTE', 'laravel-filemanager'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | authenticate
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    // Example default auth middleware => ['web', 'auth']
+    'middleware'                    => [
+        'web',
+    ],
+
+    // Guard default value => web 
+    'guard_name'                    => 'web',
+
+    // Key name token auth in local storage
+    // If you do not use authenticate with a token default value is null
+    // Location : browser => inspect element => application => Local Storage
+    // 'key_auth_token'           => 'token',
+    'key_auth_token'                => null,
+
+    // If not authenticate redirect to
+    // Default value => /login
+    'no_authenticate_redirect_to'   => '/dashboard/login',
+    // 'no_authenticate_redirect_to' => '/dashboard/login',
 ];

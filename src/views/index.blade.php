@@ -264,6 +264,13 @@
   {{-- Use the line below instead of the above if you need to cache the script. --}}
   {{-- <script src="{{ asset('vendor/laravel-filemanager/js/script.js') }}"></script> --}}
   <script>
+    let keyAuthToken = "{{$key_auth_token}}" ;
+    let routeCheckAuthenticate = "{{route('unisharp.lfm.checkAuthenticate')}}" ;
+    localStorage.setItem(key_auth_token, keyAuthToken);
+    localStorage.setItem(route_check_authenticate, routeCheckAuthenticate);
+  </script>
+  {{-- use authenticate with token, check --}}
+  <script>
     Dropzone.options.uploadForm = {
       paramName: "upload[]", // The name that will be used to transfer the file
       uploadMultiple: false,

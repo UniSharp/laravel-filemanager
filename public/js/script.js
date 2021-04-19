@@ -4,6 +4,8 @@ var sort_type = 'alphabetic';
 var multi_selection_enabled = false;
 var selected = [];
 var items = [];
+var key_auth_token = 'key_auth_token';
+var route_check_authenticate = 'route_check_authenticate';
 
 $.fn.fab = function (options) {
   var menu = this;
@@ -258,29 +260,70 @@ function setOpenFolders() {
 // ====================
 
 function performLfmRequest(url, parameter, type) {
-  var data = defaultParameters();
 
+  var data = defaultParameters();
+  
   if (parameter != null) {
     $.each(parameter, function (key, value) {
       data[key] = value;
     });
   }
 
-  return $.ajax({
-    type: 'GET',
-    beforeSend: function(request) {
-      var token = getUrlParam('token');
-      if (token !== null) {
-        request.setRequestHeader("Authorization", 'Bearer ' + token);
+  const request = (token) => {
+    return $.ajax({
+        type: "GET",
+        beforeSend: async function(request) {
+            if (token !== null) {
+                request.setRequestHeader("Authorization", "Bearer " + token);
+            }
+        },
+        dataType: type || "text",
+        url: lfm_route + "/" + url,
+        data: data,
+        cache: false
+    });
+  }
+
+  // If authenticate with token, this step check authenticate
+  var keyAuthToken = localStorage.getItem(key_auth_token);
+  if (keyAuthToken != null && keyAuthToken != "") {
+    var token = localStorage.getItem(keyAuthToken);
+    var urlApiAuthenticate = localStorage.getItem(route_check_authenticate);
+    return $.ajax({
+        method: "GET",
+        url: urlApiAuthenticate,
+        headers: {
+            Authorization: "Bearer " + token
+        },
+        cache: false
+    }).then(response => {
+      return request(token).catch(({statusText}) => {
+        return displayErrorResponseFromApi(statusText, document.referrer);
+      });
+    }).catch(({responseJSON: { data, message}, status}) => {
+      if(status == 401){
+        let { authorization, redirect_to } = data; 
+        return displayErrorResponseFromApi(message, redirect_to)
+      } else {
+        notify(message);
       }
-    },
-    dataType: type || 'text',
-    url: lfm_route + '/' + url,
-    data: data,
-    cache: false
-  }).fail(function (jqXHR, textStatus, errorThrown) {
-    displayErrorResponse(jqXHR);
-  });
+      return Promise.resolve()
+    });
+  } else {
+    var token = getUrlParam("token");
+    return request(token).fail(function(jqXHR, textStatus, errorThrown) {
+        displayErrorResponse(jqXHR);
+    });
+  }
+}
+
+function displayErrorResponseFromApi(message, urlRedirectBack){
+  notify(`
+    <div style="max-height:50vh;">
+      <p>${message}</p>
+      <a href="${urlRedirectBack}" class="btn btn-sm btn-primary">Back</a>
+    </div>
+  `);
 }
 
 function displayErrorResponse(jqXHR) {

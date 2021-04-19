@@ -191,7 +191,7 @@ class Lfm
      */
     public function allowShareFolder()
     {
-        if (! $this->allowMultiUser()) {
+        if (!$this->allowMultiUser()) {
             return true;
         }
 
@@ -206,8 +206,11 @@ class Lfm
      */
     public function translateFromUtf8($input)
     {
+
         if ($this->isRunningOnWindows()) {
-            $input = iconv('UTF-8', mb_detect_encoding($input), $input);
+            if (gettype($input) == 'string') {
+                $input = iconv('UTF-8', mb_detect_encoding($input), $input);
+            }
         }
 
         return $input;
@@ -257,11 +260,12 @@ class Lfm
      */
     public static function routes()
     {
-        $middleware = [ CreateDefaultFolder::class, MultiUser::class ];
+        $middleware = [CreateDefaultFolder::class, MultiUser::class];
         $as = 'unisharp.lfm.';
         $namespace = '\\UniSharp\\LaravelFilemanager\\Controllers\\';
+        $prefix = \config('lfm.route_prefix');
 
-        Route::group(compact('middleware', 'as', 'namespace'), function () {
+        Route::group(compact('middleware', 'as', 'namespace', 'prefix'), function () {
 
             // display main layout
             Route::get('/', [
@@ -269,89 +273,98 @@ class Lfm
                 'as' => 'show',
             ]);
 
-            // display integration error messages
-            Route::get('/errors', [
-                'uses' => 'LfmController@getErrors',
-                'as' => 'getErrors',
+            // if use auth via token, check authenticate 
+            Route::get('/checkauhenticate', [
+                'uses' => 'LfmController@checkAuthenticate',
+                'as' => 'checkAuthenticate',
             ]);
 
-            // upload
-            Route::any('/upload', [
-                'uses' => 'UploadController@upload',
-                'as' => 'upload',
-            ]);
+            $config_middleware = \config('lfm.middleware');
+            Route::group(['middleware' => $config_middleware], function () {
+                // display integration error messages
+                Route::get('/errors', [
+                    'uses' => 'LfmController@getErrors',
+                    'as' => 'getErrors',
+                ]);
 
-            // list images & files
-            Route::get('/jsonitems', [
-                'uses' => 'ItemsController@getItems',
-                'as' => 'getItems',
-            ]);
+                // upload
+                Route::any('/upload', [
+                    'uses' => 'UploadController@upload',
+                    'as' => 'upload',
+                ]);
 
-            Route::get('/move', [
-                'uses' => 'ItemsController@move',
-                'as' => 'move',
-            ]);
+                // list images & files
+                Route::get('/jsonitems', [
+                    'uses' => 'ItemsController@getItems',
+                    'as' => 'getItems',
+                ]);
 
-            Route::get('/domove', [
-                'uses' => 'ItemsController@domove',
-                'as' => 'domove'
-            ]);
+                Route::get('/move', [
+                    'uses' => 'ItemsController@move',
+                    'as' => 'move',
+                ]);
 
-            // folders
-            Route::get('/newfolder', [
-                'uses' => 'FolderController@getAddfolder',
-                'as' => 'getAddfolder',
-            ]);
+                Route::get('/domove', [
+                    'uses' => 'ItemsController@domove',
+                    'as' => 'domove'
+                ]);
 
-            // list folders
-            Route::get('/folders', [
-                'uses' => 'FolderController@getFolders',
-                'as' => 'getFolders',
-            ]);
+                // folders
+                Route::get('/newfolder', [
+                    'uses' => 'FolderController@getAddfolder',
+                    'as' => 'getAddfolder',
+                ]);
 
-            // crop
-            Route::get('/crop', [
-                'uses' => 'CropController@getCrop',
-                'as' => 'getCrop',
-            ]);
-            Route::get('/cropimage', [
-                'uses' => 'CropController@getCropimage',
-                'as' => 'getCropimage',
-            ]);
-            Route::get('/cropnewimage', [
-                'uses' => 'CropController@getNewCropimage',
-                'as' => 'getCropnewimage',
-            ]);
+                // list folders
+                Route::get('/folders', [
+                    'uses' => 'FolderController@getFolders',
+                    'as' => 'getFolders',
+                ]);
 
-            // rename
-            Route::get('/rename', [
-                'uses' => 'RenameController@getRename',
-                'as' => 'getRename',
-            ]);
+                // crop
+                Route::get('/crop', [
+                    'uses' => 'CropController@getCrop',
+                    'as' => 'getCrop',
+                ]);
+                Route::get('/cropimage', [
+                    'uses' => 'CropController@getCropimage',
+                    'as' => 'getCropimage',
+                ]);
+                Route::get('/cropnewimage', [
+                    'uses' => 'CropController@getNewCropimage',
+                    'as' => 'getCropnewimage',
+                ]);
 
-            // scale/resize
-            Route::get('/resize', [
-                'uses' => 'ResizeController@getResize',
-                'as' => 'getResize',
-            ]);
-            Route::get('/doresize', [
-                'uses' => 'ResizeController@performResize',
-                'as' => 'performResize',
-            ]);
+                // rename
+                Route::get('/rename', [
+                    'uses' => 'RenameController@getRename',
+                    'as' => 'getRename',
+                ]);
 
-            // download
-            Route::get('/download', [
-                'uses' => 'DownloadController@getDownload',
-                'as' => 'getDownload',
-            ]);
+                // scale/resize
+                Route::get('/resize', [
+                    'uses' => 'ResizeController@getResize',
+                    'as' => 'getResize',
+                ]);
+                Route::get('/doresize', [
+                    'uses' => 'ResizeController@performResize',
+                    'as' => 'performResize',
+                ]);
 
-            // delete
-            Route::get('/delete', [
-                'uses' => 'DeleteController@getDelete',
-                'as' => 'getDelete',
-            ]);
+                // download
+                Route::get('/download', [
+                    'uses' => 'DownloadController@getDownload',
+                    'as' => 'getDownload',
+                ]);
 
-            Route::get('/demo', 'DemoController@index');
+                // delete
+                Route::get('/delete', [
+                    'uses' => 'DeleteController@getDelete',
+                    'as' => 'getDelete',
+                ]);
+
+                Route::get('/demo', 'DemoController@index');
+            });
         });
     }
 }
