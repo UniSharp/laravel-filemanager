@@ -35,8 +35,10 @@ class LfmController extends Controller
      */
     public function show()
     {
-        $key_auth_token = \config('lfm.key_auth_token');
-        return view('laravel-filemanager::index', compact('key_auth_token'))
+        $key_auth_token = \config('lfm')['key_auth_token'];
+        $no_authenticate_redirect_to = \config('lfm')['no_authenticate_token_redirect_to'];
+
+        return view('laravel-filemanager::index', compact('key_auth_token', 'no_authenticate_redirect_to'))
             ->withHelper($this->helper);
     }
 

@@ -202,6 +202,7 @@ return [
 
     // If not authenticate redirect to
     // Default value => /login
-    'no_authenticate_redirect_to'   => '/dashboard/login',
+    'no_authenticate_redirect_to'   => '/login',
     // 'no_authenticate_redirect_to' => '/dashboard/login',
+
 ];

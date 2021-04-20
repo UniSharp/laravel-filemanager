@@ -266,8 +266,11 @@
   <script>
     let keyAuthToken = "{{$key_auth_token}}" ;
     let routeCheckAuthenticate = "{{route('unisharp.lfm.checkAuthenticate')}}" ;
+    let noAuthenticateRedirectTo = "{{$no_authenticate_redirect_to}}" ;
+    
     localStorage.setItem(key_auth_token, keyAuthToken);
     localStorage.setItem(route_check_authenticate, routeCheckAuthenticate);
+    localStorage.setItem(no_authenticate_redirect_to, noAuthenticateRedirectTo);
   </script>
   {{-- use authenticate with token, check --}}
   <script>

@@ -6,6 +6,7 @@ var selected = [];
 var items = [];
 var key_auth_token = 'key_auth_token';
 var route_check_authenticate = 'route_check_authenticate';
+var no_authenticate_redirect_to = 'no_authenticate_redirect_to'
 
 $.fn.fab = function (options) {
   var menu = this;
@@ -298,14 +299,16 @@ function performLfmRequest(url, parameter, type) {
         cache: false
     }).then(response => {
       return request(token).catch(({statusText}) => {
-        return displayErrorResponseFromApi(statusText, document.referrer);
+        let redirect_to = localStorage.getItem(no_authenticate_redirect_to);
+        return displayErrorResponseFromApi(statusText, redirect_to);
       });
     }).catch(({responseJSON: { data, message}, status}) => {
       if(status == 401){
         let { authorization, redirect_to } = data; 
         return displayErrorResponseFromApi(message, redirect_to)
       } else {
-        notify(message);
+        let redirect_to = localStorage.getItem(no_authenticate_redirect_to); 
+        displayErrorResponseFromApi(message, redirect_to);
       }
       return Promise.resolve()
     });
@@ -318,12 +321,13 @@ function performLfmRequest(url, parameter, type) {
 }
 
 function displayErrorResponseFromApi(message, urlRedirectBack){
-  notify(`
+  notifyAuthenticate(`
     <div style="max-height:50vh;">
       <p>${message}</p>
-      <a href="${urlRedirectBack}" class="btn btn-sm btn-primary">Back</a>
     </div>
-  `);
+  `, () => {
+    window.location.replace(urlRedirectBack)
+  });
 }
 
 function displayErrorResponse(jqXHR) {
@@ -835,6 +839,15 @@ function defaultParameters() {
 
 function notImp() {
   notify('Not yet implemented!');
+}
+
+function notifyAuthenticate(body, callback = null){
+  $("#notify")
+      .find(".btn-secondary")
+      .unbind()
+      .click(callback);
+  $('#notify').modal('show').find('.modal-body').html(body)
+  $('#notify').find('.btn-primary').hide();
 }
 
 function notify(body, callback) {
