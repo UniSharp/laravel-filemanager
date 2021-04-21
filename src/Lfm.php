@@ -280,7 +280,8 @@ class Lfm
         });
 
 
-        $middleware = array_merge($middleware, \config('lfm.middleware'));
+        $config_middleware = \config('lfm.middleware') ?? [];
+        $middleware = array_merge($middleware, $config_middleware);
         Route::group(compact('middleware', 'as', 'namespace'), function () {
 
             // display integration error messages
