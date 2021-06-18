@@ -2,6 +2,7 @@
 
 namespace UniSharp\LaravelFilemanager\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use UniSharp\LaravelFilemanager\Events\ImageIsUploading;
 use UniSharp\LaravelFilemanager\Events\ImageWasUploaded;
@@ -21,7 +22,8 @@ class UploadController extends LfmController
      * Upload files
      *
      * @param void
-     * @return string
+     *
+     * @return JsonResponse
      */
     public function upload()
     {
