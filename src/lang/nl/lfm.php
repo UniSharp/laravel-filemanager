@@ -16,6 +16,8 @@ return [
     'menu-download'       => 'Download',
     'menu-resize'         => 'Formaat aanpassen',
     'menu-crop'           => 'Bijsnijden',
+    'menu-move'           => 'Verplaatsen',
+    'menu-multiple'       => 'Multi-selectie',
 
     'title-page'          => 'File Manager',
     'title-panel'         => 'Laravel FileManager',
@@ -59,7 +61,9 @@ return [
     'btn-crop'            => 'Bijsnijden',
     'btn-copy-crop'       => 'Kopiëren & Bijsnijden',
     'btn-cancel'          => 'Annuleren',
+    'btn-confirm'         => 'Bevestigen',
     'btn-resize'          => 'Formaat aanpassen',
+    'btn-open'            => 'Map openen',
 
     'resize-ratio'        => 'Ratio:',
     'resize-scaled'       => 'Afbeelding geschaald:',
