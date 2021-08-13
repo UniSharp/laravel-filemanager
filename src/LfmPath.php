@@ -66,7 +66,10 @@ class LfmPath
             return $this->translateToLfmPath($this->normalizeWorkingDir());
         } elseif ($type == 'url') {
             // storage: files/{user_slug}
-            return $this->helper->getCategoryName() . $this->path('working_dir');
+            // storage without folder: {user_slug}
+            return $this->helper->getCategoryName() === '.'
+                ? ltrim($this->path('working_dir'), '/')
+                : $this->helper->getCategoryName() . $this->path('working_dir');
         } elseif ($type == 'storage') {
             // storage: files/{user_slug}
             // storage on windows: files\{user_slug}
