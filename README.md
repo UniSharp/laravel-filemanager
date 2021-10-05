@@ -64,7 +64,9 @@ We are also going to gain more integration like vue.js and Laravel Nova. Any PR 
 
  * [All contibutors](https://github.com/UniSharp/laravel-filemanager/graphs/contributors) from GitHub. (issues / PR)
  * [@taswler](https://github.com/tsawler) the original author of this package.
- * Nathan for providing security suggestions.
+ * Security contributors (sort by alphabet)
+    * Ayon Hasan (@lollipopl337)
+    * Nathan
  * [@mdnazmulhasan27771](https://github.com/mdnazmulhasan27771) the designer of our logo. (Licensed CC BY 4.0)
 
 ### Credits
