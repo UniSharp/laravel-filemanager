@@ -13,8 +13,8 @@
 
 | Key                  | Type    | Description                                                                                    |
 |----------------------|---------|------------------------------------------------------------------------------------------------|
-| allow\_multi\_user   | boolean | If true, private folders will be created for each signed-in user.                              |
-| allow\_share\_folder | boolean | If true, share folder will be created.                                                         |
+| allow\_private\_folder   | boolean | If true, private folders will be created for each signed-in user.                              |
+| allow\_shared\_folder | boolean | If true, share folder will be created.                                                         |
 | user_field           | string  | Private folders will be named by this. Can receive column name of `users` table or class name. |
 
 ### If you want to name private folders other than columns of users table, follow these steps:
