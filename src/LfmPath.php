@@ -7,6 +7,7 @@ use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use UniSharp\LaravelFilemanager\Events\ImageIsUploading;
 use UniSharp\LaravelFilemanager\Events\ImageWasUploaded;
+use UniSharp\LaravelFilemanager\LfmUploadValidator;
 
 class LfmPath
 {
@@ -215,13 +216,14 @@ class LfmPath
     // Upload section
     public function upload($file)
     {
-        $this->uploadValidator($file);
         $new_file_name = $this->getNewName($file);
         $new_file_path = $this->setName($new_file_name)->path('absolute');
 
         event(new ImageIsUploading($new_file_path));
         try {
-            $new_file_name = $this->saveFile($file, $new_file_name);
+            $this->setName($new_file_name)->storage->save($file);
+
+            $this->generateThumbnail($new_file_name);
         } catch (\Exception $e) {
             \Log::info($e);
             return $this->error('invalid');
@@ -232,47 +234,29 @@ class LfmPath
         return $new_file_name;
     }
 
-    private function uploadValidator($file)
+    public function validateUploadedFile($file)
     {
-        if (empty($file)) {
-            return $this->error('file-empty');
-        } elseif (! $file instanceof UploadedFile) {
-            return $this->error('instance');
-        } elseif ($file->getError() == UPLOAD_ERR_INI_SIZE) {
-            return $this->error('file-size', ['max' => ini_get('upload_max_filesize')]);
-        } elseif ($file->getError() != UPLOAD_ERR_OK) {
-            throw new \Exception('File failed to upload. Error code: ' . $file->getError());
+        $validator = new LfmUploadValidator($file);
+
+        $validator->sizeLowerThanIniMaximum();
+
+        $validator->uploadWasSuccessful();
+
+        if (!config('lfm.over_write_on_duplicate')) {
+            $validator->nameIsNotDuplicate($this->getNewName($file), $this);
         }
 
-        $new_file_name = $this->getNewName($file);
-
-        if ($this->setName($new_file_name)->exists() && !config('lfm.over_write_on_duplicate')) {
-            return $this->error('file-exist');
-        }
-
-        $mimetype = $file->getMimeType();
-
-        $excutable = ['text/x-php'];
-
-        if (in_array($mimetype, $excutable)) {
-            throw new \Exception('Invalid file detected');
-        }
+        $validator->isNotExcutable();
 
         if (config('lfm.should_validate_mime', false)) {
-            if (false === in_array($mimetype, $this->helper->availableMimeTypes())) {
-                return $this->error('mime') . $mimetype;
-            }
+            $validator->mimeTypeIsValid($this->helper->availableMimeTypes());
         }
 
         if (config('lfm.should_validate_size', false)) {
-            // size to kb unit is needed
-            $file_size = $file->getSize() / 1000;
-            if ($file_size > $this->helper->maxUploadSize()) {
-                return $this->error('size') . $file_size;
-            }
+            $validator->sizeIsLowerThanConfiguredMaximum($this->helper->maxUploadSize());
         }
 
-        return 'pass';
+        return true;
     }
 
     private function getNewName($file)
@@ -314,16 +298,7 @@ class LfmPath
         return ($extension) ? $new_file_name_with_extention : $new_file_name;
     }
 
-    private function saveFile($file, $new_file_name)
-    {
-        $this->setName($new_file_name)->storage->save($file);
-
-        $this->makeThumbnail($new_file_name);
-
-        return $new_file_name;
-    }
-
-    public function makeThumbnail($file_name)
+    public function generateThumbnail($file_name)
     {
         $original_image = $this->pretty($file_name);
 
