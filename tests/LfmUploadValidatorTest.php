@@ -13,7 +13,8 @@ use UniSharp\LaravelFilemanager\Exceptions\InvalidMimeTypeException;
 use UniSharp\LaravelFilemanager\LfmPath;
 use UniSharp\LaravelFilemanager\LfmUploadValidator;
 
-function trans() {
+function trans()
+{
     // leave empty
 }
 
