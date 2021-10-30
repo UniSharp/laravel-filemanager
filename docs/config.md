@@ -2,11 +2,12 @@
 
 ## Routing:
 
-| Key                  | Type    | Description                                                                                                  |
-|----------------------|---------|--------------------------------------------------------------------------------------------------------------|
-| use\_package\_routes | boolean | Use routes from package or not. If false, you will need to define routes to all controllers of this package. |
-| middlewares          | array   | Middlewares to be applied to default routes. For laravel 5.1 and before, remove 'web' from the array.        |
-| url_prefix           | string  | The url prefix to this package. Change it if necessary.                                                      |
+### use\_package\_routes
+
+* type: `boolean`
+* default: `true`
+
+Use default routes or not. You will need to define routes to all controllers of this package if this is set to `false`.
 
 
 ## Multi-User Mode:
@@ -51,16 +52,44 @@ If you want to customize client folders:
 
 All users can upload and manage files within shared folders. Set to `false` to turn this feature off.
 
-## Working Directory:
 
-| Key                  | Type   | Description                                                                                                                                                                     |
-|----------------------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| base_directory       | string | Which folder to store files in project, fill in 'public', 'resources', 'storage' and so on. Does not support path relative path like `../public_html` or `public/upload/user/`. |
-| images\_folder\_name | string | Does not support path relative path like `../public_html` or `public/upload/user/`.                                                                                             |
-| files\_folder\_name  | string | Does not support path relative path like `../public_html` or `public/upload/user/`.                                                                                             |
-| shared\_folder\_name | string | Does not support path relative path like `../public_html` or `public/upload/user/`.                                                                                             |
-| thumb\_folder\_name  | string | Does not support path relative path like `../public_html` or `public/upload/user/`.                                                                                             |
+## Folder Categories
 
+### folder\_categories
+
+* type: `array` (nested)
+* default: 
+
+```
+'folder_categories'        => [
+    'file'  => [
+        'folder_name'  => 'files',
+        'startup_view' => 'list',
+        'max_size'     => 50000, // size in KB
+        'valid_mime'   => [
+            'image/jpeg',
+            'image/pjpeg',
+            'image/png',
+            'image/gif',
+            'application/pdf',
+            'text/plain',
+        ],
+    ],
+    'image' => [
+        'folder_name'  => 'photos',
+        'startup_view' => 'grid',
+        'max_size'     => 50000, // size in KB
+        'valid_mime'   => [
+            'image/jpeg',
+            'image/pjpeg',
+            'image/png',
+            'image/gif',
+        ],
+    ],
+],
+```
+
+The default config creates two folder categories, `file` and `image`, each operates independently. Files uploaded by users will be placed under one of these folder categories, depend on which is configured  with your WYSIWYG editor or stand-alone upload button.
 
 ## Startup Views:
 
