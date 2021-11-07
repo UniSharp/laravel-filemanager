@@ -6,10 +6,10 @@
   <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/badge/stable-2.3.0-blue.svg"></a>
   <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/license"></a>
   <br>
-  <a target="_blank" href="https://travis-ci.org/UniSharp/laravel-filemanager"><img src="https://img.shields.io/travis/UniSharp/laravel-filemanager.svg"></a>
+  <a href="https://github.styleci.io/repos/39873788?branch=master"><img src="https://github.styleci.io/repos/39873788/shield?branch=master" alt="StyleCI"></a>
+  <a target="_blank" href="https://scrutinizer-ci.com/g/UniSharp/laravel-filemanager/?branch=master"><img src="https://scrutinizer-ci.com/g/UniSharp/laravel-filemanager/badges/build.png?b=master"></a>
   <a target="_blank" href="https://scrutinizer-ci.com/g/UniSharp/laravel-filemanager/"><img src="https://scrutinizer-ci.com/g/UniSharp/laravel-filemanager/badges/quality-score.png?b=master"></a>
   <a target="_blank" href="https://codeclimate.com/github/UniSharp/laravel-filemanager/maintainability"><img src="https://api.codeclimate.com/v1/badges/e51f2ef8f4d9f97268db/maintainability" /></a>
-  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/badge/unstable-dev--master-orange.svg"></a>
 </p>
 
 <p align="center">
