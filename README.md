@@ -65,8 +65,9 @@ We are also going to gain more integration like vue.js and Laravel Nova. Any PR 
 
 ### Developers / Maintainers
 
- * [Stream](https://github.com/g0110280)
- * [@gwleuverink](https://github.com/gwleuverink)
+ * [Stream](https://github.com/streamtw)
+ * [Youchen Lee](https://github.com/youchenlee)
+ * [Willem Leuverink](https://github.com/gwleuverink)
  * All [@UniSharp](https://github.com/UniSharp) members
 
 ### Contributors
