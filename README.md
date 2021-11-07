@@ -53,7 +53,7 @@
 ## v2.0 backlogs
 
 There are still some thing we need to do make this package better:
-* [ ] Documents for v2.0.0
+* [x] Documents for v2.0.0
 * [ ] Events should pass object instead of only file path
 * [ ] Add more events for files and folders manipulation
 
