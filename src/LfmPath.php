@@ -311,8 +311,10 @@ class LfmPath
 
         // generate cropped image content
         $this->setName($file_name)->thumb(true);
+        $thumbWidth = $this->helper->shouldCreateCategoryThumb() && $this->helper->categoryThumbWidth() ? $this->helper->categoryThumbWidth() : config('lfm.thumb_img_width', 200);
+        $thumbHeight = $this->helper->shouldCreateCategoryThumb() && $this->helper->categoryThumbHeight() ? $this->helper->categoryThumbHeight() : config('lfm.thumb_img_height', 200);
         $image = Image::make($original_image->get())
-            ->fit(config('lfm.thumb_img_width', 200), config('lfm.thumb_img_height', 200));
+            ->fit($thumbWidth, $thumbHeight);
 
         $this->storage->put($image->stream()->detach(), 'public');
     }
