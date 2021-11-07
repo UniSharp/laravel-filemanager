@@ -162,6 +162,21 @@ class Lfm
     {
         return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.valid_mime');
     }
+    
+    public function shouldCreateCategoryThumb()
+    {
+        return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.thumb');
+    }
+
+    public function categoryThumbWidth()
+    {
+        return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.thumb_width');
+    }
+
+    public function categoryThumbHeight()
+    {
+        return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.thumb_height');
+    }
 
     public function maxUploadSize()
     {
