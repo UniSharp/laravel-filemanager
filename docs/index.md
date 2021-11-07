@@ -8,6 +8,9 @@ This is the document of v2 version, v1 document can be found here: [https://gith
  * File upload and management
  * Uploading validation
  * Cropping and resizing of images
+ * RWD user interface, and can be entirely customized
+ * Supporting multiple files selection
+ * Supporting cloud storages integration(with Laravel file system)
  * Multiple integration options: 
     * WYSIWYG editors integration (CKEditor, TinyMCE, Summernote)
     * Standalone upload button

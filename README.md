@@ -32,16 +32,25 @@
   <a href="https://github.com/UniSharp/laravel-filemanager/wiki">FAQ</a>
 </p>
 
-## v2.0 progress
-🎉 Finally v2.0.0 has been released! 🎉
+## Features
+ * File upload and management
+ * Uploading validation
+ * Cropping and resizing of images
+ * RWD user interface, and can be entirely customized
+ * Supporting multiple files selection
+ * Supporting cloud storages integration(with Laravel file system)
+ * Multiple integration options: 
+    * WYSIWYG editors integration (CKEditor, TinyMCE, Summernote)
+    * Standalone upload button
+    * Iframe
+ * Multi-user mode: 
+    * Shared folders: all users can upload and manage files
+    * Private folders: dedicated folder for each user, only the owner can upload or manage files within
+ * Customizable routes, middlewares, views, and folder path
+ * Supports two categories: files and images. Each type works in different directory.
+ * Supported locales : ar, az, bg, cs, de, el, en, es, eu, fa, fr, he, hu, id, it, ka, nl, pl, pt, pt-BR, ro, rs, ru, sk, sv, tr, uk, vi, zh-CN, zh-TW
 
-These are primary features of this update:
-* Redesigned RWD user interface.
-* Supporting multiple files selection.
-* Supporting cloud storages integration(with Laravel file system).
-* Refactored code and increased test coverage.
-
-Although it is not perfect enough, we decided to release it. Now users who want the above features won't need to install alpha versions anymore.
+## v2.0 backlogs
 
 There are still some thing we need to do make this package better:
 * [ ] Documents for v2.0.0
