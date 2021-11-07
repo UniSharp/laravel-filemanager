@@ -61,26 +61,24 @@ We are also going to gain more integration like vue.js and Laravel Nova. Any PR 
 
 ![RWD demo](https://unisharp.github.io/laravel-filemanager/images/screenshots-v2.png)
 
-## Contributors & Credits
-
-### Developers / Maintainers
+## Maintainers
 
  * [Stream](https://github.com/streamtw)
  * [Youchen Lee](https://github.com/youchenlee)
  * [Willem Leuverink](https://github.com/gwleuverink)
+
+## Contributors
+
  * All [@UniSharp](https://github.com/UniSharp) members
-
-### Contributors
-
- * [All contibutors](https://github.com/UniSharp/laravel-filemanager/graphs/contributors) from GitHub. (issues / PR)
- * [@taswler](https://github.com/tsawler) the original author of this package.
  * Security contributors (sort by alphabet)
     * Ayon Hasan (@lollipopl337)
     * Nathan
  * [@mdnazmulhasan27771](https://github.com/mdnazmulhasan27771) the designer of our logo. (Licensed CC BY 4.0)
+ * [All contibutors](https://github.com/UniSharp/laravel-filemanager/graphs/contributors) from GitHub. (issues / PR)
 
-### Credits
+## Credits
 
+ * [@taswler](https://github.com/tsawler) the original author of this package.
  * [@olivervogel](https://github.com/olivervogel) for the awesome [image library](https://github.com/Intervention/image).
  * SVG Loaders by [Sam](http://samherbert.net/svg-loaders/) (Licensed MIT)
  * Articles and videos which helped promoting this package.
