@@ -54,8 +54,8 @@
 
 There are still some thing we need to do make this package better:
 * [x] Documents for v2.0.0
+* [x] Add more events for files and folders manipulation
 * [ ] Events should pass object instead of only file path
-* [ ] Add more events for files and folders manipulation
 
 We are also going to gain more integration like vue.js and Laravel Nova. Any PR is welcome!
 
