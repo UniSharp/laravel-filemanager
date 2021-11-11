@@ -5,6 +5,8 @@ namespace UniSharp\LaravelFilemanager;
 use Illuminate\Container\Container;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use UniSharp\LaravelFilemanager\Events\FileIsUploading;
+use UniSharp\LaravelFilemanager\Events\FileWasUploaded;
 use UniSharp\LaravelFilemanager\Events\ImageIsUploading;
 use UniSharp\LaravelFilemanager\Events\ImageWasUploaded;
 use UniSharp\LaravelFilemanager\LfmUploadValidator;
@@ -219,6 +221,7 @@ class LfmPath
         $new_file_name = $this->getNewName($file);
         $new_file_path = $this->setName($new_file_name)->path('absolute');
 
+        event(new FileIsUploading($new_file_path));
         event(new ImageIsUploading($new_file_path));
         try {
             $this->setName($new_file_name)->storage->save($file);
@@ -229,6 +232,7 @@ class LfmPath
             return $this->error('invalid');
         }
         // TODO should be "FileWasUploaded"
+        event(new FileWasUploaded($new_file_path));
         event(new ImageWasUploaded($new_file_path));
 
         return $new_file_name;
