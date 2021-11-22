@@ -16,6 +16,8 @@ return [
     'menu-download'     => 'İndir',
     'menu-resize'       => 'Boyutlandır',
     'menu-crop'         => 'Kırp',
+    'menu-move'         => 'Taşı',
+    'menu-multiple'     => 'Çoklu Seçim',
 
     'title-page'        => 'Dosya Kütüphanesi',
     'title-panel'       => 'Laravel Dosya Kütüphanesi',
@@ -37,6 +39,7 @@ return [
     'message-name'      => 'Klasör adı:',
     'message-rename'    => 'Yeni ad:',
     'message-extension_not_found' => 'Lütfen resimleri kesmek, yeniden boyutlandırmak ve küçük resimler oluşturmak için gd veya imagick eklentisini yükleyin',
+    'message-drop'      => 'Veya buraya dosyaları sürükle bırak',
 
     'error-rename'      => 'Dosya adı kullanımda!',
     'error-file-name'   => 'Dosya adı boş bırakılamaz!',
@@ -60,8 +63,11 @@ return [
     'btn-close'         => 'Kapat',
     'btn-crop'          => 'Kırp',
     'btn-copy-crop'     => 'Kopyala & Kes',
+    'btn-crop-free'     => 'Serbest',
     'btn-cancel'        => 'İptal',
+    'btn-confirm'       => 'Onayla',
     'btn-resize'        => 'Boyutlandır',
+    'btn-open'          => 'Klasörü Aç',
 
     'resize-ratio'      => 'Oran:',
     'resize-scaled'     => 'Boyutlandırıldı:',
