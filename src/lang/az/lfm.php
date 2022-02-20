@@ -16,6 +16,8 @@ return [
     'menu-download'     => 'Endir',
     'menu-resize'       => 'Ölçüləndir',
     'menu-crop'         => 'Kəsmək',
+    'menu-move'         => 'Yerini dəyiş',
+    'menu-multiple'     => 'Multi-seçim',
 
     'title-page'        => 'Fayl menecer',
     'title-panel'       => 'Fayl menecer',
@@ -28,6 +30,8 @@ return [
     'title-type'        => 'Tip',
     'title-modified'    => 'Dəyişmək',
     'title-action'      => 'Funksiyalar',
+    'title-user'        => 'Fayllar',
+    'title-share'       => 'Paylaşılmış fayllar',
 
     'type-folder'       => 'Qovluq',
 
@@ -37,6 +41,7 @@ return [
     'message-name'      => 'Qovluq adı:',
     'message-rename'    => 'Yeni ad:',
     'message-extension_not_found' => 'Xahiş olunur , Şəkilləri kəsmək və ya yenidən ölçü vermək istəyirsinizsə gd və ya imagick genişlənmələriniz serverinizdə aktiov edin.',
+    'message-drop'      => 'və ya yükləmək üçün faylları bura atın',
 
     'error-rename'      => 'Fayl adı artıq istifadə olunur!',
     'error-file-name'   => 'Dosya adı boş bırakılamaz!',
@@ -62,6 +67,9 @@ return [
     'btn-copy-crop'     => 'Kopyala & Kəs',
     'btn-cancel'        => 'İmtina',
     'btn-resize'        => 'Ölçünü dəyiş',
+    'btn-crop-free'     => 'Sərbəst',
+    'btn-confirm'       => 'Təsdiq et',
+    'btn-open'          => 'Qovluğu aç',
 
     'resize-ratio'      => 'Nisbət:',
     'resize-scaled'     => 'Böyüdüldü:',
