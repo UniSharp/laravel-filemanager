@@ -228,7 +228,15 @@ class LfmPath
         event(new FileIsUploading($new_file_path));
         event(new ImageIsUploading($new_file_path));
         try {
+            
             $this->setName($new_file_name)->storage->save($file);
+            
+            //----- Rezise image
+            $original_image = $this->pretty($new_file_name);
+            $image = Image::make($original_image->get())->resize(800, 600,function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $this->setName($new_file_name)->storage->put($image->stream());
 
             $this->generateThumbnail($new_file_name);
         } catch (\Exception $e) {

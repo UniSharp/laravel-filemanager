@@ -18,7 +18,9 @@ class ResizeController extends LfmController
         $ratio = 1.0;
         $image = request('img');
 
-        $original_image = Image::make($this->lfm->setName($image)->path('absolute'));
+        $imagefile = $this->lfm->pretty($this->lfm->setName($image)->path('absolute'));
+
+        $original_image = Image::make($imagefile->get());
         $original_width = $original_image->width();
         $original_height = $original_image->height();
 
@@ -57,7 +59,15 @@ class ResizeController extends LfmController
         $image_path = $this->lfm->setName(request('img'))->path('absolute');
 
         event(new ImageIsResizing($image_path));
-        Image::make($image_path)->resize(request('dataWidth'), request('dataHeight'))->save();
+
+        $name = $this->helper->getNameFromPath($image_path);
+        
+        $imagefile = $this->lfm->pretty($image_path);
+
+        $image = Image::make($imagefile->get())->resize(request('dataWidth'), request('dataHeight'));
+
+        $this->lfm->setName($name)->storage->put($image->stream());
+
         event(new ImageWasResized($image_path));
 
         return parent::$success_response;
