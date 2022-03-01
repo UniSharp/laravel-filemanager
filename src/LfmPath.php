@@ -9,11 +9,8 @@ use UniSharp\LaravelFilemanager\Events\FileIsUploading;
 use UniSharp\LaravelFilemanager\Events\FileWasUploaded;
 use UniSharp\LaravelFilemanager\Events\ImageIsUploading;
 use UniSharp\LaravelFilemanager\Events\ImageWasUploaded;
-<<<<<<< HEAD
 use Illuminate\Support\Str;
-=======
 use UniSharp\LaravelFilemanager\LfmUploadValidator;
->>>>>>> 98f57e5f2eb5af652a32266cd9b9f7f047a77d62
 
 class LfmPath
 {
@@ -278,13 +275,7 @@ class LfmPath
 
         $extension = $file->getClientOriginalExtension();
 
-        if (config('lfm.rename_file') === true) {
-            $new_file_name = uniqid();
-        } elseif (config('lfm.alphanumeric_filename') === true) {
-            $new_file_name = preg_replace('/[^A-Za-z0-9\-\']/', '_', $new_file_name);
-        } elseif (config('lfm.slug_filename') === true){
-            $new_file_name = Str::slug($new_file_name, '_');
-        }
+        $new_file_name = Str::slug($new_file_name, '_');
 
         if ($extension) {
             $new_file_name_with_extention = $new_file_name . '.' . $extension;
