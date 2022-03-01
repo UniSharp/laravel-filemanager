@@ -71,11 +71,6 @@ class LfmController extends Controller
         return $arr_errors;
     }
 
-    public function error($error_type, $variables = [])
-    {
-        return $this->helper->error($error_type, $variables);
-    }
-
     /**
      * Overrides settings in php.ini.
      *

@@ -2,9 +2,8 @@
 
 namespace UniSharp\LaravelFilemanager\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use UniSharp\LaravelFilemanager\Events\ImageIsUploading;
-use UniSharp\LaravelFilemanager\Events\ImageWasUploaded;
 use UniSharp\LaravelFilemanager\Lfm;
 
 class UploadController extends LfmController
@@ -21,7 +20,8 @@ class UploadController extends LfmController
      * Upload files
      *
      * @param void
-     * @return string
+     *
+     * @return JsonResponse
      */
     public function upload()
     {
@@ -31,6 +31,8 @@ class UploadController extends LfmController
 
         foreach (is_array($uploaded_files) ? $uploaded_files : [$uploaded_files] as $file) {
             try {
+                $this->lfm->validateUploadedFile($file);
+
                 $new_filename = $this->lfm->upload($file);
             } catch (\Exception $e) {
                 Log::error($e->getMessage(), [
