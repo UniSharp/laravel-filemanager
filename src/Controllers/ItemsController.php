@@ -73,6 +73,8 @@ class ItemsController extends LfmController
                 abort(404);
             }
 
+            $old_path = $old_file->path();
+
             if ($old_file->hasThumb()) {
                 $new_file = $this->lfm->setName($item)->thumb()->dir($target);
                 if ($is_directory) {
@@ -85,9 +87,9 @@ class ItemsController extends LfmController
             $new_file = $this->lfm->setName($item)->dir($target);
             $this->lfm->setName($item)->move($new_file);
             if ($is_directory) {
-                event(new FolderWasMoving($old_file->path(), $new_file->path()));
+                event(new FolderWasMoving($old_path, $new_file->path()));
             } else {
-                event(new FileWasMoving($old_file->path(), $new_file->path()));
+                event(new FileWasMoving($old_path, $new_file->path()));
             }
         };
 

@@ -1,17 +1,34 @@
 ## List of events
- * UniSharp\LaravelFilemanager\Events\ImageIsUploading
- * UniSharp\LaravelFilemanager\Events\ImageWasUploaded
- * UniSharp\LaravelFilemanager\Events\ImageIsRenaming
- * UniSharp\LaravelFilemanager\Events\ImageWasRenamed
- * UniSharp\LaravelFilemanager\Events\ImageIsDeleting
- * UniSharp\LaravelFilemanager\Events\ImageWasDeleted
- * UniSharp\LaravelFilemanager\Events\FolderIsRenaming
- * UniSharp\LaravelFilemanager\Events\FolderWasRenamed
- * UniSharp\LaravelFilemanager\Events\ImageIsResizing
- * UniSharp\LaravelFilemanager\Events\ImageWasResized
- * UniSharp\LaravelFilemanager\Events\ImageIsCropping
- * UniSharp\LaravelFilemanager\Events\ImageWasCropped
 
+* File
+  * UniSharp\LaravelFilemanager\Events\FileIsUploading
+  * UniSharp\LaravelFilemanager\Events\FileWasUploaded
+  * UniSharp\LaravelFilemanager\Events\FileIsRenaming
+  * UniSharp\LaravelFilemanager\Events\FileWasRenamed
+  * UniSharp\LaravelFilemanager\Events\FileIsMoving
+  * UniSharp\LaravelFilemanager\Events\FileWasMoving
+  * UniSharp\LaravelFilemanager\Events\FileIsDeleting
+  * UniSharp\LaravelFilemanager\Events\FileWasDeleted
+* Image
+  * UniSharp\LaravelFilemanager\Events\ImageIsUploading
+  * UniSharp\LaravelFilemanager\Events\ImageWasUploaded
+  * UniSharp\LaravelFilemanager\Events\ImageIsRenaming
+  * UniSharp\LaravelFilemanager\Events\ImageWasRenamed
+  * UniSharp\LaravelFilemanager\Events\ImageIsResizing
+  * UniSharp\LaravelFilemanager\Events\ImageWasResized
+  * UniSharp\LaravelFilemanager\Events\ImageIsCropping
+  * UniSharp\LaravelFilemanager\Events\ImageWasCropped
+  * UniSharp\LaravelFilemanager\Events\ImageIsDeleting
+  * UniSharp\LaravelFilemanager\Events\ImageWasDeleted
+* Folder
+  * UniSharp\LaravelFilemanager\Events\FolderIsCreating
+  * UniSharp\LaravelFilemanager\Events\FolderWasCreated
+  * UniSharp\LaravelFilemanager\Events\FolderIsRenaming
+  * UniSharp\LaravelFilemanager\Events\FolderWasRenamed
+  * UniSharp\LaravelFilemanager\Events\FolderIsMoving
+  * UniSharp\LaravelFilemanager\Events\FolderWasMoving
+  * UniSharp\LaravelFilemanager\Events\FolderIsDeleting
+  * UniSharp\LaravelFilemanager\Events\FolderWasDeleted
 
 ## How to use
  * Sample code : [laravel-filemanager-demo-events](https://github.com/UniSharp/laravel-filemanager-demo-events)
