@@ -3,7 +3,7 @@
 <p align="center">
   <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/downloads"></a>
   <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/packagist/dm/unisharp/laravel-filemanager.svg"></a>
-  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/badge/stable-2.4.0-blue.svg"></a>
+  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/badge/stable-2.4.1-blue.svg"></a>
   <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/license"></a>
   <br>
   <a href="https://github.styleci.io/repos/39873788?branch=master"><img src="https://github.styleci.io/repos/39873788/shield?branch=master" alt="StyleCI"></a>
@@ -39,11 +39,11 @@
  * RWD user interface, and can be entirely customized
  * Supporting multiple files selection
  * Supporting cloud storages integration(with Laravel file system)
- * Multiple integration options: 
+ * Multiple integration options:
     * WYSIWYG editors integration (CKEditor, TinyMCE, Summernote)
     * Standalone upload button
     * Iframe
- * Multi-user mode: 
+ * Multi-user mode:
     * Shared folders: all users can upload and manage files
     * Private folders: dedicated folder for each user, only the owner can upload or manage files within
  * Customizable routes, middlewares, views, and folder path
