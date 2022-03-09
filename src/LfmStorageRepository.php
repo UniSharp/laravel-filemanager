@@ -3,7 +3,6 @@
 namespace UniSharp\LaravelFilemanager;
 
 use Illuminate\Support\Facades\Storage;
-use League\Flysystem\Cached\CachedAdapter;
 
 class LfmStorageRepository
 {
@@ -26,13 +25,7 @@ class LfmStorageRepository
 
     public function rootPath()
     {
-        $adapter = $this->disk->getDriver()->getAdapter();
-
-        if ($adapter instanceof CachedAdapter) {
-            $adapter = $adapter->getAdapter();
-        }
-
-        return $adapter->getPathPrefix();
+        return $this->disk->path('');
     }
 
     public function move($new_lfm_path)
