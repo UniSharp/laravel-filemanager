@@ -78,7 +78,7 @@ class LfmUploadValidator
     public function mimeTypeIsValid($available_mime_types)
     {
         $mimetype = $this->file->getMimeType();
-        $extension = $this->file->getClientOriginalExtension();
+        $extension = $this->file->extension();
 
         if (false === in_array($mimetype, $available_mime_types) || false === in_array($extension, array_keys($available_mime_types))) {
             throw new InvalidMimeTypeException($mimetype);
