@@ -210,6 +210,10 @@ class LfmPath
             return strcasecmp($a->{$key_to_sort}, $b->{$key_to_sort});
         });
 
+        if (config('lfm.is_reverse_view', false)) {
+            return array_reverse($arr_items);
+        }
+
         return $arr_items;
     }
 
