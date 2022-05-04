@@ -39,6 +39,7 @@ return [
     'message-name'        => 'Mapnaam:',
     'message-rename'      => 'Hernoemen naar:',
     'message-extension_not_found' => 'Installeer de GD of Imagick extensie om afbeeldingen te kunnen bewerken.',
+    'message-drop'        => 'Of sleep bestanden naar hier om te uploaden',
 
     'error-rename'        => 'Bestandsnaam is al in gebruik!',
     'error-file-empty'    => 'U dient een bestand te kiezen!',
