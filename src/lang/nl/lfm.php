@@ -61,6 +61,7 @@ return [
     'btn-close'           => 'Sluiten',
     'btn-crop'            => 'Bijsnijden',
     'btn-copy-crop'       => 'Kopiëren & Bijsnijden',
+    'btn-crop-free'       => 'Vrij',
     'btn-cancel'          => 'Annuleren',
     'btn-confirm'         => 'Bevestigen',
     'btn-resize'          => 'Formaat aanpassen',
