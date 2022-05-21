@@ -119,6 +119,9 @@ return [
     // Item Columns
     'item_columns' => ['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url'],
 
+    // Sorting : available : default (name) | time
+    'default_sort' => 'time',
+
     /*
     |--------------------------------------------------------------------------
     | Thumbnail

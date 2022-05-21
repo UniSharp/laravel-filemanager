@@ -20,7 +20,13 @@ class ItemsController extends LfmController
         $currentPage = self::getCurrentPageFromRequest();
 
         $perPage = $this->helper->getPaginationPerPage();
-        $items = array_merge($this->lfm->folders(), $this->lfm->files());
+
+        if (config('lfm.default_sort') == 'time') {
+            $items = array_merge($this->lfm->folders(), array_reverse($this->lfm->files()));
+        } else {
+            $items = array_merge($this->lfm->folders(), $this->lfm->files());
+        }
+
 
         return [
             'items' => array_map(function ($item) {
