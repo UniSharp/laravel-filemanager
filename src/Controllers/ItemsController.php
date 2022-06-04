@@ -11,6 +11,26 @@ use UniSharp\LaravelFilemanager\Events\FolderWasMoving;
 class ItemsController extends LfmController
 {
     /**
+     * @return mixed
+     */
+    private static function getKeywordFromRequest()
+    {
+        return request()->get('keyword', "");
+    }
+
+
+    /**
+     * @return int
+     */
+    private static function getCurrentPageFromRequest(): int
+    {
+        $currentPage = (int) request()->get('page', 1);
+
+        return max($currentPage, 1);
+    }
+
+
+    /**
      * Get the images to load for a selected folder.
      *
      * @return mixed
@@ -55,12 +75,22 @@ class ItemsController extends LfmController
         ];
     }
 
+
+    public function like_match($pattern, $subject)
+    {
+        $pattern = str_replace('%', '.*', preg_quote($pattern, '/'));
+
+        return (bool) preg_match("/^{$pattern}$/i", $subject);
+    }
+
+
     public function move()
     {
         $items = request('items');
         $folder_types = array_filter(['user', 'share'], function ($type) {
             return $this->helper->allowFolderType($type);
         });
+
         return view('laravel-filemanager::move')
             ->with([
                 'root_folders' => array_map(function ($type) use ($folder_types) {
@@ -70,12 +100,13 @@ class ItemsController extends LfmController
                         'name' => trans('laravel-filemanager::lfm.title-' . $type),
                         'url' => $path->path('working_dir'),
                         'children' => $path->folders(),
-                        'has_next' => ! ($type == end($folder_types)),
+                        'has_next' => !($type == end($folder_types)),
                     ];
                 }, $folder_types),
             ])
             ->with('items', $items);
     }
+
 
     public function domove()
     {
@@ -110,16 +141,8 @@ class ItemsController extends LfmController
             } else {
                 event(new FileWasMoving($old_path, $new_file->path()));
             }
-        };
+        }
 
         return parent::$success_response;
-    }
-
-    private static function getCurrentPageFromRequest()
-    {
-        $currentPage = (int) request()->get('page', 1);
-        $currentPage = $currentPage < 1 ? 1 : $currentPage;
-
-        return $currentPage;
     }
 }
