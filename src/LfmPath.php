@@ -280,6 +280,13 @@ class LfmPath
             $new_file_name = preg_replace('/[^A-Za-z0-9\-\']/', '_', $new_file_name);
         }
 
+        // Swap "#" with "_" in file name
+        $new_file_name = str_replace('#', '_', $new_file_name);
+
+        if (config('lfm.cyrillic_to_latin') === true) {
+            $new_file_name = $this->helper->convertCyrillicToLatin($new_file_name);
+        }
+
         if ($extension) {
             $new_file_name_with_extention = $new_file_name . '.' . $extension;
         }
