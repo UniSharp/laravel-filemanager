@@ -11,7 +11,7 @@ return [
     'nav-sort-time'       => 'Vaqt bo`yicha saralash',
 
     'menu-rename'   => 'Qayta nomlash',
-    'menu-delete'   => "o'chirish",
+    'menu-delete'   => "O'chirish",
     'menu-view'     => 'Ko`rish',
     'menu-download' => 'Yuklab olish',
     'menu-resize'   => 'Oʻlchamini oʻzgartirish',
@@ -39,7 +39,7 @@ return [
     'message-name'                => 'Jild nomi:',
     'message-rename'              => 'Nomni o`zgartirish:',
     'message-extension_not_found' => 'Tasvirlarni kesish, o‘lchamini o‘zgartirish va eskizlarini yaratish uchun gd yoki imagick kengaytmasini o‘rnating.',
-    'message-drop'                => 'Yoki yuklash uchun fayllarni shu yerga qoldiring',
+    'message-drop'                => 'Yoki yuklash uchun fayllarni shu yerga sudrab olib kelib tashlang',
 
     'error-rename'           => 'Bunday nomli fayl avvaldan mavjud!',
     'error-file-name'        => 'Fayl nomi boʻsh boʻlishi mumkin emas!',
