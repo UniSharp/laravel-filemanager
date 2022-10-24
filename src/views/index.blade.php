@@ -105,6 +105,7 @@
     </div>
 
     <div id="fab"></div>
+    <div id="type-select"></div>
   </div>
 
   <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

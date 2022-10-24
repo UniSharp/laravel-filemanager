@@ -9,6 +9,8 @@ return [
     'nav-sort'          => 'Sırala',
     'nav-sort-alphabetic'=> 'A-Z Sırala',
     'nav-sort-time'     => 'Zamana Görə Sırala',
+    'nav-type-image'     => 'şəkillər',
+    'nav-type-file'     => 'Qovluqlar',
 
     'menu-rename'       => 'Ad dəyişmək',
     'menu-delete'       => 'Sil',
