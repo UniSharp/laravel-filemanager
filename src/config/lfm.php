@@ -100,9 +100,11 @@ return [
 
     'rename_duplicates'        => false,
 
-    'alphanumeric_filename'    => false,
+    'slug_filename' => false,
 
-    'alphanumeric_directory'   => false,
+    'alphanumeric_directory' => false,
+
+    'alphanumeric_filename'    => false,
 
     'should_validate_size'     => false,
 

@@ -4,7 +4,7 @@ namespace UniSharp\LaravelFilemanager\Controllers;
 
 use UniSharp\LaravelFilemanager\Events\FolderIsCreating;
 use UniSharp\LaravelFilemanager\Events\FolderWasCreated;
-
+use Illuminate\Support\Str;
 class FolderController extends LfmController
 {
     /**
@@ -42,6 +42,8 @@ class FolderController extends LfmController
     {
         $folder_name = $this->helper->input('name');
 
+        $folder_name = Str::slug($folder_name, '_');
+
         $new_path = $this->lfm->setName($folder_name)->path('absolute');
 
         event(new FolderIsCreating($new_path));
@@ -51,8 +53,6 @@ class FolderController extends LfmController
                 return $this->helper->error('folder-name');
             } elseif ($this->lfm->setName($folder_name)->exists()) {
                 return $this->helper->error('folder-exist');
-            } elseif (config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $folder_name)) {
-                return $this->helper->error('folder-alnum');
             } else {
                 $this->lfm->setName($folder_name)->createFolder();
             }

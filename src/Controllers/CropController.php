@@ -42,9 +42,14 @@ class CropController extends LfmController
         $crop_info = request()->only('dataWidth', 'dataHeight', 'dataX', 'dataY');
 
         // crop image
-        Image::make($image_path)
-            ->crop(...array_values($crop_info))
-            ->save($crop_path);
+        $name = $this->helper->getNameFromPath($image_path);
+
+        $imagefile = $this->lfm->pretty($image_path);
+
+        $image = Image::make($imagefile->get())
+            ->crop(...array_values($crop_info));
+
+        $this->lfm->setName($name)->storage->put($image->stream());
 
         // make new thumbnail
         $this->lfm->generateThumbnail($image_name);

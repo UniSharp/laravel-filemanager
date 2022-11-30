@@ -116,6 +116,24 @@ Detail options are explained here:
 
 ## Upload / Validation:
 
+| Key                        | Type    | Description                                                               |
+|----------------------------|---------|---------------------------------------------------------------------------|
+| disk (Alpha version only)  | string  | Correspond to `disks` section in `config/filesystems.php`.                |
+| rename_file                | string  | If true, the uploaded file will be renamed to uniqid() + file extension.  |
+| alphanumeric_filename      | boolean | If  true, non-alphanumeric file name will be replaced with `_`.           |
+| slug_filename              | boolean | If  true, use Str::slug class Laravel method generates a URL friendly     |
+| alphanumeric_directory     | boolean | If true, non-alphanumeric folder name will be rejected.                   |
+| should\_validate\_size     | boolean | If true, the size of uploading file will be verified.                     |
+| max\_image\_size           | int     | Specify max size of uploading image.                                      |
+| max\_file\_size            | int     | Specify max size of uploading file.                                       |
+| should\_validate\_mime     | boolean | If true, the mime type of uploading file will be verified.                |
+| valid\_image\_mimetypes    | array   | Array of mime types. Available since v1.3.0 .                             |
+| should\_create\_thumbnails | boolean | If true, thumbnails will be created for faster loading.                   |
+| raster\_mimetypes          | array   | Array of mime types. Thumbnails will be created only for these mimetypes. |
+| create\_folder\_mode       | int     | Permission setting for folders created by this package.                   |
+| create\_file\_mode         | int     | Permission setting for files uploaded to this package.                    |
+| should\_change\_file\_mode | boolean | If true, it will attempt to chmod the file after upload                   |
+| valid\_file\_mimetypes     | array   | Array of mime types. Available since v1.3.0 .                             |
 ### disk
 
 * type: `string`
