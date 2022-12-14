@@ -52,7 +52,7 @@ return [
     'error-folder-alnum'=> 'フォルダ名は英数字のみ使用可能です!',
     'error-folder-not-found'=> 'フォルダが見つかりません! (:folder)',
     'error-mime'        => '予期しないMimeType: ',
-	'error-size'		=> '限界サイズ:',
+	'error-size'        => '限界サイズ:',
     'error-instance'    => 'アップロードされたファイルはUploadedFileのインスタンスでなければなりません',
     'error-invalid'     => 'アップロードリクエストが無効です',
     'error-other'       => 'エラーが発生しました: ',
