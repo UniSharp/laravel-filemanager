@@ -212,7 +212,7 @@ class Lfm
      */
     public function allowShareFolder()
     {
-        if (! $this->allowMultiUser()) {
+        if (!$this->allowMultiUser()) {
             return true;
         }
 
@@ -233,8 +233,11 @@ class Lfm
      */
     public function translateFromUtf8($input)
     {
+
         if ($this->isRunningOnWindows()) {
-            $input = iconv('UTF-8', mb_detect_encoding($input), $input);
+            if (gettype($input) == 'string') {
+                $input = iconv('UTF-8', mb_detect_encoding($input), $input);
+            }
         }
 
         return $input;
@@ -284,7 +287,7 @@ class Lfm
      */
     public static function routes()
     {
-        $middleware = [ CreateDefaultFolder::class, MultiUser::class ];
+        $middleware = [CreateDefaultFolder::class, MultiUser::class];
         $as = 'unisharp.lfm.';
         $namespace = '\\UniSharp\\LaravelFilemanager\\Controllers\\';
 
@@ -295,6 +298,18 @@ class Lfm
                 'uses' => 'LfmController@show',
                 'as' => 'show',
             ]);
+
+            // if use auth via token, check authenticate 
+            Route::get('/checkauhenticate', [
+                'uses' => 'LfmController@checkAuthenticate',
+                'as' => 'checkAuthenticate',
+            ]);
+        });
+
+
+        $config_middleware = \config('lfm.middleware') ?? [];
+        $middleware = array_merge($middleware, $config_middleware);
+        Route::group(compact('middleware', 'as', 'namespace'), function () {
 
             // display integration error messages
             Route::get('/errors', [

@@ -4,6 +4,9 @@ var sort_type = 'alphabetic';
 var multi_selection_enabled = false;
 var selected = [];
 var items = [];
+var key_auth_token = 'key_auth_token';
+var route_check_authenticate = 'route_check_authenticate';
+var no_authenticate_redirect_to = 'no_authenticate_redirect_to'
 
 $.fn.fab = function (options) {
   var menu = this;
@@ -258,28 +261,72 @@ function setOpenFolders() {
 // ====================
 
 function performLfmRequest(url, parameter, type) {
-  var data = defaultParameters();
 
+  var data = defaultParameters();
+  
   if (parameter != null) {
     $.each(parameter, function (key, value) {
       data[key] = value;
     });
   }
 
-  return $.ajax({
-    type: 'GET',
-    beforeSend: function(request) {
-      var token = getUrlParam('token');
-      if (token !== null) {
-        request.setRequestHeader("Authorization", 'Bearer ' + token);
+  const request = (token) => {
+    return $.ajax({
+        type: "GET",
+        beforeSend: async function(request) {
+            if (token !== null) {
+                request.setRequestHeader("Authorization", "Bearer " + token);
+            }
+        },
+        dataType: type || "text",
+        url: lfm_route + "/" + url,
+        data: data,
+        cache: false
+    });
+  }
+
+  // If authenticate with token, this step check authenticate
+  var keyAuthToken = localStorage.getItem(key_auth_token);
+  if (keyAuthToken != null && keyAuthToken != "") {
+    var token = localStorage.getItem(keyAuthToken);
+    var urlApiAuthenticate = localStorage.getItem(route_check_authenticate);
+    return $.ajax({
+        method: "GET",
+        url: urlApiAuthenticate,
+        headers: {
+            Authorization: "Bearer " + token
+        },
+        cache: false
+    }).then(response => {
+      return request(token).catch(({statusText}) => {
+        let redirect_to = localStorage.getItem(no_authenticate_redirect_to);
+        return displayErrorResponseFromApi(statusText, redirect_to);
+      });
+    }).catch(({responseJSON: { data, message}, status}) => {
+      if(status == 401){
+        let { authorization, redirect_to } = data; 
+        return displayErrorResponseFromApi(message, redirect_to)
+      } else {
+        let redirect_to = localStorage.getItem(no_authenticate_redirect_to); 
+        displayErrorResponseFromApi(message, redirect_to);
       }
-    },
-    dataType: type || 'text',
-    url: lfm_route + '/' + url,
-    data: data,
-    cache: false
-  }).fail(function (jqXHR, textStatus, errorThrown) {
-    displayErrorResponse(jqXHR);
+      return Promise.resolve()
+    });
+  } else {
+    var token = getUrlParam("token");
+    return request(token).fail(function(jqXHR, textStatus, errorThrown) {
+        displayErrorResponse(jqXHR);
+    });
+  }
+}
+
+function displayErrorResponseFromApi(message, urlRedirectBack){
+  notifyAuthenticate(`
+    <div style="max-height:50vh;">
+      <p>${message}</p>
+    </div>
+  `, () => {
+    window.location.replace(urlRedirectBack)
   });
 }
 
@@ -792,6 +839,15 @@ function defaultParameters() {
 
 function notImp() {
   notify('Not yet implemented!');
+}
+
+function notifyAuthenticate(body, callback = null){
+  $("#notify")
+      .find(".btn-secondary")
+      .unbind()
+      .click(callback);
+  $('#notify').modal('show').find('.modal-body').html(body)
+  $('#notify').find('.btn-primary').hide();
 }
 
 function notify(body, callback) {
