@@ -1,6 +1,6 @@
 {
   "name": "unisharp/laravel-filemanager",
-  "description": "A file upload/editor intended for use with Laravel 5 to 6 and CKEditor / TinyMCE",
+  "description": "A file upload/editor intended for use with Laravel 5 to 10 and CKEditor / TinyMCE",
   "license": "MIT",
   "keywords": [
     "filemanager",
