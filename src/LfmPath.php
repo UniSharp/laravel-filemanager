@@ -110,12 +110,19 @@ class LfmPath
     public function files()
     {
         $files = array_map(function ($file_path) {
-            return $this->pretty($file_path);
+            $file = $this->pretty($file_path);
+            $file_mime = mime_content_type($this->storage->rootPath() . $file_path);
+            if ($this->helper->availableMimeTypes() == "*" || (is_array($this->helper->availableMimeTypes()) && in_array($file_mime, $this->helper->availableMimeTypes())))
+                return $file;
+            else
+                return null;
+            return $file;
         }, $this->storage->files());
 
+        $files = array_filter($files);
         return $this->sortByColumn($files);
     }
-
+    
     public function pretty($item_path, $isDirectory = false)
     {
         return Container::getInstance()->makeWith(LfmItem::class, [
