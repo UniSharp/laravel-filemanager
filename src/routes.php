@@ -60,7 +60,7 @@ Route::group(compact('middleware', 'prefix', 'as', 'namespace'), function () {
     ]);
     Route::get('/cropnewimage', [
         'uses' => 'CropController@getNewCropimage',
-        'as' => 'getCropimage',
+        'as' => 'getNewCropimage',
     ]);
 
     // rename
