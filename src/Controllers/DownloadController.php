@@ -23,8 +23,7 @@ class DownloadController extends LfmController
             return response()->streamDownload(
                 function () {
                     echo file_get_contents($disk->temporaryUrl($file->path('storage'), now()->addMinutes($duration)));
-                }, $file_name,
-            );
+                }, $file_name);
         } else {
             return response()->download($file->path('absolute'));
         }
