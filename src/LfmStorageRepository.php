@@ -45,12 +45,10 @@ class LfmStorageRepository
     {
         $config = $this->disk->getConfig();
 
-        if (key_exists('driver', $config) && $config['driver'] == 's3')
-        
-            $duration = $this->helper->config('s3.temporary_url_expiration');
+        if (key_exists('driver', $config) && $config['driver'] == 's3') {
+            $duration = $this->helper->config('temporary_url_duration');
             return $this->disk->temporaryUrl($path, now()->addMinutes($duration));
-
-        else {
+        } else {
             return $this->disk->url($path);
         }
     }
