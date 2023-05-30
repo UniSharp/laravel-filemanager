@@ -20,11 +20,9 @@ class DownloadController extends LfmController
 
         if (key_exists('driver', $config) && $config['driver'] == 's3') {
             $duration = $this->helper->config('temporary_url_duration');
-            return response()->streamDownload(
-                function () {
+            return response()->streamDownload(function () {
                     echo file_get_contents($disk->temporaryUrl($file->path('storage'), now()->addMinutes($duration)));
-                }, $file_name
-            );
+                }, $file_name);
         } else {
             return response()->download($file->path('absolute'));
         }
