@@ -73,7 +73,7 @@ class LfmUploadValidator
         return $this;
     }
 
-    function hasAllowedExtension($allowed_extensions)
+    public function hasAllowedExtension($allowed_extensions)
     {
         $extension = $this->file->getClientOriginalExtension();
 
