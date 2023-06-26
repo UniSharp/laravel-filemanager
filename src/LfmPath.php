@@ -263,6 +263,8 @@ class LfmPath
             $validator->sizeIsLowerThanConfiguredMaximum($this->helper->maxUploadSize());
         }
 
+        $validator->hasAllowedExtension(config('lfm.allowed_extensions', ['jpg', 'png', 'gif', 'jpeg']));
+
         return true;
     }
 
@@ -289,11 +291,11 @@ class LfmPath
             $file_name_without_extentions = $new_file_name;
             while ($this->setName(($extension) ? $new_file_name_with_extention : $new_file_name)->exists()) {
                 if (config('lfm.alphanumeric_filename') === true) {
-                    $suffix = '_'.$counter;
+                    $suffix = '_' . $counter;
                 } else {
                     $suffix = " ({$counter})";
                 }
-                $new_file_name = $file_name_without_extentions.$suffix;
+                $new_file_name = $file_name_without_extentions . $suffix;
 
                 if ($extension) {
                     $new_file_name_with_extention = $new_file_name . '.' . $extension;

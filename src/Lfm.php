@@ -162,7 +162,7 @@ class Lfm
     {
         return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.valid_mime');
     }
-    
+
     public function shouldCreateCategoryThumb()
     {
         return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.thumb');
@@ -212,7 +212,7 @@ class Lfm
      */
     public function allowShareFolder()
     {
-        if (! $this->allowMultiUser()) {
+        if (!$this->allowMultiUser()) {
             return true;
         }
 
@@ -284,7 +284,7 @@ class Lfm
      */
     public static function routes()
     {
-        $middleware = [ CreateDefaultFolder::class, MultiUser::class ];
+        $middleware = [CreateDefaultFolder::class, MultiUser::class];
         $as = 'unisharp.lfm.';
         $namespace = '\\UniSharp\\LaravelFilemanager\\Controllers\\';
 

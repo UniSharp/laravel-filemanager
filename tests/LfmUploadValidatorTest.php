@@ -9,6 +9,7 @@ use UniSharp\LaravelFilemanager\Exceptions\ExcutableFileException;
 use UniSharp\LaravelFilemanager\Exceptions\FileFailedToUploadException;
 use UniSharp\LaravelFilemanager\Exceptions\FileSizeExceedConfigurationMaximumException;
 use UniSharp\LaravelFilemanager\Exceptions\FileSizeExceedIniMaximumException;
+use UniSharp\LaravelFilemanager\Exceptions\InvalidExtensionException;
 use UniSharp\LaravelFilemanager\Exceptions\InvalidMimeTypeException;
 use UniSharp\LaravelFilemanager\LfmPath;
 use UniSharp\LaravelFilemanager\LfmUploadValidator;
@@ -156,5 +157,33 @@ class LfmUploadValidatorTest extends TestCase
         $this->expectException(FileSizeExceedConfigurationMaximumException::class);
 
         $validator->sizeIsLowerThanConfiguredMaximum(1000);
+    }
+
+    public function testPassesHasAllowedExtension()
+    {
+        $uploaded_file = m::mock(UploadedFile::class);
+        $uploaded_file->shouldReceive('getMimeType')->andReturn('image/jpeg');
+
+        $uploaded_file->shouldReceive('getClientOriginalExtension')->andReturn('jpg');
+
+        $validator = new LfmUploadValidator($uploaded_file);
+        $allowed_extensions = ['jpg', 'png', 'gif', 'jpeg'];
+
+        $this->assertEquals($validator->hasAllowedExtension($allowed_extensions), $validator);
+    }
+
+    public function testFailsHasAllowedExtension()
+    {
+        $uploaded_file = m::mock(UploadedFile::class);
+        $uploaded_file->shouldReceive('get')->andReturn('GIF89a; <?php echo "hello"; ?>');
+        $uploaded_file->shouldReceive('getMimeType')->andReturn('image/gif');
+        $uploaded_file->shouldReceive('getClientOriginalExtension')->andReturn('php');
+
+        $validator = new LfmUploadValidator($uploaded_file);
+
+        $this->expectException(InvalidExtensionException::class);
+
+        $allowed_extensions = ['jpg', 'png', 'gif', 'jpeg'];
+        $this->assertTrue($validator->hasAllowedExtension($allowed_extensions));
     }
 }

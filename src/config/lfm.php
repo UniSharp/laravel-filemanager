@@ -116,6 +116,9 @@ return [
     // mimetypes of executables to prevent from uploading
     'disallowed_mimetypes' => ['text/x-php', 'text/html', 'text/plain'],
 
+    // allowed file extensions
+    'allowed_extensions' => ['jpg', 'png', 'gif'],
+
     // Item Columns
     'item_columns' => ['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url'],
 

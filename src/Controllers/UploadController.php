@@ -49,7 +49,7 @@ class UploadController extends LfmController
         } else { // upload via ckeditor5 expects json responses
             if (is_null($new_filename)) {
                 $response = [
-                    'error' => [ 'message' =>  $error_bag[0] ]
+                    'error' => ['message' =>  $error_bag[0]]
                 ];
             } else {
                 $url = $this->lfm->setName($new_filename)->url();
