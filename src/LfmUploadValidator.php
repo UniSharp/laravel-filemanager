@@ -78,7 +78,7 @@ class LfmUploadValidator
         $extension = $this->file->getClientOriginalExtension();
 
         if (!in_array($extension, $allowed_extensions)) {
-            throw new InvalidExtensionException($extension);
+            throw new InvalidExtensionException();
         }
 
         return $this;
