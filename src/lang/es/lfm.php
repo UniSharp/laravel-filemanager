@@ -65,6 +65,7 @@ return [
     'btn-crop-free'     => 'Libre',
     'btn-confirm'       => 'Confirmar',
     'btn-open'          => 'Abrir carpeta',
+    
 
     'resize-ratio'      => 'Ratio:',
     'resize-scaled'     => 'Imagen escalada:',
