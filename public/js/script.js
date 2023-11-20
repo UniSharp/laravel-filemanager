@@ -61,7 +61,7 @@ $(document).ready(function () {
   });
 
   sortings.forEach(function (sort) {
-    $('#nav-buttons .dropdown-menu').append(
+    $('#nav-buttons .dropdown-menu-sort').append(
       $('<a>').addClass('dropdown-item').attr('data-sortby', sort.by)
         .append($('<span>').text(sort.label))
         .click(function() {
