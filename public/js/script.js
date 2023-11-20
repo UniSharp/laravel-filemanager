@@ -63,7 +63,6 @@ $(document).ready(function () {
   sortings.forEach(function (sort) {
     $('#nav-buttons .dropdown-menu').append(
       $('<a>').addClass('dropdown-item').attr('data-sortby', sort.by)
-        .append($('<i>').addClass('fas fa-fw fa-' + sort.icon))
         .append($('<span>').text(sort.label))
         .click(function() {
           sort_type = sort.by;
@@ -433,7 +432,7 @@ function createPagination(paginationSetting) {
 
 function loadItems(page) {
   loading(true);
-  performLfmRequest('jsonitems', {show_list: show_list, sort_type: sort_type, page: page || 1}, 'html')
+  performLfmRequest('jsonitems', {show_list: show_list, sort_type: sort_type, sort_order: sort_order, page: page || 1}, 'html')
     .done(function (data) {
       selected = [];
       var response = JSON.parse(data);

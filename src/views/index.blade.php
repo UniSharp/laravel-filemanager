@@ -271,12 +271,12 @@
       {
         order: 'asc',
         icon: 'sort-alpha-up',
-        label: lang['nav-order-asc']
+        label: lang['nav-sort-order-asc']
       },
       {
         order: 'desc',
         icon: 'sort-numeric-up',
-        label: lang['nav-order-desc']
+        label: lang['nav-sort-order-desc']
       }
     ];
   </script>
