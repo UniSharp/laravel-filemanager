@@ -73,7 +73,7 @@ $(document).ready(function () {
   });
 
   orderbys.forEach(function (sortingOption) {
-    $('#nav-buttons .dropdown-menu').append(
+    $('#nav-buttons .dropdown-menu-order').append(
         $('<a>').addClass('dropdown-item').attr('data-sortorder', sortingOption.order)
             .append($('<i>').addClass('fas fa-fw fa-' + sortingOption.icon))
             .append($('<span>').text(sortingOption.label))
