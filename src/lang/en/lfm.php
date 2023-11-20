@@ -10,8 +10,8 @@ return [
     'nav-order'          => 'Order',
     'nav-sort-alphabetic'=> 'Sort By Alphabets',
     'nav-sort-time'     => 'Sort By Time',
-    'nav-sort-order-asc' => 'Order By ASC',
-    'nav-sort-order-desc' => 'Order By DESC',
+    'nav-sort-order-asc' => 'ASC',
+    'nav-sort-order-desc' => 'DESC',
 
     'menu-rename'       => 'Rename',
     'menu-delete'       => 'Delete',
