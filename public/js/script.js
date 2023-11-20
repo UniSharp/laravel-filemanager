@@ -1,6 +1,7 @@
 var lfm_route = location.origin + location.pathname;
 var show_list;
 var sort_type = 'alphabetic';
+var sort_order = 'asc';
 var multi_selection_enabled = false;
 var selected = [];
 var items = [];
@@ -68,6 +69,18 @@ $(document).ready(function () {
           sort_type = sort.by;
           loadItems();
         })
+    );
+  });
+
+  orderbys.forEach(function (sortingOption) {
+    $('#nav-buttons .dropdown-menu').append(
+        $('<a>').addClass('dropdown-item').attr('data-sortorder', sortingOption.order)
+            .append($('<i>').addClass('fas fa-fw fa-' + sortingOption.icon))
+            .append($('<span>').text(sortingOption.label))
+            .click(function() {
+              sort_order = sortingOption.order;
+              loadItems();
+            })
     );
   });
 

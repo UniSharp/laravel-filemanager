@@ -259,6 +259,19 @@
         label: lang['nav-sort-time']
       }
     ];
+
+    var orderbys = [
+      {
+        order: 'asc',
+        icon: 'sort-alpha-up',
+        label: lang['nav-order-asc']
+      },
+      {
+        order: 'desc',
+        icon: 'sort-numeric-up',
+        label: lang['nav-order-desc']
+      }
+    ];
   </script>
   <script>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/script.js')) !!}</script>
   {{-- Use the line below instead of the above if you need to cache the script. --}}
