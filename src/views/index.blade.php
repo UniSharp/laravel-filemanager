@@ -67,7 +67,7 @@
 
         <li class="nav-item dropdown dropdown-menu-order">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-sort fa-fw"></i>{{ trans('laravel-filemanager::lfm.nav-sort') }}
+            <i class="fas fa-sort fa-fw"></i>{{ trans('laravel-filemanager::lfm.nav-order') }}
           </a>
           <div class="dropdown-menu dropdown-menu-right border-0"></div>
         </li>
