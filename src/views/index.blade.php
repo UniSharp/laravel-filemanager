@@ -66,10 +66,10 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" id="dropdown-order" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-sort fa-fw"></i>{{ trans('laravel-filemanager::lfm.nav-order') }}
           </a>
-          <div class="dropdown-menu-order dropdown-menu-right border-0"></div>
+          <div aria-labelledby="dropdown-order" class="dropdown-menu-order dropdown-menu-right border-0"></div>
         </li>
       </ul>
     </div>
