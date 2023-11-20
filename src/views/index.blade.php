@@ -275,7 +275,7 @@
       },
       {
         order: 'desc',
-        icon: 'sort-numeric-up',
+        icon: 'sort-alpha-down',
         label: lang['nav-sort-order-desc']
       }
     ];
