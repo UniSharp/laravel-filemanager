@@ -597,7 +597,7 @@ function preview(items) {
     }
 
     carouselItem.find('.carousel-label').attr('target', '_blank').attr('href', item.url)
-      .append(item.name)
+      .text(item.name)
       .append($('<i class="fas fa-external-link-alt ml-2"></i>'));
 
     carousel.children('.carousel-inner').append(carouselItem);
