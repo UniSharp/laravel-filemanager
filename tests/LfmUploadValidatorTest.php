@@ -92,17 +92,17 @@ class LfmUploadValidatorTest extends TestCase
         $validator->nameIsNotDuplicate('new_file_name', $lfm_path);
     }
 
-    public function testPassesIsNotExcutable()
+    public function testPassesMimetypeIsNotExcutable()
     {
         $uploaded_file = m::mock(UploadedFile::class);
         $uploaded_file->shouldReceive('getMimeType')->andReturn('image/jpeg');
 
         $validator = new LfmUploadValidator($uploaded_file);
 
-        $this->assertEquals($validator->isNotExcutable(), $validator);
+        $this->assertEquals($validator->mimetypeIsNotExcutable(['text/x-php']), $validator);
     }
 
-    public function testFailsIsNotExcutable()
+    public function testFailsMimetypeIsNotExcutable()
     {
         $uploaded_file = m::mock(UploadedFile::class);
         $uploaded_file->shouldReceive('getMimeType')->andReturn('text/x-php');
@@ -111,7 +111,7 @@ class LfmUploadValidatorTest extends TestCase
 
         $this->expectException(ExcutableFileException::class);
 
-        $validator->isNotExcutable();
+        $validator->mimetypeIsNotExcutable(['text/x-php']);
     }
 
     public function testPassesMimeTypeIsValid()

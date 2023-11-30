@@ -11,7 +11,7 @@ use UniSharp\LaravelFilemanager\LfmPath;
 
 class LfmPathTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
 

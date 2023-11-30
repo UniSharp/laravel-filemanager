@@ -13,7 +13,7 @@ class LfmStorageRepositoryTest extends TestCase
 {
     private $storage;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -24,6 +24,7 @@ class LfmStorageRepositoryTest extends TestCase
         $disk->shouldReceive('functionToCall')->with('foo/bar')->andReturn('baz');
         $disk->shouldReceive('directories')->with('foo')->andReturn(['foo/bar']);
         $disk->shouldReceive('move')->with('foo/bar', 'foo/bar/baz')->andReturn(true);
+        $disk->shouldReceive('path')->andReturn('foo/bar');
 
         $helper = m::mock(Lfm::class);
         $helper->shouldReceive('config')->with('disk')->andReturn('local');
@@ -33,7 +34,7 @@ class LfmStorageRepositoryTest extends TestCase
         $this->storage = new LfmStorageRepository('foo/bar', $helper);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
     }
