@@ -162,7 +162,7 @@ class Lfm
     {
         return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.valid_mime');
     }
-    
+
     public function shouldCreateCategoryThumb()
     {
         return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.thumb');
@@ -289,7 +289,6 @@ class Lfm
         $namespace = '\\UniSharp\\LaravelFilemanager\\Controllers\\';
 
         Route::group(compact('middleware', 'as', 'namespace'), function () {
-
             // display main layout
             Route::get('/', [
                 'uses' => 'LfmController@show',
