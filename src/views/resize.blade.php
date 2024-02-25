@@ -59,6 +59,7 @@
       </table>
       <div class="d-flex mb-3">
         <button class="btn btn-secondary w-50 mr-1" onclick="loadItems()">{{ trans('laravel-filemanager::lfm.btn-cancel') }}</button>
+        <button class="btn btn-warning w-50 mr-1" onclick="doResizeNew()">{{ trans('laravel-filemanager::lfm.btn-resize-copy') }}</button>
         <button class="btn btn-primary w-50" onclick="doResize()">{{ trans('laravel-filemanager::lfm.btn-resize') }}</button>
       </div>
 
@@ -115,6 +116,14 @@
 
   function doResize() {
     performLfmRequest('doresize', {
+      img: $("#img").val(),
+      dataHeight: $("#height").val(),
+      dataWidth: $("#width").val()
+    }).done(loadItems);
+  }
+
+  function doResizeNew() {
+    performLfmRequest('doresizenew', {
       img: $("#img").val(),
       dataHeight: $("#height").val(),
       dataWidth: $("#width").val()
