@@ -71,7 +71,7 @@ class DeleteController extends LfmController
         }
 
         if (count($errors) > 0) {
-            return $errors;
+            return response()->json($errors, 400);
         }
 
         return parent::$success_response;

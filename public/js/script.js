@@ -284,7 +284,11 @@ function performLfmRequest(url, parameter, type) {
 }
 
 function displayErrorResponse(jqXHR) {
-  notify('<div style="max-height:50vh;overflow: scroll;">' + jqXHR.responseText + '</div>');
+  var message = JSON.parse(jqXHR.responseText)
+  if (Array.isArray(message)) {
+    message = message.join('<br>')
+  }
+  notify('<div style="max-height:50vh;overflow: auto;">' + message + '</div>');
 }
 
 var refreshFoldersAndItems = function (data) {
@@ -540,7 +544,7 @@ function rename(item) {
 }
 
 function trash(items) {
-  notify(lang['message-delete'], function () {
+  confirm(lang['message-delete'], function () {
     performLfmRequest('delete', {
       items: items.map(function (item) { return item.name; })
     }).done(refreshFoldersAndItems)
@@ -794,10 +798,14 @@ function notImp() {
   notify('Not yet implemented!');
 }
 
-function notify(body, callback) {
-  $('#notify').find('.btn-primary').toggle(callback !== undefined);
-  $('#notify').find('.btn-primary').unbind().click(callback);
+function notify(body) {
   $('#notify').modal('show').find('.modal-body').html(body);
+}
+
+function confirm(body, callback) {
+  $('#confirm').find('.btn-primary').toggle(callback !== undefined);
+  $('#confirm').find('.btn-primary').click(callback);
+  $('#confirm').modal('show').find('.modal-body').html(body);
 }
 
 function dialog(title, value, callback) {
