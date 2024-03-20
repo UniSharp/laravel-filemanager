@@ -14,6 +14,6 @@ class DownloadController extends LfmController
             abort(404);
         }
 
-        return response()->download($file->path('absolute'));
+        return Storage::disk($this->helper->config('disk'))->download($file->path('storage'));
     }
 }
