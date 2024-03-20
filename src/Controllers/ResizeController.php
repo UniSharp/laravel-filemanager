@@ -52,14 +52,27 @@ class ResizeController extends LfmController
             ->with('ratio', $ratio);
     }
 
-    public function performResize()
+    public function performResize($overWrite = true)
     {
+        $image_name = request('img');
         $image_path = $this->lfm->setName(request('img'))->path('absolute');
+        $resize_path = $image_path;
+
+        if (! $overWrite) {
+            $fileParts = explode('.', $image_name);
+            $fileParts[count($fileParts) - 2] = $fileParts[count($fileParts) - 2] . '_resized_' . time();
+            $resize_path = $this->lfm->setName(implode('.', $fileParts))->path('absolute');
+        }
 
         event(new ImageIsResizing($image_path));
-        Image::make($image_path)->resize(request('dataWidth'), request('dataHeight'))->save();
+        Image::make($image_path)->resize(request('dataWidth'), request('dataHeight'))->save($resize_path);
         event(new ImageWasResized($image_path));
 
         return parent::$success_response;
+    }
+
+    public function performResizeNew()
+    {
+        $this->performResize(false);
     }
 }

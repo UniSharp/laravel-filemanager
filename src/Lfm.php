@@ -364,7 +364,10 @@ class Lfm
                 'uses' => 'ResizeController@performResize',
                 'as' => 'performResize',
             ]);
-
+            Route::get('/doresizenew', [
+                'uses' => 'ResizeController@performResizeNew',
+                'as' => 'performResizeNew',
+            ]);
             // download
             Route::get('/download', [
                 'uses' => 'DownloadController@getDownload',
