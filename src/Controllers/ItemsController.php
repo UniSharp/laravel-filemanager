@@ -58,7 +58,7 @@ class ItemsController extends LfmController
             ->with('items', $items);
     }
 
-    public function domove()
+    public function doMove()
     {
         $target = $this->helper->input('goToFolder');
         $items = $this->helper->input('items');

@@ -319,8 +319,8 @@ class Lfm
             ]);
 
             Route::get('/domove', [
-                'uses' => 'ItemsController@domove',
-                'as' => 'domove'
+                'uses' => 'ItemsController@doMove',
+                'as' => 'doMove'
             ]);
 
             // folders
@@ -341,12 +341,12 @@ class Lfm
                 'as' => 'getCrop',
             ]);
             Route::get('/cropimage', [
-                'uses' => 'CropController@getCropimage',
-                'as' => 'getCropimage',
+                'uses' => 'CropController@getCropImage',
+                'as' => 'getCropImage',
             ]);
             Route::get('/cropnewimage', [
-                'uses' => 'CropController@getNewCropimage',
-                'as' => 'getCropnewimage',
+                'uses' => 'CropController@getNewCropImage',
+                'as' => 'getNewCropImage',
             ]);
 
             // rename

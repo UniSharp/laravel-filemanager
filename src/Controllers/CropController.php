@@ -25,7 +25,7 @@ class CropController extends LfmController
     /**
      * Crop the image (called via ajax).
      */
-    public function getCropimage($overWrite = true)
+    public function getCropImage($overWrite = true)
     {
         $image_name = request('img');
         $image_path = $this->lfm->setName($image_name)->path('absolute');
@@ -52,7 +52,7 @@ class CropController extends LfmController
         event(new ImageWasCropped($image_path));
     }
 
-    public function getNewCropimage()
+    public function getNewCropImage()
     {
         $this->getCropimage(false);
     }
