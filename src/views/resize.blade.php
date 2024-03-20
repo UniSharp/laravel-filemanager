@@ -19,9 +19,9 @@
   <div class="row">
     <div class="col-md-8 bg-light" id="work_space">
       <div id="containment" class="d-none d-md-inline">
-        <img id="resize" src="{{ $img->url . '?timestamp=' . $img->time }}" height="{{ $height }}" width="{{ $width }}">
+        <img id="resize" src="{{ $img->url }}" height="{{ $height }}" width="{{ $width }}">
       </div>
-      <div id="resize_mobile" style="background-image: url({{ $img->url . '?timestamp=' . $img->time }})" class="d-block d-md-none"></div>
+      <div id="resize_mobile" style="background-image: url({{ $img->url }})" class="d-block d-md-none"></div>
     </div>
     <div class="col-md-4 pt-3">
       <table class="table table-compact table-striped">
