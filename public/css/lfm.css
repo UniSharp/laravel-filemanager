@@ -6,7 +6,7 @@ a {
   cursor: pointer;
 }
 
-#nav a, #fab a {
+#nav a, #fab a, #type-select a{
   color: white;
 }
 
@@ -324,9 +324,17 @@ time {
 
 .fab-wrapper {
   margin: 1.5rem;
-  right: 0;
-  bottom: 0;
   position: fixed;
+}
+
+.fab-wrapper.right-bottom{
+    right: 0;
+    bottom: 0;
+}
+
+.fab-wrapper.left-bottom{
+    left: 0;
+    bottom: 0;
 }
 
 .fab-wrapper .fab-button {
@@ -353,11 +361,18 @@ time {
   transition: transform 350ms;
 }
 
-.fab-wrapper.fab-expand .fab-toggle i {
+.fab-wrapper.fab-expand .fab-toggle i.rotate {
   -webkit-transform: scale(1) rotate(-225deg);
   transform: scale(1) rotate(-225deg);
   -webkit-transition: -webkit-transform 350ms;
   transition: transform 350ms;
+}
+
+.fab-wrapper.fab-expand .fab-toggle i.scale {
+    -webkit-transform: scale(1);
+    transform: scale(1.2);
+    -webkit-transition: -webkit-transform 350ms;
+    transition: transform 350ms;
 }
 
 .fab-wrapper .fab-action {
@@ -365,6 +380,13 @@ time {
   margin-bottom: -3.5rem;
   opacity: 0;
   transition: margin-bottom 350ms, opacity 350ms;
+}
+
+.fab-wrapper .fab-action.disabled{
+    pointer-events: none;
+    cursor: default;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
 }
 
 .fab-wrapper.fab-expand .fab-action {
@@ -384,4 +406,9 @@ time {
   font-size: .9rem;
   white-space: nowrap;
   content: attr(data-label);
+}
+
+.fab-wrapper.left-bottom .fab-action:before{
+    right: auto;
+    left: 4rem;
 }
