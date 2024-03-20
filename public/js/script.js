@@ -1,6 +1,7 @@
 var lfm_route = location.origin + location.pathname;
 var show_list;
 var sort_type = 'alphabetic';
+var sort_order = 'asc';
 var multi_selection_enabled = false;
 var selected = [];
 var items = [];
@@ -60,14 +61,25 @@ $(document).ready(function () {
   });
 
   sortings.forEach(function (sort) {
-    $('#nav-buttons .dropdown-menu').append(
+    $('#nav-buttons .dropdown-menu-sort').append(
       $('<a>').addClass('dropdown-item').attr('data-sortby', sort.by)
-        .append($('<i>').addClass('fas fa-fw fa-' + sort.icon))
         .append($('<span>').text(sort.label))
         .click(function() {
           sort_type = sort.by;
           loadItems();
         })
+    );
+  });
+
+  orderbys.forEach(function (sortingOption) {
+    $('#nav-buttons .dropdown-menu-order').append(
+        $('<a>').addClass('dropdown-item').attr('data-sortorder', sortingOption.order)
+            .append($('<i>').addClass('fas fa-fw fa-' + sortingOption.icon))
+            .append($('<span>').text(sortingOption.label))
+            .click(function() {
+              sort_order = sortingOption.order;
+              loadItems();
+            })
     );
   });
 
@@ -424,7 +436,7 @@ function createPagination(paginationSetting) {
 
 function loadItems(page) {
   loading(true);
-  performLfmRequest('jsonitems', {show_list: show_list, sort_type: sort_type, page: page || 1}, 'html')
+  performLfmRequest('jsonitems', {show_list: show_list, sort_type: sort_type, sort_order: sort_order, page: page || 1}, 'html')
     .done(function (data) {
       selected = [];
       var response = JSON.parse(data);
