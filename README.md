@@ -1,9 +1,10 @@
 <p align="center"><img src="https://unisharp.github.io/laravel-filemanager/images/logo_vertical_colored.png"></p>
 
 <p align="center">
+  <a href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/packagist/v/unisharp/laravel-filemanager" alt="Latest Stable Version"></a>
   <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/downloads"></a>
   <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/packagist/dm/unisharp/laravel-filemanager.svg"></a>
-  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/badge/stable-2.6.4-blue.svg"></a>
+  <!-- <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/badge/stable-2.6.4-blue.svg"></a> -->
   <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/license"></a>
   <br>
   <a href="https://github.styleci.io/repos/39873788?branch=master"><img src="https://github.styleci.io/repos/39873788/shield?branch=master" alt="StyleCI"></a>
