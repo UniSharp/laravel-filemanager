@@ -41,6 +41,13 @@ class UploadController extends LfmController
                     'trace' => $e->getTraceAsString()
                 ]);
                 array_push($error_bag, $e->getMessage());
+            } catch (\Error $e) {
+                Log::error($e->getMessage(), [
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                    'trace' => $e->getTraceAsString()
+                ]);
+                array_push($error_bag, 'Some error occured during uploading.');
             }
         }
 
