@@ -42,6 +42,7 @@ class CropController extends LfmController
         $crop_info = request()->only('dataWidth', 'dataHeight', 'dataX', 'dataY');
 
         // crop image
+        // TODO: support intervention/image v3
         Image::make($image_path)
             ->crop(...array_values($crop_info))
             ->save($crop_path);

@@ -65,6 +65,7 @@ class ResizeController extends LfmController
         }
 
         event(new ImageIsResizing($image_path));
+        // TODO: support intervention/image v3
         Image::make($image_path)->resize(request('dataWidth'), request('dataHeight'))->save($resize_path);
         event(new ImageWasResized($image_path));
 

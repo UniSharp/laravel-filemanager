@@ -3,7 +3,8 @@
 namespace UniSharp\LaravelFilemanager;
 
 use Illuminate\Container\Container;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\Facades\Image as InterventionImageV2;
+use Intervention\Image\Laravel\Facades\Image as InterventionImageV3;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use UniSharp\LaravelFilemanager\Events\FileIsUploading;
 use UniSharp\LaravelFilemanager\Events\FileWasUploaded;
@@ -234,7 +235,6 @@ class LfmPath
             \Log::info($e);
             return $this->error('invalid');
         }
-        // TODO should be "FileWasUploaded"
         event(new FileWasUploaded($new_file_path));
         event(new ImageWasUploaded($new_file_path));
 
@@ -322,9 +322,19 @@ class LfmPath
         $this->setName($file_name)->thumb(true);
         $thumbWidth = $this->helper->shouldCreateCategoryThumb() && $this->helper->categoryThumbWidth() ? $this->helper->categoryThumbWidth() : config('lfm.thumb_img_width', 200);
         $thumbHeight = $this->helper->shouldCreateCategoryThumb() && $this->helper->categoryThumbHeight() ? $this->helper->categoryThumbHeight() : config('lfm.thumb_img_height', 200);
-        $image = Image::make($original_image->get())
-            ->fit($thumbWidth, $thumbHeight);
 
-        $this->storage->put($image->stream()->detach(), 'public');
+        if (class_exists(InterventionImageV2::class)) {
+            $encoded_image = InterventionImageV2::make($original_image->get())
+                ->fit($thumbWidth, $thumbHeight)
+                ->stream()
+                ->detach();
+        } else {
+            $encoded_image = InterventionImageV3::read($original_image->get())
+                ->cover($thumbWidth, $thumbHeight)
+                ->encodeByMediaType();
+        }
+
+
+        $this->storage->put($encoded_image, 'public');
     }
 }
