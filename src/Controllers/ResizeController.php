@@ -2,7 +2,8 @@
 
 namespace UniSharp\LaravelFilemanager\Controllers;
 
-use Intervention\Image\Facades\Image;
+use Intervention\Image\Facades\Image as InterventionImageV2;
+use Intervention\Image\Laravel\Facades\Image as InterventionImageV3;
 use UniSharp\LaravelFilemanager\Events\ImageIsResizing;
 use UniSharp\LaravelFilemanager\Events\ImageWasResized;
 
@@ -65,8 +66,16 @@ class ResizeController extends LfmController
         }
 
         event(new ImageIsResizing($image_path));
-        // TODO: support intervention/image v3
-        Image::make($image_path)->resize(request('dataWidth'), request('dataHeight'))->save($resize_path);
+
+        if (class_exists(InterventionImageV2::class)) {
+            InterventionImageV2::make($image_path)
+                ->resize(request('dataWidth'), request('dataHeight'))
+                ->save($resize_path);
+        } else {
+            InterventionImageV3::read($image_path)
+                ->resize(request('dataWidth'), request('dataHeight'))
+                ->save($resize_path);
+        }
         event(new ImageWasResized($image_path));
 
         return parent::$success_response;
