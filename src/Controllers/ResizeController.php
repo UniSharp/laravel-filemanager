@@ -19,7 +19,11 @@ class ResizeController extends LfmController
         $ratio = 1.0;
         $image = request('img');
 
-        $original_image = Image::make($this->lfm->setName($image)->path('absolute'));
+        if (class_exists(InterventionImageV2::class)) {
+            $original_image = InterventionImageV2::make($this->lfm->setName($image)->path('absolute'));
+        } else {
+            $original_image = InterventionImageV3::read($this->lfm->setName($image)->path('absolute'));
+        }
         $original_width = $original_image->width();
         $original_height = $original_image->height();
 
