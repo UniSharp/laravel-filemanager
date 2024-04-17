@@ -25,25 +25,16 @@
     composer require unisharp/laravel-filemanager
     ```
 
-1. (optional) Edit `config/app.php` :
+1. (optional) Install required dependency with `v3.*` of `intervention/image`:
 
-    \* *For Laravel 5.5 and up, skip to step 3. All service providers and facades are automatically discovered.*
+    This package use `intervention/image` to perform image cropping/resizing and generating thumbnails. Since `v3.*` of `intervention/image` does not support Laravel by default, the service provider need to be installed with the following scripts.
 
-    Add service providers
-
-    ```php
-    UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
-    Intervention\Image\ImageServiceProvider::class,
+    ```bash
+    composer require intervention/image-laravel
+    php artisan vendor:publish --provider="Intervention\Image\Laravel\ServiceProvider"
     ```
 
-    And add class aliases
-
-    ```php
-    'Image' => Intervention\Image\Facades\Image::class,
-    ```
-
-    Code above is for Laravel 5.1.
-    In Laravel 5.0 should leave only quoted class names.
+    \* *Do not run these scripts if you use `v2.*` of `intervention/image`.*
 
 1. Publish the package's config and assets :
 
