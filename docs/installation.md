@@ -27,7 +27,7 @@
 
 1. (optional) Install required dependency with `v3.*` of `intervention/image`:
 
-    This package use `intervention/image` to perform image cropping/resizing and generating thumbnails. Since `v3.*` of `intervention/image` does not support Laravel by default, the service provider need to be installed with the following scripts.
+    This package use `intervention/image` to perform image cropping/resizing and generating thumbnails. Since `v3.*` of `intervention/image` does not support Laravel by default, the service provider need to be installed with the following scripts. Details can be found here: https://github.com/Intervention/image-laravel
 
     ```bash
     composer require intervention/image-laravel
