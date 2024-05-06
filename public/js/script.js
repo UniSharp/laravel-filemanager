@@ -764,7 +764,7 @@ function usingTinymce3() {
 }
 
 function usingTinymce4AndColorbox() {
-  return !!getUrlParam('field_name');
+  return !!getUrlParam('field_name') && getUrlParam('editor') != 'tinymce5';
 }
 
 function usingTinymce5(){
