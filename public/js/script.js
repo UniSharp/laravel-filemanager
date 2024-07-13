@@ -266,6 +266,9 @@ function performLfmRequest(url, parameter, type) {
     });
   }
 
+  $('#notify').modal('hide');
+  $('#dialog').modal('hide');
+
   return $.ajax({
     type: 'GET',
     beforeSend: function(request) {
@@ -284,7 +287,7 @@ function performLfmRequest(url, parameter, type) {
 }
 
 function displayErrorResponse(jqXHR) {
-  var message = JSON.parse(jqXHR.responseText)
+  var message = JSON.parse(jqXHR.responseText) ?? ''
   if (Array.isArray(message)) {
     message = message.join('<br>')
   }
@@ -799,13 +802,17 @@ function notImp() {
 }
 
 function notify(body) {
+  $('#notify').find('.btn-primary').off('click').hide();
   $('#notify').modal('show').find('.modal-body').html(body);
+  if (!$('#notify').hasClass('show')) {
+    $('#notify').modal('show');
+  }
 }
 
 function confirm(body, callback) {
-  $('#confirm').find('.btn-primary').toggle(callback !== undefined);
-  $('#confirm').find('.btn-primary').click(callback);
-  $('#confirm').modal('show').find('.modal-body').html(body);
+  $('#notify').find('.btn-primary').toggle(callback !== undefined);
+  $('#notify').find('.btn-primary').on('click', callback);
+  $('#notify').modal('show').find('.modal-body').html(body);
 }
 
 function dialog(title, value, callback) {
@@ -813,7 +820,7 @@ function dialog(title, value, callback) {
   $('#dialog').on('shown.bs.modal', function () {
     $('#dialog').find('input').focus();
   });
-  $('#dialog').find('.btn-primary').unbind().click(function (e) {
+  $('#dialog').find('.btn-primary').off('click').on('click', function (e) {
     callback($('#dialog').find('input').val());
   });
   $('#dialog').modal('show').find('.modal-title').text(title);

@@ -36,6 +36,7 @@ return [
     'private_folder_name'      => UniSharp\LaravelFilemanager\Handlers\ConfigHandler::class,
 
     'allow_shared_folder'      => true,
+    'allow_delete_folder'      => true,
 
     'shared_folder_name'       => 'shares',
 
