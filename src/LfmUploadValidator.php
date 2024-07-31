@@ -74,7 +74,7 @@ class LfmUploadValidator
 
     public function extensionIsNotExcutable($excutable_extensions)
     {
-        $extension = $this->file->getClientOriginalExtension();
+        $extension = strtolower($this->file->getClientOriginalExtension());
 
         if (in_array($extension, $excutable_extensions)) {
             throw new ExcutableFileException();

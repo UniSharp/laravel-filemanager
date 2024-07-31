@@ -136,6 +136,42 @@ class LfmUploadValidatorTest extends TestCase
         $validator->mimeTypeIsValid(['image/png']);
     }
 
+    public function testPassesExtensionIsNotExcutable()
+    {
+        $uploaded_file = m::mock(UploadedFile::class);
+        $uploaded_file->shouldReceive('getClientOriginalExtension')->andReturn('jpeg');
+
+        $validator = new LfmUploadValidator($uploaded_file);
+
+        $this->expectNotToPerformAssertions();
+
+        $validator->extensionIsNotExcutable(['php', 'html']);
+    }
+
+    public function testFailsExtensionIsNotExcutable()
+    {
+        $uploaded_file = m::mock(UploadedFile::class);
+        $uploaded_file->shouldReceive('getClientOriginalExtension')->andReturn('html');
+
+        $validator = new LfmUploadValidator($uploaded_file);
+
+        $this->expectException(ExcutableFileException::class);
+
+        $validator->extensionIsNotExcutable(['php', 'html']);
+    }
+
+    public function testFailsExtensionIsNotExcutableWithExtensionNotLowerCase()
+    {
+        $uploaded_file = m::mock(UploadedFile::class);
+        $uploaded_file->shouldReceive('getClientOriginalExtension')->andReturn('Html');
+
+        $validator = new LfmUploadValidator($uploaded_file);
+
+        $this->expectException(ExcutableFileException::class);
+
+        $validator->extensionIsNotExcutable(['php', 'html']);
+    }
+
     public function testPassesSizeIsLowerThanConfiguredMaximum()
     {
         $uploaded_file = m::mock(UploadedFile::class);
