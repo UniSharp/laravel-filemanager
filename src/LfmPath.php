@@ -255,11 +255,13 @@ class LfmPath
 
         $validator->mimetypeIsNotExcutable(config('lfm.disallowed_mimetypes', ['text/x-php', 'text/html', 'text/plain']));
 
-        $validator->extensionIsNotExcutable(config('lfm.disallowed_extensions', ['php', 'html']));
+        $validator->extensionIsNotExcutable();
 
         if (config('lfm.should_validate_mime', false)) {
             $validator->mimeTypeIsValid($this->helper->availableMimeTypes());
         }
+
+        $validator->extensionIsValid(config('lfm.disallowed_extensions', []));
 
         if (config('lfm.should_validate_size', false)) {
             $validator->sizeIsLowerThanConfiguredMaximum($this->helper->maxUploadSize());

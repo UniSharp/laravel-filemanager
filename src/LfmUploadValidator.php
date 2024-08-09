@@ -73,9 +73,11 @@ class LfmUploadValidator
         return $this;
     }
 
-    public function extensionIsNotExcutable($excutable_extensions)
+    public function extensionIsNotExcutable()
     {
         $extension = strtolower($this->file->getClientOriginalExtension());
+
+        $excutable_extensions = ['php', 'html'];
 
         if (in_array($extension, $excutable_extensions)) {
             throw new ExcutableFileException();
@@ -103,11 +105,15 @@ class LfmUploadValidator
         return $this;
     }
 
-    public function extensionIsValid()
+    public function extensionIsValid($disallowed_extensions)
     {
         $extension = strtolower($this->file->getClientOriginalExtension());
 
         if (preg_match('/[^a-zA-Z0-9]/', $extension) > 0) {
+            throw new InvalidExtensionException();
+        }
+
+        if (in_array($extension, $disallowed_extensions)) {
             throw new InvalidExtensionException();
         }
 

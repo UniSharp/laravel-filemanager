@@ -141,10 +141,22 @@ class LfmUploadValidatorTest extends TestCase
 
         $this->expectNotToPerformAssertions();
 
-        $validator->extensionIsNotExcutable(['php', 'html']);
+        $validator->extensionIsNotExcutable();
     }
 
-    public function testFailsExtensionIsNotExcutable()
+    public function testFailsExtensionIsNotExcutableWithPhp()
+    {
+        $uploaded_file = m::mock(UploadedFile::class);
+        $uploaded_file->shouldReceive('getClientOriginalExtension')->andReturn('php');
+
+        $validator = new LfmUploadValidator($uploaded_file);
+
+        $this->expectException(ExcutableFileException::class);
+
+        $validator->extensionIsNotExcutable();
+    }
+
+    public function testFailsExtensionIsNotExcutableWithHtml()
     {
         $uploaded_file = m::mock(UploadedFile::class);
         $uploaded_file->shouldReceive('getClientOriginalExtension')->andReturn('html');
@@ -153,7 +165,7 @@ class LfmUploadValidatorTest extends TestCase
 
         $this->expectException(ExcutableFileException::class);
 
-        $validator->extensionIsNotExcutable(['php', 'html']);
+        $validator->extensionIsNotExcutable();
     }
 
     public function testFailsExtensionIsNotExcutableWithExtensionNotLowerCase()
@@ -165,7 +177,7 @@ class LfmUploadValidatorTest extends TestCase
 
         $this->expectException(ExcutableFileException::class);
 
-        $validator->extensionIsNotExcutable(['php', 'html']);
+        $validator->extensionIsNotExcutable();
     }
 
     public function testFailsExtensionIsNotExcutableWithExtensionsStartsWithPhp()
@@ -177,7 +189,7 @@ class LfmUploadValidatorTest extends TestCase
 
         $this->expectException(ExcutableFileException::class);
 
-        $validator->extensionIsNotExcutable(['php', 'html']);
+        $validator->extensionIsNotExcutable();
     }
 
     public function testFailsExtensionIsNotExcutableWithExtensionsEndsWithHtml()
@@ -201,7 +213,7 @@ class LfmUploadValidatorTest extends TestCase
 
         $this->expectException(InvalidExtensionException::class);
 
-        $validator->extensionIsValid();
+        $validator->extensionIsValid([]);
     }
 
     public function testPassesSizeIsLowerThanConfiguredMaximum()
