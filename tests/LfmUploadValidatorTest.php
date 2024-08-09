@@ -9,6 +9,7 @@ use UniSharp\LaravelFilemanager\Exceptions\ExcutableFileException;
 use UniSharp\LaravelFilemanager\Exceptions\FileFailedToUploadException;
 use UniSharp\LaravelFilemanager\Exceptions\FileSizeExceedConfigurationMaximumException;
 use UniSharp\LaravelFilemanager\Exceptions\FileSizeExceedIniMaximumException;
+use UniSharp\LaravelFilemanager\Exceptions\InvalidExtensionException;
 use UniSharp\LaravelFilemanager\Exceptions\InvalidMimeTypeException;
 use UniSharp\LaravelFilemanager\LfmPath;
 use UniSharp\LaravelFilemanager\LfmUploadValidator;
@@ -165,6 +166,18 @@ class LfmUploadValidatorTest extends TestCase
         $this->expectException(ExcutableFileException::class);
 
         $validator->extensionIsNotExcutable(['php', 'html']);
+    }
+
+    public function testFailsExtensionIsValidWithSpecialCharacters()
+    {
+        $uploaded_file = m::mock(UploadedFile::class);
+        $uploaded_file->shouldReceive('getClientOriginalExtension')->andReturn('html@');
+
+        $validator = new LfmUploadValidator($uploaded_file);
+
+        $this->expectException(InvalidExtensionException::class);
+
+        $validator->extensionIsValid();
     }
 
     public function testPassesSizeIsLowerThanConfiguredMaximum()

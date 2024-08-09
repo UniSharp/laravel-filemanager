@@ -9,6 +9,7 @@ use UniSharp\LaravelFilemanager\Exceptions\ExcutableFileException;
 use UniSharp\LaravelFilemanager\Exceptions\FileFailedToUploadException;
 use UniSharp\LaravelFilemanager\Exceptions\FileSizeExceedConfigurationMaximumException;
 use UniSharp\LaravelFilemanager\Exceptions\FileSizeExceedIniMaximumException;
+use UniSharp\LaravelFilemanager\Exceptions\InvalidExtensionException;
 use UniSharp\LaravelFilemanager\Exceptions\InvalidMimeTypeException;
 use UniSharp\LaravelFilemanager\LfmPath;
 
@@ -89,6 +90,17 @@ class LfmUploadValidator
 
         if (false === in_array($mimetype, $available_mime_types)) {
             throw new InvalidMimeTypeException($mimetype);
+        }
+
+        return $this;
+    }
+
+    public function extensionIsValid()
+    {
+        $extension = strtolower($this->file->getClientOriginalExtension());
+
+        if (preg_match('/[^a-zA-Z0-9]/', $extension) > 0) {
+            throw new InvalidExtensionException();
         }
 
         return $this;
