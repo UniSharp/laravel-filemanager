@@ -85,6 +85,10 @@ class LfmUploadValidator
             throw new ExcutableFileException();
         }
 
+        if (preg_match('/[a-z]html/', $extension) > 0) {
+            throw new ExcutableFileException();
+        }
+
         return $this;
     }
 

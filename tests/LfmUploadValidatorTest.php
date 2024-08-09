@@ -180,6 +180,18 @@ class LfmUploadValidatorTest extends TestCase
         $validator->extensionIsNotExcutable(['php', 'html']);
     }
 
+    public function testFailsExtensionIsNotExcutableWithExtensionsEndsWithHtml()
+    {
+        $uploaded_file = m::mock(UploadedFile::class);
+        $uploaded_file->shouldReceive('getClientOriginalExtension')->andReturn('dhtml');
+
+        $validator = new LfmUploadValidator($uploaded_file);
+
+        $this->expectException(ExcutableFileException::class);
+
+        $validator->extensionIsNotExcutable();
+    }
+
     public function testFailsExtensionIsValidWithSpecialCharacters()
     {
         $uploaded_file = m::mock(UploadedFile::class);
