@@ -81,6 +81,10 @@ class LfmUploadValidator
             throw new ExcutableFileException();
         }
 
+        if (strpos($extension, 'php') === 0) {
+            throw new ExcutableFileException();
+        }
+
         return $this;
     }
 
