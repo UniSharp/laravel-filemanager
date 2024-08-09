@@ -1,7 +1,7 @@
 <?php
 
 use Mockery as m;
-use PHPUnit\Framework\TestCase;
+use Illuminate\Foundation\Testing\TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use UniSharp\LaravelFilemanager\Exceptions\DuplicateFileNameException;
 use UniSharp\LaravelFilemanager\Exceptions\EmptyFileException;
@@ -12,11 +12,6 @@ use UniSharp\LaravelFilemanager\Exceptions\FileSizeExceedIniMaximumException;
 use UniSharp\LaravelFilemanager\Exceptions\InvalidMimeTypeException;
 use UniSharp\LaravelFilemanager\LfmPath;
 use UniSharp\LaravelFilemanager\LfmUploadValidator;
-
-function trans()
-{
-    // leave empty
-}
 
 class LfmUploadValidatorTest extends TestCase
 {
