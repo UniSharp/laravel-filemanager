@@ -158,6 +158,13 @@ If set to `true`, the size of uploading file will be verified.
 
 If set to `true`, the mime type of uploading file will be verified.
 
+### cyrillic\_to\_latin
+
+* type: `boolean`
+* default: `true`
+
+If set to `true`, cyrillic charecters will be swapped for the Latin equivalent.
+
 ### over\_write\_on_duplicate
 
 * type: `int`
