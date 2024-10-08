@@ -1,9 +1,10 @@
 <p align="center"><img src="https://unisharp.github.io/laravel-filemanager/images/logo_vertical_colored.png"></p>
 
 <p align="center">
+  <a href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/packagist/v/unisharp/laravel-filemanager" alt="Latest Stable Version"></a>
   <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/downloads"></a>
   <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/packagist/dm/unisharp/laravel-filemanager.svg"></a>
-  <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/badge/stable-2.4.1-blue.svg"></a>
+  <!-- <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://img.shields.io/badge/stable-2.6.4-blue.svg"></a> -->
   <a target="_blank" href="https://packagist.org/packages/unisharp/laravel-filemanager"><img src="https://poser.pugx.org/unisharp/laravel-filemanager/license"></a>
   <br>
   <a href="https://github.styleci.io/repos/39873788?branch=master"><img src="https://github.styleci.io/repos/39873788/shield?branch=master" alt="StyleCI"></a>
@@ -11,6 +12,8 @@
   <a target="_blank" href="https://scrutinizer-ci.com/g/UniSharp/laravel-filemanager/"><img src="https://scrutinizer-ci.com/g/UniSharp/laravel-filemanager/badges/quality-score.png?b=master"></a>
   <a target="_blank" href="https://codeclimate.com/github/UniSharp/laravel-filemanager/maintainability"><img src="https://api.codeclimate.com/v1/badges/e51f2ef8f4d9f97268db/maintainability" /></a>
 </p>
+
+![RWD demo](https://unisharp.github.io/laravel-filemanager/images/screenshots-v2.png)
 
 <p align="center">
   <a href="http://unisharp.github.io/laravel-filemanager/">Documents</a>
@@ -49,17 +52,6 @@
  * Customizable routes, middlewares, views, and folder path
  * Supports two categories: files and images. Each type works in different directory.
  * Supported locales : ar, az, bg, cs, de, el, en, es, eu, fa, fr, he, hu, id, it, ka, nl, pl, pt, pt-BR, ro, rs, ru, sk, sv, tr, uk, vi, zh-CN, zh-TW
-
-## v2.0 backlogs
-
-There are still some thing we need to do make this package better:
-* [x] Documents for v2.0.0
-* [x] Add more events for files and folders manipulation
-* [ ] Events should pass object instead of only file path
-
-We are also going to gain more integration like vue.js and Laravel Nova. Any PR is welcome!
-
-![RWD demo](https://unisharp.github.io/laravel-filemanager/images/screenshots-v2.png)
 
 ## Maintainers
 

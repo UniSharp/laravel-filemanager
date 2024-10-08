@@ -76,7 +76,7 @@ class LfmController extends Controller
      *
      * @return null
      */
-    public function applyIniOverrides()
+    private function applyIniOverrides()
     {
         $overrides = config('lfm.php_ini_overrides', []);
 
@@ -89,5 +89,11 @@ class LfmController extends Controller
                 ini_set($key, $value);
             }
         }
+    }
+
+    // TODO: remove this after refactoring RenameController and DeleteController
+    protected function error($error_type, $variables = [])
+    {
+        return trans(Lfm::PACKAGE_NAME . '::lfm.error-' . $error_type, $variables);
     }
 }

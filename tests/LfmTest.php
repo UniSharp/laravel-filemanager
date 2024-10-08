@@ -12,7 +12,7 @@ use UniSharp\LaravelFilemanager\LfmStorageRepository;
 
 class LfmTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
 
@@ -50,8 +50,13 @@ class LfmTest extends TestCase
         $config->shouldReceive('get')->with('lfm.allow_private_folder')->once()->andReturn(false);
         $config->shouldReceive('get')->with('lfm.allow_private_folder')->once()->andReturn(true);
         $config->shouldReceive('get')->with('lfm.allow_shared_folder')->once()->andReturn(false);
+        $config->shouldReceive('get')->with('lfm.folder_categories')->andReturn([]);
+        $config->shouldReceive('has')->andReturn(false);
 
-        $lfm = new Lfm($config);
+        $request = m::mock(Request::class);
+        $request->shouldReceive('input')->with('type')->andReturn('');
+
+        $lfm = new Lfm($config, $request);
 
         $this->assertTrue($lfm->allowFolderType('user'));
         $this->assertTrue($lfm->allowFolderType('shared'));
@@ -155,8 +160,13 @@ class LfmTest extends TestCase
     {
         $config = m::mock(Config::class);
         $config->shouldReceive('get')->with('lfm.allow_private_folder')->once()->andReturn(true);
+        $config->shouldReceive('get')->with('lfm.folder_categories')->andReturn([]);
+        $config->shouldReceive('has')->andReturn(false);
 
-        $lfm = new Lfm($config);
+        $request = m::mock(Request::class);
+        $request->shouldReceive('input')->with('type')->andReturn('');
+
+        $lfm = new Lfm($config, $request);
 
         $this->assertTrue($lfm->allowMultiUser());
     }
@@ -167,8 +177,13 @@ class LfmTest extends TestCase
         $config->shouldReceive('get')->with('lfm.allow_private_folder')->once()->andReturn(false);
         $config->shouldReceive('get')->with('lfm.allow_private_folder')->once()->andReturn(true);
         $config->shouldReceive('get')->with('lfm.allow_shared_folder')->once()->andReturn(false);
+        $config->shouldReceive('get')->with('lfm.folder_categories')->andReturn([]);
+        $config->shouldReceive('has')->andReturn(false);
 
-        $lfm = new Lfm($config);
+        $request = m::mock(Request::class);
+        $request->shouldReceive('input')->with('type')->andReturn('');
+
+        $lfm = new Lfm($config, $request);
 
         $this->assertTrue($lfm->allowShareFolder());
         $this->assertFalse($lfm->allowShareFolder());

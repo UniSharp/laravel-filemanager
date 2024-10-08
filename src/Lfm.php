@@ -162,7 +162,7 @@ class Lfm
     {
         return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.valid_mime');
     }
-    
+
     public function shouldCreateCategoryThumb()
     {
         return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.thumb');
@@ -289,7 +289,6 @@ class Lfm
         $namespace = '\\UniSharp\\LaravelFilemanager\\Controllers\\';
 
         Route::group(compact('middleware', 'as', 'namespace'), function () {
-
             // display main layout
             Route::get('/', [
                 'uses' => 'LfmController@show',
@@ -320,8 +319,8 @@ class Lfm
             ]);
 
             Route::get('/domove', [
-                'uses' => 'ItemsController@domove',
-                'as' => 'domove'
+                'uses' => 'ItemsController@doMove',
+                'as' => 'doMove'
             ]);
 
             // folders
@@ -342,12 +341,12 @@ class Lfm
                 'as' => 'getCrop',
             ]);
             Route::get('/cropimage', [
-                'uses' => 'CropController@getCropimage',
-                'as' => 'getCropimage',
+                'uses' => 'CropController@getCropImage',
+                'as' => 'getCropImage',
             ]);
             Route::get('/cropnewimage', [
-                'uses' => 'CropController@getNewCropimage',
-                'as' => 'getCropnewimage',
+                'uses' => 'CropController@getNewCropImage',
+                'as' => 'getNewCropImage',
             ]);
 
             // rename
@@ -365,7 +364,10 @@ class Lfm
                 'uses' => 'ResizeController@performResize',
                 'as' => 'performResize',
             ]);
-
+            Route::get('/doresizenew', [
+                'uses' => 'ResizeController@performResizeNew',
+                'as' => 'performResizeNew',
+            ]);
             // download
             Route::get('/download', [
                 'uses' => 'DownloadController@getDownload',

@@ -9,6 +9,7 @@ use UniSharp\LaravelFilemanager\Exceptions\ExcutableFileException;
 use UniSharp\LaravelFilemanager\Exceptions\FileFailedToUploadException;
 use UniSharp\LaravelFilemanager\Exceptions\FileSizeExceedConfigurationMaximumException;
 use UniSharp\LaravelFilemanager\Exceptions\FileSizeExceedIniMaximumException;
+use UniSharp\LaravelFilemanager\Exceptions\InvalidExtensionException;
 use UniSharp\LaravelFilemanager\Exceptions\InvalidMimeTypeException;
 use UniSharp\LaravelFilemanager\LfmPath;
 
@@ -61,11 +62,32 @@ class LfmUploadValidator
         return $this;
     }
 
-    public function isNotExcutable($excutable_mimetypes)
+    public function mimetypeIsNotExcutable($excutable_mimetypes)
     {
         $mimetype = $this->file->getMimeType();
 
         if (in_array($mimetype, $excutable_mimetypes)) {
+            throw new ExcutableFileException();
+        }
+
+        return $this;
+    }
+
+    public function extensionIsNotExcutable()
+    {
+        $extension = strtolower($this->file->getClientOriginalExtension());
+
+        $excutable_extensions = ['php', 'html'];
+
+        if (in_array($extension, $excutable_extensions)) {
+            throw new ExcutableFileException();
+        }
+
+        if (strpos($extension, 'php') === 0) {
+            throw new ExcutableFileException();
+        }
+
+        if (preg_match('/[a-z]html/', $extension) > 0) {
             throw new ExcutableFileException();
         }
 
@@ -78,6 +100,21 @@ class LfmUploadValidator
 
         if (false === in_array($mimetype, $available_mime_types)) {
             throw new InvalidMimeTypeException($mimetype);
+        }
+
+        return $this;
+    }
+
+    public function extensionIsValid($disallowed_extensions)
+    {
+        $extension = strtolower($this->file->getClientOriginalExtension());
+
+        if (preg_match('/[^a-zA-Z0-9]/', $extension) > 0) {
+            throw new InvalidExtensionException();
+        }
+
+        if (in_array($extension, $disallowed_extensions)) {
+            throw new InvalidExtensionException();
         }
 
         return $this;

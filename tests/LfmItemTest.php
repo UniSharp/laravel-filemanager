@@ -13,7 +13,7 @@ class LfmItemTest extends TestCase
     private $lfm_path;
     private $lfm;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->lfm = m::mock(Lfm::class);
 
@@ -24,7 +24,7 @@ class LfmItemTest extends TestCase
             ->andReturn(['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url']);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
 

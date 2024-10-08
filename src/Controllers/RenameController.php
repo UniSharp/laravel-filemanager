@@ -29,18 +29,18 @@ class RenameController extends LfmController
 
         if (empty($new_name)) {
             if ($is_directory) {
-                return parent::error('folder-name');
+                return response()->json(parent::error('folder-name'), 400);
             } else {
-                return parent::error('file-name');
+                return response()->json(parent::error('file-name'), 400);
             }
         }
 
         if ($is_directory && config('lfm.alphanumeric_directory') && preg_match('/[^\w-]/i', $new_name)) {
-            return parent::error('folder-alnum');
+            return response()->json(parent::error('folder-alnum'), 400);
         } elseif (config('lfm.alphanumeric_filename') && preg_match('/[^.\w-]/i', $new_name)) {
-            return parent::error('file-alnum');
+            return response()->json(parent::error('file-alnum'), 400);
         } elseif ($this->lfm->setName($new_name)->exists()) {
-            return parent::error('rename');
+            return response()->json(parent::error('rename'), 400);
         }
 
         if (! $is_directory) {
