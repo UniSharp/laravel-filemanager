@@ -110,6 +110,13 @@ class LfmItem
 
     public function time()
     {
+        if (function_exists('config')) {
+            $disk = config('disk');
+            $driver = $disk ? config("filesystems.disks.$disk.driver") : null;
+            if (($driver == 'bunny' || $driver == 'bunnycdn') && $this->isDirectory()) {
+                return null;
+            }
+        }
         return $this->lfm->lastModified();
     }
 
