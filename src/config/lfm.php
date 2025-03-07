@@ -108,6 +108,8 @@ return [
 
     'should_validate_mime'     => true,
 
+    'cyrillic_to_latin'        => true,
+
     // behavior on files with identical name
     // setting it to true cause old file replace with new one
     // setting it to false show `error-file-exist` error and stop upload
