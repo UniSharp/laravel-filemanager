@@ -107,7 +107,7 @@
     <div id="fab"></div>
   </div>
 
-  <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -135,7 +135,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="notify" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal" id="notify" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-body"></div>
@@ -146,7 +146,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal" id="confirm" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-body"></div>
@@ -158,7 +158,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="dialog" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal" id="dialog" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
