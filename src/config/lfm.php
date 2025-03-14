@@ -96,6 +96,8 @@ return [
 
     'disk'                     => 'public',
 
+    'temporary_url_duration'   => 30,
+
     'rename_file'              => false,
 
     'rename_duplicates'        => false,
