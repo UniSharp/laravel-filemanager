@@ -17,7 +17,7 @@ class Lfm
     protected $config;
     protected $request;
 
-    public function __construct(Config $config = null, Request $request = null)
+    public function __construct(?Config $config = null, ?Request $request = null)
     {
         $this->config = $config;
         $this->request = $request;
