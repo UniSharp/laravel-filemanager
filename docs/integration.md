@@ -5,7 +5,7 @@ Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which alre
 ### Option 1: CKEditor
 
 ```html
-<textarea id="my-editor" name="content" class="form-control">{!! old('content', 'test editor content') !!}</textarea>
+<textarea id="my-editor-1" name="content" class="form-control my-editor">{!! old('content', 'test editor content') !!}</textarea>
 <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
 <script>
   var options = {
@@ -21,7 +21,7 @@ Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which alre
 
   ```html
   <script>
-  CKEDITOR.replace('my-editor', options);
+  CKEDITOR.replace('my-editor-1', options);
   </script>
   ```
 
