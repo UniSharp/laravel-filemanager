@@ -22,24 +22,24 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadTranslationsFrom(__DIR__.'/lang', 'laravel-filemanager');
+        $this->loadTranslationsFrom(__DIR__ . '/lang', 'laravel-filemanager');
 
-        $this->loadViewsFrom(__DIR__.'/views', 'laravel-filemanager');
+        $this->loadViewsFrom(__DIR__ . '/views', 'laravel-filemanager');
 
         $this->publishes([
             __DIR__ . '/config/lfm.php' => base_path('config/lfm.php'),
         ], 'lfm_config');
 
         $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/laravel-filemanager'),
+            __DIR__ . '/../public' => public_path('vendor/laravel-filemanager'),
         ], 'lfm_public');
 
         $this->publishes([
-            __DIR__.'/views'  => base_path('resources/views/vendor/laravel-filemanager'),
+            __DIR__ . '/views' => base_path('resources/views/vendor/laravel-filemanager'),
         ], 'lfm_view');
 
         $this->publishes([
-            __DIR__.'/Handlers/LfmConfigHandler.php' => base_path('app/Handlers/LfmConfigHandler.php'),
+            __DIR__ . '/Handlers/LfmConfigHandler.php' => base_path('app/Handlers/LfmConfigHandler.php'),
         ], 'lfm_handler');
 
         if (config('lfm.use_package_routes')) {
@@ -64,14 +64,14 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider
 
         $this->app->singleton(ImageManagerInterface::class, function ($app) {
             $driver = config('lfm.intervention_driver');
-            
+
             $driverInstance = match ($driver) {
                 'gd' => new GdDriver(),
                 'imagick' => new ImagickDriver(),
                 default => null,
             };
 
-            if(is_null($driverInstance)) {
+            if (is_null($driverInstance)) {
                 \Log::error("Unsupported image driver [$driver]. GdDriver will be used.");
                 $driverInstance = new GdDriver();
             }

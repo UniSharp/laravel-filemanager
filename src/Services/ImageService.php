@@ -25,5 +25,4 @@ class ImageService
 
         throw new \BadMethodCallException("Method {$method} does not exist on ImageService or ImageManagerInterface.");
     }
-
 }
