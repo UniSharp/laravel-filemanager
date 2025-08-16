@@ -4,14 +4,17 @@ var sort_type = 'alphabetic';
 var multi_selection_enabled = false;
 var selected = [];
 var items = [];
+var default_parameters = defaultParameters();
 
 $.fn.fab = function (options) {
   var menu = this;
-  menu.addClass('fab-wrapper');
+  menu.addClass('fab-wrapper '+options.wrapper.position);
 
   var toggler = $('<a>')
     .addClass('fab-button fab-toggle')
-    .append($('<i>').addClass('fas fa-plus'))
+    .append($('<i>')
+    .addClass(options.wrapper.icon)
+    .addClass(options.wrapper.animation))
     .click(function () {
       menu.toggleClass('fab-expand');
     });
@@ -19,9 +22,11 @@ $.fn.fab = function (options) {
   menu.append(toggler);
 
   options.buttons.forEach(function (button) {
+    console.log(typeof button.disabled)
     toggler.before(
-      $('<a>').addClass('fab-button fab-action')
+      $('<a>').addClass(`fab-button fab-action${button.disabled == true ? ' disabled' : ''}`)
         .attr('data-label', button.label)
+        .attr('href', button.attrs.href)
         .attr('id', button.attrs.id)
         .append($('<i>').addClass(button.icon))
         .click(function () {
@@ -32,7 +37,13 @@ $.fn.fab = function (options) {
 };
 
 $(document).ready(function () {
+
   $('#fab').fab({
+    wrapper: {
+        icon: 'fas fa-plus',
+        position: 'right-bottom',
+        animation: 'rotate'
+    },
     buttons: [
       {
         icon: 'fas fa-upload',
@@ -43,6 +54,28 @@ $(document).ready(function () {
         icon: 'fas fa-folder',
         label: lang['nav-new'],
         attrs: {id: 'add-folder'}
+      }
+    ]
+  });
+
+  $('#type-select').fab({
+    wrapper: {
+        icon: 'fas fa-filter',
+        position: 'left-bottom',
+        animation: 'scale'
+    },
+    buttons: [
+      {
+        icon: 'fas fa-image',
+        label: lang['nav-type-image'],
+        attrs: {href: '?type=image'},
+        disabled: default_parameters.type === 'image' ? true : false
+      },
+      {
+        icon: 'fas fa-file',
+        label: lang['nav-type-file'],
+        attrs: {href: '?type=file'},
+        disabled: default_parameters.type === 'file' ? true : false
       }
     ]
   });
