@@ -2,13 +2,20 @@
 
 namespace UniSharp\LaravelFilemanager\Controllers;
 
-use Intervention\Image\Facades\Image as InterventionImageV2;
-use Intervention\Image\Laravel\Facades\Image as InterventionImageV3;
+use UniSharp\LaravelFilemanager\Services\ImageService;
 use UniSharp\LaravelFilemanager\Events\ImageIsResizing;
 use UniSharp\LaravelFilemanager\Events\ImageWasResized;
 
 class ResizeController extends LfmController
 {
+    private ImageService $imageService;
+
+    public function __construct(ImageService $imageService)
+    {
+        $this->imageService = $imageService;
+        parent::__construct();
+    }
+
     /**
      * Dipsplay image for resizing.
      *
@@ -19,11 +26,7 @@ class ResizeController extends LfmController
         $ratio = 1.0;
         $image = request('img');
 
-        if (class_exists(InterventionImageV2::class)) {
-            $original_image = InterventionImageV2::make($this->lfm->setName($image)->path('absolute'));
-        } else {
-            $original_image = InterventionImageV3::read($this->lfm->setName($image)->path('absolute'));
-        }
+        $original_image = $this->imageService->read($this->lfm->setName($image)->path('absolute'));
         $original_width = $original_image->width();
         $original_height = $original_image->height();
 
@@ -71,15 +74,10 @@ class ResizeController extends LfmController
 
         event(new ImageIsResizing($image_path));
 
-        if (class_exists(InterventionImageV2::class)) {
-            InterventionImageV2::make($image_path)
-                ->resize(request('dataWidth'), request('dataHeight'))
-                ->save($resize_path);
-        } else {
-            InterventionImageV3::read($image_path)
-                ->resize(request('dataWidth'), request('dataHeight'))
-                ->save($resize_path);
-        }
+        $this->imageService->read($image_path)
+            ->resize(request('dataWidth'), request('dataHeight'))
+            ->save($resize_path);
+
         event(new ImageWasResized($image_path));
 
         return parent::$success_response;

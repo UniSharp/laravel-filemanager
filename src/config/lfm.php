@@ -179,4 +179,6 @@ return [
     'php_ini_overrides'        => [
         'memory_limit' => '256M',
     ],
+
+    'intervention_driver' => 'gd', // options: gd, imagick
 ];
