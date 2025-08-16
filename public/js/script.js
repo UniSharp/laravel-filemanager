@@ -4,6 +4,7 @@ var sort_type = 'alphabetic';
 var multi_selection_enabled = false;
 var selected = [];
 var items = [];
+var is_deleting = false
 
 $.fn.fab = function (options) {
   var menu = this;
@@ -545,9 +546,18 @@ function rename(item) {
 
 function trash(items) {
   confirm(lang['message-delete'], function () {
+    if (window.is_deleting) {
+      return
+    }
+    window.is_deleting = true
+    $('#confirm-button-yes').toggleClass('disabled', is_deleting)
     performLfmRequest('delete', {
       items: items.map(function (item) { return item.name; })
-    }).done(refreshFoldersAndItems)
+    }).done(function (response) {
+      window.is_deleting = false
+      $('#confirm-button-yes').toggleClass('disabled', is_deleting)
+      refreshFoldersAndItems(response)
+    })
   });
 }
 
