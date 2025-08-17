@@ -17,6 +17,18 @@ return [
 
     'use_package_routes'       => true,
 
+
+ /**
+    / Customize middlewares when use use_package_routes
+    */
+    'middlewares'              => [],
+
+
+    /**
+     / Customize prefix when use use_package_routes
+    */
+    'prefix'              => 'filemanger',
+
     /*
     |--------------------------------------------------------------------------
     | Shared folder / Private folder
