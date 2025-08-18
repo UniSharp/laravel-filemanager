@@ -122,6 +122,9 @@ return [
     // Item Columns
     'item_columns' => ['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url'],
 
+    // Output files in reverse
+    'is_reverse_view' => false,
+
     /*
     |--------------------------------------------------------------------------
     | Thumbnail
