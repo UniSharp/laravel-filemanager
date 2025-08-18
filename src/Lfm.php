@@ -226,15 +226,21 @@ class Lfm
     }
 
     /**
-     * Translate file name to make it compatible on Windows.
+     * Translate file or directory name(s) to be compatible on Windows.
      *
-     * @param  string  $input  Any string.
-     * @return string
+     * @param  string|array  $input  Any string or array of strings.
+     * @return string|array
      */
     public function translateFromUtf8($input)
     {
         if ($this->isRunningOnWindows()) {
-            $input = iconv('UTF-8', mb_detect_encoding($input), $input);
+            if (is_array($input)) {
+                foreach ($input as &$item) {
+                    $item = iconv('UTF-8', mb_detect_encoding($item), $item);
+                }
+            } else {
+                $input = iconv('UTF-8', mb_detect_encoding($input), $input);
+            }
         }
 
         return $input;
