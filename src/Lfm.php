@@ -381,6 +381,8 @@ class Lfm
             ]);
 
             Route::get('/demo', 'DemoController@index');
+
+            Route::get('/init', 'LfmController@init');
         });
     }
 }

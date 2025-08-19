@@ -96,4 +96,11 @@ class LfmController extends Controller
     {
         return trans(Lfm::PACKAGE_NAME . '::lfm.error-' . $error_type, $variables);
     }
+
+    public function init()
+    {
+        return [
+            'lang' => trans('laravel-filemanager::lfm')
+        ];
+    }
 }
