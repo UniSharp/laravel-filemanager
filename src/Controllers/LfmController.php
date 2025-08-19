@@ -35,7 +35,7 @@ class LfmController extends Controller
      */
     public function show()
     {
-        return view('laravel-filemanager::index')
+        return view('laravel-filemanager::vue')
             ->withHelper($this->helper);
     }
 
