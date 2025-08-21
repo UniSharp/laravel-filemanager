@@ -33,9 +33,25 @@
     </div>
     <div class="storage-item__name">{{ storageItem.name }}</div>
     <time class="storage-item__time">{{ (new Date(storageItem.time * 1000)).toLocaleString() }}</time>
-    <span class="storage-item__more"><i class="gg-more"></i></span>
+    <label class="storage-item__more-actions">
+      <input type="checkbox" style="display: none" />
+      <div class="storage-item__more-toggle">
+        <icon-more class="icon" size="24" />
+      </div>
+      <ul class="storage-item__action-menu">
+        <li class="storage-item__action">
+          <icon-pen class="icon" size="16" />
+          Rename
+        </li>
+        <li class="storage-item__action">
+          <icon-move class="icon" size="16" />
+          Move
+        </li>
+        <li class="storage-item__action">
+          <icon-trash class="icon" size="16" />
+          Delete
+        </li>
+      </ul>
+    </label>
   </a>
 </div>
-
-<!-- <h2>{{ message }}</h2>
-<CounterComponent/> -->
