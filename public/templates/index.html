@@ -1,6 +1,6 @@
 <div class="working-directory" style="margin-bottom: 16px">
   <a class="working-directory__node">
-    <i class="gg-home"></i>
+    <icon-home class="icon" size="20" />
   </a>
   <a class="working-directory__node">Shared Folder</a>
   <a class="working-directory__node">level 1</a>
@@ -10,11 +10,15 @@
 <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 16px">
   <div class="sorting-control">
     Name
-    <i class="gg-arrow-down" style="margin-left: 8px"></i>
+    <icon-arrow-down class="icon" size="20" style="margin-left: 8px" />
   </div>
   <div class="display-mode-toggle-group">
-    <button class="display-mode-toggle" @click="displayMode = 'grid'"><i class="gg-layout-grid"></i></button>
-    <button class="display-mode-toggle" @click="displayMode = 'list'" style="margin-left: 8px"><i class="gg-layout-list"></i></button>
+    <button class="display-mode-toggle" @click="displayMode = 'grid'">
+      <icon-grid class="icon" size="24" />
+    </button>
+    <button class="display-mode-toggle" @click="displayMode = 'list'" style="margin-left: 8px">
+      <icon-list class="icon" size="24" />
+    </button>
   </div>
 </div>
 
