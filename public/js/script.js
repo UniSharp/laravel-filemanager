@@ -664,85 +664,13 @@ function getUrlParam(paramName) {
 }
 
 function use(items) {
-  function useTinymce3(url) {
-    if (!usingTinymce3()) { return; }
-
-    var win = tinyMCEPopup.getWindowArg("window");
-    win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = url;
-    if (typeof(win.ImageDialog) != "undefined") {
-      // Update image dimensions
-      if (win.ImageDialog.getImageData) {
-        win.ImageDialog.getImageData();
-      }
-
-      // Preview if necessary
-      if (win.ImageDialog.showPreviewImage) {
-        win.ImageDialog.showPreviewImage(url);
-      }
-    }
-    tinyMCEPopup.close();
-  }
-
-  function useTinymce4AndColorbox(url) {
-    if (!usingTinymce4AndColorbox()) { return; }
-
-    parent.document.getElementById(getUrlParam('field_name')).value = url;
-
-    if(typeof parent.tinyMCE !== "undefined") {
-      parent.tinyMCE.activeEditor.windowManager.close();
-    }
-    if(typeof parent.$.fn.colorbox !== "undefined") {
-      parent.$.fn.colorbox.close();
-    }
-  }
-
-  function useTinymce5(url){
-    if (!usingTinymce5()) { return; }
-
-    parent.postMessage({
-      mceAction: 'insert',
-      content: url
-    });
-
-    parent.postMessage({ mceAction: 'close' });
-  }
-
-  function useCkeditor3(url) {
-    if (!usingCkeditor3()) { return; }
-
-    if (window.opener) {
-      // Popup
-      window.opener.CKEDITOR.tools.callFunction(getUrlParam('CKEditorFuncNum'), url);
-    } else {
-      // Modal (in iframe)
-      parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorFuncNum'), url);
-      parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorCleanUpFuncNum'));
-    }
-  }
-
-  function useFckeditor2(url) {
-    if (!usingFckeditor2()) { return; }
-
-    var p = url;
-    var w = data['Properties']['Width'];
-    var h = data['Properties']['Height'];
-    window.opener.SetUrl(p,w,h);
-  }
-
-  var url = items[0].url;
   var callback = getUrlParam('callback');
   var useFileSucceeded = true;
 
   if (usingWysiwygEditor()) {
-    useTinymce3(url);
-
-    useTinymce4AndColorbox(url);
-
-    useTinymce5(url);
-
-    useCkeditor3(url);
-
-    useFckeditor2(url);
+    Object.values(editorIntegrations)
+      .find(integration => integration.isActive())
+      .passUrl(items[0].url)
   } else if (callback && window[callback]) {
     window[callback](getSelectedItems());
   } else if (callback && parent[callback]) {
@@ -760,7 +688,7 @@ function use(items) {
   } else {
     console.log('window.opener not found');
     // No editor found, open/download file using browser's default method
-    window.open(url);
+    window.open(items[0].url);
   }
 }
 //end useFile
@@ -769,28 +697,76 @@ function use(items) {
 // ==     WYSIWYG Editors Check    ==
 // ==================================
 
-function usingTinymce3() {
-  return !!window.tinyMCEPopup;
-}
-
-function usingTinymce4AndColorbox() {
-  return !!getUrlParam('field_name');
-}
-
-function usingTinymce5(){
-    return !!getUrlParam('editor');
-}
-
-function usingCkeditor3() {
-  return !!getUrlParam('CKEditor') || !!getUrlParam('CKEditorCleanUpFuncNum');
-}
-
-function usingFckeditor2() {
-  return window.opener && typeof data != 'undefined' && data['Properties']['Width'] != '';
-}
-
 function usingWysiwygEditor() {
-  return usingTinymce3() || usingTinymce4AndColorbox() || usingTinymce5() || usingCkeditor3() || usingFckeditor2();
+  return Object.values(editorIntegrations).some(integration => integration.isActive())
+}
+
+const editorIntegrations = {
+  TinyMce3: {
+    isActive: () => !!window.tinyMCEPopup,
+    passUrl: (url) => {
+      var win = tinyMCEPopup.getWindowArg("window");
+      win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = url;
+      if (typeof(win.ImageDialog) != "undefined") {
+        // Update image dimensions
+        if (win.ImageDialog.getImageData) {
+          win.ImageDialog.getImageData();
+        }
+
+        // Preview if necessary
+        if (win.ImageDialog.showPreviewImage) {
+          win.ImageDialog.showPreviewImage(url);
+        }
+      }
+      tinyMCEPopup.close();
+    },
+  },
+  Tinymce4AndColorbox: {
+    isActive: () => !!getUrlParam('field_name'),
+    passUrl: (url) => {
+      parent.document.getElementById(getUrlParam('field_name')).value = url;
+
+      if(typeof parent.tinyMCE !== "undefined") {
+        parent.tinyMCE.activeEditor.windowManager.close();
+      }
+      if(typeof parent.$.fn.colorbox !== "undefined") {
+        parent.$.fn.colorbox.close();
+      }
+    },
+  },
+  Tinymce5: {
+    isActive: () => !!getUrlParam('editor'),
+    passUrl: (url) => {
+      parent.postMessage({
+        mceAction: 'insert',
+        content: url
+      });
+
+      parent.postMessage({ mceAction: 'close' });
+    },
+  },
+  Ckeditor3: {
+    isActive: () => !!getUrlParam('CKEditor') || !!getUrlParam('CKEditorCleanUpFuncNum'),
+    passUrl: (url) => {
+      if (window.opener) {
+        // Popup
+        window.opener.CKEDITOR.tools.callFunction(getUrlParam('CKEditorFuncNum'), url);
+      } else {
+        // Modal (in iframe)
+        parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorFuncNum'), url);
+        parent.CKEDITOR.tools.callFunction(getUrlParam('CKEditorCleanUpFuncNum'));
+      }
+    },
+  },
+  Fckeditor2: {
+    isActive: () => window.opener && typeof data != 'undefined' && data['Properties']['Width'] != '',
+    passUrl: (url) => {
+      var p = url;
+      var w = data['Properties']['Width'];
+      var h = data['Properties']['Height'];
+      window.opener.SetUrl(p,w,h);
+    },
+  },
 }
 
 // ==================================
@@ -802,10 +778,6 @@ function defaultParameters() {
     working_dir: $('#working_dir').val(),
     type: $('#type').val()
   };
-}
-
-function notImp() {
-  notify('Not yet implemented!');
 }
 
 function notify(body) {
