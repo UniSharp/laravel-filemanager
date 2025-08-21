@@ -3,15 +3,18 @@
 namespace UniSharp\LaravelFilemanager\Controllers;
 
 use UniSharp\LaravelFilemanager\Lfm;
+use UniSharp\LaravelFilemanager\LfmConfiguration;
 use UniSharp\LaravelFilemanager\LfmPath;
 
 class LfmController extends Controller
 {
     protected static $success_response = 'OK';
+    private $config;
 
     public function __construct()
     {
         $this->applyIniOverrides();
+        $this->config = new LfmConfiguration(config('lfm') ?: []);
     }
 
     /**
@@ -100,7 +103,8 @@ class LfmController extends Controller
     public function init()
     {
         return [
-            'lang' => trans('laravel-filemanager::lfm')
+            'lang' => trans('laravel-filemanager::lfm'),
+            'default_display_mode' => $this->config->defaultDisplayMode(),
         ];
     }
 }
