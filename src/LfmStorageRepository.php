@@ -43,7 +43,14 @@ class LfmStorageRepository
 
     public function url($path)
     {
-        return $this->disk->url($path);
+        $config = $this->disk->getConfig();
+
+        if (key_exists('driver', $config) && $config['driver'] == 's3') {
+            $duration = $this->helper->config('temporary_url_duration');
+            return $this->disk->temporaryUrl($path, now()->addMinutes($duration));
+        } else {
+            return $this->disk->url($path);
+        }
     }
 
     public function makeDirectory()

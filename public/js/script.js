@@ -455,7 +455,7 @@ function loadItems(page) {
             });
 
           if (item.thumb_url) {
-            var image = $('<div>').css('background-image', 'url("' + item.thumb_url + '?timestamp=' + item.time + '")');
+            var image = $('<div>').css('background-image', 'url("' + item.thumb_url + '")');
           } else {
             var icon = $('<div>').addClass('ico');
             var image = $('<div>').addClass('mime-icon ico-' + item.icon).append(icon);
@@ -601,7 +601,7 @@ function preview(items) {
       .addClass(index === 0 ? 'active' : '');
 
     if (item.thumb_url) {
-      carouselItem.find('.carousel-image').css('background-image', 'url(\'' + item.url + '?timestamp=' + item.time + '\')');
+      carouselItem.find('.carousel-image').css('background-image', 'url(\'' + item.url + '\')');
     } else {
       carouselItem.find('.carousel-image').css('width', '50vh').append($('<div>').addClass('mime-icon ico-' + item.icon));
     }
