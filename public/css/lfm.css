@@ -330,15 +330,22 @@ a {
 
 .list .item_name {
   font-size: 1.25rem;
-  padding: 5px 0 5px;
 }
 
 time {
+  margin-top: 4px;
   font-size: .9rem;
 }
 
 .grid time {
   display: none;
+}
+
+.list .info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .info > * {
