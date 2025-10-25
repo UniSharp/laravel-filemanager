@@ -5,7 +5,7 @@ Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which alre
 ### Option 1: CKEditor
 
 ```html
-<textarea id="my-editor" name="content" class="form-control">{!! old('content', 'test editor content') !!}</textarea>
+<textarea id="my-editor-1" name="content" class="form-control my-editor">{!! old('content', 'test editor content') !!}</textarea>
 <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
 <script>
   var options = {
@@ -21,7 +21,7 @@ Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which alre
 
   ```html
   <script>
-  CKEDITOR.replace('my-editor', options);
+  CKEDITOR.replace('my-editor-1', options);
   </script>
   ```
 
@@ -34,8 +34,54 @@ Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which alre
   $('textarea.my-editor').ckeditor(options);
   </script>
   ```
+  
+### Option 2: TinyMCE5
 
-### Option 2: TinyMCE4
+```html
+<script src="/path-to-your-tinymce/tinymce.min.js"></script>
+<textarea name="content" class="form-control my-editor">{!! old('content', $content) !!}</textarea>
+<script>
+  var editor_config = {
+    path_absolute : "/",
+    selector: 'textarea.my-editor',
+    relative_urls: false,
+    plugins: [
+      "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+      "searchreplace wordcount visualblocks visualchars code fullscreen",
+      "insertdatetime media nonbreaking save table directionality",
+      "emoticons template paste textpattern"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+    file_picker_callback : function(callback, value, meta) {
+      var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+      var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+
+      var cmsURL = editor_config.path_absolute + 'laravel-filemanager?editor=' + meta.fieldname;
+      if (meta.filetype == 'image') {
+        cmsURL = cmsURL + "&type=Images";
+      } else {
+        cmsURL = cmsURL + "&type=Files";
+      }
+
+      tinyMCE.activeEditor.windowManager.openUrl({
+        url : cmsURL,
+        title : 'Filemanager',
+        width : x * 0.8,
+        height : y * 0.8,
+        resizable : "yes",
+        close_previous : "no",
+        onMessage: (api, message) => {
+          callback(message.content);
+        }
+      });
+    }
+  };
+
+  tinymce.init(editor_config);
+</script>
+```
+
+### Option 3: TinyMCE4
 
 ```html
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
@@ -78,7 +124,7 @@ Check `vendor/unisharp/laravel-filemanager/src/views/demo.blade.php`, which alre
 </script>
 ```
 
-### Option 3: Summernote
+### Option 4: Summernote
 
 ```html
 <!-- dependencies (Summernote depends on Bootstrap & jQuery) -->
@@ -151,7 +197,7 @@ If you are going to use filemanager independently, meaning set the value of an i
       </span>
       <input id="thumbnail" class="form-control" type="text" name="filepath">
     </div>
-    <img id="holder" style="margin-top:15px;max-height:100px;">
+    <div id="holder" style="margin-top:15px;max-height:100px;"></div>
     ```
 1. Import lfm.js(run `php artisan vendor:publish` if you need).
 

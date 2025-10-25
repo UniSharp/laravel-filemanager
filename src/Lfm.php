@@ -17,7 +17,7 @@ class Lfm
     protected $config;
     protected $request;
 
-    public function __construct(Config $config = null, Request $request = null)
+    public function __construct(?Config $config = null, ?Request $request = null)
     {
         $this->config = $config;
         $this->request = $request;
@@ -46,7 +46,22 @@ class Lfm
      */
     public function getNameFromPath($path)
     {
-        return pathinfo($path, PATHINFO_BASENAME);
+        return $this->utf8Pathinfo($path, 'basename');
+    }
+
+    public function utf8Pathinfo($path, $part_name)
+    {
+        // XXX: all locale work-around for issue: utf8 file name got emptified
+        // if there's no '/', we're probably dealing with just a filename
+        // so just put an 'a' in front of it
+        if (strpos($path, '/') === false) {
+            $path_parts = pathinfo('a' . $path);
+        } else {
+            $path = str_replace('/', '/a', $path);
+            $path_parts = pathinfo($path);
+        }
+
+        return substr($path_parts[$part_name], 1);
     }
 
     public function allowFolderType($type)
@@ -148,6 +163,21 @@ class Lfm
         return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.valid_mime');
     }
 
+    public function shouldCreateCategoryThumb()
+    {
+        return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.thumb');
+    }
+
+    public function categoryThumbWidth()
+    {
+        return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.thumb_width');
+    }
+
+    public function categoryThumbHeight()
+    {
+        return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.thumb_height');
+    }
+
     public function maxUploadSize()
     {
         return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.max_size');
@@ -165,6 +195,12 @@ class Lfm
      */
     public function allowMultiUser()
     {
+        $type_key = $this->currentLfmType();
+
+        if ($this->config->has('lfm.folder_categories.' . $type_key . '.allow_private_folder')) {
+            return $this->config->get('lfm.folder_categories.' . $type_key . '.allow_private_folder') === true;
+        }
+
         return $this->config->get('lfm.allow_private_folder') === true;
     }
 
@@ -180,19 +216,31 @@ class Lfm
             return true;
         }
 
+        $type_key = $this->currentLfmType();
+
+        if ($this->config->has('lfm.folder_categories.' . $type_key . '.allow_shared_folder')) {
+            return $this->config->get('lfm.folder_categories.' . $type_key . '.allow_shared_folder') === true;
+        }
+
         return $this->config->get('lfm.allow_shared_folder') === true;
     }
 
     /**
-     * Translate file name to make it compatible on Windows.
+     * Translate file or directory name(s) to be compatible on Windows.
      *
-     * @param  string  $input  Any string.
-     * @return string
+     * @param  string|array  $input  Any string or array of strings.
+     * @return string|array
      */
     public function translateFromUtf8($input)
     {
         if ($this->isRunningOnWindows()) {
-            $input = iconv('UTF-8', mb_detect_encoding($input), $input);
+            if (is_array($input)) {
+                foreach ($input as &$item) {
+                    $item = iconv('UTF-8', mb_detect_encoding($item), $item);
+                }
+            } else {
+                $input = iconv('UTF-8', mb_detect_encoding($input), $input);
+            }
         }
 
         return $input;
@@ -247,7 +295,6 @@ class Lfm
         $namespace = '\\UniSharp\\LaravelFilemanager\\Controllers\\';
 
         Route::group(compact('middleware', 'as', 'namespace'), function () {
-
             // display main layout
             Route::get('/', [
                 'uses' => 'LfmController@show',
@@ -278,8 +325,8 @@ class Lfm
             ]);
 
             Route::get('/domove', [
-                'uses' => 'ItemsController@domove',
-                'as' => 'domove'
+                'uses' => 'ItemsController@doMove',
+                'as' => 'doMove'
             ]);
 
             // folders
@@ -300,12 +347,12 @@ class Lfm
                 'as' => 'getCrop',
             ]);
             Route::get('/cropimage', [
-                'uses' => 'CropController@getCropimage',
-                'as' => 'getCropimage',
+                'uses' => 'CropController@getCropImage',
+                'as' => 'getCropImage',
             ]);
             Route::get('/cropnewimage', [
-                'uses' => 'CropController@getNewCropimage',
-                'as' => 'getCropnewimage',
+                'uses' => 'CropController@getNewCropImage',
+                'as' => 'getNewCropImage',
             ]);
 
             // rename
@@ -323,7 +370,10 @@ class Lfm
                 'uses' => 'ResizeController@performResize',
                 'as' => 'performResize',
             ]);
-
+            Route::get('/doresizenew', [
+                'uses' => 'ResizeController@performResizeNew',
+                'as' => 'performResizeNew',
+            ]);
             // download
             Route::get('/download', [
                 'uses' => 'DownloadController@getDownload',

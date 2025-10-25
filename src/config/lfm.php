@@ -17,6 +17,12 @@ return [
 
     'use_package_routes'       => true,
 
+    //Middlewares to be applied to default routes when use_package_routes is true
+    'middlewares'              => ['web','auth'],
+
+    //The url prefix to this package.
+    'url_prefix'               => 'filemanager',
+
     /*
     |--------------------------------------------------------------------------
     | Shared folder / Private folder
@@ -48,28 +54,32 @@ return [
     'folder_categories'        => [
         'file'  => [
             'folder_name'  => 'files',
-            'startup_view' => 'grid',
+            'startup_view' => 'list',
             'max_size'     => 50000, // size in KB
+            'thumb' => true,
+            'thumb_width' => 80,
+            'thumb_height' => 80,
             'valid_mime'   => [
                 'image/jpeg',
                 'image/pjpeg',
                 'image/png',
                 'image/gif',
-                'image/svg+xml',
+                'application/pdf',
+                'text/plain',
             ],
         ],
         'image' => [
             'folder_name'  => 'photos',
-            'startup_view' => 'list',
+            'startup_view' => 'grid',
             'max_size'     => 50000, // size in KB
+            'thumb' => true,
+            'thumb_width' => 80,
+            'thumb_height' => 80,
             'valid_mime'   => [
                 'image/jpeg',
                 'image/pjpeg',
                 'image/png',
                 'image/gif',
-                'image/svg+xml',
-                'application/pdf',
-                'text/plain',
             ],
         ],
     ],
@@ -92,7 +102,11 @@ return [
 
     'disk'                     => 'public',
 
+    'temporary_url_duration'   => 30,
+
     'rename_file'              => false,
+
+    'rename_duplicates'        => false,
 
     'alphanumeric_filename'    => false,
 
@@ -103,12 +117,24 @@ return [
 
     'should_validate_size'     => false,
 
-    'should_validate_mime'     => false,
+    'should_validate_mime'     => true,
 
     // behavior on files with identical name
     // setting it to true cause old file replace with new one
     // setting it to false show `error-file-exist` error and stop upload
     'over_write_on_duplicate'  => false,
+
+    // mimetypes of executables to prevent from uploading
+    'disallowed_mimetypes' => ['text/x-php', 'text/html', 'text/plain'],
+
+    // extensions of executables to prevent from uploading
+    'disallowed_extensions' => ['php', 'html'],
+
+    // Item Columns
+    'item_columns' => ['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url'],
+
+    // Output files in reverse
+    'is_reverse_view' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -167,4 +193,6 @@ return [
     'php_ini_overrides'        => [
         'memory_limit' => '256M',
     ],
+
+    'intervention_driver' => 'gd', // options: gd, imagick
 ];

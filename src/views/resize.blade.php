@@ -19,9 +19,9 @@
   <div class="row">
     <div class="col-md-8 bg-light" id="work_space">
       <div id="containment" class="d-none d-md-inline">
-        <img id="resize" src="{{ $img->url . '?timestamp=' . $img->time }}" height="{{ $height }}" width="{{ $width }}">
+        <img id="resize" src="{{ $img->url }}" height="{{ $height }}" width="{{ $width }}">
       </div>
-      <div id="resize_mobile" style="background-image: url({{ $img->url . '?timestamp=' . $img->time }})" class="d-block d-md-none"></div>
+      <div id="resize_mobile" style="background-image: url({{ $img->url }})" class="d-block d-md-none"></div>
     </div>
     <div class="col-md-4 pt-3">
       <table class="table table-compact table-striped">
@@ -59,6 +59,7 @@
       </table>
       <div class="d-flex mb-3">
         <button class="btn btn-secondary w-50 mr-1" onclick="loadItems()">{{ trans('laravel-filemanager::lfm.btn-cancel') }}</button>
+        <button class="btn btn-warning w-50 mr-1" onclick="doResizeNew()">{{ trans('laravel-filemanager::lfm.btn-resize-copy') }}</button>
         <button class="btn btn-primary w-50" onclick="doResize()">{{ trans('laravel-filemanager::lfm.btn-resize') }}</button>
       </div>
 
@@ -115,6 +116,14 @@
 
   function doResize() {
     performLfmRequest('doresize', {
+      img: $("#img").val(),
+      dataHeight: $("#height").val(),
+      dataWidth: $("#width").val()
+    }).done(loadItems);
+  }
+
+  function doResizeNew() {
+    performLfmRequest('doresizenew', {
       img: $("#img").val(),
       dataHeight: $("#height").val(),
       dataWidth: $("#width").val()

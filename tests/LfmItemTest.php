@@ -13,15 +13,18 @@ class LfmItemTest extends TestCase
     private $lfm_path;
     private $lfm;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->lfm = m::mock(Lfm::class);
 
         $this->lfm_path = m::mock(LfmPath::class);
         $this->lfm_path->shouldReceive('thumb')->andReturn($this->lfm_path);
+        $this->lfm->shouldReceive('config')
+            ->with('item_columns')
+            ->andReturn(['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url']);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
 
@@ -30,7 +33,7 @@ class LfmItemTest extends TestCase
 
     public function testMagicGet()
     {
-        $this->lfm_item = new LfmItem($this->lfm_path, m::mock(Lfm::class));
+        $this->lfm_item = new LfmItem($this->lfm_path, $this->lfm);
 
         $this->lfm_item->attributes['foo'] = 'bar';
 

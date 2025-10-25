@@ -141,6 +141,10 @@ a {
   padding: 3rem 0;
 }
 
+.disabled {
+  pointer-events: none;
+}
+
 /* Loader */
 
 #lfm-loader {

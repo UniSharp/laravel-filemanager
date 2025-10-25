@@ -3,7 +3,6 @@
 namespace UniSharp\LaravelFilemanager;
 
 use Illuminate\Support\Facades\Storage;
-use League\Flysystem\Cached\CachedAdapter;
 
 class LfmStorageRepository
 {
@@ -26,13 +25,7 @@ class LfmStorageRepository
 
     public function rootPath()
     {
-        $adapter = $this->disk->getDriver()->getAdapter();
-
-        if ($adapter instanceof CachedAdapter) {
-            $adapter = $adapter->getAdapter();
-        }
-
-        return $adapter->getPathPrefix();
+        return $this->disk->path('');
     }
 
     public function move($new_lfm_path)
@@ -50,7 +43,14 @@ class LfmStorageRepository
 
     public function url($path)
     {
-        return $this->disk->url($path);
+        $config = $this->disk->getConfig();
+
+        if (key_exists('driver', $config) && $config['driver'] == 's3') {
+            $duration = $this->helper->config('temporary_url_duration');
+            return $this->disk->temporaryUrl($path, now()->addMinutes($duration));
+        } else {
+            return $this->disk->url($path);
+        }
     }
 
     public function makeDirectory()
@@ -66,6 +66,7 @@ class LfmStorageRepository
 
     public function extension()
     {
+        setlocale(LC_ALL, 'en_US.UTF-8');
         return pathinfo($this->path, PATHINFO_EXTENSION);
     }
 }

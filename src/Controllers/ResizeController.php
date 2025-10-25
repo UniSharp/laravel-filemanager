@@ -2,12 +2,20 @@
 
 namespace UniSharp\LaravelFilemanager\Controllers;
 
-use Intervention\Image\Facades\Image;
+use UniSharp\LaravelFilemanager\Services\ImageService;
 use UniSharp\LaravelFilemanager\Events\ImageIsResizing;
 use UniSharp\LaravelFilemanager\Events\ImageWasResized;
 
 class ResizeController extends LfmController
 {
+    private ImageService $imageService;
+
+    public function __construct(ImageService $imageService)
+    {
+        $this->imageService = $imageService;
+        parent::__construct();
+    }
+
     /**
      * Dipsplay image for resizing.
      *
@@ -18,7 +26,7 @@ class ResizeController extends LfmController
         $ratio = 1.0;
         $image = request('img');
 
-        $original_image = Image::make($this->lfm->setName($image)->path('absolute'));
+        $original_image = $this->imageService->read($this->lfm->setName($image)->path('absolute'));
         $original_width = $original_image->width();
         $original_height = $original_image->height();
 
@@ -52,14 +60,31 @@ class ResizeController extends LfmController
             ->with('ratio', $ratio);
     }
 
-    public function performResize()
+    public function performResize($overWrite = true)
     {
+        $image_name = request('img');
         $image_path = $this->lfm->setName(request('img'))->path('absolute');
+        $resize_path = $image_path;
+
+        if (! $overWrite) {
+            $fileParts = explode('.', $image_name);
+            $fileParts[count($fileParts) - 2] = $fileParts[count($fileParts) - 2] . '_resized_' . time();
+            $resize_path = $this->lfm->setName(implode('.', $fileParts))->path('absolute');
+        }
 
         event(new ImageIsResizing($image_path));
-        Image::make($image_path)->resize(request('dataWidth'), request('dataHeight'))->save();
+
+        $this->imageService->read($image_path)
+            ->resize(request('dataWidth'), request('dataHeight'))
+            ->save($resize_path);
+
         event(new ImageWasResized($image_path));
 
         return parent::$success_response;
+    }
+
+    public function performResizeNew()
+    {
+        $this->performResize(false);
     }
 }

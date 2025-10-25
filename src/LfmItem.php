@@ -12,7 +12,7 @@ class LfmItem
     private $isDirectory;
     private $mimeType = null;
 
-    private $columns = ['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url'];
+    private $columns = [];
     public $attributes = [];
 
     public function __construct(LfmPath $lfm, Lfm $helper, $isDirectory = false)
@@ -20,6 +20,8 @@ class LfmItem
         $this->lfm = $lfm->thumb(false);
         $this->helper = $helper;
         $this->isDirectory = $isDirectory;
+        $this->columns = $helper->config('item_columns') ?:
+            ['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url'];
     }
 
     public function __get($var_name)
@@ -108,11 +110,18 @@ class LfmItem
 
     public function time()
     {
-        if (!$this->isDirectory()) {
-            return $this->lfm->lastModified();
+        // Avoid requesting lastModified for directories on S3-like drivers
+        // because folders are virtual and may not have an object key.
+        if ($this->isDirectory()) {
+            return '';
         }
 
-        return false;
+        try {
+            return $this->lfm->lastModified();
+        } catch (\Throwable $e) {
+            // Gracefully degrade if backend cannot retrieve metadata
+            return '';
+        }
     }
 
     public function thumbUrl()

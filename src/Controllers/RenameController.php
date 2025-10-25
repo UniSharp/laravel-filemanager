@@ -2,11 +2,16 @@
 
 namespace UniSharp\LaravelFilemanager\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use UniSharp\LaravelFilemanager\Events\ImageIsRenaming;
 use UniSharp\LaravelFilemanager\Events\ImageWasRenamed;
 use UniSharp\LaravelFilemanager\Events\FolderIsRenaming;
 use UniSharp\LaravelFilemanager\Events\FolderWasRenamed;
+use UniSharp\LaravelFilemanager\Events\FileIsRenaming;
+use UniSharp\LaravelFilemanager\Events\FileWasRenamed;
+use UniSharp\LaravelFilemanager\Events\ImageIsRenaming;
+use UniSharp\LaravelFilemanager\Events\ImageWasRenamed;
 
 class RenameController extends LfmController
 {
@@ -15,15 +20,21 @@ class RenameController extends LfmController
         $old_name = $this->helper->input('file');
         $new_name = $this->helper->input('new_name');
 
+        $file = $this->lfm->setName($old_name);
+
+        if (!Storage::disk($this->helper->config('disk'))->exists($file->path('storage'))) {
+            abort(404);
+        }
+
         $old_file = $this->lfm->pretty($old_name);
 
-        $is_directory = $old_file->isDirectory();
+        $is_directory = $file->isDirectory();
 
         if (empty($new_name)) {
             if ($is_directory) {
-                return parent::error('folder-name');
+                return response()->json(parent::error('folder-name'), 400);
             } else {
-                return parent::error('file-name');
+                return response()->json(parent::error('file-name'), 400);
             }
         }
 
@@ -57,13 +68,16 @@ class RenameController extends LfmController
             return parent::error('rename');
         }
 
-        $new_file = $this->lfm->setName($new_name)->path('absolute');
+        $new_path = $this->lfm->setName($new_name)->path('absolute');
 
         if ($is_directory) {
-            event(new FolderIsRenaming($old_file->path(), $new_file));
+            event(new FolderIsRenaming($old_file->path(), $new_path));
         } else {
-            event(new ImageIsRenaming($old_file->path(), $new_file));
+            event(new FileIsRenaming($old_file->path(), $new_path));
+            event(new ImageIsRenaming($old_file->path(), $new_path));
         }
+
+        $old_path = $old_file->path();
 
         if ($old_file->hasThumb()) {
             $this->lfm->setName($old_name)->thumb()
@@ -74,9 +88,10 @@ class RenameController extends LfmController
             ->move($this->lfm->setName($new_name));
 
         if ($is_directory) {
-            event(new FolderWasRenamed($old_file->path(), $new_file));
+            event(new FolderWasRenamed($old_path, $new_path));
         } else {
-            event(new ImageWasRenamed($old_file->path(), $new_file));
+            event(new FileWasRenamed($old_path, $new_path));
+            event(new ImageWasRenamed($old_path, $new_path));
         }
 
         return parent::$success_response;
