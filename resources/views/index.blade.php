@@ -86,6 +86,12 @@
         </ol>
       </nav>
 
+      <div style="margin-bottom: 16px;">
+        <input type="text" name="keyword" id="keyword" placeholder="keyword">
+        <button type="button" id="keyword-button" >Search</button>
+        <button type="button" id="keyword-reset-button" >Reset</button>
+      </div>
+
       <div id="empty" class="d-none">
         <i class="far fa-folder-open"></i>
         {{ trans('laravel-filemanager::lfm.message-empty') }}
