@@ -18,6 +18,7 @@ return [
     'menu-crop'         => '裁剪',
     'menu-move'         => '搬移',
     'menu-multiple'     => '多選',
+    'menu-cancel-selection' => '取消選取',
 
     'title-page'        => '檔案管理',
     'title-panel'       => '檔案管理',
