@@ -19,8 +19,20 @@ class LfmStorageRepository
 
     public function __call($function_name, $arguments)
     {
-        // TODO: check function exists
-        return $this->disk->$function_name($this->path, ...$arguments);
+        if ($function_name == 'directories') {
+            $directories = $this->disk->directories($this->path, ...$arguments);
+            $config = $this->helper->config('private_folder_name');
+
+            if(method_exists(app()->make($config), 'userAuthDirs')) {
+                return $this->getAuthDirectories($directories, app()->make($config)->userAuthDirs());
+            } else {
+                return $directories;
+            }
+            
+        } else {
+            // TODO: check function exists
+            return $this->disk->$function_name($this->path, ...$arguments);
+        }
     }
 
     public function rootPath()
@@ -68,5 +80,21 @@ class LfmStorageRepository
     {
         setlocale(LC_ALL, 'en_US.UTF-8');
         return pathinfo($this->path, PATHINFO_EXTENSION);
+    }
+
+    public function getAuthDirectories($directories, $auth_dirs)
+    {
+        $check = $directories;
+
+        if(count($auth_dirs)){
+            // remove unauthorized directories
+            foreach($check as $i => $directory) {
+                if(!in_array($directory, $auth_dirs)){
+                    unset($directories[$i]);
+                }
+            }
+        }
+
+        return $directories;
     }
 }
