@@ -15,30 +15,24 @@ class ItemsController extends LfmController
      *
      * @return mixed
      */
-    public function getItems(Request $request)
+    public function getItems()
     {
         $currentPage = self::getCurrentPageFromRequest();
 
         $perPage = $this->helper->getPaginationPerPage();
         $items = array_merge($this->lfm->folders(), $this->lfm->files());
 
-        $items = array_map(function ($item) {
-            return $item->fill()->attributes;
-        }, $items);
-
-        $keyword = $request->keyword;
+        $keyword = request()->get('keyword', "");
         if (!empty($keyword)) {
-            $items = array_values(array_filter($items, function ($item) use ($keyword) {
-                if ($this->like_match("%".$keyword."%", $item['name'])) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }));
+            $items = array_filter($items, function ($item) use ($keyword) {
+                return str_contains($item->name, $keyword);
+            });
         }
 
         return [
-            'items' => array_slice($items, ($currentPage - 1) * $perPage, $perPage),
+            'items' => array_map(function ($item) {
+                return $item->fill()->attributes;
+            }, array_slice($items, ($currentPage - 1) * $perPage, $perPage)),
             'paginator' => [
                 'current_page' => $currentPage,
                 'total' => count($items),
@@ -47,12 +41,6 @@ class ItemsController extends LfmController
             'display' => $this->helper->getDisplayMode(),
             'working_dir' => $this->lfm->path('working_dir'),
         ];
-    }
-
-    public function like_match($pattern, $subject)
-    {
-        $pattern = str_replace('%', '.*', preg_quote($pattern, '/'));
-        return (bool) preg_match("/^{$pattern}$/i", $subject);
     }
 
     public function move()
@@ -121,11 +109,5 @@ class ItemsController extends LfmController
         $currentPage = $currentPage < 1 ? 1 : $currentPage;
 
         return $currentPage;
-    }
-
-    private static function getKeywordFromRequest()
-    {
-        $keyword = request()->get('keyword', "");
-        return $keyword;
     }
 }
