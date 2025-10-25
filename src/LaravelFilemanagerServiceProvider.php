@@ -22,9 +22,9 @@ class LaravelFilemanagerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadTranslationsFrom(__DIR__.'/../lang', 'laravel-filemanager');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'laravel-filemanager');
 
-        $this->loadViewsFrom(__DIR__ . '/views', 'laravel-filemanager');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'laravel-filemanager');
 
         $this->publishes([
             __DIR__.'/../resources/lang' => 'resources/lang/vendor/laravel-filemanager',
