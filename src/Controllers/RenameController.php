@@ -4,8 +4,6 @@ namespace UniSharp\LaravelFilemanager\Controllers;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use UniSharp\LaravelFilemanager\Events\ImageIsRenaming;
-use UniSharp\LaravelFilemanager\Events\ImageWasRenamed;
 use UniSharp\LaravelFilemanager\Events\FolderIsRenaming;
 use UniSharp\LaravelFilemanager\Events\FolderWasRenamed;
 use UniSharp\LaravelFilemanager\Events\FileIsRenaming;
