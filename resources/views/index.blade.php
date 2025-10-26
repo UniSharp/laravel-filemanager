@@ -93,9 +93,9 @@
         </label>
 
         <div class="search-bar">
-          <input type="text" name="keyword" id="keyword" placeholder="keyword">
-          <button type="button" id="keyword-button" >Search</button>
-          <button type="button" id="keyword-reset-button" >Reset</button>
+          <input type="text" name="keyword" id="keyword" placeholder="keyword" class="form-control">
+          <button type="button" id="keyword-button" class="btn btn-outline-primary">Search</button>
+          <button type="button" id="keyword-reset-button" class="btn btn-outline-secondary">Reset</button>
         </div>
       </div>
 
