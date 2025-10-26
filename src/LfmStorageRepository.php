@@ -46,6 +46,12 @@ class LfmStorageRepository
         $config = $this->disk->getConfig();
 
         if (key_exists('driver', $config) && $config['driver'] == 's3') {
+            // Check if custom URL is configured (for public bucket with custom domain)
+            if (!empty($config['url'])) {
+                return $this->disk->url($path);
+            }
+            
+            // Use temporary URL for private buckets without custom domain
             $duration = $this->helper->config('temporary_url_duration');
             return $this->disk->temporaryUrl($path, now()->addMinutes($duration));
         } else {
