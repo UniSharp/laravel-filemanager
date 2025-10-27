@@ -17,6 +17,12 @@ return [
 
     'use_package_routes'       => true,
 
+    //Middlewares to be applied to default routes when use_package_routes is true
+    'middlewares'              => ['web','auth'],
+
+    //The url prefix to this package.
+    'url_prefix'               => 'filemanager',
+
     /*
     |--------------------------------------------------------------------------
     | Shared folder / Private folder
@@ -96,6 +102,8 @@ return [
 
     'disk'                     => 'public',
 
+    'temporary_url_duration'   => 30,
+
     'rename_file'              => false,
 
     'rename_duplicates'        => false,
@@ -103,6 +111,9 @@ return [
     'alphanumeric_filename'    => false,
 
     'alphanumeric_directory'   => false,
+
+    // When creating folder or renaming folder/file, automatically convert to alphanumeric instead of error
+    'convert_to_alphanumeric'  => false,
 
     'should_validate_size'     => false,
 
@@ -121,6 +132,9 @@ return [
 
     // Item Columns
     'item_columns' => ['name', 'url', 'time', 'icon', 'is_file', 'is_image', 'thumb_url'],
+
+    // Output files in reverse
+    'is_reverse_view' => false,
 
     /*
     |--------------------------------------------------------------------------

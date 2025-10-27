@@ -52,7 +52,7 @@
     <div class="row">
       <div class="col-md-12">
         <h2 class="mt-4">Embed file manager</h2>
-        <iframe src="/filemanager" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
+        <iframe src="/{{config('lfm.url_prefix') ?: 'filemanager'}}" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
   <script>
-   var route_prefix = "/filemanager";
+   var route_prefix = "/{{config('lfm.url_prefix') ?: 'filemanager'}}";
   </script>
 
   <!-- CKEditor init -->
@@ -186,7 +186,7 @@
           tooltip: 'Insert image with filemanager',
           click: function() {
 
-            lfm({type: 'image', prefix: '/filemanager'}, function(lfmItems, path) {
+            lfm({type: 'image', prefix: route_prefix}, function(lfmItems, path) {
               lfmItems.forEach(function (lfmItem) {
                 context.invoke('insertImage', lfmItem.url);
               });

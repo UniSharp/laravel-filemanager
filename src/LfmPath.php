@@ -3,6 +3,8 @@
 namespace UniSharp\LaravelFilemanager;
 
 use Illuminate\Container\Container;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use UniSharp\LaravelFilemanager\Services\ImageService;
 use UniSharp\LaravelFilemanager\Events\FileIsUploading;
@@ -213,6 +215,10 @@ class LfmPath
             return strcasecmp($a->{$key_to_sort}, $b->{$key_to_sort});
         });
 
+        if (config('lfm.is_reverse_view', false)) {
+            return array_reverse($arr_items);
+        }
+
         return $arr_items;
     }
 
@@ -283,7 +289,7 @@ class LfmPath
         if (config('lfm.rename_file') === true) {
             $new_file_name = uniqid();
         } elseif (config('lfm.alphanumeric_filename') === true) {
-            $new_file_name = preg_replace('/[^A-Za-z0-9\-\']/', '_', $new_file_name);
+            $new_file_name = Str::slug($new_file_name);
         }
 
         if ($extension) {

@@ -110,7 +110,18 @@ class LfmItem
 
     public function time()
     {
-        return $this->lfm->lastModified();
+        // Avoid requesting lastModified for directories on S3-like drivers
+        // because folders are virtual and may not have an object key.
+        if ($this->isDirectory()) {
+            return null;
+        }
+
+        try {
+            return $this->lfm->lastModified();
+        } catch (\Throwable $e) {
+            // Gracefully degrade if backend cannot retrieve metadata
+            return null;
+        }
     }
 
     public function thumbUrl()

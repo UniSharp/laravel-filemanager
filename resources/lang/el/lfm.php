@@ -6,6 +6,9 @@ return [
     'nav-upload'        => 'Ανέβασμα',
     'nav-thumbnails'    => 'Εικονίδια',
     'nav-list'          => 'Λίστα',
+    'nav-sort'          => 'Ταξινόμηση',
+    'nav-sort-alphabetic'=> 'Ταξινόμηση (αλφαβητικά)',
+    'nav-sort-time'     => 'Ταξινόμηση (ημερομηνία)',
 
     'menu-rename'       => 'Μετονομασία',
     'menu-delete'       => 'Διαγραφή',
@@ -13,6 +16,8 @@ return [
     'menu-download'     => 'Κατέβασμα',
     'menu-resize'       => 'Αλλαγή μεγέθους',
     'menu-crop'         => 'Κόψιμο',
+    'menu-move'         => 'Μετακίνηση',
+    'menu-multiple'     => 'Πολλαπλή επιλογή',
 
     'title-page'        => 'Διαχείριση αρχείων',
     'title-panel'       => 'Laravel FileManager',
@@ -34,8 +39,10 @@ return [
     'message-name'      => 'Όνομα φακέλου:',
     'message-rename'    => 'Μετονομασία σε:',
     'message-extension_not_found' => 'Παρακαλούμε κάντε εγκατάσταση του gd ή imagick php προσθετου προκειμένου να μπορείτε να κόψετε, αλλάξετε το μέγεθος και δημιουργήσετε εικονίδια των εικόνων.',
+    'message-drop'      => '"Εναλλακτικά κάντε drop αρχεία εδώ για να τα ανεβάσετε',
 
     'error-rename'      => 'Αυτό το όνομα αρχείου χρησιμοποιείται ήδη',
+    'error-file-name'   => 'Το όνομα αρχείου δεν μπορεί να είναι κενό!',
     'error-file-empty'  => 'Πρέπει να επιλέξετε ένα αρχείο!',
     'error-file-exist'  => 'Υπάρχει ήδη αρχείο με αυτό το όνομα!',
     'error-file-size'   => 'Το μέγεθος του αρχείου ξεπερνά το επιτρεπόμενο όριο σε μέγεθος (μέγιστο μέγεθος: :max)',
@@ -43,8 +50,9 @@ return [
     'error-folder-name' => 'Ο φάκελος δεν γίνεται να είναι άδειος',
     'error-folder-exist'=> 'Υπάρχει ήδη φάκελος με αυτό το όνομα!',
     'error-folder-alnum'=> 'Επιτρέπονται μόνο γράμματα και αριθμοί για το όνομα των φακέλων!',
+    'error-folder-not-found'=> 'Ο φάκελος δεν βρέθηκε! (:folder)',
     'error-mime'        => 'Λανθασμένος τύπος αρχείου: ',
-    'error-size'    => 'Μέγιστο μέγεθος αρχείου:',
+    'error-size'        => 'Μέγιστο μέγεθος αρχείου:',
     'error-instance'    => 'Το ανεβασμένο αρχείο έπρεπε να είναι του τύπου UploadedFile',
     'error-invalid'     => 'Λάθος αίτημα ανεβάσματος',
     'error-other'       => 'Παρουσιάστηκε ένα σφάλμα: ',
@@ -54,8 +62,13 @@ return [
     'btn-uploading'     => 'Ανεβασμα...',
     'btn-close'         => 'Κλείσιμο',
     'btn-crop'          => 'Κόψιμο',
+    'btn-copy-crop'     => 'Αντιγραφή & Κόψιμο',
+    'btn-crop-free'     => 'Free',
     'btn-cancel'        => 'Ακύρωση',
+    'btn-confirm'       => 'Επιβεβαίωση',
     'btn-resize'        => 'Αλλαγή μεγέθους',
+    'btn-resize-copy'   => 'Αντιγραφή & Αλλαγή μεγέθους',
+    'btn-open'          => 'Άνοιγμα φακέλου',
 
     'resize-ratio'      => 'Αναλογία:',
     'resize-scaled'     => 'Η εικόνα άλλαξε μέγεθος:',
@@ -63,7 +76,7 @@ return [
     'resize-old-height' => 'Πρωτότυπο ύψος:',
     'resize-old-width'  => 'Πρωτότυπο πλάτος:',
     'resize-new-height' => 'Ύψος:',
-    'resize-new-width'  => 'Μπλάτος:',
+    'resize-new-width'  => 'Πλάτος:',
 
     'locale-bootbox'    => 'el',
 ];

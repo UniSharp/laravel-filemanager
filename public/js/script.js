@@ -97,16 +97,10 @@ $(document).ready(function () {
 // ==  Navbar actions  ==
 // ======================
 
-$('#multi_selection_toggle').click(function () {
-  multi_selection_enabled = !multi_selection_enabled;
+$('#cancel_selection').click(clearSelected);
 
-  $('#multi_selection_toggle i')
-    .toggleClass('fa-times', multi_selection_enabled)
-    .toggleClass('fa-check-double', !multi_selection_enabled);
-
-  if (!multi_selection_enabled) {
-    clearSelected();
-  }
+$('#multiple-selection-toggle').change(function () {
+  multi_selection_enabled = $(this).is(':checked');
 });
 
 $('#to-previous').click(function () {
@@ -145,6 +139,17 @@ $(document).on('click', '[data-display]', function() {
   loadItems();
 });
 
+$(document).on('click', '#keyword-button', function() {
+  show_list = $(this).data('display');
+  loadItems();
+});
+
+$(document).on('click', '#keyword-reset-button', function() {
+  $('#keyword').val("");
+  show_list = $(this).data('display');
+  loadItems();
+});
+
 $(document).on('click', '[data-action]', function() {
   window[$(this).data('action')]($(this).data('multiple') ? getSelectedItems() : getOneSelectedElement());
 });
@@ -171,9 +176,6 @@ function toggleSelected (e) {
 
 function clearSelected () {
   selected = [];
-
-  multi_selection_enabled = false;
-
   updateSelectedStyle();
 }
 
@@ -217,9 +219,9 @@ function toggleActions() {
   $('[data-action=crop]').toggleClass('d-none', !(one_selected && only_image));
   $('[data-action=trash]').toggleClass('d-none', !many_selected);
   $('[data-action=open]').toggleClass('d-none', !one_selected || only_file);
-  $('#multi_selection_toggle').toggleClass('d-none', usingWysiwygEditor() || !many_selected);
+  $('#cancel_selection').toggleClass('d-none', selected.length === 0);
   $('#actions').toggleClass('d-none', selected.length === 0);
-  $('#fab').toggleClass('d-none', selected.length !== 0);
+  $('#fab').toggleClass('shifted-up', selected.length !== 0);
 }
 
 // ======================
@@ -425,7 +427,8 @@ function createPagination(paginationSetting) {
 
 function loadItems(page) {
   loading(true);
-  performLfmRequest('jsonitems', {show_list: show_list, sort_type: sort_type, page: page || 1}, 'html')
+  var keyword = $('#keyword').val();
+  performLfmRequest('jsonitems', { show_list: show_list, sort_type: sort_type, page: page || 1, keyword: keyword }, 'html')
     .done(function (data) {
       selected = [];
       var response = JSON.parse(data);
@@ -455,7 +458,7 @@ function loadItems(page) {
             });
 
           if (item.thumb_url) {
-            var image = $('<div>').css('background-image', 'url("' + item.thumb_url + '?timestamp=' + item.time + '")');
+            var image = $('<div>').css('background-image', 'url("' + item.thumb_url + '")');
           } else {
             var icon = $('<div>').addClass('ico');
             var image = $('<div>').addClass('mime-icon ico-' + item.icon).append(icon);
@@ -463,7 +466,7 @@ function loadItems(page) {
 
           template.find('.square').append(image);
           template.find('.item_name').text(item.name);
-          template.find('time').text((new Date(item.time * 1000)).toLocaleString());
+          template.find('time').text(item.time ? (new Date(item.time * 1000)).toLocaleString() : '');
 
           $('#content').append(template);
         });
@@ -588,10 +591,6 @@ function download(items) {
   });
 }
 
-function open(item) {
-  goTo(item.url);
-}
-
 function preview(items) {
   var carousel = $('#carouselTemplate').clone().attr('id', 'previewCarousel').removeClass('d-none');
   var imageTemplate = carousel.find('.carousel-item').clone().removeClass('active');
@@ -605,7 +604,7 @@ function preview(items) {
       .addClass(index === 0 ? 'active' : '');
 
     if (item.thumb_url) {
-      carouselItem.find('.carousel-image').css('background-image', 'url(\'' + item.url + '?timestamp=' + item.time + '\')');
+      carouselItem.find('.carousel-image').css('background-image', 'url(\'' + item.url + '\')');
     } else {
       carouselItem.find('.carousel-image').css('width', '50vh').append($('<div>').addClass('mime-icon ico-' + item.icon));
     }
@@ -722,7 +721,7 @@ const editorIntegrations = {
     },
   },
   Tinymce4AndColorbox: {
-    isActive: () => !!getUrlParam('field_name'),
+    isActive: () => !!getUrlParam('field_name') && getUrlParam('editor') != 'tinymce5',
     passUrl: (url) => {
       parent.document.getElementById(getUrlParam('field_name')).value = url;
 
@@ -776,7 +775,7 @@ const editorIntegrations = {
 function defaultParameters() {
   return {
     working_dir: $('#working_dir').val(),
-    type: $('#type').val()
+    type: $('#type').val(),
   };
 }
 

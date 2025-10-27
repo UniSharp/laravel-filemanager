@@ -8,12 +8,23 @@ class DownloadController extends LfmController
 {
     public function getDownload()
     {
-        $file = $this->lfm->setName(request('file'));
+        $file_name = request('file');
+        $file = $this->lfm->setName($file_name);
 
         if (!Storage::disk($this->helper->config('disk'))->exists($file->path('storage'))) {
             abort(404);
         }
 
-        return Storage::disk($this->helper->config('disk'))->download($file->path('storage'));
+        $disk = Storage::disk($this->helper->config('disk'));
+        $config = $disk->getConfig();
+
+        if (key_exists('driver', $config) && $config['driver'] == 's3') {
+            $duration = $this->helper->config('temporary_url_duration');
+            return response()->streamDownload(function () {
+                echo file_get_contents($disk->temporaryUrl($file->path('storage'), now()->addMinutes($duration)));
+            }, $file_name);
+        } else {
+            return response()->download($file->path('absolute'));
+        }
     }
 }

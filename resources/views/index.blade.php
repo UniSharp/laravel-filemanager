@@ -36,9 +36,9 @@
     <a class="navbar-brand d-block d-lg-none" id="current_folder"></a>
     <a id="loading" class="navbar-brand"><i class="fas fa-spinner fa-spin"></i></a>
     <div class="ml-auto px-2">
-      <a class="navbar-link d-none" id="multi_selection_toggle">
-        <i class="fa fa-check-double fa-fw"></i>
-        <span class="d-none d-lg-inline">{{ trans('laravel-filemanager::lfm.menu-multiple') }}</span>
+      <a class="navbar-link d-none" id="cancel_selection">
+        <i class="fa fa-times fa-fw"></i>
+        <span class="d-none d-lg-inline">{{ trans('laravel-filemanager::lfm.menu-cancel-selection') }}</span>
       </a>
     </div>
     <a class="navbar-toggler collapsed border-0 px-1 py-2 m-0" data-toggle="collapse" data-target="#nav-buttons">
@@ -85,6 +85,19 @@
           <li class="breadcrumb-item invisible">Home</li>
         </ol>
       </nav>
+
+      <div class="action-bar">
+        <label class="multiple-selection-toggle-label">
+          <input type="checkbox" id="multiple-selection-toggle" style="width: 18px; height: 18px; margin-right: 8px">
+          {{ trans('laravel-filemanager::lfm.menu-multiple') }}
+        </label>
+
+        <div class="search-bar">
+          <input type="text" name="keyword" id="keyword" placeholder="keyword" class="form-control">
+          <button type="button" id="keyword-button" class="btn btn-outline-primary">Search</button>
+          <button type="button" id="keyword-reset-button" class="btn btn-outline-secondary">Reset</button>
+        </div>
+      </div>
 
       <div id="empty" class="d-none">
         <i class="far fa-folder-open"></i>
@@ -292,11 +305,15 @@
           }
         });
       },
-      headers: {
-        'Authorization': 'Bearer ' + getUrlParam('token')
-      },
       acceptedFiles: "{{ implode(',', $helper->availableMimeTypes()) }}",
       maxFilesize: ({{ $helper->maxUploadSize() }} / 1000)
+    }
+
+    var token = getUrlParam('token');
+    if (token !== null) {
+      Dropzone.options.uploadForm.headers = {
+        'Authorization': 'Bearer ' + token
+      };
     }
   </script>
 </body>

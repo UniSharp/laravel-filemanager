@@ -5,6 +5,7 @@ namespace UniSharp\LaravelFilemanager\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use UniSharp\LaravelFilemanager\Lfm;
+use Illuminate\Support\Arr;
 
 class UploadController extends LfmController
 {
@@ -29,7 +30,7 @@ class UploadController extends LfmController
         $error_bag = [];
         $new_filename = null;
 
-        foreach (is_array($uploaded_files) ? $uploaded_files : [$uploaded_files] as $file) {
+        foreach (is_array($uploaded_files) ? Arr::flatten($uploaded_files) : [$uploaded_files] as $file) {
             try {
                 $this->lfm->validateUploadedFile($file);
 
