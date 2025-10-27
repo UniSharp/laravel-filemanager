@@ -67,6 +67,30 @@ class LfmPath
         return $this->item_name;
     }
 
+    public function entryDirectory()
+    {
+        $type = $this->helper->allowFolderType('user') ? 'user' : 'share';
+
+        return '/' . $this->helper->rootFolderName($type);
+    }
+
+    public function workingDirectory()
+    {
+        $path = $this->working_dir ?: $this->entryDirectory();
+
+        if ($this->is_thumb) {
+            // Prevent if working dir is "/" normalizeWorkingDir will add double "//" that breaks S3 functionality
+            $path = rtrim($path, Lfm::DS) . Lfm::DS . $this->helper->getThumbFolderName();
+        }
+
+        if ($this->getName()) {
+            // Prevent if working dir is "/" normalizeWorkingDir will add double "//" that breaks S3 functionality
+            $path = rtrim($path, Lfm::DS) . Lfm::DS . $this->getName();
+        }
+
+        return $path;
+    }
+
     public function path($type = 'storage')
     {
         if ($type == 'working_dir') {
@@ -336,7 +360,7 @@ class LfmPath
         $encoded_image = $this->imageService->read($original_image->get())
             ->cover($thumbWidth, $thumbHeight)
             ->encodeByMediaType();
-        
+
         $this->storage->put($encoded_image, 'public');
     }
 }

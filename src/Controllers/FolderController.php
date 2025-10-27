@@ -5,6 +5,7 @@ namespace UniSharp\LaravelFilemanager\Controllers;
 use Illuminate\Support\Str;
 use UniSharp\LaravelFilemanager\Events\FolderIsCreating;
 use UniSharp\LaravelFilemanager\Events\FolderWasCreated;
+use UniSharp\LaravelFilemanager\LfmPath;
 
 class FolderController extends LfmController
 {
@@ -22,11 +23,11 @@ class FolderController extends LfmController
         return view('laravel-filemanager::tree')
             ->with([
                 'root_folders' => array_map(function ($type) use ($folder_types) {
-                    $path = $this->lfm->dir($this->helper->getRootFolder($type));
+                    $path = app(LfmPath::class)->dir($this->helper->getRootFolder($type));
 
                     return (object) [
                         'name' => trans('laravel-filemanager::lfm.title-' . $type),
-                        'url' => $path->path('working_dir'),
+                        'url' => $path->workingDirectory(),
                         'children' => $path->folders(),
                         'has_next' => ! ($type == end($folder_types)),
                     ];
@@ -43,7 +44,7 @@ class FolderController extends LfmController
     {
         $folder_name = $this->helper->input('name');
 
-        $new_path = $this->lfm->setName($folder_name)->path('absolute');
+        $new_path = app(LfmPath::class)->setName($folder_name)->path('absolute');
 
         event(new FolderIsCreating($new_path));
 

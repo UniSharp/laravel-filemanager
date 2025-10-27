@@ -148,6 +148,14 @@ class Lfm
         return '/' . $folder;
     }
 
+    public function rootFolderName($type)
+    {
+        return [
+            'user' => $this->getUserSlug(),
+            'share' => $this->config->get('lfm.shared_folder_name'),
+       ][$type];
+    }
+
     public function getThumbFolderName()
     {
         return $this->config->get('lfm.thumb_folder_name');
