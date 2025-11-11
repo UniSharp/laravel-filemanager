@@ -18,7 +18,7 @@ class DownloadController extends LfmController
         $disk = Storage::disk($this->helper->config('disk'));
         $config = $disk->getConfig();
 
-        if (key_exists('driver', $config) && $config['driver'] == 's3') {
+        if (key_exists('driver', $config) && $config['driver'] == 's3' && !is_null($this->helper->config('temporary_url_duration'))) {
             $duration = $this->helper->config('temporary_url_duration');
             return response()->streamDownload(function () {
                 echo file_get_contents($disk->temporaryUrl($file->path('storage'), now()->addMinutes($duration)));
