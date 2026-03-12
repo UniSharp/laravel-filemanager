@@ -23,14 +23,7 @@ class DeleteController extends LfmController
         $errors = [];
 
         foreach ($item_names as $name_to_delete) {
-            if (is_null($name_to_delete)) {
-                $errors[] = parent::error('folder-name');
-                continue;
-            }
-
             $file = $this->lfm->setName($name_to_delete);
-            $file_to_delete = $this->lfm->pretty($name_to_delete);
-            $file_path = $file_to_delete->path('absolute');
 
             if ($file->isDirectory()) {
                 event(new FolderIsDeleting($file->path('absolute')));
@@ -40,18 +33,25 @@ class DeleteController extends LfmController
             }
 
             if (!Storage::disk($this->helper->config('disk'))->exists($file->path('storage'))) {
-                $errors[] = parent::error('folder-not-found', ['folder' => $file_path]);
+                abort(404);
+            }
+
+            $file_to_delete = $this->lfm->pretty($name_to_delete);
+            $file_path = $file_to_delete->path('absolute');
+
+            if (is_null($name_to_delete)) {
+                array_push($errors, parent::error('folder-name'));
                 continue;
             }
 
-            if (!$this->lfm->setName($name_to_delete)->exists()) {
-                $errors[] = parent::error('folder-not-found', ['folder' => $file_path]);
+            if (! $this->lfm->setName($name_to_delete)->exists()) {
+                array_push($errors, parent::error('folder-not-found', ['folder' => $file_path]));
                 continue;
             }
 
             if ($this->lfm->setName($name_to_delete)->isDirectory()) {
-                if (!$this->lfm->setName($name_to_delete)->directoryIsEmpty()) {
-                    $errors[] = parent::error('delete-folder');
+                if (! $this->lfm->setName($name_to_delete)->directoryIsEmpty()) {
+                    array_push($errors, parent::error('delete-folder'));
                     continue;
                 }
 
