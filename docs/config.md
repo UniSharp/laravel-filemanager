@@ -179,6 +179,34 @@ If set to `true`, the mime type of uploading file will be verified.
 
 Define behavior on files with identical name. Setting it to `true` cause old file replace with new one. Setting it to `false` show `error-file-exist` error and abort the upload process.
 
+## Image Optimization
+
+### optimize\_uploaded\_images
+
+* type: `array`
+* default:
+
+```
+'optimize_uploaded_images' => [
+    'enabled' => false,
+    'quality' => 85,
+    'max_width' => null,
+    'max_height' => null,
+    'progressive' => true,
+    'keep_original_when_larger' => true,
+    'mimetypes' => [
+        'image/jpeg',
+        'image/pjpeg',
+    ],
+],
+```
+
+When `enabled` is `true`, supported uploaded images are re-encoded after the original upload succeeds.
+
+`max_width` and `max_height` can be used to scale large uploads down while keeping the aspect ratio. Set both to `null` to keep the uploaded dimensions.
+
+If optimization fails, the original upload is kept. If `keep_original_when_larger` is enabled, the optimized image only replaces the upload when it is smaller than the original.
+
 ## Thumbnail
 
 ### should\_create\_thumbnails

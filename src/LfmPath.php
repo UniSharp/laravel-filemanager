@@ -4,7 +4,6 @@ namespace UniSharp\LaravelFilemanager;
 
 use Illuminate\Container\Container;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use UniSharp\LaravelFilemanager\Services\ImageService;
 use UniSharp\LaravelFilemanager\Events\FileIsUploading;
@@ -240,6 +239,8 @@ class LfmPath
         try {
             $this->setName($new_file_name)->storage->save($file);
 
+            $this->optimizeUploadedImage($new_file_name);
+
             $this->generateThumbnail($new_file_name);
         } catch (\Exception $e) {
             \Log::info($e);
@@ -278,6 +279,48 @@ class LfmPath
         }
 
         return true;
+    }
+
+    private function optimizeUploadedImage($file_name)
+    {
+        if (! config('lfm.optimize_uploaded_images.enabled', false)) {
+            return;
+        }
+
+        $original_image = $this->pretty($file_name);
+
+        if (!$original_image->isImage()) {
+            return;
+        }
+
+        $mime_type = $original_image->mimeType();
+        $allowed_mimetypes = (array) config(
+            'lfm.optimize_uploaded_images.mimetypes',
+            config('lfm.raster_mimetypes', [])
+        );
+
+        if (!in_array($mime_type, $allowed_mimetypes)) {
+            return;
+        }
+
+        try {
+            $contents = $original_image->get();
+            $optimized_image = $this->imageService->optimizeUpload(
+                $contents,
+                $mime_type,
+                config('lfm.optimize_uploaded_images', [])
+            );
+
+            if (config('lfm.optimize_uploaded_images.keep_original_when_larger', true)
+                && strlen((string) $optimized_image) >= strlen($contents)
+            ) {
+                return;
+            }
+
+            $this->setName($file_name)->storage->put($optimized_image, $this->storageOptions());
+        } catch (\Throwable $e) {
+            \Log::info($e);
+        }
     }
 
     private function getNewName($file)
@@ -347,14 +390,19 @@ class LfmPath
                 ->encodeByMediaType();
         }
 
+        $this->storage->put($encoded_image, $this->storageOptions());
+    }
+
+    private function storageOptions()
+    {
         $config = $this->storage->getConfig();
-        $options = 'public';
+
         if (key_exists('driver', $config) && $config['driver'] == 's3'
             && $this->helper->config('s3_acls_disabled')
         ) {
-            $options = [];
+            return [];
         }
 
-        $this->storage->put($encoded_image, $options);
+        return 'public';
     }
 }

@@ -140,6 +140,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Image Optimization
+    |--------------------------------------------------------------------------
+     */
+
+    // If true, supported images will be re-encoded during upload.
+    'optimize_uploaded_images' => [
+        'enabled' => false,
+        'quality' => 85,
+        'max_width' => null,
+        'max_height' => null,
+        'progressive' => true,
+        'keep_original_when_larger' => true,
+        'mimetypes' => [
+            'image/jpeg',
+            'image/pjpeg',
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Thumbnail
     |--------------------------------------------------------------------------
      */
