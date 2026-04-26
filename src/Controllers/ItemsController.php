@@ -22,10 +22,10 @@ class ItemsController extends LfmController
         $perPage = $this->helper->getPaginationPerPage();
         $items = array_merge($this->lfm->folders(), $this->lfm->files());
 
-        $keyword = request()->input('keyword', '');
-        if (!empty($keyword)) {
+        $keyword = trim((string) request()->input('keyword', ''));
+        if ($keyword !== '') {
             $items = array_filter($items, function ($item) use ($keyword) {
-                return str_contains($item->name, $keyword);
+                return stripos($item->name, $keyword) !== false;
             });
         }
 

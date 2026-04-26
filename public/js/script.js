@@ -140,14 +140,24 @@ $(document).on('click', '[data-display]', function() {
 });
 
 $(document).on('click', '#keyword-button', function() {
-  show_list = $(this).data('display');
   loadItems();
 });
 
 $(document).on('click', '#keyword-reset-button', function() {
   $('#keyword').val("");
-  show_list = $(this).data('display');
   loadItems();
+});
+
+$(document).on('keydown', '#keyword', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    loadItems();
+  }
+
+  if (e.key === 'Escape') {
+    $(this).val('');
+    loadItems();
+  }
 });
 
 $(document).on('click', '[data-action]', function() {
