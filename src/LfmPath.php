@@ -239,13 +239,14 @@ class LfmPath
         try {
             $this->setName($new_file_name)->storage->save($file);
 
-            $this->optimizeUploadedImage($new_file_name);
+            $new_file_name = $this->optimizeUploadedImage($new_file_name);
 
             $this->generateThumbnail($new_file_name);
         } catch (\Exception $e) {
             \Log::info($e);
             return $this->error('invalid');
         }
+        $new_file_path = $this->setName($new_file_name)->path('absolute');
         event(new FileWasUploaded($new_file_path));
         event(new ImageWasUploaded($new_file_path));
 
@@ -284,13 +285,13 @@ class LfmPath
     private function optimizeUploadedImage($file_name)
     {
         if (! config('lfm.optimize_uploaded_images.enabled', false)) {
-            return;
+            return $file_name;
         }
 
         $original_image = $this->pretty($file_name);
 
         if (!$original_image->isImage()) {
-            return;
+            return $file_name;
         }
 
         $mime_type = $original_image->mimeType();
@@ -300,11 +301,12 @@ class LfmPath
         );
 
         if (!in_array($mime_type, $allowed_mimetypes)) {
-            return;
+            return $file_name;
         }
 
         try {
             $contents = $original_image->get();
+            $optimized_file_name = $this->optimizedFileName($file_name, $mime_type);
             $optimized_image = $this->imageService->optimizeUpload(
                 $contents,
                 $mime_type,
@@ -314,13 +316,45 @@ class LfmPath
             if (config('lfm.optimize_uploaded_images.keep_original_when_larger', true)
                 && strlen((string) $optimized_image) >= strlen($contents)
             ) {
-                return;
+                return $file_name;
             }
 
-            $this->setName($file_name)->storage->put($optimized_image, $this->storageOptions());
+            if ($optimized_file_name !== $file_name && $this->setName($optimized_file_name)->exists()) {
+                return $file_name;
+            }
+
+            $this->setName($optimized_file_name)->storage->put($optimized_image, $this->storageOptions());
+
+            if ($optimized_file_name !== $file_name) {
+                $this->setName($file_name)->delete();
+            }
+
+            return $optimized_file_name;
         } catch (\Throwable $e) {
             \Log::info($e);
         }
+
+        return $file_name;
+    }
+
+    private function optimizedFileName($file_name, $mime_type)
+    {
+        $format = config('lfm.optimize_uploaded_images.format');
+
+        if (!is_string($format) || $format === '') {
+            return $file_name;
+        }
+
+        $target_mime_type = $this->imageService->outputMimeType($mime_type, $format);
+        $extension = $this->imageService->extensionForMimeType($target_mime_type);
+
+        if ($extension === '') {
+            return $file_name;
+        }
+
+        $name = $this->helper->utf8Pathinfo($file_name, 'filename');
+
+        return $name . '.' . $extension;
     }
 
     private function getNewName($file)

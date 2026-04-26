@@ -189,6 +189,7 @@ Define behavior on files with identical name. Setting it to `true` cause old fil
 ```
 'optimize_uploaded_images' => [
     'enabled' => false,
+    'format' => null,
     'quality' => 85,
     'max_width' => null,
     'max_height' => null,
@@ -197,15 +198,28 @@ Define behavior on files with identical name. Setting it to `true` cause old fil
     'mimetypes' => [
         'image/jpeg',
         'image/pjpeg',
+        'image/png',
+        'image/webp',
+        'image/avif',
+        'image/bmp',
+        'image/tiff',
+        'image/jp2',
+        'image/heic',
     ],
 ],
 ```
 
 When `enabled` is `true`, supported uploaded images are re-encoded after the original upload succeeds.
 
+By default `format` is `null`, so the original image format is kept. Set `format` to an output format such as `jpg`, `png`, `webp`, or `avif` to convert supported uploads. Converted files use the matching extension, for example `photo.jpg` becomes `photo.webp` when `format` is `webp`.
+
+Driver-dependent formats such as `gif`, `bmp`, `tiff`, `jp2`, and `heic` are also accepted. If the configured GD or Imagick driver cannot encode the selected format, the original upload is kept.
+
+GIF uploads are not included in the default `mimetypes` list because re-encoding animated GIFs can change animation behavior depending on the driver. Add `image/gif` explicitly if that trade-off is acceptable for your application.
+
 `max_width` and `max_height` can be used to scale large uploads down while keeping the aspect ratio. Set both to `null` to keep the uploaded dimensions.
 
-If optimization fails, the original upload is kept. If `keep_original_when_larger` is enabled, the optimized image only replaces the upload when it is smaller than the original.
+If optimization fails, the original upload is kept. If `keep_original_when_larger` is enabled, the optimized image only replaces the upload when it is smaller than the original. If conversion would overwrite an existing filename, the original upload is kept.
 
 ## Thumbnail
 

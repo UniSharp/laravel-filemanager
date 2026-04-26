@@ -24,7 +24,8 @@ class ImageService
             $image->scaleDown($maxWidth, $maxHeight);
         }
 
-        $mimeType = $this->normalizeMimeType($mimeType);
+        $format = $options['format'] ?? null;
+        $mimeType = $this->outputMimeType($mimeType, is_string($format) ? $format : null);
         $quality = $this->quality($options['quality'] ?? 85);
 
         if ($mimeType === 'image/jpeg') {
@@ -56,6 +57,42 @@ class ImageService
         }
 
         return max(0, min(100, (int) $value));
+    }
+
+    public function outputMimeType(string $mimeType, ?string $format = null): string
+    {
+        if (is_string($format) && $format !== '') {
+            return match (strtolower($format)) {
+                'jpg', 'jpeg', 'image/jpeg' => 'image/jpeg',
+                'png', 'image/png' => 'image/png',
+                'webp', 'image/webp' => 'image/webp',
+                'avif', 'image/avif' => 'image/avif',
+                'gif', 'image/gif' => 'image/gif',
+                'bmp', 'bitmap', 'image/bmp' => 'image/bmp',
+                'tif', 'tiff', 'image/tiff' => 'image/tiff',
+                'jp2', 'jpx', 'jpeg2000', 'jpeg 2000', 'image/jp2' => 'image/jp2',
+                'heic', 'image/heic' => 'image/heic',
+                default => $this->normalizeMimeType($mimeType),
+            };
+        }
+
+        return $this->normalizeMimeType($mimeType);
+    }
+
+    public function extensionForMimeType(string $mimeType): string
+    {
+        return match ($this->normalizeMimeType($mimeType)) {
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+            'image/webp' => 'webp',
+            'image/avif' => 'avif',
+            'image/gif' => 'gif',
+            'image/bmp' => 'bmp',
+            'image/tiff' => 'tiff',
+            'image/jp2' => 'jp2',
+            'image/heic' => 'heic',
+            default => '',
+        };
     }
 
     private function normalizeMimeType(string $mimeType): string
