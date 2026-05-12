@@ -52,7 +52,7 @@ class CropController extends LfmController
         $crop_info = request()->only('dataWidth', 'dataHeight', 'dataX', 'dataY');
 
         $installedInterventionImageVersion = InstalledVersions::getPrettyVersion('intervention/image');
-        if(Comparator::greaterThanOrEqualTo($installedInterventionImageVersion, '4.0.0')) {
+        if (Comparator::greaterThanOrEqualTo($installedInterventionImageVersion, '4.0.0')) {
             $this->imageService
                 ->decodePath($image_path)
                 ->crop(...array_values($crop_info))

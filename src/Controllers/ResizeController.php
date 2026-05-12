@@ -77,7 +77,7 @@ class ResizeController extends LfmController
         event(new ImageIsResizing($image_path));
 
         $installedInterventionImageVersion = InstalledVersions::getPrettyVersion('intervention/image');
-        if(Comparator::greaterThanOrEqualTo($installedInterventionImageVersion, '4.0.0')) {
+        if (Comparator::greaterThanOrEqualTo($installedInterventionImageVersion, '4.0.0')) {
             $this->imageService
                 ->decodePath($image_path)
                 ->resize(request('dataWidth'), request('dataHeight'))

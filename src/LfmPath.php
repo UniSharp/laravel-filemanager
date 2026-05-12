@@ -336,7 +336,7 @@ class LfmPath
         $thumbHeight = $this->helper->shouldCreateCategoryThumb() && $this->helper->categoryThumbHeight() ? $this->helper->categoryThumbHeight() : config('lfm.thumb_img_height', 200);
 
         $installedInterventionImageVersion = InstalledVersions::getPrettyVersion('intervention/image');
-        if(Comparator::greaterThanOrEqualTo($installedInterventionImageVersion, '4.0.0')) {
+        if (Comparator::greaterThanOrEqualTo($installedInterventionImageVersion, '4.0.0')) {
             $encoded_image = $this->imageService
                 ->decode($original_image->get())
                 ->cover($thumbWidth, $thumbHeight)
