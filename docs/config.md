@@ -219,7 +219,53 @@ GIF uploads are not included in the default `mimetypes` list because re-encoding
 
 `max_width` and `max_height` can be used to scale large uploads down while keeping the aspect ratio. Set both to `null` to keep the uploaded dimensions.
 
+`quality` is used for lossy output formats only: `jpg`, `webp`, and `avif`. The value is clamped to the `0..100` range, and non-numeric values fall back to `85`.
+
+`progressive` only affects JPEG output. Other formats ignore it.
+
 If optimization fails, the original upload is kept. If `keep_original_when_larger` is enabled, the optimized image only replaces the upload when it is smaller than the original. If conversion would overwrite an existing filename, the original upload is kept.
+
+Example verification scenarios:
+
+1. Keep JPEG format, resize large uploads, and use a lower quality setting:
+
+```
+'optimize_uploaded_images' => [
+    'enabled' => true,
+    'format' => null,
+    'quality' => 75,
+    'max_width' => 1600,
+    'max_height' => 1600,
+    'progressive' => true,
+],
+```
+
+Upload a large `.jpg`. Expected result: the stored file stays `.jpg`, dimensions are scaled down to fit within `1600x1600`, and the JPEG is re-encoded with quality `75`.
+
+2. Convert screenshots to WebP:
+
+```
+'optimize_uploaded_images' => [
+    'enabled' => true,
+    'format' => 'webp',
+    'quality' => 80,
+    'mimetypes' => ['image/png', 'image/jpeg', 'image/pjpeg'],
+],
+```
+
+Upload a `.png` or `.jpg`. Expected result: the stored file becomes `.webp`. `quality` is applied to the WebP output.
+
+3. Re-encode PNG without format conversion:
+
+```
+'optimize_uploaded_images' => [
+    'enabled' => true,
+    'format' => 'png',
+    'quality' => 30,
+],
+```
+
+Upload a `.png`. Expected result: the stored file stays `.png`. The `quality` setting does not change the code path here, because PNG uses the driver default encode options in this implementation.
 
 ## Thumbnail
 
