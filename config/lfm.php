@@ -140,6 +140,39 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Image Optimization
+    |--------------------------------------------------------------------------
+     */
+
+    // If true, supported images will be re-encoded during upload.
+    // Set format to convert uploads, for example "webp", "avif", "jpg", or "png".
+    // Also accepts "gif", "bmp", "tiff", "jp2", and "heic" when supported by the image driver.
+    // GD WebP/AVIF output requires PHP's imagewebp()/imageavif() functions.
+    // quality is only applied to jpeg, webp, and avif outputs and is clamped to 0..100.
+    // progressive only affects jpeg output.
+    'optimize_uploaded_images' => [
+        'enabled' => false,
+        'format' => null,
+        'quality' => 85,
+        'max_width' => null,
+        'max_height' => null,
+        'progressive' => true,
+        'keep_original_when_larger' => true,
+        'mimetypes' => [
+            'image/jpeg',
+            'image/pjpeg',
+            'image/png',
+            'image/webp',
+            'image/avif',
+            'image/bmp',
+            'image/tiff',
+            'image/jp2',
+            'image/heic',
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Thumbnail
     |--------------------------------------------------------------------------
      */
