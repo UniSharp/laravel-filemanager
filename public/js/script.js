@@ -297,9 +297,13 @@ function performLfmRequest(url, parameter, type) {
 }
 
 function displayErrorResponse(jqXHR) {
-  var message = JSON.parse(jqXHR.responseText)
-  if (Array.isArray(message)) {
-    message = message.join('<br>')
+  try {
+    var message = JSON.parse(jqXHR.responseText)
+    if (Array.isArray(message)) {
+      message = message.join('<br>')
+    }
+  } catch (e) {
+    var message = jqXHR.responseText;
   }
   notify('<div style="max-height:50vh;overflow: auto;">' + message + '</div>');
 }
@@ -567,9 +571,10 @@ function trash(items) {
     performLfmRequest('delete', {
       items: items.map(function (item) { return item.name; })
     }).done(function (response) {
+      refreshFoldersAndItems(response)
+    }).always(function () {
       window.is_deleting = false
       $('#confirm-button-yes').toggleClass('disabled', is_deleting)
-      refreshFoldersAndItems(response)
     })
   });
 }
@@ -827,7 +832,7 @@ function notify(body) {
 
 function confirm(body, callback) {
   $('#confirm').find('.btn-primary').toggle(callback !== undefined);
-  $('#confirm').find('.btn-primary').click(callback);
+  $('#confirm').find('.btn-primary').unbind().click(callback);
   $('#confirm').modal('show').find('.modal-body').html(body);
 }
 
