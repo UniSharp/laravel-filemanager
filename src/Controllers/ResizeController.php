@@ -5,6 +5,8 @@ namespace UniSharp\LaravelFilemanager\Controllers;
 use UniSharp\LaravelFilemanager\Services\ImageService;
 use UniSharp\LaravelFilemanager\Events\ImageIsResizing;
 use UniSharp\LaravelFilemanager\Events\ImageWasResized;
+use Composer\InstalledVersions;
+use Composer\Semver\Comparator;
 
 class ResizeController extends LfmController
 {
@@ -74,9 +76,18 @@ class ResizeController extends LfmController
 
         event(new ImageIsResizing($image_path));
 
-        $this->imageService->read($image_path)
-            ->resize(request('dataWidth'), request('dataHeight'))
-            ->save($resize_path);
+        $installedInterventionImageVersion = InstalledVersions::getPrettyVersion('intervention/image');
+        if (Comparator::greaterThanOrEqualTo($installedInterventionImageVersion, '4.0.0')) {
+            $this->imageService
+                ->decodePath($image_path)
+                ->resize(request('dataWidth'), request('dataHeight'))
+                ->save($resize_path);
+        } else {
+            $this->imageService
+                ->read($image_path)
+                ->resize(request('dataWidth'), request('dataHeight'))
+                ->save($resize_path);
+        }
 
         event(new ImageWasResized($image_path));
 

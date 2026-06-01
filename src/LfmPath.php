@@ -12,6 +12,8 @@ use UniSharp\LaravelFilemanager\Events\FileWasUploaded;
 use UniSharp\LaravelFilemanager\Events\ImageIsUploading;
 use UniSharp\LaravelFilemanager\Events\ImageWasUploaded;
 use UniSharp\LaravelFilemanager\LfmUploadValidator;
+use Composer\InstalledVersions;
+use Composer\Semver\Comparator;
 
 class LfmPath
 {
@@ -333,9 +335,17 @@ class LfmPath
         $thumbWidth = $this->helper->shouldCreateCategoryThumb() && $this->helper->categoryThumbWidth() ? $this->helper->categoryThumbWidth() : config('lfm.thumb_img_width', 200);
         $thumbHeight = $this->helper->shouldCreateCategoryThumb() && $this->helper->categoryThumbHeight() ? $this->helper->categoryThumbHeight() : config('lfm.thumb_img_height', 200);
 
-        $encoded_image = $this->imageService->read($original_image->get())
-            ->cover($thumbWidth, $thumbHeight)
-            ->encodeByMediaType();
+        $installedInterventionImageVersion = InstalledVersions::getPrettyVersion('intervention/image');
+        if (Comparator::greaterThanOrEqualTo($installedInterventionImageVersion, '4.0.0')) {
+            $encoded_image = $this->imageService
+                ->decode($original_image->get())
+                ->cover($thumbWidth, $thumbHeight)
+                ->encodeUsingMediaType($original_image->mimeType());
+        } else {
+            $encoded_image = $this->imageService->read($original_image->get())
+                ->cover($thumbWidth, $thumbHeight)
+                ->encodeByMediaType();
+        }
 
         $config = $this->storage->getConfig();
         $options = 'public';

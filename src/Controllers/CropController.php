@@ -5,6 +5,8 @@ namespace UniSharp\LaravelFilemanager\Controllers;
 use UniSharp\LaravelFilemanager\Services\ImageService;
 use UniSharp\LaravelFilemanager\Events\ImageIsCropping;
 use UniSharp\LaravelFilemanager\Events\ImageWasCropped;
+use Composer\InstalledVersions;
+use Composer\Semver\Comparator;
 
 class CropController extends LfmController
 {
@@ -49,9 +51,18 @@ class CropController extends LfmController
 
         $crop_info = request()->only('dataWidth', 'dataHeight', 'dataX', 'dataY');
 
-        $this->imageService->read($image_path)
-            ->crop(...array_values($crop_info))
-            ->save($crop_path);
+        $installedInterventionImageVersion = InstalledVersions::getPrettyVersion('intervention/image');
+        if (Comparator::greaterThanOrEqualTo($installedInterventionImageVersion, '4.0.0')) {
+            $this->imageService
+                ->decodePath($image_path)
+                ->crop(...array_values($crop_info))
+                ->save($crop_path);
+        } else {
+            $this->imageService
+                ->read($image_path)
+                ->crop(...array_values($crop_info))
+                ->save($crop_path);
+        }
 
         // make new thumbnail
         $this->lfm->generateThumbnail($image_name);
