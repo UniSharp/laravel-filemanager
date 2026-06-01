@@ -15,7 +15,7 @@ class ImageService
 
     public function optimizeUpload(string $contents, string $mimeType, array $options)
     {
-        $image = $this->imageManager->read($contents);
+        $image = $this->read($contents);
 
         $maxWidth = $this->dimension($options['max_width'] ?? null);
         $maxHeight = $this->dimension($options['max_height'] ?? null);
@@ -29,18 +29,86 @@ class ImageService
         $quality = $this->quality($options['quality'] ?? 85);
 
         if ($mimeType === 'image/jpeg') {
-            return $image->encodeByMediaType(
-                $mimeType,
-                progressive: (bool) ($options['progressive'] ?? true),
-                quality: $quality
-            );
+            return $this->encodeImageByMediaType($image, $mimeType, [
+                'progressive' => (bool) ($options['progressive'] ?? true),
+                'quality' => $quality,
+            ]);
         }
 
         if (in_array($mimeType, ['image/webp', 'image/avif'])) {
-            return $image->encodeByMediaType($mimeType, quality: $quality);
+            return $this->encodeImageByMediaType($image, $mimeType, [
+                'quality' => $quality,
+            ]);
         }
 
-        return $image->encodeByMediaType($mimeType);
+        return $this->encodeImageByMediaType($image, $mimeType);
+    }
+
+    public function read($source)
+    {
+        if (method_exists($this->imageManager, 'decode')) {
+            return $this->imageManager->decode($source);
+        }
+
+        return $this->imageManager->read($source);
+    }
+
+    public function decode($source)
+    {
+        return $this->read($source);
+    }
+
+    public function decodePath($path)
+    {
+        if (method_exists($this->imageManager, 'decodePath')) {
+            return $this->imageManager->decodePath($path);
+        }
+
+        return $this->imageManager->read((string) $path);
+    }
+
+    private function encodeImageByMediaType($image, string $mimeType, array $options = [])
+    {
+        $this->ensureEncodingSupport($mimeType);
+
+        if (method_exists($image, 'encodeUsingMediaType')) {
+            return $image->encodeUsingMediaType($mimeType, ...$options);
+        }
+
+        return $image->encodeByMediaType($mimeType, ...$options);
+    }
+
+    private function ensureEncodingSupport(string $mimeType): void
+    {
+        if (! $this->usesGdDriver()) {
+            return;
+        }
+
+        $requiredFunction = match ($mimeType) {
+            'image/webp' => 'imagewebp',
+            'image/avif' => 'imageavif',
+            default => null,
+        };
+
+        if ($requiredFunction !== null && ! function_exists($requiredFunction)) {
+            throw new \RuntimeException(
+                "Cannot encode {$mimeType} with the GD driver because PHP's {$requiredFunction}() "
+                    . 'function is not available.'
+            );
+        }
+    }
+
+    private function usesGdDriver(): bool
+    {
+        $driver = null;
+
+        if (method_exists($this->imageManager, 'driver')) {
+            $driver = $this->imageManager->driver();
+        } elseif (isset($this->imageManager->driver)) {
+            $driver = $this->imageManager->driver;
+        }
+
+        return is_object($driver) && str_contains($driver::class, '\\Drivers\\Gd\\');
     }
 
     private function dimension($value): ?int

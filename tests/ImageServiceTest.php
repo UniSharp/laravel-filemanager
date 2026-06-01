@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use Intervention\Image\ImageManager;
 use PHPUnit\Framework\TestCase;
 use UniSharp\LaravelFilemanager\Services\ImageService;
@@ -14,7 +15,7 @@ class ImageServiceTest extends TestCase
     {
         parent::setUp();
 
-        $this->service = new ImageService(ImageManager::gd());
+        $this->service = new ImageService(new ImageManager(new GdDriver()));
     }
 
     public function testOptimizesUploadWithConfiguredDimensions()
@@ -114,6 +115,21 @@ class ImageServiceTest extends TestCase
         $this->assertSame('image/heic', $this->service->outputMimeType('image/jpeg', 'heic'));
     }
 
+    public function testWebpConversionReportsMissingGdSupport()
+    {
+        if (function_exists('imagewebp')) {
+            $this->markTestSkipped('GD WebP support is available.');
+        }
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("PHP's imagewebp() function is not available");
+
+        $this->service->optimizeUpload($this->createDetailedPng(), 'image/png', [
+            'format' => 'webp',
+            'quality' => 80,
+        ]);
+    }
+
     private function createDetailedJpeg(int $width = 2000, int $height = 1200): string
     {
         $image = imagecreatetruecolor($width, $height);
@@ -135,7 +151,7 @@ class ImageServiceTest extends TestCase
             imagejpeg($handle, null, 95);
         }, $image);
 
-        imagedestroy($image);
+        $this->destroyImage($image);
 
         return $jpeg;
     }
@@ -165,7 +181,7 @@ class ImageServiceTest extends TestCase
             imagepng($handle);
         }, $image);
 
-        imagedestroy($image);
+        $this->destroyImage($image);
 
         return $png;
     }
@@ -176,6 +192,13 @@ class ImageServiceTest extends TestCase
         $encoder($image);
 
         return (string) ob_get_clean();
+    }
+
+    private function destroyImage($image): void
+    {
+        if (PHP_VERSION_ID < 80500) {
+            imagedestroy($image);
+        }
     }
 
     private function assertJpegUsesProgressiveEncoding(string $jpeg): void

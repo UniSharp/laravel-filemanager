@@ -215,6 +215,8 @@ By default `format` is `null`, so the original image format is kept. Set `format
 
 Driver-dependent formats such as `gif`, `bmp`, `tiff`, `jp2`, and `heic` are also accepted. If the configured GD or Imagick driver cannot encode the selected format, the original upload is kept.
 
+When the GD driver is used, WebP output requires PHP's `imagewebp()` function and AVIF output requires PHP's `imageavif()` function. If the installed GD extension does not provide the required encoder, the upload is kept unchanged and the reason is logged.
+
 GIF uploads are not included in the default `mimetypes` list because re-encoding animated GIFs can change animation behavior depending on the driver. Add `image/gif` explicitly if that trade-off is acceptable for your application.
 
 `max_width` and `max_height` can be used to scale large uploads down while keeping the aspect ratio. Set both to `null` to keep the uploaded dimensions.

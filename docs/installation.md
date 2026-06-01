@@ -25,9 +25,9 @@
     composer require unisharp/laravel-filemanager
     ```
 
-1. (optional) Install required dependency with `v3.*` of `intervention/image`:
+1. (optional) Install required dependency with `v3.*` or `v4.*` of `intervention/image`:
 
-    This package use `intervention/image` to perform image cropping/resizing and generating thumbnails. Since `v3.*` of `intervention/image` does not support Laravel by default, the service provider need to be installed with the following scripts. Details can be found here: https://github.com/Intervention/image-laravel
+    This package use `intervention/image` to perform image cropping/resizing and generating thumbnails. Since `v3.*` and `v4.*` of `intervention/image` do not support Laravel by default, the service provider need to be installed with the following scripts. Details can be found here: https://github.com/Intervention/image-laravel
 
     ```bash
     composer require intervention/image-laravel
@@ -35,6 +35,7 @@
     ```
 
     \* *Do not run these scripts if you use `v2.*` of `intervention/image`.*
+    \* *`intervention/image` v4 requires PHP 8.3 or newer. Composer will keep v3 on older PHP versions.*
 
 1. Publish the package's config and assets :
 
