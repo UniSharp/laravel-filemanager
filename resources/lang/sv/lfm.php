@@ -62,6 +62,10 @@ return [
     'btn-copy-crop'     => 'Kopiera & Beskär',
     'btn-cancel'        => 'Avbryt',
     'btn-resize'        => 'Ändra stolek',
+    'btn-search'        => 'Sök',
+    'btn-reset'         => 'Återställ',
+
+    'placeholder-keyword' => 'Sökord',
 
     'resize-ratio'      => 'Förhållande:',
     'resize-scaled'     => 'Bildskala:',

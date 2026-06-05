@@ -69,6 +69,10 @@ return [
     'btn-resize'        => 'আকার পরিবর্তন করুন',
     'btn-resize-copy'   => 'কপি এবং আকার পরিবর্তন',
     'btn-open'          => 'ফোল্ডার খুলুন',
+    'btn-search'        => 'খুঁজুন',
+    'btn-reset'         => 'রিসেট',
+
+    'placeholder-keyword' => 'কীওয়ার্ড',
 
     'resize-ratio'      => 'অনুপাত:',
     'resize-scaled'     => 'ছবির স্কেল:',

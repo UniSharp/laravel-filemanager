@@ -68,6 +68,10 @@ return [
     'btn-confirm'       => 'Onayla',
     'btn-resize'        => 'Boyutlandır',
     'btn-open'          => 'Klasörü Aç',
+    'btn-search'        => 'Ara',
+    'btn-reset'         => 'Sıfırla',
+
+    'placeholder-keyword' => 'Anahtar kelime',
 
     'resize-ratio'      => 'Oran:',
     'resize-scaled'     => 'Boyutlandırıldı:',

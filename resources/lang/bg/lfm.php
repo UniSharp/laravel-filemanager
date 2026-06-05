@@ -53,6 +53,10 @@ return [
     'btn-crop'          => 'Отрежи',
     'btn-cancel'        => 'Откажи',
     'btn-resize'        => 'Оразмери',
+    'btn-search'        => 'Търсене',
+    'btn-reset'         => 'Нулиране',
+
+    'placeholder-keyword' => 'Ключова дума',
 
     'resize-ratio'      => 'Аспект:',
     'resize-scaled'     => 'Image scaled:',

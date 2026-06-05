@@ -62,6 +62,10 @@ return [
     'btn-copy-crop'     => 'Kopiatu eta moztu',
     'btn-cancel'        => 'Utzi',
     'btn-resize'        => 'Aldatu tamainaz',
+    'btn-search'        => 'Bilatu',
+    'btn-reset'         => 'Berrezarri',
+
+    'placeholder-keyword' => 'Gako-hitza',
 
     'resize-ratio'      => 'Erlazioa:',
     'resize-scaled'     => 'Eskalatutako irudia:',

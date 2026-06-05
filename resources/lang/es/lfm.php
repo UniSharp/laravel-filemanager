@@ -62,6 +62,10 @@ return [
     'btn-copy-crop'     => 'Copiar y recortar',
     'btn-cancel'        => 'Cancelar',
     'btn-resize'        => 'Redimensionar',
+    'btn-search'        => 'Buscar',
+    'btn-reset'         => 'Restablecer',
+
+    'placeholder-keyword' => 'Palabra clave',
 
     'resize-ratio'      => 'Ratio:',
     'resize-scaled'     => 'Imagen escalada:',

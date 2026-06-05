@@ -68,6 +68,10 @@ return [
     'btn-confirm' => 'Potvrdi',
     'btn-resize' => 'Promenite veličinu',
     'btn-open' => 'Otvori folder',
+    'btn-search' => 'Претражи',
+    'btn-reset' => 'Пониши',
+
+    'placeholder-keyword' => 'Кључна реч',
 
     'resize-ratio' => 'Odnos:',
     'resize-scaled' => 'Slika umanjena:',

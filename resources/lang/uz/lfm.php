@@ -68,6 +68,10 @@ return [
     'btn-confirm'   => 'Tasdiqlash',
     'btn-resize'    => 'Oʻlchamini oʻzgartirish',
     'btn-open'      => 'Jild ochish',
+    'btn-search'    => 'Qidirish',
+    'btn-reset'     => 'Qayta o\'rnatish',
+
+    'placeholder-keyword' => 'Kalit so\'z',
 
     'resize-ratio'      => 'Nisbat:',
     'resize-scaled'     => 'Rasm masshtabli:',

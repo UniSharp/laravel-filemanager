@@ -93,9 +93,9 @@
         </label>
 
         <div class="search-bar">
-          <input type="text" name="keyword" id="keyword" placeholder="keyword" class="form-control">
-          <button type="button" id="keyword-button" class="btn btn-outline-primary">Search</button>
-          <button type="button" id="keyword-reset-button" class="btn btn-outline-secondary">Reset</button>
+          <input type="text" name="keyword" id="keyword" placeholder="{{ trans('laravel-filemanager::lfm.placeholder-keyword') }}" class="form-control">
+          <button type="button" id="keyword-button" class="btn btn-outline-primary">{{ trans('laravel-filemanager::lfm.btn-search') }}</button>
+          <button type="button" id="keyword-reset-button" class="btn btn-outline-secondary">{{ trans('laravel-filemanager::lfm.btn-reset') }}</button>
         </div>
       </div>
 

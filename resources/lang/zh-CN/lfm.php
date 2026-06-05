@@ -62,6 +62,10 @@ return [
     'btn-copy-crop'     => '复制并裁剪',
     'btn-cancel'        => '取消',
     'btn-resize'        => '缩放',
+    'btn-search'        => '搜索',
+    'btn-reset'         => '重置',
+
+    'placeholder-keyword' => '关键词',
 
     'resize-ratio'      => '比例:',
     'resize-scaled'     => '是否已缩放:',

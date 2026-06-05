@@ -67,6 +67,10 @@ return [
     'btn-copy-crop'     => 'Kopiuj przycięte',
     'btn-crop-free'     => 'Skaluj',
     'btn-open'          => 'Otwórz',
+    'btn-search'        => 'Szukaj',
+    'btn-reset'         => 'Resetuj',
+
+    'placeholder-keyword' => 'Słowo kluczowe',
 
     'resize-ratio'      => 'Stosunek:',
     'resize-scaled'     => 'Zmieniono rozmiar:',

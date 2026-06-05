@@ -68,6 +68,10 @@ return [
     'btn-confirm'       => '確認',
     'btn-resize'        => '縮放',
     'btn-open'          => '開啟資料夾',
+    'btn-search'        => '搜尋',
+    'btn-reset'         => '重置',
+
+    'placeholder-keyword' => '關鍵字',
 
     'resize-ratio'      => '比例:',
     'resize-scaled'     => '是否已縮放:',

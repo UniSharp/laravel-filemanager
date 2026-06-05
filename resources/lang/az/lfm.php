@@ -70,6 +70,10 @@ return [
     'btn-crop-free'     => 'Sərbəst',
     'btn-confirm'       => 'Təsdiq et',
     'btn-open'          => 'Qovluğu aç',
+    'btn-search'        => 'Axtar',
+    'btn-reset'         => 'Sıfırla',
+
+    'placeholder-keyword' => 'Açar söz',
 
     'resize-ratio'      => 'Nisbət:',
     'resize-scaled'     => 'Böyüdüldü:',

@@ -69,6 +69,10 @@ return [
     'btn-resize'        => 'Αλλαγή μεγέθους',
     'btn-resize-copy'   => 'Αντιγραφή & Αλλαγή μεγέθους',
     'btn-open'          => 'Άνοιγμα φακέλου',
+    'btn-search'        => 'Αναζήτηση',
+    'btn-reset'         => 'Επαναφορά',
+
+    'placeholder-keyword' => 'Λέξη-κλειδί',
 
     'resize-ratio'      => 'Αναλογία:',
     'resize-scaled'     => 'Η εικόνα άλλαξε μέγεθος:',

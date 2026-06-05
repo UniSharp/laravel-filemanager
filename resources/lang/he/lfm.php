@@ -52,6 +52,10 @@ return [
     'btn-crop'          => 'חתוך',
     'btn-cancel'        => 'בטל',
     'btn-resize'        => 'שנה גודל',
+    'btn-search'        => 'חפש',
+    'btn-reset'         => 'אפס',
+
+    'placeholder-keyword' => 'מילת מפתח',
 
     'resize-ratio'      => 'יחס:',
     'resize-scaled'     => 'תמונה הוגדלה:',

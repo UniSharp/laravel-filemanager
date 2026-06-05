@@ -68,6 +68,10 @@ return [
     'btn-confirm'       => 'Confirmă',
     'btn-resize'        => 'Redimensionează',
     'btn-open'          => 'Deschide folder',
+    'btn-search'        => 'Caută',
+    'btn-reset'         => 'Resetare',
+
+    'placeholder-keyword' => 'Cuvânt cheie',
 
     'resize-ratio'      => 'Rație:',
     'resize-scaled'     => 'Imagine scalată:',

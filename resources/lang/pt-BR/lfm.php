@@ -68,6 +68,10 @@ return [
     'btn-confirm'       => 'Confirmar',
     'btn-resize'        => 'Redimensionar',
     'btn-open'          => 'Abrir Pasta',
+    'btn-search'        => 'Pesquisar',
+    'btn-reset'         => 'Redefinir',
+
+    'placeholder-keyword' => 'Palavra-chave',
 
     'resize-ratio'      => 'Proporção:',
     'resize-scaled'     => 'Imagem dimensionada:',

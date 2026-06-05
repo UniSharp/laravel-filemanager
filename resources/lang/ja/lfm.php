@@ -68,6 +68,10 @@ return [
     'btn-confirm'       => '確認する',
     'btn-resize'        => 'リサイズ',
     'btn-open'          => 'フォルダを開く',
+    'btn-search'        => '検索',
+    'btn-reset'         => 'リセット',
+
+    'placeholder-keyword' => 'キーワード',
 
     'resize-ratio'      => '比率:',
     'resize-scaled'     => 'イメージの縮尺:',
