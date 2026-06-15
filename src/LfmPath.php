@@ -4,7 +4,6 @@ namespace UniSharp\LaravelFilemanager;
 
 use Illuminate\Container\Container;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use UniSharp\LaravelFilemanager\Services\ImageService;
 use UniSharp\LaravelFilemanager\Events\FileIsUploading;
@@ -240,11 +239,14 @@ class LfmPath
         try {
             $this->setName($new_file_name)->storage->save($file);
 
+            $new_file_name = $this->optimizeUploadedImage($new_file_name);
+
             $this->generateThumbnail($new_file_name);
         } catch (\Exception $e) {
             \Log::info($e);
             return $this->error('invalid');
         }
+        $new_file_path = $this->setName($new_file_name)->path('absolute');
         event(new FileWasUploaded($new_file_path));
         event(new ImageWasUploaded($new_file_path));
 
@@ -278,6 +280,81 @@ class LfmPath
         }
 
         return true;
+    }
+
+    private function optimizeUploadedImage($file_name)
+    {
+        if (! config('lfm.optimize_uploaded_images.enabled', false)) {
+            return $file_name;
+        }
+
+        $original_image = $this->pretty($file_name);
+
+        if (!$original_image->isImage()) {
+            return $file_name;
+        }
+
+        $mime_type = $original_image->mimeType();
+        $allowed_mimetypes = (array) config(
+            'lfm.optimize_uploaded_images.mimetypes',
+            config('lfm.raster_mimetypes', [])
+        );
+
+        if (!in_array($mime_type, $allowed_mimetypes)) {
+            return $file_name;
+        }
+
+        try {
+            $contents = $original_image->get();
+            $optimized_file_name = $this->optimizedFileName($file_name, $mime_type);
+            $optimized_image = $this->imageService->optimizeUpload(
+                $contents,
+                $mime_type,
+                config('lfm.optimize_uploaded_images', [])
+            );
+
+            if (config('lfm.optimize_uploaded_images.keep_original_when_larger', true)
+                && strlen((string) $optimized_image) >= strlen($contents)
+            ) {
+                return $file_name;
+            }
+
+            if ($optimized_file_name !== $file_name && $this->setName($optimized_file_name)->exists()) {
+                return $file_name;
+            }
+
+            $this->setName($optimized_file_name)->storage->put($optimized_image, $this->storageOptions());
+
+            if ($optimized_file_name !== $file_name) {
+                $this->setName($file_name)->delete();
+            }
+
+            return $optimized_file_name;
+        } catch (\Throwable $e) {
+            \Log::info($e);
+        }
+
+        return $file_name;
+    }
+
+    private function optimizedFileName($file_name, $mime_type)
+    {
+        $format = config('lfm.optimize_uploaded_images.format');
+
+        if (!is_string($format) || $format === '') {
+            return $file_name;
+        }
+
+        $target_mime_type = $this->imageService->outputMimeType($mime_type, $format);
+        $extension = $this->imageService->extensionForMimeType($target_mime_type);
+
+        if ($extension === '') {
+            return $file_name;
+        }
+
+        $name = $this->helper->utf8Pathinfo($file_name, 'filename');
+
+        return $name . '.' . $extension;
     }
 
     private function getNewName($file)
@@ -347,14 +424,19 @@ class LfmPath
                 ->encodeByMediaType();
         }
 
+        $this->storage->put($encoded_image, $this->storageOptions());
+    }
+
+    private function storageOptions()
+    {
         $config = $this->storage->getConfig();
-        $options = 'public';
+
         if (key_exists('driver', $config) && $config['driver'] == 's3'
             && $this->helper->config('s3_acls_disabled')
         ) {
-            $options = [];
+            return [];
         }
 
-        $this->storage->put($encoded_image, $options);
+        return 'public';
     }
 }

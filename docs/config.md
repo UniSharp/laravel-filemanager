@@ -179,6 +179,96 @@ If set to `true`, the mime type of uploading file will be verified.
 
 Define behavior on files with identical name. Setting it to `true` cause old file replace with new one. Setting it to `false` show `error-file-exist` error and abort the upload process.
 
+## Image Optimization
+
+### optimize\_uploaded\_images
+
+* type: `array`
+* default:
+
+```
+'optimize_uploaded_images' => [
+    'enabled' => false,
+    'format' => null,
+    'quality' => 85,
+    'max_width' => null,
+    'max_height' => null,
+    'progressive' => true,
+    'keep_original_when_larger' => true,
+    'mimetypes' => [
+        'image/jpeg',
+        'image/pjpeg',
+        'image/png',
+        'image/webp',
+        'image/avif',
+        'image/bmp',
+        'image/tiff',
+        'image/jp2',
+        'image/heic',
+    ],
+],
+```
+
+When `enabled` is `true`, supported uploaded images are re-encoded after the original upload succeeds.
+
+By default `format` is `null`, so the original image format is kept. Set `format` to an output format such as `jpg`, `png`, `webp`, or `avif` to convert supported uploads. Converted files use the matching extension, for example `photo.jpg` becomes `photo.webp` when `format` is `webp`.
+
+Driver-dependent formats such as `gif`, `bmp`, `tiff`, `jp2`, and `heic` are also accepted. If the configured GD or Imagick driver cannot encode the selected format, the original upload is kept.
+
+When the GD driver is used, WebP output requires PHP's `imagewebp()` function and AVIF output requires PHP's `imageavif()` function. If the installed GD extension does not provide the required encoder, the upload is kept unchanged and the reason is logged.
+
+GIF uploads are not included in the default `mimetypes` list because re-encoding animated GIFs can change animation behavior depending on the driver. Add `image/gif` explicitly if that trade-off is acceptable for your application.
+
+`max_width` and `max_height` can be used to scale large uploads down while keeping the aspect ratio. Set both to `null` to keep the uploaded dimensions.
+
+`quality` is used for lossy output formats only: `jpg`, `webp`, and `avif`. The value is clamped to the `0..100` range, and non-numeric values fall back to `85`.
+
+`progressive` only affects JPEG output. Other formats ignore it.
+
+If optimization fails, the original upload is kept. If `keep_original_when_larger` is enabled, the optimized image only replaces the upload when it is smaller than the original. If conversion would overwrite an existing filename, the original upload is kept.
+
+Example verification scenarios:
+
+1. Keep JPEG format, resize large uploads, and use a lower quality setting:
+
+```
+'optimize_uploaded_images' => [
+    'enabled' => true,
+    'format' => null,
+    'quality' => 75,
+    'max_width' => 1600,
+    'max_height' => 1600,
+    'progressive' => true,
+],
+```
+
+Upload a large `.jpg`. Expected result: the stored file stays `.jpg`, dimensions are scaled down to fit within `1600x1600`, and the JPEG is re-encoded with quality `75`.
+
+2. Convert screenshots to WebP:
+
+```
+'optimize_uploaded_images' => [
+    'enabled' => true,
+    'format' => 'webp',
+    'quality' => 80,
+    'mimetypes' => ['image/png', 'image/jpeg', 'image/pjpeg'],
+],
+```
+
+Upload a `.png` or `.jpg`. Expected result: the stored file becomes `.webp`. `quality` is applied to the WebP output.
+
+3. Re-encode PNG without format conversion:
+
+```
+'optimize_uploaded_images' => [
+    'enabled' => true,
+    'format' => 'png',
+    'quality' => 30,
+],
+```
+
+Upload a `.png`. Expected result: the stored file stays `.png`. The `quality` setting does not change the code path here, because PNG uses the driver default encode options in this implementation.
+
 ## Thumbnail
 
 ### should\_create\_thumbnails
