@@ -9,6 +9,10 @@ return [
     'nav-sort'          => 'ソート',
     'nav-sort-alphabetic'=> 'ファイル名順',
     'nav-sort-time'     => '日付順',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => '古い順',
+    'nav-sort-newest-first' => '新しい順',
 
     'menu-rename'       => 'ファイル名変更',
     'menu-delete'       => '削除',

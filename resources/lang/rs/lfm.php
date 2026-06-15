@@ -9,6 +9,10 @@ return [
     'nav-sort' => 'Poredaj',
     'nav-sort-alphabetic' => 'Poredaj po abecedi',
     'nav-sort-time' => 'Poredaj po vremenu',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Najstarije prvo',
+    'nav-sort-newest-first' => 'Najnovije prvo',
 
     'menu-rename' => 'Preimenuj',
     'menu-delete' => 'Izbriši',

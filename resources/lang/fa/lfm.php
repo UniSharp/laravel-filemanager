@@ -9,6 +9,10 @@ return [
     'nav-sort'          => 'مرتب سازی',
     'nav-sort-alphabetic'=> 'مرتب سازی الفبایی',
     'nav-sort-time'     => 'مرتب سازی زمانی',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'قدیمی‌ترین اول',
+    'nav-sort-newest-first' => 'جدیدترین اول',
 
     'menu-rename'       => 'تغییر نام',
     'menu-delete'       => 'حذف',

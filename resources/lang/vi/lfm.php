@@ -9,6 +9,10 @@ return [
     'nav-sort'          => 'Sắp xếp',
     'nav-sort-alphabetic'=> 'Sắp xếp theo bảng chữ cái',
     'nav-sort-time'     => 'Sắp xếp theo thời gian',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Cũ nhất trước',
+    'nav-sort-newest-first' => 'Mới nhất trước',
 
     'menu-rename'       => 'Đổi tên',
     'menu-delete'       => 'Xóa bỏ',

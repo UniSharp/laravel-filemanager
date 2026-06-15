@@ -10,6 +10,10 @@ return [
     'nav-sort'          => 'Ordinare',
     'nav-sort-alphabetic'=> 'Ordine Alfabetico',
     'nav-sort-time'     => 'Ordine Temporale',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Prima i più vecchi',
+    'nav-sort-newest-first' => 'Prima i più recenti',
 
     'menu-rename'       => 'Rinomina',
     'menu-delete'       => 'Elimina',

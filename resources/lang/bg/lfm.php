@@ -6,6 +6,13 @@ return [
     'nav-upload'        => 'Качване',
     'nav-thumbnails'    => 'Тъмб',
     'nav-list'          => 'Списък',
+    'nav-sort'          => 'Сортиране',
+    'nav-sort-alphabetic'=> 'По азбучен ред',
+    'nav-sort-time'     => 'По време',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Първо най-старите',
+    'nav-sort-newest-first' => 'Първо най-новите',
 
     'menu-rename'       => 'Преименувай',
     'menu-delete'       => 'Изтрии',

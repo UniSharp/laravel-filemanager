@@ -206,14 +206,29 @@ class LfmPath
     public function sortByColumn($arr_items)
     {
         $sort_by = $this->helper->input('sort_type');
-        if (in_array($sort_by, ['name', 'time'])) {
-            $key_to_sort = $sort_by;
-        } else {
-            $key_to_sort = 'name';
+
+        $descending = false;
+        switch ($sort_by) {
+            case 'time':
+                $key_to_sort = 'time';
+                break;
+            case 'time_desc':
+                $key_to_sort = 'time';
+                $descending = true;
+                break;
+            case 'alphabetic_desc':
+                $key_to_sort = 'name';
+                $descending = true;
+                break;
+            default:
+                $key_to_sort = 'name';
+                break;
         }
 
-        uasort($arr_items, function ($a, $b) use ($key_to_sort) {
-            return strcasecmp($a->{$key_to_sort}, $b->{$key_to_sort});
+        uasort($arr_items, function ($a, $b) use ($key_to_sort, $descending) {
+            $result = strcasecmp($a->{$key_to_sort}, $b->{$key_to_sort});
+
+            return $descending ? -$result : $result;
         });
 
         if (config('lfm.is_reverse_view', false)) {

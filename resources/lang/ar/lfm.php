@@ -6,6 +6,13 @@ return [
     'nav-upload'        => 'رفع',
     'nav-thumbnails'    => 'مصغرات',
     'nav-list'          => 'قائمة',
+    'nav-sort'          => 'ترتيب',
+    'nav-sort-alphabetic'=> 'ترتيب أبجدي',
+    'nav-sort-time'     => 'ترتيب حسب الوقت',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'الأقدم أولاً',
+    'nav-sort-newest-first' => 'الأحدث أولاً',
 
     'menu-rename'       => 'إعادة تسمية',
     'menu-delete'       => 'حذف',

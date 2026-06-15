@@ -7,8 +7,12 @@ return [
     'nav-thumbnails'    => 'Miniatűrök',
     'nav-list'          => 'Lista',
     'nav-sort'          => 'Rendezés',
-    'nav-sort-alphabetic'=> 'ABC szerint',
+    'nav-sort-alphabetic'=> 'Név szerint',
     'nav-sort-time'     => 'Idő szerint',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Régebbi elöl',
+    'nav-sort-newest-first' => 'Újabb elöl',
 
     'menu-rename'       => 'Átnevezés',
     'menu-delete'       => 'Törlés',

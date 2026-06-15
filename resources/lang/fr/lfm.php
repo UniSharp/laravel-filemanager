@@ -9,6 +9,10 @@ return [
     'nav-sort'          => 'Trier',
     'nav-sort-alphabetic'=> 'Trier par ordre alphabétique',
     'nav-sort-time'     => 'Trier par date',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Plus anciens d\'abord',
+    'nav-sort-newest-first' => 'Plus récents d\'abord',
 
     'menu-rename'       => 'Renommer',
     'menu-delete'       => 'Effacer',

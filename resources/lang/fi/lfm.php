@@ -9,6 +9,10 @@ return [
     'nav-sort'          => 'Järjestä',
     'nav-sort-alphabetic' => 'Lajittele aakkosten mukaan',
     'nav-sort-time'     => 'Lajittele ajan mukaan ',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Vanhimmat ensin',
+    'nav-sort-newest-first' => 'Uusimmat ensin',
 
     'menu-rename'       => 'Nimeä uudestaan',
     'menu-delete'       => 'Poista',

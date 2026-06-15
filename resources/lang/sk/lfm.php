@@ -9,6 +9,10 @@ return [
     'nav-sort'          => 'Zoradiť',
     'nav-sort-alphabetic'=> 'Zoradiť podľa abecedy',
     'nav-sort-time'     => 'Zoradiť podľa času',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Najstaršie najskôr',
+    'nav-sort-newest-first' => 'Najnovšie najskôr',
 
     'menu-rename'       => 'Premenovať',
     'menu-delete'       => 'Zmazať',

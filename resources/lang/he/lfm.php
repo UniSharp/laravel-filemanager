@@ -6,6 +6,13 @@ return [
     'nav-upload'        => 'העלה',
     'nav-thumbnails'    => 'תמונות ממוזערות',
     'nav-list'          => 'רשימה',
+    'nav-sort'          => 'מיון',
+    'nav-sort-alphabetic'=> 'מיון לפי א-ב',
+    'nav-sort-time'     => 'מיון לפי זמן',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'הישנים ביותר תחילה',
+    'nav-sort-newest-first' => 'החדשים ביותר תחילה',
 
     'menu-rename'       => 'שנה שם',
     'menu-delete'       => 'מחק',

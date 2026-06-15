@@ -9,6 +9,10 @@ return [
     'nav-sort'          => 'Urutkan',
     'nav-sort-alphabetic'=> 'Urutkan Abjad',
     'nav-sort-time'     => 'Urutkan Waktu',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Terlama dulu',
+    'nav-sort-newest-first' => 'Terbaru dulu',
 
     'menu-rename'       => 'Ganti Nama',
     'menu-delete'       => 'Hapus',
