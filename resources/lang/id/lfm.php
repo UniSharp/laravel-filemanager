@@ -68,6 +68,10 @@ return [
     'btn-confirm'       => 'Konfirmasi',
     'btn-resize'        => 'Ubah Ukuran',
     'btn-open'          => 'Buka Direktori',
+    'btn-search'        => 'Cari',
+    'btn-reset'         => 'Atur ulang',
+
+    'placeholder-keyword' => 'Kata kunci',
 
     'resize-ratio'      => 'Rasio:',
     'resize-scaled'     => 'Gambar diskalakan:',

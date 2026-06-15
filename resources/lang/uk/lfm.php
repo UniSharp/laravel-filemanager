@@ -68,6 +68,10 @@ return [
     'btn-confirm'       => 'Підтвердити',
     'btn-resize'        => 'Змінити розмір',
     'btn-open'          => 'Відкрити папку',
+    'btn-search'        => 'Пошук',
+    'btn-reset'         => 'Скинути',
+
+    'placeholder-keyword' => 'Ключове слово',
 
     'resize-ratio'      => 'Співвідношення:',
     'resize-scaled'     => 'Масштабоване зображення:',

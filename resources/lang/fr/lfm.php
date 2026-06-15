@@ -68,6 +68,10 @@ return [
     'btn-confirm'       => 'Confirm',
     'btn-resize'        => 'Redimensionner',
     'btn-open'          => 'Ouvrir le répertoire',
+    'btn-reset'         => 'Réinitialiser',
+    'btn-search'        => 'Rechercher',
+
+    'placeholder-keyword' => 'Mot-clé',
 
     'resize-ratio'      => 'Ratio:',
     'resize-scaled'     => "Image à l'échelle:",

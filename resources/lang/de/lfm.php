@@ -72,6 +72,10 @@ return [
     'btn-confirm'                 => 'Bestätigen',
     'btn-resize'                  => 'Größe ändern',
     'btn-open'                    => 'Ordner öffnen',
+    'btn-search'                  => 'Suchen',
+    'btn-reset'                   => 'Zurücksetzen',
+
+    'placeholder-keyword'         => 'Stichwort',
 
     'resize-ratio'                => 'Verhältnis:',
     'resize-scaled'               => 'Bild skaliert:',

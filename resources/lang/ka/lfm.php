@@ -62,6 +62,10 @@ return [
     'btn-copy-crop' => 'დაკოპირება & ამოჭრა',
     'btn-cancel' => 'გაუქმება',
     'btn-resize' => 'ზომის შეცვლა',
+    'btn-search' => 'ძიება',
+    'btn-reset' => 'გადატვირთვა',
+
+    'placeholder-keyword' => 'საძიებო სიტყვა',
 
     'resize-ratio' => 'პროპორცია:',
     'resize-scaled' => 'სკალირებული გამოსახულება:',

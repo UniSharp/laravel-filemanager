@@ -68,6 +68,10 @@ return [
     'btn-confirm'       => 'Varmista',
     'btn-resize'        => 'Muuta kokoa',
     'btn-open'          => 'Avaa kansio',
+    'btn-search'        => 'Hae',
+    'btn-reset'         => 'Nollaa',
+
+    'placeholder-keyword' => 'Avainsana',
 
     'resize-ratio'      => 'Suhde:',
     'resize-scaled'     => 'Kuva skaalattu:',

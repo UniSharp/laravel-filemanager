@@ -68,6 +68,10 @@ return [
     'btn-confirm'       => 'Povrdiť',
     'btn-resize'        => 'Zmenšiť',
     'btn-open'          => 'Otvoriť priečinok',
+    'btn-search'        => 'Hľadať',
+    'btn-reset'         => 'Obnoviť',
+
+    'placeholder-keyword' => 'Kľúčové slovo',
 
     'resize-ratio'      => 'Ratio:',
     'resize-scaled'     => 'Obrázok zmenšený:',

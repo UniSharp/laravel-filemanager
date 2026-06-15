@@ -68,6 +68,10 @@ return [
     'btn-confirm'       => 'Bekræft',
     'btn-resize'        => 'Ændre størrelse',
     'btn-open'          => 'Åben Mappe',
+    'btn-search'        => 'Søg',
+    'btn-reset'         => 'Nulstil',
+
+    'placeholder-keyword' => 'Søgeord',
 
     'resize-ratio'      => 'Aspektforhold:',
     'resize-scaled'     => 'Billede skaleret:',

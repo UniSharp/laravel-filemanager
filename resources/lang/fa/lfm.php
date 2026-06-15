@@ -68,6 +68,10 @@ return [
     'btn-confirm'       => 'تایید',
     'btn-resize'        => 'تغییر اندازه',
     'btn-open'          => 'باز کردن پوشه',
+    'btn-search'        => 'جستجو',
+    'btn-reset'         => 'بازنشانی',
+
+    'placeholder-keyword' => 'کلیدواژه',
 
     'resize-ratio'      => 'نسبت:',
     'resize-scaled'     => 'تصویر مقیاس شده:',

@@ -68,6 +68,10 @@ return [
     'btn-confirm'       => 'Elfogad',
     'btn-resize'        => 'Átméretezés',
     'btn-open'          => 'Mappa megnyitása',
+    'btn-search'        => 'Keresés',
+    'btn-reset'         => 'Visszaállítás',
+
+    'placeholder-keyword' => 'Kulcsszó',
 
     'resize-ratio'      => 'Arány:',
     'resize-scaled'     => 'Méretarány:',

@@ -66,6 +66,10 @@ return [
     'btn-confirm'         => 'Bevestigen',
     'btn-resize'          => 'Formaat aanpassen',
     'btn-open'            => 'Map openen',
+    'btn-search'          => 'Zoeken',
+    'btn-reset'           => 'Terugzetten',
+
+    'placeholder-keyword' => 'Trefwoord',
 
     'resize-ratio'        => 'Ratio:',
     'resize-scaled'       => 'Afbeelding geschaald:',

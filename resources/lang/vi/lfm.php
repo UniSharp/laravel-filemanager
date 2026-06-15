@@ -68,6 +68,10 @@ return [
     'btn-confirm'       => 'Xác nhận',
     'btn-resize'        => 'Thay đổi kích thước',
     'btn-open'          => 'Mở thư mục',
+    'btn-search'        => 'Tìm kiếm',
+    'btn-reset'         => 'Đặt lại',
+
+    'placeholder-keyword' => 'Từ khóa',
 
     'resize-ratio'      => 'Tỷ lệ:',
     'resize-scaled'     => 'Hình ảnh thu nhỏ:',

@@ -55,6 +55,10 @@ return [
     'btn-crop'          => 'قص',
     'btn-cancel'        => 'الغاء',
     'btn-resize'        => 'تغيير الحجم',
+    'btn-search'        => 'بحث',
+    'btn-reset'         => 'إعادة تعيين',
+
+    'placeholder-keyword' => 'كلمة مفتاحية',
 
     'resize-ratio'      => 'النسبة:',
     'resize-scaled'     => 'تم تغيير حجم الصورة:',

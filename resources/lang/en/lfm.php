@@ -70,6 +70,10 @@ return [
     'btn-resize'        => 'Resize',
     'btn-resize-copy'   => 'Copy & Resize',
     'btn-open'          => 'Open Folder',
+    'btn-search'        => 'Search',
+    'btn-reset'         => 'Reset',
+
+    'placeholder-keyword' => 'Keyword',
 
     'resize-ratio'      => 'Ratio:',
     'resize-scaled'     => 'Image scaled:',
