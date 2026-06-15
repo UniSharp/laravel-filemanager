@@ -9,6 +9,10 @@ return [
     'nav-sort'          => '排序',
     'nav-sort-alphabetic'=> '依字母排序',
     'nav-sort-time'     => '依時間排序',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => '最舊優先',
+    'nav-sort-newest-first' => '最新優先',
 
     'menu-rename'       => '重新命名',
     'menu-delete'       => '刪除',

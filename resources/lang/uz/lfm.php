@@ -9,6 +9,10 @@ return [
     'nav-sort'            => 'Saralash',
     'nav-sort-alphabetic' => 'Alifbo tartibida saralash',
     'nav-sort-time'       => 'Vaqt bo`yicha saralash',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Avval eskilari',
+    'nav-sort-newest-first' => 'Avval yangilari',
 
     'menu-rename'   => 'Qayta nomlash',
     'menu-delete'   => "O'chirish",

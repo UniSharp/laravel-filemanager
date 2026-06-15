@@ -9,6 +9,10 @@ return [
     'nav-sort'          => 'Ταξινόμηση',
     'nav-sort-alphabetic'=> 'Ταξινόμηση (αλφαβητικά)',
     'nav-sort-time'     => 'Ταξινόμηση (ημερομηνία)',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Παλαιότερα πρώτα',
+    'nav-sort-newest-first' => 'Νεότερα πρώτα',
 
     'menu-rename'       => 'Μετονομασία',
     'menu-delete'       => 'Διαγραφή',

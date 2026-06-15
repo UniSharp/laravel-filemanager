@@ -9,6 +9,10 @@ return [
     'nav-sort'          => 'Sorter',
     'nav-sort-alphabetic'=> 'Sorter alfabetisk',
     'nav-sort-time'     => 'Sort efter dato',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Ældste først',
+    'nav-sort-newest-first' => 'Nyeste først',
 
     'menu-rename'       => 'Omdøb',
     'menu-delete'       => 'Slet',

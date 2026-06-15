@@ -9,6 +9,10 @@ return [
     'nav-sort'            => 'Sorteren',
     'nav-sort-alphabetic' => 'Sorteer op naam',
     'nav-sort-time'       => 'Sorteer op tijd',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Oudste eerst',
+    'nav-sort-newest-first' => 'Nieuwste eerst',
 
     'menu-rename'         => 'Hernoemen',
     'menu-delete'         => 'Verwijderen',

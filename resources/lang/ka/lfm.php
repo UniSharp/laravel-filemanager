@@ -9,6 +9,10 @@ return [
     'nav-sort' => 'სორტირება',
     'nav-sort-alphabetic' => 'სორტირება ანბანის მიხედვით',
     'nav-sort-time' => 'სორტირება დროის მიხედვით',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'ჯერ ძველი',
+    'nav-sort-newest-first' => 'ჯერ ახალი',
 
     'menu-rename' => 'სახელის შეცვლა',
     'menu-delete' => 'წაშლა',

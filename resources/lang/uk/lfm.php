@@ -9,6 +9,10 @@ return [
     'nav-sort'          => 'Сортувати',
     'nav-sort-alphabetic'=> 'Сортувати за алфавітом',
     'nav-sort-time'     => 'Сортувати за часом',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Спочатку старі',
+    'nav-sort-newest-first' => 'Спочатку нові',
 
     'menu-rename'       => 'Перейменувати',
     'menu-delete'       => 'Вилучити',

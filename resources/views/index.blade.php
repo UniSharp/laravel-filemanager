@@ -274,13 +274,23 @@
     var sortings = [
       {
         by: 'alphabetic',
+        icon: 'sort-alpha-up',
+        label: `${lang['nav-sort-alphabetic']} (${lang['nav-sort-a-to-z']})`
+      },
+      {
+        by: 'alphabetic_desc',
         icon: 'sort-alpha-down',
-        label: lang['nav-sort-alphabetic']
+        label: `${lang['nav-sort-alphabetic']} (${lang['nav-sort-z-to-a']})`
       },
       {
         by: 'time',
+        icon: 'sort-numeric-up',
+        label: `${lang['nav-sort-time']} (${lang['nav-sort-oldest-first']})`
+      },
+      {
+        by: 'time_desc',
         icon: 'sort-numeric-down',
-        label: lang['nav-sort-time']
+        label: `${lang['nav-sort-time']} (${lang['nav-sort-newest-first']})`
       }
     ];
   </script>

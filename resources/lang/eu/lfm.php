@@ -9,6 +9,10 @@ return [
     'nav-sort'          => 'Ordenatu',
     'nav-sort-alphabetic'=> 'Ordenatu alfabetikoki',
     'nav-sort-time'     => 'Ordenatu denboraren arabera',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Zaharrenak lehenik',
+    'nav-sort-newest-first' => 'Berrienak lehenik',
 
     'menu-rename'       => 'Aldatu izena',
     'menu-delete'       => 'Ezabatu',

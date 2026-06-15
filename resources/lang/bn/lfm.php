@@ -9,6 +9,10 @@ return [
     'nav-sort'          => 'সাজান',
     'nav-sort-alphabetic'=> 'বর্ণানুক্রমিক সাজান',
     'nav-sort-time'     => 'সময় অনুযায়ী সাজান',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'পুরনো প্রথমে',
+    'nav-sort-newest-first' => 'নতুন প্রথমে',
 
     'menu-rename'       => 'পুনঃনামকরণ',
     'menu-delete'       => 'মুছুন',

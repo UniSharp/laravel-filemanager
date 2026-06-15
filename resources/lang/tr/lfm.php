@@ -9,6 +9,10 @@ return [
     'nav-sort'          => 'Sırala',
     'nav-sort-alphabetic'=> 'A-Z Sırala',
     'nav-sort-time'     => 'Zamana Göre Sırala',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Önce en eski',
+    'nav-sort-newest-first' => 'Önce en yeni',
 
     'menu-rename'       => 'Ad değiştir',
     'menu-delete'       => 'Sil',

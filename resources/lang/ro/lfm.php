@@ -9,6 +9,10 @@ return [
     'nav-sort'          => 'Sortează',
     'nav-sort-alphabetic'=> 'După Alfabet',
     'nav-sort-time'     => 'După timp',
+    'nav-sort-z-to-a'     => 'Z-A',
+    'nav-sort-a-to-z'     => 'A-Z',
+    'nav-sort-oldest-first' => 'Cele mai vechi primele',
+    'nav-sort-newest-first' => 'Cele mai noi primele',
 
     'menu-rename'       => 'Redenumește',
     'menu-delete'       => 'Șterge',
