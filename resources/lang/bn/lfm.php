@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'ক্রপ',
     'menu-move'         => 'সরান',
     'menu-multiple'     => 'একাধিক নির্বাচন',
+    'menu-cancel-selection' => 'নির্বাচন বাতিল করুন',
 
     'title-page'        => 'ফাইল ম্যানেজার',
     'title-panel'       => 'লারাভেল ফাইলম্যানেজার',

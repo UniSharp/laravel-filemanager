@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'Beskær',
     'menu-move'         => 'Flyt',
     'menu-multiple'     => 'Vælg flere',
+    'menu-cancel-selection' => 'Annuller markering',
 
     'title-page'        => 'Filstyring',
     'title-panel'       => 'Filstyring',
@@ -67,6 +68,7 @@ return [
     'btn-cancel'        => 'Annuller',
     'btn-confirm'       => 'Bekræft',
     'btn-resize'        => 'Ændre størrelse',
+    'btn-resize-copy'   => 'Kopier & Ændre størrelse',
     'btn-open'          => 'Åben Mappe',
     'btn-search'        => 'Søg',
     'btn-reset'         => 'Nulstil',

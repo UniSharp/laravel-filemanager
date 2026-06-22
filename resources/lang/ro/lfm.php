@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'Taie',
     'menu-move'         => 'Mută',
     'menu-multiple'     => 'Selectare multiplă',
+    'menu-cancel-selection' => 'Anulează selecția',
 
     'title-page'        => 'Manager fișiere',
     'title-panel'       => 'Laravel FileManager',
@@ -67,6 +68,7 @@ return [
     'btn-cancel'        => 'Anulează',
     'btn-confirm'       => 'Confirmă',
     'btn-resize'        => 'Redimensionează',
+    'btn-resize-copy'   => 'Copiază & Redimensionează',
     'btn-open'          => 'Deschide folder',
     'btn-search'        => 'Caută',
     'btn-reset'         => 'Resetare',

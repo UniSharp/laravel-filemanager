@@ -18,6 +18,7 @@ return [
     'menu-crop' => 'Odreži',
     'menu-move' => 'Premesti',
     'menu-multiple' => 'Višestruki izbor',
+    'menu-cancel-selection' => 'Otkaži izbor',
 
     'title-page' => 'File Manager',
     'title-panel' => 'Laravel FileManager',
@@ -67,6 +68,7 @@ return [
     'btn-cancel' => 'Poništiti, otkazati',
     'btn-confirm' => 'Potvrdi',
     'btn-resize' => 'Promenite veličinu',
+    'btn-resize-copy' => 'Kopiraj i promeni veličinu',
     'btn-open' => 'Otvori folder',
     'btn-search' => 'Претражи',
     'btn-reset' => 'Пониши',

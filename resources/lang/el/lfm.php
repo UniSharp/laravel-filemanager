@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'Κόψιμο',
     'menu-move'         => 'Μετακίνηση',
     'menu-multiple'     => 'Πολλαπλή επιλογή',
+    'menu-cancel-selection' => 'Ακύρωση επιλογής',
 
     'title-page'        => 'Διαχείριση αρχείων',
     'title-panel'       => 'Laravel FileManager',

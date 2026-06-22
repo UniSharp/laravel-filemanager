@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'Cắt',
     'menu-move'         => 'Di chuyển',
     'menu-multiple'     => 'Chọn nhiều',
+    'menu-cancel-selection' => 'Hủy chọn',
 
     'title-page'        => 'Quản lý tập tin',
     'title-panel'       => 'Trình quản lý tập tin Laravel',
@@ -67,6 +68,7 @@ return [
     'btn-cancel'        => 'Hủy bỏ',
     'btn-confirm'       => 'Xác nhận',
     'btn-resize'        => 'Thay đổi kích thước',
+    'btn-resize-copy'   => 'Sao chép & Thay đổi kích thước',
     'btn-open'          => 'Mở thư mục',
     'btn-search'        => 'Tìm kiếm',
     'btn-reset'         => 'Đặt lại',

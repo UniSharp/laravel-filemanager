@@ -16,6 +16,9 @@ return [
     'menu-download'     => 'Ladda ner',
     'menu-resize'       => 'Ändra storlek',
     'menu-crop'         => 'Beskär',
+    'menu-move'         => 'Flytta',
+    'menu-multiple'     => 'Flerval',
+    'menu-cancel-selection' => 'Avbryt markering',
 
     'title-page'        => 'Filhanterare',
     'title-panel'       => 'Laravel Filhanterare',
@@ -37,6 +40,7 @@ return [
     'message-name'      => 'Mappnamn:',
     'message-rename'    => 'Byt namn till:',
     'message-extension_not_found' => 'Vänligen installera gd- eller imagick-tillägget för att beskära, ändra storlek och göra miniatyrer av bilder.',
+    'message-drop'      => 'Eller släpp filer här för att ladda upp',
 
     'error-rename'      => 'Filnamnet finns redan!',
     'error-file-name'   => 'Filnamnet kan inte vara tomt!',
@@ -60,8 +64,12 @@ return [
     'btn-close'         => 'Stäng',
     'btn-crop'          => 'Beskär',
     'btn-copy-crop'     => 'Kopiera & Beskär',
+    'btn-crop-free'     => 'Fri',
     'btn-cancel'        => 'Avbryt',
+    'btn-confirm'       => 'Bekräfta',
     'btn-resize'        => 'Ändra stolek',
+    'btn-resize-copy'   => 'Kopiera & Ändra storlek',
+    'btn-open'          => 'Öppna mapp',
     'btn-search'        => 'Sök',
     'btn-reset'         => 'Återställ',
 
