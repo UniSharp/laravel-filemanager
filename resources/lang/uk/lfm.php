@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'Обрізати',
     'menu-move'         => 'Перемістити',
     'menu-multiple'     => 'Multi-виділення',
+    'menu-cancel-selection' => 'Скасувати вибір',
 
     'title-page'        => 'Менеджер файлів',
     'title-panel'       => 'Laravel FileManager',
@@ -67,6 +68,7 @@ return [
     'btn-cancel'        => 'Скасувати',
     'btn-confirm'       => 'Підтвердити',
     'btn-resize'        => 'Змінити розмір',
+    'btn-resize-copy'   => 'Копіювати та змінити розмір',
     'btn-open'          => 'Відкрити папку',
     'btn-search'        => 'Пошук',
     'btn-reset'         => 'Скинути',

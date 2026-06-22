@@ -16,6 +16,9 @@ return [
     'menu-download'     => 'Download',
     'menu-resize'       => 'Redimensionar',
     'menu-crop'         => 'Cortar',
+    'menu-move'         => 'Mover',
+    'menu-multiple'     => 'Seleção múltipla',
+    'menu-cancel-selection' => 'Cancelar seleção',
 
     'title-page'        => 'Gestor de Arquivos',
     'title-panel'       => 'Gestor de Arquivos',
@@ -37,6 +40,7 @@ return [
     'message-name'      => 'Nome da pasta:',
     'message-rename'    => 'Renomear para:',
     'message-extension_not_found' => 'Por favor instale a extenção gd ou imagick para recortar, redimensionar e criar miniaturas das imagens.',
+    'message-drop'      => 'Ou largue os arquivos aqui para enviar',
 
     'error-rename'      => 'O nome do arquivo já está em uso!',
     'error-file-name'   => 'O nome do arquivo não pode ser vazio!',
@@ -60,8 +64,12 @@ return [
     'btn-close'         => 'Fechar',
     'btn-crop'          => 'Cortar',
     'btn-copy-crop'     => 'Copie e corte',
+    'btn-crop-free'     => 'Livre',
     'btn-cancel'        => 'Cancelar',
+    'btn-confirm'       => 'Confirmar',
     'btn-resize'        => 'Redimensionar',
+    'btn-resize-copy'   => 'Copiar & Redimensionar',
+    'btn-open'          => 'Abrir pasta',
     'btn-search'        => 'Pesquisar',
     'btn-reset'         => 'Redefinir',
 

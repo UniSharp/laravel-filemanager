@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'Rajaa',
     'menu-move'         => 'Siirrä',
     'menu-multiple'     => 'Monivalinta',
+    'menu-cancel-selection' => 'Peruuta valinta',
 
     'title-page'        => 'Tiedostonhallinta',
     'title-panel'       => 'Laravel tiedostonhallinta',
@@ -67,6 +68,7 @@ return [
     'btn-cancel'        => 'Peruuta',
     'btn-confirm'       => 'Varmista',
     'btn-resize'        => 'Muuta kokoa',
+    'btn-resize-copy'   => 'Kopioi & muuta kokoa',
     'btn-open'          => 'Avaa kansio',
     'btn-search'        => 'Hae',
     'btn-reset'         => 'Nollaa',

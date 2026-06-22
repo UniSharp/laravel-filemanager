@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'Cortar',
     'menu-move'         => 'Mover',
     'menu-multiple'     => 'Selecionar vários',
+    'menu-cancel-selection' => 'Cancelar seleção',
 
     'title-page'        => 'Gerenciador de Arquivos',
     'title-panel'       => 'Gerenciador de Arquivos',
@@ -67,6 +68,7 @@ return [
     'btn-cancel'        => 'Cancelar',
     'btn-confirm'       => 'Confirmar',
     'btn-resize'        => 'Redimensionar',
+    'btn-resize-copy'   => 'Copiar & Redimensionar',
     'btn-open'          => 'Abrir Pasta',
     'btn-search'        => 'Pesquisar',
     'btn-reset'         => 'Redefinir',

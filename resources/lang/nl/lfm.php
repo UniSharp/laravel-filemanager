@@ -18,6 +18,7 @@ return [
     'menu-crop'           => 'Bijsnijden',
     'menu-move'           => 'Verplaatsen',
     'menu-multiple'       => 'Multi-selectie',
+    'menu-cancel-selection' => 'Selectie annuleren',
 
     'title-page'          => 'File Manager',
     'title-panel'         => 'Laravel FileManager',
@@ -42,6 +43,7 @@ return [
     'message-drop'        => 'Of sleep bestanden naar hier om te uploaden',
 
     'error-rename'        => 'Bestandsnaam is al in gebruik!',
+    'error-file-name'     => 'Bestandsnaam mag niet leeg zijn!',
     'error-file-empty'    => 'U dient een bestand te kiezen!',
     'error-file-exist'    => 'Een bestand met deze naam bestaat al!',
     'error-file-size'     => 'Bestandsgrootte overschrijdt de server limiet! (maximale grootte: :max)',
@@ -49,6 +51,7 @@ return [
     'error-folder-name'   => 'Mapnaam mag niet leeg zijn!',
     'error-folder-exist'  => 'Een map met deze naam bestaat al!',
     'error-folder-alnum'  => 'Alleen alfanumerieke map namen zijn toegestaan!',
+    'error-folder-not-found' => 'Map niet gevonden! (:folder)',
     'error-mime'          => 'Onverwacht MimeType: ',
     'error-instance'      => 'Het geuploade bestand moet een instantie zijn van UploadedFile',
     'error-invalid'       => 'Ongeldig upload verzoek',
@@ -65,6 +68,7 @@ return [
     'btn-cancel'          => 'Annuleren',
     'btn-confirm'         => 'Bevestigen',
     'btn-resize'          => 'Formaat aanpassen',
+    'btn-resize-copy'     => 'Kopiëren & Formaat aanpassen',
     'btn-open'            => 'Map openen',
     'btn-search'          => 'Zoeken',
     'btn-reset'           => 'Terugzetten',

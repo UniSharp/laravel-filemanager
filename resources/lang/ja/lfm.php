@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'トリミング',
     'menu-move'         => '移動',
     'menu-multiple'     => '複数選択',
+    'menu-cancel-selection' => '選択をキャンセル',
 
     'title-page'        => 'ファイル管理',
     'title-panel'       => 'ファイル管理',
@@ -67,6 +68,7 @@ return [
     'btn-cancel'        => 'キャンセル',
     'btn-confirm'       => '確認する',
     'btn-resize'        => 'リサイズ',
+    'btn-resize-copy'   => 'コピー&リサイズ',
     'btn-open'          => 'フォルダを開く',
     'btn-search'        => '検索',
     'btn-reset'         => 'リセット',
