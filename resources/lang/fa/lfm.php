@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'برش',
     'menu-move'         => 'انتقال',
     'menu-multiple'     => 'انتخاب چندتایی',
+    'menu-cancel-selection' => 'لغو انتخاب',
 
     'title-page'        => 'مدیریت فایل',
     'title-panel'       => 'مدیریت فایل لاراول',
@@ -67,6 +68,7 @@ return [
     'btn-cancel'        => 'انصراف',
     'btn-confirm'       => 'تایید',
     'btn-resize'        => 'تغییر اندازه',
+    'btn-resize-copy'   => 'کپی و تغییر اندازه',
     'btn-open'          => 'باز کردن پوشه',
     'btn-search'        => 'جستجو',
     'btn-reset'         => 'بازنشانی',

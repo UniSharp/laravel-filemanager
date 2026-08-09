@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'Kırp',
     'menu-move'         => 'Taşı',
     'menu-multiple'     => 'Çoklu Seçim',
+    'menu-cancel-selection' => 'Seçimi iptal et',
 
     'title-page'        => 'Dosya Kütüphanesi',
     'title-panel'       => 'Laravel Dosya Kütüphanesi',
@@ -67,6 +68,7 @@ return [
     'btn-cancel'        => 'İptal',
     'btn-confirm'       => 'Onayla',
     'btn-resize'        => 'Boyutlandır',
+    'btn-resize-copy'   => 'Kopyala & Boyutlandır',
     'btn-open'          => 'Klasörü Aç',
     'btn-search'        => 'Ara',
     'btn-reset'         => 'Sıfırla',

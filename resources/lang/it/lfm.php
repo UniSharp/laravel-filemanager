@@ -17,6 +17,9 @@ return [
     'menu-download'     => 'Scarica',
     'menu-resize'       => 'Ridimensiona',
     'menu-crop'         => 'Taglia',
+    'menu-move'         => 'Sposta',
+    'menu-multiple'     => 'Selezione multipla',
+    'menu-cancel-selection' => 'Annulla selezione',
 
     'title-page'        => 'File Manager',
     'title-panel'       => 'Laravel FileManager',
@@ -38,6 +41,7 @@ return [
     'message-name'      => 'Nome Cartella:',
     'message-rename'    => 'Rinomina:',
     'message-extension_not_found' => 'Per favore installa gd oppure la estensione di imagick per tagliare, ridimensionare e creare anteprime delle immagini.',
+    'message-drop'      => 'Oppure trascina qui i file da caricare',
 
     'error-rename'      => 'Il nome del file è già in uso!',
     'error-file-name'   => 'Il nome del file non può essere vuoto!',
@@ -61,8 +65,12 @@ return [
     'btn-close'         => 'Chiudi',
     'btn-crop'          => 'Taglia',
     'btn-copy-crop'     => 'Copia & Taglia',
+    'btn-crop-free'     => 'Libero',
     'btn-cancel'        => 'Cancella',
+    'btn-confirm'       => 'Conferma',
     'btn-resize'        => 'Ridimensiona',
+    'btn-resize-copy'   => 'Copia & Ridimensiona',
+    'btn-open'          => 'Apri cartella',
     'btn-search'        => 'Cerca',
     'btn-reset'         => 'Reimposta',
 

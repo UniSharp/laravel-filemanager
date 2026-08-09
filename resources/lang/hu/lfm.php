@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'Vágás',
     'menu-move'         => 'Mozgatás',
     'menu-multiple'     => 'Több-kiválasztás',
+    'menu-cancel-selection' => 'Kijelölés megszüntetése',
 
     'title-page'        => 'Fájlkezelő',
     'title-panel'       => 'Fájlkezelő',
@@ -67,6 +68,7 @@ return [
     'btn-cancel'        => 'Mégsem',
     'btn-confirm'       => 'Elfogad',
     'btn-resize'        => 'Átméretezés',
+    'btn-resize-copy'   => 'Másolás és átméretezés',
     'btn-open'          => 'Mappa megnyitása',
     'btn-search'        => 'Keresés',
     'btn-reset'         => 'Visszaállítás',

@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'Potong',
     'menu-move'         => 'Pindah',
     'menu-multiple'     => 'Pilih Banyak',
+    'menu-cancel-selection' => 'Batalkan pilihan',
 
     'title-page'        => 'Manajemen Berkas',
     'title-panel'       => 'Manajemen Berkas Laravel',
@@ -67,6 +68,7 @@ return [
     'btn-cancel'        => 'Batal',
     'btn-confirm'       => 'Konfirmasi',
     'btn-resize'        => 'Ubah Ukuran',
+    'btn-resize-copy'   => 'Salin & Ubah Ukuran',
     'btn-open'          => 'Buka Direktori',
     'btn-search'        => 'Cari',
     'btn-reset'         => 'Atur ulang',

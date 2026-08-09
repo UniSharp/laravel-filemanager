@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'Rogner',
     'menu-move'         => 'Déplacer',
     'menu-multiple'     => 'Multi-selection',
+    'menu-cancel-selection' => 'Annuler la selection',
 
     'title-page'        => 'Gestionnaire de fichiers',
     'title-panel'       => 'Laravel FileManager',
@@ -65,8 +66,9 @@ return [
     'btn-copy-crop'     => 'Copier & Rogner',
     'btn-crop-free'     => 'Libre',
     'btn-cancel'        => 'Annuler',
-    'btn-confirm'       => 'Confirm',
+    'btn-confirm'       => 'Confirmer',
     'btn-resize'        => 'Redimensionner',
+    'btn-resize-copy'   => 'Copier & Redimensionner',
     'btn-open'          => 'Ouvrir le répertoire',
     'btn-reset'         => 'Réinitialiser',
     'btn-search'        => 'Rechercher',

@@ -18,6 +18,7 @@ return [
     'menu-crop'                   => 'Zuschneiden',
     'menu-move'                   => 'Verschieben',
     'menu-multiple'               => 'Mehrfachauswahl',
+    'menu-cancel-selection'       => 'Auswahl aufheben',
 
     'title-page'                  => 'File Manager',
     'title-panel'                 => 'FileManager',
@@ -71,6 +72,7 @@ return [
     'btn-cancel'                  => 'Abbrechen',
     'btn-confirm'                 => 'Bestätigen',
     'btn-resize'                  => 'Größe ändern',
+    'btn-resize-copy'             => 'Kopieren & Größe ändern',
     'btn-open'                    => 'Ordner öffnen',
     'btn-search'                  => 'Suchen',
     'btn-reset'                   => 'Zurücksetzen',

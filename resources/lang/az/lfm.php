@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'Kəsmək',
     'menu-move'         => 'Yerini dəyiş',
     'menu-multiple'     => 'Multi-seçim',
+    'menu-cancel-selection' => 'Seçimi ləğv et',
 
     'title-page'        => 'Fayl menecer',
     'title-panel'       => 'Fayl menecer',
@@ -67,6 +68,7 @@ return [
     'btn-copy-crop'     => 'Kopyala & Kəs',
     'btn-cancel'        => 'İmtina',
     'btn-resize'        => 'Ölçünü dəyiş',
+    'btn-resize-copy'   => 'Kopyala & Ölçüləndir',
     'btn-crop-free'     => 'Sərbəst',
     'btn-confirm'       => 'Təsdiq et',
     'btn-open'          => 'Qovluğu aç',

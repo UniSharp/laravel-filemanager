@@ -16,6 +16,9 @@ return [
     'menu-download'     => 'Descargar',
     'menu-resize'       => 'Redimensionar',
     'menu-crop'         => 'Recortar',
+    'menu-move'         => 'Mover',
+    'menu-multiple'     => 'Selección múltiple',
+    'menu-cancel-selection' => 'Cancelar selección',
 
     'title-page'        => 'Administrador de Archivos',
     'title-panel'       => 'Administrador de Archivos',
@@ -37,6 +40,7 @@ return [
     'message-name'      => 'Nombre de Carpeta:',
     'message-rename'    => 'Renombrar a:',
     'message-extension_not_found' => 'Por favor instale la extensión gd o imagick para recortar, redimensionar y hacer miniaturas de imágenes.',
+    'message-drop'      => 'O suelta los archivos aquí para subirlos',
 
     'error-rename'      => '¡El nombre del archivo ya existe!',
     'error-file-name'   => '¡El nombre del archivo no puede estar vacío!',
@@ -60,8 +64,12 @@ return [
     'btn-close'         => 'Cerrar',
     'btn-crop'          => 'Recortar',
     'btn-copy-crop'     => 'Copiar y recortar',
+    'btn-crop-free'     => 'Libre',
     'btn-cancel'        => 'Cancelar',
+    'btn-confirm'       => 'Confirmar',
     'btn-resize'        => 'Redimensionar',
+    'btn-resize-copy'   => 'Copiar y redimensionar',
+    'btn-open'          => 'Abrir carpeta',
     'btn-search'        => 'Buscar',
     'btn-reset'         => 'Restablecer',
 

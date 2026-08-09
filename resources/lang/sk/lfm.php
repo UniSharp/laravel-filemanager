@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'Orezať',
     'menu-move'         => 'Presunúť',
     'menu-multiple'     => 'Vybrať viacero súborov',
+    'menu-cancel-selection' => 'Zrušiť výber',
 
     'title-page'        => 'File Manager',
     'title-panel'       => 'Laravel FileManager',
@@ -67,6 +68,7 @@ return [
     'btn-cancel'        => 'Zrušiť',
     'btn-confirm'       => 'Povrdiť',
     'btn-resize'        => 'Zmenšiť',
+    'btn-resize-copy'   => 'Skopírovať a zmenšiť',
     'btn-open'          => 'Otvoriť priečinok',
     'btn-search'        => 'Hľadať',
     'btn-reset'         => 'Obnoviť',

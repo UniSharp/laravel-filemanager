@@ -18,6 +18,7 @@ return [
     'menu-crop'     => 'Kesish',
     'menu-move'     => 'Koʻchirish',
     'menu-multiple' => "Ko'p tanlov",
+    'menu-cancel-selection' => 'Tanlovni bekor qilish',
 
     'title-page'     => 'File Manager',
     'title-panel'    => 'Laravel FileManager',
@@ -67,6 +68,7 @@ return [
     'btn-cancel'    => 'Bekor qilish',
     'btn-confirm'   => 'Tasdiqlash',
     'btn-resize'    => 'Oʻlchamini oʻzgartirish',
+    'btn-resize-copy' => 'Nusxalash va oʻlchamini oʻzgartirish',
     'btn-open'      => 'Jild ochish',
     'btn-search'    => 'Qidirish',
     'btn-reset'     => 'Qayta o\'rnatish',

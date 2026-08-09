@@ -18,6 +18,7 @@ return [
     'menu-crop'         => 'Przytnij',
     'menu-move'         => 'Przenieś',
     'menu-multiple'     => 'Zaznacz wiele',
+    'menu-cancel-selection' => 'Anuluj zaznaczenie',
 
     'title-page'        => 'Menedżer plików',
     'title-panel'       => 'Laravel FileManager',
@@ -42,6 +43,7 @@ return [
     'message-drop'      => 'lub upuść pliki tutaj, aby je przesłać',
 
     'error-rename'      => 'Niestety, istnieje już plik o takiej nazwie!',
+    'error-file-name'   => 'Nazwa pliku nie może być pusta!',
     'error-file-empty'  => 'You must choose a file!',
     'error-file-exist'  => 'Niestety, istnieje już plik o takiej nazwie!',
     'error-file-size'   => 'Przekroczono maksymalny rozmiar wgrywanych plików! (maximum size: :max)',
@@ -63,6 +65,7 @@ return [
     'btn-crop'          => 'Przytnij',
     'btn-cancel'        => 'Anuluj',
     'btn-resize'        => 'Zmień rozmiar',
+    'btn-resize-copy'   => 'Kopiuj i zmień rozmiar',
     'btn-confirm'       => 'Zatwierdź',
     'btn-copy-crop'     => 'Kopiuj przycięte',
     'btn-crop-free'     => 'Skaluj',
