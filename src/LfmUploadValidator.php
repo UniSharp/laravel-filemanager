@@ -13,6 +13,7 @@ use UniSharp\LaravelFilemanager\Exceptions\InvalidExtensionException;
 use UniSharp\LaravelFilemanager\Exceptions\InvalidMimeTypeException;
 use UniSharp\LaravelFilemanager\LfmPath;
 
+// test: ./vendor/bin/phpunit tests/LfmUploadValidatorTest.php --testdox
 class LfmUploadValidator
 {
     private $file;
@@ -108,6 +109,10 @@ class LfmUploadValidator
     public function extensionIsValid($disallowed_extensions)
     {
         $extension = strtolower($this->file->getClientOriginalExtension());
+
+        if (empty($extension)) {
+            throw new InvalidExtensionException();
+        }
 
         if (preg_match('/[^a-zA-Z0-9]/', $extension) > 0) {
             throw new InvalidExtensionException();

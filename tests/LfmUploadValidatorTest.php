@@ -4,7 +4,6 @@ use Mockery as m;
 use Illuminate\Foundation\Testing\TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use UniSharp\LaravelFilemanager\Exceptions\DuplicateFileNameException;
-use UniSharp\LaravelFilemanager\Exceptions\EmptyFileException;
 use UniSharp\LaravelFilemanager\Exceptions\ExcutableFileException;
 use UniSharp\LaravelFilemanager\Exceptions\FileFailedToUploadException;
 use UniSharp\LaravelFilemanager\Exceptions\FileSizeExceedConfigurationMaximumException;
@@ -13,7 +12,9 @@ use UniSharp\LaravelFilemanager\Exceptions\InvalidExtensionException;
 use UniSharp\LaravelFilemanager\Exceptions\InvalidMimeTypeException;
 use UniSharp\LaravelFilemanager\LfmPath;
 use UniSharp\LaravelFilemanager\LfmUploadValidator;
+use PHPUnit\Framework\Attributes\TestDox;
 
+// run: ./vendor/bin/phpunit tests/LfmUploadValidatorTest.php --testdox
 class LfmUploadValidatorTest extends TestCase
 {
     public function testPassesSizeLowerThanIniMaximum()
@@ -202,6 +203,19 @@ class LfmUploadValidatorTest extends TestCase
         $this->expectException(ExcutableFileException::class);
 
         $validator->extensionIsNotExcutable();
+    }
+
+    #[TestDox('extensionIsValid(security): empty extension (e.g., "example" or "example.php.") is not valid')]
+    public function testFailsExtensionIsValidWithEmptyExtension()
+    {
+        $uploaded_file = m::mock(UploadedFile::class);
+        $uploaded_file->shouldReceive('getClientOriginalExtension')->andReturn('');
+
+        $validator = new LfmUploadValidator($uploaded_file);
+
+        $this->expectException(InvalidExtensionException::class);
+
+        $validator->extensionIsValid([]);
     }
 
     public function testFailsExtensionIsValidWithSpecialCharacters()
